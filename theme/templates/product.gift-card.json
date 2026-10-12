@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "gift-card-product",
+      "settings": {
+        "product": "gift-card"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,22 @@
+query WalletTopUpPaidOrder($id:ID!) {
+ shop { myshopifyDomain }
+ order(id:$id) {
+  id cancelledAt displayFinancialStatus currencyCode customer { id }
+  disputes { id status }
+  totalPriceSet { shopMoney { amount currencyCode } }
+  totalReceivedSet { shopMoney { amount currencyCode } }
+  totalRefundedSet { shopMoney { amount currencyCode } }
+  totalDiscountsSet { shopMoney { amount currencyCode } }
+  totalTaxSet { shopMoney { amount currencyCode } }
+  totalShippingPriceSet { shopMoney { amount currencyCode } }
+  lineItems(first:2) {
+   nodes {
+    quantity variant { id } product { id isGiftCard }
+    originalTotalSet { shopMoney { amount currencyCode } }
+    discountedTotalSet { shopMoney { amount currencyCode } }
+   }
+   pageInfo { hasNextPage }
+  }
+  transactions(first:100) { id status kind gateway amountSet { shopMoney { amount currencyCode } } }
+ }
+}

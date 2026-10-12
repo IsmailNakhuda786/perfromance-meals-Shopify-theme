@@ -1,0 +1,1 @@
+mutation($input:[MetafieldsSetInput!]!){metafieldsSet(metafields:$input){metafields{id key value} userErrors{field message}}}

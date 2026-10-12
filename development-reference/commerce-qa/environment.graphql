@@ -1,0 +1,1 @@
+query QAEnvironment { shop { myshopifyDomain currencyCode customerAccounts plan { displayName partnerDevelopment } } }

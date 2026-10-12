@@ -1,0 +1,49 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "purchase_mode": "single",
+        "palette": "dark",
+        "collection": "ready-series",
+        "single_collection": "ready-series",
+        "bundles_collection": "ready-series-bundles",
+        "subscription_collection": "ready-series-subscriptions",
+        "products_per_page": 24,
+        "show_quick_view": true,
+        "require_subscription_account": true
+      },
+      "blocks": {
+        "low": {
+          "type": "category",
+          "settings": {
+            "label": "Low Carb",
+            "value": "Low Carb"
+          }
+        },
+        "high": {
+          "type": "category",
+          "settings": {
+            "label": "High Carb",
+            "value": "High Carb"
+          }
+        },
+        "protein": {
+          "type": "category",
+          "settings": {
+            "label": "Just Protein",
+            "value": "Just Protein"
+          }
+        }
+      },
+      "block_order": [
+        "low",
+        "high",
+        "protein"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

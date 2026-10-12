@@ -1,0 +1,119 @@
+{
+  "sections": {
+    "main": {
+      "type": "meal-plan-stories-editorial",
+      "settings": {
+        "link_1": "/pages/meal-plan-builder",
+        "link_2": "/pages/meal-plan-about"
+      },
+      "blocks": {
+        "band_1": {
+          "type": "band_1",
+          "settings": {
+            "copy_1": "PERFORMANCE MEALS",
+            "copy_2": "MEAL PLAN",
+            "copy_3": "Customer journeys",
+            "copy_4": "Real life is the reason the plan exists.",
+            "copy_5": "Meal Plan is not only about what arrives. It is about the planning, decisions, and weekday pressure that no longer have to be carried alone.",
+            "image_1_alt": "Professionals discussing their routine together"
+          }
+        },
+        "band_2": {
+          "type": "band_2",
+          "settings": {
+            "copy_1": "Story content awaiting verified customer approvals.",
+            "copy_2": "The journeys below are clearly identified illustrative scenarios. Final publication requires approved customer interviews, quotations, outcome claims, and image consent."
+          }
+        },
+        "band_3": {
+          "type": "band_3",
+          "settings": {
+            "copy_1": "Illustrative journey 01",
+            "copy_2": "The late-meeting week",
+            "copy_3": "When the workday keeps taking dinner with it.",
+            "copy_4": "A busy professional can know exactly how they want to eat and still lose the routine to back-to-back meetings, commuting, and the decisions waiting at the end of the day.",
+            "copy_5": "The pressure",
+            "copy_6": "Meal planning begins after the calendar is already full, making convenience the default rather than a deliberate choice.",
+            "copy_7": "The Meal Plan role",
+            "copy_8": "Fresh weekday meals and a recurring structure move preparation earlier, so dinner no longer starts with another decision.",
+            "copy_9": "The experience",
+            "copy_10": "The customer still chooses within the approved menu structure, but the programme carries the recurring organisation.",
+            "copy_11": "Representative imagery · not a customer testimonial",
+            "image_1_alt": "Representative image of a professional managing a busy day"
+          }
+        },
+        "band_4": {
+          "type": "band_4",
+          "settings": {
+            "copy_1": "Different lives · one need for structure",
+            "copy_2": "Progress looks different inside every routine.",
+            "copy_3": "Illustrative 02",
+            "copy_4": "Monthly programme · Recurring rhythm",
+            "copy_5": "Returning to a routine after a demanding season",
+            "copy_6": "Life context",
+            "copy_7": "When work, travel, or family needs disrupt familiar habits, restarting can feel harder than beginning.",
+            "copy_8": "Where Meal Plan helps",
+            "copy_9": "A goal-first programme creates a defined next step, while fresh weekday meals reduce the preparation burden during the return.",
+            "copy_10": "Representative imagery · no outcome claim",
+            "copy_11": "Illustrative 03",
+            "copy_12": "Balanced routine · Biweekly rhythm",
+            "copy_13": "Making weekday food simpler for a full household",
+            "copy_14": "Life context",
+            "copy_15": "The person organising meals often carries the planning, shopping, cooking, and cleanup decisions for everyone.",
+            "copy_16": "Where Meal Plan helps",
+            "copy_17": "A structured Monday–Friday plan can protect time and attention without turning the week into another optimisation project.",
+            "copy_18": "Representative imagery · no outcome claim",
+            "copy_19": "Illustrative 04",
+            "copy_20": "Performance direction · Structured programme",
+            "copy_21": "Supporting training without living around meal prep",
+            "copy_22": "Life context",
+            "copy_23": "Consistent training asks for consistent food, but the work around that food can compete with recovery and the rest of life.",
+            "copy_24": "Where Meal Plan helps",
+            "copy_25": "A predefined programme and clear meal information make the routine easier to repeat while keeping the customer’s goal visible.",
+            "copy_26": "Representative imagery · no outcome claim",
+            "image_1_alt": "Representative lifestyle image for an illustrative customer journey",
+            "image_2_alt": "Representative lifestyle image for an illustrative customer journey",
+            "image_3_alt": "Representative lifestyle image for an illustrative customer journey"
+          }
+        },
+        "band_5": {
+          "type": "band_5",
+          "settings": {
+            "copy_1": "The stories we want to tell responsibly",
+            "copy_2": "Experience before exaggeration.",
+            "copy_3": "Verified customer interviews should focus on what the programme actually felt like—not unsupported transformation promises.",
+            "copy_4": "Routine",
+            "copy_5": "How Meal Plan fitted into work, family, training, and changing weeks.",
+            "copy_6": "Food",
+            "copy_7": "Which meals felt enjoyable, practical, and easy to repeat.",
+            "copy_8": "Support",
+            "copy_9": "How programme structure and approved support shaped the experience.",
+            "copy_10": "Progress",
+            "copy_11": "What changed, using only consented and properly supported customer outcomes."
+          }
+        },
+        "band_6": {
+          "type": "band_6",
+          "settings": {
+            "copy_1": "Your routine can begin before the testimonial does",
+            "copy_2": "Explore the Meal Plan structure.",
+            "copy_3": "Choose a programme, understand what is included, and see the menu rhythm before continuing.",
+            "copy_4": "Start Meal Plan",
+            "copy_5": "How Meal Plan works"
+          }
+        }
+      },
+      "block_order": [
+        "band_1",
+        "band_2",
+        "band_3",
+        "band_4",
+        "band_5",
+        "band_6"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

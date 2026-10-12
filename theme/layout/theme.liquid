@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1A1A1A">
+  <link rel="canonical" href="{{ canonical_url }}">
+  <title>{{ page_title }}{% unless page_title contains shop.name %} — {{ shop.name }}{% endunless %}</title>
+  {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
+  {% if settings.favicon %}<link rel="icon" href="{{ settings.favicon | image_url: width: 32 }}" type="image/png">{% endif %}
+  <style>
+    :root {
+      --pm-ready-accent: {{ settings.ready_series_accent | default: '#F5B300' }};
+      --pm-plan-accent: {{ settings.meal_plan_accent | default: '#E85D04' }};
+      --pm-canvas: {{ settings.canvas_color | default: '#F7F5F0' }};
+      --pm-charcoal: {{ settings.charcoal_color | default: '#1A1A1A' }};
+    }
+  </style>
+  {{ content_for_header }}
+  {{ 'theme.css' | asset_url | stylesheet_tag: preload: true }}
+  <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'home.js' | asset_url }}" defer="defer"></script>
+  <script type="module" src="{{ 'catalog.js' | asset_url }}"></script>
+  <script src="{{ 'support.js' | asset_url }}" defer="defer"></script>
+</head>
+<body class="font-body bg-white text-[#1A1A1A]">
+  <a href="#MainContent" class="pm-skip">{{ 'general.skip' | t }}</a>
+  {% sections 'header-group' %}
+  <main id="MainContent" tabindex="-1">{{ content_for_layout }}</main>
+  {% unless template.name == 'product' or template.suffix == 'meal-plan-builder' %}{% sections 'footer-group' %}{% endunless %}
+  {% section 'cart-drawer' %}
+  {% render 'support' %}
+  <p class="sr-only" id="CartLiveRegion" role="status" aria-live="polite" aria-atomic="true"></p>
+  <script type="application/json" id="ThemeRoutes">{"root":{{ routes.root_url | json }},"cart":{{ routes.cart_url | json }},"add":{{ routes.cart_add_url | append: '.js' | json }},"change":{{ routes.cart_change_url | append: '.js' | json }},"error":{{ 'general.error' | t | json }},"cartUpdated":{{ 'cart.updated' | t | json }}}</script>
+</body>
+</html>

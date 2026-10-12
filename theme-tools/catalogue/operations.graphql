@@ -1,0 +1,8 @@
+mutation SourceProduct($input:ProductSetInput!){productSet(input:$input,synchronous:true){product{id handle title options{id name values} variants(first:10){nodes{id title price selectedOptions{name value}}}} userErrors{field message}}}
+mutation SourceValues($input:[MetafieldsSetInput!]!){metafieldsSet(metafields:$input){metafields{id key value} userErrors{field message}}}
+mutation SourceComponent($handle:MetaobjectHandleInput!,$input:MetaobjectUpsertInput!){metaobjectUpsert(handle:$handle,metaobject:$input){metaobject{id handle} userErrors{field message}}}
+mutation SourceDefinition($input:MetafieldDefinitionInput!){metafieldDefinitionCreate(definition:$input){createdDefinition{id key} userErrors{field message}}}
+mutation SourceMedia($product:ProductUpdateInput!,$media:[CreateMediaInput!]){productUpdate(product:$product,media:$media){product{id media(first:30){nodes{... on MediaImage{id alt image{url}}}}} userErrors{field message}}}
+mutation SourceVariantMedia($productId:ID!,$variants:[ProductVariantsBulkInput!]!){productVariantsBulkUpdate(productId:$productId,variants:$variants){productVariants{id} userErrors{field message}}}
+mutation SourceCollection($id:ID!,$products:[ID!]!){collectionAddProducts(id:$id,productIds:$products){collection{id} userErrors{field message}}}
+mutation SourceVisibility($id:ID!,$input:[PublicationInput!]!){publishablePublish(id:$id,input:$input){userErrors{field message}}}

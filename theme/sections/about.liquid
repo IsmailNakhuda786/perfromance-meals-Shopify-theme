@@ -1,0 +1,382 @@
+<div class="min-h-screen bg-white text-[#1A1A1A]"><section class="bg-[#1A1A1A] text-white"><div class="max-w-[1200px] mx-auto px-6 sm:px-10 py-20 sm:py-28 grid grid-cols-1 lg:grid-cols-2 gap-14 items-center"><div><div class="mb-8"><div class="inline-flex items-center gap-[10px] select-none " style="transform:scale(1.3);transform-origin:left center"><div class="shrink-0 w-[34px] h-[34px] rounded-full flex-shrink-0" style="background-color:#F5B300"></div><div class="flex flex-col leading-none"><span style="font-family:'Outfit', sans-serif;font-weight:600;font-size:17px;letter-spacing:0.18em;color:#1A1A1A;line-height:1">{{ section.settings.text_01 | escape }}</span><div class="my-[3px]" style="height:1.5px;background-color:#F5B300"></div><span style="font-family:'Outfit', sans-serif;font-weight:400;font-size:9px;letter-spacing:0.35em;color:#1A1A1A;opacity:0.7;line-height:1">{{ section.settings.text_02 | escape }}</span></div></div></div><p class="text-[11px] font-mono tracking-[0.45em] uppercase text-[#F5B300] mb-5">{{ section.settings.text_03 | escape }}</p><h1 class="font-display text-[44px] sm:text-[60px] font-extrabold leading-[0.92] mb-6">{{ section.settings.text_04 | escape }}<br><span class="text-[#F5B300]">{{ section.settings.text_05 | escape }}</span></h1><p class="text-white/55 text-[16px] leading-relaxed max-w-lg">{{ section.settings.text_06 | escape }}</p></div><div class="relative">{% if section.settings.photo_0 != blank %}{{ section.settings.photo_0 | image_url: width: 1200 | image_tag: class: 'w-full object-cover', style: 'height:420px', loading: 'lazy', alt: section.settings.photo_0_alt }}{% else %}<img src="{{ 'sync-f10f8e32960e.jpg' | asset_url }}" alt="{{ section.settings.photo_0_alt | escape }}" class="w-full object-cover" style="height:420px" width="1200" height="900" loading="lazy">{% endif %}<div class="absolute bottom-0 left-0 right-0 h-24" style="background:linear-gradient(to top, rgba(26,26,26,0.9), transparent)"></div></div></div></section><section class="bg-[#FAF9F6] border-b border-[#E8E4DC]"><div class="max-w-[1200px] mx-auto px-6 sm:px-10 py-16 sm:py-20 grid grid-cols-1 md:grid-cols-3 gap-8"><div><p class="text-[10px] font-mono tracking-[0.45em] uppercase text-[#F5B300] mb-3">{{ section.settings.text_07 | escape }}</p><p class="font-display text-[20px] font-semibold text-[#1A1A1A] leading-snug">{{ section.settings.text_08 | escape }}</p></div><div><p class="text-[10px] font-mono tracking-[0.45em] uppercase text-[#aaa] mb-3">{{ section.settings.text_09 | escape }}</p><p class="text-[#555] text-[15px] leading-relaxed">{{ section.settings.text_10 | escape }}</p></div><div><p class="text-[10px] font-mono tracking-[0.45em] uppercase text-[#aaa] mb-3">{{ section.settings.text_11 | escape }}</p><p class="text-[#555] text-[15px] leading-relaxed">{{ section.settings.text_12 | escape }}</p></div></div></section><section class="py-20 sm:py-28 border-b border-[#E8E4DC]"><div class="max-w-[1200px] mx-auto px-6 sm:px-10"><div class="mb-14"><p class="text-[11px] font-mono tracking-[0.45em] uppercase text-[#F5B300] mb-4">{{ section.settings.text_13 | escape }}</p><h2 class="font-display text-[38px] sm:text-[52px] font-extrabold text-[#1A1A1A] leading-[0.93] mb-5">{{ section.settings.text_14 | escape }}<br>{{ section.settings.text_15 | escape }}</h2><p class="text-[#666] text-[16px] leading-relaxed max-w-[600px]">{{ section.settings.text_16 | escape }}</p></div><div class="border border-[#E8E4DC] mb-3"><div class="p-8 grid grid-cols-1 md:grid-cols-3 items-center gap-4 border-b border-[#E8E4DC]"><div class="md:col-span-1"><div class="inline-flex items-center gap-[10px] select-none " style="transform:scale(1);transform-origin:left center"><div class="shrink-0 w-[34px] h-[34px] rounded-full flex-shrink-0" style="background-color:#F5B300"></div><div class="flex flex-col leading-none"><span style="font-family:'Outfit', sans-serif;font-weight:600;font-size:17px;letter-spacing:0.18em;color:#1A1A1A;line-height:1">{{ section.settings.text_01 | escape }}</span><div class="my-[3px]" style="height:1.5px;background-color:#F5B300"></div><span style="font-family:'Outfit', sans-serif;font-weight:400;font-size:9px;letter-spacing:0.35em;color:#1A1A1A;opacity:0.7;line-height:1">{{ section.settings.text_02 | escape }}</span></div></div></div><div class="md:col-span-2"><p class="text-[11px] font-mono tracking-[0.35em] uppercase text-[#aaa] mb-2">{{ section.settings.text_17 | escape }}</p><p class="font-display text-[18px] font-semibold text-[#1A1A1A]">{{ section.settings.text_18 | escape }}</p></div></div><div class="grid grid-cols-1 md:grid-cols-2"><div class="p-8 border-b md:border-b-0 md:border-r border-[#E8E4DC]"><div class="h-[3px] bg-[#E85D04] mb-6"></div><div class="mb-4"><div class="inline-flex items-start gap-[10px] select-none " style="transform:scale(0.65);transform-origin:left center"><div class="shrink-0 mt-[3px]" style="width:4px;background-color:#E85D04;align-self:stretch;min-height:38px"></div><div class="flex flex-col leading-none"><span style="font-family:'Outfit', sans-serif;font-weight:600;font-size:8px;letter-spacing:0.25em;color:#E85D04;line-height:1;margin-bottom:4px">{{ section.settings.text_19 | escape }}</span><span style="font-family:'Outfit', sans-serif;font-weight:900;font-style:italic;font-size:34px;letter-spacing:0.01em;color:#1A1A1A;line-height:0.88">{{ section.settings.text_20 | escape }}</span><svg width="130" height="7" viewBox="0 0 130 7" style="margin-top:4px"><path d="M2 4.5 C25 2, 65 5.5, 95 3.5 C112 2.5, 124 4, 128 4.5" stroke="#E85D04" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"></path></svg></div></div></div><p class="text-[10px] font-mono tracking-[0.4em] uppercase mb-2" style="color:#E85D04">{{ section.settings.text_21 | escape }}</p><p class="font-display text-[18px] font-semibold text-[#1A1A1A] mb-2">{{ section.settings.text_22 | escape }}</p><p class="text-[#666] text-[13px] leading-relaxed"><strong>{{ section.settings.text_24 | escape }}</strong> {{ section.settings.text_23 | escape }}</p></div><div class="p-8"><div class="h-[3px] bg-[#F5B300] mb-6"></div><div class="mb-4"><div class="inline-flex items-center gap-[11px] select-none " style="transform:scale(0.65);transform-origin:left center"><div class="shrink-0 w-[36px] h-[36px] rounded-full" style="background-color:#F5B300"></div><div class="flex flex-col leading-none"><span style="font-family:'Outfit', sans-serif;font-weight:800;font-style:italic;font-size:22px;letter-spacing:0.02em;color:#1A1A1A;line-height:1">{{ section.settings.text_25 | escape }}</span><div style="height:2px;background-color:#F5B300;margin-top:3px;margin-bottom:3px"></div><span style="font-family:'Outfit', sans-serif;font-weight:500;font-size:7.5px;letter-spacing:0.22em;color:#1A1A1A;opacity:0.55;line-height:1">{{ section.settings.text_26 | escape }}</span></div></div></div><p class="text-[10px] font-mono tracking-[0.4em] uppercase text-[#F5B300] mb-2">{{ section.settings.text_27 | escape }}</p><p class="font-display text-[18px] font-extrabold text-[#1A1A1A] mb-2">{{ section.settings.text_28 | escape }}</p><p class="text-[#666] text-[13px] leading-relaxed"><strong>{{ section.settings.text_24 | escape }}</strong> {{ section.settings.text_29 | escape }}</p></div></div></div><div class="bg-[#1A1A1A] px-6 py-5"><p class="text-white/55 text-[13px] leading-relaxed"><span class="text-[#F5B300] font-semibold uppercase tracking-wider text-[10px] mr-3">{{ section.settings.text_32 | escape }}</span>{{ section.settings.text_30 | escape }} <strong class="text-white">{{ section.settings.text_33 | escape }}</strong> {{ section.settings.text_31 | escape }} <strong class="text-white">{{ section.settings.text_34 | escape }}</strong></p></div></div></section><section class="py-20 sm:py-28 border-b border-[#E8E4DC]"><div class="max-w-[1200px] mx-auto px-6 sm:px-10 grid grid-cols-1 lg:grid-cols-2 gap-14 items-center"><div><div class="h-[3px] bg-[#E85D04] w-16 mb-8"></div><div class="mb-6"><div class="inline-flex items-start gap-[10px] select-none " style="transform:scale(1);transform-origin:left center"><div class="shrink-0 mt-[3px]" style="width:4px;background-color:#E85D04;align-self:stretch;min-height:38px"></div><div class="flex flex-col leading-none"><span style="font-family:'Outfit', sans-serif;font-weight:600;font-size:8px;letter-spacing:0.25em;color:#E85D04;line-height:1;margin-bottom:4px">{{ section.settings.text_19 | escape }}</span><span style="font-family:'Outfit', sans-serif;font-weight:900;font-style:italic;font-size:34px;letter-spacing:0.01em;color:#1A1A1A;line-height:0.88">{{ section.settings.text_20 | escape }}</span><svg width="130" height="7" viewBox="0 0 130 7" style="margin-top:4px"><path d="M2 4.5 C25 2, 65 5.5, 95 3.5 C112 2.5, 124 4, 128 4.5" stroke="#E85D04" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"></path></svg></div></div></div><p class="text-[10px] font-mono tracking-[0.45em] uppercase mb-4" style="color:#E85D04">{{ section.settings.text_35 | escape }}</p><h2 class="font-display text-[34px] sm:text-[44px] font-semibold text-[#1A1A1A] leading-[0.93] mb-5">{{ section.settings.text_36 | escape }}<br>{{ section.settings.text_37 | escape }}</h2><p class="text-[#555] text-[15px] leading-relaxed mb-6">{{ section.settings.text_38 | escape }}</p><div class="space-y-3 mb-8"><div class="flex items-start gap-3"><div class="w-[3px] h-[3px] rounded-full mt-[8px] shrink-0" style="background-color:#E85D04"></div><p class="text-[#555] text-[14px]">{{ section.settings.text_39 | escape }}</p></div><div class="flex items-start gap-3"><div class="w-[3px] h-[3px] rounded-full mt-[8px] shrink-0" style="background-color:#E85D04"></div><p class="text-[#555] text-[14px]">{{ section.settings.text_40 | escape }}</p></div><div class="flex items-start gap-3"><div class="w-[3px] h-[3px] rounded-full mt-[8px] shrink-0" style="background-color:#E85D04"></div><p class="text-[#555] text-[14px]">{{ section.settings.text_41 | escape }}</p></div><div class="flex items-start gap-3"><div class="w-[3px] h-[3px] rounded-full mt-[8px] shrink-0" style="background-color:#E85D04"></div><p class="text-[#555] text-[14px]">{{ section.settings.text_42 | escape }}</p></div></div><a class="inline-flex items-center gap-3 text-white text-[11px] font-bold tracking-[0.2em] uppercase px-7 py-4 hover:opacity-90 transition-opacity" style="background-color:#E85D04" href="/pages/meal-plan">{{ section.settings.text_43 | escape }}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></a></div><div>{% if section.settings.photo_1 != blank %}{{ section.settings.photo_1 | image_url: width: 1200 | image_tag: class: 'w-full object-cover', style: 'height:440px', loading: 'lazy', alt: section.settings.photo_1_alt }}{% else %}<img src="{{ 'sync-4ad6c5a857a8.jpg' | asset_url }}" alt="{{ section.settings.photo_1_alt | escape }}" class="w-full object-cover" style="height:440px" width="1200" height="900" loading="lazy">{% endif %}</div></div></section><section class="py-20 sm:py-28 border-b border-[#E8E4DC] bg-[#1A1A1A] text-white"><div class="max-w-[1200px] mx-auto px-6 sm:px-10 grid grid-cols-1 lg:grid-cols-2 gap-14 items-center"><div class="order-2 lg:order-1">{% if section.settings.photo_2 != blank %}{{ section.settings.photo_2 | image_url: width: 1200 | image_tag: class: 'w-full object-cover', style: 'height:440px', loading: 'lazy', alt: section.settings.photo_2_alt }}{% else %}<img src="{{ 'sync-0205109b18bc.jpg' | asset_url }}" alt="{{ section.settings.photo_2_alt | escape }}" class="w-full object-cover" style="height:440px" width="1200" height="900" loading="lazy">{% endif %}</div><div class="order-1 lg:order-2"><div class="h-[3px] bg-[#F5B300] w-16 mb-8"></div><div class="mb-6"><div class="inline-flex items-center gap-[11px] select-none " style="transform:scale(1);transform-origin:left center"><div class="shrink-0 w-[36px] h-[36px] rounded-full" style="background-color:#F5B300"></div><div class="flex flex-col leading-none"><span style="font-family:'Outfit', sans-serif;font-weight:800;font-style:italic;font-size:22px;letter-spacing:0.02em;color:#FFFFFF;line-height:1">{{ section.settings.text_25 | escape }}</span><div style="height:2px;background-color:#F5B300;margin-top:3px;margin-bottom:3px"></div><span style="font-family:'Outfit', sans-serif;font-weight:500;font-size:7.5px;letter-spacing:0.22em;color:#FFFFFF;opacity:0.55;line-height:1">{{ section.settings.text_26 | escape }}</span></div></div></div><p class="text-[10px] font-mono tracking-[0.45em] uppercase text-[#F5B300] mb-4">{{ section.settings.text_44 | escape }}</p><h2 class="font-display text-[34px] sm:text-[44px] font-extrabold text-white leading-[0.93] mb-5">{{ section.settings.text_45 | escape }}<br>{{ section.settings.text_46 | escape }}</h2><p class="text-white/55 text-[15px] leading-relaxed mb-6">{{ section.settings.text_47 | escape }}</p><div class="space-y-3 mb-8"><div class="flex items-start gap-3"><div class="w-[3px] h-[3px] rounded-full mt-[8px] shrink-0 bg-[#F5B300]"></div><p class="text-white/60 text-[14px]">{{ section.settings.text_48 | escape }}</p></div><div class="flex items-start gap-3"><div class="w-[3px] h-[3px] rounded-full mt-[8px] shrink-0 bg-[#F5B300]"></div><p class="text-white/60 text-[14px]">{{ section.settings.text_49 | escape }}</p></div><div class="flex items-start gap-3"><div class="w-[3px] h-[3px] rounded-full mt-[8px] shrink-0 bg-[#F5B300]"></div><p class="text-white/60 text-[14px]">{{ section.settings.text_50 | escape }}</p></div><div class="flex items-start gap-3"><div class="w-[3px] h-[3px] rounded-full mt-[8px] shrink-0 bg-[#F5B300]"></div><p class="text-white/60 text-[14px]">{{ section.settings.text_51 | escape }}</p></div></div><a class="inline-flex items-center gap-3 bg-[#F5B300] text-[#1A1A1A] text-[11px] font-extrabold tracking-[0.2em] uppercase px-7 py-4 hover:bg-white transition-colors" href="{{ routes.collections_url }}/ready-series">{{ section.settings.text_52 | escape }}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></a></div></div></section><section class="py-20 sm:py-24 bg-[#FAF9F6] border-b border-[#E8E4DC]"><div class="max-w-[900px] mx-auto px-6 sm:px-10 text-center"><div class="h-px bg-[#F5B300] w-16 mx-auto mb-10"></div><p class="text-[11px] font-mono tracking-[0.45em] uppercase text-[#F5B300] mb-6">{{ section.settings.text_53 | escape }}</p><h2 class="font-display text-[34px] sm:text-[48px] font-extrabold text-[#1A1A1A] leading-[0.93] mb-6">{{ section.settings.text_54 | escape }}<br><span class="text-[#555] font-semibold">{{ section.settings.text_55 | escape }}</span></h2><p class="text-[#666] text-[16px] leading-relaxed max-w-[560px] mx-auto mb-10">{{ section.settings.text_56 | escape }}</p><div class="flex flex-col sm:flex-row gap-3 justify-center"><a class="inline-flex items-center justify-center gap-3 text-white text-[11px] font-bold tracking-[0.2em] uppercase px-7 py-4 hover:opacity-90 transition-opacity" style="background-color:#E85D04" href="/pages/meal-plan">{{ section.settings.text_43 | escape }}</a><a class="inline-flex items-center justify-center gap-3 bg-[#1A1A1A] text-white text-[11px] font-extrabold tracking-[0.2em] uppercase px-7 py-4 hover:bg-[#F5B300] hover:text-[#1A1A1A] transition-colors" href="{{ routes.collections_url }}/ready-series">{{ section.settings.text_52 | escape }}</a></div><div class="h-px bg-[#F5B300] w-16 mx-auto mt-10"></div></div></section></div>
+{% schema %}
+{
+  "name": "About Performance Meals",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text_01",
+      "label": "PERFORMANCE",
+      "default": "PERFORMANCE"
+    },
+    {
+      "type": "text",
+      "id": "text_02",
+      "label": "MEALS",
+      "default": "MEALS"
+    },
+    {
+      "type": "text",
+      "id": "text_03",
+      "label": "About Performance Meals",
+      "default": "About Performance Meals"
+    },
+    {
+      "type": "text",
+      "id": "text_04",
+      "label": "Nutrition that works",
+      "default": "Nutrition that works"
+    },
+    {
+      "type": "text",
+      "id": "text_05",
+      "label": "as hard as you do.",
+      "default": "as hard as you do."
+    },
+    {
+      "type": "textarea",
+      "id": "text_06",
+      "label": "Performance Meals is the parent brand behind two",
+      "default": "Performance Meals is the parent brand behind two distinct customer experiences — both built on one shared standard of quality, care, and honest nutrition."
+    },
+    {
+      "type": "text",
+      "id": "text_07",
+      "label": "Parent Purpose",
+      "default": "Parent Purpose"
+    },
+    {
+      "type": "text",
+      "id": "text_08",
+      "label": "To make exceptional meal prep accessible to ever",
+      "default": "To make exceptional meal prep accessible to every customer, with care in every experience."
+    },
+    {
+      "type": "text",
+      "id": "text_09",
+      "label": "Mission",
+      "default": "Mission"
+    },
+    {
+      "type": "text",
+      "id": "text_10",
+      "label": "To deliver exceptional meals and thoughtful supp",
+      "default": "To deliver exceptional meals and thoughtful support that make healthy eating easier every day."
+    },
+    {
+      "type": "text",
+      "id": "text_11",
+      "label": "What we believe",
+      "default": "What we believe"
+    },
+    {
+      "type": "textarea",
+      "id": "text_12",
+      "label": "Healthy eating is realistic support for a fuller",
+      "default": "Healthy eating is realistic support for a fuller life — not a punishment. We focus on consistency and progress rather than perfection."
+    },
+    {
+      "type": "text",
+      "id": "text_13",
+      "label": "The brand architecture",
+      "default": "The brand architecture"
+    },
+    {
+      "type": "text",
+      "id": "text_14",
+      "label": "One Standard.",
+      "default": "One Standard."
+    },
+    {
+      "type": "text",
+      "id": "text_15",
+      "label": "Two Distinct Experiences.",
+      "default": "Two Distinct Experiences."
+    },
+    {
+      "type": "textarea",
+      "id": "text_16",
+      "label": "Performance Meals sets the performance and quali",
+      "default": "Performance Meals sets the performance and quality standard. Meal Plan and Ready-Series then serve two very different customer needs — from the same trusted kitchen."
+    },
+    {
+      "type": "text",
+      "id": "text_17",
+      "label": "The Gold Standard",
+      "default": "The Gold Standard"
+    },
+    {
+      "type": "text",
+      "id": "text_18",
+      "label": "Shared food quality, performance standards, and ",
+      "default": "Shared food quality, performance standards, and brand trust across every offer."
+    },
+    {
+      "type": "text",
+      "id": "text_19",
+      "label": "PERFORMANCE MEALS",
+      "default": "PERFORMANCE MEALS"
+    },
+    {
+      "type": "text",
+      "id": "text_20",
+      "label": "MEAL PLAN",
+      "default": "MEAL PLAN"
+    },
+    {
+      "type": "text",
+      "id": "text_21",
+      "label": "When a customer needs a plan",
+      "default": "When a customer needs a plan"
+    },
+    {
+      "type": "text",
+      "id": "text_22",
+      "label": "Fresh structure for a personal goal.",
+      "default": "Fresh structure for a personal goal."
+    },
+    {
+      "type": "text",
+      "id": "text_23",
+      "label": "Fresh meals, a regular plan, and personal guidan",
+      "default": "Fresh meals, a regular plan, and personal guidance."
+    },
+    {
+      "type": "text",
+      "id": "text_24",
+      "label": "Delivers:",
+      "default": "Delivers:"
+    },
+    {
+      "type": "text",
+      "id": "text_25",
+      "label": "READY-SERIES",
+      "default": "READY-SERIES"
+    },
+    {
+      "type": "text",
+      "id": "text_26",
+      "label": "by PERFORMANCE MEALS",
+      "default": "by PERFORMANCE MEALS"
+    },
+    {
+      "type": "text",
+      "id": "text_27",
+      "label": "When life needs flexibility",
+      "default": "When life needs flexibility"
+    },
+    {
+      "type": "text",
+      "id": "text_28",
+      "label": "Frozen convenience for everyday momentum.",
+      "default": "Frozen convenience for everyday momentum."
+    },
+    {
+      "type": "text",
+      "id": "text_29",
+      "label": "Freezer-ready meals, fast prep, and easy repeat ",
+      "default": "Freezer-ready meals, fast prep, and easy repeat choices."
+    },
+    {
+      "type": "text",
+      "id": "text_30",
+      "label": "One trusted standard — delivered through a",
+      "default": "One trusted standard — delivered through a"
+    },
+    {
+      "type": "text",
+      "id": "text_31",
+      "label": "or a",
+      "default": "or a"
+    },
+    {
+      "type": "text",
+      "id": "text_32",
+      "label": "Relationship in one line",
+      "default": "Relationship in one line"
+    },
+    {
+      "type": "text",
+      "id": "text_33",
+      "label": "personalised fresh-plan experience",
+      "default": "personalised fresh-plan experience"
+    },
+    {
+      "type": "text",
+      "id": "text_34",
+      "label": "fast, flexible frozen-meal experience.",
+      "default": "fast, flexible frozen-meal experience."
+    },
+    {
+      "type": "text",
+      "id": "text_35",
+      "label": "Boutique Progress",
+      "default": "Boutique Progress"
+    },
+    {
+      "type": "text",
+      "id": "text_36",
+      "label": "Planned for your goal.",
+      "default": "Planned for your goal."
+    },
+    {
+      "type": "text",
+      "id": "text_37",
+      "label": "Delivered fresh.",
+      "default": "Delivered fresh."
+    },
+    {
+      "type": "textarea",
+      "id": "text_38",
+      "label": "For busy, goal-oriented people who want more tha",
+      "default": "For busy, goal-oriented people who want more than a generic healthy-food routine. Meal Plan combines exceptional meals with tailored support — making sustainable progress easier to build into everyday life."
+    },
+    {
+      "type": "text",
+      "id": "text_39",
+      "label": "Fresh meals prepared and delivered to a personal",
+      "default": "Fresh meals prepared and delivered to a personal plan"
+    },
+    {
+      "type": "text",
+      "id": "text_40",
+      "label": "Structured nutrition built around a real goal",
+      "default": "Structured nutrition built around a real goal"
+    },
+    {
+      "type": "text",
+      "id": "text_41",
+      "label": "Personal support — not just a menu",
+      "default": "Personal support — not just a menu"
+    },
+    {
+      "type": "text",
+      "id": "text_42",
+      "label": "Practical guidance for meaningful progress",
+      "default": "Practical guidance for meaningful progress"
+    },
+    {
+      "type": "text",
+      "id": "text_43",
+      "label": "Discover Meal Plan",
+      "default": "Discover Meal Plan"
+    },
+    {
+      "type": "text",
+      "id": "text_44",
+      "label": "Everyday Momentum",
+      "default": "Everyday Momentum"
+    },
+    {
+      "type": "text",
+      "id": "text_45",
+      "label": "FROZEN AT PEAK.",
+      "default": "FROZEN AT PEAK."
+    },
+    {
+      "type": "text",
+      "id": "text_46",
+      "label": "READY ON DEMAND.",
+      "default": "READY ON DEMAND."
+    },
+    {
+      "type": "textarea",
+      "id": "text_47",
+      "label": "For busy people who want a fast, dependable, and",
+      "default": "For busy people who want a fast, dependable, and accessible way to eat better. Ready-Series is the frozen performance-meal system that makes it easy to choose, heat, enjoy, and stay on track — whenever life gets busy."
+    },
+    {
+      "type": "text",
+      "id": "text_48",
+      "label": "Frozen at peak nutritional freshness",
+      "default": "Frozen at peak nutritional freshness"
+    },
+    {
+      "type": "text",
+      "id": "text_49",
+      "label": "Ready in minutes — zero prep required",
+      "default": "Ready in minutes — zero prep required"
+    },
+    {
+      "type": "text",
+      "id": "text_50",
+      "label": "Dependable freezer stock for unpredictable days",
+      "default": "Dependable freezer stock for unpredictable days"
+    },
+    {
+      "type": "text",
+      "id": "text_51",
+      "label": "Clear individual, bundle, and stock-up pricing",
+      "default": "Clear individual, bundle, and stock-up pricing"
+    },
+    {
+      "type": "text",
+      "id": "text_52",
+      "label": "Shop Ready-Series",
+      "default": "Shop Ready-Series"
+    },
+    {
+      "type": "text",
+      "id": "text_53",
+      "label": "One connected brand family",
+      "default": "One connected brand family"
+    },
+    {
+      "type": "text",
+      "id": "text_54",
+      "label": "One Performance Standard.",
+      "default": "One Performance Standard."
+    },
+    {
+      "type": "text",
+      "id": "text_55",
+      "label": "Two distinct experiences.",
+      "default": "Two distinct experiences."
+    },
+    {
+      "type": "textarea",
+      "id": "text_56",
+      "label": "Whether you need the structure and personal supp",
+      "default": "Whether you need the structure and personal support of Meal Plan, or the flexible convenience of Ready-Series — every meal begins with the same standard of quality that Performance Meals was built to uphold."
+    },
+    {
+      "type": "image_picker",
+      "id": "photo_0",
+      "label": "Editorial photograph 1"
+    },
+    {
+      "type": "text",
+      "id": "photo_0_alt",
+      "label": "Photograph 1 description",
+      "default": "Real food for real routines"
+    },
+    {
+      "type": "image_picker",
+      "id": "photo_1",
+      "label": "Editorial photograph 2"
+    },
+    {
+      "type": "text",
+      "id": "photo_1_alt",
+      "label": "Photograph 2 description",
+      "default": "Fresh meal preparation"
+    },
+    {
+      "type": "image_picker",
+      "id": "photo_2",
+      "label": "Editorial photograph 3"
+    },
+    {
+      "type": "text",
+      "id": "photo_2_alt",
+      "label": "Photograph 3 description",
+      "default": "Ready Series for everyday life"
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Performance Meals"
+    }
+  ]
+}
+{% endschema %}

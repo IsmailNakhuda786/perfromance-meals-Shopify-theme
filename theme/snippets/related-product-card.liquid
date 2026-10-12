@@ -1,0 +1,11 @@
+{% doc %}
+  Approved related-meal presentation with a native product details link.
+  @param {product} product - Shopify related product.
+{% enddoc %}
+<a href="{{ product.url }}" class="bg-[#111] text-left group">
+  <div class="aspect-[4/3] overflow-hidden">{% if product.featured_image %}{{ product.featured_image | image_url: width: 600 | image_tag: widths: '300, 600', sizes: '(min-width: 640px) 33vw, 90vw', loading: 'lazy', class: 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-500' }}{% endif %}</div>
+  <div class="p-5"><h3 class="font-display text-[14px] font-extrabold uppercase text-white mb-1 leading-snug">{{ product.title | escape }}</h3>
+    {% assign rating = product.metafields.reviews.rating.value %}{% if rating %}<div class="flex items-center gap-2 mb-3"><span class="text-[#F5B300] text-[12px]" aria-hidden="true">★ ★ ★ ★ ★</span><span class="text-white/30 text-[11px] font-mono">{{ rating.rating }}</span></div>{% endif %}
+    <div class="flex items-center justify-between"><span class="font-display text-[16px] font-extrabold text-white">{{ product.price | money }}</span><span class="text-[10px] font-bold tracking-[0.15em] uppercase text-[#F5B300]">{{ 'catalog.view' | t }} →</span></div>
+  </div>
+</a>

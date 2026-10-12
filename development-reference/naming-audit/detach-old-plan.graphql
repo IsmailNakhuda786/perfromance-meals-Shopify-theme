@@ -1,0 +1,1 @@
+mutation DetachLegacyPlan($id:ID!,$productIds:[ID!]!){sellingPlanGroupRemoveProducts(id:$id,productIds:$productIds){removedProductIds userErrors{field message}}}

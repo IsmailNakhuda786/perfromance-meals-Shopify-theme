@@ -1,0 +1,128 @@
+{% liquid
+  assign brand = 'pm'
+  assign brand_label = 'brands.performance_meals' | t
+  assign brand_color = '#F5B300'
+  if request.path contains 'meal-plan' or product.metafields.performance.business_stream.value == 'meal_plan'
+    assign brand = 'mp'
+    assign brand_label = 'brands.meal_plan' | t
+    assign brand_color = '#E85D04'
+  elsif request.path contains 'ready-series'
+    assign brand = 'rs'
+    assign brand_label = 'brands.ready_series' | t
+  elsif request.page_type == 'product'
+    unless product.gift_card
+      assign brand = 'rs'
+      assign brand_label = 'brands.ready_series' | t
+    endunless
+  endif
+%}
+{% if section.settings.announcement != blank %}<div class="bg-[#F5B300] text-[#1A1A1A] text-center py-2 px-4 text-[10px] sm:text-[11px] tracking-[0.15em] sm:tracking-[0.2em] uppercase font-semibold" data-pm-announcement>{{ section.settings.announcement }}</div>{% endif %}
+<nav class="bg-[#1A1A1A] text-white border-b border-white/10" data-pm-header aria-label="{{ 'navigation.main' | t }}">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 h-[56px] sm:h-[60px] flex items-center justify-between gap-4">
+    <details class="relative shrink-0" data-brand-switcher><summary class="flex items-center gap-3 hover:opacity-80 transition-opacity group cursor-pointer list-none">
+      {% if brand == 'pm' %}{% render 'logos', brand: brand, size: 'sm', variant: 'light' %}{% else %}{% render 'logos', brand: brand, size: 'sm', variant: 'dark' %}{% endif %}
+      <span class="hidden sm:flex flex-col items-start leading-none border-l border-white/10 pl-3"><span class="text-[9px] font-mono tracking-[0.3em] uppercase text-white/30 mb-1">{{ 'navigation.current_brand' | t }}</span><span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full shrink-0" style="background:{{ brand_color }}"></span><span class="text-[11px] font-bold tracking-[0.1em] uppercase text-white">{{ brand_label }}</span><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-white/35 ml-0.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span></span>
+    </summary><div class="absolute top-full left-0 mt-3 w-[240px] bg-[#111] border border-white/12 z-50">
+      <a href="{{ routes.root_url }}" class="w-full text-left px-4 py-3.5 flex items-center gap-3 hover:bg-white/5 transition-colors border-b border-white/6"><span class="w-[3px] h-6 shrink-0 bg-[#F5B300]"></span><span class="flex-1"><span class="block text-white text-[13px] font-semibold">{{ 'brands.performance_meals' | t }}</span><span class="block text-white/30 text-[10px] mt-0.5">{{ 'brands.parent_description' | t }}</span></span>{% if brand == 'pm' %}<span class="w-1.5 h-1.5 rounded-full bg-[#F5B300]"></span>{% endif %}</a>
+      <a href="{{ section.settings.meal_plan_url | default: '/pages/meal-plan' }}" class="w-full text-left px-4 py-3.5 flex items-center gap-3 hover:bg-white/5 transition-colors border-b border-white/6"><span class="w-[3px] h-6 shrink-0 bg-[#E85D04]"></span><span class="flex-1"><span class="block text-white text-[13px] font-semibold">{{ 'brands.meal_plan' | t }}</span><span class="block text-white/30 text-[10px] mt-0.5">{{ 'brands.meal_plan_description' | t }}</span></span>{% if brand == 'mp' %}<span class="w-1.5 h-1.5 rounded-full bg-[#E85D04]"></span>{% endif %}</a>
+      <a href="{{ section.settings.ready_series_url | default: '/pages/ready-series' }}" class="w-full text-left px-4 py-3.5 flex items-center gap-3 hover:bg-white/5 transition-colors"><span class="w-[3px] h-6 shrink-0 bg-[#F5B300]"></span><span class="flex-1"><span class="block text-white text-[13px] font-semibold">{{ 'brands.ready_series' | t }}</span><span class="block text-white/30 text-[10px] mt-0.5">{{ 'brands.ready_series_description' | t }}</span></span>{% if brand == 'rs' %}<span class="w-1.5 h-1.5 rounded-full bg-[#F5B300]"></span>{% endif %}</a>
+    </div></details>
+    <div class="hidden lg:flex items-center gap-6 flex-1 justify-end mr-4">{% render 'context-navigation', brand: brand, mode: 'desktop', config: section.settings %}</div>
+    <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+      {% if shop.customer_accounts_enabled %}
+        {% if customer %}
+          <a href="{{ routes.account_url }}" class="flex items-center gap-2 pl-1 pr-2 py-1 border border-white/10 hover:border-white/25 bg-white/5 transition-colors" aria-label="{{ 'account.my_account' | t }}"><span class="w-6 h-6 bg-[#F5B300] rounded-full flex items-center justify-center text-[#111] font-extrabold text-[11px] shrink-0">{{ customer.first_name | default: customer.email | slice: 0 | upcase }}</span><span class="text-white/60 text-[11px] tracking-wide hidden lg:block">{{ customer.first_name | default: customer.email | escape }}</span></a>
+          <a href="{{ routes.account_logout_url }}" class="hidden lg:flex items-center gap-1 border border-white/15 text-white/50 hover:border-white/40 hover:text-white transition-colors text-[10px] tracking-widest uppercase px-2.5 py-1.5" aria-label="{{ 'account.log_out' | t }}"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>{{ 'account.out' | t }}</a>
+        {% else %}
+          <a href="{{ routes.account_login_url }}" class="text-white/60 hover:text-white transition-colors text-[11px] tracking-[0.2em] uppercase hidden md:block whitespace-nowrap">{{ 'account.log_in' | t }}</a><a href="{{ routes.account_url }}" class="hidden md:block bg-[#F5B300] text-[#111] text-[10px] font-extrabold tracking-[0.2em] uppercase px-4 py-2 hover:bg-white transition-colors whitespace-nowrap">{{ 'account.sign_up' | t }}</a>
+        {% endif %}
+      {% endif %}
+      <a href="{{ routes.cart_url }}" data-cart-open class="relative text-white/50 hover:text-white transition-colors" aria-label="{{ 'cart.title' | t }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg><span data-cart-count class="absolute -top-2 -right-2 bg-[#F5B300] text-[#1A1A1A] text-[9px] font-bold rounded-full w-[17px] h-[17px] flex items-center justify-center" {% if cart.item_count == 0 %}hidden{% endif %}>{{ cart.item_count }}</span></a>
+      <button type="button" data-mobile-toggle class="lg:hidden text-white/70 hover:text-white transition-colors p-1" aria-label="{{ 'navigation.menu' | t }}" aria-expanded="false" aria-controls="MobileMenu-{{ section.id }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-menu-icon><path d="M3 6h18M3 12h18M3 18h18"/></svg><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-close-icon hidden><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+  </div>
+  <div class="lg:hidden bg-[#111] border-t border-white/10 overflow-y-auto max-h-[80vh]" id="MobileMenu-{{ section.id }}" data-mobile-menu hidden><div class="px-5 py-4 space-y-1">
+    <p class="text-[9px] font-mono tracking-[0.4em] text-white/30 uppercase py-2">{{ 'navigation.switch_brand' | t }}</p>
+    <a href="{{ routes.root_url }}" class="w-full text-left py-3 px-3 flex items-center gap-3 text-[15px] hover:bg-white/5 transition-colors border-b border-white/5 text-white/60"><span class="w-[3px] h-5 shrink-0 bg-[#F5B300]"></span>{{ 'brands.performance_meals' | t }}{% if brand == 'pm' %}<span class="ml-auto text-[9px] font-mono tracking-widest uppercase text-white/30">{{ 'navigation.current' | t }}</span>{% endif %}</a>
+    <a href="{{ section.settings.meal_plan_url | default: '/pages/meal-plan' }}" class="w-full text-left py-3 px-3 flex items-center gap-3 text-[15px] hover:bg-white/5 transition-colors border-b border-white/5 text-white/60"><span class="w-[3px] h-5 shrink-0 bg-[#E85D04]"></span>{{ 'brands.meal_plan' | t }}{% if brand == 'mp' %}<span class="ml-auto text-[9px] font-mono tracking-widest uppercase text-white/30">{{ 'navigation.current' | t }}</span>{% endif %}</a>
+    <a href="{{ section.settings.ready_series_url | default: '/pages/ready-series' }}" class="w-full text-left py-3 px-3 flex items-center gap-3 text-[15px] hover:bg-white/5 transition-colors border-b border-white/5 text-white/60"><span class="w-[3px] h-5 shrink-0 bg-[#F5B300]"></span>{{ 'brands.ready_series' | t }}{% if brand == 'rs' %}<span class="ml-auto text-[9px] font-mono tracking-widest uppercase text-white/30">{{ 'navigation.current' | t }}</span>{% endif %}</a>
+    <p class="text-[9px] font-mono tracking-[0.4em] text-white/30 uppercase py-2 mt-2">{{ brand_label }}</p>
+    {% render 'context-navigation', brand: brand, mode: 'mobile', config: section.settings %}
+    {% if shop.customer_accounts_enabled %}<p class="text-[9px] font-mono tracking-[0.4em] text-white/30 uppercase py-2 mt-2">{{ 'account.title' | t }}</p>
+      {% if customer %}<div class="flex items-center gap-3 px-3 py-3 border-b border-white/5"><span class="w-9 h-9 bg-[#F5B300] rounded-full flex items-center justify-center text-[#111] font-extrabold text-[13px]">{{ customer.first_name | default: customer.email | slice: 0 | upcase }}</span><span class="text-white text-[14px] font-semibold">{{ customer.name | escape }}</span></div><a href="{{ routes.account_url }}" class="block w-full text-left py-3 px-3 text-[15px] text-white/70 hover:text-white hover:bg-white/5 transition-colors border-b border-white/5">{{ 'account.my_account' | t }}</a><a href="{{ routes.account_logout_url }}" class="block w-full text-left py-3 px-3 text-[15px] text-white/70 hover:text-white hover:bg-white/5 transition-colors border-b border-white/5">{{ 'account.log_out' | t }}</a>
+      {% else %}<div class="flex gap-3 px-3 py-4 border-b border-white/5"><a href="{{ routes.account_login_url }}" class="flex-1 text-center border border-white/20 text-white py-3 text-[13px] font-bold tracking-widest uppercase hover:bg-white/10 transition-colors">{{ 'account.log_in' | t }}</a><a href="{{ routes.account_url }}" class="flex-1 text-center bg-[#F5B300] text-[#111] py-3 text-[13px] font-extrabold tracking-widest uppercase hover:bg-white transition-colors">{{ 'account.sign_up' | t }}</a></div>{% endif %}
+    {% endif %}
+  </div></div>
+</nav>
+{% stylesheet %}
+.pm-header-section{position:sticky;top:calc(-1 * var(--pm-announcement-height,0px));z-index:50}[data-brand-switcher] summary::-webkit-details-marker{display:none}[data-brand-switcher][open] summary svg{transform:rotate(180deg)}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Performance Meals header",
+  "class": "pm-header-section",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "announcement",
+      "label": "Announcement text"
+    },
+    {
+      "type": "url",
+      "id": "meal_plan_url",
+      "label": "Meal Plan Url"
+    },
+    {
+      "type": "url",
+      "id": "ready_series_url",
+      "label": "Ready Series Url"
+    },
+    {
+      "type": "url",
+      "id": "about_url",
+      "label": "About Url"
+    },
+    {
+      "type": "url",
+      "id": "rewards_url",
+      "label": "Rewards URL"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Additional menu"
+    },
+    {
+      "type": "url",
+      "id": "ready_series_about_url",
+      "label": "Ready Series About"
+    },
+    {
+      "type": "url",
+      "id": "ready_series_order_url",
+      "label": "Ready Series Order"
+    },
+    {
+      "type": "url",
+      "id": "meal_plan_about_url",
+      "label": "Meal Plan About"
+    },
+    {
+      "type": "url",
+      "id": "meal_plan_order_url",
+      "label": "Meal Plan Order"
+    },
+    {
+      "type": "url",
+      "id": "meal_plan_stories_url",
+      "label": "Meal Plan Customer Stories"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Performance Meals header"
+    }
+  ]
+}
+{% endschema %}

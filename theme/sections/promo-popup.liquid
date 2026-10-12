@@ -1,0 +1,150 @@
+{% liquid
+  assign has_subscriptions = false
+  for block in section.blocks
+    if block.type == '@app'
+      assign has_subscriptions = true
+    elsif block.settings.product != blank
+      if block.settings.product.selling_plan_groups.size > 0
+        assign has_subscriptions = true
+      endif
+    endif
+  endfor
+%}
+{% if section.settings.enabled or request.design_mode %}
+<dialog class="pm-promo-dialog p-0 overflow-hidden" data-promo-popup data-enabled="{{ section.settings.enabled }}" data-delay="{{ section.settings.delay }}" data-section-id="{{ section.id }}" aria-labelledby="PromoHeading-{{ section.id }}">
+  <div class="relative flex flex-col overflow-hidden" style="background:#191919;border:1px solid #f5b800;width:min(560px,96vw)">
+    <div class="flex items-center justify-between px-5 py-3.5"><span class="font-bold text-[#f5b800] text-[10px] tracking-[0.1em] uppercase">{{ section.settings.eyebrow | escape }}</span><button type="button" data-promo-close class="text-white/50 hover:text-white transition-colors p-1" aria-label="{{ 'general.close' | t }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+    <div class="flex" style="height:42px" role="tablist" aria-label="{{ 'promo.offers' | t }}"><button type="button" role="tab" id="PromoTab-{{ section.id }}" data-promo-tab="promo" aria-selected="true" aria-controls="PromoPanel-{{ section.id }}" class="pm-promo-tab flex flex-1 items-center justify-center font-bold text-[11px] tracking-[0.06em] transition-colors">{{ 'promo.promotional_offer' | t }}</button>{% if has_subscriptions or request.design_mode %}<button type="button" role="tab" id="SubTab-{{ section.id }}" data-promo-tab="sub" aria-selected="false" aria-controls="SubPanel-{{ section.id }}" tabindex="-1" class="pm-promo-tab flex flex-1 items-center justify-center font-bold text-[11px] tracking-[0.06em] transition-colors">{{ 'promo.subscription_deal' | t }}</button>{% endif %}</div>
+    <div class="flex flex-col gap-4 p-6" role="tabpanel" id="PromoPanel-{{ section.id }}" aria-labelledby="PromoTab-{{ section.id }}" data-promo-panel="promo">
+      <h2 id="PromoHeading-{{ section.id }}" class="font-bold leading-[1.05] text-white font-display" style="font-size:clamp(22px,3.5vw,32px)">{{ section.settings.heading | escape }}</h2><p class="text-[#d6d4ce] text-[13px] leading-[1.5]">{{ section.settings.body | escape }}</p>
+      {% if section.settings.code != blank %}<div class="bg-white flex items-center justify-between px-4" style="height:56px"><div class="flex flex-col gap-0.5"><span class="font-bold text-[#6c6a66] text-[9px] tracking-[0.1em]">{{ 'promo.code' | t }}</span><span class="font-bold text-black text-[20px] leading-none font-display">{{ section.settings.code | escape }}</span></div><button type="button" data-copy-code="{{ section.settings.code | escape }}" data-copy-label="{{ 'promo.copy' | t }}" data-copied-label="{{ 'promo.copied' | t }}" class="flex items-center gap-2 font-bold text-[#191919] text-[12px] hover:opacity-80 transition-opacity" style="background:#f5b800;height:38px;padding:0 16px">{{ 'promo.copy' | t }} →</button></div>{% endif %}
+      {% if section.settings.terms != blank %}<p class="text-[#b9b7b0] text-[10px] leading-[1.5]">{{ section.settings.terms | escape }}</p>{% endif %}<a href="{{ section.settings.url | default: '/collections/ready-series' }}" class="flex items-center justify-center gap-2 w-full font-bold text-[#191919] text-[12px] hover:opacity-85 transition-opacity" style="background:#f5b800;height:42px">{{ section.settings.label | escape }} →</a>
+    </div>
+    <div class="flex flex-col gap-4 p-6" role="tabpanel" id="SubPanel-{{ section.id }}" aria-labelledby="SubTab-{{ section.id }}" data-promo-panel="sub" hidden>
+      <div class="flex flex-col gap-1.5"><h3 class="font-bold text-white leading-tight font-display" style="font-size:clamp(18px,2.5vw,26px)">{{ section.settings.subscription_heading | escape }}</h3><p class="text-[#d6d4ce] text-[12px] leading-[1.5]">{{ section.settings.subscription_body | escape }}</p></div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">{% for block in section.blocks %}{% if block.type == '@app' %}{% render block %}{% elsif block.settings.product != blank and block.settings.product.selling_plan_groups.size > 0 %}{% assign offer_product = block.settings.product %}<div class="flex flex-col justify-between p-4" style="background:{% if block.settings.featured %}#fff3cc{% else %}#fff{% endif %};border:1px solid #d8d6d0" {{ block.shopify_attributes }}><div class="flex flex-col gap-1.5 mb-4">{% if block.settings.featured %}<span class="font-bold text-[#b48000] text-[9px] tracking-[0.08em] uppercase">{{ 'promo.most_popular' | t }}</span>{% endif %}<p class="font-bold text-black text-[18px] leading-tight font-display">{{ offer_product.title | escape }}</p><p class="text-[#6c6a66] text-[11px]">{{ block.settings.description | escape }}</p><p class="font-bold text-black text-[17px] font-display">{{ offer_product.price | money }}</p><p class="font-bold text-[#187a4d] text-[11px]">{{ block.settings.savings | escape }}</p></div><a href="{{ offer_product.url }}" class="flex items-center justify-center gap-2 w-full font-bold text-[#191919] text-[12px] hover:opacity-85 transition-opacity" style="background:#f5b800;min-height:38px">{{ 'promo.select' | t: product: offer_product.title }} →</a></div>{% endif %}{% endfor %}</div>
+      {% if section.settings.subscription_note != blank %}<p class="text-[#b9b7b0] text-[10px] text-center">{{ section.settings.subscription_note | escape }}</p>{% endif %}
+    </div>
+  </div>
+</dialog>
+{% endif %}
+{% stylesheet %}
+.pm-promo-dialog{margin:auto;border:0;max-width:96vw;max-height:90vh;color:#fff;background:#191919}.pm-promo-dialog::backdrop{background:#000b}.pm-promo-tab{background:#242424;color:#fff}.pm-promo-tab[aria-selected=true]{background:#f5b800;color:#191919;border-bottom:2px solid #f5b800}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Promotion popup",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enabled",
+      "label": "Enable after configuring real offers in Shopify",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "delay",
+      "label": "Delay (seconds)",
+      "min": 1,
+      "max": 30,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "THIS WEEK ONLY"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "20% OFF THE MEALS THAT KEEP UP."
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "Save on selected Ready Series meals. Stock the freezer once and move through Singapore's busiest days without missing dinner."
+    },
+    {
+      "type": "text",
+      "id": "code",
+      "label": "Active Shopify discount code"
+    },
+    {
+      "type": "textarea",
+      "id": "terms",
+      "label": "Verified offer expiry and terms"
+    },
+    {
+      "type": "url",
+      "id": "url",
+      "label": "Url"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "Shop selected meals"
+    },
+    {
+      "type": "text",
+      "id": "subscription_heading",
+      "label": "Subscription Heading",
+      "default": "SET THE FREEZER. SAVE EVERY CYCLE."
+    },
+    {
+      "type": "textarea",
+      "id": "subscription_body",
+      "label": "Subscription Body",
+      "default": "Choose a package. Pause, skip or cancel anytime."
+    },
+    {
+      "type": "textarea",
+      "id": "subscription_note",
+      "label": "Subscription Note"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Promotion popup"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "offer",
+      "name": "Subscription product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "savings",
+          "label": "Verified savings"
+        },
+        {
+          "type": "checkbox",
+          "id": "featured",
+          "label": "Featured",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "max_blocks": 3
+}
+{% endschema %}

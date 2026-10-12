@@ -1,0 +1,1 @@
+query GiftOrderFulfillment { order(id:"gid://shopify/Order/1001") { id name test displayFinancialStatus displayFulfillmentStatus lineItems(first:5) { nodes { title isGiftCard unfulfilledQuantity customAttributes { key value } } } } }

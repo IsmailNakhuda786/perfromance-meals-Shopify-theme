@@ -1,0 +1,165 @@
+{% liquid
+  assign variant = product.selected_or_first_available_variant
+  assign contents = variant.metafields.performance.bundle_contents.value | default: product.metafields.performance.bundle_contents.value
+  assign form_id = 'ProductForm-' | append: section.id
+  assign rating = product.metafields.reviews.rating.value
+  assign rating_count = product.metafields.reviews.rating_count.value
+  assign back_collection = section.settings.back_collection | default: product.collections.first
+  assign related_products = product.metafields.performance.related_products.value
+  assign related_collection_handle = section.settings.related_collection
+  assign related_collection = collections[related_collection_handle] | default: back_collection
+  assign purchase_mode = section.settings.purchase_mode | default: 'single'
+  if template.suffix == 'subscription'
+    assign purchase_mode = 'subscription'
+  elsif template.suffix == 'bundle'
+    assign purchase_mode = 'bundles'
+  endif
+  if product.selected_selling_plan.recurring_deliveries
+    assign purchase_mode = 'subscription'
+  endif
+  assign selected_allocation = nil
+  assign require_allocation = false
+  if purchase_mode == 'subscription'
+    assign require_allocation = true
+    for option in variant.selling_plan_allocations
+      if option.selling_plan.recurring_deliveries
+        if selected_allocation == nil or option.selling_plan.selected
+          assign selected_allocation = option
+        endif
+      endif
+    endfor
+  endif
+%}
+{% if purchase_mode == 'subscription' and product.metafields.performance.business_stream.value == 'ready_series' %}{% unless product.metafields.performance.prepaid_term_verified.value == true %}{% assign selected_allocation = nil %}{% endunless %}{% endif %}
+<script src="{{ 'catalog.js' | asset_url }}" type="module"></script>
+<section class="bg-[#1A1A1A] text-white min-h-screen pm-product" data-product-section>
+  <nav class="border-b border-white/8 px-6 py-3" aria-label="{{ 'catalog.breadcrumb' | t }}"><ol class="max-w-[1200px] mx-auto flex items-center gap-2 text-[11px] font-mono text-white/35"><li><a href="{{ routes.root_url }}" class="hover:text-white">{{ settings.brand_name | default: 'Performance Meals' | escape }}</a></li><li aria-hidden="true">/</li>{% if back_collection %}<li><a href="{{ back_collection.url }}" class="hover:text-white">{{ back_collection.title | escape }}</a></li><li aria-hidden="true">/</li>{% endif %}<li class="text-white/60 truncate max-w-[240px]" aria-current="page">{{ product.title | escape }}</li></ol></nav>
+  <div class="max-w-[1200px] mx-auto px-6 py-10 grid grid-cols-1 lg:grid-cols-2 gap-10 items-start" data-product-purchase data-update-url data-purchase-mode="{{ purchase_mode }}">
+    <div class="relative">
+      <div class="aspect-[4/3] overflow-hidden bg-[#111]">{% assign featured_image = variant.featured_image | default: product.featured_image %}{% if featured_image %}{{ featured_image | image_url: width: 1600 | image_tag: widths: '500, 750, 1000, 1600', sizes: '(min-width: 1024px) 560px, 90vw', class: 'w-full h-full object-cover', loading: 'eager', data-product-image: '' }}{% else %}{{ 'product-1' | placeholder_svg_tag: 'w-full h-full opacity-20' }}{% endif %}</div>
+      {% if product.metafields.performance.badge != blank %}<span class="absolute top-4 left-4 bg-[#F5B300] text-[#1A1A1A] text-[9px] font-extrabold tracking-[0.2em] uppercase px-3 py-1.5">{{ product.metafields.performance.badge.value | escape }}</span>{% endif %}
+      {% if product.metafields.performance.category != blank %}<span class="absolute top-4 right-4 bg-[#111]/80 text-white/60 text-[10px] font-mono uppercase px-2 py-1 tracking-wider">{{ product.metafields.performance.category.value | escape }}</span>{% endif %}
+      {% if product.images.size > 1 %}<div class="flex gap-2 mt-3 overflow-x-auto">{% for image in product.images %}<button type="button" data-product-thumbnail="{{ image | image_url: width: 1600 }}" class="shrink-0 w-20 h-16 border border-white/15 hover:border-[#F5B300]" aria-label="{{ 'catalog.view_image' | t: number: forloop.index }}">{{ image | image_url: width: 160 | image_tag: loading: 'lazy', class: 'w-full h-full object-cover' }}</button>{% endfor %}</div>{% endif %}
+      {% assign fact_keys = 'prep_time,freezing_note,storage,heat_method' | split: ',' %}
+      <dl class="grid grid-cols-2 gap-px mt-4 bg-white/8">{% for key in fact_keys %}{% assign fact = product.metafields.performance[key] %}{% if fact != blank %}{% assign fact_label = 'catalog.' | append: key %}<div class="bg-[#111] px-4 py-3"><dt class="text-[9px] font-mono tracking-[0.2em] uppercase text-white/35">{{ fact_label | t }}</dt><dd class="text-[12px] font-semibold text-white mt-0.5">{{ fact.value | escape }}</dd></div>{% endif %}{% endfor %}</dl>
+      {% if contents != blank %}<div class="mt-6"><h2 class="text-[10px] font-mono tracking-[0.25em] uppercase text-[#F5B300] mb-3">{{ 'catalog.bundle_contents' | t }}</h2><div class="flex gap-3 overflow-x-auto" data-bundle-gallery>{% for item in contents %}{% assign included_product = item.variant.value.product | default: item.product.value %}{% if included_product %}<a href="{{ included_product.url }}" class="shrink-0 w-32">{% if included_product.featured_image %}{{ included_product.featured_image | image_url: width: 300 | image_tag: widths: '150, 300', sizes: '128px', loading: 'lazy', class: 'w-full h-24 object-cover' }}{% endif %}<p class="text-[11px] text-white/60 mt-2">{{ included_product.title | escape }}{% if item.quantity.value %} ×{{ item.quantity.value }}{% endif %}</p></a>{% endif %}{% endfor %}</div></div>{% endif %}
+    </div>
+    <div class="flex flex-col gap-6">
+      <div>{% render 'logos', brand: 'rs', size: 'sm', variant: 'dark' %}</div>
+      <div>
+        <h1 class="font-display text-[32px] sm:text-[40px] font-extrabold uppercase leading-tight mb-3">{{ product.title | escape }}</h1>
+        {% if rating and rating_count > 0 %}<a href="#ProductReviews" data-open-product-tab="reviews" class="inline-flex items-center gap-3 mb-4 text-[12px]"><span class="text-[#F5B300]">★ {{ rating.rating }} / {{ rating.scale_max }}</span><span class="text-white/45 underline">{{ 'catalog.review_count' | t: count: rating_count }}</span></a>{% endif %}
+        <div class="text-white/50 text-[15px] leading-relaxed mb-5">{{ product.description }}</div>
+        {% render 'nutrition', product: product, compact: true %}
+      </div>
+      <div class="border-t border-white/8 pt-6">
+        <div class="flex items-baseline gap-2 mb-4"><span class="font-display text-[36px] font-extrabold">{% render 'price', product: product, variant: variant, allocation: selected_allocation, require_allocation: require_allocation %}</span>{% if purchase_mode == 'single' %}<span class="text-white/30 text-[13px]">{{ 'catalog.per_meal' | t }}</span>{% endif %}</div>
+        {% render 'product-purchase-form', product: product, variant: variant, form_id: form_id, purchase_mode: purchase_mode, allocation: selected_allocation, require_account: section.settings.require_subscription_account, show_dynamic_checkout: section.settings.show_dynamic_checkout, keep_shopping_url: back_collection.url %}
+
+        {% if section.settings.delivery_note != blank %}<div class="text-white/35 text-[11px] mt-3 font-mono">{{ section.settings.delivery_note }}</div>{% endif %}
+      </div>
+    </div>
+    {% render 'purchase-data', product: product, purchase_mode: purchase_mode, require_account: section.settings.require_subscription_account %}
+  </div>
+  <div data-product-tabs>
+    <div class="border-t border-white/8 sticky top-[56px] z-10 bg-[#1A1A1A]"><nav class="max-w-[1200px] mx-auto px-6 flex overflow-x-auto" aria-label="{{ 'catalog.product_information' | t }}"><a href="#ProductOverview-{{ section.id }}" class="px-6 py-4 text-[11px] font-bold tracking-[0.2em] uppercase border-b-2 border-[#F5B300] text-[#F5B300]" data-product-tab="overview">{{ 'catalog.overview' | t }}</a><a href="#ProductNutrition-{{ section.id }}" class="px-6 py-4 text-[11px] font-bold tracking-[0.2em] uppercase border-b-2 border-transparent text-white/40" data-product-tab="nutrition">{{ 'catalog.nutrition' | t }}</a><a href="#ProductReviews" class="px-6 py-4 text-[11px] font-bold tracking-[0.2em] uppercase border-b-2 border-transparent text-white/40" data-product-tab="reviews">{{ 'catalog.reviews' | t }}</a></nav></div>
+    <div class="max-w-[1200px] mx-auto px-6 py-12">
+      <div id="ProductOverview-{{ section.id }}" data-product-panel="overview" class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div><p class="text-[10px] font-mono tracking-[0.35em] uppercase text-[#F5B300] mb-3">{{ 'catalog.about_meal' | t }}</p><h2 class="font-display text-[22px] font-extrabold uppercase mb-4">{{ 'catalog.what_makes_good' | t }}</h2><div class="text-white/50 text-[15px] leading-relaxed mb-6">{{ product.description }}</div>{% assign highlights = variant.metafields.performance.highlights.value | default: product.metafields.performance.highlights.value %}{% if highlights != blank %}<ul data-variant-highlights class="space-y-3">{% for highlight in highlights %}<li class="flex items-start gap-3 text-[13px] text-white/50"><span class="text-[#F5B300]" aria-hidden="true">—</span>{{ highlight | escape }}</li>{% endfor %}</ul>{% endif %}{% if product.metafields.performance.ingredients != blank %}<h3 class="font-bold uppercase text-[12px] mt-6 mb-2">{{ 'catalog.ingredients' | t }}</h3><div class="text-white/50 text-[13px] leading-relaxed">{{ product.metafields.performance.ingredients | metafield_tag }}</div>{% endif %}{% if product.metafields.performance.allergens != blank %}<h3 class="font-bold uppercase text-[12px] mt-5 mb-2">{{ 'catalog.allergens' | t }}</h3><div class="text-white/50 text-[13px]">{{ product.metafields.performance.allergens | metafield_tag }}</div>{% endif %}</div>
+        {% if product.metafields.performance.preparation != blank %}<div><p class="text-[10px] font-mono tracking-[0.35em] uppercase text-[#F5B300] mb-3">{{ 'catalog.how_to_prepare' | t }}</p><h2 class="font-display text-[22px] font-extrabold uppercase mb-6">{{ 'catalog.preparation' | t }}</h2><div class="pm-richtext text-white/50 text-[14px] leading-relaxed">{{ product.metafields.performance.preparation | metafield_tag }}</div></div>{% endif %}
+      </div>
+      <div id="ProductNutrition-{{ section.id }}" data-product-panel="nutrition" class="max-w-[520px] mt-12"><p class="text-[10px] font-mono tracking-[0.35em] uppercase text-[#F5B300] mb-3">{{ 'nutrition.per_serving' | t }}</p><h2 class="font-display text-[22px] font-extrabold uppercase mb-6">{{ 'nutrition.facts' | t }}</h2>{% render 'nutrition', product: product %}{% if product.metafields.performance.nutrition_note != blank %}<p class="text-white/35 text-[10px] mt-3 font-mono">{{ product.metafields.performance.nutrition_note.value | escape }}</p>{% endif %}</div>
+      <div id="ProductReviews" data-product-panel="reviews" class="mt-12"><h2 class="font-display text-[26px] font-extrabold uppercase mb-6">{{ 'catalog.customer_reviews' | t }}</h2>{% if rating and rating_count > 0 %}<div class="border border-white/10 p-8 inline-flex flex-col items-center text-center mb-8"><div class="font-display text-[56px] font-extrabold text-[#F5B300]">{{ rating.rating }}</div><p class="text-[12px] text-white/45">{{ 'catalog.rating_summary' | t: rating: rating.rating, max: rating.scale_max, count: rating_count }}</p></div>{% endif %}{% assign app_blocks = section.blocks | where: 'type', '@app' %}{% for block in app_blocks %}<div {{ block.shopify_attributes }}>{% render block %}</div>{% else %}<p class="text-white/45 text-[14px]">{{ 'catalog.no_reviews' | t }}</p>{% endfor %}</div>
+    </div>
+  </div>
+  {% if section.settings.show_related %}
+    {% assign related_shown = 0 %}
+    {% if related_products != blank or related_collection.products_count > 1 %}<div class="border-t border-white/8 py-14 px-6"><div class="max-w-[1200px] mx-auto"><p class="text-[#F5B300] text-[10px] font-mono uppercase tracking-[0.3em] mb-3">{{ 'catalog.more_ready_series' | t }}</p><h2 class="font-display text-[26px] font-extrabold uppercase mb-8">{{ 'catalog.you_may_like' | t }}</h2><div class="grid grid-cols-1 sm:grid-cols-3 gap-px bg-white/8">{% if related_products != blank %}{% assign related_list = related_products %}{% else %}{% assign related_list = related_collection.products %}{% endif %}{% for related in related_list %}{% if related.id != product.id and related_shown < 3 %}{% render 'related-product-card', product: related %}{% assign related_shown = related_shown | plus: 1 %}{% endif %}{% if related_shown == 3 %}{% break %}{% endif %}{% endfor %}</div><div class="text-center mt-8"><a href="{{ back_collection.url | default: routes.all_products_collection_url }}" class="text-[11px] font-extrabold tracking-[0.2em] uppercase text-[#F5B300] hover:text-white">{{ 'catalog.shop_ready_series' | t }} →</a></div></div></div>{% endif %}
+  {% endif %}
+</section>
+<script type="application/ld+json">{{ product | structured_data }}</script>
+{% stylesheet %}
+  .pm-quantity{-moz-appearance:textfield}
+  .pm-quantity::-webkit-inner-spin-button,.pm-quantity::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+  .pm-product [data-product-panel][hidden]{display:none}
+  .pm-product [data-product-panel]{scroll-margin-top:8rem}
+  .pm-product [data-product-tabs].pm-tabs-ready [data-product-panel]{margin-top:0}
+  .pm-product [data-add-button]:disabled{opacity:.4;cursor:not-allowed}
+  .pm-richtext p,.pm-richtext li{margin-bottom:.75rem}
+  .pm-richtext ol{list-style:decimal;padding-left:1.5rem}
+  .pm-richtext ul{list-style:disc;padding-left:1.5rem}
+{% endstylesheet %}
+{% schema %}
+{
+  "name": "Meal product",
+  "settings": [
+    {
+      "type": "select",
+      "id": "purchase_mode",
+      "label": "Purchase mode",
+      "options": [
+        {
+          "value": "single",
+          "label": "Single Purchase \u2014 one-time"
+        },
+        {
+          "value": "bundles",
+          "label": "Bundles \u2014 one-time"
+        },
+        {
+          "value": "subscription",
+          "label": "Subscription \u2014 recurring bundle"
+        }
+      ],
+      "default": "single"
+    },
+    {
+      "type": "checkbox",
+      "id": "require_subscription_account",
+      "label": "Show sign-in for subscriptions",
+      "default": true
+    },
+    {
+      "type": "paragraph",
+      "content": "Recurring bundles need subscription-app selling plans and recorded fulfillment contents. The subscription template never permits a one-time fallback."
+    },
+    {
+      "type": "collection",
+      "id": "back_collection",
+      "label": "Keep shopping collection"
+    },
+    {
+      "type": "richtext",
+      "id": "delivery_note",
+      "label": "Approved delivery and storage note"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dynamic_checkout",
+      "label": "Show accelerated checkout",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_related",
+      "label": "Show related meals",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "related_collection",
+      "label": "Related meals collection handle"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Meal product"
+    }
+  ]
+}
+{% endschema %}

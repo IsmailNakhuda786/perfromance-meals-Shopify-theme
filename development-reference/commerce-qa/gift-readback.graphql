@@ -1,0 +1,1 @@
+query QAGift {product(id:"gid://shopify/Product/10321856561236") {id status resourcePublications(first:10){nodes{isPublished publication{id}}} variants(first:10){nodes{id inventoryQuantity inventoryPolicy inventoryItem{tracked}}}}}

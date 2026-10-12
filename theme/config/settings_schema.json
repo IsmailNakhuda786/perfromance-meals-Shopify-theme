@@ -1,0 +1,104 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Performance Meals",
+    "theme_version": "0.1.0",
+    "theme_author": "Performance Meals",
+    "theme_documentation_url": "https://shopify.dev/docs/storefronts/themes",
+    "theme_support_url": "https://shopify.dev/docs/storefronts/themes"
+  },
+  {
+    "name": "Brand and support",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      },
+      {
+        "type": "text",
+        "id": "whatsapp_number",
+        "label": "Verified WhatsApp number (country code, digits only)"
+      },
+      {
+        "type": "text",
+        "id": "support_label",
+        "label": "Support label",
+        "default": "Performance Meals"
+      },
+      {
+        "type": "text",
+        "id": "whatsapp_message_prefix",
+        "label": "WhatsApp opening message"
+      },
+      {
+        "type": "image_picker",
+        "id": "pm_logo",
+        "label": "Parent brand logo"
+      },
+      {
+        "type": "image_picker",
+        "id": "rs_logo",
+        "label": "Ready Series logo"
+      },
+      {
+        "type": "image_picker",
+        "id": "mp_logo",
+        "label": "Meal Plan logo"
+      }
+    ]
+  },
+  {
+    "name": "Meal Plan app",
+    "settings": [
+      {
+        "type": "text",
+        "id": "meal_plan_proxy_path",
+        "label": "Meal Plan app proxy path",
+        "default": "/apps/performance-meals/meal-plan",
+        "info": "Must match the installed Performance Meals Core app proxy. Checkout requires authenticated app persistence."
+      }
+    ]
+  },
+  {
+    "name": "Brand colours",
+    "settings": [
+      {
+        "type": "color",
+        "id": "ready_series_accent",
+        "label": "Ready Series accent",
+        "default": "#F5B300"
+      },
+      {
+        "type": "color",
+        "id": "meal_plan_accent",
+        "label": "Meal Plan accent",
+        "default": "#E85D04"
+      },
+      {
+        "type": "color",
+        "id": "canvas_color",
+        "label": "Cream background",
+        "default": "#F7F5F0"
+      },
+      {
+        "type": "color",
+        "id": "charcoal_color",
+        "label": "Charcoal backgrounds and text",
+        "default": "#1A1A1A"
+      }
+    ]
+  },
+  {
+    "name": "Singapore food delivery",
+    "settings": [
+      {
+        "type": "number",
+        "id": "food_delivery_threshold",
+        "label": "Free delivery threshold (currency minor units)",
+        "default": 12000,
+        "info": "Must match the Shopify Singapore delivery profile. Counts Ready Series and Meal Plan after discounts; excludes Gift Cards."
+      }
+    ]
+  }
+]

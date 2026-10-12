@@ -1,0 +1,113 @@
+<section class="bg-[#1A1A1A] overflow-hidden">
+  <div class="flex flex-col lg:flex-row">
+    <div class="flex-1 px-6 sm:px-10 lg:px-14 py-10 sm:py-14 lg:py-16 flex flex-col justify-between"><div>
+      <div class="flex items-baseline gap-5 mb-6"><span class="font-display font-bold text-[#F5B300]" style="font-size:clamp(36px,4vw,52px);line-height:1;letter-spacing:-.03em">{{ section.settings.number | escape }}</span><span class="text-[#F5B300] text-[10px] font-medium tracking-[0.05em]">{{ section.settings.eyebrow | escape }}</span></div>
+      <h2 class="font-display font-bold text-white mb-5" style="font-size:clamp(28px,3.6vw,48px);line-height:.9;letter-spacing:-.023em">{{ section.settings.heading | escape | newline_to_br }}</h2>
+      <p class="text-white/80 leading-[1.48] mb-5 max-w-[420px] text-[14px]">{{ section.settings.body | escape }}</p><p class="text-[#F5B300] text-[11px] font-medium tracking-[0.04em]">{{ section.settings.principles | escape }}</p>
+    </div></div>
+    <div class="relative lg:w-[55%] flex-shrink-0" style="min-height:320px">
+      {% if section.settings.image != blank %}{{ section.settings.image | image_url: width: 1800 | image_tag: class: 'w-full h-full object-cover absolute inset-0', loading: 'lazy', sizes: '(min-width: 1024px) 55vw, 100vw' }}{% else %}<img src="{{ 'approved-ab4401f89fe9.jpg' | asset_url }}" alt="{{ section.settings.image_alt | escape }}" width="1200" height="590" loading="lazy" class="w-full h-full object-cover absolute inset-0">{% endif %}
+      <div class="absolute bottom-0 left-0 right-0 bg-[rgba(26,26,26,0.92)] px-5 sm:px-8 py-5 sm:py-7"><div class="grid grid-cols-3 gap-3 sm:gap-4">
+        {% for block in section.blocks %}<div {{ block.shopify_attributes }}><p class="text-[#F5B300] text-[9px] tracking-[0.06em] mb-2">0{{ forloop.index }}</p><p class="text-white text-[11px] sm:text-[13px] font-medium leading-[1.1] mb-1 font-display">{{ block.settings.title | escape }}</p><p class="text-[#C2C2BA] text-[10px] sm:text-[11px] leading-[1.35] hidden sm:block">{{ block.settings.body | escape }}</p></div>{% endfor %}
+      </div></div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "The Performance standard",
+  "settings": [
+    {
+      "type": "text",
+      "id": "number",
+      "label": "Number",
+      "default": "01"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "THE PARENT BRAND"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "THE STANDARD\nBEHIND EVERY\nMEAL."
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "Performance Meals sets the purpose, quality standard and experience behind everything we offer."
+    },
+    {
+      "type": "text",
+      "id": "principles",
+      "label": "Principles",
+      "default": "PRINCIPLED  \u2022  GROUNDED"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image Alt",
+      "default": "Chef preparing meals"
+    }
+  ],
+  "presets": [
+    {
+      "name": "The Performance standard",
+      "blocks": [
+        {
+          "type": "principle",
+          "settings": {
+            "title": "CHEF-LED RECIPES",
+            "body": "Craft-led food."
+          }
+        },
+        {
+          "type": "principle",
+          "settings": {
+            "title": "CLEAR NUTRITION",
+            "body": "Visible macros & ingredients."
+          }
+        },
+        {
+          "type": "principle",
+          "settings": {
+            "title": "QUALITY CONTROL",
+            "body": "Kitchen to doorstep."
+          }
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "principle",
+      "name": "Principle",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "CHEF-LED RECIPES"
+        },
+        {
+          "type": "text",
+          "id": "body",
+          "label": "Body",
+          "default": "Craft-led food."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3
+}
+{% endschema %}

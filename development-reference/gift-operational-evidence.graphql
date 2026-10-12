@@ -1,0 +1,1 @@
+query GiftOperationalEvidence { shop { myshopifyDomain } order(id:"gid://shopify/Order/1001") { id createdAt customer { id } lineItems(first:250) { nodes { id quantity customAttributes { key value } product { id isGiftCard stream:metafield(namespace:"performance",key:"business_stream") { jsonValue } } variant { id } sellingPlan { sellingPlanId } } pageInfo { hasNextPage } } } }

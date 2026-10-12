@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+const location=new URL('../theme/sections/gift-card-product.liquid',import.meta.url);
+let source=fs.readFileSync(location,'utf8');
+source=source.replace('<a href="{{ routes.root_url }}">', '<a href="{{ routes.root_url }}" class="w-[132px] shrink-0">');
+source=source.replace("size: 'sm', variant: 'light'", "size: 'sm', variant: 'dark'");
+source=source.replace('class="flex items-center gap-3 text-[11px] uppercase tracking-wider"','class="flex items-center gap-2 sm:gap-3 text-[11px] uppercase tracking-wider shrink-0"');
+source=source.replace("{{ 'gift.details' | t }}<span", "<span class=\"hidden sm:inline\">{{ 'gift.details' | t }}</span><span");
+source=source.replace("{{ 'gift.checkout' | t }}</div>", "<span class=\"hidden sm:inline\">{{ 'gift.checkout' | t }}</span></div>");
+source=source.replace("<div class=\"mb-5\">{% render 'logos', brand: 'pm', size: 'sm', variant: 'dark' %}","<div class=\"mb-5\">{% render 'logos', brand: 'pm', size: 'sm', variant: 'light' %}");
+fs.writeFileSync(location,source);
+const docs=new URL('../docs/MERCHANT-SETUP.md',import.meta.url);
+fs.writeFileSync(docs,fs.readFileSync(docs,'utf8').replace('S$50/S$100/S$150/S$200','S$25/S$50/S$100/S$150'));

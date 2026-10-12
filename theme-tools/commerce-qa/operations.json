@@ -1,0 +1,14 @@
+{
+  "product": "mutation QAProduct($input:ProductSetInput!){productSet(input:$input,synchronous:true){product{id handle title variants(first:20){nodes{id title price sku}}} userErrors{field message}}}",
+  "metaDefinition": "mutation QAMetaDefinition($input:MetaobjectDefinitionCreateInput!){metaobjectDefinitionCreate(definition:$input){metaobjectDefinition{id type} userErrors{field message}}}",
+  "fieldDefinition": "mutation QAFieldDefinition($input:MetafieldDefinitionInput!){metafieldDefinitionCreate(definition:$input){createdDefinition{id namespace key} userErrors{field message}}}",
+  "fields": "mutation QAFields($input:[MetafieldsSetInput!]!){metafieldsSet(metafields:$input){metafields{id key value} userErrors{field message}}}",
+  "meta": "mutation QAMeta($handle:MetaobjectHandleInput!,$input:MetaobjectUpsertInput!){metaobjectUpsert(handle:$handle,metaobject:$input){metaobject{id handle type} userErrors{field message}}}",
+  "collection": "mutation QACollection($input:CollectionInput!){collectionCreate(input:$input){collection{id handle} userErrors{field message}}}",
+  "page": "mutation QAPage($input:PageCreateInput!){pageCreate(page:$input){page{id handle} userErrors{field message}}}",
+  "menu": "mutation QAMenu($title:String!,$handle:String!,$items:[MenuItemCreateInput!]!){menuCreate(title:$title,handle:$handle,items:$items){menu{id handle} userErrors{field message}}}",
+  "plan": "mutation QAPlans($input:SellingPlanGroupInput!,$resources:SellingPlanGroupResourceInput){sellingPlanGroupCreate(input:$input,resources:$resources){sellingPlanGroup{id name sellingPlans(first:10){nodes{id name}}}userErrors{field message}}}",
+  "visibility": "mutation QAVisibility($id:ID!,$input:[PublicationInput!]!){publishablePublish(id:$id,input:$input){userErrors{field message}}}",
+  "updateProduct": "mutation QAProductStatus($input:ProductUpdateInput!){productUpdate(product:$input){product{id handle status}userErrors{field message}}}",
+  "media": "mutation QAProductMedia($input:ProductUpdateInput!,$media:[CreateMediaInput!]){productUpdate(product:$input,media:$media){product{id handle media(first:5){nodes{mediaContentType status}}} userErrors{field message}}}"
+}

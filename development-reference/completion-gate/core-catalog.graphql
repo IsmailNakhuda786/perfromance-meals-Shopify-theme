@@ -1,0 +1,10 @@
+#graphql
+query ProgrammeCatalog($variantId: ID!) {
+ productVariant(id:$variantId) {
+  id availableForSale
+  mealsPerDay: metafield(namespace:"performance",key:"meals_per_day"){jsonValue}
+  sellingPlanGroups(first:50){nodes{sellingPlans(first:50){nodes{id}pageInfo{hasNextPage}}}pageInfo{hasNextPage}}
+  product { id requiresSellingPlan stream:metafield(namespace:"performance",key:"business_stream"){jsonValue} menuWeeks:metafield(namespace:"performance",key:"menu_weeks"){jsonValue} mealsPerDay:metafield(namespace:"performance",key:"meals_per_day"){jsonValue} }
+ }
+ metaobjects(type:"performance_menu_week",first:100){nodes{handle capabilities{publishable{status}} fields{key value references(first:50){pageInfo{hasNextPage}nodes{... on Product{id} ... on Metaobject{capabilities{publishable{status}} fields{key value references(first:50){pageInfo{hasNextPage}nodes{... on Product{id status}}}}}}}}}pageInfo{hasNextPage}}
+}

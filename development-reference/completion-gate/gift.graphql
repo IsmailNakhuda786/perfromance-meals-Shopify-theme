@@ -1,0 +1,1 @@
+mutation GiftDenominations($productId:ID!,$variants:[ProductVariantsBulkInput!]!){productVariantsBulkUpdate(productId:$productId,variants:$variants){productVariants{id title price} userErrors{field message}}}

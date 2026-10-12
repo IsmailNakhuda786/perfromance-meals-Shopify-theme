@@ -1,0 +1,134 @@
+{
+  "sections": {
+    "main": {
+      "type": "meal-plan-about-editorial",
+      "settings": {
+        "link_1": "/pages/meal-plan-builder",
+        "link_2": "/pages/meal-plan-stories"
+      },
+      "blocks": {
+        "band_1": {
+          "type": "band_1",
+          "settings": {
+            "copy_1": "PERFORMANCE MEALS",
+            "copy_2": "MEAL PLAN",
+            "copy_3": "Boutique progress · built around your goal",
+            "copy_4": "Structure that",
+            "copy_5": "moves with you.",
+            "copy_6": "Meal Plan is the guided side of Performance Meals: fresh, structured meals and a clear recurring rhythm that take nutrition planning off your plate.",
+            "copy_7": "Start your plan",
+            "copy_8": "Read customer journeys",
+            "copy_9": "Fresh meals · guided rhythm",
+            "image_1_alt": "A balanced meal as part of an active routine"
+          }
+        },
+        "band_2": {
+          "type": "band_2",
+          "settings": {
+            "copy_1": "Why Meal Plan exists",
+            "copy_2": "Your goal needs a routine, not more guesswork.",
+            "copy_3": "Planning meals, shopping, preparing food, calculating portions, and repeating it every week creates friction. Meal Plan turns those repeated decisions into one considered programme.",
+            "copy_4": "The customer job",
+            "copy_5": "Make better nutrition easier to sustain inside a full life.",
+            "image_1_alt": "Busy professionals planning their routine together"
+          }
+        },
+        "band_3": {
+          "type": "band_3",
+          "settings": {
+            "copy_1": "What Meal Plan is",
+            "copy_2": "A programme with clear guardrails.",
+            "copy_3": "It is not an unrestricted meal selection. Your goal establishes the programme, the plan defines what is included, and meal selection happens inside the approved structure.",
+            "copy_4": "01",
+            "copy_5": "Goal-first start",
+            "copy_6": "Begin with Biweekly, Monthly, 2 Months, 6 by 60, or 6 by 60 Plus so the plan has a clear operating rhythm.",
+            "copy_7": "02",
+            "copy_8": "Fresh structured meals",
+            "copy_9": "Predefined plan information sets the meal framework before menu choices are made.",
+            "copy_10": "03",
+            "copy_11": "A visible menu rhythm",
+            "copy_12": "Biweekly shows 2 weeks; Monthly shows 4. The preview follows the selected recurring period.",
+            "copy_13": "04",
+            "copy_14": "A connected customer experience",
+            "copy_15": "Your Shopify account keeps your customer identity and order history together. Available plan actions depend on your subscription."
+          }
+        },
+        "band_4": {
+          "type": "band_4",
+          "settings": {
+            "copy_1": "How the meals are prepared",
+            "copy_2": "The structure is planned. The food is still the point.",
+            "copy_3": "Meal Plan pairs programme logic with fresh meal preparation, clear food information, and a menu experience designed to feel considered rather than clinical.",
+            "copy_4": "Plan the menu",
+            "copy_5": "Programme and recurring period establish the structured menu view.",
+            "copy_6": "Prepare with care",
+            "copy_7": "Meals are prepared through the shared Performance Meals kitchen standard.",
+            "copy_8": "Portion with clarity",
+            "copy_9": "Meal and programme information helps customers understand what is included.",
+            "copy_10": "Deliver the routine",
+            "copy_11": "Fresh meals arrive as part of the selected programme and delivery structure.",
+            "image_1_alt": "Chef preparing fresh ingredients in a professional kitchen",
+            "image_2_alt": "Chef carefully plating a prepared meal",
+            "image_3_alt": "Finished fresh meal ready for the customer"
+          }
+        },
+        "band_5": {
+          "type": "band_5",
+          "settings": {
+            "copy_1": "The programme logic",
+            "copy_2": "Choose the rhythm that matches your life.",
+            "copy_3": "Biweekly, Monthly and 2 Months renew automatically. The 60-day programmes are paid upfront and end without automatic renewal.",
+            "copy_4": "Biweekly",
+            "copy_5": "2-week menu view",
+            "copy_6": "Mon–Fri coverage · renews every 2 weeks",
+            "copy_7": "Monthly",
+            "copy_8": "4-week menu view",
+            "copy_9": "Mon–Fri coverage · renews every month",
+            "copy_10": "2 Months",
+            "copy_11": "Structured menu view",
+            "copy_12": "Mon–Fri coverage · renews every 2 months",
+            "copy_13": "Distinct programmes",
+            "copy_14": "6 by 60 and 6 by 60 Plus",
+            "copy_15": "60-day programmes with a weight-loss focus, paid upfront without automatic renewal. Plus adds the muscle-support direction.",
+            "copy_16": "Explore programmes",
+            "link_1": "/pages/meal-plan-builder?programme=6by60"
+          }
+        },
+        "band_6": {
+          "type": "band_6",
+          "settings": {
+            "copy_1": "What Meal Plan gives back",
+            "copy_2": "Less planning around food. More attention for everything else.",
+            "copy_3": "Planning",
+            "copy_4": "A programme framework replaces the repeated question of what to organise next.",
+            "copy_5": "Preparation",
+            "copy_6": "Fresh prepared meals reduce the cooking and cleanup load across the working week.",
+            "copy_7": "Decision-making",
+            "copy_8": "Clear plan information and structured menus narrow the choices that matter."
+          }
+        },
+        "band_7": {
+          "type": "band_7",
+          "settings": {
+            "copy_1": "Exceptional meals · practical guidance · meaningful progress",
+            "copy_2": "Build a routine around your goal.",
+            "copy_3": "Start Meal Plan",
+            "copy_4": "Read customer journeys"
+          }
+        }
+      },
+      "block_order": [
+        "band_1",
+        "band_2",
+        "band_3",
+        "band_4",
+        "band_5",
+        "band_6",
+        "band_7"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

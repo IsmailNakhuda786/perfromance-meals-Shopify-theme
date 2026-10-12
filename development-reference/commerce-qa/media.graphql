@@ -1,0 +1,1 @@
+mutation QAProductMedia($input:ProductUpdateInput!,$media:[CreateMediaInput!]){productUpdate(product:$input,media:$media){product{id handle media(first:5){nodes{mediaContentType status}}} userErrors{field message}}}

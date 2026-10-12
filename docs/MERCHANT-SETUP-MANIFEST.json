@@ -1,0 +1,4480 @@
+{
+  "sourceCommit": "227c1a0efea28b0c122fdb1bbffb2f0944d3213f",
+  "warning": "Prototype values are reference content, not approved live prices, nutrition, inventory, discounts, billing or legal promises. Merchant must confirm before entering Shopify. No records are created by these tools.",
+  "readySeries": {
+    "singlePurchase": [
+      {
+        "id": 101,
+        "name": "Teriyaki Chicken & Brown Rice",
+        "cat": "Just Protein",
+        "price": 12.9,
+        "protein": 42,
+        "carbs": 48,
+        "fat": 8,
+        "cal": 478,
+        "badge": "BESTSELLER",
+        "img": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&q=80"
+      },
+      {
+        "id": 102,
+        "name": "Spicy Korean Beef Bulgogi",
+        "cat": "Low Carb",
+        "price": 13.5,
+        "protein": 38,
+        "carbs": 12,
+        "fat": 14,
+        "cal": 326,
+        "badge": "HOT",
+        "img": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80"
+      },
+      {
+        "id": 103,
+        "name": "Herb Chicken & Roasted Veg",
+        "cat": "Low Carb",
+        "price": 12.5,
+        "protein": 36,
+        "carbs": 14,
+        "fat": 10,
+        "cal": 290,
+        "badge": null,
+        "img": "https://images.unsplash.com/photo-1604909052743-94e838986d24?w=400&q=80"
+      },
+      {
+        "id": 104,
+        "name": "Salmon & Quinoa Power Bowl",
+        "cat": "Just Protein",
+        "price": 15.9,
+        "protein": 44,
+        "carbs": 38,
+        "fat": 16,
+        "cal": 468,
+        "badge": "NEW",
+        "img": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&q=80"
+      },
+      {
+        "id": 105,
+        "name": "Thai Basil Pork Rice Bowl",
+        "cat": "High Carb",
+        "price": 11.9,
+        "protein": 28,
+        "carbs": 62,
+        "fat": 8,
+        "cal": 436,
+        "badge": null,
+        "img": "https://images.unsplash.com/photo-1563245372-f21724e3856d?w=400&q=80"
+      },
+      {
+        "id": 106,
+        "name": "Miso Glazed Salmon",
+        "cat": "Just Protein",
+        "price": 16.9,
+        "protein": 46,
+        "carbs": 18,
+        "fat": 18,
+        "cal": 414,
+        "badge": "PREMIUM",
+        "img": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&q=80"
+      },
+      {
+        "id": 107,
+        "name": "Overnight Oats & Berry",
+        "cat": "High Carb",
+        "price": 8.9,
+        "protein": 18,
+        "carbs": 52,
+        "fat": 6,
+        "cal": 334,
+        "badge": null,
+        "img": "https://images.unsplash.com/photo-1587314168485-3236d6710814?w=400&q=80"
+      },
+      {
+        "id": 108,
+        "name": "Greek Chicken Wrap",
+        "cat": "Just Protein",
+        "price": 12.9,
+        "protein": 34,
+        "carbs": 36,
+        "fat": 10,
+        "cal": 374,
+        "badge": null,
+        "img": "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=400&q=80"
+      },
+      {
+        "id": 109,
+        "name": "Egg White & Avocado Toast",
+        "cat": "High Carb",
+        "price": 9.5,
+        "protein": 22,
+        "carbs": 34,
+        "fat": 12,
+        "cal": 332,
+        "badge": "POPULAR",
+        "img": "https://images.unsplash.com/photo-1541519227354-08fa5d50c820?w=400&q=80"
+      },
+      {
+        "id": 110,
+        "name": "Beef Rendang & Cauliflower",
+        "cat": "Low Carb",
+        "price": 14.9,
+        "protein": 40,
+        "carbs": 10,
+        "fat": 22,
+        "cal": 398,
+        "badge": null,
+        "img": "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80"
+      },
+      {
+        "id": 111,
+        "name": "Chicken Burrito Bowl",
+        "cat": "High Carb",
+        "price": 12.5,
+        "protein": 30,
+        "carbs": 58,
+        "fat": 10,
+        "cal": 450,
+        "badge": null,
+        "img": "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=400&q=80"
+      },
+      {
+        "id": 112,
+        "name": "Prawn Fried Rice",
+        "cat": "High Carb",
+        "price": 13.9,
+        "protein": 26,
+        "carbs": 60,
+        "fat": 8,
+        "cal": 428,
+        "badge": "BESTSELLER",
+        "img": "https://images.unsplash.com/photo-1563245372-f21724e3856d?w=400&q=80"
+      }
+    ],
+    "oneTimeBundles": [
+      {
+        "category": "Low Carb Meals",
+        "color": "#F5B300",
+        "items": [
+          {
+            "name": "Signature 5 — Non-Beef",
+            "variant": "Non-Beef",
+            "desc": "Our most-loved low carb flavours, curated for you. 3% bundle discount applied.",
+            "badge": "POPULAR",
+            "price": 48.99,
+            "meals": 5,
+            "mealIds": [
+              103,
+              104,
+              106,
+              108,
+              109
+            ]
+          },
+          {
+            "name": "Signature 5 — Beef",
+            "variant": "Beef",
+            "desc": "Best-selling beef low carb options in one bundle. 3% bundle discount applied.",
+            "badge": null,
+            "price": 48.99,
+            "meals": 5,
+            "mealIds": [
+              102,
+              110,
+              102,
+              110,
+              102
+            ]
+          },
+          {
+            "name": "9 Flavours of the Month",
+            "variant": null,
+            "desc": "9 rotating seasonal low carb meals, refreshed monthly. 5% bundle discount applied.",
+            "badge": "NEW",
+            "price": 86.55,
+            "meals": 9,
+            "mealIds": [
+              103,
+              104,
+              106,
+              108,
+              109,
+              102,
+              110,
+              103,
+              106
+            ]
+          },
+          {
+            "name": "Essential 10 — Non-Beef",
+            "variant": "Non-Beef",
+            "desc": "Top up your fridge with essential low carb staples. 7% bundle discount applied.",
+            "badge": null,
+            "price": 93,
+            "meals": 10,
+            "mealIds": [
+              103,
+              104,
+              106,
+              108,
+              109,
+              103,
+              104,
+              106,
+              108,
+              109
+            ]
+          },
+          {
+            "name": "Essential 10 — Beef",
+            "variant": "Beef",
+            "desc": "Beef-based essentials to keep your macros on track. 7% bundle discount applied.",
+            "badge": null,
+            "price": 93,
+            "meals": 10,
+            "mealIds": [
+              102,
+              110,
+              102,
+              110,
+              102,
+              110,
+              102,
+              110,
+              102,
+              110
+            ]
+          }
+        ]
+      },
+      {
+        "category": "High Carb Meals",
+        "color": "#F5B300",
+        "items": [
+          {
+            "name": "Signature 5 — Non-Beef",
+            "variant": "Non-Beef",
+            "desc": "High carb performance meals for fuel-heavy days. 3% bundle discount applied.",
+            "badge": "POPULAR",
+            "price": 48.99,
+            "meals": 5,
+            "mealIds": [
+              107,
+              109,
+              111,
+              112,
+              105
+            ]
+          },
+          {
+            "name": "Signature 5 — Beef",
+            "variant": "Beef",
+            "desc": "Beef-based high carb signatures for sustained energy. 3% bundle discount applied.",
+            "badge": null,
+            "price": 48.99,
+            "meals": 5,
+            "mealIds": [
+              105,
+              112,
+              111,
+              105,
+              112
+            ]
+          },
+          {
+            "name": "9 Flavours of the Month",
+            "variant": null,
+            "desc": "9 rotating seasonal high carb meals, refreshed monthly. 5% bundle discount applied.",
+            "badge": "NEW",
+            "price": 88.45,
+            "meals": 9,
+            "mealIds": [
+              107,
+              109,
+              111,
+              112,
+              105,
+              107,
+              111,
+              112,
+              109
+            ]
+          },
+          {
+            "name": "Essential 10 — Non-Beef",
+            "variant": "Non-Beef",
+            "desc": "Restock your week with non-beef high carb essentials. 7% bundle discount applied.",
+            "badge": null,
+            "price": 93,
+            "meals": 10,
+            "mealIds": [
+              107,
+              109,
+              111,
+              112,
+              105,
+              107,
+              109,
+              111,
+              112,
+              105
+            ]
+          },
+          {
+            "name": "Essential 10 — Beef",
+            "variant": "Beef",
+            "desc": "Beef high carb top-up for active weeks. 7% bundle discount applied.",
+            "badge": null,
+            "price": 93,
+            "meals": 10,
+            "mealIds": [
+              105,
+              112,
+              111,
+              105,
+              112,
+              111,
+              105,
+              112,
+              111,
+              105
+            ]
+          }
+        ]
+      },
+      {
+        "category": "Just Protein",
+        "color": "#F5B300",
+        "items": [
+          {
+            "name": "JP Variety Bundle of 10",
+            "variant": null,
+            "desc": "10-meal variety of high-protein just protein serves. 3% bundle discount applied.",
+            "badge": "BESTSELLER",
+            "price": 55.1,
+            "meals": 10,
+            "mealIds": [
+              101,
+              104,
+              106,
+              108,
+              101,
+              104,
+              106,
+              108,
+              101,
+              104
+            ]
+          }
+        ]
+      },
+      {
+        "category": "Mixed Bundle",
+        "color": "#F5B300",
+        "items": [
+          {
+            "name": "7 Low Carb + 7 Just Protein",
+            "variant": "Non-Beef",
+            "desc": "14-meal mixed bundle: 7 low carb + 7 just protein serves. 7% bundle discount applied.",
+            "badge": "BEST VALUE",
+            "price": 118.3,
+            "meals": 14,
+            "mealIds": [
+              103,
+              104,
+              106,
+              108,
+              109,
+              103,
+              106,
+              101,
+              104,
+              106,
+              108,
+              101,
+              104,
+              106
+            ]
+          },
+          {
+            "name": "7 High Carb + 7 Just Protein",
+            "variant": "Non-Beef",
+            "desc": "14-meal mixed bundle: 7 high carb + 7 just protein serves. 7% bundle discount applied.",
+            "badge": null,
+            "price": 117.37,
+            "meals": 14,
+            "mealIds": [
+              107,
+              109,
+              111,
+              112,
+              105,
+              107,
+              109,
+              101,
+              104,
+              106,
+              108,
+              101,
+              104,
+              108
+            ]
+          }
+        ]
+      }
+    ],
+    "subscriptionVariants": [
+      {
+        "sku": "JPSUB01",
+        "name": "Just Protein",
+        "variant": "Non-Beef",
+        "items": 14,
+        "price3m": 252.9,
+        "price6m": 480.5,
+        "badge": null
+      },
+      {
+        "sku": "JPSUB02",
+        "name": "Just Protein",
+        "variant": "Beef",
+        "items": 14,
+        "price3m": 252.9,
+        "price6m": 480.5,
+        "badge": null
+      },
+      {
+        "sku": "LCSUB01",
+        "name": "Low Carb Meals",
+        "variant": "Non-Beef",
+        "items": 10,
+        "price3m": 303,
+        "price6m": 575.7,
+        "badge": "POPULAR"
+      },
+      {
+        "sku": "LCSUB02",
+        "name": "Low Carb Meals",
+        "variant": "Beef",
+        "items": 10,
+        "price3m": 303,
+        "price6m": 575.7,
+        "badge": null
+      },
+      {
+        "sku": "HCSUB01",
+        "name": "High Carb Meals",
+        "variant": "Non-Beef",
+        "items": 10,
+        "price3m": 303,
+        "price6m": 575.7,
+        "badge": null
+      },
+      {
+        "sku": "HCSUB02",
+        "name": "High Carb Meals",
+        "variant": "Beef",
+        "items": 10,
+        "price3m": 303,
+        "price6m": 575.7,
+        "badge": null
+      },
+      {
+        "sku": "LCMIXSUB01",
+        "name": "Low Carb + Just Protein",
+        "variant": "Non-Beef",
+        "items": 15,
+        "price3m": 354.56,
+        "price6m": 693.9,
+        "badge": "BEST VALUE"
+      },
+      {
+        "sku": "LCMIXSUB02",
+        "name": "Low Carb + Just Protein",
+        "variant": "Beef",
+        "items": 15,
+        "price3m": 354.56,
+        "price6m": 693.9,
+        "badge": null
+      },
+      {
+        "sku": "HCMIXSUB01",
+        "name": "High Carb + Just Protein",
+        "variant": "Non-Beef",
+        "items": 15,
+        "price3m": 354.56,
+        "price6m": 693.9,
+        "badge": null
+      },
+      {
+        "sku": "HCMIXSUB02",
+        "name": "High Carb + Just Protein",
+        "variant": "Beef",
+        "items": 15,
+        "price3m": 354.56,
+        "price6m": 693.9,
+        "badge": null
+      }
+    ]
+  },
+  "mealPlanMenuReference": [
+    {
+      "id": 1,
+      "name": "Herb Grilled Chicken & Brown Rice",
+      "cat": "high-carb",
+      "price": 12.4,
+      "protein": 42,
+      "carbs": 55,
+      "fat": 8,
+      "cal": 460,
+      "rating": 4.9,
+      "reviews": 284,
+      "badge": "Bestseller",
+      "img": "https://images.unsplash.com/photo-1670398564097-0762e1b30b3a?w=600&h=500&fit=crop&auto=format",
+      "desc": "Free-range chicken breast marinated overnight in rosemary, thyme, and lemon. Paired with nutty brown rice and steamed broccolini."
+    },
+    {
+      "id": 2,
+      "name": "Chilli Lime Chicken & Cauliflower Rice",
+      "cat": "low-carb",
+      "price": 12.4,
+      "protein": 40,
+      "carbs": 14,
+      "fat": 10,
+      "cal": 310,
+      "rating": 4.8,
+      "reviews": 196,
+      "badge": "Low Carb",
+      "img": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&h=500&fit=crop&auto=format",
+      "desc": "Zesty chilli-lime chicken thigh over riced cauliflower with pickled cucumber and sesame dressing."
+    },
+    {
+      "id": 3,
+      "name": "Smoked Salmon Scrambled Eggs",
+      "cat": "breakfast",
+      "price": 11.9,
+      "protein": 28,
+      "carbs": 8,
+      "fat": 16,
+      "cal": 290,
+      "rating": 4.7,
+      "reviews": 143,
+      "badge": "Breakfast",
+      "img": "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=600&h=500&fit=crop&auto=format",
+      "desc": "Slow-scrambled free-range eggs with cold-smoked Atlantic salmon, capers, and dill."
+    },
+    {
+      "id": 4,
+      "name": "Teriyaki Chicken & Jasmine Rice",
+      "cat": "high-carb",
+      "price": 12.4,
+      "protein": 38,
+      "carbs": 52,
+      "fat": 10,
+      "cal": 450,
+      "rating": 4.9,
+      "reviews": 312,
+      "badge": "New",
+      "img": "https://images.unsplash.com/photo-1772693471187-6e7d364f99ee?w=600&h=500&fit=crop&auto=format",
+      "desc": "House-made teriyaki glaze on grilled chicken, over fragrant jasmine rice with edamame and pickled ginger."
+    },
+    {
+      "id": 5,
+      "name": "Korean BBQ Beef & Purple Rice",
+      "cat": "high-carb",
+      "price": 13.9,
+      "protein": 44,
+      "carbs": 58,
+      "fat": 12,
+      "cal": 510,
+      "rating": 4.8,
+      "reviews": 201,
+      "badge": null,
+      "img": "https://images.unsplash.com/photo-1547592180-85f173990554?w=600&h=500&fit=crop&auto=format",
+      "desc": "Grass-fed beef in house gochujang marinade over antioxidant-rich purple rice with kimchi slaw."
+    },
+    {
+      "id": 6,
+      "name": "Lemon Herb Turkey Breast",
+      "cat": "just-protein",
+      "price": 11.9,
+      "protein": 46,
+      "carbs": 6,
+      "fat": 6,
+      "cal": 270,
+      "rating": 4.7,
+      "reviews": 98,
+      "badge": "Just Protein",
+      "img": "https://images.unsplash.com/photo-1563438962385-0d3dd8319200?w=600&h=500&fit=crop&auto=format",
+      "desc": "Lean turkey breast, slow-roasted with lemon and herbs. 46g protein per serve. Zero filler."
+    },
+    {
+      "id": 7,
+      "name": "Greek Chicken & Quinoa Bowl",
+      "cat": "low-carb",
+      "price": 12.4,
+      "protein": 38,
+      "carbs": 22,
+      "fat": 11,
+      "cal": 350,
+      "rating": 4.7,
+      "reviews": 155,
+      "badge": null,
+      "img": "https://images.unsplash.com/photo-1607532941433-304659e8198a?w=600&h=500&fit=crop&auto=format",
+      "desc": "Lemon oregano chicken over tri-colour quinoa with cucumber, olives, and sun-dried tomato."
+    },
+    {
+      "id": 8,
+      "name": "Overnight Protein Oats & Berries",
+      "cat": "breakfast",
+      "price": 9.9,
+      "protein": 22,
+      "carbs": 48,
+      "fat": 8,
+      "cal": 360,
+      "rating": 4.6,
+      "reviews": 88,
+      "badge": null,
+      "img": "https://images.unsplash.com/photo-1600335895229-6e75511892c8?w=600&h=500&fit=crop&auto=format",
+      "desc": "Cold-brew overnight oats with vanilla protein, blueberry compote, and toasted almonds."
+    },
+    {
+      "id": 9,
+      "name": "Cajun Salmon & Sweet Potato Mash",
+      "cat": "high-carb",
+      "price": 13.9,
+      "protein": 40,
+      "carbs": 44,
+      "fat": 14,
+      "cal": 470,
+      "rating": 4.9,
+      "reviews": 267,
+      "badge": "Staff Pick",
+      "img": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=600&h=500&fit=crop&auto=format",
+      "desc": "Atlantic salmon fillet with cajun spice crust, over whipped sweet potato and wilted spinach."
+    }
+  ],
+  "collections": [
+    {
+      "handle": "ready-series",
+      "template": "collection.ready-series",
+      "products": "Single meals; one-time only"
+    },
+    {
+      "handle": "ready-series-bundles",
+      "template": "collection.bundles",
+      "products": "Predefined one-time bundles"
+    },
+    {
+      "handle": "ready-series-subscriptions",
+      "template": "collection.subscriptions",
+      "products": "Recurring predefined bundle products with actual allocations"
+    }
+  ],
+  "pages": [
+    {
+      "handle": "meal-plan",
+      "template": "page.meal-plan"
+    },
+    {
+      "handle": "meal-plan-builder",
+      "template": "page.meal-plan-builder"
+    },
+    {
+      "handle": "about",
+      "template": "page.about"
+    },
+    {
+      "handle": "rewards",
+      "template": "page.rewards"
+    },
+    {
+      "handle": "gift-card",
+      "template": "page.gift-card"
+    },
+    {
+      "handle": "ready-series",
+      "template": "page.ready-series",
+      "optional": true
+    }
+  ],
+  "giftCard": {
+    "handle": "gift-card",
+    "template": "product.gift-card",
+    "nativeGiftCardProduct": true,
+    "referenceDenominations": [
+      25,
+      50,
+      100,
+      150
+    ]
+  },
+  "mealPlan": {
+    "marketingMessaging": [
+      "6 by 60",
+      "6 by 60 Plus"
+    ],
+    "products": [
+      {
+        "name": "Biweekly",
+        "kind": "recurring",
+        "menuWeeks": 2
+      },
+      {
+        "name": "Monthly",
+        "kind": "recurring",
+        "menuWeeks": 4
+      },
+      {
+        "name": "2 Months",
+        "kind": "recurring",
+        "menuWeeks": 4
+      },
+      {
+        "name": "6 by 60",
+        "kind": "recurring",
+        "menuWeeks": 4
+      },
+      {
+        "name": "6 by 60 Plus",
+        "kind": "recurring",
+        "menuWeeks": 4
+      }
+    ],
+    "variantOptions": [
+      "Low Carb Regular",
+      "Low Carb Regular+",
+      "Balance Regular",
+      "Balance Regular+"
+    ],
+    "mealFrequency": [
+      {
+        "name": "Lunch Only",
+        "mealsPerDay": 1
+      },
+      {
+        "name": "Lunch & Dinner",
+        "mealsPerDay": 2
+      }
+    ],
+    "note": "Every programme is subscription-only. Configure native variants and recurring allocations; 6 by 60 is marketing messaging, never a billing or order type. Merchant confirms every native price, menu_weeks, selling plan and coverage day. Populate matched programme blocks on both landing and builder. Published menu weeks represent initial choices, not full 60-day fulfilment."
+  },
+  "sellingPlans": {
+    "readySeries": [
+      "3-month term",
+      "6-month term"
+    ],
+    "mealPlan": [
+      "Recurring programme billing plan"
+    ],
+    "note": "Shopify Subscriptions is the preferred engine. Every Meal Plan product requires a recurring selling plan. Single Purchase and Bundles stay one-time; only Ready Series Subscription is recurring. 6 by 60 is marketing only."
+  },
+  "menus": [
+    {
+      "handle": "main-menu",
+      "items": [
+        "Home",
+        "Ready Series",
+        "Meal Plan",
+        "About Us",
+        "Rewards",
+        "Gift Cards",
+        "Account",
+        "Search",
+        "Cart"
+      ],
+      "note": "Header already supplies brands/About/Rewards/Account/Cart. Assign an optional header menu for extra links such as Gift Cards and Search; avoid duplicates."
+    }
+  ],
+  "metafieldDefinitions": [
+    {
+      "owner": "PRODUCT",
+      "namespace": "performance",
+      "key": "business_stream",
+      "type": "single_line_text_field",
+      "choices": [
+        "ready_series",
+        "meal_plan",
+        "shared"
+      ],
+      "storefrontAccess": "PUBLIC_READ",
+      "requiredFor": "Every Performance Meals commerce product; all variants inherit the product classification. Gift Cards use shared. Mixed carts are allowed."
+    },
+    {
+      "owner": "PRODUCT",
+      "namespace": "performance",
+      "key": "protein_g",
+      "type": "number_decimal",
+      "requiredFor": "Recorded nutrition only; optional if unknown"
+    },
+    {
+      "owner": "PRODUCT",
+      "namespace": "performance",
+      "key": "carbs_g",
+      "type": "number_decimal",
+      "requiredFor": "Recorded nutrition only; optional if unknown"
+    },
+    {
+      "owner": "PRODUCT",
+      "namespace": "performance",
+      "key": "fat_g",
+      "type": "number_decimal",
+      "requiredFor": "Recorded nutrition only; optional if unknown"
+    },
+    {
+      "owner": "PRODUCT",
+      "namespace": "performance",
+      "key": "sugar_g",
+      "type": "number_decimal",
+      "requiredFor": "Recorded nutrition only; optional if unknown"
+    },
+    {
+      "owner": "PRODUCT",
+      "namespace": "performance",
+      "key": "saturated_fat_g",
+      "type": "number_decimal",
+      "requiredFor": "Recorded nutrition only; optional if unknown"
+    },
+    {
+      "owner": "PRODUCT",
+      "namespace": "performance",
+      "key": "fibre_g",
+      "type": "number_decimal",
+      "requiredFor": "Recorded nutrition only; optional if unknown"
+    },
+    {
+      "owner": "PRODUCT",
+      "namespace": "performance",
+      "key": "sodium_mg",
+      "type": "number_decimal",
+      "requiredFor": "Recorded nutrition only; optional if unknown"
+    },
+    {
+      "owner": "PRODUCT",
+      "namespace": "performance",
+      "key": "calories_kcal",
+      "type": "number_integer"
+    },
+    {
+      "owner": "PRODUCT",
+      "namespace": "performance",
+      "key": "category",
+      "type": "single_line_text_field"
+    },
+    {
+      "owner": "PRODUCT",
+      "namespace": "performance",
+      "key": "subscription_category",
+      "type": "single_line_text_field"
+    },
+    {
+      "owner": "PRODUCT",
+      "namespace": "performance",
+      "key": "badge",
+      "type": "single_line_text_field"
+    },
+    {
+      "owner": "PRODUCT",
+      "namespace": "performance",
+      "key": "prep_time",
+      "type": "single_line_text_field"
+    },
+    {
+      "owner": "PRODUCT",
+      "namespace": "performance",
+      "key": "storage",
+      "type": "single_line_text_field"
+    },
+    {
+      "owner": "PRODUCT",
+      "namespace": "performance",
+      "key": "heat_method",
+      "type": "single_line_text_field"
+    },
+    {
+      "owner": "PRODUCT",
+      "namespace": "performance",
+      "key": "nutrition_note",
+      "type": "single_line_text_field"
+    },
+    {
+      "owner": "PRODUCT",
+      "namespace": "performance",
+      "key": "ingredients",
+      "type": "multi_line_text_field"
+    },
+    {
+      "owner": "PRODUCT",
+      "namespace": "performance",
+      "key": "allergens",
+      "type": "multi_line_text_field"
+    },
+    {
+      "owner": "PRODUCT",
+      "namespace": "performance",
+      "key": "preparation",
+      "type": "multi_line_text_field"
+    },
+    {
+      "owner": "PRODUCT",
+      "namespace": "performance",
+      "key": "highlights",
+      "type": "list.single_line_text_field"
+    },
+    {
+      "owner": "PRODUCT",
+      "namespace": "performance",
+      "key": "inclusions",
+      "type": "list.single_line_text_field"
+    },
+    {
+      "owner": "PRODUCT",
+      "namespace": "performance",
+      "key": "meal_count",
+      "type": "number_integer",
+      "minimum": 1
+    },
+    {
+      "owner": "PRODUCT",
+      "namespace": "performance",
+      "key": "menu_weeks",
+      "type": "number_integer",
+      "minimum": 1
+    },
+    {
+      "owner": "PRODUCT",
+      "namespace": "performance",
+      "key": "meals_per_day",
+      "type": "number_integer",
+      "minimum": 1
+    },
+    {
+      "owner": "PRODUCTVARIANT",
+      "namespace": "performance",
+      "key": "meals_per_day",
+      "type": "number_integer",
+      "minimum": 1
+    },
+    {
+      "owner": "PRODUCT",
+      "namespace": "performance",
+      "key": "accent_color",
+      "type": "color"
+    },
+    {
+      "owner": "PRODUCT",
+      "namespace": "performance",
+      "key": "related_products",
+      "type": "list.product_reference"
+    },
+    {
+      "owner": "PRODUCT",
+      "namespace": "performance",
+      "key": "bundle_contents",
+      "type": "list.metaobject_reference",
+      "referenceType": "performance_bundle_item",
+      "requiredFor": "Bundles and Subscription"
+    }
+  ],
+  "metaobjectDefinitions": [
+    {
+      "type": "performance_bundle_item",
+      "displayNameKey": "label",
+      "storefrontAccess": "PUBLIC_READ",
+      "fields": [
+        {
+          "key": "label",
+          "type": "single_line_text_field",
+          "required": true
+        },
+        {
+          "key": "variant",
+          "type": "variant_reference",
+          "required": true
+        },
+        {
+          "key": "product",
+          "type": "product_reference",
+          "required": false
+        },
+        {
+          "key": "quantity",
+          "type": "number_integer",
+          "required": true,
+          "minimum": 1
+        },
+        {
+          "key": "business_stream",
+          "type": "single_line_text_field",
+          "choices": [
+            "ready_series",
+            "meal_plan"
+          ],
+          "required": false,
+          "requiredByOperationalPolicy": true
+        }
+      ]
+    },
+    {
+      "type": "performance_menu_window",
+      "displayNameKey": "label",
+      "storefrontAccess": "PUBLIC_READ",
+      "fields": [
+        {
+          "key": "key",
+          "type": "single_line_text_field",
+          "required": true
+        },
+        {
+          "key": "label",
+          "type": "single_line_text_field",
+          "required": true
+        },
+        {
+          "key": "days",
+          "type": "number_integer",
+          "required": true,
+          "minimum": 1
+        },
+        {
+          "key": "meals",
+          "type": "list.product_reference",
+          "required": true
+        },
+        {
+          "key": "business_stream",
+          "type": "single_line_text_field",
+          "choices": [
+            "ready_series",
+            "meal_plan"
+          ],
+          "required": false,
+          "requiredByOperationalPolicy": true
+        }
+      ]
+    },
+    {
+      "type": "performance_menu_week",
+      "displayNameKey": "label",
+      "storefrontAccess": "PUBLIC_READ",
+      "fields": [
+        {
+          "key": "label",
+          "type": "single_line_text_field",
+          "required": true
+        },
+        {
+          "key": "starts_on",
+          "type": "date",
+          "required": true
+        },
+        {
+          "key": "ends_on",
+          "type": "date",
+          "required": true
+        },
+        {
+          "key": "cutoff_at",
+          "type": "date_time",
+          "required": true
+        },
+        {
+          "key": "programmes",
+          "type": "list.product_reference",
+          "required": false
+        },
+        {
+          "key": "windows",
+          "type": "list.metaobject_reference",
+          "referenceType": "performance_menu_window",
+          "required": true
+        },
+        {
+          "key": "business_stream",
+          "type": "single_line_text_field",
+          "choices": [
+            "ready_series",
+            "meal_plan"
+          ],
+          "required": false,
+          "requiredByOperationalPolicy": true
+        }
+      ]
+    }
+  ],
+  "reviewMetafields": [
+    {
+      "owner": "PRODUCT",
+      "namespace": "reviews",
+      "key": "rating",
+      "type": "rating"
+    },
+    {
+      "owner": "PRODUCT",
+      "namespace": "reviews",
+      "key": "rating_count",
+      "type": "number_integer",
+      "note": "Review app-owned data, never seed fake reviews."
+    }
+  ],
+  "globalThemeSettings": [
+    {
+      "name": "theme_info",
+      "theme_name": "Performance Meals",
+      "theme_version": "0.1.0",
+      "theme_author": "Performance Meals",
+      "theme_documentation_url": "https://shopify.dev/docs/storefronts/themes",
+      "theme_support_url": "https://shopify.dev/docs/storefronts/themes"
+    },
+    {
+      "name": "Brand and support",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "favicon",
+          "label": "Favicon"
+        },
+        {
+          "type": "text",
+          "id": "whatsapp_number",
+          "label": "Verified WhatsApp number (country code, digits only)"
+        },
+        {
+          "type": "text",
+          "id": "support_label",
+          "label": "Support label",
+          "default": "Performance Meals"
+        },
+        {
+          "type": "text",
+          "id": "whatsapp_message_prefix",
+          "label": "WhatsApp opening message"
+        }
+      ]
+    },
+    {
+      "name": "Meal Plan app",
+      "settings": [
+        {
+          "type": "text",
+          "id": "meal_plan_proxy_path",
+          "label": "Meal Plan app proxy path",
+          "default": "/apps/performance-meals/meal-plan",
+          "info": "Must match the installed Performance Meals Core app proxy. Checkout requires authenticated app persistence."
+        }
+      ]
+    }
+  ],
+  "sectionSchemas": {
+    "about.liquid": {
+      "name": "About Performance Meals",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text_01",
+          "label": "PERFORMANCE",
+          "default": "PERFORMANCE"
+        },
+        {
+          "type": "text",
+          "id": "text_02",
+          "label": "MEALS",
+          "default": "MEALS"
+        },
+        {
+          "type": "text",
+          "id": "text_03",
+          "label": "About Performance Meals",
+          "default": "About Performance Meals"
+        },
+        {
+          "type": "text",
+          "id": "text_04",
+          "label": "Nutrition that works",
+          "default": "Nutrition that works"
+        },
+        {
+          "type": "text",
+          "id": "text_05",
+          "label": "as hard as you do.",
+          "default": "as hard as you do."
+        },
+        {
+          "type": "textarea",
+          "id": "text_06",
+          "label": "Performance Meals is the parent brand behind two",
+          "default": "Performance Meals is the parent brand behind two distinct customer experiences — both built on one shared standard of quality, care, and honest nutrition."
+        },
+        {
+          "type": "text",
+          "id": "text_07",
+          "label": "Parent Purpose",
+          "default": "Parent Purpose"
+        },
+        {
+          "type": "text",
+          "id": "text_08",
+          "label": "To make exceptional meal prep accessible to ever",
+          "default": "To make exceptional meal prep accessible to every customer, with care in every experience."
+        },
+        {
+          "type": "text",
+          "id": "text_09",
+          "label": "Mission",
+          "default": "Mission"
+        },
+        {
+          "type": "text",
+          "id": "text_10",
+          "label": "To deliver exceptional meals and thoughtful supp",
+          "default": "To deliver exceptional meals and thoughtful support that make healthy eating easier every day."
+        },
+        {
+          "type": "text",
+          "id": "text_11",
+          "label": "What we believe",
+          "default": "What we believe"
+        },
+        {
+          "type": "textarea",
+          "id": "text_12",
+          "label": "Healthy eating is realistic support for a fuller",
+          "default": "Healthy eating is realistic support for a fuller life — not a punishment. We focus on consistency and progress rather than perfection."
+        },
+        {
+          "type": "text",
+          "id": "text_13",
+          "label": "The brand architecture",
+          "default": "The brand architecture"
+        },
+        {
+          "type": "text",
+          "id": "text_14",
+          "label": "One Standard.",
+          "default": "One Standard."
+        },
+        {
+          "type": "text",
+          "id": "text_15",
+          "label": "Two Distinct Experiences.",
+          "default": "Two Distinct Experiences."
+        },
+        {
+          "type": "textarea",
+          "id": "text_16",
+          "label": "Performance Meals sets the performance and quali",
+          "default": "Performance Meals sets the performance and quality standard. Meal Plan and Ready-Series then serve two very different customer needs — from the same trusted kitchen."
+        },
+        {
+          "type": "text",
+          "id": "text_17",
+          "label": "The Gold Standard",
+          "default": "The Gold Standard"
+        },
+        {
+          "type": "text",
+          "id": "text_18",
+          "label": "Shared food quality, performance standards, and ",
+          "default": "Shared food quality, performance standards, and brand trust across every offer."
+        },
+        {
+          "type": "text",
+          "id": "text_19",
+          "label": "PERFORMANCE MEALS",
+          "default": "PERFORMANCE MEALS"
+        },
+        {
+          "type": "text",
+          "id": "text_20",
+          "label": "MEAL PLAN",
+          "default": "MEAL PLAN"
+        },
+        {
+          "type": "text",
+          "id": "text_21",
+          "label": "When a customer needs a plan",
+          "default": "When a customer needs a plan"
+        },
+        {
+          "type": "text",
+          "id": "text_22",
+          "label": "Fresh structure for a personal goal.",
+          "default": "Fresh structure for a personal goal."
+        },
+        {
+          "type": "text",
+          "id": "text_23",
+          "label": "Fresh meals, a regular plan, and personal guidan",
+          "default": "Fresh meals, a regular plan, and personal guidance."
+        },
+        {
+          "type": "text",
+          "id": "text_24",
+          "label": "Delivers:",
+          "default": "Delivers:"
+        },
+        {
+          "type": "text",
+          "id": "text_25",
+          "label": "READY-SERIES",
+          "default": "READY-SERIES"
+        },
+        {
+          "type": "text",
+          "id": "text_26",
+          "label": "by PERFORMANCE MEALS",
+          "default": "by PERFORMANCE MEALS"
+        },
+        {
+          "type": "text",
+          "id": "text_27",
+          "label": "When life needs flexibility",
+          "default": "When life needs flexibility"
+        },
+        {
+          "type": "text",
+          "id": "text_28",
+          "label": "Frozen convenience for everyday momentum.",
+          "default": "Frozen convenience for everyday momentum."
+        },
+        {
+          "type": "text",
+          "id": "text_29",
+          "label": "Freezer-ready meals, fast prep, and easy repeat ",
+          "default": "Freezer-ready meals, fast prep, and easy repeat choices."
+        },
+        {
+          "type": "text",
+          "id": "text_30",
+          "label": "One trusted standard — delivered through a",
+          "default": "One trusted standard — delivered through a"
+        },
+        {
+          "type": "text",
+          "id": "text_31",
+          "label": "or a",
+          "default": "or a"
+        },
+        {
+          "type": "text",
+          "id": "text_32",
+          "label": "Relationship in one line",
+          "default": "Relationship in one line"
+        },
+        {
+          "type": "text",
+          "id": "text_33",
+          "label": "personalised fresh-plan experience",
+          "default": "personalised fresh-plan experience"
+        },
+        {
+          "type": "text",
+          "id": "text_34",
+          "label": "fast, flexible frozen-meal experience.",
+          "default": "fast, flexible frozen-meal experience."
+        },
+        {
+          "type": "text",
+          "id": "text_35",
+          "label": "Boutique Progress",
+          "default": "Boutique Progress"
+        },
+        {
+          "type": "text",
+          "id": "text_36",
+          "label": "Planned for your goal.",
+          "default": "Planned for your goal."
+        },
+        {
+          "type": "text",
+          "id": "text_37",
+          "label": "Delivered fresh.",
+          "default": "Delivered fresh."
+        },
+        {
+          "type": "textarea",
+          "id": "text_38",
+          "label": "For busy, goal-oriented people who want more tha",
+          "default": "For busy, goal-oriented people who want more than a generic healthy-food routine. Meal Plan combines exceptional meals with tailored support — making sustainable progress easier to build into everyday life."
+        },
+        {
+          "type": "text",
+          "id": "text_39",
+          "label": "Fresh meals prepared and delivered to a personal",
+          "default": "Fresh meals prepared and delivered to a personal plan"
+        },
+        {
+          "type": "text",
+          "id": "text_40",
+          "label": "Structured nutrition built around a real goal",
+          "default": "Structured nutrition built around a real goal"
+        },
+        {
+          "type": "text",
+          "id": "text_41",
+          "label": "Personal support — not just a menu",
+          "default": "Personal support — not just a menu"
+        },
+        {
+          "type": "text",
+          "id": "text_42",
+          "label": "Practical guidance for meaningful progress",
+          "default": "Practical guidance for meaningful progress"
+        },
+        {
+          "type": "text",
+          "id": "text_43",
+          "label": "Discover Meal Plan",
+          "default": "Discover Meal Plan"
+        },
+        {
+          "type": "text",
+          "id": "text_44",
+          "label": "Everyday Momentum",
+          "default": "Everyday Momentum"
+        },
+        {
+          "type": "text",
+          "id": "text_45",
+          "label": "FROZEN AT PEAK.",
+          "default": "FROZEN AT PEAK."
+        },
+        {
+          "type": "text",
+          "id": "text_46",
+          "label": "READY ON DEMAND.",
+          "default": "READY ON DEMAND."
+        },
+        {
+          "type": "textarea",
+          "id": "text_47",
+          "label": "For busy people who want a fast, dependable, and",
+          "default": "For busy people who want a fast, dependable, and accessible way to eat better. Ready-Series is the frozen performance-meal system that makes it easy to choose, heat, enjoy, and stay on track — whenever life gets busy."
+        },
+        {
+          "type": "text",
+          "id": "text_48",
+          "label": "Frozen at peak nutritional freshness",
+          "default": "Frozen at peak nutritional freshness"
+        },
+        {
+          "type": "text",
+          "id": "text_49",
+          "label": "Ready in minutes — zero prep required",
+          "default": "Ready in minutes — zero prep required"
+        },
+        {
+          "type": "text",
+          "id": "text_50",
+          "label": "Dependable freezer stock for unpredictable days",
+          "default": "Dependable freezer stock for unpredictable days"
+        },
+        {
+          "type": "text",
+          "id": "text_51",
+          "label": "Clear individual, bundle, and stock-up pricing",
+          "default": "Clear individual, bundle, and stock-up pricing"
+        },
+        {
+          "type": "text",
+          "id": "text_52",
+          "label": "Shop Ready-Series",
+          "default": "Shop Ready-Series"
+        },
+        {
+          "type": "text",
+          "id": "text_53",
+          "label": "One connected brand family",
+          "default": "One connected brand family"
+        },
+        {
+          "type": "text",
+          "id": "text_54",
+          "label": "One Performance Standard.",
+          "default": "One Performance Standard."
+        },
+        {
+          "type": "text",
+          "id": "text_55",
+          "label": "Two distinct experiences.",
+          "default": "Two distinct experiences."
+        },
+        {
+          "type": "textarea",
+          "id": "text_56",
+          "label": "Whether you need the structure and personal supp",
+          "default": "Whether you need the structure and personal support of Meal Plan, or the flexible convenience of Ready-Series — every meal begins with the same standard of quality that Performance Meals was built to uphold."
+        }
+      ],
+      "presets": [
+        {
+          "name": "About Performance Meals"
+        }
+      ]
+    },
+    "cart-drawer.liquid": {
+      "name": "Cart drawer",
+      "settings": []
+    },
+    "footer.liquid": {
+      "name": "Performance Meals footer",
+      "settings": [
+        {
+          "type": "url",
+          "id": "ready_series_url",
+          "label": "Ready Series Url"
+        },
+        {
+          "type": "url",
+          "id": "meal_plan_url",
+          "label": "Meal Plan Url"
+        },
+        {
+          "type": "url",
+          "id": "gift_card_url",
+          "label": "Gift Cards URL"
+        },
+        {
+          "type": "url",
+          "id": "about_url",
+          "label": "About Url"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Additional footer menu"
+        },
+        {
+          "type": "text",
+          "id": "email",
+          "label": "Email"
+        },
+        {
+          "type": "text",
+          "id": "contact",
+          "label": "Verified phone and location"
+        },
+        {
+          "type": "text",
+          "id": "company_name",
+          "label": "Company Name",
+          "default": "Performance Meals Pte. Ltd."
+        },
+        {
+          "type": "text",
+          "id": "registration",
+          "label": "Verified company registration"
+        }
+      ],
+      "presets": [
+        {
+          "name": "Performance Meals footer"
+        }
+      ]
+    },
+    "gift-card-product.liquid": {
+      "name": "Gift Card",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Shopify gift-card product"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Gift Card"
+        },
+        {
+          "type": "textarea",
+          "id": "copy",
+          "label": "Copy",
+          "default": "Give someone more time for what matters. A Performance Meals gift card lets them choose their favourites."
+        }
+      ],
+      "blocks": [
+        {
+          "type": "@app"
+        }
+      ],
+      "presets": [
+        {
+          "name": "Gift Card"
+        }
+      ]
+    },
+    "header.liquid": {
+      "name": "Performance Meals header",
+      "class": "pm-header-section",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "announcement",
+          "label": "Announcement text"
+        },
+        {
+          "type": "url",
+          "id": "meal_plan_url",
+          "label": "Meal Plan Url"
+        },
+        {
+          "type": "url",
+          "id": "ready_series_url",
+          "label": "Ready Series Url"
+        },
+        {
+          "type": "url",
+          "id": "about_url",
+          "label": "About Url"
+        },
+        {
+          "type": "url",
+          "id": "rewards_url",
+          "label": "Rewards URL"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Additional menu"
+        }
+      ],
+      "presets": [
+        {
+          "name": "Performance Meals header"
+        }
+      ]
+    },
+    "home-brands.liquid": {
+      "name": "Our brand family",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Number",
+          "default": "03"
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow",
+          "default": "OUR BRAND FAMILY"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "One Standard."
+        },
+        {
+          "type": "text",
+          "id": "heading_accent",
+          "label": "Heading Accent",
+          "default": "Two Experiences."
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Body",
+          "default": "Tap each brand to explore its story — all built on the same trusted kitchen."
+        },
+        {
+          "type": "text",
+          "id": "footer_accent",
+          "label": "Footer Accent",
+          "default": "One trusted kitchen."
+        },
+        {
+          "type": "textarea",
+          "id": "footer_body",
+          "label": "Footer Body",
+          "default": "A personalised fresh-plan or a fast, flexible frozen-meal experience."
+        }
+      ],
+      "presets": [
+        {
+          "name": "Our brand family",
+          "blocks": [
+            {
+              "type": "brand",
+              "settings": {}
+            },
+            {
+              "type": "brand",
+              "settings": {
+                "brand": "mp",
+                "logo_variant": "light",
+                "tag": "Boutique Progress",
+                "heading": "Fresh structure\nfor your\npersonal goal.",
+                "body": "Tailored support, real check-ins, and meaningful results. Designed for people who want more than a generic routine — built around your goal, delivered fresh daily.",
+                "stat": "6–12 wks",
+                "stat_label": "Avg transformation",
+                "label": "Discover Meal Plan",
+                "short_label": "Meal Plan",
+                "url": "/pages/meal-plan",
+                "background": "#E85D04",
+                "foreground": "#FFFFFF",
+                "accent": "#FFFFFF"
+              }
+            },
+            {
+              "type": "brand",
+              "settings": {
+                "brand": "rs",
+                "logo_variant": "light",
+                "tag": "Everyday Momentum",
+                "heading": "Ready for\nreal life.",
+                "body": "Fast, enjoyable frozen meals built to keep your week moving without locking you in. Dependable, repeat-friendly, and zero compromise on nutrition.",
+                "stat": "40+",
+                "stat_label": "Macro-tracked meals",
+                "label": "Shop Ready-Series",
+                "short_label": "Ready",
+                "url": "/collections/ready-series",
+                "background": "#F5B300",
+                "foreground": "#1A1A1A",
+                "accent": "#1A1A1A"
+              }
+            }
+          ]
+        }
+      ],
+      "blocks": [
+        {
+          "type": "brand",
+          "name": "Brand",
+          "settings": [
+            {
+              "type": "select",
+              "id": "brand",
+              "label": "Brand",
+              "options": [
+                {
+                  "value": "pm",
+                  "label": "Performance Meals"
+                },
+                {
+                  "value": "mp",
+                  "label": "Meal Plan"
+                },
+                {
+                  "value": "rs",
+                  "label": "Ready Series"
+                }
+              ],
+              "default": "pm"
+            },
+            {
+              "type": "select",
+              "id": "logo_variant",
+              "label": "Logo Variant",
+              "options": [
+                {
+                  "value": "dark",
+                  "label": "Dark"
+                },
+                {
+                  "value": "light",
+                  "label": "Light"
+                },
+                {
+                  "value": "yellow",
+                  "label": "Yellow"
+                }
+              ],
+              "default": "dark"
+            },
+            {
+              "type": "text",
+              "id": "tag",
+              "label": "Tag",
+              "default": "The Parent Brand"
+            },
+            {
+              "type": "textarea",
+              "id": "heading",
+              "label": "Heading",
+              "default": "Credible.\nCaring.\nPrincipled."
+            },
+            {
+              "type": "textarea",
+              "id": "body",
+              "label": "Body",
+              "default": "Performance Meals sets the purpose, standards, and shared quality foundation that both brand experiences are built on. Every meal, every customer interaction begins here."
+            },
+            {
+              "type": "text",
+              "id": "stat",
+              "label": "Stat",
+              "default": "Est. 2019"
+            },
+            {
+              "type": "text",
+              "id": "stat_label",
+              "label": "Stat Label",
+              "default": "Singapore"
+            },
+            {
+              "type": "text",
+              "id": "label",
+              "label": "Label",
+              "default": "Our Story"
+            },
+            {
+              "type": "text",
+              "id": "short_label",
+              "label": "Short Label",
+              "default": "PM"
+            },
+            {
+              "type": "url",
+              "id": "url",
+              "label": "Url"
+            },
+            {
+              "type": "color",
+              "id": "background",
+              "label": "Background",
+              "default": "#F5F2EC"
+            },
+            {
+              "type": "color",
+              "id": "foreground",
+              "label": "Foreground",
+              "default": "#1A1A1A"
+            },
+            {
+              "type": "color",
+              "id": "accent",
+              "label": "Accent",
+              "default": "#F5B300"
+            }
+          ]
+        }
+      ],
+      "max_blocks": 3
+    },
+    "home-closing.liquid": {
+      "name": "Homepage closing",
+      "settings": [
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow",
+          "default": "PERFORMANCE MEALS"
+        },
+        {
+          "type": "textarea",
+          "id": "heading",
+          "label": "Heading",
+          "default": "ONE TRUSTED STANDARD.\nTWO WAYS TO LIVE IT."
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Body",
+          "default": "Choose the experience that fits the way you want to eat."
+        },
+        {
+          "type": "text",
+          "id": "primary_label",
+          "label": "Primary Label",
+          "default": "BROWSE READY SERIES"
+        },
+        {
+          "type": "url",
+          "id": "primary_url",
+          "label": "Primary Url"
+        },
+        {
+          "type": "text",
+          "id": "secondary_label",
+          "label": "Secondary Label",
+          "default": "EXPLORE MEAL PLAN"
+        },
+        {
+          "type": "url",
+          "id": "secondary_url",
+          "label": "Secondary Url"
+        },
+        {
+          "type": "text",
+          "id": "principles",
+          "label": "Principles",
+          "default": "PRINCIPLED  •  GROUNDED"
+        },
+        {
+          "type": "textarea",
+          "id": "wordmark",
+          "label": "Wordmark",
+          "default": "PERFORMANCE\nMEALS"
+        }
+      ],
+      "presets": [
+        {
+          "name": "Homepage closing"
+        }
+      ]
+    },
+    "home-experiences.liquid": {
+      "name": "Choose your experience",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Number",
+          "default": "02"
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow",
+          "default": "ONE STANDARD. TWO DISTINCT EXPERIENCES."
+        },
+        {
+          "type": "textarea",
+          "id": "heading",
+          "label": "Heading",
+          "default": "CHOOSE HOW\nPERFORMANCE MEALS\nWORKS FOR YOU."
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Body",
+          "default": "Same belief. Same quality standard. Different jobs for different routines."
+        }
+      ],
+      "presets": [
+        {
+          "name": "Choose your experience",
+          "blocks": [
+            {
+              "type": "experience",
+              "settings": {}
+            },
+            {
+              "type": "experience",
+              "settings": {
+                "eyebrow": "MEAL PLAN",
+                "heading": "BOUTIQUE\nPROGRESS.",
+                "body": "Fresh structure, personal guidance and support around a clear goal.",
+                "label": "EXPLORE MEAL PLAN",
+                "url": "/pages/meal-plan-builder",
+                "fallback_image": "98c55.png",
+                "background": "#FFFFFF",
+                "foreground": "#1A1A1A",
+                "accent": "#E85D04"
+              }
+            }
+          ]
+        }
+      ],
+      "blocks": [
+        {
+          "type": "experience",
+          "name": "Experience",
+          "settings": [
+            {
+              "type": "text",
+              "id": "eyebrow",
+              "label": "Eyebrow",
+              "default": "READY SERIES"
+            },
+            {
+              "type": "textarea",
+              "id": "heading",
+              "label": "Heading",
+              "default": "EVERYDAY\nMOMENTUM."
+            },
+            {
+              "type": "textarea",
+              "id": "body",
+              "label": "Body",
+              "default": "Frozen convenience for changing schedules. Fast, flexible and dependable."
+            },
+            {
+              "type": "text",
+              "id": "label",
+              "label": "Label",
+              "default": "EXPLORE READY SERIES"
+            },
+            {
+              "type": "url",
+              "id": "url",
+              "label": "Url"
+            },
+            {
+              "type": "image_picker",
+              "id": "image",
+              "label": "Image"
+            },
+            {
+              "type": "select",
+              "id": "fallback_image",
+              "label": "Fallback Image",
+              "options": [
+                {
+                  "value": "d006a.png",
+                  "label": "Ready Series"
+                },
+                {
+                  "value": "98c55.png",
+                  "label": "Meal Plan"
+                }
+              ],
+              "default": "d006a.png"
+            },
+            {
+              "type": "color",
+              "id": "background",
+              "label": "Background",
+              "default": "#1A1A1A"
+            },
+            {
+              "type": "color",
+              "id": "foreground",
+              "label": "Foreground",
+              "default": "#FFFFFF"
+            },
+            {
+              "type": "color",
+              "id": "accent",
+              "label": "Accent",
+              "default": "#F5B300"
+            }
+          ]
+        }
+      ],
+      "max_blocks": 2
+    },
+    "home-hero.liquid": {
+      "name": "Homepage hero",
+      "settings": [
+        {
+          "type": "text",
+          "id": "standard",
+          "label": "Standard",
+          "default": "ONE TRUSTED STANDARD. TWO CLEAR OFFERS."
+        },
+        {
+          "type": "checkbox",
+          "id": "autoplay",
+          "label": "Auto advance every five seconds",
+          "default": true
+        }
+      ],
+      "presets": [
+        {
+          "name": "Homepage hero",
+          "blocks": [
+            {
+              "type": "slide",
+              "settings": {
+                "eyebrow": "PERFORMANCE MEALS / SINGAPORE",
+                "heading": "NUTRITION\nTHAT WORKS\nAS HARD\nAS YOU DO.",
+                "body": "Exceptional meals and thoughtful support that make healthy eating easier every day.",
+                "fallback_image": "19606.png",
+                "primary_label": "BROWSE READY SERIES",
+                "primary_url": "/collections/ready-series",
+                "secondary_label": "EXPLORE MEAL PLAN",
+                "secondary_url": "/pages/meal-plan-builder"
+              }
+            },
+            {
+              "type": "slide",
+              "settings": {
+                "eyebrow": "PERFORMANCE MEALS / MEAL PLAN",
+                "heading": "FRESH STRUCTURE,\nPERSONAL\nGUIDANCE,\nREAL RESULTS.",
+                "body": "A structured fresh-meal plan with real check-ins and support around your goal.",
+                "fallback_image": "98c55.png",
+                "primary_label": "EXPLORE MEAL PLAN",
+                "primary_url": "/pages/meal-plan-builder"
+              }
+            },
+            {
+              "type": "slide",
+              "settings": {
+                "eyebrow": "PERFORMANCE MEALS / READY-SERIES",
+                "heading": "FROZEN.\nMACRO-TRACKED.\nZERO\nCOMPROMISE.",
+                "body": "40+ chef-prepared frozen meals for busy weeks. Fast, flexible, and dependable.",
+                "fallback_image": "d006a.png",
+                "primary_label": "EXPLORE READY SERIES",
+                "primary_url": "/collections/ready-series"
+              }
+            }
+          ]
+        }
+      ],
+      "blocks": [
+        {
+          "type": "slide",
+          "name": "Slide",
+          "settings": [
+            {
+              "type": "text",
+              "id": "eyebrow",
+              "label": "Eyebrow",
+              "default": "PERFORMANCE MEALS / SINGAPORE"
+            },
+            {
+              "type": "textarea",
+              "id": "heading",
+              "label": "Heading",
+              "default": "NUTRITION\nTHAT WORKS\nAS HARD\nAS YOU DO."
+            },
+            {
+              "type": "textarea",
+              "id": "body",
+              "label": "Body",
+              "default": "Exceptional meals and thoughtful support that make healthy eating easier every day."
+            },
+            {
+              "type": "image_picker",
+              "id": "image",
+              "label": "Image"
+            },
+            {
+              "type": "text",
+              "id": "image_alt",
+              "label": "Image Alt",
+              "default": "Performance Meals chef prepared food"
+            },
+            {
+              "type": "select",
+              "id": "fallback_image",
+              "label": "Fallback Image",
+              "options": [
+                {
+                  "value": "19606.png",
+                  "label": "Hero meal"
+                },
+                {
+                  "value": "98c55.png",
+                  "label": "Meal Plan"
+                },
+                {
+                  "value": "d006a.png",
+                  "label": "Ready Series"
+                }
+              ],
+              "default": "19606.png"
+            },
+            {
+              "type": "text",
+              "id": "primary_label",
+              "label": "Primary Label",
+              "default": "BROWSE READY SERIES"
+            },
+            {
+              "type": "url",
+              "id": "primary_url",
+              "label": "Primary Url"
+            },
+            {
+              "type": "text",
+              "id": "secondary_label",
+              "label": "Secondary Label"
+            },
+            {
+              "type": "url",
+              "id": "secondary_url",
+              "label": "Secondary Url"
+            }
+          ]
+        }
+      ],
+      "max_blocks": 5
+    },
+    "home-mission.liquid": {
+      "name": "Food first mission",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Number",
+          "default": "04"
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow",
+          "default": "FOOD FIRST. PERFORMANCE FOLLOWS."
+        },
+        {
+          "type": "textarea",
+          "id": "heading",
+          "label": "Heading",
+          "default": "CONVENIENCE\nWITHOUT\nCOMPROMISE."
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Body",
+          "default": "Convenient food should still respect the ingredients, the craft and the person eating it. That principle shapes every Performance Meals experience."
+        },
+        {
+          "type": "text",
+          "id": "mission_label",
+          "label": "Mission Label",
+          "default": "OUR MISSION"
+        },
+        {
+          "type": "textarea",
+          "id": "mission",
+          "label": "Mission",
+          "default": "To deliver exceptional meals and thoughtful support that make healthy eating easier every day."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Image Alt",
+          "default": "Performance Meals food"
+        }
+      ],
+      "presets": [
+        {
+          "name": "Food first mission"
+        }
+      ]
+    },
+    "home-standard.liquid": {
+      "name": "The Performance standard",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Number",
+          "default": "01"
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow",
+          "default": "THE PARENT BRAND"
+        },
+        {
+          "type": "textarea",
+          "id": "heading",
+          "label": "Heading",
+          "default": "THE STANDARD\nBEHIND EVERY\nMEAL."
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Body",
+          "default": "Performance Meals sets the purpose, quality standard and experience behind everything we offer."
+        },
+        {
+          "type": "text",
+          "id": "principles",
+          "label": "Principles",
+          "default": "PRINCIPLED  •  GROUNDED"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Image Alt",
+          "default": "Chef preparing meals"
+        }
+      ],
+      "presets": [
+        {
+          "name": "The Performance standard",
+          "blocks": [
+            {
+              "type": "principle",
+              "settings": {
+                "title": "CHEF-LED RECIPES",
+                "body": "Craft-led food."
+              }
+            },
+            {
+              "type": "principle",
+              "settings": {
+                "title": "CLEAR NUTRITION",
+                "body": "Visible macros & ingredients."
+              }
+            },
+            {
+              "type": "principle",
+              "settings": {
+                "title": "QUALITY CONTROL",
+                "body": "Kitchen to doorstep."
+              }
+            }
+          ]
+        }
+      ],
+      "blocks": [
+        {
+          "type": "principle",
+          "name": "Principle",
+          "settings": [
+            {
+              "type": "text",
+              "id": "title",
+              "label": "Title",
+              "default": "CHEF-LED RECIPES"
+            },
+            {
+              "type": "text",
+              "id": "body",
+              "label": "Body",
+              "default": "Craft-led food."
+            }
+          ]
+        }
+      ],
+      "max_blocks": 3
+    },
+    "home-stats.liquid": {
+      "name": "Homepage statistics",
+      "settings": [],
+      "presets": [
+        {
+          "name": "Homepage statistics",
+          "blocks": [
+            {
+              "type": "stat",
+              "settings": {
+                "value": 8400,
+                "suffix": "+",
+                "label": "ACTIVE CUSTOMERS"
+              }
+            },
+            {
+              "type": "stat",
+              "settings": {
+                "value": 40,
+                "suffix": "+",
+                "label": "READY MEALS"
+              }
+            },
+            {
+              "type": "stat",
+              "settings": {
+                "value": 3,
+                "suffix": " min",
+                "label": "READY TO EAT"
+              }
+            },
+            {
+              "type": "stat",
+              "settings": {
+                "value": 2,
+                "suffix": "",
+                "label": "MAIN JOURNEYS"
+              }
+            }
+          ]
+        }
+      ],
+      "blocks": [
+        {
+          "type": "stat",
+          "name": "Statistic",
+          "settings": [
+            {
+              "type": "number",
+              "id": "value",
+              "label": "Value",
+              "default": 0
+            },
+            {
+              "type": "text",
+              "id": "suffix",
+              "label": "Suffix"
+            },
+            {
+              "type": "text",
+              "id": "label",
+              "label": "Label",
+              "default": "STATISTIC"
+            }
+          ]
+        }
+      ],
+      "max_blocks": 4
+    },
+    "main-404.liquid": {
+      "name": "404",
+      "settings": []
+    },
+    "main-cart.liquid": {
+      "name": "Cart",
+      "settings": [],
+      "presets": [
+        {
+          "name": "Cart"
+        }
+      ]
+    },
+    "main-collection.liquid": {
+      "name": "Ready Series collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection on page templates"
+        },
+        {
+          "type": "select",
+          "id": "purchase_mode",
+          "label": "Purchase mode",
+          "options": [
+            {
+              "value": "single",
+              "label": "Single Purchase — one-time"
+            },
+            {
+              "value": "bundles",
+              "label": "Bundles — one-time"
+            },
+            {
+              "value": "subscription",
+              "label": "Subscription — recurring predefined bundles"
+            }
+          ],
+          "default": "single"
+        },
+        {
+          "type": "text",
+          "id": "single_collection",
+          "label": "Single Purchase tab collection handle"
+        },
+        {
+          "type": "text",
+          "id": "bundles_collection",
+          "label": "Bundles tab collection handle"
+        },
+        {
+          "type": "text",
+          "id": "subscription_collection",
+          "label": "Subscription tab collection handle"
+        },
+        {
+          "type": "paragraph",
+          "content": "Subscriptions require real recurring selling-plan allocations from a compatible app. Native Shopify bundle products cannot be subscriptions. Store recurring predefined bundle contents and quantities in product metafields for fulfillment."
+        },
+        {
+          "type": "select",
+          "id": "palette",
+          "label": "Catalog color direction",
+          "options": [
+            {
+              "value": "dark",
+              "label": "Cold dark"
+            },
+            {
+              "value": "warm",
+              "label": "Warm cream"
+            },
+            {
+              "value": "espresso",
+              "label": "Espresso"
+            }
+          ],
+          "default": "dark"
+        },
+        {
+          "type": "image_picker",
+          "id": "hero_image",
+          "label": "Hero image"
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow",
+          "default": "Everyday Momentum"
+        },
+        {
+          "type": "textarea",
+          "id": "heading",
+          "label": "Heading",
+          "default": "FROZEN AT PEAK."
+        },
+        {
+          "type": "text",
+          "id": "accent_heading",
+          "label": "Accent heading",
+          "default": "READY ON DEMAND."
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Fast, enjoyable frozen meals that are ready when life gets busy. Keep your week moving.</p>"
+        },
+        {
+          "type": "text",
+          "id": "prep_time",
+          "label": "Ready to eat fact",
+          "default": "3 min"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_quick_view",
+          "label": "Enable quick view",
+          "default": true
+        },
+        {
+          "type": "range",
+          "id": "products_per_page",
+          "label": "Products per page",
+          "min": 8,
+          "max": 48,
+          "step": 4,
+          "default": 24
+        },
+        {
+          "type": "checkbox",
+          "id": "require_subscription_account",
+          "label": "Show sign-in for subscriptions",
+          "default": true
+        },
+        {
+          "type": "richtext",
+          "id": "subscription_description",
+          "label": "Approved subscription terms and benefits"
+        }
+      ],
+      "blocks": [
+        {
+          "type": "category",
+          "name": "Single meal category",
+          "settings": [
+            {
+              "type": "text",
+              "id": "label",
+              "label": "Label"
+            },
+            {
+              "type": "text",
+              "id": "value",
+              "label": "Exact performance.category filter value"
+            }
+          ]
+        },
+        {
+          "type": "promo",
+          "name": "Active discount message",
+          "settings": [
+            {
+              "type": "text",
+              "id": "code",
+              "label": "Existing Shopify discount code"
+            },
+            {
+              "type": "text",
+              "id": "description",
+              "label": "Approved discount description"
+            }
+          ]
+        },
+        {
+          "type": "@app"
+        }
+      ],
+      "presets": [
+        {
+          "name": "Ready Series collection"
+        }
+      ]
+    },
+    "main-page.liquid": {
+      "name": "Page",
+      "settings": [],
+      "blocks": [
+        {
+          "type": "@app"
+        }
+      ],
+      "presets": [
+        {
+          "name": "Page"
+        }
+      ]
+    },
+    "main-product.liquid": {
+      "name": "Meal product",
+      "settings": [
+        {
+          "type": "select",
+          "id": "purchase_mode",
+          "label": "Purchase mode",
+          "options": [
+            {
+              "value": "single",
+              "label": "Single Purchase — one-time"
+            },
+            {
+              "value": "bundles",
+              "label": "Bundles — one-time"
+            },
+            {
+              "value": "subscription",
+              "label": "Subscription — recurring bundle"
+            }
+          ],
+          "default": "single"
+        },
+        {
+          "type": "checkbox",
+          "id": "require_subscription_account",
+          "label": "Show sign-in for subscriptions",
+          "default": true
+        },
+        {
+          "type": "paragraph",
+          "content": "Recurring bundles need subscription-app selling plans and recorded fulfillment contents. The subscription template never permits a one-time fallback."
+        },
+        {
+          "type": "collection",
+          "id": "back_collection",
+          "label": "Keep shopping collection"
+        },
+        {
+          "type": "richtext",
+          "id": "delivery_note",
+          "label": "Approved delivery and storage note"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_dynamic_checkout",
+          "label": "Show accelerated checkout",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "show_related",
+          "label": "Show related meals",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "related_collection",
+          "label": "Related meals collection handle"
+        }
+      ],
+      "blocks": [
+        {
+          "type": "@app"
+        }
+      ],
+      "presets": [
+        {
+          "name": "Meal product"
+        }
+      ]
+    },
+    "main-search.liquid": {
+      "name": "Search",
+      "settings": [],
+      "presets": [
+        {
+          "name": "Search"
+        }
+      ]
+    },
+    "meal-plan-builder.liquid": {
+      "name": "Meal Plan builder",
+      "settings": [
+        {
+          "type": "url",
+          "id": "landing_url",
+          "label": "Meal Plan landing page"
+        },
+        {
+          "type": "checkbox",
+          "id": "require_login",
+          "label": "Require Shopify sign-in before checkout",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "unavailable_message",
+          "label": "Programme unavailable message",
+          "default": "Our meal programmes are being prepared. Please check back soon."
+        },
+        {
+          "type": "textarea",
+          "id": "menu_unavailable_message",
+          "label": "Menu unavailable message",
+          "default": "The menu for this programme is not open yet. Please check back soon."
+        }
+      ],
+      "blocks": [
+        {
+          "type": "programme",
+          "name": "Programme product",
+          "settings": [
+            {
+              "type": "product",
+              "id": "product",
+              "label": "Programme product"
+            },
+            {
+              "type": "select",
+              "id": "goal",
+              "label": "Landing page goal",
+              "options": [
+                {
+                  "value": "",
+                  "label": "No goal default"
+                },
+                {
+                  "value": "CUT",
+                  "label": "CUT"
+                },
+                {
+                  "value": "MAINTAIN",
+                  "label": "MAINTAIN"
+                },
+                {
+                  "value": "BUILD",
+                  "label": "BUILD"
+                }
+              ],
+              "default": ""
+            }
+          ]
+        },
+        {
+          "type": "@app"
+        }
+      ],
+      "presets": [
+        {
+          "name": "Meal Plan builder"
+        }
+      ]
+    },
+    "meal-plan-landing.liquid": {
+      "name": "Meal Plan",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_testimonials",
+          "label": "Show approved editorial testimonials",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "text_01",
+          "label": "Performance Meals",
+          "default": "Performance Meals"
+        },
+        {
+          "type": "text",
+          "id": "text_02",
+          "label": "PERFORMANCE MEALS",
+          "default": "PERFORMANCE MEALS"
+        },
+        {
+          "type": "text",
+          "id": "text_03",
+          "label": "MEAL PLAN",
+          "default": "MEAL PLAN"
+        },
+        {
+          "type": "text",
+          "id": "text_04",
+          "label": "Boutique Progress",
+          "default": "Boutique Progress"
+        },
+        {
+          "type": "text",
+          "id": "text_05",
+          "label": "Fresh structure.",
+          "default": "Fresh structure."
+        },
+        {
+          "type": "text",
+          "id": "text_06",
+          "label": "Personal support.",
+          "default": "Personal support."
+        },
+        {
+          "type": "textarea",
+          "id": "text_07",
+          "label": "Exceptional meals, tailored guidance, and practi",
+          "default": "Exceptional meals, tailored guidance, and practical support for meaningful progress — built around the way you actually live."
+        },
+        {
+          "type": "text",
+          "id": "text_08",
+          "label": "40+",
+          "default": "40+"
+        },
+        {
+          "type": "text",
+          "id": "text_09",
+          "label": "Fresh meal options",
+          "default": "Fresh meal options"
+        },
+        {
+          "type": "text",
+          "id": "text_10",
+          "label": "10am",
+          "default": "10am"
+        },
+        {
+          "type": "text",
+          "id": "text_11",
+          "label": "Daily delivery",
+          "default": "Daily delivery"
+        },
+        {
+          "type": "text",
+          "id": "text_12",
+          "label": "Boutique",
+          "default": "Boutique"
+        },
+        {
+          "type": "text",
+          "id": "text_13",
+          "label": "Personal support",
+          "default": "Personal support"
+        },
+        {
+          "type": "text",
+          "id": "text_14",
+          "label": "Start your plan",
+          "default": "Start your plan"
+        },
+        {
+          "type": "text",
+          "id": "text_15",
+          "label": "How it works",
+          "default": "About Us"
+        },
+        {
+          "type": "text",
+          "id": "text_16",
+          "label": "Your goals deserve consistent support.",
+          "default": "Your goals deserve consistent support."
+        },
+        {
+          "type": "text",
+          "id": "text_17",
+          "label": "Choose your goal.",
+          "default": "Choose your goal."
+        },
+        {
+          "type": "text",
+          "id": "text_18",
+          "label": "Fat Loss",
+          "default": "Fat Loss"
+        },
+        {
+          "type": "text",
+          "id": "text_19",
+          "label": "CUT",
+          "default": "CUT"
+        },
+        {
+          "type": "text",
+          "id": "text_20",
+          "label": "Structured calorie deficit with high protein ret",
+          "default": "Structured calorie deficit with high protein retention. Designed for meaningful, sustainable fat loss."
+        },
+        {
+          "type": "text",
+          "id": "text_21",
+          "label": "1,600–1,900 kcal · 40%+ protein",
+          "default": "1,600–1,900 kcal · 40%+ protein"
+        },
+        {
+          "type": "text",
+          "id": "text_22",
+          "label": "8–12 weeks recommended",
+          "default": "8–12 weeks recommended"
+        },
+        {
+          "type": "text",
+          "id": "text_23",
+          "label": "Most Common",
+          "default": "Most Common"
+        },
+        {
+          "type": "text",
+          "id": "text_24",
+          "label": "Performance",
+          "default": "Performance"
+        },
+        {
+          "type": "text",
+          "id": "text_25",
+          "label": "MAINTAIN",
+          "default": "MAINTAIN"
+        },
+        {
+          "type": "text",
+          "id": "text_26",
+          "label": "Balanced macros to sustain energy, support train",
+          "default": "Balanced macros to sustain energy, support training, and maintain your current body composition."
+        },
+        {
+          "type": "text",
+          "id": "text_27",
+          "label": "2,000–2,400 kcal · Balanced macros",
+          "default": "2,000–2,400 kcal · Balanced macros"
+        },
+        {
+          "type": "text",
+          "id": "text_28",
+          "label": "Ongoing lifestyle plan",
+          "default": "Ongoing lifestyle plan"
+        },
+        {
+          "type": "text",
+          "id": "text_29",
+          "label": "✓ Selected",
+          "default": "✓ Selected"
+        },
+        {
+          "type": "text",
+          "id": "text_30",
+          "label": "Muscle Gain",
+          "default": "Muscle Gain"
+        },
+        {
+          "type": "text",
+          "id": "text_31",
+          "label": "BUILD",
+          "default": "BUILD"
+        },
+        {
+          "type": "text",
+          "id": "text_32",
+          "label": "Calorie surplus with strategic protein timing to",
+          "default": "Calorie surplus with strategic protein timing to fuel muscle growth and recovery."
+        },
+        {
+          "type": "text",
+          "id": "text_33",
+          "label": "2,600–3,200 kcal · High protein surplus",
+          "default": "2,600–3,200 kcal · High protein surplus"
+        },
+        {
+          "type": "text",
+          "id": "text_34",
+          "label": "12–16 weeks recommended",
+          "default": "12–16 weeks recommended"
+        },
+        {
+          "type": "text",
+          "id": "text_35",
+          "label": "Start My Performance Plan →",
+          "default": "Start My Performance Plan →"
+        },
+        {
+          "type": "text",
+          "id": "text_36",
+          "label": "No long-term commitment · Cancel anytime",
+          "default": "No long-term commitment · Cancel anytime"
+        },
+        {
+          "type": "text",
+          "id": "text_37",
+          "label": "The Process",
+          "default": "The Process"
+        },
+        {
+          "type": "text",
+          "id": "text_38",
+          "label": "Four steps.",
+          "default": "Four steps."
+        },
+        {
+          "type": "text",
+          "id": "text_39",
+          "label": "Real results.",
+          "default": "Real results."
+        },
+        {
+          "type": "text",
+          "id": "text_40",
+          "label": "From setting your goal to your first delivery — ",
+          "default": "From setting your goal to your first delivery — here's exactly how it works."
+        },
+        {
+          "type": "text",
+          "id": "text_41",
+          "label": "01",
+          "default": "01"
+        },
+        {
+          "type": "text",
+          "id": "text_42",
+          "label": "Step 01",
+          "default": "Step 01"
+        },
+        {
+          "type": "text",
+          "id": "text_43",
+          "label": "Set your goal",
+          "default": "Set your goal"
+        },
+        {
+          "type": "text",
+          "id": "text_44",
+          "label": "CUT, MAINTAIN, or BUILD. We build your plan from",
+          "default": "CUT, MAINTAIN, or BUILD. We build your plan from your target, not the other way around."
+        },
+        {
+          "type": "text",
+          "id": "text_45",
+          "label": "02",
+          "default": "02"
+        },
+        {
+          "type": "text",
+          "id": "text_46",
+          "label": "Step 02",
+          "default": "Step 02"
+        },
+        {
+          "type": "text",
+          "id": "text_47",
+          "label": "Choose your meals",
+          "default": "Choose your meals"
+        },
+        {
+          "type": "text",
+          "id": "text_48",
+          "label": "Select from 40+ fresh chef-prepared options. Swa",
+          "default": "Select from 40+ fresh chef-prepared options. Swap any meal you don't love."
+        },
+        {
+          "type": "text",
+          "id": "text_49",
+          "label": "03",
+          "default": "03"
+        },
+        {
+          "type": "text",
+          "id": "text_50",
+          "label": "Step 03",
+          "default": "Step 03"
+        },
+        {
+          "type": "text",
+          "id": "text_51",
+          "label": "We prep, you receive",
+          "default": "We prep, you receive"
+        },
+        {
+          "type": "text",
+          "id": "text_52",
+          "label": "Prepared daily in our Singapore kitchen. Deliver",
+          "default": "Prepared daily in our Singapore kitchen. Delivered fresh the next morning by 10am."
+        },
+        {
+          "type": "text",
+          "id": "text_53",
+          "label": "04",
+          "default": "04"
+        },
+        {
+          "type": "text",
+          "id": "text_54",
+          "label": "Step 04",
+          "default": "Step 04"
+        },
+        {
+          "type": "text",
+          "id": "text_55",
+          "label": "Track and adjust",
+          "default": "Track and adjust"
+        },
+        {
+          "type": "text",
+          "id": "text_56",
+          "label": "Personal check-ins, macro reports, and a team th",
+          "default": "Personal check-ins, macro reports, and a team that actually responds. This is boutique service."
+        },
+        {
+          "type": "text",
+          "id": "text_57",
+          "label": "Ready to start? The whole process takes under 5 ",
+          "default": "Ready to start? The whole process takes under 5 minutes."
+        },
+        {
+          "type": "text",
+          "id": "text_58",
+          "label": "Begin My Plan",
+          "default": "Begin My Plan"
+        },
+        {
+          "type": "text",
+          "id": "text_59",
+          "label": "Structured plans",
+          "default": "Structured plans"
+        },
+        {
+          "type": "text",
+          "id": "text_60",
+          "label": "Choose your frequency.",
+          "default": "Choose your frequency."
+        },
+        {
+          "type": "text",
+          "id": "text_61",
+          "label": "Real results",
+          "default": "Real results"
+        },
+        {
+          "type": "text",
+          "id": "text_62",
+          "label": "★",
+          "default": "★"
+        },
+        {
+          "type": "text",
+          "id": "text_63",
+          "label": "\"Down 9kg. My nutritionist was impressed. The pe",
+          "default": "\"Down 9kg. My nutritionist was impressed. The personalised check-ins made the difference.\""
+        },
+        {
+          "type": "text",
+          "id": "text_64",
+          "label": "Jonathan C.",
+          "default": "Jonathan C."
+        },
+        {
+          "type": "text",
+          "id": "text_65",
+          "label": "CUT plan, 12 weeks",
+          "default": "CUT plan, 12 weeks"
+        },
+        {
+          "type": "text",
+          "id": "text_66",
+          "label": "\"Finally stopped guessing what to eat. The plan ",
+          "default": "\"Finally stopped guessing what to eat. The plan fits my training schedule perfectly.\""
+        },
+        {
+          "type": "text",
+          "id": "text_67",
+          "label": "Mei Lin T.",
+          "default": "Mei Lin T."
+        },
+        {
+          "type": "text",
+          "id": "text_68",
+          "label": "MAINTAIN plan, 6 months",
+          "default": "MAINTAIN plan, 6 months"
+        },
+        {
+          "type": "text",
+          "id": "text_69",
+          "label": "\"Gained 4kg lean mass. The calorie surplus meals",
+          "default": "\"Gained 4kg lean mass. The calorie surplus meals actually taste great — that was unexpected.\""
+        },
+        {
+          "type": "text",
+          "id": "text_70",
+          "label": "Ravi S.",
+          "default": "Ravi S."
+        },
+        {
+          "type": "text",
+          "id": "text_71",
+          "label": "BUILD plan, 8 weeks",
+          "default": "BUILD plan, 8 weeks"
+        },
+        {
+          "type": "text",
+          "id": "text_72",
+          "label": "Ready Series",
+          "default": "Ready Series"
+        },
+        {
+          "type": "text",
+          "id": "text_73",
+          "label": "Looking for single meals, no subscription?",
+          "default": "Looking for single meals, no subscription?"
+        },
+        {
+          "type": "text",
+          "id": "text_74",
+          "label": "Order individual ready-to-eat meals and bundles ",
+          "default": "Order individual ready-to-eat meals and bundles — no commitment, no plan."
+        },
+        {
+          "type": "text",
+          "id": "text_75",
+          "label": "Browse Ready Series →",
+          "default": "Browse Ready Series →"
+        },
+        {
+          "type": "text",
+          "id": "text_76",
+          "label": "The Meal Plan promise",
+          "default": "The Meal Plan promise"
+        },
+        {
+          "type": "text",
+          "id": "text_77",
+          "label": "Your goals deserve consistent support. Start you",
+          "default": "Your goals deserve consistent support. Start your plan today."
+        },
+        {
+          "type": "text",
+          "id": "text_78",
+          "label": "Personalised guidance. Goal-led meal selection. ",
+          "default": "Personalised guidance. Goal-led meal selection. Real support from real people."
+        },
+        {
+          "type": "text",
+          "id": "text_79",
+          "label": "Start Your Plan →",
+          "default": "Start Your Plan →"
+        }
+      ],
+      "presets": [
+        {
+          "name": "Meal Plan"
+        }
+      ],
+      "blocks": [
+        {
+          "type": "plan",
+          "name": "Plan product",
+          "settings": [
+            {
+              "type": "product",
+              "id": "product",
+              "label": "Shopify plan product"
+            },
+            {
+              "type": "text",
+              "id": "heading",
+              "label": "Heading",
+              "default": "Meal Plan"
+            },
+            {
+              "type": "textarea",
+              "id": "description",
+              "label": "Description",
+              "default": "Choose a plan that supports your routine."
+            }
+          ]
+        }
+      ]
+    },
+    "promo-popup.liquid": {
+      "name": "Promotion popup",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "enabled",
+          "label": "Enable after configuring real offers in Shopify",
+          "default": false
+        },
+        {
+          "type": "range",
+          "id": "delay",
+          "label": "Delay (seconds)",
+          "min": 1,
+          "max": 30,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow",
+          "default": "THIS WEEK ONLY"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "20% OFF THE MEALS THAT KEEP UP."
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Body",
+          "default": "Save on selected Ready Series meals. Stock the freezer once and move through Singapore's busiest days without missing dinner."
+        },
+        {
+          "type": "text",
+          "id": "code",
+          "label": "Active Shopify discount code"
+        },
+        {
+          "type": "textarea",
+          "id": "terms",
+          "label": "Verified offer expiry and terms"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Shop selected meals"
+        },
+        {
+          "type": "text",
+          "id": "subscription_heading",
+          "label": "Subscription Heading",
+          "default": "SET THE FREEZER. SAVE EVERY CYCLE."
+        },
+        {
+          "type": "textarea",
+          "id": "subscription_body",
+          "label": "Subscription Body",
+          "default": "Choose a package. Pause, skip or cancel anytime."
+        },
+        {
+          "type": "textarea",
+          "id": "subscription_note",
+          "label": "Subscription Note"
+        }
+      ],
+      "presets": [
+        {
+          "name": "Promotion popup"
+        }
+      ],
+      "blocks": [
+        {
+          "type": "offer",
+          "name": "Subscription product",
+          "settings": [
+            {
+              "type": "product",
+              "id": "product",
+              "label": "Product"
+            },
+            {
+              "type": "text",
+              "id": "description",
+              "label": "Description"
+            },
+            {
+              "type": "text",
+              "id": "savings",
+              "label": "Verified savings"
+            },
+            {
+              "type": "checkbox",
+              "id": "featured",
+              "label": "Featured",
+              "default": false
+            }
+          ]
+        },
+        {
+          "type": "@app"
+        }
+      ],
+      "max_blocks": 3
+    },
+    "rewards.liquid": {
+      "name": "Rewards",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "programme_active",
+          "label": "Show rewards programme (requires loyalty app)",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "text_01",
+          "label": "Performance Meals Rewards",
+          "default": "Performance Meals Rewards"
+        },
+        {
+          "type": "text",
+          "id": "text_02",
+          "label": "Eat well.",
+          "default": "Eat well."
+        },
+        {
+          "type": "text",
+          "id": "text_03",
+          "label": "Get rewarded.",
+          "default": "Get rewarded."
+        },
+        {
+          "type": "text",
+          "id": "text_04",
+          "label": "Earn points on every order, unlock tiers, and re",
+          "default": "Earn points on every order, unlock tiers, and redeem for wallet credit. The more you eat, the more you save."
+        },
+        {
+          "type": "text",
+          "id": "text_05",
+          "label": "Start Earning →",
+          "default": "Start Earning →"
+        },
+        {
+          "type": "text",
+          "id": "text_06",
+          "label": "Sign In / Join",
+          "default": "Sign In / Join"
+        },
+        {
+          "type": "text",
+          "id": "text_07",
+          "label": "How It Works",
+          "default": "How It Works"
+        },
+        {
+          "type": "text",
+          "id": "text_08",
+          "label": "Three simple steps",
+          "default": "Three simple steps"
+        },
+        {
+          "type": "text",
+          "id": "text_09",
+          "label": ".",
+          "default": "."
+        },
+        {
+          "type": "text",
+          "id": "text_10",
+          "label": "01",
+          "default": "01"
+        },
+        {
+          "type": "text",
+          "id": "text_11",
+          "label": "Order any meal",
+          "default": "Order any meal"
+        },
+        {
+          "type": "text",
+          "id": "text_12",
+          "label": "Every $1 spent earns you points. Meal Plan order",
+          "default": "Every $1 spent earns you points. Meal Plan orders earn 1.5× points automatically."
+        },
+        {
+          "type": "text",
+          "id": "text_13",
+          "label": "02",
+          "default": "02"
+        },
+        {
+          "type": "text",
+          "id": "text_14",
+          "label": "Points stack up",
+          "default": "Points stack up"
+        },
+        {
+          "type": "text",
+          "id": "text_15",
+          "label": "No expiry on points as long as you order once ev",
+          "default": "No expiry on points as long as you order once every 90 days. Referrals earn 200 bonus pts per friend."
+        },
+        {
+          "type": "text",
+          "id": "text_16",
+          "label": "03",
+          "default": "03"
+        },
+        {
+          "type": "text",
+          "id": "text_17",
+          "label": "Redeem for credit",
+          "default": "Redeem for credit"
+        },
+        {
+          "type": "text",
+          "id": "text_18",
+          "label": "Choose a voucher tier: 500 pts = $5 · 1,000 pts ",
+          "default": "Choose a voucher tier: 500 pts = $5 · 1,000 pts = $11 · 2,000 pts = $25. Applied at checkout instantly."
+        },
+        {
+          "type": "text",
+          "id": "text_19",
+          "label": "Voucher Tiers",
+          "default": "Voucher Tiers"
+        },
+        {
+          "type": "text",
+          "id": "text_20",
+          "label": "$5",
+          "default": "$5"
+        },
+        {
+          "type": "text",
+          "id": "text_21",
+          "label": "500 pts",
+          "default": "500 pts"
+        },
+        {
+          "type": "text",
+          "id": "text_22",
+          "label": "Starter voucher",
+          "default": "Starter voucher"
+        },
+        {
+          "type": "text",
+          "id": "text_23",
+          "label": "$11",
+          "default": "$11"
+        },
+        {
+          "type": "text",
+          "id": "text_24",
+          "label": "1,000 pts",
+          "default": "1,000 pts"
+        },
+        {
+          "type": "text",
+          "id": "text_25",
+          "label": "10% bonus",
+          "default": "10% bonus"
+        },
+        {
+          "type": "text",
+          "id": "text_26",
+          "label": "Value voucher",
+          "default": "Value voucher"
+        },
+        {
+          "type": "text",
+          "id": "text_27",
+          "label": "$25",
+          "default": "$25"
+        },
+        {
+          "type": "text",
+          "id": "text_28",
+          "label": "2,000 pts",
+          "default": "2,000 pts"
+        },
+        {
+          "type": "text",
+          "id": "text_29",
+          "label": "25% bonus",
+          "default": "25% bonus"
+        },
+        {
+          "type": "text",
+          "id": "text_30",
+          "label": "Premium voucher",
+          "default": "Premium voucher"
+        },
+        {
+          "type": "text",
+          "id": "text_31",
+          "label": "Applied instantly at checkout — no codes needed.",
+          "default": "Applied instantly at checkout — no codes needed. Combine with promos for maximum savings."
+        },
+        {
+          "type": "text",
+          "id": "text_32",
+          "label": "Membership Tiers",
+          "default": "Membership Tiers"
+        },
+        {
+          "type": "text",
+          "id": "text_33",
+          "label": "The more you order, the better it gets",
+          "default": "The more you order, the better it gets"
+        },
+        {
+          "type": "text",
+          "id": "text_34",
+          "label": "Starter",
+          "default": "Starter"
+        },
+        {
+          "type": "text",
+          "id": "text_35",
+          "label": "0–499 pts",
+          "default": "0–499 pts"
+        },
+        {
+          "type": "text",
+          "id": "text_36",
+          "label": "1 pt per $1 spent",
+          "default": "1 pt per $1 spent"
+        },
+        {
+          "type": "text",
+          "id": "text_37",
+          "label": "✓",
+          "default": "✓"
+        },
+        {
+          "type": "text",
+          "id": "text_38",
+          "label": "Birthday bonus meal",
+          "default": "Birthday bonus meal"
+        },
+        {
+          "type": "text",
+          "id": "text_39",
+          "label": "Early access to new menus",
+          "default": "Early access to new menus"
+        },
+        {
+          "type": "text",
+          "id": "text_40",
+          "label": "Gold",
+          "default": "Gold"
+        },
+        {
+          "type": "text",
+          "id": "text_41",
+          "label": "500–1,999 pts",
+          "default": "500–1,999 pts"
+        },
+        {
+          "type": "text",
+          "id": "text_42",
+          "label": "1.5 pts per $1 spent",
+          "default": "1.5 pts per $1 spent"
+        },
+        {
+          "type": "text",
+          "id": "text_43",
+          "label": "Free delivery on all orders",
+          "default": "Free delivery on all orders"
+        },
+        {
+          "type": "text",
+          "id": "text_44",
+          "label": "Priority customer support",
+          "default": "Priority customer support"
+        },
+        {
+          "type": "text",
+          "id": "text_45",
+          "label": "Exclusive Gold bundles",
+          "default": "Exclusive Gold bundles"
+        },
+        {
+          "type": "text",
+          "id": "text_46",
+          "label": "Platinum",
+          "default": "Platinum"
+        },
+        {
+          "type": "text",
+          "id": "text_47",
+          "label": "2,000+ pts",
+          "default": "2,000+ pts"
+        },
+        {
+          "type": "text",
+          "id": "text_48",
+          "label": "2 pts per $1 spent",
+          "default": "2 pts per $1 spent"
+        },
+        {
+          "type": "text",
+          "id": "text_49",
+          "label": "Monthly free meal",
+          "default": "Monthly free meal"
+        },
+        {
+          "type": "text",
+          "id": "text_50",
+          "label": "Dedicated account manager",
+          "default": "Dedicated account manager"
+        },
+        {
+          "type": "text",
+          "id": "text_51",
+          "label": "Invite-only events & tastings",
+          "default": "Invite-only events & tastings"
+        },
+        {
+          "type": "text",
+          "id": "text_52",
+          "label": "FAQ",
+          "default": "FAQ"
+        },
+        {
+          "type": "text",
+          "id": "text_53",
+          "label": "Common questions",
+          "default": "Common questions"
+        },
+        {
+          "type": "text",
+          "id": "text_54",
+          "label": "When do I earn points?",
+          "default": "When do I earn points?"
+        },
+        {
+          "type": "text",
+          "id": "text_55",
+          "label": "Points are credited within 24 hours of your orde",
+          "default": "Points are credited within 24 hours of your order being delivered. Cancelled or refunded orders do not earn points."
+        },
+        {
+          "type": "text",
+          "id": "text_56",
+          "label": "Do points expire?",
+          "default": "Do points expire?"
+        },
+        {
+          "type": "textarea",
+          "id": "text_57",
+          "label": "Points remain valid as long as you place at leas",
+          "default": "Points remain valid as long as you place at least one order every 90 days. Your tier resets annually on your account anniversary."
+        },
+        {
+          "type": "text",
+          "id": "text_58",
+          "label": "Can I earn points on bundles?",
+          "default": "Can I earn points on bundles?"
+        },
+        {
+          "type": "text",
+          "id": "text_59",
+          "label": "Yes — bundles earn the same points as individual",
+          "default": "Yes — bundles earn the same points as individual meal orders. Meal Plans earn 1.5× the standard rate."
+        },
+        {
+          "type": "text",
+          "id": "text_60",
+          "label": "How do I refer a friend?",
+          "default": "How do I refer a friend?"
+        },
+        {
+          "type": "text",
+          "id": "text_61",
+          "label": "Share your unique referral link from your accoun",
+          "default": "Share your unique referral link from your account dashboard. You earn 200 pts when they place their first order."
+        },
+        {
+          "type": "text",
+          "id": "text_62",
+          "label": "Ready to start earning",
+          "default": "Ready to start earning"
+        },
+        {
+          "type": "text",
+          "id": "text_63",
+          "label": "?",
+          "default": "?"
+        },
+        {
+          "type": "text",
+          "id": "text_64",
+          "label": "Join thousands of members already earning reward",
+          "default": "Join thousands of members already earning rewards on every meal."
+        },
+        {
+          "type": "text",
+          "id": "text_65",
+          "label": "Shop Ready Series",
+          "default": "Shop Ready Series"
+        },
+        {
+          "type": "text",
+          "id": "text_66",
+          "label": "Start a Meal Plan",
+          "default": "Start a Meal Plan"
+        }
+      ],
+      "presets": [
+        {
+          "name": "Rewards"
+        }
+      ],
+      "blocks": [
+        {
+          "type": "@app"
+        }
+      ]
+    }
+  },
+  "themeTemplates": {
+    "404.json": {
+      "sections": {
+        "main": {
+          "type": "main-404",
+          "settings": {}
+        }
+      },
+      "order": [
+        "main"
+      ]
+    },
+    "cart.json": {
+      "sections": {
+        "main": {
+          "type": "main-cart",
+          "settings": {}
+        }
+      },
+      "order": [
+        "main"
+      ]
+    },
+    "collection.bundles.json": {
+      "sections": {
+        "main": {
+          "type": "main-collection",
+          "settings": {
+            "purchase_mode": "bundles",
+            "palette": "dark",
+            "collection": "ready-series-bundles",
+            "single_collection": "ready-series",
+            "bundles_collection": "ready-series-bundles",
+            "subscription_collection": "ready-series-subscriptions",
+            "products_per_page": 24,
+            "show_quick_view": true,
+            "require_subscription_account": true
+          }
+        }
+      },
+      "order": [
+        "main"
+      ]
+    },
+    "collection.json": {
+      "sections": {
+        "main": {
+          "type": "main-collection",
+          "settings": {
+            "purchase_mode": "single",
+            "palette": "dark",
+            "collection": "ready-series",
+            "single_collection": "ready-series",
+            "bundles_collection": "ready-series-bundles",
+            "subscription_collection": "ready-series-subscriptions",
+            "products_per_page": 24,
+            "show_quick_view": true,
+            "require_subscription_account": true
+          },
+          "blocks": {
+            "low": {
+              "type": "category",
+              "settings": {
+                "label": "Low Carb",
+                "value": "Low Carb"
+              }
+            },
+            "high": {
+              "type": "category",
+              "settings": {
+                "label": "High Carb",
+                "value": "High Carb"
+              }
+            },
+            "protein": {
+              "type": "category",
+              "settings": {
+                "label": "Just Protein",
+                "value": "Just Protein"
+              }
+            }
+          },
+          "block_order": [
+            "low",
+            "high",
+            "protein"
+          ]
+        }
+      },
+      "order": [
+        "main"
+      ]
+    },
+    "collection.ready-series.json": {
+      "sections": {
+        "main": {
+          "type": "main-collection",
+          "settings": {
+            "purchase_mode": "single",
+            "palette": "dark",
+            "collection": "ready-series",
+            "single_collection": "ready-series",
+            "bundles_collection": "ready-series-bundles",
+            "subscription_collection": "ready-series-subscriptions",
+            "products_per_page": 24,
+            "show_quick_view": true,
+            "require_subscription_account": true
+          },
+          "blocks": {
+            "low": {
+              "type": "category",
+              "settings": {
+                "label": "Low Carb",
+                "value": "Low Carb"
+              }
+            },
+            "high": {
+              "type": "category",
+              "settings": {
+                "label": "High Carb",
+                "value": "High Carb"
+              }
+            },
+            "protein": {
+              "type": "category",
+              "settings": {
+                "label": "Just Protein",
+                "value": "Just Protein"
+              }
+            }
+          },
+          "block_order": [
+            "low",
+            "high",
+            "protein"
+          ]
+        }
+      },
+      "order": [
+        "main"
+      ]
+    },
+    "collection.subscriptions.json": {
+      "sections": {
+        "main": {
+          "type": "main-collection",
+          "settings": {
+            "purchase_mode": "subscription",
+            "palette": "dark",
+            "collection": "ready-series-subscriptions",
+            "single_collection": "ready-series",
+            "bundles_collection": "ready-series-bundles",
+            "subscription_collection": "ready-series-subscriptions",
+            "products_per_page": 24,
+            "show_quick_view": true,
+            "require_subscription_account": true
+          }
+        }
+      },
+      "order": [
+        "main"
+      ]
+    },
+    "index.json": {
+      "sections": {
+        "hero": {
+          "type": "home-hero",
+          "settings": {},
+          "blocks": {
+            "1": {
+              "type": "slide",
+              "settings": {
+                "eyebrow": "PERFORMANCE MEALS / SINGAPORE",
+                "heading": "NUTRITION\nTHAT WORKS\nAS HARD\nAS YOU DO.",
+                "body": "Exceptional meals and thoughtful support that make healthy eating easier every day.",
+                "fallback_image": "19606.png",
+                "primary_label": "BROWSE READY SERIES",
+                "primary_url": "/collections/ready-series",
+                "secondary_label": "EXPLORE MEAL PLAN",
+                "secondary_url": "/pages/meal-plan-builder"
+              }
+            },
+            "2": {
+              "type": "slide",
+              "settings": {
+                "eyebrow": "PERFORMANCE MEALS / MEAL PLAN",
+                "heading": "FRESH STRUCTURE,\nPERSONAL\nGUIDANCE,\nREAL RESULTS.",
+                "body": "A structured fresh-meal plan with real check-ins and support around your goal.",
+                "fallback_image": "98c55.png",
+                "primary_label": "EXPLORE MEAL PLAN",
+                "primary_url": "/pages/meal-plan-builder"
+              }
+            },
+            "3": {
+              "type": "slide",
+              "settings": {
+                "eyebrow": "PERFORMANCE MEALS / READY-SERIES",
+                "heading": "FROZEN.\nMACRO-TRACKED.\nZERO\nCOMPROMISE.",
+                "body": "40+ chef-prepared frozen meals for busy weeks. Fast, flexible, and dependable.",
+                "fallback_image": "d006a.png",
+                "primary_label": "EXPLORE READY SERIES",
+                "primary_url": "/collections/ready-series"
+              }
+            }
+          },
+          "block_order": [
+            "1",
+            "2",
+            "3"
+          ]
+        },
+        "stats": {
+          "type": "home-stats",
+          "settings": {},
+          "blocks": {
+            "1": {
+              "type": "stat",
+              "settings": {
+                "value": 8400,
+                "suffix": "+",
+                "label": "ACTIVE CUSTOMERS"
+              }
+            },
+            "2": {
+              "type": "stat",
+              "settings": {
+                "value": 40,
+                "suffix": "+",
+                "label": "READY MEALS"
+              }
+            },
+            "3": {
+              "type": "stat",
+              "settings": {
+                "value": 3,
+                "suffix": " min",
+                "label": "READY TO EAT"
+              }
+            },
+            "4": {
+              "type": "stat",
+              "settings": {
+                "value": 2,
+                "suffix": "",
+                "label": "MAIN JOURNEYS"
+              }
+            }
+          },
+          "block_order": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        "standard": {
+          "type": "home-standard",
+          "settings": {},
+          "blocks": {
+            "1": {
+              "type": "principle",
+              "settings": {
+                "title": "CHEF-LED RECIPES",
+                "body": "Craft-led food."
+              }
+            },
+            "2": {
+              "type": "principle",
+              "settings": {
+                "title": "CLEAR NUTRITION",
+                "body": "Visible macros & ingredients."
+              }
+            },
+            "3": {
+              "type": "principle",
+              "settings": {
+                "title": "QUALITY CONTROL",
+                "body": "Kitchen to doorstep."
+              }
+            }
+          },
+          "block_order": [
+            "1",
+            "2",
+            "3"
+          ]
+        },
+        "experiences": {
+          "type": "home-experiences",
+          "settings": {},
+          "blocks": {
+            "1": {
+              "type": "experience",
+              "settings": {}
+            },
+            "2": {
+              "type": "experience",
+              "settings": {
+                "eyebrow": "MEAL PLAN",
+                "heading": "BOUTIQUE\nPROGRESS.",
+                "body": "Fresh structure, personal guidance and support around a clear goal.",
+                "label": "EXPLORE MEAL PLAN",
+                "url": "/pages/meal-plan-builder",
+                "fallback_image": "98c55.png",
+                "background": "#FFFFFF",
+                "foreground": "#1A1A1A",
+                "accent": "#E85D04"
+              }
+            }
+          },
+          "block_order": [
+            "1",
+            "2"
+          ]
+        },
+        "brands": {
+          "type": "home-brands",
+          "settings": {},
+          "blocks": {
+            "1": {
+              "type": "brand",
+              "settings": {}
+            },
+            "2": {
+              "type": "brand",
+              "settings": {
+                "brand": "mp",
+                "logo_variant": "light",
+                "tag": "Boutique Progress",
+                "heading": "Fresh structure\nfor your\npersonal goal.",
+                "body": "Tailored support, real check-ins, and meaningful results. Designed for people who want more than a generic routine — built around your goal, delivered fresh daily.",
+                "stat": "6–12 wks",
+                "stat_label": "Avg transformation",
+                "label": "Discover Meal Plan",
+                "short_label": "Meal Plan",
+                "url": "/pages/meal-plan",
+                "background": "#E85D04",
+                "foreground": "#FFFFFF",
+                "accent": "#FFFFFF"
+              }
+            },
+            "3": {
+              "type": "brand",
+              "settings": {
+                "brand": "rs",
+                "logo_variant": "light",
+                "tag": "Everyday Momentum",
+                "heading": "Ready for\nreal life.",
+                "body": "Fast, enjoyable frozen meals built to keep your week moving without locking you in. Dependable, repeat-friendly, and zero compromise on nutrition.",
+                "stat": "40+",
+                "stat_label": "Macro-tracked meals",
+                "label": "Shop Ready-Series",
+                "short_label": "Ready",
+                "url": "/collections/ready-series",
+                "background": "#F5B300",
+                "foreground": "#1A1A1A",
+                "accent": "#1A1A1A"
+              }
+            }
+          },
+          "block_order": [
+            "1",
+            "2",
+            "3"
+          ]
+        },
+        "mission": {
+          "type": "home-mission",
+          "settings": {}
+        },
+        "closing": {
+          "type": "home-closing",
+          "settings": {}
+        }
+      },
+      "order": [
+        "hero",
+        "stats",
+        "standard",
+        "experiences",
+        "brands",
+        "mission",
+        "closing"
+      ]
+    },
+    "page.about.json": {
+      "sections": {
+        "main": {
+          "type": "about",
+          "settings": {}
+        }
+      },
+      "order": [
+        "main"
+      ]
+    },
+    "page.gift-card.json": {
+      "sections": {
+        "main": {
+          "type": "gift-card-product",
+          "settings": {
+            "product": "gift-card"
+          }
+        }
+      },
+      "order": [
+        "main"
+      ]
+    },
+    "page.json": {
+      "sections": {
+        "main": {
+          "type": "main-page",
+          "settings": {}
+        }
+      },
+      "order": [
+        "main"
+      ]
+    },
+    "page.meal-plan-builder.json": {
+      "sections": {
+        "main": {
+          "type": "meal-plan-builder",
+          "settings": {}
+        }
+      },
+      "order": [
+        "main"
+      ]
+    },
+    "page.meal-plan.json": {
+      "sections": {
+        "main": {
+          "type": "meal-plan-landing",
+          "settings": {},
+          "blocks": {
+            "lunch": {
+              "type": "plan",
+              "settings": {
+                "heading": "Lunch Only",
+                "description": "5 lunches per delivery. Clean fuel for your workday, zero prep."
+              }
+            },
+            "dinner": {
+              "type": "plan",
+              "settings": {
+                "heading": "Lunch + Dinner",
+                "description": "Lunch and dinner covered Mon–Fri."
+              }
+            },
+            "full": {
+              "type": "plan",
+              "settings": {
+                "heading": "Full Programme",
+                "description": "Lunch + dinner across your full programme. Maximum consistency."
+              }
+            }
+          },
+          "block_order": [
+            "lunch",
+            "dinner",
+            "full"
+          ]
+        }
+      },
+      "order": [
+        "main"
+      ]
+    },
+    "page.ready-series.json": {
+      "sections": {
+        "main": {
+          "type": "main-collection",
+          "settings": {
+            "purchase_mode": "single",
+            "palette": "dark",
+            "collection": "ready-series",
+            "single_collection": "ready-series",
+            "bundles_collection": "ready-series-bundles",
+            "subscription_collection": "ready-series-subscriptions",
+            "products_per_page": 24,
+            "show_quick_view": true,
+            "require_subscription_account": true
+          },
+          "blocks": {
+            "low": {
+              "type": "category",
+              "settings": {
+                "label": "Low Carb",
+                "value": "Low Carb"
+              }
+            },
+            "high": {
+              "type": "category",
+              "settings": {
+                "label": "High Carb",
+                "value": "High Carb"
+              }
+            },
+            "protein": {
+              "type": "category",
+              "settings": {
+                "label": "Just Protein",
+                "value": "Just Protein"
+              }
+            }
+          },
+          "block_order": [
+            "low",
+            "high",
+            "protein"
+          ]
+        }
+      },
+      "order": [
+        "main"
+      ]
+    },
+    "page.rewards.json": {
+      "sections": {
+        "main": {
+          "type": "rewards",
+          "settings": {}
+        }
+      },
+      "order": [
+        "main"
+      ]
+    },
+    "product.bundle.json": {
+      "sections": {
+        "main": {
+          "type": "main-product",
+          "settings": {
+            "purchase_mode": "bundles",
+            "back_collection": "ready-series-bundles",
+            "related_collection": "ready-series-bundles",
+            "show_related": true,
+            "show_dynamic_checkout": false,
+            "require_subscription_account": true
+          }
+        }
+      },
+      "order": [
+        "main"
+      ]
+    },
+    "product.gift-card.json": {
+      "sections": {
+        "main": {
+          "type": "gift-card-product",
+          "settings": {
+            "product": "gift-card"
+          }
+        }
+      },
+      "order": [
+        "main"
+      ]
+    },
+    "product.json": {
+      "sections": {
+        "main": {
+          "type": "main-product",
+          "settings": {
+            "purchase_mode": "single",
+            "back_collection": "ready-series",
+            "related_collection": "ready-series",
+            "show_related": true,
+            "show_dynamic_checkout": false,
+            "require_subscription_account": true
+          }
+        }
+      },
+      "order": [
+        "main"
+      ]
+    },
+    "product.ready-series.json": {
+      "sections": {
+        "main": {
+          "type": "main-product",
+          "settings": {
+            "purchase_mode": "single",
+            "back_collection": "ready-series",
+            "related_collection": "ready-series",
+            "show_related": true,
+            "show_dynamic_checkout": false,
+            "require_subscription_account": true
+          }
+        }
+      },
+      "order": [
+        "main"
+      ]
+    },
+    "product.subscription.json": {
+      "sections": {
+        "main": {
+          "type": "main-product",
+          "settings": {
+            "purchase_mode": "subscription",
+            "back_collection": "ready-series-subscriptions",
+            "related_collection": "ready-series-subscriptions",
+            "show_related": true,
+            "show_dynamic_checkout": false,
+            "require_subscription_account": true
+          }
+        }
+      },
+      "order": [
+        "main"
+      ]
+    },
+    "search.json": {
+      "sections": {
+        "main": {
+          "type": "main-search",
+          "settings": {}
+        }
+      },
+      "order": [
+        "main"
+      ]
+    }
+  },
+  "assetDependencies": [
+    "13da6.png",
+    "19606.png",
+    "98c55.png",
+    "approved-1a76f2a373e9.jpg",
+    "approved-3e9a1f3ddd03.jpg",
+    "approved-4ad6c5a857a8.jpg",
+    "approved-867a0019a97d.jpg",
+    "approved-ab4401f89fe9.jpg",
+    "d006a.png",
+    "pm-font-0.ttf",
+    "pm-font-1.ttf",
+    "pm-font-10.ttf",
+    "pm-font-11.ttf",
+    "pm-font-12.ttf",
+    "pm-font-13.ttf",
+    "pm-font-14.ttf",
+    "pm-font-15.ttf",
+    "pm-font-16.ttf",
+    "pm-font-17.ttf",
+    "pm-font-18.ttf",
+    "pm-font-19.ttf",
+    "pm-font-2.ttf",
+    "pm-font-20.ttf",
+    "pm-font-21.ttf",
+    "pm-font-22.ttf",
+    "pm-font-23.ttf",
+    "pm-font-24.ttf",
+    "pm-font-25.ttf",
+    "pm-font-3.ttf",
+    "pm-font-4.ttf",
+    "pm-font-5.ttf",
+    "pm-font-6.ttf",
+    "pm-font-7.ttf",
+    "pm-font-8.ttf",
+    "pm-font-9.ttf",
+    "ready-series-hero.jpg"
+  ],
+  "merchantMissing": [
+    "Store collaborator access",
+    "Verified products, prices, inventory, allergens and nutrition",
+    "Shopify Subscriptions configuration and final billing terms",
+    "Published menu weeks/windows",
+    "Loyalty provider and approved rewards rules",
+    "Verified support number",
+    "Gift card denominations/content approval",
+    "Shipping, delivery eligibility, taxes, discounts and policies",
+    "Actual customer account configuration"
+  ]
+}

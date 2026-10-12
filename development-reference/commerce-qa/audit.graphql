@@ -1,0 +1,10 @@
+query StorefrontDependencyAudit {
+ shop { id name myshopifyDomain currencyCode }
+ products(first:100) { nodes { id handle title status productType templateSuffix isGiftCard requiresSellingPlan variants(first:30) { nodes { id title price sku inventoryPolicy } } metafields(first:50) { nodes { namespace key type value } } sellingPlanGroups(first:10) { nodes { id name sellingPlans(first:10) { nodes { id name } } } } } pageInfo { hasNextPage endCursor } }
+ collections(first:50) { nodes { id handle title templateSuffix products(first:25) { nodes { id handle } } } pageInfo { hasNextPage endCursor } }
+ pages(first:50) { nodes { id handle title templateSuffix isPublished } pageInfo { hasNextPage endCursor } }
+ menus(first:20) { nodes { id handle title items { id title url type } } }
+ metaobjectDefinitions(first:25) { nodes { id type name access { storefront } fieldDefinitions { key type { name } required } } }
+ metafieldDefinitions(first:100,ownerType:PRODUCT) { nodes { id namespace key type { name } access { storefront } } }
+ publications(first:20) { nodes { id name } }
+}

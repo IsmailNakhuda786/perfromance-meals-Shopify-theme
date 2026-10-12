@@ -1,0 +1,6 @@
+query QAReadback {
+ a:metaobjects(type:"performance_bundle_item",first:10){nodes{id handle fields{key value references(first:10){nodes{...on Product{id handle}...on ProductVariant{id title}}}}}}
+ b:metaobjects(type:"performance_menu_window",first:10){nodes{id handle fields{key value}}}
+ c:metaobjects(type:"performance_menu_week",first:10){nodes{id handle fields{key value}}}
+ sellingPlanGroups(first:20){nodes{id name products(first:10){nodes{id handle}} sellingPlans(first:10){nodes{id name billingPolicy{...on SellingPlanRecurringBillingPolicy{interval intervalCount minCycles maxCycles}} deliveryPolicy{...on SellingPlanRecurringDeliveryPolicy{interval intervalCount}}}}}}
+}

@@ -1,0 +1,61 @@
+{% doc %}
+  Renders one-time or required recurring purchase controls with native cart fields.
+  @param {product} product - Shopify product.
+  @param {variant} variant - Selected variant.
+  @param {string} form_id - Unique form identifier.
+  @param {string} purchase_mode - single, bundles, or subscription.
+  @param {selling_plan_allocation} [allocation] - Selected recurring allocation.
+  @param {boolean} [require_account] - Show actual account sign-in for subscriptions.
+  @param {string} [keep_shopping_url] - Approved product-page secondary shopping link.
+  @param {boolean} [show_dynamic_checkout] - Show accelerated checkout for valid one-time purchases.
+  @example
+  {% render 'product-purchase-form', product: product, variant: variant, form_id: 'MealForm', purchase_mode: 'single' %}
+{% enddoc %}
+{% liquid
+  assign contents = variant.metafields.performance.bundle_contents.value | default: product.metafields.performance.bundle_contents.value
+  assign can_purchase = variant.available
+  assign prepaid_blocked = false
+  if purchase_mode == 'subscription'
+    if allocation == nil or contents == blank
+      assign can_purchase = false
+    endif
+  elsif variant.requires_selling_plan
+    assign can_purchase = false
+  endif
+  if purchase_mode == 'subscription' and product.metafields.performance.business_stream.value == 'ready_series'
+    unless product.metafields.performance.prepaid_term_verified.value == true
+      assign can_purchase = false
+      assign prepaid_blocked = true
+    endunless
+  endif
+  assign add_label = 'catalog.add_to_cart' | t
+  if purchase_mode == 'subscription'
+    assign add_label = 'catalog.subscribe' | t
+  elsif purchase_mode == 'bundles'
+    assign add_label = 'catalog.add_bundle' | t
+  endif
+%}
+{% form 'product', product, id: form_id, data-product-form: '', data-purchase-mode: purchase_mode %}
+  {% render 'business-stream-properties', product: product %}
+  <label for="{{ form_id }}-variant" class="{% if product.has_only_default_variant %}sr-only{% else %}block text-[10px] font-mono uppercase tracking-widest text-white/45 mb-2{% endif %}">{{ 'catalog.options' | t }}</label>
+  <select id="{{ form_id }}-variant" name="id" data-variant-select class="{% if product.has_only_default_variant %}sr-only{% else %}w-full bg-[#111] border border-white/20 px-4 py-3 text-[13px] mb-4{% endif %}">
+    {% for item in product.variants %}<option value="{{ item.id }}"{% if item.id == variant.id %} selected{% endif %}>{{ item.title | escape }}{% unless purchase_mode == 'subscription' %} — {{ item.price | money_with_currency }}{% endunless %}{% unless item.available %} — {{ 'catalog.sold_out' | t }}{% endunless %}</option>{% endfor %}
+  </select>
+  {% if purchase_mode == 'subscription' %}
+    <div data-selling-plan-wrapper>
+      <label for="{{ form_id }}-plan" class="block text-[10px] font-mono uppercase tracking-widest text-white/45 mb-2">{{ 'catalog.subscription_term' | t }}</label>
+      <select id="{{ form_id }}-plan" name="selling_plan" data-selling-plan-select class="w-full bg-[#111] border border-white/20 px-4 py-3 text-[13px] mb-4" required{% if allocation == nil or prepaid_blocked %} disabled{% endif %}>
+        {% unless prepaid_blocked %}{% for option in variant.selling_plan_allocations %}{% if option.selling_plan.recurring_deliveries %}<option value="{{ option.selling_plan.id }}"{% if option.selling_plan.id == allocation.selling_plan.id %} selected{% endif %}>{{ option.selling_plan.name | escape }} — {{ option.price | money_with_currency }}</option>{% endif %}{% endfor %}{% endunless %}
+      </select>
+      <div data-plan-description class="text-white/45 text-[12px] leading-relaxed mb-4">{{ allocation.selling_plan.description }}</div>
+      <p data-subscription-unavailable class="text-white/45 text-[12px] mb-4"{% if can_purchase %} hidden{% endif %}>{{ 'catalog.subscription_unavailable' | t }}</p>
+    </div>
+  {% endif %}
+  <div class="flex items-center gap-3 mb-4"><label for="{{ form_id }}-quantity" class="sr-only">{{ 'catalog.quantity' | t }}</label><div class="flex items-center border border-white/15"><button type="button" data-quantity-step="-1" class="w-10 h-10 text-white/60 hover:bg-white/8 text-[18px]" aria-label="{{ 'catalog.decrease_quantity' | t }}">−</button><input id="{{ form_id }}-quantity" name="quantity" type="number" min="{{ variant.quantity_rule.min | default: 1 }}" step="{{ variant.quantity_rule.increment | default: 1 }}"{% if variant.quantity_rule.max %} max="{{ variant.quantity_rule.max }}"{% endif %} value="{{ variant.quantity_rule.min | default: 1 }}" class="pm-quantity w-10 h-10 text-center bg-transparent font-mono text-[14px] font-bold"><button type="button" data-quantity-step="1" class="w-10 h-10 text-white/60 hover:bg-white/8 text-[18px]" aria-label="{{ 'catalog.increase_quantity' | t }}">+</button></div>{% if keep_shopping_url and purchase_mode == 'single' %}<span class="text-white/30 text-[12px] font-mono">{{ 'gift.total' | t }}: <span data-product-line-total>{% assign quantity_min = variant.quantity_rule.min | default: 1 %}{{ variant.price | times: quantity_min | money_with_currency }}</span></span>{% endif %}</div>
+  {% if purchase_mode == 'subscription' and require_account and customer == blank %}<a href="{{ routes.account_login_url }}" data-subscription-login class="block text-center w-full py-4 bg-[#F5B300] text-[#111] hover:bg-white font-extrabold text-[11px] tracking-[0.15em] uppercase">{{ 'catalog.sign_in_subscribe' | t }} →</a>{% endif %}
+  {% if keep_shopping_url %}<div class="flex flex-col sm:flex-row gap-3">{% endif %}
+  <button type="submit" data-add-button data-add-label="{{ add_label | escape }}" data-unavailable-label="{{ 'catalog.sold_out' | t }}" class="w-full py-4 bg-[#F5B300] text-[#111] hover:bg-white font-extrabold text-[11px] tracking-[0.15em] uppercase"{% unless can_purchase %} disabled{% endunless %}{% if purchase_mode == 'subscription' and require_account and customer == blank %} hidden{% endif %}>{% if can_purchase %}{{ add_label }}{% else %}{{ 'catalog.sold_out' | t }}{% endif %}</button>
+  {% if keep_shopping_url %}<a href="{{ keep_shopping_url }}" class="shrink-0 text-center px-6 py-4 border border-white/15 text-white/50 hover:border-white/40 hover:text-white text-[11px] font-bold tracking-[0.15em] uppercase">{{ 'catalog.keep_shopping' | t }}</a></div>{% endif %}
+  <p data-form-error role="alert" class="text-red-300 text-[12px] mt-3" hidden></p>
+  {% if show_dynamic_checkout and purchase_mode != 'subscription' and can_purchase %}<div class="mt-4">{{ form | payment_button }}</div>{% endif %}
+{% endform %}

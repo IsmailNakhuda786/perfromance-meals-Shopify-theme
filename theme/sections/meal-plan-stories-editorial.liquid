@@ -1,0 +1,520 @@
+<div class="min-h-screen bg-[#FAF7F2] text-[#1A1A1A]">
+{% for block in section.blocks %}
+{% case block.type %}
+{% when 'band_1' %}
+<section {{ block.shopify_attributes }} class="relative min-h-[720px] overflow-hidden flex items-end">{% if section.settings.image_3 != blank %}{{ section.settings.image_3 | image_url: width: 1600 | image_tag: class: 'absolute inset-0 w-full h-full object-cover', loading: 'eager', sizes: '(min-width: 1024px) 50vw, 100vw', widths: '400, 750, 1100, 1600', alt: block.settings.image_1_alt }}{% else %}<img src="{{ 'sync-a4f0303ab637.jpg' | asset_url }}" class="absolute inset-0 w-full h-full object-cover" width="1500" height="1000" loading="eager" alt="{{ block.settings.image_1_alt | escape }}">{% endif %}<div class="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/10"></div><div class="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-black/15"></div><div class="relative z-10 max-w-[1280px] w-full mx-auto px-6 sm:px-10 py-16 sm:py-24 text-white"><div class="inline-flex items-start gap-[10px] select-none " style="transform:scale(0.65);transform-origin:left center"><div class="shrink-0 mt-[3px]" style="width:4px;background-color:#E85D04;align-self:stretch;min-height:38px"></div><div class="flex flex-col leading-none"><span style="font-family:'Outfit', sans-serif;font-weight:600;font-size:8px;letter-spacing:0.25em;color:#E85D04;line-height:1;margin-bottom:4px">{{ block.settings.copy_1 | escape }}</span><span style="font-family:'Outfit', sans-serif;font-weight:900;font-style:italic;font-size:34px;letter-spacing:0.01em;color:#FFFFFF;line-height:0.88">{{ block.settings.copy_2 | escape }}</span><svg width="130" height="7" viewBox="0 0 130 7" style="margin-top:4px"><path d="M2 4.5 C25 2, 65 5.5, 95 3.5 C112 2.5, 124 4, 128 4.5" stroke="#E85D04" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"></path></svg></div></div><p class="text-[#E85D04] text-[10px] font-bold tracking-[0.25em] uppercase mt-14 mb-6">{{ block.settings.copy_3 | escape }}</p><h1 class="font-display text-[50px] sm:text-[72px] lg:text-[82px] font-semibold leading-[0.9] tracking-[-0.04em] max-w-[850px]">{{ block.settings.copy_4 | escape }}</h1><p class="text-white/70 text-[17px] leading-relaxed max-w-[620px] mt-7">{{ block.settings.copy_5 | escape }}</p></div></section>
+{% when 'band_2' %}
+<section {{ block.shopify_attributes }} class="bg-[#E85D04] text-white px-6 py-5"><div class="max-w-[1280px] mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3"><p class="font-display text-[18px] font-semibold">{{ block.settings.copy_1 | escape }}</p><p class="text-white/75 text-[12px] leading-relaxed max-w-[680px]">{{ block.settings.copy_2 | escape }}</p></div></section>
+{% when 'band_3' %}
+<section {{ block.shopify_attributes }} class="px-6 sm:px-10 py-20 sm:py-28"><div class="max-w-[1280px] mx-auto grid lg:grid-cols-[0.9fr_1.1fr] gap-12 lg:gap-20 items-center"><div class="relative">{% if section.settings.image_4 != blank %}{{ section.settings.image_4 | image_url: width: 1600 | image_tag: class: 'w-full h-[620px] object-cover rounded-2xl', loading: 'lazy', sizes: '(min-width: 1024px) 50vw, 100vw', widths: '400, 750, 1100, 1600', alt: block.settings.image_1_alt }}{% else %}<img src="{{ 'sync-a12d14f09a30.jpg' | asset_url }}" class="w-full h-[620px] object-cover rounded-2xl" width="1000" height="1200" loading="lazy" alt="{{ block.settings.image_1_alt | escape }}">{% endif %}<div class="absolute top-5 left-5 bg-[#1A1A1A] text-white rounded-full px-4 py-2 text-[9px] font-bold uppercase tracking-[0.18em]">{{ block.settings.copy_1 | escape }}</div></div><article><p class="text-[#E85D04] text-[10px] font-bold tracking-[0.24em] uppercase mb-5">{{ block.settings.copy_2 | escape }}</p><h2 class="font-display text-[42px] sm:text-[58px] font-semibold leading-[0.94] tracking-[-0.035em]">{{ block.settings.copy_3 | escape }}</h2><p class="text-[#625A53] text-[16px] leading-relaxed mt-7">{{ block.settings.copy_4 | escape }}</p><div class="mt-9 space-y-0 border-y border-[#DED6CD]"><div class="grid sm:grid-cols-[150px_1fr] gap-3 py-5 border-b border-[#DED6CD] last:border-0"><h3 class="text-[#E85D04] text-[10px] font-bold uppercase tracking-[0.16em] pt-1">{{ block.settings.copy_5 | escape }}</h3><p class="text-[#6D655E] text-[13px] leading-relaxed">{{ block.settings.copy_6 | escape }}</p></div><div class="grid sm:grid-cols-[150px_1fr] gap-3 py-5 border-b border-[#DED6CD] last:border-0"><h3 class="text-[#E85D04] text-[10px] font-bold uppercase tracking-[0.16em] pt-1">{{ block.settings.copy_7 | escape }}</h3><p class="text-[#6D655E] text-[13px] leading-relaxed">{{ block.settings.copy_8 | escape }}</p></div><div class="grid sm:grid-cols-[150px_1fr] gap-3 py-5 border-b border-[#DED6CD] last:border-0"><h3 class="text-[#E85D04] text-[10px] font-bold uppercase tracking-[0.16em] pt-1">{{ block.settings.copy_9 | escape }}</h3><p class="text-[#6D655E] text-[13px] leading-relaxed">{{ block.settings.copy_10 | escape }}</p></div></div><p class="text-[10px] font-mono uppercase tracking-[0.14em] text-[#988E84] mt-6">{{ block.settings.copy_11 | escape }}</p></article></div></section>
+{% when 'band_4' %}
+<section {{ block.shopify_attributes }} class="bg-[#1A1A1A] text-white px-6 sm:px-10 py-20 sm:py-28"><div class="max-w-[1280px] mx-auto"><div class="max-w-[760px] mb-14"><p class="text-[#E85D04] text-[10px] font-bold tracking-[0.24em] uppercase mb-5">{{ block.settings.copy_1 | escape }}</p><h2 class="font-display text-[42px] sm:text-[58px] font-semibold leading-[0.94] tracking-[-0.035em]">{{ block.settings.copy_2 | escape }}</h2></div><div class="grid lg:grid-cols-3 gap-5"><article class="bg-[#25201C] border border-white/10 rounded-2xl overflow-hidden flex flex-col"><div class="relative h-[330px] overflow-hidden">{% if block.settings.image_1 != blank %}{{ block.settings.image_1 | image_url: width: 1600 | image_tag: class: 'w-full h-full object-cover hover:scale-105 transition-transform duration-500', loading: 'lazy', sizes: '(min-width: 1024px) 50vw, 100vw', widths: '400, 750, 1100, 1600', alt: block.settings.image_1_alt }}{% else %}<img src="{{ 'sync-508a32a3602a.jpg' | asset_url }}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" width="1000" height="1200" loading="lazy" alt="{{ block.settings.image_1_alt | escape }}">{% endif %}<span class="absolute top-4 left-4 bg-[#E85D04] text-white rounded-full px-3 py-1.5 text-[9px] font-bold tracking-[0.14em]">{{ block.settings.copy_3 | escape }}</span></div><div class="p-7 flex flex-col flex-1"><p class="text-[#E85D04] text-[9px] font-bold uppercase tracking-[0.14em]">{{ block.settings.copy_4 | escape }}</p><h3 class="font-display text-[25px] font-semibold leading-tight mt-4">{{ block.settings.copy_5 | escape }}</h3><div class="mt-7 space-y-5"><div><p class="text-white/35 text-[9px] font-bold uppercase tracking-[0.15em]">{{ block.settings.copy_6 | escape }}</p><p class="text-white/55 text-[13px] leading-relaxed mt-2">{{ block.settings.copy_7 | escape }}</p></div><div><p class="text-white/35 text-[9px] font-bold uppercase tracking-[0.15em]">{{ block.settings.copy_8 | escape }}</p><p class="text-white/55 text-[13px] leading-relaxed mt-2">{{ block.settings.copy_9 | escape }}</p></div></div><p class="mt-auto pt-8 text-[9px] font-mono uppercase tracking-[0.12em] text-white/25">{{ block.settings.copy_10 | escape }}</p></div></article><article class="bg-[#25201C] border border-white/10 rounded-2xl overflow-hidden flex flex-col"><div class="relative h-[330px] overflow-hidden">{% if block.settings.image_2 != blank %}{{ block.settings.image_2 | image_url: width: 1600 | image_tag: class: 'w-full h-full object-cover hover:scale-105 transition-transform duration-500', loading: 'lazy', sizes: '(min-width: 1024px) 50vw, 100vw', widths: '400, 750, 1100, 1600', alt: block.settings.image_2_alt }}{% else %}<img src="{{ 'sync-d799089d3b26.jpg' | asset_url }}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" width="1000" height="1200" loading="lazy" alt="{{ block.settings.image_2_alt | escape }}">{% endif %}<span class="absolute top-4 left-4 bg-[#E85D04] text-white rounded-full px-3 py-1.5 text-[9px] font-bold tracking-[0.14em]">{{ block.settings.copy_11 | escape }}</span></div><div class="p-7 flex flex-col flex-1"><p class="text-[#E85D04] text-[9px] font-bold uppercase tracking-[0.14em]">{{ block.settings.copy_12 | escape }}</p><h3 class="font-display text-[25px] font-semibold leading-tight mt-4">{{ block.settings.copy_13 | escape }}</h3><div class="mt-7 space-y-5"><div><p class="text-white/35 text-[9px] font-bold uppercase tracking-[0.15em]">{{ block.settings.copy_14 | escape }}</p><p class="text-white/55 text-[13px] leading-relaxed mt-2">{{ block.settings.copy_15 | escape }}</p></div><div><p class="text-white/35 text-[9px] font-bold uppercase tracking-[0.15em]">{{ block.settings.copy_16 | escape }}</p><p class="text-white/55 text-[13px] leading-relaxed mt-2">{{ block.settings.copy_17 | escape }}</p></div></div><p class="mt-auto pt-8 text-[9px] font-mono uppercase tracking-[0.12em] text-white/25">{{ block.settings.copy_18 | escape }}</p></div></article><article class="bg-[#25201C] border border-white/10 rounded-2xl overflow-hidden flex flex-col"><div class="relative h-[330px] overflow-hidden">{% if block.settings.image_3 != blank %}{{ block.settings.image_3 | image_url: width: 1600 | image_tag: class: 'w-full h-full object-cover hover:scale-105 transition-transform duration-500', loading: 'lazy', sizes: '(min-width: 1024px) 50vw, 100vw', widths: '400, 750, 1100, 1600', alt: block.settings.image_3_alt }}{% else %}<img src="{{ 'sync-2126770e5711.jpg' | asset_url }}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" width="1200" height="900" loading="lazy" alt="{{ block.settings.image_3_alt | escape }}">{% endif %}<span class="absolute top-4 left-4 bg-[#E85D04] text-white rounded-full px-3 py-1.5 text-[9px] font-bold tracking-[0.14em]">{{ block.settings.copy_19 | escape }}</span></div><div class="p-7 flex flex-col flex-1"><p class="text-[#E85D04] text-[9px] font-bold uppercase tracking-[0.14em]">{{ block.settings.copy_20 | escape }}</p><h3 class="font-display text-[25px] font-semibold leading-tight mt-4">{{ block.settings.copy_21 | escape }}</h3><div class="mt-7 space-y-5"><div><p class="text-white/35 text-[9px] font-bold uppercase tracking-[0.15em]">{{ block.settings.copy_22 | escape }}</p><p class="text-white/55 text-[13px] leading-relaxed mt-2">{{ block.settings.copy_23 | escape }}</p></div><div><p class="text-white/35 text-[9px] font-bold uppercase tracking-[0.15em]">{{ block.settings.copy_24 | escape }}</p><p class="text-white/55 text-[13px] leading-relaxed mt-2">{{ block.settings.copy_25 | escape }}</p></div></div><p class="mt-auto pt-8 text-[9px] font-mono uppercase tracking-[0.12em] text-white/25">{{ block.settings.copy_26 | escape }}</p></div></article></div></div></section>
+{% when 'band_5' %}
+<section {{ block.shopify_attributes }} class="px-6 sm:px-10 py-20 sm:py-28"><div class="max-w-[1100px] mx-auto"><div class="text-center max-w-[760px] mx-auto mb-12"><p class="text-[#E85D04] text-[10px] font-bold tracking-[0.24em] uppercase mb-5">{{ block.settings.copy_1 | escape }}</p><h2 class="font-display text-[42px] sm:text-[56px] font-semibold leading-[0.94] tracking-[-0.035em]">{{ block.settings.copy_2 | escape }}</h2><p class="text-[#6D655E] text-[15px] leading-relaxed mt-6">{{ block.settings.copy_3 | escape }}</p></div><div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4"><div class="bg-white border border-[#E2DBD3] rounded-2xl p-6 min-h-[220px]"><h3 class="font-display text-[21px] font-semibold">{{ block.settings.copy_4 | escape }}</h3><p class="text-[#70675F] text-[13px] leading-relaxed mt-4">{{ block.settings.copy_5 | escape }}</p></div><div class="bg-white border border-[#E2DBD3] rounded-2xl p-6 min-h-[220px]"><h3 class="font-display text-[21px] font-semibold">{{ block.settings.copy_6 | escape }}</h3><p class="text-[#70675F] text-[13px] leading-relaxed mt-4">{{ block.settings.copy_7 | escape }}</p></div><div class="bg-white border border-[#E2DBD3] rounded-2xl p-6 min-h-[220px]"><h3 class="font-display text-[21px] font-semibold">{{ block.settings.copy_8 | escape }}</h3><p class="text-[#70675F] text-[13px] leading-relaxed mt-4">{{ block.settings.copy_9 | escape }}</p></div><div class="bg-white border border-[#E2DBD3] rounded-2xl p-6 min-h-[220px]"><h3 class="font-display text-[21px] font-semibold">{{ block.settings.copy_10 | escape }}</h3><p class="text-[#70675F] text-[13px] leading-relaxed mt-4">{{ block.settings.copy_11 | escape }}</p></div></div></div></section>
+{% when 'band_6' %}
+<section {{ block.shopify_attributes }} class="bg-[#E85D04] text-white px-6 py-20 text-center"><p class="text-white/65 text-[10px] font-bold uppercase tracking-[0.24em] mb-5">{{ block.settings.copy_1 | escape }}</p><h2 class="font-display text-[42px] sm:text-[58px] font-semibold">{{ block.settings.copy_2 | escape }}</h2><p class="text-white/70 text-[14px] leading-relaxed max-w-[580px] mx-auto mt-5">{{ block.settings.copy_3 | escape }}</p><div class="flex flex-col sm:flex-row justify-center gap-3 mt-8"><a class="rounded-full bg-white text-[#1A1A1A] px-8 py-4 text-[11px] font-bold uppercase tracking-[0.16em] hover:bg-[#1A1A1A] hover:text-white transition-colors" href="{{ section.settings.link_1 }}">{{ block.settings.copy_4 | escape }}</a><a class="rounded-full border border-white/35 px-8 py-4 text-[11px] font-bold uppercase tracking-[0.16em] hover:border-white transition-colors" href="{{ section.settings.link_2 }}">{{ block.settings.copy_5 | escape }}</a></div></section>
+{% endcase %}
+{% endfor %}
+</div>
+{% schema %}
+{
+  "name": "Meal Plan stories",
+  "settings": [
+    {
+      "type": "url",
+      "id": "link_1",
+      "label": "Link 1"
+    },
+    {
+      "type": "url",
+      "id": "link_2",
+      "label": "Link 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Image 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4",
+      "label": "Image 4"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "band_1",
+      "name": "Hero",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "copy_1",
+          "label": "PERFORMANCE MEALS",
+          "default": "PERFORMANCE MEALS"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_2",
+          "label": "MEAL PLAN",
+          "default": "MEAL PLAN"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_3",
+          "label": "Customer journeys",
+          "default": "Customer journeys"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_4",
+          "label": "Real life is the reason the plan exists.",
+          "default": "Real life is the reason the plan exists."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_5",
+          "label": "Meal Plan is not only about what arrives. It ",
+          "default": "Meal Plan is not only about what arrives. It is about the planning, decisions, and weekday pressure that no longer have to be carried alone."
+        },
+        {
+          "type": "text",
+          "id": "image_1_alt",
+          "label": "Photograph 1 description",
+          "default": "Professionals discussing their routine together"
+        }
+      ]
+    },
+    {
+      "type": "band_2",
+      "name": "Context",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "copy_1",
+          "label": "Story content awaiting verified customer appr",
+          "default": "Story content awaiting verified customer approvals."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_2",
+          "label": "The journeys below are clearly identified ill",
+          "default": "The journeys below are clearly identified illustrative scenarios. Final publication requires approved customer interviews, quotations, outcome claims, and image consent."
+        }
+      ]
+    },
+    {
+      "type": "band_3",
+      "name": "Approach",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "copy_1",
+          "label": "Illustrative journey 01",
+          "default": "Illustrative journey 01"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_2",
+          "label": "The late-meeting week",
+          "default": "The late-meeting week"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_3",
+          "label": "When the workday keeps taking dinner with it.",
+          "default": "When the workday keeps taking dinner with it."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_4",
+          "label": "A busy professional can know exactly how they",
+          "default": "A busy professional can know exactly how they want to eat and still lose the routine to back-to-back meetings, commuting, and the decisions waiting at the end of the day."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_5",
+          "label": "The pressure",
+          "default": "The pressure"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_6",
+          "label": "Meal planning begins after the calendar is al",
+          "default": "Meal planning begins after the calendar is already full, making convenience the default rather than a deliberate choice."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_7",
+          "label": "The Meal Plan role",
+          "default": "The Meal Plan role"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_8",
+          "label": "Fresh weekday meals and a recurring structure",
+          "default": "Fresh weekday meals and a recurring structure move preparation earlier, so dinner no longer starts with another decision."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_9",
+          "label": "The experience",
+          "default": "The experience"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_10",
+          "label": "The customer still chooses within the approve",
+          "default": "The customer still chooses within the approved menu structure, but the programme carries the recurring organisation."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_11",
+          "label": "Representative imagery · not a customer testi",
+          "default": "Representative imagery · not a customer testimonial"
+        },
+        {
+          "type": "text",
+          "id": "image_1_alt",
+          "label": "Photograph 1 description",
+          "default": "Representative image of a professional managing a busy day"
+        }
+      ]
+    },
+    {
+      "type": "band_4",
+      "name": "Programme",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "copy_1",
+          "label": "Different lives · one need for structure",
+          "default": "Different lives · one need for structure"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_2",
+          "label": "Progress looks different inside every routine",
+          "default": "Progress looks different inside every routine."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_3",
+          "label": "Illustrative 02",
+          "default": "Illustrative 02"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_4",
+          "label": "Monthly programme · Recurring rhythm",
+          "default": "Monthly programme · Recurring rhythm"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_5",
+          "label": "Returning to a routine after a demanding seas",
+          "default": "Returning to a routine after a demanding season"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_6",
+          "label": "Life context",
+          "default": "Life context"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_7",
+          "label": "When work, travel, or family needs disrupt fa",
+          "default": "When work, travel, or family needs disrupt familiar habits, restarting can feel harder than beginning."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_8",
+          "label": "Where Meal Plan helps",
+          "default": "Where Meal Plan helps"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_9",
+          "label": "A goal-first programme creates a defined next",
+          "default": "A goal-first programme creates a defined next step, while fresh weekday meals reduce the preparation burden during the return."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_10",
+          "label": "Representative imagery · no outcome claim",
+          "default": "Representative imagery · no outcome claim"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_11",
+          "label": "Illustrative 03",
+          "default": "Illustrative 03"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_12",
+          "label": "Balanced routine · Biweekly rhythm",
+          "default": "Balanced routine · Biweekly rhythm"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_13",
+          "label": "Making weekday food simpler for a full househ",
+          "default": "Making weekday food simpler for a full household"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_14",
+          "label": "Life context",
+          "default": "Life context"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_15",
+          "label": "The person organising meals often carries the",
+          "default": "The person organising meals often carries the planning, shopping, cooking, and cleanup decisions for everyone."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_16",
+          "label": "Where Meal Plan helps",
+          "default": "Where Meal Plan helps"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_17",
+          "label": "A structured Monday–Friday plan can protect t",
+          "default": "A structured Monday–Friday plan can protect time and attention without turning the week into another optimisation project."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_18",
+          "label": "Representative imagery · no outcome claim",
+          "default": "Representative imagery · no outcome claim"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_19",
+          "label": "Illustrative 04",
+          "default": "Illustrative 04"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_20",
+          "label": "Performance direction · Structured programme",
+          "default": "Performance direction · Structured programme"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_21",
+          "label": "Supporting training without living around mea",
+          "default": "Supporting training without living around meal prep"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_22",
+          "label": "Life context",
+          "default": "Life context"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_23",
+          "label": "Consistent training asks for consistent food,",
+          "default": "Consistent training asks for consistent food, but the work around that food can compete with recovery and the rest of life."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_24",
+          "label": "Where Meal Plan helps",
+          "default": "Where Meal Plan helps"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_25",
+          "label": "A predefined programme and clear meal informa",
+          "default": "A predefined programme and clear meal information make the routine easier to repeat while keeping the customer’s goal visible."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_26",
+          "label": "Representative imagery · no outcome claim",
+          "default": "Representative imagery · no outcome claim"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Photograph 1"
+        },
+        {
+          "type": "text",
+          "id": "image_1_alt",
+          "label": "Photograph 1 description",
+          "default": "Representative lifestyle image for an illustrative customer journey"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Photograph 2"
+        },
+        {
+          "type": "text",
+          "id": "image_2_alt",
+          "label": "Photograph 2 description",
+          "default": "Representative lifestyle image for an illustrative customer journey"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_3",
+          "label": "Photograph 3"
+        },
+        {
+          "type": "text",
+          "id": "image_3_alt",
+          "label": "Photograph 3 description",
+          "default": "Representative lifestyle image for an illustrative customer journey"
+        }
+      ]
+    },
+    {
+      "type": "band_5",
+      "name": "Details",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "copy_1",
+          "label": "The stories we want to tell responsibly",
+          "default": "The stories we want to tell responsibly"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_2",
+          "label": "Experience before exaggeration.",
+          "default": "Experience before exaggeration."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_3",
+          "label": "Verified customer interviews should focus on ",
+          "default": "Verified customer interviews should focus on what the programme actually felt like—not unsupported transformation promises."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_4",
+          "label": "Routine",
+          "default": "Routine"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_5",
+          "label": "How Meal Plan fitted into work, family, train",
+          "default": "How Meal Plan fitted into work, family, training, and changing weeks."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_6",
+          "label": "Food",
+          "default": "Food"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_7",
+          "label": "Which meals felt enjoyable, practical, and ea",
+          "default": "Which meals felt enjoyable, practical, and easy to repeat."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_8",
+          "label": "Support",
+          "default": "Support"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_9",
+          "label": "How programme structure and approved support ",
+          "default": "How programme structure and approved support shaped the experience."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_10",
+          "label": "Progress",
+          "default": "Progress"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_11",
+          "label": "What changed, using only consented and proper",
+          "default": "What changed, using only consented and properly supported customer outcomes."
+        }
+      ]
+    },
+    {
+      "type": "band_6",
+      "name": "Closing",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "copy_1",
+          "label": "Your routine can begin before the testimonial",
+          "default": "Your routine can begin before the testimonial does"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_2",
+          "label": "Explore the Meal Plan structure.",
+          "default": "Explore the Meal Plan structure."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_3",
+          "label": "Choose a programme, understand what is includ",
+          "default": "Choose a programme, understand what is included, and see the menu rhythm before continuing."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_4",
+          "label": "Start Meal Plan",
+          "default": "Start Meal Plan"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_5",
+          "label": "How Meal Plan works",
+          "default": "How Meal Plan works"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Meal Plan stories",
+      "blocks": [
+        {
+          "type": "band_1"
+        },
+        {
+          "type": "band_2"
+        },
+        {
+          "type": "band_3"
+        },
+        {
+          "type": "band_4"
+        },
+        {
+          "type": "band_5"
+        },
+        {
+          "type": "band_6"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

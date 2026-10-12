@@ -1,0 +1,610 @@
+<div class="min-h-screen bg-[#F7F2E8] text-[#1A1A1A]">
+{% for block in section.blocks %}
+{% case block.type %}
+{% when 'band_1' %}
+<section {{ block.shopify_attributes }} class="relative overflow-hidden bg-[#1A1A1A] text-white"><div class="max-w-[1440px] mx-auto grid lg:grid-cols-[0.9fr_1.1fr] min-h-[740px]"><div class="relative z-10 px-6 sm:px-10 lg:px-16 py-16 lg:py-20 flex flex-col"><div class="inline-flex items-center gap-[11px] select-none " style="transform:scale(1);transform-origin:left center"><div class="shrink-0 w-[36px] h-[36px] rounded-full" style="background-color:#F5B300"></div><div class="flex flex-col leading-none"><span style="font-family:'Outfit', sans-serif;font-weight:800;font-style:italic;font-size:22px;letter-spacing:0.02em;color:#FFFFFF;line-height:1">{{ block.settings.copy_1 | escape }}</span><div style="height:2px;background-color:#F5B300;margin-top:3px;margin-bottom:3px"></div><span style="font-family:'Outfit', sans-serif;font-weight:500;font-size:7.5px;letter-spacing:0.22em;color:#FFFFFF;opacity:0.55;line-height:1">{{ block.settings.copy_2 | escape }}</span></div></div><div class="mt-auto pt-20 max-w-[650px]"><div class="inline-flex items-center gap-3 bg-[#F5B300] text-[#1A1A1A] rounded-full px-4 py-2 mb-7"><span class="w-2 h-2 bg-[#1A1A1A] rounded-full"></span><span class="text-[9px] font-extrabold tracking-[0.2em] uppercase">{{ block.settings.copy_3 | escape }}</span></div><h1 class="font-display text-[52px] sm:text-[72px] lg:text-[84px] font-black leading-[0.86] tracking-[-0.045em]">{{ block.settings.copy_4 | escape }}<br><span class="text-[#F5B300]">{{ block.settings.copy_5 | escape }}</span></h1><p class="text-white/70 text-[17px] sm:text-[19px] leading-relaxed max-w-[560px] mt-8">{{ block.settings.copy_6 | escape }}</p><div class="flex flex-col sm:flex-row gap-3 mt-9"><a class="group inline-flex items-center justify-between gap-8 rounded-full bg-[#F5B300] text-[#1A1A1A] pl-7 pr-2 py-2 text-[11px] font-extrabold tracking-[0.16em] uppercase hover:bg-white transition-colors" href="{{ section.settings.link_1 }}">{{ block.settings.copy_7 | escape }}<span class="w-10 h-10 rounded-full bg-[#1A1A1A] text-white flex items-center justify-center group-hover:translate-x-1 transition-transform"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a><a class="rounded-full border border-white/25 px-7 py-4 text-[11px] font-bold tracking-[0.14em] uppercase hover:bg-white hover:text-[#1A1A1A] transition-colors" href="{{ section.settings.link_5 }}">{{ block.settings.copy_8 | escape }}</a></div></div></div><div class="relative min-h-[560px] lg:min-h-full overflow-hidden">{% if section.settings.image_6 != blank %}{{ section.settings.image_6 | image_url: width: 1600 | image_tag: class: 'absolute inset-0 w-full h-full object-cover object-center', loading: 'eager', sizes: '(min-width: 1024px) 50vw, 100vw', widths: '400, 750, 1100, 1600', alt: block.settings.image_1_alt }}{% else %}<img src="{{ 'sync-47154501d87a.jpg' | asset_url }}" class="absolute inset-0 w-full h-full object-cover object-center" width="1400" height="1200" loading="eager" alt="{{ block.settings.image_1_alt | escape }}">{% endif %}<div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/10"></div><div class="absolute top-6 right-6 bg-white text-[#1A1A1A] rounded-2xl px-5 py-4 shadow-xl"><div class="text-[9px] font-bold tracking-[0.18em] uppercase text-[#897F74]">{{ block.settings.copy_9 | escape }}</div><div class="font-display text-[28px] font-black mt-1">{{ block.settings.copy_10 | escape }}</div></div><div class="absolute left-5 right-5 sm:left-8 sm:right-8 bottom-6 grid grid-cols-3 rounded-2xl overflow-hidden bg-white/92 backdrop-blur-md text-[#1A1A1A] shadow-2xl"><div class="px-3 sm:px-5 py-5 border-r border-[#D7D0C6] last:border-0"><div class="font-display text-[13px] sm:text-[16px] font-extrabold">{{ block.settings.copy_11 | escape }}</div><div class="text-[#7B7167] text-[9px] sm:text-[10px] mt-1">{{ block.settings.copy_12 | escape }}</div></div><div class="px-3 sm:px-5 py-5 border-r border-[#D7D0C6] last:border-0"><div class="font-display text-[13px] sm:text-[16px] font-extrabold">{{ block.settings.copy_13 | escape }}</div><div class="text-[#7B7167] text-[9px] sm:text-[10px] mt-1">{{ block.settings.copy_14 | escape }}</div></div><div class="px-3 sm:px-5 py-5 border-r border-[#D7D0C6] last:border-0"><div class="font-display text-[13px] sm:text-[16px] font-extrabold">{{ block.settings.copy_15 | escape }}</div><div class="text-[#7B7167] text-[9px] sm:text-[10px] mt-1">{{ block.settings.copy_16 | escape }}</div></div></div></div></div></section>
+{% when 'band_2' %}
+<section {{ block.shopify_attributes }} class="px-6 sm:px-10 py-20 sm:py-28"><div class="max-w-[1280px] mx-auto"><div class="grid lg:grid-cols-[0.85fr_1.15fr] gap-12 lg:gap-20 items-end mb-12"><div><p class="text-[#806A2A] text-[10px] font-bold tracking-[0.24em] uppercase mb-5">{{ block.settings.copy_1 | escape }}</p><h2 class="font-display text-[42px] sm:text-[58px] font-black leading-[0.93] tracking-[-0.035em]">{{ block.settings.copy_2 | escape }}<br>{{ block.settings.copy_3 | escape }}</h2></div><p class="text-[#6F665D] text-[16px] leading-relaxed max-w-[540px] lg:justify-self-end">{{ block.settings.copy_4 | escape }}</p></div><div class="grid md:grid-cols-3 gap-4"><article class="bg-white border border-[#DED7CD] rounded-2xl p-7 min-h-[260px] flex flex-col hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(52,42,30,0.09)] transition-all duration-300"><span class="font-mono text-[10px] text-[#A87500]">{{ block.settings.copy_5 | escape }}</span><div class="mt-auto"><h3 class="font-display text-[23px] font-extrabold">{{ block.settings.copy_6 | escape }}</h3><p class="text-[#71685F] text-[13px] leading-relaxed mt-3">{{ block.settings.copy_7 | escape }}</p></div></article><article class="bg-white border border-[#DED7CD] rounded-2xl p-7 min-h-[260px] flex flex-col hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(52,42,30,0.09)] transition-all duration-300"><span class="font-mono text-[10px] text-[#A87500]">{{ block.settings.copy_8 | escape }}</span><div class="mt-auto"><h3 class="font-display text-[23px] font-extrabold">{{ block.settings.copy_9 | escape }}</h3><p class="text-[#71685F] text-[13px] leading-relaxed mt-3">{{ block.settings.copy_10 | escape }}</p></div></article><article class="bg-white border border-[#DED7CD] rounded-2xl p-7 min-h-[260px] flex flex-col hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(52,42,30,0.09)] transition-all duration-300"><span class="font-mono text-[10px] text-[#A87500]">{{ block.settings.copy_11 | escape }}</span><div class="mt-auto"><h3 class="font-display text-[23px] font-extrabold">{{ block.settings.copy_12 | escape }}</h3><p class="text-[#71685F] text-[13px] leading-relaxed mt-3">{{ block.settings.copy_13 | escape }}</p></div></article></div></div></section>
+{% when 'band_3' %}
+<section {{ block.shopify_attributes }} class="bg-white px-6 sm:px-10 py-20 sm:py-24 border-y border-[#DED7CD]"><div class="max-w-[1280px] mx-auto grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-20 items-center"><div class="relative overflow-hidden rounded-2xl min-h-[420px]">{% if block.settings.image_1 != blank %}{{ block.settings.image_1 | image_url: width: 1600 | image_tag: class: 'absolute inset-0 w-full h-full object-cover', loading: 'lazy', sizes: '(min-width: 1024px) 50vw, 100vw', widths: '400, 750, 1100, 1600', alt: block.settings.image_1_alt }}{% else %}<img src="{{ 'sync-2271578a3a7f.jpg' | asset_url }}" class="absolute inset-0 w-full h-full object-cover" width="1200" height="900" loading="lazy" alt="{{ block.settings.image_1_alt | escape }}">{% endif %}<div class="absolute top-5 left-5 bg-[#F5B300] rounded-full px-4 py-2 text-[9px] font-extrabold uppercase tracking-[0.18em]">{{ block.settings.copy_1 | escape }}</div></div><div><p class="text-[#806A2A] text-[10px] font-bold tracking-[0.24em] uppercase mb-5">{{ block.settings.copy_2 | escape }}</p><h2 class="font-display text-[42px] sm:text-[54px] font-black leading-[0.94] tracking-[-0.035em]">{{ block.settings.copy_3 | escape }}</h2><div class="mt-9 space-y-6"><div class="grid grid-cols-[42px_1fr] gap-4 border-t border-[#DED7CD] pt-5"><span class="font-mono text-[10px] text-[#A87500] pt-1">{{ block.settings.copy_4 | escape }}</span><div><h3 class="font-display text-[19px] font-extrabold">{{ block.settings.copy_5 | escape }}</h3><p class="text-[#71685F] text-[13px] leading-relaxed mt-1">{{ block.settings.copy_6 | escape }}</p></div></div><div class="grid grid-cols-[42px_1fr] gap-4 border-t border-[#DED7CD] pt-5"><span class="font-mono text-[10px] text-[#A87500] pt-1">{{ block.settings.copy_7 | escape }}</span><div><h3 class="font-display text-[19px] font-extrabold">{{ block.settings.copy_8 | escape }}</h3><p class="text-[#71685F] text-[13px] leading-relaxed mt-1">{{ block.settings.copy_9 | escape }}</p></div></div><div class="grid grid-cols-[42px_1fr] gap-4 border-t border-[#DED7CD] pt-5"><span class="font-mono text-[10px] text-[#A87500] pt-1">{{ block.settings.copy_10 | escape }}</span><div><h3 class="font-display text-[19px] font-extrabold">{{ block.settings.copy_11 | escape }}</h3><p class="text-[#71685F] text-[13px] leading-relaxed mt-1">{{ block.settings.copy_12 | escape }}</p></div></div></div></div></div></section>
+{% when 'band_4' %}
+<section {{ block.shopify_attributes }} class="bg-[#F5B300] px-6 sm:px-10 py-20 sm:py-24 overflow-hidden"><div class="max-w-[1280px] mx-auto grid lg:grid-cols-[0.9fr_1.1fr] gap-12 lg:gap-20 items-center"><div><div class="inline-flex items-center gap-2 rounded-full bg-[#1A1A1A] text-white px-4 py-2 text-[9px] font-extrabold tracking-[0.18em] uppercase">{{ block.settings.copy_1 | escape }}</div><h2 class="font-display text-[48px] sm:text-[66px] font-black leading-[0.88] tracking-[-0.045em] mt-7">{{ block.settings.copy_2 | escape }}<br>{{ block.settings.copy_3 | escape }}</h2><p class="text-black/65 text-[16px] leading-relaxed max-w-[560px] mt-7">{{ block.settings.copy_4 | escape }}</p><a class="group mt-9 inline-flex items-center gap-7 rounded-full bg-[#1A1A1A] text-white pl-7 pr-2 py-2 text-[11px] font-extrabold tracking-[0.15em] uppercase hover:bg-white hover:text-[#1A1A1A] transition-colors" href="{{ section.settings.link_5 }}">{{ block.settings.copy_5 | escape }}<span class="w-10 h-10 rounded-full bg-white text-[#1A1A1A] flex items-center justify-center group-hover:bg-[#F5B300] group-hover:translate-x-1 transition-all"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a><p class="text-black/45 text-[10px] mt-4">{{ block.settings.copy_6 | escape }}</p></div><div class="grid sm:grid-cols-2 gap-4"><div class="rounded-2xl p-7 min-h-[190px] flex flex-col justify-between bg-[#1A1A1A] text-white"><span class="font-mono text-[10px] opacity-45">{{ block.settings.copy_7 | escape }}</span><div><div class="font-display text-[38px] font-black leading-none">{{ block.settings.copy_8 | escape }}</div><div class="text-[11px] font-semibold uppercase tracking-[0.12em] opacity-60 mt-2">{{ block.settings.copy_9 | escape }}</div></div></div><div class="rounded-2xl p-7 min-h-[190px] flex flex-col justify-between bg-white/80 text-[#1A1A1A]"><span class="font-mono text-[10px] opacity-45">{{ block.settings.copy_10 | escape }}</span><div><div class="font-display text-[38px] font-black leading-none">{{ block.settings.copy_11 | escape }}</div><div class="text-[11px] font-semibold uppercase tracking-[0.12em] opacity-60 mt-2">{{ block.settings.copy_12 | escape }}</div></div></div><div class="rounded-2xl p-7 min-h-[190px] flex flex-col justify-between bg-white/80 text-[#1A1A1A]"><span class="font-mono text-[10px] opacity-45">{{ block.settings.copy_13 | escape }}</span><div><div class="font-display text-[38px] font-black leading-none">{{ block.settings.copy_14 | escape }}</div><div class="text-[11px] font-semibold uppercase tracking-[0.12em] opacity-60 mt-2">{{ block.settings.copy_15 | escape }}</div></div></div><div class="rounded-2xl p-7 min-h-[190px] flex flex-col justify-between bg-white/80 text-[#1A1A1A]"><span class="font-mono text-[10px] opacity-45">{{ block.settings.copy_16 | escape }}</span><div><div class="font-display text-[38px] font-black leading-none">{{ block.settings.copy_17 | escape }}</div><div class="text-[11px] font-semibold uppercase tracking-[0.12em] opacity-60 mt-2">{{ block.settings.copy_18 | escape }}</div></div></div></div></div></section>
+{% when 'band_5' %}
+<section {{ block.shopify_attributes }} class="px-6 sm:px-10 py-20 sm:py-24 bg-[#F7F2E8]"><div class="max-w-[1280px] mx-auto"><div class="text-center max-w-[720px] mx-auto mb-12"><p class="text-[#806A2A] text-[10px] font-bold tracking-[0.24em] uppercase mb-5">{{ block.settings.copy_1 | escape }}</p><h2 class="font-display text-[42px] sm:text-[56px] font-black leading-[0.94] tracking-[-0.035em]">{{ block.settings.copy_2 | escape }}</h2></div><div class="grid md:grid-cols-3 gap-4"><a class="group text-left bg-white border border-[#DED7CD] rounded-2xl p-7 min-h-[320px] flex flex-col hover:bg-[#1A1A1A] hover:text-white hover:-translate-y-1 transition-all duration-300" href="{{ section.settings.link_1 }}"><span class="font-mono text-[10px] text-[#A87500] group-hover:text-[#F5B300]">{{ block.settings.copy_3 | escape }}</span><div class="mt-auto"><h3 class="font-display text-[25px] font-extrabold">{{ block.settings.copy_4 | escape }}</h3><p class="text-[#71685F] group-hover:text-white/55 text-[13px] leading-relaxed mt-3">{{ block.settings.copy_5 | escape }}</p><div class="text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#906700] group-hover:text-[#F5B300] mt-8">{{ block.settings.copy_6 | escape }}</div></div></a><a class="group text-left bg-white border border-[#DED7CD] rounded-2xl p-7 min-h-[320px] flex flex-col hover:bg-[#1A1A1A] hover:text-white hover:-translate-y-1 transition-all duration-300" href="{{ section.settings.link_4 }}"><span class="font-mono text-[10px] text-[#A87500] group-hover:text-[#F5B300]">{{ block.settings.copy_7 | escape }}</span><div class="mt-auto"><h3 class="font-display text-[25px] font-extrabold">{{ block.settings.copy_8 | escape }}</h3><p class="text-[#71685F] group-hover:text-white/55 text-[13px] leading-relaxed mt-3">{{ block.settings.copy_9 | escape }}</p><div class="text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#906700] group-hover:text-[#F5B300] mt-8">{{ block.settings.copy_10 | escape }}</div></div></a><a class="group text-left bg-white border border-[#DED7CD] rounded-2xl p-7 min-h-[320px] flex flex-col hover:bg-[#1A1A1A] hover:text-white hover:-translate-y-1 transition-all duration-300" href="{{ section.settings.link_5 }}"><span class="font-mono text-[10px] text-[#A87500] group-hover:text-[#F5B300]">{{ block.settings.copy_11 | escape }}</span><div class="mt-auto"><h3 class="font-display text-[25px] font-extrabold">{{ block.settings.copy_12 | escape }}</h3><p class="text-[#71685F] group-hover:text-white/55 text-[13px] leading-relaxed mt-3">{{ block.settings.copy_13 | escape }}</p><div class="text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#906700] group-hover:text-[#F5B300] mt-8">{{ block.settings.copy_14 | escape }}</div></div></a></div></div></section>
+{% when 'band_6' %}
+<section {{ block.shopify_attributes }} class="bg-[#1A1A1A] text-white px-6 py-20 sm:py-24 text-center"><div class="max-w-[850px] mx-auto"><p class="text-[#F5B300] text-[10px] font-bold tracking-[0.25em] uppercase mb-6">{{ block.settings.copy_1 | escape }}</p><h2 class="font-display text-[44px] sm:text-[64px] font-black leading-[0.9] tracking-[-0.04em]">{{ block.settings.copy_2 | escape }}</h2><p class="text-white/55 text-[15px] leading-relaxed max-w-[560px] mx-auto mt-6">{{ block.settings.copy_3 | escape }}</p><div class="flex flex-col sm:flex-row gap-3 justify-center mt-9"><a class="rounded-full bg-[#F5B300] text-[#1A1A1A] px-8 py-4 text-[11px] font-extrabold uppercase tracking-[0.16em] hover:bg-white transition-colors" href="{{ section.settings.link_1 }}">{{ block.settings.copy_4 | escape }}</a><a class="rounded-full border border-white/25 px-8 py-4 text-[11px] font-bold uppercase tracking-[0.16em] hover:border-white transition-colors" href="{{ section.settings.link_2 }}">{{ block.settings.copy_5 | escape }}</a></div></div></section>
+{% endcase %}
+{% endfor %}
+</div>
+{% schema %}
+{
+  "name": "Ready Series overview",
+  "settings": [
+    {
+      "type": "url",
+      "id": "link_1",
+      "label": "Link 1"
+    },
+    {
+      "type": "url",
+      "id": "link_2",
+      "label": "Link 2"
+    },
+    {
+      "type": "url",
+      "id": "link_3",
+      "label": "Link 3"
+    },
+    {
+      "type": "url",
+      "id": "link_4",
+      "label": "Link 4"
+    },
+    {
+      "type": "url",
+      "id": "link_5",
+      "label": "Link 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_6",
+      "label": "Image 6"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "band_1",
+      "name": "Hero",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "copy_1",
+          "label": "READY-SERIES",
+          "default": "READY-SERIES"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_2",
+          "label": "by PERFORMANCE MEALS",
+          "default": "by PERFORMANCE MEALS"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_3",
+          "label": "Everyday momentum",
+          "default": "Everyday momentum"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_4",
+          "label": "Ready for",
+          "default": "Ready for"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_5",
+          "label": "real life.",
+          "default": "real life."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_6",
+          "label": "Frozen performance meals that keep your week ",
+          "default": "Frozen performance meals that keep your week moving. Easy to choose, ready in minutes, and dependable when cooking does not fit the day."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_7",
+          "label": "Shop Ready Series",
+          "default": "Shop Ready Series"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_8",
+          "label": "See subscription plans",
+          "default": "See subscription plans"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_9",
+          "label": "From freezer to table",
+          "default": "From freezer to table"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_10",
+          "label": "3 minutes",
+          "default": "3 minutes"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_11",
+          "label": "Zero prep",
+          "default": "Zero prep"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_12",
+          "label": "No chopping",
+          "default": "No chopping"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_13",
+          "label": "Clear macros",
+          "default": "Clear macros"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_14",
+          "label": "Choose easily",
+          "default": "Choose easily"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_15",
+          "label": "Stock-up value",
+          "default": "Stock-up value"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_16",
+          "label": "Stay ready",
+          "default": "Stay ready"
+        },
+        {
+          "type": "text",
+          "id": "image_1_alt",
+          "label": "Photograph 1 description",
+          "default": "Asian family enjoying a meal together at home"
+        }
+      ]
+    },
+    {
+      "type": "band_2",
+      "name": "Context",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "copy_1",
+          "label": "When the day changes",
+          "default": "When the day changes"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_2",
+          "label": "Cooking can wait.",
+          "default": "Cooking can wait."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_3",
+          "label": "Your routine should not.",
+          "default": "Your routine should not."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_4",
+          "label": "Long workdays, late training, family plans, a",
+          "default": "Long workdays, late training, family plans, and low-energy evenings are normal. Ready Series gives those moments a better answer than skipping dinner or ordering whatever is closest."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_5",
+          "label": "7:15 PM",
+          "default": "7:15 PM"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_6",
+          "label": "The meeting ran over",
+          "default": "The meeting ran over"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_7",
+          "label": "Dinner is already handled. Heat a meal and cl",
+          "default": "Dinner is already handled. Heat a meal and close the laptop."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_8",
+          "label": "8:30 PM",
+          "default": "8:30 PM"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_9",
+          "label": "Training finished late",
+          "default": "Training finished late"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_10",
+          "label": "Clear protein and calorie information makes t",
+          "default": "Clear protein and calorie information makes the next choice easy."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_11",
+          "label": "Any time",
+          "default": "Any time"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_12",
+          "label": "Plans changed again",
+          "default": "Plans changed again"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_13",
+          "label": "A stocked freezer keeps one useful part of th",
+          "default": "A stocked freezer keeps one useful part of the day predictable."
+        }
+      ]
+    },
+    {
+      "type": "band_3",
+      "name": "Approach",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "copy_1",
+          "label": "Frozen at peak",
+          "default": "Frozen at peak"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_2",
+          "label": "The simplest part of your day",
+          "default": "The simplest part of your day"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_3",
+          "label": "Choose. Heat. Keep moving.",
+          "default": "Choose. Heat. Keep moving."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_4",
+          "label": "01",
+          "default": "01"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_5",
+          "label": "Choose what fits",
+          "default": "Choose what fits"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_6",
+          "label": "Browse individual meals, predefined bundles, ",
+          "default": "Browse individual meals, predefined bundles, or a prepaid 3- or 6-month subscription with monthly deliveries and no automatic renewal."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_7",
+          "label": "02",
+          "default": "02"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_8",
+          "label": "Keep it ready",
+          "default": "Keep it ready"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_9",
+          "label": "Store meals in the freezer for the unpredicta",
+          "default": "Store meals in the freezer for the unpredictable days ahead."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_10",
+          "label": "03",
+          "default": "03"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_11",
+          "label": "Heat in minutes",
+          "default": "Heat in minutes"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_12",
+          "label": "Follow the clear preparation guidance and get",
+          "default": "Follow the clear preparation guidance and get back to your evening."
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Photograph 1"
+        },
+        {
+          "type": "text",
+          "id": "image_1_alt",
+          "label": "Photograph 1 description",
+          "default": "A selection of balanced Ready Series meals"
+        }
+      ]
+    },
+    {
+      "type": "band_4",
+      "name": "Programme",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "copy_1",
+          "label": "Ready Series subscription",
+          "default": "Ready Series subscription"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_2",
+          "label": "Stock up once.",
+          "default": "Stock up once."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_3",
+          "label": "Stay ready for months.",
+          "default": "Stay ready for months."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_4",
+          "label": "Choose from 10 predefined plans across Just P",
+          "default": "Choose from 10 predefined plans across Just Protein, Low Carb, High Carb, and Mixed. Select a 3- or 6-month term and receive one planned delivery each month."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_5",
+          "label": "Compare subscription plans",
+          "default": "Compare subscription plans"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_6",
+          "label": "Subscriptions require a shared Performance Me",
+          "default": "Subscriptions require a shared Performance Meals account."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_7",
+          "label": "01",
+          "default": "01"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_8",
+          "label": "10",
+          "default": "10"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_9",
+          "label": "predefined plans",
+          "default": "predefined plans"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_10",
+          "label": "02",
+          "default": "02"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_11",
+          "label": "3 or 6",
+          "default": "3 or 6"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_12",
+          "label": "month terms",
+          "default": "month terms"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_13",
+          "label": "03",
+          "default": "03"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_14",
+          "label": "1",
+          "default": "1"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_15",
+          "label": "delivery each month",
+          "default": "delivery each month"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_16",
+          "label": "04",
+          "default": "04"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_17",
+          "label": "Monthly",
+          "default": "Monthly"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_18",
+          "label": "delivery rhythm",
+          "default": "delivery rhythm"
+        }
+      ]
+    },
+    {
+      "type": "band_5",
+      "name": "Details",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "copy_1",
+          "label": "Start where you are",
+          "default": "Start where you are"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_2",
+          "label": "Three clear ways to stay ready.",
+          "default": "Three clear ways to stay ready."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_3",
+          "label": "01",
+          "default": "01"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_4",
+          "label": "Individual Selection",
+          "default": "Individual Selection"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_5",
+          "label": "Pick the meals you want for a flexible one-ti",
+          "default": "Pick the meals you want for a flexible one-time order."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_6",
+          "label": "Choose meals →",
+          "default": "Choose meals →"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_7",
+          "label": "02",
+          "default": "02"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_8",
+          "label": "Bundles",
+          "default": "Bundles"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_9",
+          "label": "Stock up with a predefined selection and clea",
+          "default": "Stock up with a predefined selection and clear one-time pricing."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_10",
+          "label": "See bundles →",
+          "default": "See bundles →"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_11",
+          "label": "03",
+          "default": "03"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_12",
+          "label": "Subscription",
+          "default": "Subscription"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_13",
+          "label": "Choose a predefined plan for 3 or 6 months an",
+          "default": "Choose a predefined plan for 3 or 6 months and keep the freezer ready."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_14",
+          "label": "Compare plans →",
+          "default": "Compare plans →"
+        }
+      ]
+    },
+    {
+      "type": "band_6",
+      "name": "Closing",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "copy_1",
+          "label": "Stock up. Stay on track.",
+          "default": "Stock up. Stay on track."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_2",
+          "label": "Put a better fallback in the freezer.",
+          "default": "Put a better fallback in the freezer."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_3",
+          "label": "Ready Series protects your routine when time ",
+          "default": "Ready Series protects your routine when time is short—without asking the rest of life to slow down."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_4",
+          "label": "Shop meals",
+          "default": "Shop meals"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_5",
+          "label": "Our story",
+          "default": "Our story"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Ready Series overview",
+      "blocks": [
+        {
+          "type": "band_1"
+        },
+        {
+          "type": "band_2"
+        },
+        {
+          "type": "band_3"
+        },
+        {
+          "type": "band_4"
+        },
+        {
+          "type": "band_5"
+        },
+        {
+          "type": "band_6"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

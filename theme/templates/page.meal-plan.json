@@ -1,0 +1,70 @@
+{
+  "sections": {
+    "main": {
+      "type": "meal-plan-landing",
+      "settings": {
+        "text_17": "Choose your programme.",
+        "text_40": "From choosing your programme to selecting your meals.",
+        "text_43": "Choose your programme",
+        "text_44": "Biweekly, Monthly, 2 Months, 6 by 60 and 6 by 60 Plus.",
+        "text_48": "Choose from the available menu for your programme.",
+        "text_52": "Your programme\u2019s delivery options are confirmed with your selection.",
+        "text_56": "Review your selections and programme details in one place.",
+        "text_57": "Explore the available programme and meal options.",
+        "text_55": "Review your plan",
+        "text_59": "Structured plans",
+        "text_60": "Explore your programme.",
+        "text_08": "Fresh",
+        "text_09": "Meal choices",
+        "text_10": "Planned",
+        "text_11": "Delivery rhythm",
+        "programme_0_copy": "Recurring Monday\u2013Friday meal coverage with a focused two-week menu view.",
+        "programme_0_headline": "Two-week rhythm",
+        "programme_0_duration": "Renews every 2 weeks",
+        "programme_1_copy": "Recurring Monday\u2013Friday coverage with four weekly menus visible together.",
+        "programme_1_headline": "Monthly rhythm",
+        "programme_1_duration": "Renews every month",
+        "programme_2_copy": "Recurring Monday\u2013Friday coverage on a longer two-month renewal cycle.",
+        "programme_2_headline": "Extended rhythm",
+        "programme_2_duration": "Renews every 2 months",
+        "programme_3_copy": "A selectable 60-day programme with all-week meal coverage, paid upfront without automatic renewal.",
+        "programme_3_headline": "60-day programme",
+        "programme_3_duration": "60-day duration",
+        "programme_4_copy": "A selectable 60-day programme with all-week coverage and muscle support.",
+        "programme_4_headline": "60-day Plus",
+        "programme_4_duration": "60-day duration"
+      },
+      "blocks": {
+        "lunch": {
+          "type": "plan",
+          "settings": {
+            "heading": "Lunch Only",
+            "description": "5 lunches per delivery. Clean fuel for your workday, zero prep."
+          }
+        },
+        "dinner": {
+          "type": "plan",
+          "settings": {
+            "heading": "Lunch + Dinner",
+            "description": "Lunch and dinner covered Mon\u2013Fri."
+          }
+        },
+        "full": {
+          "type": "plan",
+          "settings": {
+            "heading": "Full Programme",
+            "description": "Lunch + dinner across your full programme. Maximum consistency."
+          }
+        }
+      },
+      "block_order": [
+        "lunch",
+        "dinner",
+        "full"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

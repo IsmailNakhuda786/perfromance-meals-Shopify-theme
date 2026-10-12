@@ -1,0 +1,52 @@
+{% doc %}
+Renders the Shopify session cart in a drawer or full page.
+@param {boolean} [drawer] - Render compact drawer styling
+{% enddoc %}
+<div {% if drawer %}class="flex flex-col flex-1"{% endif %}data-cart-content data-item-count="{{ cart.item_count }}">
+  {% if cart.empty? %}
+    {% if drawer %}<div class="flex-1 flex flex-col items-center justify-center gap-4 text-white/30 px-6 py-16"><p class="text-[14px]">{{ 'cart.drawer_empty' | t }}</p><a class="text-[#F5B300] text-[12px] tracking-widest uppercase font-semibold" href="{{ routes.collections_url }}/ready-series">{{ 'cart.shop_meals' | t }} →</a></div>{% else %}<div class="px-6 py-16 text-center"><h2 class="font-display text-[28px] font-bold mb-3">{{ 'cart.empty' | t }}</h2><p class="text-white/45 text-[13px] mb-6">{{ 'cart.empty_copy' | t }}</p><a class="pm-button" href="{{ routes.collections_url }}/ready-series">{{ 'cart.continue' | t }}</a></div>{% endif %}
+  {% else %}
+    <form action="{{ routes.cart_url }}" method="post" id="{% if drawer %}DrawerCartForm{% else %}PageCartForm{% endif %}" data-cart-form class="pm-cart-form{% unless drawer %} pm-cart-page-form{% endunless %}">
+      {% render 'cart-delivery-progress' %}
+      <div class="pm-cart-lines px-5 sm:px-6">
+        {% for item in cart.items %}
+          {% assign bundle_contents = item.variant.metafields.performance.bundle_contents.value | default: item.product.metafields.performance.bundle_contents.value %}
+          {% if drawer and bundle_contents != blank %}
+            <div class="pm-cart-bundle" data-cart-line data-line-key="{{ item.key | escape }}">{% render 'cart-bundle', item: item, contents: bundle_contents %}</div>
+          {% else %}
+          <div class="flex gap-4 py-5 border-b border-white/10" data-cart-line data-line-key="{{ item.key | escape }}">
+            <a href="{{ item.url }}" class="w-20 h-20 shrink-0 bg-white/5">{% if item.image %}{{ item.image | image_url: width: 180 | image_tag: loading: 'lazy', width: 90, height: 90, class: 'w-full h-full object-cover' }}{% endif %}</a>
+            <div class="flex-1 min-w-0">
+              <a href="{{ item.url }}" class="text-[13px] font-bold leading-snug block">{{ item.product.title | escape }}</a>
+              {% assign stream = item.product.metafields.performance.business_stream.value %}{% unless drawer %}{% if stream == 'meal_plan' %}<p class="text-[9px] font-bold uppercase tracking-widest text-[#E85D04] mt-2">{{ 'meal_plan.meal_plan' | t }}</p>{% elsif stream == 'ready_series' %}<p class="text-[9px] font-bold uppercase tracking-widest text-[#F5B300] mt-2">{{ 'sync.ready_series' | t }}</p>{% endif %}{% endunless %}
+              {% if bundle_contents != blank %}<div class="pm-bundle-thumbnails flex gap-1 mt-2">{% for part in bundle_contents limit: 5 %}{% assign meal = part.variant.value.product | default: part.product.value %}{% if meal.featured_image %}{{ meal.featured_image | image_url: width: 120 | image_tag: width: 48, height: 48, loading: 'lazy', class: 'w-9 h-9 object-cover' }}{% endif %}{% endfor %}</div><details class="pm-cart-bundle-details mt-3 text-[11px] text-white/60"><summary class="cursor-pointer uppercase tracking-wider font-mono"><span class="pm-bundle-see">{{ 'cart.see_meals' | t }}</span><span class="pm-bundle-hide">{{ 'cart.hide_meals' | t }}</span></summary><ul class="space-y-1 mt-2">{% for part in bundle_contents %}{% assign meal = part.variant.value.product | default: part.product.value %}{% if meal %}<li>{{ meal.title | escape }} ×{{ part.quantity.value }}</li>{% endif %}{% endfor %}</ul></details>{% endif %}
+              {% unless item.product.has_only_default_variant %}<p class="text-[11px] text-white/40 mt-1">{{ item.variant.title | escape }}</p>{% endunless %}
+              {% if item.selling_plan_allocation %}<p class="text-[11px] text-[#F5B300] mt-1">{{ item.selling_plan_allocation.selling_plan.name | escape }}</p>{% endif %}
+              {% for property in item.properties %}{% assign first_character = property.first | slice: 0 %}{% if property.last != blank and first_character != '_' %}<p class="text-[10px] text-white/45 mt-1 break-words">{{ property.first | escape }}: {{ property.last | escape }}</p>{% endif %}{% endfor %}
+              {% if item.line_level_discount_allocations.size > 0 %}{% for discount in item.line_level_discount_allocations %}<p class="text-[11px] text-[#F5B300] mt-1">{{ discount.discount_application.title | escape }} (−{{ discount.amount | money }})</p>{% endfor %}{% endif %}
+              <div class="pm-cart-line-actions flex items-center justify-between gap-2 mt-3">
+                <label class="sr-only" for="Quantity-{{ item.index }}-{% if drawer %}drawer{% else %}page{% endif %}">{{ 'cart.quantity' | t: product: item.product.title }}</label>
+                {% if drawer and stream == 'meal_plan' %}<input type="hidden" name="updates[]" value="{{ item.quantity }}">{% else %}{% if drawer %}<div class="pm-cart-quantity-control"><button type="button" data-cart-step="-1" aria-label="{{ 'cart.decrease' | t: product: item.product.title | escape }}">−</button>{% endif %}<input id="Quantity-{{ item.index }}-{% if drawer %}drawer{% else %}page{% endif %}" class="w-16 bg-transparent border border-white/20 py-1.5 px-2 text-[12px]" name="updates[]" type="number" value="{{ item.quantity }}" min="0" step="{{ item.variant.quantity_rule.increment | default: 1 }}"{% if item.variant.quantity_rule.max %} max="{{ item.variant.quantity_rule.max }}"{% endif %} data-cart-quantity data-key="{{ item.key | escape }}">{% if drawer %}<button type="button" data-cart-step="1" aria-label="{{ 'cart.increase' | t: product: item.product.title | escape }}">+</button></div>{% endif %}{% endif %}
+                <a href="{{ item.url_to_remove }}" data-cart-remove data-key="{{ item.key | escape }}" class="text-white/35 text-[11px] underline hover:text-white" aria-label="{{ 'cart.remove_product' | t: product: item.product.title | escape }}">{% if drawer and stream != 'meal_plan' %}<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>{% else %}{{ 'cart.remove' | t }}{% endif %}</a>
+                <span class="font-mono text-[12px] whitespace-nowrap">{% if item.original_line_price != item.final_line_price %}<s class="text-white/30 block">{{ item.original_line_price | money }}</s>{% endif %}{{ item.final_line_price | money }}</span>
+              </div>
+              {% if item.unit_price_measurement %}<p class="text-white/40 text-[11px] mt-2">{{ item.unit_price | money }} / {% if item.unit_price_measurement.reference_value != 1 %}{{ item.unit_price_measurement.reference_value }}{% endif %}{{ item.unit_price_measurement.reference_unit }}</p>{% endif %}
+            </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="pm-cart-summary p-5 sm:p-6 bg-[#161616]">
+        {% for discount in cart.cart_level_discount_applications %}<p class="text-[#F5B300] text-[12px] flex justify-between mb-2"><span>{{ discount.title | escape }}</span><span>−{{ discount.total_allocated_amount | money }}</span></p>{% endfor %}
+        <div class="flex justify-between items-end mb-3"><span class="text-[12px] font-bold uppercase tracking-[0.2em]">{% if drawer %}{{ 'cart.subtotal_count' | t: count: cart.item_count }}{% else %}{{ 'cart.subtotal' | t }}{% endif %}</span><strong class="font-display text-[26px]">{{ cart.total_price | money_with_currency }}</strong></div>
+        <p class="text-white/35 text-[11px] mb-5">{{ 'cart.checkout_note' | t }}</p>
+        {% unless drawer %}<label for="CartNote-{% if drawer %}drawer{% else %}page{% endif %}" class="text-[11px] text-white/50 mb-2 block">{{ 'cart.note' | t }}</label>
+        <textarea id="CartNote-{% if drawer %}drawer{% else %}page{% endif %}" name="note" class="w-full border border-white/15 bg-transparent px-3 py-2 text-[12px] mb-4" rows="2">{{ cart.note | escape }}</textarea>{% endunless %}
+        <p data-cart-error role="alert" class="text-red-300 text-[12px] mb-3" hidden></p>
+        {% unless drawer %}<button type="submit" name="update" class="w-full border border-white/20 py-3 text-[11px] font-bold uppercase tracking-widest mb-3">{{ 'cart.update' | t }}</button>{% endunless %}
+        <button type="submit" name="checkout" class="pm-button w-full">{{ 'cart.checkout' | t }}</button>
+        {% if drawer %}<button type="button" data-cart-close class="block w-full text-center text-white/40 text-[11px] uppercase tracking-wider mt-4">{{ 'cart.continue' | t }}</button>{% else %}<a href="{{ routes.collections_url }}/ready-series" class="block text-center text-white/40 text-[11px] underline mt-4">{{ 'cart.continue' | t }}</a>{% endif %}
+      </div>
+    </form>
+  {% endif %}
+</div>

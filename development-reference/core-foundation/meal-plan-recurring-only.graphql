@@ -1,0 +1,1 @@
+mutation RequireMealPlanSubscription($product:ProductUpdateInput!){productUpdate(product:$product){product{id title requiresSellingPlan}userErrors{field message}}}

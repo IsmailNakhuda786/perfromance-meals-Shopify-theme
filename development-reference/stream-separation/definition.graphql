@@ -1,0 +1,1 @@
+mutation QAFieldDefinition($input:MetafieldDefinitionInput!){metafieldDefinitionCreate(definition:$input){createdDefinition{id namespace key} userErrors{field message}}}

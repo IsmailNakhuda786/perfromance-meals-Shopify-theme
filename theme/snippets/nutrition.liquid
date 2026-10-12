@@ -1,0 +1,35 @@
+{% doc %}
+  Renders recorded nutrition values without deriving or estimating missing facts.
+  @param {product} product - Product containing merchant-owned performance metafields.
+  @param {boolean} [compact] - Show only the four summary macronutrients.
+  @example
+  {% render 'nutrition', product: product, compact: true %}
+{% enddoc %}
+{% liquid
+  assign nutrition_keys = 'protein_g,carbs_g,fat_g,calories_kcal' | split: ','
+  if compact != true
+    assign nutrition_keys = 'calories_kcal,protein_g,carbs_g,sugar_g,fat_g,saturated_fat_g,fibre_g,sodium_mg' | split: ','
+  endif
+  assign has_nutrition = false
+  for key in nutrition_keys
+    if product.metafields.performance[key] != blank
+      assign has_nutrition = true
+    endif
+  endfor
+%}
+{% if has_nutrition %}
+  <dl class="{% if compact %}grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/8 pm-macros{% else %}border border-white/10 pm-nutrition{% endif %}">
+    {% for key in nutrition_keys %}
+      {% assign fact = product.metafields.performance[key] %}
+      {% if fact != blank %}
+        {% assign translation_key = 'nutrition.' | append: key %}
+        <div class="{% if compact %}bg-[#111] py-4 flex flex-col items-center gap-1{% else %}flex items-center justify-between px-5 py-3 border-b border-white/8 last:border-0{% endif %}">
+          <dt class="{% if compact %}order-2 text-[9px] font-mono tracking-[0.2em] uppercase text-white/30{% else %}text-[13px] text-white/55{% endif %}">{{ translation_key | t }}</dt>
+          <dd class="{% if compact %}order-1 font-display text-[20px] font-extrabold text-[#F5B300]{% else %}font-mono font-bold text-[13px] text-white{% endif %}">{{ fact.value }}{% case key %}{% when 'calories_kcal' %}{% unless compact %} {{ 'nutrition.kcal' | t }}{% endunless %}{% when 'sodium_mg' %} {{ 'nutrition.mg' | t }}{% else %}{{ 'nutrition.g' | t }}{% endcase %}</dd>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </dl>
+{% elsif compact != true %}
+  <p class="text-white/45 text-[14px]">{{ 'nutrition.unavailable' | t }}</p>
+{% endif %}

@@ -1,0 +1,1 @@
+mutation SourceImageAlt($productId:ID!,$media:[UpdateMediaInput!]!){productUpdateMedia(productId:$productId,media:$media){media{id alt}mediaUserErrors{field message}}}

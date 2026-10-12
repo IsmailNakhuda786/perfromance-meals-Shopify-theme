@@ -1,0 +1,40 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import {createRequire} from 'node:module';
+const require=createRequire(path.resolve('theme-tools/package.json'));
+const {build}=require('esbuild'); const {load}=require('cheerio');
+const source='/Users/admin/Documents/Codex/2026-10-08/referenced-chatgpt-conversation-this-is-an/work/approved-source';
+const investigation='/Users/admin/Documents/Codex/2026-10-08/referenced-chatgpt-conversation-this-is-an/work';
+const pages=[['ReadySeriesLandingPage','ready-series-editorial','ready-series','Ready Series overview'],['ReadySeriesAboutPage','ready-series-about-editorial','ready-series-about','Ready Series about'],['MealPlanAboutPage','meal-plan-about-editorial','meal-plan-about','Meal Plan about'],['MealPlanStoriesPage','meal-plan-stories-editorial','meal-plan-stories','Meal Plan stories']];
+const entry=`import React from 'react';import {renderToStaticMarkup} from 'react-dom/server';${pages.map(([p],i)=>`import P${i} from '${source}/src/pages/${p}.tsx';`).join('')}const navigate=p=>p==='ready-series-order'?'/collections/ready-series':'/pages/'+p;const navigateToWizard=p=>'/pages/meal-plan-builder'+(p?'?programme='+p:'');const navigateToReadyOrder=m=>'/collections/ready-series'+({single:'',bundles:'-bundles',subscription:'-subscriptions'}[m]);export default [${pages.map((_,i)=>`renderToStaticMarkup(React.createElement(P${i},{navigate,navigateToWizard,navigateToReadyOrder}))`).join(',')}];`;
+await build({stdin:{contents:entry,resolveDir:process.cwd(),loader:'tsx'},outfile:'work/design-sync/editorial-render.mjs',bundle:true,external:['react','react-dom/server','react/jsx-runtime'],platform:'node',format:'esm',jsx:'automatic',alias:{'@':source+'/src'},nodePaths:[path.resolve('node_modules')],plugins:[{name:'native-links',setup(b){b.onLoad({filter:/\.tsx$/},args=>{if(!args.path.startsWith(source))return;let contents=fs.readFileSync(args.path,'utf8');contents=contents.replace(/onClick=\{\(\) => ([^{}]+)\}/g,'data-native-href={$1}');return {contents,loader:'tsx'};});}}]});
+const rendered=(await import(path.resolve('work/design-sync/editorial-render.mjs'))).default;
+const audit=JSON.parse(fs.readFileSync(investigation+'/image-audit.json'));
+const manifest=[];
+function asset(url){const a=audit.find(x=>x.url===url);if(!a||!a.decoded)throw Error('Unvalidated image '+url);const bytes=fs.readFileSync(investigation+'/image-audit/'+a.saved_as);if(crypto.createHash('sha256').update(bytes).digest('hex')!==a.sha256)throw Error('Image hash mismatch');const name='sync-'+a.saved_as;fs.writeFileSync('theme/assets/'+name,bytes);manifest.push({url,asset:name,sha256:a.sha256});return name;}
+for(let pi=0;pi<pages.length;pi++){
+ const [page,type,handle,name]=pages[pi];const file='theme/sections/'+type+'.liquid';const old=fs.readFileSync(file,'utf8');const schema=JSON.parse(old.match(/{% schema %}([\s\S]*?){% endschema %}/)[1]);const template=JSON.parse(fs.readFileSync('theme/templates/page.'+handle+'.json'));const def=template.sections.main;
+ const retained=schema.settings.filter(x=>['url','image_picker'].includes(x.type)); const settings=Object.fromEntries(retained.filter(x=>x.id in def.settings).map(x=>[x.id,def.settings[x.id]]));const imageSettings=retained.filter(x=>x.type==='image_picker');
+ const $=load(rendered[pi],{},false);$('link').remove();
+ $('button[data-native-href]').each((i,el)=>{el.tagName='a';$(el).attr('href',$(el).attr('data-native-href')).removeAttr('data-native-href');});
+ const replacements=new Map([
+ ['Free subscription delivery','Monthly delivery rhythm'],['10 plans','Approved plans'],['Fixed 6 by 60 programmes','60-day recurring programmes'],['Separate fixed programmes','Distinct recurring programmes'],['60-day, all-week programmes for the approved 6kg+ goal pathway','60-day recurring programmes with a focused approach to your routine'],['Account-managed continuity','A connected customer experience']
+ ]);
+ const nodes=[];function walk(n){if(n.type==='text'){const s=n.data.replace(/\s+/g,' ').trim();if(replacements.has(s))n.data=n.data.replace(s,replacements.get(s));}for(const c of n.children||[])walk(c);}walk($.root()[0]);
+ // Remove unsupported operational promises while retaining the source composition.
+ $('p').each((i,e)=>{const t=$(e).text();if(/pauses|permitted changes/.test(t))$(e).text('Your Shopify account keeps your customer identity and order history together. Available plan actions depend on your subscription.');});
+ const root=$.root().children('div').first();const bands=root.children();let markup=`<div class="${root.attr('class')}">\n{% for block in section.blocks %}\n{% case block.type %}\n`;const blocks=[],blockDefs={},order=[];let imgIdx=0;
+ bands.each((bi,band)=>{const b=$(band);const fields=[],values={};let ti=0,ii=0,li=0;
+ function textNodes(n){for(const c of [...(n.children||[])]){if(c.type==='text'&&c.data.trim()&&!['svg','style','script'].includes(n.tagName)){const raw=c.data;const value=raw.replace(/\s+/g,' ').trim();const id='copy_'+(++ti);fields.push({type:'textarea',id,label:value.slice(0,45),default:value});values[id]=value;c.data=(/^\s/.test(raw)?' ':'')+`PMTOKEN${id}END`+(/\s$/.test(raw)?' ':'');}else textNodes(c);}}textNodes(band);
+ b.find('img').each((i,e)=>{const im=$(e);const url=im.attr('src');if(!url?.startsWith('https://images.unsplash.com/'))throw Error('Unexpected image');const fallback=asset(url),alt=im.attr('alt')||'';const id='image_'+(++ii);let obj;if(imgIdx<imageSettings.length){obj='section.settings.'+imageSettings[imgIdx].id;}else{fields.push({type:'image_picker',id,label:'Photograph '+ii});obj='block.settings.'+id;}imgIdx++;fields.push({type:'text',id:id+'_alt',label:'Photograph '+ii+' description',default:alt});values[id+'_alt']=alt;const a=audit.find(x=>x.url===url);const cls=im.attr('class')||'';im.replaceWith(`PMIMAGE${ii}END`);values['__image_'+ii]=`{% if ${obj} != blank %}{{ ${obj} | image_url: width: 1600 | image_tag: class: '${cls}', loading: '${bi===0?'eager':'lazy'}', sizes: '(min-width: 1024px) 50vw, 100vw', widths: '400, 750, 1100, 1600', alt: block.settings.${id}_alt }}{% else %}<img src="{{ '${fallback}' | asset_url }}" class="${cls}" width="${a.width}" height="${a.height}" loading="${bi===0?'eager':'lazy'}" alt="{{ block.settings.${id}_alt | escape }}">{% endif %}`;});
+ b.find('a[href]').each((i,e)=>{const a=$(e),href=a.attr('href'),existing=retained.find(x=>x.type==='url'&&settings[x.id]===href);let obj;if(existing)obj='section.settings.'+existing.id;else{const id='link_'+(++li);fields.push({type:'url',id,label:'Destination '+li,default:href});values[id]=href;obj='block.settings.'+id;}a.attr('href',`PMLINK${i}END`);values['__link_'+i]=`{{ ${obj} }}`;});
+ const blockType='band_'+(bi+1);let html=$.html(band).replace(/PMTOKEN(copy_\d+)END/g,(_,id)=>`{{ block.settings.${id} | escape }}`);
+ for(const [k,v]of Object.entries(values)){if(k.startsWith('__image_')){html=html.replace('PMIMAGE'+k.slice(8)+'END',v);delete values[k];}if(k.startsWith('__link_')){html=html.replace('PMLINK'+k.slice(7)+'END',v);delete values[k];}}
+ html=html.replace(/^(<\w+)/,'$1 {{ block.shopify_attributes }}');if(fields.length>50)throw Error('Too many settings '+page+' '+bi+' '+fields.length);
+ blocks.push({type:blockType,name:['Hero','Context','Approach','Programme','Details','Closing','Closing'][bi],limit:1,settings:fields});blockDefs[blockType]={type:blockType,settings:values};order.push(blockType);markup+=`{% when '${blockType}' %}\n${html}\n`;
+ });
+ markup+='{% endcase %}\n{% endfor %}\n</div>\n{% schema %}\n'+JSON.stringify({name,settings:retained,blocks,max_blocks:bands.length,presets:[{name,blocks:order.map(type=>({type}))}]},null,2)+'\n{% endschema %}\n';
+ fs.writeFileSync(file,markup);def.settings=settings;def.blocks=blockDefs;def.block_order=order;fs.writeFileSync('theme/templates/page.'+handle+'.json',JSON.stringify(template,null,2)+'\n');console.log(type,blocks.length,'bands');
+}
+fs.writeFileSync('work/design-sync/editorial-assets.json',JSON.stringify(manifest,null,2));

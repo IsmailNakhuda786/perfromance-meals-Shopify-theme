@@ -1,0 +1,70 @@
+{% doc %}
+Renders the approved Performance Meals brand marks.
+@param {string} [brand] - pm, mp, or rs.
+@param {string} [size] - sm, md, or lg.
+@param {string} [variant] - Original light, dark, or yellow color variant.
+{% enddoc %}
+{% liquid
+  assign logo_key = brand | default: 'pm' | append: '_logo'
+  assign custom_logo = settings[logo_key]
+  assign logo_width = 220
+  if size == 'sm'
+    assign logo_width = 145
+  elsif size == 'lg'
+    assign logo_width = 286
+  endif
+  assign scale = 1
+  if size == 'sm'
+    assign scale = 0.65
+  elsif size == 'lg'
+    assign logo_key = brand | default: 'pm' | append: '_logo'
+  assign custom_logo = settings[logo_key]
+  assign logo_width = 220
+  if size == 'sm'
+    assign logo_width = 145
+  elsif size == 'lg'
+    assign logo_width = 286
+  endif
+  assign scale = 1.3
+  endif
+  assign text_color = '#1A1A1A'
+  assign circle_color = '#F5B300'
+  if brand == 'mp' or brand == 'rs'
+    if variant == 'dark'
+      assign text_color = '#FFFFFF'
+    endif
+  elsif variant == 'light'
+    assign text_color = '#FFFFFF'
+  endif
+  if variant == 'yellow'
+    assign circle_color = '#1A1A1A'
+  endif
+%}
+{% if custom_logo %}{{ custom_logo | image_url: width: 600 | image_tag: width: logo_width, class: 'max-w-full h-auto', alt: shop.name }}{% elsif brand == 'mp' %}
+<span class="inline-flex items-start gap-[10px] select-none" style="transform:scale({{ scale }});transform-origin:left center" aria-label="{{ 'brands.meal_plan' | t | escape }}">
+  <span class="shrink-0 mt-[3px]" style="width:4px;background:#E85D04;align-self:stretch;min-height:38px"></span>
+  <span class="flex flex-col leading-none">
+    <span style="font-family:Outfit,sans-serif;font-weight:600;font-size:8px;letter-spacing:.25em;color:#E85D04;line-height:1;margin-bottom:4px">PERFORMANCE MEALS</span>
+    <span style="font-family:Outfit,sans-serif;font-weight:900;font-style:italic;font-size:34px;letter-spacing:.01em;color:{{ text_color }};line-height:.88">MEAL PLAN</span>
+    <svg width="130" height="7" viewBox="0 0 130 7" style="margin-top:4px" aria-hidden="true"><path d="M2 4.5 C25 2, 65 5.5, 95 3.5 C112 2.5, 124 4, 128 4.5" stroke="#E85D04" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/></svg>
+  </span>
+</span>
+{% elsif brand == 'rs' %}
+<span class="inline-flex items-center gap-[11px] select-none" style="transform:scale({{ scale }});transform-origin:left center" aria-label="{{ 'brands.ready_series' | t | escape }}">
+  <span class="shrink-0 w-[36px] h-[36px] rounded-full" style="background:{{ circle_color }}"></span>
+  <span class="flex flex-col leading-none">
+    <span style="font-family:Outfit,sans-serif;font-weight:800;font-style:italic;font-size:22px;letter-spacing:.02em;color:{{ text_color }};line-height:1">READY-SERIES</span>
+    <span style="height:2px;background:#F5B300;margin:3px 0"></span>
+    <span style="font-family:Outfit,sans-serif;font-weight:500;font-size:7.5px;letter-spacing:.22em;color:{{ text_color }};opacity:.55;line-height:1">by PERFORMANCE MEALS</span>
+  </span>
+</span>
+{% else %}
+<span class="inline-flex items-center gap-[10px] select-none" style="transform:scale({{ scale }});transform-origin:left center" aria-label="{{ 'brands.performance_meals' | t | escape }}">
+  <span class="shrink-0 w-[34px] h-[34px] rounded-full" style="background:{{ circle_color }}"></span>
+  <span class="flex flex-col leading-none">
+    <span style="font-family:Outfit,sans-serif;font-weight:600;font-size:17px;letter-spacing:.18em;color:{{ text_color }};line-height:1">PERFORMANCE</span>
+    <span class="my-[3px]" style="height:1.5px;background:#F5B300"></span>
+    <span style="font-family:Outfit,sans-serif;font-weight:400;font-size:9px;letter-spacing:.35em;color:{{ text_color }};opacity:.7;line-height:1">MEALS</span>
+  </span>
+</span>
+{% endif %}

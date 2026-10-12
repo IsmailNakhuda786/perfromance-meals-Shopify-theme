@@ -1,0 +1,1 @@
+query QAMediaReadback { products(first:20,query:"tag:pm-storefront-qa") { nodes { id handle status featuredImage { url altText } variants(first:20) { nodes { id title price } } media(first:5) { nodes { status } } } } }

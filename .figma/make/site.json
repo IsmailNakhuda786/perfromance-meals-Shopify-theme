@@ -1,0 +1,11 @@
+{
+  "title": "Performance Meals",
+  "description": "This web application offers a custom Shopify design prototype that enhances user experience by clearly separating different business departments for meal plans and ready-to-go meals.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

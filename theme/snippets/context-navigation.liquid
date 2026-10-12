@@ -1,0 +1,42 @@
+{% doc %}
+Contextual brand navigation using merchant-configured destinations.
+@param {string} brand - Current brand key
+@param {string} mode - desktop or mobile
+@param {object} config - Header section settings
+{% enddoc %}
+{% liquid
+ assign link_class = 'text-[11px] tracking-[0.16em] uppercase font-semibold text-white/45 hover:text-white transition-colors'
+ if mode == 'mobile'
+  assign link_class = 'block w-full text-left py-3 px-3 text-[15px] text-white/70 hover:text-white hover:bg-white/5 border-b border-white/5'
+ endif
+%}
+{% if brand == 'rs' %}
+{% assign destination = config.ready_series_url | default: '/pages/ready-series' %}
+{% assign link_label = 'navigation.overview' | t %}
+{% render 'context-link', destination: destination, link_class: link_class, label: link_label %}
+{% assign destination = config.ready_series_about_url | default: '/pages/ready-series-about' %}
+{% assign link_label = 'navigation.brand_about' | t %}
+{% render 'context-link', destination: destination, link_class: link_class, label: link_label %}
+{% assign destination = config.ready_series_order_url | default: '/collections/ready-series' %}
+{% assign link_label = 'navigation.order' | t %}
+{% render 'context-link', destination: destination, link_class: link_class, label: link_label %}
+{% elsif brand == 'mp' %}
+{% assign destination = config.meal_plan_url | default: '/pages/meal-plan' %}
+{% assign link_label = 'navigation.overview' | t %}
+{% render 'context-link', destination: destination, link_class: link_class, label: link_label %}
+{% assign destination = config.meal_plan_about_url | default: '/pages/meal-plan-about' %}
+{% assign link_label = 'navigation.brand_about' | t %}
+{% render 'context-link', destination: destination, link_class: link_class, label: link_label %}
+{% assign destination = config.meal_plan_order_url | default: '/pages/meal-plan-builder' %}
+{% assign link_label = 'navigation.order' | t %}
+{% render 'context-link', destination: destination, link_class: link_class, label: link_label %}
+{% assign destination = config.meal_plan_stories_url | default: '/pages/meal-plan-stories' %}
+{% assign link_label = 'navigation.customer_stories' | t %}
+{% render 'context-link', destination: destination, link_class: link_class, label: link_label %}
+{% else %}
+{% assign link_label = 'navigation.our_brands' | t %}
+{% render 'context-link', destination: routes.root_url, link_class: link_class, label: link_label %}
+{% assign destination = config.about_url | default: '/pages/about' %}
+{% assign link_label = 'navigation.about' | t %}
+{% render 'context-link', destination: destination, link_class: link_class, label: link_label %}
+{% endif %}

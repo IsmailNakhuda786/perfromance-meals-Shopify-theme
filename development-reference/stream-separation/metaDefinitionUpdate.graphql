@@ -1,0 +1,1 @@
+mutation StreamMetaSchema($id:ID!,$input:MetaobjectDefinitionUpdateInput!){metaobjectDefinitionUpdate(id:$id,definition:$input){metaobjectDefinition{id type}userErrors{field message}}}

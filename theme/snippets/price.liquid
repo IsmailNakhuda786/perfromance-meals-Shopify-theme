@@ -1,0 +1,25 @@
+{% doc %}
+  Renders a Shopify product or variant price and compare-at price.
+  @param {product} product - Product whose price is displayed.
+  @param {variant} [variant] - Selected variant.
+  @param {selling_plan_allocation} [allocation] - Selected native purchase option.
+  @param {boolean} [require_allocation] - Never display a one-time fallback for subscriptions.
+  @example
+  {% render 'price', product: product, variant: product.selected_or_first_available_variant %}
+{% enddoc %}
+{% liquid
+  assign price_value = product.price
+  assign compare_value = product.compare_at_price
+  if variant
+    assign price_value = variant.price
+    assign compare_value = variant.compare_at_price
+  endif
+  if allocation
+    assign price_value = allocation.price
+    assign compare_value = allocation.compare_at_price
+  endif
+%}
+{% if require_allocation and allocation == nil %}<span class="pm-price text-[14px]" data-price>{{ 'catalog.subscription_unavailable' | t }}</span><s data-compare-price hidden></s>{% else %}<span class="pm-price" data-price>{{ price_value | money_with_currency }}</span>
+<s class="text-white/35 text-[13px] ml-2" data-compare-price{% unless compare_value > price_value %} hidden{% endunless %}>{% if compare_value > price_value %}{{ compare_value | money_with_currency }}{% endif %}</s>
+{% if product.price_varies and variant == blank %}<span class="text-[11px] text-white/45 ml-1">{{ 'catalog.from_price' | t }}</span>{% endif %}
+{% endif %}

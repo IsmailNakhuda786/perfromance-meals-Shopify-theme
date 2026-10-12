@@ -1,0 +1,20 @@
+{
+  "type": "footer",
+  "name": "Footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "settings": {}
+    },
+    "promo": {
+      "type": "promo-popup",
+      "settings": {
+        "enabled": false
+      }
+    }
+  },
+  "order": [
+    "footer",
+    "promo"
+  ]
+}

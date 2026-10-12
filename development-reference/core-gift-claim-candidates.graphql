@@ -1,0 +1,1 @@
+query GiftCardClaimTestCandidates { shop { myshopifyDomain currencyCode } currentAppInstallation { app { id title } } giftCards(first:20,query:"status:enabled balance_status:full_or_partial") { nodes { id balance { amount currencyCode } recipientAttributes { recipient { id } } order { id name test } } pageInfo { hasNextPage endCursor } } }

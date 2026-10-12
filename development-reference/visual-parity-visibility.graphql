@@ -1,0 +1,10 @@
+query VisualParityVisibility {
+ shop { myshopifyDomain }
+ products(first: 100) {
+  nodes { id handle title status resourcePublications(first: 10) { nodes { isPublished publication { id name } } } }
+ }
+ metaobjectDefinitions(first:30) { nodes { type access { storefront } } }
+ menuWeeks: metaobjects(type:"performance_menu_week",first:50) {
+  nodes { handle capabilities { publishable { status } } }
+ }
+}

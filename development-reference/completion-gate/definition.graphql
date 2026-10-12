@@ -1,0 +1,1 @@
+mutation($input:MetafieldDefinitionInput!){metafieldDefinitionCreate(definition:$input){createdDefinition{id} userErrors{field message}}}

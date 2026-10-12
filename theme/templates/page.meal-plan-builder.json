@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "meal-plan-builder",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

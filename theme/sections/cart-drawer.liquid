@@ -1,0 +1,10 @@
+<dialog id="CartDrawer" class="pm-cart-drawer bg-[#111] text-white" aria-labelledby="CartDrawerTitle">
+  <div class="flex justify-between items-center border-b border-white/10 px-6 py-5"><h2 id="CartDrawerTitle" class="font-display text-[20px] font-bold">{{ 'cart.title' | t }}</h2><button type="button" data-cart-close class="w-8 h-8 text-[26px] text-white/50 hover:text-white" aria-label="{{ 'cart.close' | t }}">×</button></div>
+  {% render 'cart-content', drawer: true %}
+</dialog>
+{% schema %}
+{
+  "name": "Cart drawer",
+  "settings": []
+}
+{% endschema %}

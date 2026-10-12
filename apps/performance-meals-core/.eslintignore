@@ -1,0 +1,11 @@
+node_modules
+build
+public/build
+*/*.yml
+.shopify
+
+# Shopify CLI-generated module augmentation; checked by extension TypeScript.
+extensions/*/shopify.d.ts
+extensions/*/dist
+.react-router
+extensions/*/src/app-endpoint.generated.js

@@ -1,0 +1,9 @@
+{% doc %}
+  Snapshots the canonical product stream on native cart lines. Client properties are evidence, not a security boundary.
+  @param {product} product - Shopify product whose variants inherit its canonical classification.
+{% enddoc %}
+{%- assign business_stream = product.metafields.performance.business_stream.value -%}
+{%- if business_stream == 'ready_series' or business_stream == 'meal_plan' or business_stream == 'shared' -%}
+  <input type="hidden" name="properties[_pm_business_stream]" value="{{ business_stream | escape }}">
+  <input type="hidden" name="properties[_pm_stream_schema_version]" value="1">
+{%- endif -%}

@@ -1,0 +1,180 @@
+<section class="relative bg-white overflow-hidden" data-home-hero data-autoplay="{{ section.settings.autoplay }}" aria-roledescription="{{ 'home.carousel' | t }}" aria-label="{{ 'home.featured' | t }}">
+  <div class="flex flex-col lg:flex-row" style="min-height:clamp(500px,70vh,620px)">
+    <div class="relative z-10 w-full lg:w-[53%] flex-shrink-0 px-6 sm:px-10 lg:px-14 py-10 lg:py-14 flex flex-col justify-between order-2 lg:order-1" style="min-height:clamp(340px,50vw,560px)">
+      <div>
+        {% for block in section.blocks %}
+        <div data-hero-slide data-index="{{ forloop.index0 }}" {% unless forloop.first %}hidden{% endunless %} {{ block.shopify_attributes }}>
+          <p class="text-[#1A1A1A] text-[11px] font-medium tracking-[0.06em] mb-6 lg:mb-10">{{ block.settings.eyebrow | escape }}</p>
+          {% if forloop.first %}<h1 class="font-display font-bold leading-[0.88] mb-5 lg:mb-6" style="font-size:clamp(32px,5vw,64px);letter-spacing:-.03em;color:#1A1A1A">{{ block.settings.heading | escape | newline_to_br }}</h1>{% else %}<h2 class="font-display font-bold leading-[0.88] mb-5 lg:mb-6" style="font-size:clamp(32px,5vw,64px);letter-spacing:-.03em;color:#1A1A1A">{{ block.settings.heading | escape | newline_to_br }}</h2>{% endif %}
+          <p class="text-[#1A1A1A] leading-[1.45] mb-6 lg:mb-8 max-w-[440px]" style="font-size:clamp(13px,1.2vw,16px)">{{ block.settings.body | escape }}</p>
+          <div class="flex flex-wrap gap-3 lg:gap-6 lg:pl-16">
+            <a href="{{ block.settings.primary_url | default: '/pages/ready-series' }}" class="group inline-flex items-center justify-center relative h-12 lg:h-14 px-7 lg:px-9 bg-[#1A1A1A] text-white text-[12px] lg:text-[13px] font-semibold tracking-[0.04em] rounded-full overflow-hidden transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_8px_28px_rgba(26,26,26,0.35)]"><span class="absolute inset-0 rounded-full bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span><span class="relative">{{ block.settings.primary_label | escape }}</span></a>
+            {% if block.settings.secondary_label != blank and block.settings.secondary_url != blank %}<a href="{{ block.settings.secondary_url }}" class="group inline-flex items-center justify-center relative h-12 lg:h-14 px-7 lg:px-9 bg-[#E85D04] text-white text-[12px] lg:text-[13px] font-semibold tracking-[0.04em] rounded-full overflow-hidden transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_8px_28px_rgba(232,93,4,0.45)]"><span class="absolute inset-0 rounded-full bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span><span class="relative">{{ block.settings.secondary_label | escape }}</span></a>{% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="mt-8 lg:mt-14 flex flex-col gap-3">
+        <p class="text-[#7A7A75] text-[10px] lg:text-[11px] font-medium tracking-[0.034em]">{{ section.settings.standard | escape }}</p>
+        <div class="flex items-center gap-3 lg:gap-4">
+          <div class="relative h-[2px] w-[140px] lg:w-[240px] bg-[#1A1A1A]/15 rounded-full overflow-hidden"><div data-hero-progress class="absolute left-0 top-0 h-full bg-[#F5B300] rounded-full transition-all duration-300" style="width:{% if section.blocks.size > 0 %}{{ 100 | divided_by: section.blocks.size }}{% else %}0{% endif %}%"></div></div>
+          <span data-hero-count class="text-[#7A7A75] text-[11px] font-medium">01 / 0{{ section.blocks.size }}</span>
+          <button type="button" data-hero-pause class="text-[#7A7A75] text-[10px]" aria-label="{{ 'home.pause' | t }}" data-pause-label="{{ 'home.pause' | t }}" data-play-label="{{ 'home.play' | t }}" data-auto-label="{{ 'home.auto' | t }}">{{ 'home.auto' | t }}</button>
+          <button type="button" data-hero-prev class="pm-hero-control" aria-label="{{ 'home.previous' | t }}">←</button><button type="button" data-hero-next class="pm-hero-control" aria-label="{{ 'home.next' | t }}">→</button>
+        </div>
+      </div>
+    </div>
+    <div class="hidden lg:block w-5 flex-shrink-0 bg-[#F5B300] z-10"></div>
+    <div class="relative w-full lg:flex-1 order-1 lg:order-2 overflow-hidden" style="min-height:240px" data-hero-image>
+      {% for block in section.blocks %}
+        {% if block.settings.image != blank %}{% assign image_url = block.settings.image | image_url: width: 1800 %}{% else %}{% assign image_url = block.settings.fallback_image | asset_url %}{% endif %}
+        <img src="{{ image_url }}" alt="{{ block.settings.image_alt | escape }}" width="1200" height="900" class="absolute inset-0 w-full h-full object-cover" data-hero-source data-index="{{ forloop.index0 }}" {% unless forloop.first %}hidden{% endunless %} {% if forloop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %}>
+      {% endfor %}
+      <div class="absolute inset-0 w-full h-full" data-hero-tiles aria-hidden="true" style="display:none;grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(4,1fr)"></div>
+    </div>
+  </div>
+</section>
+{% stylesheet %}
+.pm-hero-control{color:#7a7a75;font-size:15px;min-width:24px;min-height:24px}.pm-hero-control:hover{color:#1a1a1a}[data-hero-slide]{transition:opacity .5s ease,transform .5s ease}[data-home-hero][data-phase=exit] [data-hero-slide]{opacity:0;transform:translateY(10px)}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Homepage hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "standard",
+      "label": "Standard",
+      "default": "ONE TRUSTED STANDARD. TWO CLEAR OFFERS."
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Auto advance every five seconds",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Homepage hero",
+      "blocks": [
+        {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "PERFORMANCE MEALS / SINGAPORE",
+            "heading": "NUTRITION\nTHAT WORKS\nAS HARD\nAS YOU DO.",
+            "body": "Exceptional meals and thoughtful support that make healthy eating easier every day.",
+            "fallback_image": "19606.png",
+            "primary_label": "BROWSE READY SERIES",
+            "primary_url": "/collections/ready-series",
+            "secondary_label": "EXPLORE MEAL PLAN",
+            "secondary_url": "/pages/meal-plan-builder"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "PERFORMANCE MEALS / MEAL PLAN",
+            "heading": "FRESH STRUCTURE,\nPERSONAL\nGUIDANCE,\nREAL RESULTS.",
+            "body": "A structured fresh-meal plan with real check-ins and support around your goal.",
+            "fallback_image": "98c55.png",
+            "primary_label": "EXPLORE MEAL PLAN",
+            "primary_url": "/pages/meal-plan-builder"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "PERFORMANCE MEALS / READY-SERIES",
+            "heading": "FROZEN.\nMACRO-TRACKED.\nZERO\nCOMPROMISE.",
+            "body": "40+ chef-prepared frozen meals for busy weeks. Fast, flexible, and dependable.",
+            "fallback_image": "d006a.png",
+            "primary_label": "EXPLORE READY SERIES",
+            "primary_url": "/collections/ready-series"
+          }
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow",
+          "default": "PERFORMANCE MEALS / SINGAPORE"
+        },
+        {
+          "type": "textarea",
+          "id": "heading",
+          "label": "Heading",
+          "default": "NUTRITION\nTHAT WORKS\nAS HARD\nAS YOU DO."
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Body",
+          "default": "Exceptional meals and thoughtful support that make healthy eating easier every day."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Image Alt",
+          "default": "Performance Meals chef prepared food"
+        },
+        {
+          "type": "select",
+          "id": "fallback_image",
+          "label": "Fallback Image",
+          "options": [
+            {
+              "value": "19606.png",
+              "label": "Hero meal"
+            },
+            {
+              "value": "98c55.png",
+              "label": "Meal Plan"
+            },
+            {
+              "value": "d006a.png",
+              "label": "Ready Series"
+            }
+          ],
+          "default": "19606.png"
+        },
+        {
+          "type": "text",
+          "id": "primary_label",
+          "label": "Primary Label",
+          "default": "BROWSE READY SERIES"
+        },
+        {
+          "type": "url",
+          "id": "primary_url",
+          "label": "Primary Url"
+        },
+        {
+          "type": "text",
+          "id": "secondary_label",
+          "label": "Secondary Label"
+        },
+        {
+          "type": "url",
+          "id": "secondary_url",
+          "label": "Secondary Url"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 5
+}
+{% endschema %}

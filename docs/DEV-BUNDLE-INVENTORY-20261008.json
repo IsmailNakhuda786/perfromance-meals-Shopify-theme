@@ -1,0 +1,141 @@
+{
+  "date": "2026-10-08",
+  "store": "performance-meals-development.myshopify.com",
+  "approvedByUser": "Set approved dev-store bundle test stock to 10 each",
+  "locationId": "gid://shopify/Location/81430806612",
+  "bundles": [
+    {
+      "id": "gid://shopify/Product/10321879302228",
+      "title": "Signature 5",
+      "variants": [
+        {
+          "id": "gid://shopify/ProductVariant/47764018397268",
+          "title": "Non-Beef",
+          "tracked": true,
+          "available": 10
+        },
+        {
+          "id": "gid://shopify/ProductVariant/47764018364500",
+          "title": "Beef",
+          "tracked": true,
+          "available": 10
+        }
+      ]
+    },
+    {
+      "id": "gid://shopify/Product/10322493898836",
+      "title": "9 Flavours of the Month",
+      "variants": [
+        {
+          "id": "gid://shopify/ProductVariant/47766042706004",
+          "title": "Default Title",
+          "tracked": true,
+          "available": 10
+        }
+      ]
+    },
+    {
+      "id": "gid://shopify/Product/10322493931604",
+      "title": "Essential 10",
+      "variants": [
+        {
+          "id": "gid://shopify/ProductVariant/47766042738772",
+          "title": "Non-Beef",
+          "tracked": true,
+          "available": 10
+        },
+        {
+          "id": "gid://shopify/ProductVariant/47766042771540",
+          "title": "Beef",
+          "tracked": true,
+          "available": 10
+        }
+      ]
+    },
+    {
+      "id": "gid://shopify/Product/10322493964372",
+      "title": "Signature 5",
+      "variants": [
+        {
+          "id": "gid://shopify/ProductVariant/47766042804308",
+          "title": "Non-Beef",
+          "tracked": true,
+          "available": 10
+        },
+        {
+          "id": "gid://shopify/ProductVariant/47766042837076",
+          "title": "Beef",
+          "tracked": true,
+          "available": 10
+        }
+      ]
+    },
+    {
+      "id": "gid://shopify/Product/10322494029908",
+      "title": "9 Flavours of the Month",
+      "variants": [
+        {
+          "id": "gid://shopify/ProductVariant/47766042902612",
+          "title": "Default Title",
+          "tracked": true,
+          "available": 10
+        }
+      ]
+    },
+    {
+      "id": "gid://shopify/Product/10322494062676",
+      "title": "Essential 10",
+      "variants": [
+        {
+          "id": "gid://shopify/ProductVariant/47766042935380",
+          "title": "Non-Beef",
+          "tracked": true,
+          "available": 10
+        },
+        {
+          "id": "gid://shopify/ProductVariant/47766042968148",
+          "title": "Beef",
+          "tracked": true,
+          "available": 10
+        }
+      ]
+    },
+    {
+      "id": "gid://shopify/Product/10322494128212",
+      "title": "JP Variety Bundle of 10",
+      "variants": [
+        {
+          "id": "gid://shopify/ProductVariant/47766043557972",
+          "title": "Default Title",
+          "tracked": true,
+          "available": 10
+        }
+      ]
+    },
+    {
+      "id": "gid://shopify/Product/10322494160980",
+      "title": "7 Low Carb + 7 Just Protein",
+      "variants": [
+        {
+          "id": "gid://shopify/ProductVariant/47766043590740",
+          "title": "Non-Beef",
+          "tracked": true,
+          "available": 10
+        }
+      ]
+    },
+    {
+      "id": "gid://shopify/Product/10322494193748",
+      "title": "7 High Carb + 7 Just Protein",
+      "variants": [
+        {
+          "id": "gid://shopify/ProductVariant/47766043623508",
+          "title": "Non-Beef",
+          "tracked": true,
+          "available": 10
+        }
+      ]
+    }
+  ],
+  "note": "Staging test stock, not production stock. No test purchase was completed."
+}

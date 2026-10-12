@@ -1,0 +1,34 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "purchase_mode": "bundles",
+        "palette": "warm",
+        "collection": "ready-series-bundles",
+        "single_collection": "ready-series",
+        "bundles_collection": "ready-series-bundles",
+        "subscription_collection": "ready-series-subscriptions",
+        "products_per_page": 24,
+        "show_quick_view": true,
+        "require_subscription_account": true,
+        "eyebrow": "Fast food, properly done",
+        "heading": "Your freezer,",
+        "accent_heading": "ready for anything.",
+        "description": "<p>High-protein meals for Singapore\u2019s fullest days. Pick your favourites, heat in minutes, and get on with what matters.</p>",
+        "benefits_eyebrow": "Why Ready Series",
+        "benefits_heading": "Built for days\nthat move fast.",
+        "benefits_description": "Proper meals without the planning spiral. Keep a dependable option ready, see exactly what you are eating, and stay moving when the day changes.",
+        "benefit_title_1": "Frozen at peak",
+        "benefit_copy_1": "Quality and nutrition locked in, ready whenever you need it.",
+        "benefit_title_2": "Ready in 3 minutes",
+        "benefit_copy_2": "Heat straight from frozen. No chopping, thawing, or cleanup.",
+        "benefit_title_3": "Macros made clear",
+        "benefit_copy_3": "Protein and calories shown upfront, so choosing stays simple."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,8 @@
+<svg width="{% if number == 4 %}23{% else %}22{% endif %}" height="{% if number == 4 %}23{% else %}22{% endif %}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+  {% case number %}
+    {% when 1 %}<path d="M12 2v20M4.2 6.5l15.6 11M19.8 6.5l-15.6 11M9 4.5l3 2 3-2M9 19.5l3-2 3 2M4.8 10l.2 3.6-3.2 1.6M22.2 8.8L19 10.4l.2 3.6"/>
+    {% when 2 %}<circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6M12 2v3"/>
+    {% when 3 %}<path d="M4 20V10h4v10M10 20V4h4v16M16 20v-7h4v7M2 20h20"/>
+    {% when 4 %}<path d="M3 5h11v12H3zM14 9h4l3 4v4h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/>
+  {% endcase %}
+</svg>

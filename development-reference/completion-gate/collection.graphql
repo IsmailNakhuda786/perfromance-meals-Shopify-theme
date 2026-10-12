@@ -1,0 +1,1 @@
+mutation($id:ID!,$products:[ID!]!){collectionAddProducts(id:$id,productIds:$products){userErrors{field message}}}

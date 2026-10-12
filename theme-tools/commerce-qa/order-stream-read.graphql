@@ -1,0 +1,1 @@
+query QAOrderStreams {orders(first:10,sortKey:CREATED_AT,reverse:true){nodes{id name test currencyCode displayFinancialStatus lineItems(first:20){nodes{title quantity customAttributes{key value} product{id handle metafield(namespace:"performance",key:"business_stream"){value}} variant{id} sellingPlan{sellingPlanId name}}}}}}

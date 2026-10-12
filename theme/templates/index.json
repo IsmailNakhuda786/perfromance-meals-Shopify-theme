@@ -1,0 +1,226 @@
+{
+  "sections": {
+    "hero": {
+      "type": "home-hero",
+      "settings": {},
+      "blocks": {
+        "1": {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "PERFORMANCE MEALS / SINGAPORE",
+            "heading": "NUTRITION\nTHAT WORKS\nAS HARD\nAS YOU DO.",
+            "body": "Exceptional meals and thoughtful support that make healthy eating easier every day.",
+            "fallback_image": "19606.png",
+            "primary_label": "BROWSE READY SERIES",
+            "primary_url": "/pages/ready-series",
+            "secondary_label": "EXPLORE MEAL PLAN",
+            "secondary_url": "/pages/meal-plan-builder"
+          }
+        },
+        "2": {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "PERFORMANCE MEALS / MEAL PLAN",
+            "heading": "FRESH STRUCTURE,\nPERSONAL\nGUIDANCE,\nREAL RESULTS.",
+            "body": "A structured fresh-meal plan with real check-ins and support around your goal.",
+            "fallback_image": "98c55.png",
+            "primary_label": "EXPLORE MEAL PLAN",
+            "primary_url": "/pages/meal-plan-builder"
+          }
+        },
+        "3": {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "PERFORMANCE MEALS / READY-SERIES",
+            "heading": "FROZEN.\nMACRO-TRACKED.\nZERO\nCOMPROMISE.",
+            "body": "40+ chef-prepared frozen meals for busy weeks. Fast, flexible, and dependable.",
+            "fallback_image": "d006a.png",
+            "primary_label": "EXPLORE READY SERIES",
+            "primary_url": "/pages/ready-series"
+          }
+        }
+      },
+      "block_order": [
+        "1",
+        "2",
+        "3"
+      ]
+    },
+    "stats": {
+      "type": "home-stats",
+      "settings": {},
+      "blocks": {
+        "1": {
+          "type": "stat",
+          "settings": {
+            "value": 8400,
+            "suffix": "+",
+            "label": "ACTIVE CUSTOMERS"
+          }
+        },
+        "2": {
+          "type": "stat",
+          "settings": {
+            "value": 40,
+            "suffix": "+",
+            "label": "READY MEALS"
+          }
+        },
+        "3": {
+          "type": "stat",
+          "settings": {
+            "value": 3,
+            "suffix": " min",
+            "label": "READY TO EAT"
+          }
+        },
+        "4": {
+          "type": "stat",
+          "settings": {
+            "value": 2,
+            "suffix": "",
+            "label": "MAIN JOURNEYS"
+          }
+        }
+      },
+      "block_order": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    "standard": {
+      "type": "home-standard",
+      "settings": {},
+      "blocks": {
+        "1": {
+          "type": "principle",
+          "settings": {
+            "title": "CHEF-LED RECIPES",
+            "body": "Craft-led food."
+          }
+        },
+        "2": {
+          "type": "principle",
+          "settings": {
+            "title": "CLEAR NUTRITION",
+            "body": "Visible macros & ingredients."
+          }
+        },
+        "3": {
+          "type": "principle",
+          "settings": {
+            "title": "QUALITY CONTROL",
+            "body": "Kitchen to doorstep."
+          }
+        }
+      },
+      "block_order": [
+        "1",
+        "2",
+        "3"
+      ]
+    },
+    "experiences": {
+      "type": "home-experiences",
+      "settings": {},
+      "blocks": {
+        "1": {
+          "type": "experience",
+          "settings": {
+            "fallback_image": "sync-70290fd45c9a.jpg",
+            "image_alt": "Ready Series for everyday routines"
+          }
+        },
+        "2": {
+          "type": "experience",
+          "settings": {
+            "eyebrow": "MEAL PLAN",
+            "heading": "BOUTIQUE\nPROGRESS.",
+            "body": "Fresh structure, personal guidance and support around a clear goal.",
+            "label": "EXPLORE MEAL PLAN",
+            "url": "/pages/meal-plan-builder",
+            "fallback_image": "sync-16c2c47ecb77.jpg",
+            "background": "#FFFFFF",
+            "foreground": "#1A1A1A",
+            "accent": "#E85D04",
+            "image_alt": "Meal Plan preparation and structure"
+          }
+        }
+      },
+      "block_order": [
+        "1",
+        "2"
+      ]
+    },
+    "brands": {
+      "type": "home-brands",
+      "settings": {},
+      "blocks": {
+        "1": {
+          "type": "brand",
+          "settings": {}
+        },
+        "2": {
+          "type": "brand",
+          "settings": {
+            "brand": "mp",
+            "logo_variant": "light",
+            "tag": "Boutique Progress",
+            "heading": "Fresh structure\nfor your\npersonal goal.",
+            "body": "Tailored support, real check-ins, and meaningful results. Designed for people who want more than a generic routine \u2014 built around your goal, delivered fresh daily.",
+            "stat": "6\u201312 wks",
+            "stat_label": "Avg transformation",
+            "label": "Discover Meal Plan",
+            "short_label": "Meal Plan",
+            "url": "/pages/meal-plan",
+            "background": "#E85D04",
+            "foreground": "#FFFFFF",
+            "accent": "#FFFFFF"
+          }
+        },
+        "3": {
+          "type": "brand",
+          "settings": {
+            "brand": "rs",
+            "logo_variant": "light",
+            "tag": "Everyday Momentum",
+            "heading": "Ready for\nreal life.",
+            "body": "Fast, enjoyable frozen meals built to keep your week moving without locking you in. Dependable, repeat-friendly, and zero compromise on nutrition.",
+            "stat": "40+",
+            "stat_label": "Macro-tracked meals",
+            "label": "Explore Ready-Series",
+            "short_label": "Ready",
+            "url": "/pages/ready-series",
+            "background": "#F5B300",
+            "foreground": "#1A1A1A",
+            "accent": "#1A1A1A"
+          }
+        }
+      },
+      "block_order": [
+        "1",
+        "2",
+        "3"
+      ]
+    },
+    "mission": {
+      "type": "home-mission",
+      "settings": {}
+    },
+    "closing": {
+      "type": "home-closing",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "stats",
+    "standard",
+    "experiences",
+    "brands",
+    "mission",
+    "closing"
+  ]
+}

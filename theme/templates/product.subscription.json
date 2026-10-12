@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "purchase_mode": "subscription",
+        "back_collection": "ready-series-subscriptions",
+        "related_collection": "ready-series-subscriptions",
+        "show_related": true,
+        "show_dynamic_checkout": false,
+        "require_subscription_account": true
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

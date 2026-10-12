@@ -1,0 +1,137 @@
+{
+  "sections": {
+    "main": {
+      "type": "ready-series-editorial",
+      "settings": {
+        "link_1": "/collections/ready-series",
+        "link_2": "/pages/ready-series-about",
+        "link_3": "/collections/ready-series",
+        "link_4": "/collections/ready-series-bundles",
+        "link_5": "/collections/ready-series-subscriptions"
+      },
+      "blocks": {
+        "band_1": {
+          "type": "band_1",
+          "settings": {
+            "copy_1": "READY-SERIES",
+            "copy_2": "by PERFORMANCE MEALS",
+            "copy_3": "Everyday momentum",
+            "copy_4": "Ready for",
+            "copy_5": "real life.",
+            "copy_6": "Frozen performance meals that keep your week moving. Easy to choose, ready in minutes, and dependable when cooking does not fit the day.",
+            "copy_7": "Shop Ready Series",
+            "copy_8": "See subscription plans",
+            "copy_9": "From freezer to table",
+            "copy_10": "3 minutes",
+            "copy_11": "Zero prep",
+            "copy_12": "No chopping",
+            "copy_13": "Clear macros",
+            "copy_14": "Choose easily",
+            "copy_15": "Stock-up value",
+            "copy_16": "Stay ready",
+            "image_1_alt": "Asian family enjoying a meal together at home"
+          }
+        },
+        "band_2": {
+          "type": "band_2",
+          "settings": {
+            "copy_1": "When the day changes",
+            "copy_2": "Cooking can wait.",
+            "copy_3": "Your routine should not.",
+            "copy_4": "Long workdays, late training, family plans, and low-energy evenings are normal. Ready Series gives those moments a better answer than skipping dinner or ordering whatever is closest.",
+            "copy_5": "7:15 PM",
+            "copy_6": "The meeting ran over",
+            "copy_7": "Dinner is already handled. Heat a meal and close the laptop.",
+            "copy_8": "8:30 PM",
+            "copy_9": "Training finished late",
+            "copy_10": "Clear protein and calorie information makes the next choice easy.",
+            "copy_11": "Any time",
+            "copy_12": "Plans changed again",
+            "copy_13": "A stocked freezer keeps one useful part of the day predictable."
+          }
+        },
+        "band_3": {
+          "type": "band_3",
+          "settings": {
+            "copy_1": "Frozen at peak",
+            "copy_2": "The simplest part of your day",
+            "copy_3": "Choose. Heat. Keep moving.",
+            "copy_4": "01",
+            "copy_5": "Choose what fits",
+            "copy_6": "Browse individual meals, predefined bundles, or a prepaid 3- or 6-month subscription with monthly deliveries and no automatic renewal.",
+            "copy_7": "02",
+            "copy_8": "Keep it ready",
+            "copy_9": "Store meals in the freezer for the unpredictable days ahead.",
+            "copy_10": "03",
+            "copy_11": "Heat in minutes",
+            "copy_12": "Follow the clear preparation guidance and get back to your evening.",
+            "image_1_alt": "A selection of balanced Ready Series meals"
+          }
+        },
+        "band_4": {
+          "type": "band_4",
+          "settings": {
+            "copy_1": "Ready Series subscription",
+            "copy_2": "Stock up once.",
+            "copy_3": "Stay ready for months.",
+            "copy_4": "Choose from 10 predefined plans across Just Protein, Low Carb, High Carb, and Mixed. Select a 3- or 6-month term and receive one planned delivery each month.",
+            "copy_5": "Compare subscription plans",
+            "copy_6": "Subscriptions require a shared Performance Meals account.",
+            "copy_7": "01",
+            "copy_8": "10",
+            "copy_9": "predefined plans",
+            "copy_10": "02",
+            "copy_11": "3 or 6",
+            "copy_12": "month terms",
+            "copy_13": "03",
+            "copy_14": "1",
+            "copy_15": "delivery each month",
+            "copy_16": "04",
+            "copy_17": "Monthly",
+            "copy_18": "delivery rhythm"
+          }
+        },
+        "band_5": {
+          "type": "band_5",
+          "settings": {
+            "copy_1": "Start where you are",
+            "copy_2": "Three clear ways to stay ready.",
+            "copy_3": "01",
+            "copy_4": "Individual Selection",
+            "copy_5": "Pick the meals you want for a flexible one-time order.",
+            "copy_6": "Choose meals →",
+            "copy_7": "02",
+            "copy_8": "Bundles",
+            "copy_9": "Stock up with a predefined selection and clear one-time pricing.",
+            "copy_10": "See bundles →",
+            "copy_11": "03",
+            "copy_12": "Subscription",
+            "copy_13": "Choose a predefined plan for 3 or 6 months and keep the freezer ready.",
+            "copy_14": "Compare plans →"
+          }
+        },
+        "band_6": {
+          "type": "band_6",
+          "settings": {
+            "copy_1": "Stock up. Stay on track.",
+            "copy_2": "Put a better fallback in the freezer.",
+            "copy_3": "Ready Series protects your routine when time is short—without asking the rest of life to slow down.",
+            "copy_4": "Shop meals",
+            "copy_5": "Our story"
+          }
+        }
+      },
+      "block_order": [
+        "band_1",
+        "band_2",
+        "band_3",
+        "band_4",
+        "band_5",
+        "band_6"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

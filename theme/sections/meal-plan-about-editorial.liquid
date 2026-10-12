@@ -1,0 +1,585 @@
+<div class="min-h-screen bg-[#FAF7F2] text-[#1A1A1A]">
+{% for block in section.blocks %}
+{% case block.type %}
+{% when 'band_1' %}
+<section {{ block.shopify_attributes }} class="max-w-[1280px] mx-auto px-6 sm:px-10 py-20 sm:py-28 grid lg:grid-cols-[1.05fr_0.95fr] gap-14 items-center"><div><div class="inline-flex items-start gap-[10px] select-none " style="transform:scale(1);transform-origin:left center"><div class="shrink-0 mt-[3px]" style="width:4px;background-color:#E85D04;align-self:stretch;min-height:38px"></div><div class="flex flex-col leading-none"><span style="font-family:'Outfit', sans-serif;font-weight:600;font-size:8px;letter-spacing:0.25em;color:#E85D04;line-height:1;margin-bottom:4px">{{ block.settings.copy_1 | escape }}</span><span style="font-family:'Outfit', sans-serif;font-weight:900;font-style:italic;font-size:34px;letter-spacing:0.01em;color:#1A1A1A;line-height:0.88">{{ block.settings.copy_2 | escape }}</span><svg width="130" height="7" viewBox="0 0 130 7" style="margin-top:4px"><path d="M2 4.5 C25 2, 65 5.5, 95 3.5 C112 2.5, 124 4, 128 4.5" stroke="#E85D04" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"></path></svg></div></div><p class="text-[#E85D04] text-[11px] font-semibold tracking-[0.3em] uppercase mt-16 mb-5">{{ block.settings.copy_3 | escape }}</p><h1 class="font-display text-[48px] sm:text-[70px] font-semibold leading-[0.9] tracking-[-0.035em]">{{ block.settings.copy_4 | escape }}<br><span class="italic font-light text-[#E85D04]">{{ block.settings.copy_5 | escape }}</span></h1><p class="text-[#675F58] text-[17px] leading-relaxed max-w-[580px] mt-7">{{ block.settings.copy_6 | escape }}</p><div class="flex flex-col sm:flex-row gap-3 mt-9"><a class="rounded-full bg-[#E85D04] text-white px-8 py-4 text-[11px] font-bold uppercase tracking-[0.16em] hover:bg-[#1A1A1A] transition-colors" href="{{ section.settings.link_1 }}">{{ block.settings.copy_7 | escape }}</a><a class="rounded-full border border-[#1A1A1A]/20 px-8 py-4 text-[11px] font-bold uppercase tracking-[0.16em] hover:border-[#1A1A1A] transition-colors" href="{{ section.settings.link_2 }}">{{ block.settings.copy_8 | escape }}</a></div></div><div class="relative">{% if section.settings.image_3 != blank %}{{ section.settings.image_3 | image_url: width: 1600 | image_tag: class: 'w-full h-[580px] object-cover rounded-t-full', loading: 'eager', sizes: '(min-width: 1024px) 50vw, 100vw', widths: '400, 750, 1100, 1600', alt: block.settings.image_1_alt }}{% else %}<img src="{{ 'sync-a86eff5379b5.jpg' | asset_url }}" class="w-full h-[580px] object-cover rounded-t-full" width="1000" height="1200" loading="eager" alt="{{ block.settings.image_1_alt | escape }}">{% endif %}<div class="absolute -bottom-5 -left-3 sm:-left-5 bg-[#E85D04] text-white px-6 py-5 text-[10px] font-semibold uppercase tracking-[0.18em]">{{ block.settings.copy_9 | escape }}</div></div></section>
+{% when 'band_2' %}
+<section {{ block.shopify_attributes }} class="bg-[#1A1A1A] text-white px-6 sm:px-10 py-20 sm:py-28"><div class="max-w-[1280px] mx-auto grid lg:grid-cols-[0.9fr_1.1fr] gap-14 lg:gap-24 items-center"><div><p class="text-[#E85D04] text-[10px] font-bold tracking-[0.25em] uppercase mb-5">{{ block.settings.copy_1 | escape }}</p><h2 class="font-display text-[42px] sm:text-[60px] font-semibold leading-[0.94] tracking-[-0.035em]">{{ block.settings.copy_2 | escape }}</h2><p class="text-white/55 text-[16px] leading-relaxed mt-7 max-w-[560px]">{{ block.settings.copy_3 | escape }}</p></div><div class="relative overflow-hidden rounded-2xl min-h-[500px]">{% if block.settings.image_1 != blank %}{{ block.settings.image_1 | image_url: width: 1600 | image_tag: class: 'absolute inset-0 w-full h-full object-cover', loading: 'lazy', sizes: '(min-width: 1024px) 50vw, 100vw', widths: '400, 750, 1100, 1600', alt: block.settings.image_1_alt }}{% else %}<img src="{{ 'sync-d26e173cac2a.jpg' | asset_url }}" class="absolute inset-0 w-full h-full object-cover" width="1200" height="900" loading="lazy" alt="{{ block.settings.image_1_alt | escape }}">{% endif %}<div class="absolute inset-x-5 bottom-5 bg-white text-[#1A1A1A] rounded-2xl p-6 shadow-2xl"><p class="text-[10px] font-bold tracking-[0.18em] uppercase text-[#E85D04]">{{ block.settings.copy_4 | escape }}</p><p class="font-display text-[22px] font-semibold leading-tight mt-2">{{ block.settings.copy_5 | escape }}</p></div></div></div></section>
+{% when 'band_3' %}
+<section {{ block.shopify_attributes }} class="px-6 sm:px-10 py-20 sm:py-28"><div class="max-w-[1280px] mx-auto"><div class="grid lg:grid-cols-2 gap-10 items-end mb-12"><div><p class="text-[#E85D04] text-[10px] font-bold tracking-[0.25em] uppercase mb-5">{{ block.settings.copy_1 | escape }}</p><h2 class="font-display text-[42px] sm:text-[58px] font-semibold leading-[0.94] tracking-[-0.035em]">{{ block.settings.copy_2 | escape }}</h2></div><p class="text-[#6D655E] text-[15px] leading-relaxed max-w-[520px] lg:justify-self-end">{{ block.settings.copy_3 | escape }}</p></div><div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4"><article class="bg-white border border-[#E3DDD5] rounded-2xl p-7 min-h-[310px] flex flex-col hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(42,35,29,0.08)] transition-all duration-300"><span class="font-mono text-[10px] text-[#E85D04]">{{ block.settings.copy_4 | escape }}</span><div class="mt-auto"><h3 class="font-display text-[21px] font-semibold">{{ block.settings.copy_5 | escape }}</h3><p class="text-[#736A62] text-[13px] leading-relaxed mt-3">{{ block.settings.copy_6 | escape }}</p></div></article><article class="bg-white border border-[#E3DDD5] rounded-2xl p-7 min-h-[310px] flex flex-col hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(42,35,29,0.08)] transition-all duration-300"><span class="font-mono text-[10px] text-[#E85D04]">{{ block.settings.copy_7 | escape }}</span><div class="mt-auto"><h3 class="font-display text-[21px] font-semibold">{{ block.settings.copy_8 | escape }}</h3><p class="text-[#736A62] text-[13px] leading-relaxed mt-3">{{ block.settings.copy_9 | escape }}</p></div></article><article class="bg-white border border-[#E3DDD5] rounded-2xl p-7 min-h-[310px] flex flex-col hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(42,35,29,0.08)] transition-all duration-300"><span class="font-mono text-[10px] text-[#E85D04]">{{ block.settings.copy_10 | escape }}</span><div class="mt-auto"><h3 class="font-display text-[21px] font-semibold">{{ block.settings.copy_11 | escape }}</h3><p class="text-[#736A62] text-[13px] leading-relaxed mt-3">{{ block.settings.copy_12 | escape }}</p></div></article><article class="bg-white border border-[#E3DDD5] rounded-2xl p-7 min-h-[310px] flex flex-col hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(42,35,29,0.08)] transition-all duration-300"><span class="font-mono text-[10px] text-[#E85D04]">{{ block.settings.copy_13 | escape }}</span><div class="mt-auto"><h3 class="font-display text-[21px] font-semibold">{{ block.settings.copy_14 | escape }}</h3><p class="text-[#736A62] text-[13px] leading-relaxed mt-3">{{ block.settings.copy_15 | escape }}</p></div></article></div></div></section>
+{% when 'band_4' %}
+<section {{ block.shopify_attributes }} class="bg-white border-y border-[#E3DDD5] px-6 sm:px-10 py-20 sm:py-28"><div class="max-w-[1280px] mx-auto"><div class="max-w-[760px] mb-14"><p class="text-[#E85D04] text-[10px] font-bold tracking-[0.25em] uppercase mb-5">{{ block.settings.copy_1 | escape }}</p><h2 class="font-display text-[42px] sm:text-[58px] font-semibold leading-[0.94] tracking-[-0.035em]">{{ block.settings.copy_2 | escape }}</h2><p class="text-[#6D655E] text-[15px] leading-relaxed mt-6">{{ block.settings.copy_3 | escape }}</p></div><div class="grid lg:grid-cols-[0.8fr_1.2fr] gap-5 mb-12">{% if block.settings.image_1 != blank %}{{ block.settings.image_1 | image_url: width: 1600 | image_tag: class: 'w-full h-[560px] object-cover rounded-2xl', loading: 'lazy', sizes: '(min-width: 1024px) 50vw, 100vw', widths: '400, 750, 1100, 1600', alt: block.settings.image_1_alt }}{% else %}<img src="{{ 'sync-854272000943.jpg' | asset_url }}" class="w-full h-[560px] object-cover rounded-2xl" width="900" height="1100" loading="lazy" alt="{{ block.settings.image_1_alt | escape }}">{% endif %}<div class="grid sm:grid-cols-2 gap-5">{% if block.settings.image_2 != blank %}{{ block.settings.image_2 | image_url: width: 1600 | image_tag: class: 'w-full h-[270px] object-cover rounded-2xl', loading: 'lazy', sizes: '(min-width: 1024px) 50vw, 100vw', widths: '400, 750, 1100, 1600', alt: block.settings.image_2_alt }}{% else %}<img src="{{ 'sync-ae2da81d7529.jpg' | asset_url }}" class="w-full h-[270px] object-cover rounded-2xl" width="900" height="1100" loading="lazy" alt="{{ block.settings.image_2_alt | escape }}">{% endif %}{% if block.settings.image_3 != blank %}{{ block.settings.image_3 | image_url: width: 1600 | image_tag: class: 'w-full h-[270px] object-cover rounded-2xl', loading: 'lazy', sizes: '(min-width: 1024px) 50vw, 100vw', widths: '400, 750, 1100, 1600', alt: block.settings.image_3_alt }}{% else %}<img src="{{ 'sync-0052ef8513bc.jpg' | asset_url }}" class="w-full h-[270px] object-cover rounded-2xl" width="1200" height="900" loading="lazy" alt="{{ block.settings.image_3_alt | escape }}">{% endif %}<div class="sm:col-span-2 bg-[#F3EEE7] rounded-2xl p-7 min-h-[270px] grid sm:grid-cols-2 gap-7"><div class="border-t border-[#D8CEC3] pt-4"><h3 class="font-display text-[17px] font-semibold">{{ block.settings.copy_4 | escape }}</h3><p class="text-[#756C64] text-[12px] leading-relaxed mt-2">{{ block.settings.copy_5 | escape }}</p></div><div class="border-t border-[#D8CEC3] pt-4"><h3 class="font-display text-[17px] font-semibold">{{ block.settings.copy_6 | escape }}</h3><p class="text-[#756C64] text-[12px] leading-relaxed mt-2">{{ block.settings.copy_7 | escape }}</p></div><div class="border-t border-[#D8CEC3] pt-4"><h3 class="font-display text-[17px] font-semibold">{{ block.settings.copy_8 | escape }}</h3><p class="text-[#756C64] text-[12px] leading-relaxed mt-2">{{ block.settings.copy_9 | escape }}</p></div><div class="border-t border-[#D8CEC3] pt-4"><h3 class="font-display text-[17px] font-semibold">{{ block.settings.copy_10 | escape }}</h3><p class="text-[#756C64] text-[12px] leading-relaxed mt-2">{{ block.settings.copy_11 | escape }}</p></div></div></div></div></div></section>
+{% when 'band_5' %}
+<section {{ block.shopify_attributes }} class="bg-[#2B241F] text-white px-6 sm:px-10 py-20 sm:py-28"><div class="max-w-[1280px] mx-auto"><div class="grid lg:grid-cols-2 gap-10 items-end mb-12"><div><p class="text-[#E85D04] text-[10px] font-bold tracking-[0.25em] uppercase mb-5">{{ block.settings.copy_1 | escape }}</p><h2 class="font-display text-[42px] sm:text-[58px] font-semibold leading-[0.94] tracking-[-0.035em]">{{ block.settings.copy_2 | escape }}</h2></div><p class="text-white/50 text-[15px] leading-relaxed max-w-[520px] lg:justify-self-end">{{ block.settings.copy_3 | escape }}</p></div><div class="grid md:grid-cols-3 gap-4 mb-6"><div class="rounded-2xl border border-white/10 bg-white/[0.04] p-7 min-h-[230px]"><h3 class="font-display text-[26px] font-semibold">{{ block.settings.copy_4 | escape }}</h3><div class="text-[#E85D04] text-[11px] font-bold uppercase tracking-[0.14em] mt-6">{{ block.settings.copy_5 | escape }}</div><p class="text-white/45 text-[13px] leading-relaxed mt-3">{{ block.settings.copy_6 | escape }}</p></div><div class="rounded-2xl border border-white/10 bg-white/[0.04] p-7 min-h-[230px]"><h3 class="font-display text-[26px] font-semibold">{{ block.settings.copy_7 | escape }}</h3><div class="text-[#E85D04] text-[11px] font-bold uppercase tracking-[0.14em] mt-6">{{ block.settings.copy_8 | escape }}</div><p class="text-white/45 text-[13px] leading-relaxed mt-3">{{ block.settings.copy_9 | escape }}</p></div><div class="rounded-2xl border border-white/10 bg-white/[0.04] p-7 min-h-[230px]"><h3 class="font-display text-[26px] font-semibold">{{ block.settings.copy_10 | escape }}</h3><div class="text-[#E85D04] text-[11px] font-bold uppercase tracking-[0.14em] mt-6">{{ block.settings.copy_11 | escape }}</div><p class="text-white/45 text-[13px] leading-relaxed mt-3">{{ block.settings.copy_12 | escape }}</p></div></div><div class="rounded-2xl bg-[#E85D04] text-white p-7 sm:p-9 flex flex-col lg:flex-row lg:items-center justify-between gap-6"><div><p class="text-[10px] font-bold uppercase tracking-[0.2em] text-white/65">{{ block.settings.copy_13 | escape }}</p><h3 class="font-display text-[30px] font-semibold mt-2">{{ block.settings.copy_14 | escape }}</h3><p class="text-white/70 text-[13px] leading-relaxed max-w-[700px] mt-2">{{ block.settings.copy_15 | escape }}</p></div><a class="shrink-0 rounded-full bg-white text-[#1A1A1A] px-7 py-4 text-[10px] font-bold uppercase tracking-[0.16em] hover:bg-[#1A1A1A] hover:text-white transition-colors" href="{{ block.settings.link_1 }}">{{ block.settings.copy_16 | escape }}</a></div></div></section>
+{% when 'band_6' %}
+<section {{ block.shopify_attributes }} class="px-6 sm:px-10 py-20 sm:py-28"><div class="max-w-[1100px] mx-auto text-center"><p class="text-[#E85D04] text-[10px] font-bold tracking-[0.25em] uppercase mb-5">{{ block.settings.copy_1 | escape }}</p><h2 class="font-display text-[42px] sm:text-[58px] font-semibold leading-[0.94] tracking-[-0.035em]">{{ block.settings.copy_2 | escape }}</h2><div class="grid sm:grid-cols-3 gap-4 text-left mt-12"><div class="border-t-2 border-[#E85D04] pt-6"><h3 class="font-display text-[22px] font-semibold">{{ block.settings.copy_3 | escape }}</h3><p class="text-[#70675F] text-[13px] leading-relaxed mt-3">{{ block.settings.copy_4 | escape }}</p></div><div class="border-t-2 border-[#E85D04] pt-6"><h3 class="font-display text-[22px] font-semibold">{{ block.settings.copy_5 | escape }}</h3><p class="text-[#70675F] text-[13px] leading-relaxed mt-3">{{ block.settings.copy_6 | escape }}</p></div><div class="border-t-2 border-[#E85D04] pt-6"><h3 class="font-display text-[22px] font-semibold">{{ block.settings.copy_7 | escape }}</h3><p class="text-[#70675F] text-[13px] leading-relaxed mt-3">{{ block.settings.copy_8 | escape }}</p></div></div></div></section>
+{% when 'band_7' %}
+<section {{ block.shopify_attributes }} class="bg-[#E85D04] text-white px-6 py-20 text-center"><p class="text-[10px] font-bold uppercase tracking-[0.24em] text-white/70 mb-5">{{ block.settings.copy_1 | escape }}</p><h2 class="font-display text-[42px] sm:text-[58px] font-semibold">{{ block.settings.copy_2 | escape }}</h2><div class="flex flex-col sm:flex-row justify-center gap-3 mt-8"><a class="rounded-full bg-white text-[#1A1A1A] px-8 py-4 text-[11px] font-bold uppercase tracking-[0.16em] hover:bg-[#1A1A1A] hover:text-white transition-colors" href="{{ section.settings.link_1 }}">{{ block.settings.copy_3 | escape }}</a><a class="rounded-full border border-white/35 px-8 py-4 text-[11px] font-bold uppercase tracking-[0.16em] hover:border-white transition-colors" href="{{ section.settings.link_2 }}">{{ block.settings.copy_4 | escape }}</a></div></section>
+{% endcase %}
+{% endfor %}
+</div>
+{% schema %}
+{
+  "name": "Meal Plan about",
+  "settings": [
+    {
+      "type": "url",
+      "id": "link_1",
+      "label": "Link 1"
+    },
+    {
+      "type": "url",
+      "id": "link_2",
+      "label": "Link 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Image 3"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "band_1",
+      "name": "Hero",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "copy_1",
+          "label": "PERFORMANCE MEALS",
+          "default": "PERFORMANCE MEALS"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_2",
+          "label": "MEAL PLAN",
+          "default": "MEAL PLAN"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_3",
+          "label": "Boutique progress · built around your goal",
+          "default": "Boutique progress · built around your goal"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_4",
+          "label": "Structure that",
+          "default": "Structure that"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_5",
+          "label": "moves with you.",
+          "default": "moves with you."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_6",
+          "label": "Meal Plan is the guided side of Performance M",
+          "default": "Meal Plan is the guided side of Performance Meals: fresh, structured meals and a clear recurring rhythm that take nutrition planning off your plate."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_7",
+          "label": "Start your plan",
+          "default": "Start your plan"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_8",
+          "label": "Read customer journeys",
+          "default": "Read customer journeys"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_9",
+          "label": "Fresh meals · guided rhythm",
+          "default": "Fresh meals · guided rhythm"
+        },
+        {
+          "type": "text",
+          "id": "image_1_alt",
+          "label": "Photograph 1 description",
+          "default": "A balanced meal as part of an active routine"
+        }
+      ]
+    },
+    {
+      "type": "band_2",
+      "name": "Context",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "copy_1",
+          "label": "Why Meal Plan exists",
+          "default": "Why Meal Plan exists"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_2",
+          "label": "Your goal needs a routine, not more guesswork",
+          "default": "Your goal needs a routine, not more guesswork."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_3",
+          "label": "Planning meals, shopping, preparing food, cal",
+          "default": "Planning meals, shopping, preparing food, calculating portions, and repeating it every week creates friction. Meal Plan turns those repeated decisions into one considered programme."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_4",
+          "label": "The customer job",
+          "default": "The customer job"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_5",
+          "label": "Make better nutrition easier to sustain insid",
+          "default": "Make better nutrition easier to sustain inside a full life."
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Photograph 1"
+        },
+        {
+          "type": "text",
+          "id": "image_1_alt",
+          "label": "Photograph 1 description",
+          "default": "Busy professionals planning their routine together"
+        }
+      ]
+    },
+    {
+      "type": "band_3",
+      "name": "Approach",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "copy_1",
+          "label": "What Meal Plan is",
+          "default": "What Meal Plan is"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_2",
+          "label": "A programme with clear guardrails.",
+          "default": "A programme with clear guardrails."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_3",
+          "label": "It is not an unrestricted meal selection. You",
+          "default": "It is not an unrestricted meal selection. Your goal establishes the programme, the plan defines what is included, and meal selection happens inside the approved structure."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_4",
+          "label": "01",
+          "default": "01"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_5",
+          "label": "Goal-first start",
+          "default": "Goal-first start"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_6",
+          "label": "Begin with Biweekly, Monthly, 2 Months, 6 by ",
+          "default": "Begin with Biweekly, Monthly, 2 Months, 6 by 60, or 6 by 60 Plus so the plan has a clear operating rhythm."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_7",
+          "label": "02",
+          "default": "02"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_8",
+          "label": "Fresh structured meals",
+          "default": "Fresh structured meals"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_9",
+          "label": "Predefined plan information sets the meal fra",
+          "default": "Predefined plan information sets the meal framework before menu choices are made."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_10",
+          "label": "03",
+          "default": "03"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_11",
+          "label": "A visible menu rhythm",
+          "default": "A visible menu rhythm"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_12",
+          "label": "Biweekly shows 2 weeks; Monthly shows 4. The ",
+          "default": "Biweekly shows 2 weeks; Monthly shows 4. The preview follows the selected recurring period."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_13",
+          "label": "04",
+          "default": "04"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_14",
+          "label": "A connected customer experience",
+          "default": "A connected customer experience"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_15",
+          "label": "Your Shopify account keeps your customer iden",
+          "default": "Your Shopify account keeps your customer identity and order history together. Available plan actions depend on your subscription."
+        }
+      ]
+    },
+    {
+      "type": "band_4",
+      "name": "Programme",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "copy_1",
+          "label": "How the meals are prepared",
+          "default": "How the meals are prepared"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_2",
+          "label": "The structure is planned. The food is still t",
+          "default": "The structure is planned. The food is still the point."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_3",
+          "label": "Meal Plan pairs programme logic with fresh me",
+          "default": "Meal Plan pairs programme logic with fresh meal preparation, clear food information, and a menu experience designed to feel considered rather than clinical."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_4",
+          "label": "Plan the menu",
+          "default": "Plan the menu"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_5",
+          "label": "Programme and recurring period establish the ",
+          "default": "Programme and recurring period establish the structured menu view."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_6",
+          "label": "Prepare with care",
+          "default": "Prepare with care"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_7",
+          "label": "Meals are prepared through the shared Perform",
+          "default": "Meals are prepared through the shared Performance Meals kitchen standard."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_8",
+          "label": "Portion with clarity",
+          "default": "Portion with clarity"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_9",
+          "label": "Meal and programme information helps customer",
+          "default": "Meal and programme information helps customers understand what is included."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_10",
+          "label": "Deliver the routine",
+          "default": "Deliver the routine"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_11",
+          "label": "Fresh meals arrive as part of the selected pr",
+          "default": "Fresh meals arrive as part of the selected programme and delivery structure."
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Photograph 1"
+        },
+        {
+          "type": "text",
+          "id": "image_1_alt",
+          "label": "Photograph 1 description",
+          "default": "Chef preparing fresh ingredients in a professional kitchen"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Photograph 2"
+        },
+        {
+          "type": "text",
+          "id": "image_2_alt",
+          "label": "Photograph 2 description",
+          "default": "Chef carefully plating a prepared meal"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_3",
+          "label": "Photograph 3"
+        },
+        {
+          "type": "text",
+          "id": "image_3_alt",
+          "label": "Photograph 3 description",
+          "default": "Finished fresh meal ready for the customer"
+        }
+      ]
+    },
+    {
+      "type": "band_5",
+      "name": "Details",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "copy_1",
+          "label": "The programme logic",
+          "default": "The programme logic"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_2",
+          "label": "Choose the rhythm that matches your life.",
+          "default": "Choose the rhythm that matches your life."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_3",
+          "label": "Recurring subscriptions cover Monday to Frida",
+          "default": "Biweekly, Monthly and 2 Months renew automatically. The 60-day programmes are paid upfront and end without automatic renewal."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_4",
+          "label": "Biweekly",
+          "default": "Biweekly"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_5",
+          "label": "2-week menu view",
+          "default": "2-week menu view"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_6",
+          "label": "Mon–Fri coverage · renews every 2 weeks",
+          "default": "Mon–Fri coverage · renews every 2 weeks"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_7",
+          "label": "Monthly",
+          "default": "Monthly"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_8",
+          "label": "4-week menu view",
+          "default": "4-week menu view"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_9",
+          "label": "Mon–Fri coverage · renews every month",
+          "default": "Mon–Fri coverage · renews every month"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_10",
+          "label": "2 Months",
+          "default": "2 Months"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_11",
+          "label": "Structured menu view",
+          "default": "Structured menu view"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_12",
+          "label": "Mon–Fri coverage · renews every 2 months",
+          "default": "Mon–Fri coverage · renews every 2 months"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_13",
+          "label": "Distinct programmes",
+          "default": "Distinct programmes"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_14",
+          "label": "6 by 60 and 6 by 60 Plus",
+          "default": "6 by 60 and 6 by 60 Plus"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_15",
+          "label": "60-day, all-week programmes for the approved ",
+          "default": "60-day programmes with a weight-loss focus, paid upfront without automatic renewal. Plus adds the muscle-support direction."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_16",
+          "label": "Explore programmes",
+          "default": "Explore programmes"
+        },
+        {
+          "type": "url",
+          "id": "link_1",
+          "label": "Destination 1"
+        }
+      ]
+    },
+    {
+      "type": "band_6",
+      "name": "Time value",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "copy_1",
+          "label": "What Meal Plan gives back",
+          "default": "What Meal Plan gives back"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_2",
+          "label": "Less planning around food. More attention for",
+          "default": "Less planning around food. More attention for everything else."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_3",
+          "label": "Planning",
+          "default": "Planning"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_4",
+          "label": "A programme framework replaces the repeated q",
+          "default": "A programme framework replaces the repeated question of what to organise next."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_5",
+          "label": "Preparation",
+          "default": "Preparation"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_6",
+          "label": "Fresh prepared meals reduce the cooking and c",
+          "default": "Fresh prepared meals reduce the cooking and cleanup load across the working week."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_7",
+          "label": "Decision-making",
+          "default": "Decision-making"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_8",
+          "label": "Clear plan information and structured menus n",
+          "default": "Clear plan information and structured menus narrow the choices that matter."
+        }
+      ]
+    },
+    {
+      "type": "band_7",
+      "name": "Closing",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "copy_1",
+          "label": "Exceptional meals · practical guidance · mean",
+          "default": "Exceptional meals · practical guidance · meaningful progress"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_2",
+          "label": "Build a routine around your goal.",
+          "default": "Build a routine around your goal."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_3",
+          "label": "Start Meal Plan",
+          "default": "Start Meal Plan"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_4",
+          "label": "Read customer journeys",
+          "default": "Read customer journeys"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 7,
+  "presets": [
+    {
+      "name": "Meal Plan about",
+      "blocks": [
+        {
+          "type": "band_1"
+        },
+        {
+          "type": "band_2"
+        },
+        {
+          "type": "band_3"
+        },
+        {
+          "type": "band_4"
+        },
+        {
+          "type": "band_5"
+        },
+        {
+          "type": "band_6"
+        },
+        {
+          "type": "band_7"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,1 @@
+mutation StreamDefinitionUpdate($definition:MetafieldDefinitionUpdateInput!){metafieldDefinitionUpdate(definition:$definition){updatedDefinition{id namespace key validations{name value}} userErrors{field message}}}

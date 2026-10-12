@@ -1,0 +1,2 @@
+mutation SourceOrder($input:CollectionUpdateInput!){collectionUpdate(collection:$input){collection{id sortOrder} userErrors{field message}}}
+mutation Moves($id:ID!,$moves:[MoveInput!]!){collectionReorderProducts(id:$id,moves:$moves){job{id done} userErrors{field message}}}

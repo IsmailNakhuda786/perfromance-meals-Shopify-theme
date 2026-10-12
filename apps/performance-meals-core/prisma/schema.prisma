@@ -1,0 +1,239 @@
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "sqlite"
+  url = env("DATABASE_URL")
+}
+model Session {
+  id String @id
+  shop String
+  state String
+  isOnline Boolean @default(false)
+  scope String?
+  expires DateTime?
+  accessToken String
+  userId BigInt?
+  firstName String?
+  lastName String?
+  email String?
+  accountOwner Boolean @default(false)
+  locale String?
+  collaborator Boolean? @default(false)
+  emailVerified Boolean? @default(false)
+  refreshToken String?
+  refreshTokenExpires DateTime?
+}
+model MealPlanDraft {
+  id String @id @default(uuid())
+  shop String
+  customerGid String
+  programmeGid String
+  variantGid String
+  sellingPlanGid String?
+  startsOn String?
+  endsOn String?
+  selections String
+  revision Int @default(1)
+  updatedAt DateTime @updatedAt
+  @@unique([shop, customerGid])
+}
+model MealPlanSelection {
+  id String @id @default(uuid())
+  shop String
+  customerGid String
+  programmeGid String
+  variantGid String
+  sellingPlanGid String?
+  startsOn String?
+  endsOn String?
+  businessStream String @default("meal_plan")
+  schemaVersion Int @default(1)
+  selections String
+  selectionHash String
+  cutoffAt DateTime
+  status String @default("REVIEWED")
+  reviewedAt DateTime @default(now())
+  orderGid String?
+  orderLineGid String?
+  contractGid String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([shop, customerGid])
+  @@index([shop, orderGid])
+}
+model OperationalLine {
+  id String @id @default(uuid())
+  shop String
+  orderGid String
+  orderLineGid String
+  customerGid String?
+  productGid String?
+  variantGid String?
+  businessStream String?
+  department String?
+  validationStatus String
+  validationReason String?
+  selectionId String?
+  contractGid String?
+  fulfillmentState String @default("UNASSIGNED")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([shop, orderLineGid])
+  @@index([shop, businessStream, validationStatus])
+  @@index([shop, customerGid])
+}
+model WebhookReceipt {
+  id String @id
+  shop String
+  topic String
+  processedAt DateTime @default(now())
+}
+model PlanOperation {
+  id String @id @default(uuid())
+  shop String
+  selectionId String
+  kind String
+  state String @default("REQUESTED")
+  cycleReference String?
+  deliveryAt DateTime?
+  fulfillmentGid String?
+  productionReference String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([shop, selectionId])
+}
+model MigrationMapping {
+  id String @id @default(uuid())
+  shop String
+  sourceSystem String
+  sourceType String
+  sourceId String
+  sourceCustomerId String?
+  sourceSubscriptionId String?
+  sourceOrderId String?
+  targetGid String?
+  appRecordId String?
+  businessStream String
+  state String @default("PENDING")
+  migratedAt DateTime?
+  historicalReference String?
+  @@unique([shop, sourceSystem, sourceType, sourceId])
+}
+
+model CustomerWallet {
+  id String @id @default(uuid())
+  shop String
+  customerGid String
+  currency String
+  fundedBalance Int @default(0)
+  bonusBalance Int @default(0)
+  fundedReserved Int @default(0)
+  bonusReserved Int @default(0)
+  revision Int @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([shop, customerGid, currency])
+}
+model WalletEntry {
+  id String @id @default(uuid())
+  shop String
+  customerGid String
+  currency String
+  sourceEvent String
+  sourceGid String?
+  sourceKind String @default("legacy_unknown")
+  nativeTransactionGid String?
+  nativeSourceTransactionGid String?
+  fundedAllocations String @default("[]")
+  fundedDelta Int
+  bonusDelta Int
+  createdAt DateTime @default(now())
+  @@unique([shop, sourceEvent])
+  @@unique([shop, nativeTransactionGid])
+  @@unique([shop, nativeSourceTransactionGid])
+  @@index([shop, customerGid, currency])
+}
+model WalletReservation {
+  id String @id @default(uuid())
+  shop String
+  customerGid String
+  currency String
+  checkoutReference String
+  fundedMinor Int
+  bonusMinor Int
+  nativeLineSnapshot String
+  state String @default("RESERVED")
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  @@unique([shop, checkoutReference])
+  @@index([shop, customerGid, state])
+}
+model CommercePolicy {
+  shop String @id
+  walletEnabled Boolean @default(false)
+  giftCardClaimsEnabled Boolean @default(false)
+  walletTopUpsEnabled Boolean @default(false)
+  rewardsEnabled Boolean @default(false)
+  bonusTiers String?
+  bonusExpiry String?
+  refundRules String?
+  referralRules String?
+  giftCardRenewals Boolean?
+  rewardsRules String?
+  updatedAt DateTime @updatedAt
+}
+
+model GiftCardWalletClaim {
+  id String @id @default(uuid())
+  shop String
+  giftCardGid String
+  customerGid String
+  currency String
+  amountMinor Int
+  state String @default("PREPARED")
+  debitGid String?
+  creditGid String?
+  ledgerEntryId String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([shop, giftCardGid])
+  @@unique([shop, debitGid])
+  @@unique([shop, creditGid])
+  @@index([shop, customerGid, state])
+}
+
+model WalletTopUpSettlement {
+  id String @id @default(uuid())
+  shop String
+  orderGid String
+  customerGid String
+  currency String
+  amountMinor Int
+  paymentGid String
+  state String @default("PREPARED")
+  creditGid String?
+  ledgerEntryId String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([shop, orderGid])
+  @@unique([shop, paymentGid])
+  @@unique([shop, creditGid])
+  @@index([shop, customerGid, state])
+}
+
+model MealPlanMenuRevision {
+  id String @id @default(uuid())
+  shop String
+  customerGid String
+  selectionId String
+  block Int
+  revision Int
+  state String
+  inputSelections String
+  selections String
+  cutoffAt DateTime
+  createdAt DateTime @default(now())
+  @@unique([shop, selectionId, block, revision])
+  @@index([shop, customerGid, selectionId])
+}

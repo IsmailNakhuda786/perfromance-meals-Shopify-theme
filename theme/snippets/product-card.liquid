@@ -1,0 +1,117 @@
+{% doc %}
+  Renders a meal, one-time bundle, or recurring predefined bundle in its explicit purchase context.
+  @param {product} product - Shopify product.
+  @param {string} [instance_id] - Unique section and loop prefix.
+  @param {boolean} [show_quick_view] - Enable the quick-view dialog for one-time products.
+  @param {string} [purchase_mode] - single, bundles, or subscription; defaults to single.
+  @param {variant} [card_variant] - Explicit variant rendered as an approved bundle card.
+  @param {boolean} [require_account] - Show actual subscription account sign-in.
+  @example
+  {% render 'product-card', product: product, instance_id: section.id, purchase_mode: 'subscription' %}
+{% enddoc %}
+{% liquid
+  assign purchase_mode = purchase_mode | default: 'single'
+  assign variant = card_variant | default: product.selected_or_first_available_variant
+  assign card_id = instance_id | append: '-' | append: product.id | append: '-' | append: variant.id
+  assign form_id = 'CardForm-' | append: card_id
+  assign dialog_id = 'QuickView-' | append: card_id
+  assign rating = product.metafields.reviews.rating.value
+  assign rating_count = product.metafields.reviews.rating_count.value
+  assign contents = variant.metafields.performance.bundle_contents.value | default: product.metafields.performance.bundle_contents.value
+  assign allocation = nil
+  if purchase_mode == 'subscription'
+    for option in variant.selling_plan_allocations
+      if option.selling_plan.recurring_deliveries
+        if allocation == nil or option.selling_plan.selected
+          assign allocation = option
+        endif
+      endif
+    endfor
+  endif
+  assign meal_count = variant.metafields.performance.meal_count.value | default: product.metafields.performance.meal_count.value
+  assign card_url = product.url
+  if card_variant
+    assign card_url = product.url | append: '?variant=' | append: variant.id
+  endif
+  if purchase_mode == 'subscription' and allocation != nil
+    assign card_url = product.url | append: '?variant=' | append: variant.id | append: '&selling_plan=' | append: allocation.selling_plan.id
+  endif
+  assign can_purchase = variant.available
+  if purchase_mode != 'subscription' and variant.requires_selling_plan
+    assign can_purchase = false
+  endif
+%}
+<article class="pm-product-card group {% if purchase_mode == 'bundles' %}bg-[#1A1A1A]{% else %}bg-[#111]{% endif %} {% unless purchase_mode == 'single' %}border border-white/8{% endunless %} flex flex-col min-w-0 overflow-hidden" data-product-card data-product-id="{{ product.id }}"{% if purchase_mode == 'subscription' %} data-product-purchase{% endif %} data-purchase-mode="{{ purchase_mode }}" style="--pm-accent:{{ product.metafields.performance.accent_color.value | default: '#F5B300' }}">
+  {% if purchase_mode == 'subscription' and product.metafields.performance.business_stream.value == 'ready_series' %}{% unless product.metafields.performance.prepaid_term_verified.value == true %}{% assign allocation = nil %}{% endunless %}{% endif %}
+{% if purchase_mode == 'subscription' %}<div class="h-[3px] w-full" style="background:var(--pm-accent)"></div>{% endif %}
+  <a href="{{ card_url }}" class="relative {% if purchase_mode == 'subscription' %}h-24{% elsif purchase_mode == 'bundles' %}h-28{% else %}aspect-[4/3]{% endif %} overflow-hidden bg-[#1A1A1A] block w-full">
+    {% if purchase_mode != 'single' and contents != blank %}
+      <div class="flex h-full overflow-hidden" data-bundle-preview>
+        {% for item in contents limit: 3 %}
+          {% assign included_product = item.variant.value.product | default: item.product.value %}
+          {% if included_product.featured_image %}<div class="flex-1 min-w-0">{{ included_product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', widths: '180, 300, 600', sizes: '(min-width: 1024px) 120px, 30vw', class: 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-500' }}</div>{% endif %}
+        {% endfor %}
+      </div>
+    {% elsif product.featured_image %}
+      {{ product.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '300, 450, 600, 900', sizes: '(min-width: 1280px) 280px, (min-width: 640px) 45vw, 90vw', class: 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-500' }}
+    {% else %}{{ 'product-1' | placeholder_svg_tag: 'w-full h-full opacity-20' }}{% endif %}
+    {% if product.metafields.performance.badge != blank %}<span class="absolute top-3 left-3 bg-[#F5B300] text-[#111] text-[8px] font-extrabold tracking-[0.15em] px-2 py-1 uppercase">{{ product.metafields.performance.badge.value | escape }}</span>{% endif %}
+    {% if purchase_mode == 'single' and product.metafields.performance.category != blank %}<span class="absolute top-3 right-3 text-[10px] font-mono bg-[#111]/80 text-white/60 px-2 py-1">{{ product.metafields.performance.category.value | escape }}</span>{% endif %}
+    {% if purchase_mode == 'single' %}<span class="absolute inset-0 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 bg-black/20 transition-opacity flex items-center justify-center"><span class="bg-[#F5B300] text-[#111] text-[10px] font-extrabold tracking-[0.15em] uppercase px-4 py-2">{{ 'catalog.view_details' | t }} →</span></span>{% endif %}
+  </a>
+  <div class="p-5 flex flex-col gap-3 flex-1">
+    <h3 class="{% if purchase_mode == 'bundles' %}font-extrabold text-[14px]{% else %}font-display font-bold text-[15px]{% endif %} leading-snug"><a href="{{ card_url }}" class="hover:text-[#F5B300]">{{ product.title | escape }}{% if card_variant and variant.title != 'Default Title' %}{% unless product.title contains variant.title %} — {{ variant.title | escape }}{% endunless %}{% endif %}</a></h3>{% if purchase_mode == 'bundles' and card_variant and variant.title != 'Default Title' %}<p class="text-[10px] font-mono tracking-widest uppercase text-white/30">{{ variant.title | escape }}</p>{% endif %}
+    {% if purchase_mode == 'subscription' %}
+      {% if meal_count > 0 %}<p class="font-mono text-[9px] tracking-[0.2em] uppercase" style="color:var(--pm-accent)">{{ 'catalog.meals_per_delivery' | t: count: meal_count }}</p>{% endif %}
+      {% if meal_count > 0 %}<div class="flex items-end gap-2 mt-1" data-per-meal-wrapper{% unless allocation %} hidden{% endunless %}><div class="font-display text-[38px] font-extrabold leading-none" data-per-meal-price>{% if allocation %}{{ allocation.per_delivery_price | divided_by: meal_count | round | money_with_currency }}{% endif %}</div><span class="text-[10px] text-white/35 font-mono pb-1">{{ 'catalog.per_meal' | t }}</span></div>{% endif %}
+      {% if contents != blank %}<div class="border-t border-white/8 pt-3"><h4 class="text-[9px] font-mono uppercase tracking-[0.2em] mb-2" style="color:var(--pm-accent)">{{ 'catalog.bundle_contents' | t }}</h4><ul class="space-y-1.5" data-bundle-contents>{% for item in contents %}{% assign included_product = item.variant.value.product | default: item.product.value %}{% if included_product %}<li class="flex items-center gap-2 text-[11px] text-white/60"><span style="color:var(--pm-accent)" aria-hidden="true">•</span><span class="flex-1">{{ included_product.title | escape }}{% if item.variant.value.title != blank and item.variant.value.title != 'Default Title' %} — {{ item.variant.value.title | escape }}{% endif %}</span><span class="font-mono text-white/40">×{{ item.quantity.value }}</span></li>{% endif %}{% endfor %}</ul></div>{% endif %}
+      {% assign highlights = variant.metafields.performance.highlights.value | default: product.metafields.performance.highlights.value %}{% if highlights != blank %}<ul data-variant-highlights class="text-[10px] text-white/40 space-y-1 border-t border-white/8 pt-3">{% for highlight in highlights %}<li>✓ {{ highlight | escape }}</li>{% endfor %}</ul>{% endif %}
+      <div class="mt-auto pt-3 border-t border-white/8"><p class="text-[10px] text-white/40 font-mono mb-1">{{ 'catalog.subscription_price' | t }}</p><div class="font-display text-[22px] font-extrabold">{% render 'price', product: product, variant: variant, allocation: allocation, require_allocation: true %}</div></div>
+      {% render 'product-purchase-form', product: product, variant: variant, form_id: form_id, purchase_mode: purchase_mode, allocation: allocation, require_account: require_account %}
+      {% render 'purchase-data', product: product, purchase_mode: purchase_mode, require_account: require_account %}
+    {% else %}
+      {% if purchase_mode == 'bundles' %}
+        <p class="text-[12px] text-white/40 leading-relaxed flex-1">{{ product.description | strip_html | truncate: 160 }}</p>
+        {% if contents != blank %}<ul class="flex flex-wrap gap-1.5" aria-label="{{ 'catalog.bundle_contents' | t }}">{% for item in contents limit: 3 %}{% assign included_product = item.variant.value.product | default: item.product.value %}{% if included_product %}<li class="text-[10px] px-2 py-0.5 leading-snug bg-white/5 border border-white/10 text-white/50">{{ included_product.title | escape }} ×{{ item.quantity.value }}</li>{% endif %}{% endfor %}</ul>{% endif %}
+      {% else %}<div class="flex gap-3 text-[10px] font-mono text-white/40">{% if product.metafields.performance.protein_g != blank %}<span>{{ product.metafields.performance.protein_g.value | plus: 0 }}g protein</span>{% endif %}{% if product.metafields.performance.calories_kcal != blank %}<span>·</span><span>{{ product.metafields.performance.calories_kcal.value }} cal</span>{% endif %}</div>{% endif %}
+    {% if rating and rating_count > 0 %}<a href="{{ card_url }}#ProductReviews" class="flex items-center gap-1.5 text-left"><span class="flex text-[11px] text-[#F5B300]" aria-hidden="true">{% assign filled_stars = rating.rating | round %}{% for star in (1..5) %}<span{% if star > filled_stars %} class="text-white/20"{% endif %}>★</span>{% endfor %}</span><span class="text-[11px] font-mono text-white/40">{{ rating.rating }}</span><span class="text-[10px] text-white/30">({{ 'catalog.review_count' | t: count: rating_count }})</span></a>{% endif %}
+
+      {% capture card_actions %}
+        {% if product.has_only_default_variant or card_variant %}
+          {% form 'product', product, id: form_id, class: 'flex-1', data-product-form: '', data-purchase-mode: purchase_mode %}
+            {% render 'business-stream-properties', product: product %}
+            <input type="hidden" name="id" value="{{ variant.id }}">
+            <input type="hidden" name="quantity" value="{{ variant.quantity_rule.min | default: 1 }}">
+            <button type="submit" class="bg-[#F5B300] text-[#111] hover:bg-white {% if purchase_mode == 'single' %}px-4 py-2 text-[10px]{% else %}w-full py-3 text-[11px]{% endif %} font-extrabold tracking-[0.15em] uppercase transition-colors"{% unless can_purchase %} disabled{% endunless %}>{% if can_purchase %}{% if purchase_mode == 'bundles' %}{{ 'catalog.add_to_cart' | t }} →{% else %}{{ 'catalog.add_meal' | t }}{% endif %}{% else %}{{ 'catalog.sold_out' | t }}{% endif %}</button>
+            <p data-form-error role="alert" class="text-red-300 text-[12px] mt-2" hidden></p>
+          {% endform %}
+        {% elsif show_quick_view %}<a href="{{ card_url }}" data-quick-view="{{ dialog_id }}" class="text-center flex-1 bg-white/8 hover:bg-[#F5B300] hover:text-[#111] py-3 text-[11px] font-extrabold tracking-[0.15em] uppercase">{{ 'catalog.choose_options' | t }}</a>
+        {% else %}<a href="{{ card_url }}" class="flex-1 text-center bg-white/8 hover:bg-[#F5B300] hover:text-[#111] py-3 text-[11px] font-extrabold uppercase">{{ 'catalog.choose_options' | t }}</a>{% endif %}
+      {% endcapture %}
+      {% if purchase_mode == 'single' %}
+        <div class="mt-auto flex items-center justify-between gap-2 pt-3 border-t border-white/8"><span class="font-display text-[18px] font-extrabold">{% render 'price', product: product %}</span><div class="shrink-0">{{ card_actions }}</div></div>
+      {% else %}
+        <div class="flex items-baseline justify-between gap-3 mt-auto pt-3 border-t border-white/8"><span class="font-display text-[22px] font-extrabold">{% render 'price', product: product, variant: variant %}</span>{% if meal_count > 0 %}<span class="text-[11px] text-white/30">{{ 'catalog.meal_count' | t: count: meal_count }} · {{ variant.price | divided_by: meal_count | round | money }}/{{ 'catalog.meal_unit' | t }}</span>{% endif %}</div><div class="flex gap-2">{{ card_actions }}</div>
+      {% endif %}
+    {% endif %}
+  </div>
+</article>
+{% if show_quick_view and purchase_mode != 'subscription' %}
+  {% assign quick_form_id = 'QuickForm-' | append: card_id %}
+  <dialog id="{{ dialog_id }}" class="pm-quick-view bg-[#111] text-white border border-white/15 max-w-[900px] w-[calc(100%-32px)] p-0" aria-labelledby="{{ dialog_id }}-title" data-quick-dialog>
+    <button type="button" data-dialog-close class="absolute top-3 right-3 z-20 w-10 h-10 bg-black/70 text-[24px]" aria-label="{{ 'catalog.close' | t }}">×</button>
+    <div class="grid grid-cols-1 md:grid-cols-2">
+      <div class="aspect-[4/3] md:aspect-auto bg-[#1A1A1A]">{% if product.featured_image %}{{ product.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '450, 900', sizes: '(min-width: 768px) 450px, 90vw', class: 'w-full h-full object-cover' }}{% endif %}</div>
+      <div class="p-6 sm:p-8" data-product-purchase data-purchase-mode="{{ purchase_mode }}">
+        <p class="text-[#F5B300] font-mono text-[10px] tracking-[0.3em] uppercase mb-3">{{ product.metafields.performance.category.value | escape }}</p>
+        <h2 id="{{ dialog_id }}-title" class="font-display text-[26px] font-extrabold uppercase leading-tight mb-3">{{ product.title | escape }}</h2>
+        <p class="text-white/45 text-[13px] leading-relaxed mb-4">{{ product.description | strip_html | truncate: 220 }}</p>
+        {% render 'nutrition', product: product, compact: true %}
+        <div class="text-[26px] font-display font-extrabold mt-5 mb-4">{% render 'price', product: product, variant: variant %}</div>
+        {% render 'product-purchase-form', product: product, variant: variant, form_id: quick_form_id, purchase_mode: purchase_mode %}
+        <a href="{{ card_url }}" class="block text-center text-white/50 underline text-[12px] mt-4">{{ 'catalog.full_details' | t }}</a>
+        {% render 'purchase-data', product: product, purchase_mode: purchase_mode %}
+      </div>
+    </div>
+  </dialog>
+{% endif %}

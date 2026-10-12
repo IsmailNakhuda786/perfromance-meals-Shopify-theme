@@ -1,0 +1,12 @@
+query CompleteCatalogueAudit {
+ shop { myshopifyDomain currencyCode }
+ products(first:60){nodes{id handle title status templateSuffix vendor productType descriptionHtml requiresSellingPlan options{id name values} metafields(first:30){nodes{namespace key value}} media(first:5){nodes{... on MediaImage{id alt status image{url}}}} variants(first:10){nodes{id title sku price selectedOptions{name value} metafields(first:10){nodes{namespace key value}}}} sellingPlanGroups(first:5){nodes{id name appId sellingPlans(first:5){nodes{id name options billingPolicy{__typename ... on SellingPlanRecurringBillingPolicy{interval intervalCount minCycles maxCycles}} deliveryPolicy{__typename ... on SellingPlanRecurringDeliveryPolicy{interval intervalCount}}}}}}}}
+ metafieldDefinitions(first:100,ownerType:PRODUCT){nodes{id namespace key type{name} validations{name value}}}
+ variantDefinitions:metafieldDefinitions(first:100,ownerType:PRODUCTVARIANT){nodes{id namespace key type{name} validations{name value}}}
+ metaobjectDefinitions(first:30){nodes{id type fieldDefinitions{key type{name} validations{name value}}}}
+ bundleItems:metaobjects(type:"performance_bundle_item",first:10){nodes{id handle fields{key value}}}
+ menuWeeks:metaobjects(type:"performance_menu_week",first:50){nodes{id handle fields{key value}}}
+ menuWindows:metaobjects(type:"performance_menu_window",first:100){nodes{id handle fields{key value}}}
+ collections(first:30){nodes{id handle title products(first:60){nodes{id}}}}
+ publications(first:10){nodes{id name}}
+}

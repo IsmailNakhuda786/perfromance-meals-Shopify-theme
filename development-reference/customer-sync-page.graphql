@@ -1,0 +1,1 @@
+mutation QAPage($input:PageCreateInput!){pageCreate(page:$input){page{id handle} userErrors{field message}}}

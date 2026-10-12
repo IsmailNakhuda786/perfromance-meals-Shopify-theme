@@ -1,0 +1,156 @@
+<section class="bg-[#F7F4EB] overflow-hidden py-10 sm:py-14 lg:py-16 px-6 sm:px-10 lg:px-16"><div class="max-w-[1380px] mx-auto">
+  <div class="flex items-baseline gap-5 mb-4"><span class="font-display font-bold text-[#1A1A1A]" style="font-size:clamp(36px,4vw,52px);line-height:1;letter-spacing:-.03em">{{ section.settings.number | escape }}</span><span class="text-[#1A1A1A] text-[10px] sm:text-[11px] font-medium tracking-[0.05em]">{{ section.settings.eyebrow | escape }}</span></div>
+  <h2 class="font-display font-bold text-[#1A1A1A] mb-4" style="font-size:clamp(28px,3.2vw,42px);line-height:.92;letter-spacing:-.021em">{{ section.settings.heading | escape | newline_to_br }}</h2><p class="text-[#7A7A75] leading-[1.45] mb-8 max-w-[440px] text-[14px]">{{ section.settings.body | escape }}</p>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    {% for block in section.blocks %}<a href="{{ block.settings.url | default: '/pages/ready-series' }}" class="pm-experience-card group overflow-hidden flex flex-col sm:flex-row" style="min-height:280px;--card-bg:{{ block.settings.background }};--card-text:{{ block.settings.foreground }};--card-accent:{{ block.settings.accent }}" {{ block.shopify_attributes }}>
+      <div class="w-full sm:w-[42%] flex-shrink-0 relative overflow-hidden" style="min-height:200px">{% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 1800 | image_tag: class: 'w-full h-full object-cover absolute inset-0 transition-transform duration-500 ease-out group-hover:scale-105', loading: 'lazy', sizes: '(min-width: 1024px) 55vw, 100vw' }}{% else %}<img src="{{ block.settings.fallback_image | asset_url }}" alt="{{ block.settings.image_alt | default: block.settings.eyebrow | escape }}" width="1200" height="800" loading="lazy" class="w-full h-full object-cover absolute inset-0 transition-transform duration-500 ease-out group-hover:scale-105">{% endif %}</div>
+      <div class="pm-experience-spine hidden sm:block flex-shrink-0" style="width:3px;background:var(--card-accent)"></div>
+      <div class="flex-1 px-6 sm:px-8 py-6 sm:py-8 flex flex-col justify-between"><div>
+        <p class="text-[11px] font-medium tracking-[0.06em] mb-4" style="color:var(--card-accent)">{{ block.settings.eyebrow | escape }}</p><h3 class="font-display font-bold mb-4" style="font-size:clamp(22px,2.4vw,36px);line-height:.92;letter-spacing:-.018em">{{ block.settings.heading | escape | newline_to_br }}</h3><p class="leading-[1.5] text-[14px] sm:text-[15px]" style="opacity:.7">{{ block.settings.body | escape }}</p>
+      </div><span class="inline-flex items-center gap-2 text-[12px] font-semibold tracking-[0.04em] transition-all duration-300 pt-5 mt-5" style="border-top:1px solid color-mix(in srgb,var(--card-text) 15%,transparent)"><span class="pm-experience-link">{{ block.settings.label | escape }}</span><span class="transition-transform duration-300 group-hover:translate-x-1">→</span></span></div>
+    </a>{% endfor %}
+  </div>
+</div></section>
+{% stylesheet %}
+.pm-experience-card{background:var(--card-bg);color:var(--card-text);transition:box-shadow .4s ease,transform .4s cubic-bezier(.34,1.56,.64,1)}.pm-experience-card:hover,.pm-experience-card:focus-visible{transform:translateY(-6px);box-shadow:0 24px 60px #00000030}.pm-experience-spine{transition:width .4s ease}.pm-experience-card:hover .pm-experience-spine{width:5px!important}.pm-experience-link{position:relative;padding-bottom:3px}.pm-experience-link:after{position:absolute;bottom:0;left:0;height:1.5px;width:0;background:var(--card-accent);content:'';transition:width .3s}.pm-experience-card:hover .pm-experience-link{color:var(--card-accent)}.pm-experience-card:hover .pm-experience-link:after{width:100%}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Choose your experience",
+  "settings": [
+    {
+      "type": "text",
+      "id": "number",
+      "label": "Number",
+      "default": "02"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "ONE STANDARD. TWO DISTINCT EXPERIENCES."
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "CHOOSE HOW\nPERFORMANCE MEALS\nWORKS FOR YOU."
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "Same belief. Same quality standard. Different jobs for different routines."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Choose your experience",
+      "blocks": [
+        {
+          "type": "experience",
+          "settings": {}
+        },
+        {
+          "type": "experience",
+          "settings": {
+            "eyebrow": "MEAL PLAN",
+            "heading": "BOUTIQUE\nPROGRESS.",
+            "body": "Fresh structure, personal guidance and support around a clear goal.",
+            "label": "EXPLORE MEAL PLAN",
+            "url": "/pages/meal-plan-builder",
+            "fallback_image": "98c55.png",
+            "background": "#FFFFFF",
+            "foreground": "#1A1A1A",
+            "accent": "#E85D04"
+          }
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "experience",
+      "name": "Experience",
+      "settings": [
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow",
+          "default": "READY SERIES"
+        },
+        {
+          "type": "textarea",
+          "id": "heading",
+          "label": "Heading",
+          "default": "EVERYDAY\nMOMENTUM."
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Body",
+          "default": "Frozen convenience for changing schedules. Fast, flexible and dependable."
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "EXPLORE READY SERIES"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Url"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "select",
+          "id": "fallback_image",
+          "label": "Fallback Image",
+          "options": [
+            {
+              "value": "d006a.png",
+              "label": "Ready Series"
+            },
+            {
+              "value": "98c55.png",
+              "label": "Meal Plan"
+            }
+          ],
+          "default": "d006a.png"
+        },
+        {
+          "type": "color",
+          "id": "background",
+          "label": "Background",
+          "default": "#1A1A1A"
+        },
+        {
+          "type": "color",
+          "id": "foreground",
+          "label": "Foreground",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "color",
+          "id": "accent",
+          "label": "Accent",
+          "default": "#F5B300"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Photograph description",
+          "default": "Performance Meals for everyday routines"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 2
+}
+{% endschema %}

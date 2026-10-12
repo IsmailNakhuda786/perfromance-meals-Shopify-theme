@@ -1,0 +1,1 @@
+query CustomerSyncPages { shop { myshopifyDomain } pages(first:100) { nodes { id handle title templateSuffix isPublished } pageInfo { hasNextPage } } }

@@ -1,0 +1,21 @@
+{
+  "name": "performance-meals-theme-tools",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:css": "node build-css.mjs",
+    "check": "node check-theme.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "package": "node package-theme.mjs"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "4.3.0",
+    "@shopify/theme-check-common": "3.24.0",
+    "@shopify/theme-check-docs-updater": "3.24.0",
+    "@shopify/theme-check-node": "3.24.0",
+    "cheerio": "1.1.2",
+    "esbuild": "0.25.10",
+    "liquidjs": "10.21.1",
+    "@playwright/test": "1.55.1"
+  }
+}

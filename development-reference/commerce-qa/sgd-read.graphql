@@ -1,0 +1,5 @@
+query SGDFoundation {
+ shop { myshopifyDomain currencyCode ianaTimezone }
+ products(first:30, query:"tag:pm-storefront-qa OR gift_card:true") { nodes { handle variants(first:30){ nodes{ title price } } sellingPlanGroups(first:10){nodes{name sellingPlans(first:10){nodes{name pricingPolicies{... on SellingPlanFixedPricingPolicy{adjustmentType adjustmentValue{...on SellingPlanPricingPolicyPercentageValue{percentage} ...on MoneyV2{amount currencyCode}}}}}}}} } }
+ orders(first:1,sortKey:CREATED_AT,reverse:true){nodes{id name test currencyCode displayFinancialStatus totalPriceSet{shopMoney{amount currencyCode} presentmentMoney{amount currencyCode}}}}
+}

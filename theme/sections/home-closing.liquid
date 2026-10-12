@@ -1,0 +1,69 @@
+<section class="bg-[#F5B300] overflow-hidden px-6 sm:px-10 lg:px-16 py-12 sm:py-16 lg:py-20 relative"><div class="max-w-[1380px] mx-auto flex flex-col lg:flex-row lg:items-start lg:justify-between gap-12">
+  <div class="max-w-[700px]"><p class="text-[#1A1A1A] text-[11px] font-medium tracking-[0.05em] mb-5">{{ section.settings.eyebrow | escape }}</p><h2 class="font-display font-bold text-[#1A1A1A] mb-6" style="font-size:clamp(36px,4vw,55px);line-height:.92;letter-spacing:-.021em">{{ section.settings.heading | escape | newline_to_br }}</h2><p class="text-[#1A1A1A] leading-[1.45] mb-10 max-w-[460px] text-[17px]">{{ section.settings.body | escape }}</p><div class="flex flex-wrap gap-3"><a href="{{ section.settings.primary_url | default: '/pages/ready-series' }}" class="inline-flex items-center justify-center h-12 px-7 bg-[#1A1A1A] text-white text-[12px] font-medium tracking-[0.01em] rounded-full hover:bg-[#333] transition-colors">{{ section.settings.primary_label | escape }}</a><a href="{{ section.settings.secondary_url | default: '/pages/meal-plan-builder' }}" class="inline-flex items-center justify-center h-12 px-7 bg-[#E85D04] text-white text-[12px] font-medium tracking-[0.01em] rounded-full hover:bg-[#c94e00] transition-colors">{{ section.settings.secondary_label | escape }}</a></div></div>
+  <div class="lg:text-right"><p class="text-[#1A1A1A] text-[11px] font-medium tracking-[0.04em] mb-4 lg:text-right">{{ section.settings.principles | escape }}</p><div class="font-display font-bold text-[#1A1A1A] leading-[0.87]" style="font-size:clamp(36px,4vw,50px);letter-spacing:-.02em">{{ section.settings.wordmark | escape | newline_to_br }}</div></div>
+</div></section>
+
+{% schema %}
+{
+  "name": "Homepage closing",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "PERFORMANCE MEALS"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "ONE TRUSTED STANDARD.\nTWO WAYS TO LIVE IT."
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "Choose the experience that fits the way you want to eat."
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Primary Label",
+      "default": "BROWSE READY SERIES"
+    },
+    {
+      "type": "url",
+      "id": "primary_url",
+      "label": "Primary Url"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary Label",
+      "default": "EXPLORE MEAL PLAN"
+    },
+    {
+      "type": "url",
+      "id": "secondary_url",
+      "label": "Secondary Url"
+    },
+    {
+      "type": "text",
+      "id": "principles",
+      "label": "Principles",
+      "default": "PRINCIPLED  \u2022  GROUNDED"
+    },
+    {
+      "type": "textarea",
+      "id": "wordmark",
+      "label": "Wordmark",
+      "default": "PERFORMANCE\nMEALS"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Homepage closing"
+    }
+  ]
+}
+{% endschema %}

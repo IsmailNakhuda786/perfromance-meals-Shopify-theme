@@ -1,0 +1,1 @@
+mutation SourcePlanLabels($id:ID!,$input:SellingPlanGroupInput!){sellingPlanGroupUpdate(id:$id,input:$input){sellingPlanGroup{id name sellingPlans(first:10){nodes{id name options}}}userErrors{field message}}}

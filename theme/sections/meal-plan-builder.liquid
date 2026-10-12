@@ -1,0 +1,141 @@
+{% liquid
+  assign programme_blocks = section.blocks | where: 'type', 'programme'
+  assign step_keys = 'type,plan,menu,details,review' | split: ','
+  assign menu_weeks = metaobjects.performance_menu_week.values
+%}
+<section data-meal-plan-builder data-section-id="{{ section.id }}" class="min-h-screen text-[#1A1A1A] bg-[#F4F2EE]">
+  <div class="bg-white border-b border-[#E8E4DC] sticky top-0 z-30">
+    <div class="h-0.5 bg-[#F4F2EE]"><div data-plan-progress-fill class="h-full bg-[#E85D04] transition-all duration-700 ease-out" style="width:0%"></div></div>
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-8 flex items-center gap-6 py-3">
+      <a href="{{ section.settings.landing_url | default: '/pages/meal-plan' }}" class="shrink-0">{% render 'logos', brand: 'mp', size: 'sm', variant: 'light' %}</a>
+      <nav class="hidden md:flex items-center gap-0.5 flex-1 overflow-x-auto" aria-label="{{ 'meal_plan.steps_label' | t }}">
+        {% for key in step_keys %}{% assign label_key = 'meal_plan.step_' | append: key %}<button type="button" data-plan-step="{{ forloop.index }}" class="pm-plan-step flex items-center gap-1.5 px-3 py-2 text-[12px] font-semibold whitespace-nowrap"{% if forloop.first %} aria-current="step"{% else %} disabled{% endif %}><span class="pm-plan-step-number w-5 h-5 rounded-full text-[10px] font-bold flex items-center justify-center border border-[#D0CCC4]">{{ forloop.index }}</span>{{ label_key | t }}</button>{% unless forloop.last %}<span class="w-8 h-px bg-[#E0DCD6] shrink-0" aria-hidden="true"></span>{% endunless %}{% endfor %}
+      </nav>
+      <p data-plan-mobile-step class="md:hidden flex-1 text-[13px] font-semibold text-[#666] text-center">1 / 5 · {{ 'meal_plan.step_type' | t }}</p>
+      <div class="flex items-center gap-3 shrink-0"><span data-plan-percent class="text-[11px] font-bold text-[#E85D04]">0%</span><button type="button" data-plan-back class="text-[12px] text-[#888] hover:text-[#1A1A1A] hidden sm:block">← {{ 'meal_plan.back' | t }}</button></div>
+    </div>
+  </div>
+  <noscript><p class="max-w-[1400px] mx-auto px-4 sm:px-8 py-8">{{ 'meal_plan.javascript_required' | t }} <a href="{{ section.settings.landing_url | default: '/pages/meal-plan' }}" class="underline">{{ 'meal_plan.back_to_plans' | t }}</a></p></noscript>
+  <div class="max-w-[1400px] mx-auto px-4 sm:px-8 py-8 lg:py-10 flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
+    <div class="flex-1 min-w-0 w-full max-w-[720px]">
+      <div class="mb-7"><span data-plan-step-count class="text-[11px] font-extrabold tracking-[0.3em] uppercase text-[#E85D04]">01 / 05</span><h1 data-plan-heading tabindex="-1" class="text-[32px] sm:text-[38px] font-extrabold leading-tight tracking-tight mt-1">{{ 'meal_plan.step_type' | t }}</h1><p data-plan-subtitle class="text-[#888] text-[14px] mt-1">{{ 'meal_plan.subtitle_type' | t }}</p></div>
+      <div data-plan-panel="1" class="space-y-6">
+        {% assign programme_kinds = 'recurring' | split: ',' %}
+        {% for kind in programme_kinds %}
+          <div><p class="text-[10px] font-extrabold tracking-[0.3em] uppercase text-[#888] mb-3">{{ 'meal_plan.programme' | t }}</p><div class="space-y-2">
+            {% for block in programme_blocks %}{% assign programme = block.settings.product %}{% if programme != blank %}<button type="button" data-plan-programme="{{ block.id }}" aria-pressed="false" class="pm-plan-choice relative w-full text-left flex items-center gap-4 px-5 py-4 border-2 border-[#E8E4DC] bg-white hover:border-[#C0BAB0] transition-all" {{ block.shopify_attributes }}><span class="text-2xl shrink-0" aria-hidden="true">↻</span><span class="flex-1 min-w-0"><span class="font-bold text-[15px]">{{ programme.title | escape }}</span>{% if programme.metafields.performance.badge != blank %}<span class="bg-[#E85D04] text-white text-[9px] font-extrabold tracking-[0.15em] uppercase px-2 py-0.5 ml-2">{{ programme.metafields.performance.badge.value | escape }}</span>{% endif %}<span class="block text-[12px] text-[#888] mt-0.5">{{ programme.description | strip_html | truncate: 200 }}</span></span><span class="pm-plan-check shrink-0 w-5 h-5 rounded-full border-2 border-[#D0CCC4] flex items-center justify-center text-white text-[10px]" aria-hidden="true">✓</span></button>{% endif %}{% endfor %}
+          </div></div>
+          {% unless forloop.last %}<div class="flex items-center gap-4"><span class="flex-1 h-px bg-[#E8E4DC]"></span><span class="text-[11px] font-bold text-[#C0BAB0] tracking-widest">{{ 'meal_plan.or' | t }}</span><span class="flex-1 h-px bg-[#E8E4DC]"></span></div>{% endunless %}
+        {% endfor %}
+        <p data-plan-unavailable hidden class="text-[#888] text-[14px]">{{ section.settings.unavailable_message | escape }}</p>
+      </div>
+      <div data-plan-panel="2" hidden class="space-y-7">
+        <div><p class="text-[10px] font-extrabold tracking-[0.3em] uppercase text-[#888] mb-3">{{ 'meal_plan.included' | t }}</p><div class="border border-[#E8E4DC] bg-[#F7F5F0] p-5 space-y-4"><div class="flex justify-between gap-3"><span class="text-[11px] font-extrabold tracking-[0.2em] uppercase text-[#888]">{{ 'meal_plan.programme' | t }}</span><span data-plan-programme-name class="text-[13px] font-bold text-[#555]"></span></div><p data-plan-programme-description class="text-[12px] text-[#888] leading-relaxed"></p><ul data-plan-inclusions class="space-y-1.5 text-[12px] text-[#666]"></ul></div></div>
+        <div data-plan-options class="space-y-7"></div>
+        <div data-plan-start-wrapper hidden><label for="PlanStart-{{ section.id }}" class="block text-[10px] font-extrabold tracking-[0.3em] uppercase text-[#888] mb-3">{{ 'meal_plan.start_monday' | t }}</label><select id="PlanStart-{{ section.id }}" data-plan-start-monday class="w-full border-2 border-[#E8E4DC] bg-white px-5 py-4 text-[14px]"></select><p data-plan-period-note class="text-[#888] text-[12px] leading-relaxed mt-3"></p></div>
+        <div data-plan-selling-plan-wrapper><label for="PlanSellingPlan-{{ section.id }}" class="block text-[10px] font-extrabold tracking-[0.3em] uppercase text-[#888] mb-3">{{ 'meal_plan.billing_option' | t }}</label><select id="PlanSellingPlan-{{ section.id }}" data-plan-selling-plan class="w-full border-2 border-[#E8E4DC] bg-white px-5 py-4 text-[14px]"></select><p data-plan-billing-description class="text-[#888] text-[12px] leading-relaxed mt-3"></p></div>
+        <p data-plan-configuration-error hidden class="border-l-4 border-[#E85D04] bg-white px-4 py-3 text-[13px] text-[#666]"></p>
+      </div>
+      <div data-plan-panel="3" hidden>
+        <div data-plan-weeks class="flex gap-2 overflow-x-auto pb-2 mb-4" role="group" aria-label="{{ 'meal_plan.menu_weeks' | t }}"></div>
+        <div data-plan-menu-progress class="bg-white border border-[#E8E4DC] px-5 py-3.5 mb-4 flex flex-wrap items-center gap-3"></div>
+        <div class="bg-[#FFFBF0] border-l-4 border-[#F5B300] px-4 py-3 mb-4"><p class="text-[12px] text-[#666] leading-relaxed"><strong class="text-[#1A1A1A]">{{ 'meal_plan.window_note_heading' | t }}</strong> {{ 'meal_plan.window_note' | t }}</p></div>
+        <div data-plan-windows class="space-y-2 mb-6"></div>
+        <p data-plan-no-menu hidden class="text-[#888] text-[14px] bg-white p-5 border border-[#E8E4DC]">{{ section.settings.menu_unavailable_message | escape }}</p>
+      </div>
+      <div data-plan-panel="4" hidden class="space-y-7">
+        <div><p class="text-[10px] font-extrabold tracking-[0.3em] uppercase text-[#888] mb-4">{{ 'meal_plan.personal_details' | t }}</p><div class="border border-[#E8E4DC] bg-white p-5">
+          {% if customer %}<p class="font-semibold text-[14px]">{{ customer.name | escape }}</p><p class="text-[#888] text-[13px] mt-1">{{ customer.email | escape }}</p>{% if customer.phone != blank %}<p class="text-[#888] text-[13px] mt-1">{{ customer.phone | escape }}</p>{% endif %}{% else %}<p class="text-[#666] text-[14px] mb-4">{{ 'meal_plan.account_note' | t }}</p><a data-plan-login href="{{ routes.storefront_login_url }}" class="inline-block bg-[#1A1A1A] text-white px-6 py-3 font-bold text-[13px]">{{ 'meal_plan.sign_in' | t }} →</a>{% endif %}
+        </div></div>
+        <div><p class="text-[10px] font-extrabold tracking-[0.3em] uppercase text-[#888] mb-3">{{ 'meal_plan.delivery_address' | t }}</p><div class="bg-[#1A1A1A] text-white px-4 py-3 mb-4"><p class="text-[13px] font-semibold">{{ 'meal_plan.delivery_checkout' | t }}</p></div>{% if customer.default_address %}<div class="text-[#666] text-[13px] bg-white border border-[#E8E4DC] p-5 mb-4">{{ customer.default_address | format_address }}</div>{% endif %}<p class="text-[#888] text-[13px] leading-relaxed mb-5">{{ 'meal_plan.address_note' | t }}</p><label for="PlanDeliveryNote-{{ section.id }}" class="block text-[10px] font-extrabold tracking-[0.2em] uppercase text-[#888] mb-1.5">{{ 'meal_plan.delivery_notes' | t }}</label><textarea id="PlanDeliveryNote-{{ section.id }}" data-plan-delivery-note maxlength="250" rows="3" class="w-full border border-[#D0CCC4] bg-white px-4 py-3 text-[14px] focus:outline-none focus:border-[#E85D04] resize-none" placeholder="{{ 'meal_plan.note_placeholder' | t }}"></textarea></div>
+      </div>
+      <div data-plan-panel="5" hidden class="space-y-5">
+        <div data-plan-review class="bg-white border border-[#E8E4DC] p-5 space-y-4"></div>
+        <div class="bg-[#1A1A1A] text-white px-5 py-4"><p class="font-bold text-[14px]">{{ 'meal_plan.checkout_heading' | t }}</p><p class="text-white/50 text-[12px] mt-1 leading-relaxed">{{ 'meal_plan.checkout_note' | t }}</p></div>
+        {% if customer == blank and section.settings.require_login %}<div class="border-2 border-[#1A1A1A] bg-white p-5"><p class="font-bold text-[15px] mb-2">{{ 'meal_plan.account_required' | t }}</p><p class="text-[#666] text-[13px] mb-4">{{ 'meal_plan.account_required_note' | t }}</p><a data-plan-login href="{{ routes.storefront_login_url }}" class="block text-center bg-[#E85D04] text-white py-4 font-bold">{{ 'meal_plan.sign_in_continue' | t }} →</a></div>{% endif %}
+        {% for block in section.blocks %}{% if block.type == '@app' %}{% render block %}{% endif %}{% endfor %}
+        <button type="button" data-plan-checkout class="w-full bg-[#E85D04] text-white py-4 font-bold text-[16px] tracking-wide hover:bg-[#1A1A1A] transition-colors disabled:opacity-40">{{ 'meal_plan.continue_checkout' | t }} →</button>
+      </div>
+      <div data-plan-navigation class="flex gap-3 pt-6"><button type="button" data-plan-back class="border-2 border-[#1A1A1A] px-6 py-3.5 font-bold text-[14px] hover:bg-[#1A1A1A] hover:text-white transition-all">← {{ 'meal_plan.back' | t }}</button><button type="button" data-plan-next class="flex-1 bg-[#E85D04] text-white py-3.5 font-bold text-[15px] tracking-wide hover:bg-[#1A1A1A] transition-all disabled:bg-[#E8E4DC] disabled:text-[#C0BAB0]">{{ 'meal_plan.continue' | t }} →</button></div>
+      <p data-plan-status role="status" aria-live="polite" class="text-[13px] text-[#888] mt-5"></p><p data-plan-error role="alert" hidden class="text-[13px] text-red-700 mt-5"></p>
+    </div>
+    <aside class="lg:w-[360px] xl:w-[380px] shrink-0 w-full lg:sticky lg:top-[70px] bg-[#1A1A1A] text-white" aria-label="{{ 'meal_plan.your_order' | t }}">
+      <div class="px-6 py-4 border-b border-white/10 flex items-center justify-between"><h2 class="text-[10px] font-extrabold tracking-[0.25em] uppercase text-white/40">{{ 'meal_plan.your_order' | t }}</h2><span data-plan-percent class="text-[11px] font-bold text-[#E85D04]">0%</span></div>
+      <div class="px-6 py-4 border-b border-white/10"><div class="flex justify-between text-[9px] font-bold text-white/20 mb-2"><span>20%</span><span>40%</span><span>60%</span><span>80%</span><span>100%</span></div><div class="h-2 bg-white/10" role="progressbar" data-plan-progress aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="{{ 'meal_plan.progress' | t }}"><div data-plan-progress-fill class="h-full bg-gradient-to-r from-[#F5B300] to-[#E85D04] transition-all duration-700" style="width:0%"></div></div></div>
+      <div class="px-6 py-4 space-y-3 text-[13px] border-b border-white/10"><div><p class="text-[9px] font-extrabold tracking-[0.2em] uppercase text-white/30 mb-0.5">{{ 'meal_plan.programme' | t }}</p><p data-plan-programme-name class="font-semibold">—</p></div><div class="border-t border-white/10 pt-3"><p class="text-[9px] font-extrabold tracking-[0.2em] uppercase text-white/30 mb-0.5">{{ 'meal_plan.meal_plan' | t }}</p><p data-plan-variant-name class="font-semibold">—</p></div><div class="border-t border-white/10 pt-3"><p class="text-[9px] font-extrabold tracking-[0.2em] uppercase text-white/30 mb-0.5">{{ 'meal_plan.billing_option' | t }}</p><p data-plan-billing-name class="font-semibold">—</p></div><div class="border-t border-white/10 pt-3"><p class="text-[9px] font-extrabold tracking-[0.2em] uppercase text-white/30 mb-0.5">{{ 'meal_plan.delivery' | t }}</p><p data-plan-menu-summary class="font-semibold text-[12px]">{{ 'meal_plan.published_menu' | t }}</p></div></div>
+      <div class="px-6 py-4"><div class="flex items-center justify-between gap-4 mb-3"><div><p class="text-[9px] font-extrabold tracking-[0.15em] uppercase text-white/30 mb-0.5">{{ 'meal_plan.programme_price' | t }}</p><p data-plan-price class="text-[24px] font-extrabold text-[#F5B300] leading-none">—</p></div><p class="text-[10px] text-white/40 max-w-[140px] leading-relaxed">{{ 'meal_plan.price_note' | t }}</p></div><p data-plan-checkout-charge class="text-[11px] text-white/50"></p></div>
+    </aside>
+  </div>
+  <script type="application/json" data-meal-plan-config>{"persistenceUrl":{{ settings.meal_plan_proxy_path | default: "/apps/performance-meals/meal-plan" | json }},"currency":{{ cart.currency.iso_code | default: shop.currency | json }},"locale":{{ request.locale.iso_code | json }},"now":{{ 'now' | date: '%s' | times: 1000 | json }},"cartAddUrl":{{ routes.cart_add_url | append: '.js' | json }},"checkoutUrl":{{ routes.root_url | append: 'checkout' | json }},"landingUrl":{{ section.settings.landing_url | default: '/pages/meal-plan' | json }},"requireLogin":{{ section.settings.require_login | json }},"loggedIn":{% if customer %}true{% else %}false{% endif %},"labels":{"saving":{{ "meal_plan.saving" | t | json }},"saveChanges":{{ "meal_plan.save_changes" | t | json }},"paidMenuNote":{{ "meal_plan.paid_menu_note" | t | json }},"upfront":{{ "meal_plan.upfront" | t | json }},"chooseMonday":{{ "meal_plan.choose_monday" | t | json }},"periodNote":{{ "meal_plan.period_note" | t | json }},"saveError":{{ "meal_plan.save_error" | t | replace: '&amp;', '&' | json }},"saved":{{ "meal_plan.saved" | t | replace: '&amp;', '&' | json }},"steps":[{% for key in step_keys %}{% assign key_label = 'meal_plan.step_' | append: key %}{{ key_label | t | replace: '&amp;', '&' | json }}{% unless forloop.last %},{% endunless %}{% endfor %}],"subtitles":[{% for key in step_keys %}{% assign key_label = 'meal_plan.subtitle_' | append: key %}{{ key_label | t | replace: '&amp;', '&' | json }}{% unless forloop.last %},{% endunless %}{% endfor %}],"selected":{{ 'meal_plan.selected' | t | replace: '&amp;', '&' | json }},"choose":{{ 'meal_plan.choose_meals' | t | replace: '&amp;', '&' | json }},"chosen":{{ 'meal_plan.meals_chosen' | t | replace: '&amp;', '&' | json }},"complete":{{ 'meal_plan.complete' | t | replace: '&amp;', '&' | json }},"noMenu":{{ section.settings.menu_unavailable_message | json }},"noPlan":{{ section.settings.unavailable_message | json }},"configuration":{{ 'meal_plan.configuration_missing' | t | replace: '&amp;', '&' | json }},"chooseBilling":{{ 'meal_plan.choose_billing' | t | json }},"noAllocation":{{ 'meal_plan.subscription_unavailable' | t | replace: '&amp;', '&' | json }},"soldOut":{{ 'meal_plan.sold_out' | t | replace: '&amp;', '&' | json }},"dueToday":{{ 'meal_plan.due_today' | t | replace: '&amp;', '&' | json }},"programme":{{ 'meal_plan.programme' | t | replace: '&amp;', '&' | json }},"mealPlan":{{ 'meal_plan.meal_plan' | t | replace: '&amp;', '&' | json }},"billing":{{ 'meal_plan.billing_option' | t | replace: '&amp;', '&' | json }},"delivery":{{ 'meal_plan.delivery' | t | replace: '&amp;', '&' | json }},"notes":{{ 'meal_plan.delivery_notes' | t | replace: '&amp;', '&' | json }},"noNotes":{{ 'meal_plan.no_notes' | t | replace: '&amp;', '&' | json }},"addMeal":{{ 'meal_plan.add_meal' | t | replace: '&amp;', '&' | json }},"removeMeal":{{ 'meal_plan.remove_meal' | t | replace: '&amp;', '&' | json }},"menuChanged":{{ 'meal_plan.menu_changed' | t | replace: '&amp;', '&' | json }},"adding":{{ 'meal_plan.adding' | t | replace: '&amp;', '&' | json }},"cartError":{{ 'meal_plan.cart_error' | t | replace: '&amp;', '&' | json }},"accountRequired":{{ 'meal_plan.account_required_note' | t | replace: '&amp;', '&' | json }},"cutoff":{{ 'meal_plan.cutoff' | t | replace: '&amp;', '&' | json }},"closed":{{ 'meal_plan.menu_closed' | t | replace: '&amp;', '&' | json }}},"programmes":[{% assign emitted_programme = false %}{% for block in programme_blocks %}{% assign programme = block.settings.product %}{% if programme != blank %}{% if emitted_programme %},{% endif %}{"id":{{ block.id | json }},"productId":{{ programme.id | json }},"businessStream":{{ programme.metafields.performance.business_stream.value | json }},"handle":{{ programme.handle | json }},"name":{{ programme.title | json | replace: '<', '\u003c' }},"description":{{ programme.description | strip_html | json | replace: '<', '\u003c' }},"purchasePolicy":{{ programme.metafields.performance.purchase_policy.value | default: nil | json }},"requiresSellingPlan":{{ programme.requires_selling_plan | json }},"menuWeeks":{{ programme.metafields.performance.menu_weeks.value | default: 0 | json }},"inclusions":{{ programme.metafields.performance.inclusions.value | default: nil | json }},"options":{{ programme.options | json | replace: '<', '\u003c' }},"variants":[{% for variant in programme.variants %}{"id":{{ variant.id | json }},"name":{{ variant.title | json | replace: '<', '\u003c' }},"options":{{ variant.options | json | replace: '<', '\u003c' }},"available":{{ variant.available | json }},"price":{{ variant.price | json }},"mealsPerDay":{{ variant.metafields.performance.meals_per_day.value | default: programme.metafields.performance.meals_per_day.value | default: 0 | json }},"quantityMin":{{ variant.quantity_rule.min | default: 1 | json }},"quantityIncrement":{{ variant.quantity_rule.increment | default: 1 | json }},"plans":[{% for allocation in variant.selling_plan_allocations %}{"id":{{ allocation.selling_plan.id | json }},"name":{{ allocation.selling_plan.name | json | replace: '<', '\u003c' }},"description":{{ allocation.selling_plan.description | strip_html | json | replace: '<', '\u003c' }},"price":{{ allocation.price | json }},"checkoutCharge":{{ allocation.checkout_charge_amount | json }}}{% unless forloop.last %},{% endunless %}{% endfor %}]}{% unless forloop.last %},{% endunless %}{% endfor %}]}{% assign emitted_programme = true %}{% endif %}{% endfor %}],"weeks":[{% for week in menu_weeks limit: 50 %}{"id":{{ week.system.handle | json }},"businessStream":{{ week.business_stream.value | json }},"label":{{ week.label.value | json | replace: '<', '\u003c' }},"startsOn":{{ week.starts_on.value | json }},"endsOn":{{ week.ends_on.value | json }},"cutoffAt":{{ week.cutoff_at.value | json }},"programmes":[{% for programme in week.programmes.value %}{{ programme.id | json }}{% unless forloop.last %},{% endunless %}{% endfor %}],"windows":[{% for window in week.windows.value %}{"businessStream":{{ window.business_stream.value | json }},"key":{{ window.key.value | json | replace: '<', '\u003c' }},"label":{{ window.label.value | json | replace: '<', '\u003c' }},"days":{{ window.days.value | json }},"meals":[{% for meal in window.meals.value %}{"id":{{ meal.id | json }},"name":{{ meal.title | json | replace: '<', '\u003c' }},"available":{{ meal.available | json }},"image":{% if meal.featured_image %}{{ meal.featured_image | image_url: width: 600 | json }}{% else %}null{% endif %},"calories":{{ meal.metafields.performance.calories_kcal.value | default: nil | json }},"protein":{{ meal.metafields.performance.protein_g.value | default: nil | json }}}{% unless forloop.last %},{% endunless %}{% endfor %}]}{% unless forloop.last %},{% endunless %}{% endfor %}]}{% unless forloop.last %},{% endunless %}{% endfor %}]}</script>
+</section>
+{% stylesheet %}
+  [data-meal-plan-builder] [hidden] { display: none !important; }
+  [data-meal-plan-builder] button:disabled { cursor: not-allowed; }
+  .pm-plan-choice[aria-pressed="true"] { border-color: #E85D04; box-shadow: 0 0 0 3px #E85D0422; }
+  .pm-plan-choice[aria-pressed="true"] .pm-plan-check { background: #E85D04; border-color: #E85D04; }
+  .pm-plan-choice[aria-pressed="false"] .pm-plan-check { color: transparent; }
+  .pm-plan-step[aria-current="step"] { color: #E85D04; background: #FFF9F5; }
+  .pm-plan-step[aria-current="step"] .pm-plan-step-number, .pm-plan-step[data-complete="true"] .pm-plan-step-number { background: #E85D04; color: #fff; border-color: #E85D04; }
+  .pm-plan-week[aria-pressed="true"] { background: #E85D04; border-color: #E85D04; color: #fff; }
+  .pm-plan-window[open] { border-color: #E85D04; }
+  .pm-plan-meal[data-selected="true"] { border-color: #E85D04; box-shadow: 0 0 0 3px #E85D0422; }
+  .pm-plan-window summary { list-style: none; }
+  .pm-plan-window summary::-webkit-details-marker { display: none; }
+{% endstylesheet %}
+<script src="{{ 'meal-plan.js' | asset_url }}" defer="defer"></script>
+{% schema %}
+{
+  "name": "Meal Plan builder",
+  "settings": [
+    {
+      "type": "url",
+      "id": "landing_url",
+      "label": "Meal Plan landing page"
+    },
+    {
+      "type": "checkbox",
+      "id": "require_login",
+      "label": "Require Shopify sign-in before checkout",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "unavailable_message",
+      "label": "Programme unavailable message",
+      "default": "Our meal programmes are being prepared. Please check back soon."
+    },
+    {
+      "type": "textarea",
+      "id": "menu_unavailable_message",
+      "label": "Menu unavailable message",
+      "default": "The menu for this programme is not open yet. Please check back soon."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "programme",
+      "name": "Programme product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Programme product"
+        },
+        {
+          "type": "text",
+          "id": "goal",
+          "label": "Legacy import label (unused)"
+        }
+      ]
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Meal Plan builder"
+    }
+  ]
+}
+{% endschema %}

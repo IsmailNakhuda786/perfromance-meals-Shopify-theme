@@ -1,0 +1,372 @@
+{% liquid
+  assign catalog_collection = collection
+  if catalog_collection == blank
+    assign catalog_collection = section.settings.collection
+  endif
+  assign hero_image = section.settings.hero_image | default: catalog_collection.image
+  assign category_blocks = section.blocks | where: 'type', 'category'
+  assign purchase_mode = section.settings.purchase_mode | default: 'single'
+  if template.suffix == 'subscriptions'
+    assign purchase_mode = 'subscription'
+  elsif template.suffix == 'bundles'
+    assign purchase_mode = 'bundles'
+  endif
+  assign meal_category_filter = nil
+  assign subscription_category_filter = nil
+  for native_filter in catalog_collection.filters
+    if native_filter.param_name == 'filter.p.m.performance.category'
+      assign meal_category_filter = native_filter
+    elsif native_filter.param_name == 'filter.p.m.performance.subscription_category'
+      assign subscription_category_filter = native_filter
+    endif
+  endfor
+%}
+<script src="{{ 'catalog.js' | asset_url }}" type="module"></script>
+<section class="pm-catalog bg-[#1A1A1A] text-white min-h-screen" data-palette="{{ section.settings.palette }}">
+  <div class="pm-order-hero border-t-[3px] border-[#F5B300] bg-[#F7F2E8] text-[#1A1A1A]"><div class="max-w-[1440px] mx-auto grid lg:grid-cols-[0.88fr_1.12fr] min-h-[680px]">
+    <div class="px-6 sm:px-10 lg:px-16 py-14 sm:py-18 lg:py-20 flex flex-col justify-center">{% render 'logos', brand: 'rs', size: 'md', variant: 'light' %}<p class="text-[10px] font-bold tracking-[0.2em] uppercase mt-10 mb-6">{{ section.settings.eyebrow | escape }}</p><h1 class="font-display text-[48px] sm:text-[64px] lg:text-[74px] font-black leading-[0.91] tracking-[-0.045em]">{{ section.settings.heading | escape }}<br><span class="text-[#F5B300]">{{ section.settings.accent_heading | escape }}</span></h1><div class="text-[#6F665D] text-[16px] sm:text-[17px] leading-relaxed mt-7 max-w-[480px]">{{ section.settings.description }}</div><a href="#Catalog-{{ section.id }}" class="self-start mt-9 rounded-full bg-[#1A1A1A] text-white pl-7 pr-2 py-2 inline-flex items-center gap-8 text-[11px] font-extrabold uppercase tracking-[0.16em]">{{ 'sync.choose_meals' | t }}<span class="w-10 h-10 rounded-full bg-[#F5B300] text-[#1A1A1A] flex items-center justify-center" aria-hidden="true">↓</span></a></div>
+    <div class="relative min-h-[480px] lg:min-h-full">{% if hero_image %}{{ hero_image | image_url: width: 1600 | image_tag: widths: '750,1100,1600', sizes: '(min-width: 1024px) 55vw,100vw', class: 'absolute inset-0 w-full h-full object-cover', loading: 'eager' }}{% else %}<img src="{{ 'sync-c1c143f9a4e6.jpg' | asset_url }}" alt="{{ 'sync.order_image' | t | escape }}" width="1600" height="900" class="absolute inset-0 w-full h-full object-cover" loading="eager">{% endif %}<span class="absolute top-6 right-6 bg-white rounded-full px-5 py-3 text-[10px] font-bold uppercase tracking-wider">{{ 'sync.singapore_pace' | t }}</span><div class="absolute bottom-6 left-5 right-5 sm:left-8 sm:right-8 rounded-2xl bg-white/90 backdrop-blur-md grid grid-cols-3 p-5 gap-4">{% assign labels = 'sync.pick_meals,sync.choose_bundle,sync.keep_stocked' | split: ',' %}{% for label in labels %}<div><p class="text-[10px] font-mono text-[#897F74]">0{{ forloop.index }}</p><p class="font-display text-[13px] sm:text-[16px] font-bold mt-2">{{ label | t }}</p></div>{% endfor %}</div></div>
+  </div></div>
+  {% unless purchase_mode == 'subscription' %}<div class="bg-white text-[#6F665D] border-b border-[#E8E2D9] px-6 py-4 text-[11px] text-center">{{ 'sync.delivery_checkout' | t }}</div>{% endunless %}
+  {% assign promo_blocks = section.blocks | where: 'type', 'promo' %}
+  {% if promo_blocks.size > 0 %}
+    <div class="bg-[#F5B300]/8 border-y border-[#F5B300]/15 px-6 py-4"><div class="max-w-[1200px] mx-auto flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-8"><p class="text-[#F5B300] text-[10px] font-mono tracking-[0.3em] uppercase shrink-0">{{ 'catalog.active_promos' | t }}</p><div class="flex flex-wrap gap-4">{% for block in promo_blocks %}<div class="flex items-center gap-2" {{ block.shopify_attributes }}>{% if block.settings.code != blank %}<span class="bg-[#F5B300] text-[#111] text-[9px] font-extrabold px-2 py-0.5 tracking-wider">{{ block.settings.code | escape }}</span>{% endif %}<span class="text-white/50 text-[11px]">{{ block.settings.description | escape }}</span></div>{% endfor %}</div></div></div>
+  {% endif %}
+  <nav class="pm-purchase-modes bg-white border-b border-[#E8E2D9]" aria-label="{{ 'catalog.purchase_modes' | t }}"><div class="max-w-[1200px] mx-auto px-6 flex overflow-x-auto">
+    {% assign modes = 'single,bundles,subscription' | split: ',' %}
+    {% for mode in modes %}{% assign resource_key = mode | append: '_collection' %}{% assign mode_handle = section.settings[resource_key] %}{% assign mode_collection = collections[mode_handle] %}{% assign label_key = 'catalog.mode_' | append: mode %}{% assign description_key = 'catalog.mode_' | append: mode | append: '_description' %}<a {% if mode_collection %}href="{{ mode_collection.url }}"{% else %}aria-disabled="true"{% endif %} data-purchase-mode-tab="{{ mode }}" class="shrink-0 min-w-[190px] sm:min-w-[240px] px-5 sm:px-7 py-5 border-b-[3px] {% if purchase_mode == mode %}border-[#F5B300] text-white{% else %}border-transparent text-white/40 hover:text-white{% endif %}"{% if purchase_mode == mode %} aria-current="page"{% endif %}><span class="block text-[12px] font-bold tracking-wide whitespace-nowrap">{{ label_key | t }}</span><span class="block text-[10px] mt-0.5 text-white/30">{{ description_key | t }}</span></a>{% endfor %}
+  </div></nav>
+  <div id="Catalog-{{ section.id }}" data-purchase-mode="{{ purchase_mode }}" class="pm-catalog-body px-6 sm:px-8 py-16 scroll-mt-20"><div class="max-w-[1200px] mx-auto">
+    {% if catalog_collection %}
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8">
+        <div><p class="text-[10px] font-mono tracking-[0.3em] uppercase mb-2 text-[#F5B300]">{% if purchase_mode == 'single' %}{{ 'catalog.all_meals' | t }}{% else %}{{ catalog_collection.title | escape }}{% endif %}</p><h2 class="font-display {% if purchase_mode == 'single' %}text-[32px] sm:text-[40px]{% else %}text-[38px] sm:text-[52px] leading-[0.92]{% endif %} font-extrabold">{% if purchase_mode == 'bundles' %}{{ 'catalog.choose_bundle' | t }}{% elsif purchase_mode == 'subscription' %}{{ 'catalog.freezer_stocked' | t | newline_to_br }}{% else %}{{ 'catalog.products_available' | t: count: catalog_collection.products_count }}{% endif %}<span class="text-[#F5B300]">.</span></h2></div>
+
+      </div>
+      {% if purchase_mode == 'single' and meal_category_filter %}<nav class="flex gap-2 overflow-x-auto pb-2 mb-6" aria-label="{{ 'catalog.categories' | t }}"><a href="{{ catalog_collection.url }}" class="px-4 py-2.5 text-[11px] tracking-[0.15em] uppercase font-bold whitespace-nowrap {% if meal_category_filter.active_values.size == 0 %}bg-[#F5B300] text-[#111]{% else %}border border-white/15 text-white/50{% endif %}">{{ 'catalog.ala_carte' | t }}</a>{% for block in category_blocks %}{% for value in meal_category_filter.values %}{% if value.value == block.settings.value %}<a href="{% if value.active %}{{ value.url_to_remove }}{% else %}{{ value.url_to_add }}{% endif %}" class="px-4 py-2.5 text-[11px] tracking-[0.15em] uppercase font-bold whitespace-nowrap {% if value.active %}bg-[#F5B300] text-[#111]{% else %}border border-white/15 text-white/50 hover:border-[#F5B300] hover:text-[#F5B300]{% endif %}"{% if value.active %} aria-current="true"{% endif %} {{ block.shopify_attributes }}>{{ block.settings.label | default: value.label | escape }}</a>{% endif %}{% endfor %}{% endfor %}</nav>{% endif %}
+      {% if purchase_mode == 'subscription' %}
+        <div class="flex flex-wrap gap-6 items-end mb-8">
+          {% if subscription_category_filter %}<nav class="flex border border-white/15 overflow-hidden" aria-label="{{ 'catalog.categories' | t }}">{% for value in subscription_category_filter.values %}<a href="{% if value.active %}{{ value.url_to_remove }}{% else %}{{ value.url_to_add }}{% endif %}" class="px-5 py-2.5 text-[11px] font-bold border-r border-white/8 last:border-r-0 {% if value.active %}bg-[#F5B300] text-[#111]{% else %}text-white/40 hover:text-white{% endif %}">{{ value.label | escape }}</a>{% endfor %}</nav>{% endif %}
+          <div data-subscription-terms hidden><label for="SubscriptionTerm-{{ section.id }}" class="block text-[10px] text-white/40 font-mono tracking-widest uppercase mb-2">{{ 'catalog.subscription_term' | t }}</label><select id="SubscriptionTerm-{{ section.id }}" data-catalog-plan-name class="bg-[#111] border border-white/15 px-5 py-3 text-[12px]"></select></div>
+        </div>
+        {% if section.settings.require_subscription_account and customer == blank %}<div class="bg-white/4 border border-white/10 px-5 py-3.5 text-[12px] text-white/60 mb-6">{{ 'catalog.subscription_account_notice' | t }} <a href="{{ routes.account_login_url }}" class="text-[#F5B300] underline">{{ 'catalog.sign_in' | t }}</a></div>{% endif %}
+        {% if section.settings.subscription_description != blank %}<div class="text-white/40 text-[14px] leading-relaxed max-w-[600px] mb-8">{{ section.settings.subscription_description }}</div>{% endif %}
+      {% endif %}
+
+      {% paginate catalog_collection.products by section.settings.products_per_page %}
+        {% if purchase_mode == 'bundles' %}
+          <div class="space-y-14" data-product-grid>
+            {% assign product_types = catalog_collection.products | map: 'type' | uniq %}
+            {% for product_type in product_types %}{% assign group_products = catalog_collection.products | where: 'type', product_type %}<div>{% if product_type != blank %}<div class="flex items-center gap-4 mb-6"><h3 class="text-[11px] font-mono tracking-[0.4em] uppercase font-bold text-white/50">{{ product_type | escape }}</h3><div class="flex-1 h-px bg-white/8"></div></div>{% endif %}<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">{% for product in group_products %}{% assign card_instance = section.id | append: '-bundle-' | append: product.id %}{% for bundle_variant in product.variants %}{% render 'product-card', product: product, card_variant: bundle_variant, instance_id: card_instance, purchase_mode: purchase_mode %}{% endfor %}{% endfor %}</div></div>{% endfor %}
+          </div>
+        {% else %}
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 {% if purchase_mode == 'single' %}gap-px bg-white/8{% else %}gap-4{% endif %}" data-product-grid>
+            {% for product in catalog_collection.products %}{% assign card_instance = section.id | append: '-' | append: forloop.index %}{% render 'product-card', product: product, instance_id: card_instance, show_quick_view: section.settings.show_quick_view, purchase_mode: purchase_mode, require_account: section.settings.require_subscription_account %}{% else %}<p class="col-span-full text-white/50 py-10">{{ 'catalog.empty_collection' | t }}</p>{% endfor %}
+          </div>
+        {% endif %}
+        {% if paginate.pages > 1 %}<nav class="pm-pagination mt-10 flex justify-center gap-4 text-[13px]" aria-label="{{ 'catalog.pagination' | t }}">{{ paginate | default_pagination }}</nav>{% endif %}
+      {% endpaginate %}
+    {% else %}<p class="text-white/50 py-12">{{ 'catalog.empty_collection' | t }}</p>{% endif %}
+    {% for block in section.blocks %}{% if block.type == '@app' %}<div class="mt-8" {{ block.shopify_attributes }}>{% render block %}</div>{% endif %}{% endfor %}
+  </div></div>
+  <section class="pm-catalog-benefits py-16 px-6 sm:px-8">
+    <div class="max-w-[1200px] mx-auto">
+      <div class="pm-benefits-intro grid lg:grid-cols-[0.8fr_1.2fr] gap-8 lg:gap-16 items-end mb-12">
+        <div><div class="flex items-center gap-3 mb-5"><span class="w-8 h-[2px] bg-[#F5B300]"></span><p class="text-[#806A2A] text-[10px] font-bold tracking-[0.22em] uppercase">{{ section.settings.benefits_eyebrow | escape }}</p></div><h2 class="font-display text-[40px] sm:text-[54px] font-black leading-[0.94] tracking-[-0.035em]">{{ section.settings.benefits_heading | escape | newline_to_br }}</h2></div>
+        <p class="text-[#6B6259] text-[15px] sm:text-[16px] leading-relaxed max-w-[540px] lg:justify-self-end">{{ section.settings.benefits_description | escape }}</p>
+      </div>
+      <div class="pm-benefit-cards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+        {% for number in (1..4) %}
+          {% assign title_key = 'benefit_title_' | append: number %}{% assign copy_key = 'benefit_copy_' | append: number %}
+          <div class="pm-benefit-card">
+            <div class="pm-benefit-card-top"><div class="pm-benefit-icon" aria-hidden="true">{% render 'ready-benefit-icon', number: number %}</div><span class="font-mono text-[10px] text-[#A49B91]">0{{ number }}</span></div>
+            <div class="pm-benefit-copy"><h3 class="font-display text-[20px] font-extrabold mb-3">{% if number == 4 %}{{ 'sync.delivery_title' | t }}{% else %}{{ section.settings[title_key] | escape }}{% endif %}</h3><p class="text-[#71685F] text-[13px] leading-relaxed">{% if number == 4 %}{{ 'sync.delivery_checkout' | t }}{% else %}{{ section.settings[copy_key] | escape }}{% endif %}</p></div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+</section>
+{% stylesheet %}
+  .pm-quick-view::backdrop{background:rgba(0,0,0,.82)}
+  .pm-quick-view{max-height:90svh;overflow-y:auto;position:fixed;margin:auto}
+  .pm-quick-view[open]{animation:pm-dialog-in .2s ease-out}
+  .pm-quick-view [data-add-button]:disabled,.pm-product-card button:disabled{opacity:.4;cursor:not-allowed}
+  .pm-filter summary::marker{color:#f5b300}
+  .pm-pagination a,.pm-pagination .current{padding:.5rem .8rem;border:1px solid rgba(255,255,255,.15)}
+  .pm-pagination .current{color:#f5b300;border-color:#f5b300}
+  .pm-catalog[data-palette="warm"] .pm-catalog-body{color:#1a1a1a;background:#faf8f4}
+  .pm-catalog[data-palette="warm"] .pm-product-card{background:#fff;border-color:#e8e2d9}
+  .pm-catalog[data-palette="warm"] .pm-product-card [class*="text-white/"]{color:#666}
+  .pm-catalog[data-palette="warm"] .pm-product-card button{color:#1a1a1a;background:#f5b300}
+  .pm-catalog[data-palette="espresso"] .pm-catalog-body{background:#1c1108;color:#f5edd8}
+  .pm-catalog[data-palette="espresso"] .pm-product-card{background:#2a1c0d}
+  @keyframes pm-dialog-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  @media(prefers-reduced-motion:reduce){.pm-quick-view[open]{animation:none}}
+{% endstylesheet %}
+{% schema %}
+{
+  "name": "Ready Series collection",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection on page templates"
+    },
+    {
+      "type": "select",
+      "id": "purchase_mode",
+      "label": "Purchase mode",
+      "options": [
+        {
+          "value": "single",
+          "label": "Single Purchase \u2014 one-time"
+        },
+        {
+          "value": "bundles",
+          "label": "Bundles \u2014 one-time"
+        },
+        {
+          "value": "subscription",
+          "label": "Subscription \u2014 recurring predefined bundles"
+        }
+      ],
+      "default": "single"
+    },
+    {
+      "type": "text",
+      "id": "single_collection",
+      "label": "Single Purchase tab collection handle"
+    },
+    {
+      "type": "text",
+      "id": "bundles_collection",
+      "label": "Bundles tab collection handle"
+    },
+    {
+      "type": "text",
+      "id": "subscription_collection",
+      "label": "Subscription tab collection handle"
+    },
+    {
+      "type": "paragraph",
+      "content": "Subscriptions require real recurring selling-plan allocations from a compatible app. Native Shopify bundle products cannot be subscriptions. Store recurring predefined bundle contents and quantities in product metafields for fulfillment."
+    },
+    {
+      "type": "select",
+      "id": "palette",
+      "label": "Catalog color direction",
+      "options": [
+        {
+          "value": "dark",
+          "label": "Cold dark"
+        },
+        {
+          "value": "warm",
+          "label": "Warm cream"
+        },
+        {
+          "value": "espresso",
+          "label": "Espresso"
+        }
+      ],
+      "default": "dark"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Fast food, properly done"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Your freezer,"
+    },
+    {
+      "type": "text",
+      "id": "accent_heading",
+      "label": "Accent heading",
+      "default": "ready for anything."
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>High-protein meals for Singapore\u2019s fullest days. Pick your favourites, heat in minutes, and get on with what matters.</p>"
+    },
+    {
+      "type": "text",
+      "id": "prep_time",
+      "label": "Ready to eat fact",
+      "default": "3 min"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quick_view",
+      "label": "Enable quick view",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products per page",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "type": "checkbox",
+      "id": "require_subscription_account",
+      "label": "Show sign-in for subscriptions",
+      "default": true
+    },
+    {
+      "type": "richtext",
+      "id": "subscription_description",
+      "label": "Approved subscription terms and benefits"
+    },
+    {
+      "type": "url",
+      "id": "overview_url",
+      "label": "Ready Series overview"
+    },
+    {
+      "type": "text",
+      "id": "benefits_eyebrow",
+      "label": "Benefits eyebrow",
+      "default": "Why Ready Series"
+    },
+    {
+      "type": "textarea",
+      "id": "benefits_heading",
+      "label": "Benefits heading",
+      "default": "A busy day does not have\nto knock you off track"
+    },
+    {
+      "type": "text",
+      "id": "benefit_icon_1",
+      "label": "Benefit 1 icon",
+      "default": "\ud83e\uddca"
+    },
+    {
+      "type": "text",
+      "id": "benefit_title_1",
+      "label": "Benefit 1 title",
+      "default": "Frozen at peak"
+    },
+    {
+      "type": "text",
+      "id": "benefit_copy_1",
+      "label": "Benefit 1 copy",
+      "default": "Locked in at maximum freshness and nutrition."
+    },
+    {
+      "type": "text",
+      "id": "benefit_icon_2",
+      "label": "Benefit 2 icon",
+      "default": "\u23f1"
+    },
+    {
+      "type": "text",
+      "id": "benefit_title_2",
+      "label": "Benefit 2 title",
+      "default": "3-minute prep"
+    },
+    {
+      "type": "text",
+      "id": "benefit_copy_2",
+      "label": "Benefit 2 copy",
+      "default": "Microwave from frozen. No thaw time needed."
+    },
+    {
+      "type": "text",
+      "id": "benefit_icon_3",
+      "label": "Benefit 3 icon",
+      "default": "\ud83d\udcca"
+    },
+    {
+      "type": "text",
+      "id": "benefit_title_3",
+      "label": "Benefit 3 title",
+      "default": "Macro tracked"
+    },
+    {
+      "type": "text",
+      "id": "benefit_copy_3",
+      "label": "Benefit 3 copy",
+      "default": "Every gram counted. No guesswork required."
+    },
+    {
+      "type": "number",
+      "id": "delivery_threshold",
+      "label": "Approved free delivery threshold (currency minor units)",
+      "default": 12000
+    },
+    {
+      "type": "number",
+      "id": "delivery_fee",
+      "label": "Approved delivery fee below threshold (currency minor units)",
+      "default": 1000
+    },
+    {
+      "type": "paragraph",
+      "content": "Presentation only. Keep these approved delivery messages aligned with native Shopify shipping rates; they do not set checkout rates."
+    },
+    {
+      "type": "textarea",
+      "id": "benefits_description",
+      "label": "Benefits introduction",
+      "default": "Proper meals without the planning spiral. Keep a dependable option ready, see exactly what you are eating, and stay moving when the day changes."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Single meal category",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Exact performance.category filter value"
+        }
+      ]
+    },
+    {
+      "type": "promo",
+      "name": "Active discount message",
+      "settings": [
+        {
+          "type": "text",
+          "id": "code",
+          "label": "Existing Shopify discount code"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Approved discount description"
+        }
+      ]
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ready Series collection"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,1 @@
+query WalletTestProduct { shop { myshopifyDomain currencyCode } products(first:5,query:"title:'Teriyaki Chicken & Brown Rice'") { nodes { id title handle status variants(first:5) { nodes { id title price inventoryQuantity } pageInfo { hasNextPage } } } pageInfo { hasNextPage } } }

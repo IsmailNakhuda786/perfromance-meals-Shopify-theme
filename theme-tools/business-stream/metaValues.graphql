@@ -1,0 +1,1 @@
+mutation QAMeta($handle:MetaobjectHandleInput!,$input:MetaobjectUpsertInput!){metaobjectUpsert(handle:$handle,metaobject:$input){metaobject{id handle type} userErrors{field message}}}

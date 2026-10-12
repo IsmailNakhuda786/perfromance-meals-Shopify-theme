@@ -1,0 +1,8 @@
+{% doc %}
+Renders an approved contextual destination with its active-page treatment.
+@param {string} destination - Merchant configured destination
+@param {string} link_class - Responsive navigation classes
+@param {string} label - Translated link label
+{% enddoc %}
+{% assign active_path = destination | split: '#' | first %}
+<a class="{% if request.path == active_path %}{{ link_class | replace: 'text-white/45', 'text-white' | replace: 'text-white/70', 'text-white' }}{% else %}{{ link_class }}{% endif %}" href="{{ destination }}"{% if request.path == active_path %} aria-current="page"{% endif %}>{{ label }}</a>

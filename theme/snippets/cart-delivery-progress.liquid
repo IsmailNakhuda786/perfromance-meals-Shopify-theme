@@ -1,0 +1,32 @@
+{% doc %}
+Shows Singapore food-delivery progress using discounted Shopify line prices.
+Gift Cards never contribute. Checkout remains the authority for delivery rates.
+{% enddoc %}
+{% liquid
+  assign eligible_total = 0
+  assign food_quantity = 0
+  assign threshold = settings.food_delivery_threshold | default: 12000
+  for item in cart.items
+    assign stream = item.product.metafields.performance.business_stream.value
+    unless item.product.gift_card
+      if stream == 'ready_series' or stream == 'meal_plan'
+        assign line_total = item.final_line_price
+        if item.discount_allocations != blank
+          assign line_total = item.original_line_price
+          for discount in item.discount_allocations
+            assign line_total = line_total | minus: discount.amount
+          endfor
+        endif
+        assign eligible_total = eligible_total | plus: line_total
+        assign food_quantity = food_quantity | plus: item.quantity
+      endif
+    endunless
+  endfor
+%}
+{% if food_quantity > 0 and threshold > 0 %}
+  {% assign progress = eligible_total | times: 100.0 | divided_by: threshold | at_most: 100 %}
+  <div class="pm-cart-delivery" data-delivery-eligible-total="{{ eligible_total }}">
+    <p>{% if eligible_total >= threshold %}{{ 'cart.delivery_qualified' | t }}{% else %}{% assign remaining = threshold | minus: eligible_total | money %}{{ 'cart.delivery_remaining' | t: amount: remaining }}{% endif %}</p>
+    <div class="pm-cart-delivery-track" role="progressbar" aria-label="{{ 'cart.delivery_progress' | t }}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ progress | round }}"><span style="width:{{ progress }}%"></span></div>
+  </div>
+{% endif %}

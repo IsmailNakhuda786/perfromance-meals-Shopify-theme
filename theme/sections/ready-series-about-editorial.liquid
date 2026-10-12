@@ -1,0 +1,514 @@
+<div class="min-h-screen bg-[#F7F2E8] text-[#1A1A1A]">
+{% for block in section.blocks %}
+{% case block.type %}
+{% when 'band_1' %}
+<section {{ block.shopify_attributes }} class="relative min-h-[760px] overflow-hidden flex items-end">{% if block.settings.image_1 != blank %}{{ block.settings.image_1 | image_url: width: 1600 | image_tag: class: 'absolute inset-0 w-full h-full object-cover', loading: 'eager', sizes: '(min-width: 1024px) 50vw, 100vw', widths: '400, 750, 1100, 1600', alt: block.settings.image_1_alt }}{% else %}<img src="{{ 'sync-a99797b3e04b.jpg' | asset_url }}" class="absolute inset-0 w-full h-full object-cover" width="1600" height="1000" loading="eager" alt="{{ block.settings.image_1_alt | escape }}">{% endif %}<div class="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/10"></div><div class="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-black/15"></div><div class="relative z-10 w-full max-w-[1280px] mx-auto px-6 sm:px-10 pb-16 sm:pb-24 pt-32"><div class="max-w-[720px]"><div class="inline-flex items-center gap-[11px] select-none " style="transform:scale(1);transform-origin:left center"><div class="shrink-0 w-[36px] h-[36px] rounded-full" style="background-color:#F5B300"></div><div class="flex flex-col leading-none"><span style="font-family:'Outfit', sans-serif;font-weight:800;font-style:italic;font-size:22px;letter-spacing:0.02em;color:#FFFFFF;line-height:1">{{ block.settings.copy_1 | escape }}</span><div style="height:2px;background-color:#F5B300;margin-top:3px;margin-bottom:3px"></div><span style="font-family:'Outfit', sans-serif;font-weight:500;font-size:7.5px;letter-spacing:0.22em;color:#FFFFFF;opacity:0.55;line-height:1">{{ block.settings.copy_2 | escape }}</span></div></div><p class="text-[#F5B300] text-[10px] font-bold tracking-[0.28em] uppercase mt-14 mb-6">{{ block.settings.copy_3 | escape }}</p><h1 class="font-display text-[48px] sm:text-[68px] lg:text-[82px] font-black leading-[0.9] tracking-[-0.045em] text-white">{{ block.settings.copy_4 | escape }}</h1><p class="text-white/75 text-[17px] sm:text-[19px] leading-relaxed max-w-[620px] mt-7">{{ block.settings.copy_5 | escape }}</p><a class="group mt-9 inline-flex items-center gap-6 rounded-full bg-[#F5B300] text-[#1A1A1A] pl-7 pr-2 py-2 text-[11px] font-extrabold tracking-[0.16em] uppercase hover:bg-white transition-colors duration-300" href="{{ section.settings.link_1 }}">{{ block.settings.copy_6 | escape }}<span class="w-10 h-10 rounded-full bg-[#1A1A1A] text-white flex items-center justify-center group-hover:translate-x-1 transition-transform duration-300"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a></div></div></section>
+{% when 'band_2' %}
+<section {{ block.shopify_attributes }} class="px-6 sm:px-10 py-20 sm:py-28"><div class="max-w-[1280px] mx-auto grid lg:grid-cols-[0.9fr_1.1fr] gap-14 lg:gap-24"><div><div class="flex items-center gap-3 mb-6"><span class="w-8 h-[2px] bg-[#F5B300]"></span><p class="text-[#806A2A] text-[10px] font-bold tracking-[0.24em] uppercase">{{ block.settings.copy_1 | escape }}</p></div><h2 class="font-display text-[42px] sm:text-[58px] font-black leading-[0.94] tracking-[-0.035em]">{{ block.settings.copy_2 | escape }}<br>{{ block.settings.copy_3 | escape }}</h2></div><div class="lg:pt-10"><p class="text-[#4F4841] text-[18px] leading-relaxed">{{ block.settings.copy_4 | escape }}</p><p class="text-[#756B62] text-[15px] leading-relaxed mt-6">{{ block.settings.copy_5 | escape }}</p><div class="grid sm:grid-cols-3 gap-px bg-[#D9D1C6] border border-[#D9D1C6] mt-10"><div class="bg-white px-5 py-6"><div class="font-display text-[20px] font-extrabold">{{ block.settings.copy_6 | escape }}</div><div class="text-[#81776D] text-[11px] leading-relaxed mt-1">{{ block.settings.copy_7 | escape }}</div></div><div class="bg-white px-5 py-6"><div class="font-display text-[20px] font-extrabold">{{ block.settings.copy_8 | escape }}</div><div class="text-[#81776D] text-[11px] leading-relaxed mt-1">{{ block.settings.copy_9 | escape }}</div></div><div class="bg-white px-5 py-6"><div class="font-display text-[20px] font-extrabold">{{ block.settings.copy_10 | escape }}</div><div class="text-[#81776D] text-[11px] leading-relaxed mt-1">{{ block.settings.copy_11 | escape }}</div></div></div></div></div></section>
+{% when 'band_3' %}
+<section {{ block.shopify_attributes }} class="bg-[#1A1A1A] text-white px-6 sm:px-10 py-20 sm:py-28"><div class="max-w-[1280px] mx-auto"><div class="grid lg:grid-cols-2 gap-12 items-end mb-14"><div><p class="text-[#F5B300] text-[10px] font-bold tracking-[0.25em] uppercase mb-5">{{ block.settings.copy_1 | escape }}</p><h2 class="font-display text-[42px] sm:text-[60px] font-black leading-[0.92] tracking-[-0.035em]">{{ block.settings.copy_2 | escape }}<br>{{ block.settings.copy_3 | escape }}</h2></div><p class="text-white/55 text-[16px] leading-relaxed max-w-[500px] lg:justify-self-end">{{ block.settings.copy_4 | escape }}</p></div><div class="grid sm:grid-cols-2 gap-5 mb-12">{% if block.settings.image_1 != blank %}{{ block.settings.image_1 | image_url: width: 1600 | image_tag: class: 'w-full aspect-[4/3] object-cover rounded-2xl', loading: 'lazy', sizes: '(min-width: 1024px) 50vw, 100vw', widths: '400, 750, 1100, 1600', alt: block.settings.image_1_alt }}{% else %}<img src="{{ 'sync-ef86a86552c1.jpg' | asset_url }}" class="w-full aspect-[4/3] object-cover rounded-2xl" width="1200" height="900" loading="lazy" alt="{{ block.settings.image_1_alt | escape }}">{% endif %}{% if block.settings.image_2 != blank %}{{ block.settings.image_2 | image_url: width: 1600 | image_tag: class: 'w-full aspect-[4/3] object-cover rounded-2xl', loading: 'lazy', sizes: '(min-width: 1024px) 50vw, 100vw', widths: '400, 750, 1100, 1600', alt: block.settings.image_2_alt }}{% else %}<img src="{{ 'sync-9232f1be296e.jpg' | asset_url }}" class="w-full aspect-[4/3] object-cover rounded-2xl" width="1200" height="900" loading="lazy" alt="{{ block.settings.image_2_alt | escape }}">{% endif %}{% if block.settings.image_3 != blank %}{{ block.settings.image_3 | image_url: width: 1600 | image_tag: class: 'w-full aspect-[4/3] object-cover rounded-2xl', loading: 'lazy', sizes: '(min-width: 1024px) 50vw, 100vw', widths: '400, 750, 1100, 1600', alt: block.settings.image_3_alt }}{% else %}<img src="{{ 'sync-66bf0729d5ae.jpg' | asset_url }}" class="w-full aspect-[4/3] object-cover rounded-2xl" width="900" height="675" loading="lazy" alt="{{ block.settings.image_3_alt | escape }}">{% endif %}{% if block.settings.image_4 != blank %}{{ block.settings.image_4 | image_url: width: 1600 | image_tag: class: 'w-full aspect-[4/3] object-cover rounded-2xl', loading: 'lazy', sizes: '(min-width: 1024px) 50vw, 100vw', widths: '400, 750, 1100, 1600', alt: block.settings.image_4_alt }}{% else %}<img src="{{ 'sync-cf69d6ba8549.jpg' | asset_url }}" class="w-full aspect-[4/3] object-cover rounded-2xl" width="900" height="675" loading="lazy" alt="{{ block.settings.image_4_alt | escape }}">{% endif %}</div><div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 border border-white/10"><div class="bg-[#1A1A1A] px-6 py-8 min-h-[260px] flex flex-col"><span class="font-mono text-[10px] text-[#F5B300]">{{ block.settings.copy_5 | escape }}</span><div class="mt-auto pt-12"><h3 class="font-display text-[20px] font-extrabold">{{ block.settings.copy_6 | escape }}</h3><p class="text-white/45 text-[13px] leading-relaxed mt-3">{{ block.settings.copy_7 | escape }}</p></div></div><div class="bg-[#1A1A1A] px-6 py-8 min-h-[260px] flex flex-col"><span class="font-mono text-[10px] text-[#F5B300]">{{ block.settings.copy_8 | escape }}</span><div class="mt-auto pt-12"><h3 class="font-display text-[20px] font-extrabold">{{ block.settings.copy_9 | escape }}</h3><p class="text-white/45 text-[13px] leading-relaxed mt-3">{{ block.settings.copy_10 | escape }}</p></div></div><div class="bg-[#1A1A1A] px-6 py-8 min-h-[260px] flex flex-col"><span class="font-mono text-[10px] text-[#F5B300]">{{ block.settings.copy_11 | escape }}</span><div class="mt-auto pt-12"><h3 class="font-display text-[20px] font-extrabold">{{ block.settings.copy_12 | escape }}</h3><p class="text-white/45 text-[13px] leading-relaxed mt-3">{{ block.settings.copy_13 | escape }}</p></div></div><div class="bg-[#1A1A1A] px-6 py-8 min-h-[260px] flex flex-col"><span class="font-mono text-[10px] text-[#F5B300]">{{ block.settings.copy_14 | escape }}</span><div class="mt-auto pt-12"><h3 class="font-display text-[20px] font-extrabold">{{ block.settings.copy_15 | escape }}</h3><p class="text-white/45 text-[13px] leading-relaxed mt-3">{{ block.settings.copy_16 | escape }}</p></div></div></div></div></section>
+{% when 'band_4' %}
+<section {{ block.shopify_attributes }} class="px-6 sm:px-10 py-20 sm:py-28 bg-[#FFFDF8]"><div class="max-w-[1280px] mx-auto"><div class="text-center max-w-[760px] mx-auto mb-14"><p class="text-[#806A2A] text-[10px] font-bold tracking-[0.24em] uppercase mb-5">{{ block.settings.copy_1 | escape }}</p><h2 class="font-display text-[42px] sm:text-[58px] font-black leading-[0.94] tracking-[-0.035em]">{{ block.settings.copy_2 | escape }}</h2><p class="text-[#71685F] text-[15px] leading-relaxed mt-6">{{ block.settings.copy_3 | escape }}</p></div><div class="grid md:grid-cols-3 gap-5"><article class="bg-[#F7F2E8] border border-[#DED7CD] rounded-2xl p-7 min-h-[290px] flex flex-col hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(52,42,30,0.10)] transition-all duration-300"><span class="font-mono text-[10px] text-[#A67A16]">{{ block.settings.copy_4 | escape }}</span><div class="mt-auto"><h3 class="font-display text-[24px] font-extrabold leading-tight">{{ block.settings.copy_5 | escape }}</h3><p class="text-[#71685F] text-[13px] leading-relaxed mt-4">{{ block.settings.copy_6 | escape }}</p></div></article><article class="bg-[#F7F2E8] border border-[#DED7CD] rounded-2xl p-7 min-h-[290px] flex flex-col hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(52,42,30,0.10)] transition-all duration-300"><span class="font-mono text-[10px] text-[#A67A16]">{{ block.settings.copy_7 | escape }}</span><div class="mt-auto"><h3 class="font-display text-[24px] font-extrabold leading-tight">{{ block.settings.copy_8 | escape }}</h3><p class="text-[#71685F] text-[13px] leading-relaxed mt-4">{{ block.settings.copy_9 | escape }}</p></div></article><article class="bg-[#F7F2E8] border border-[#DED7CD] rounded-2xl p-7 min-h-[290px] flex flex-col hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(52,42,30,0.10)] transition-all duration-300"><span class="font-mono text-[10px] text-[#A67A16]">{{ block.settings.copy_10 | escape }}</span><div class="mt-auto"><h3 class="font-display text-[24px] font-extrabold leading-tight">{{ block.settings.copy_11 | escape }}</h3><p class="text-[#71685F] text-[13px] leading-relaxed mt-4">{{ block.settings.copy_12 | escape }}</p></div></article></div></div></section>
+{% when 'band_5' %}
+<section {{ block.shopify_attributes }} class="bg-[#F5B300] px-6 sm:px-10 py-16 sm:py-20"><div class="max-w-[1280px] mx-auto grid lg:grid-cols-[0.8fr_1.2fr] gap-10 items-center"><div><p class="text-[10px] font-bold tracking-[0.22em] uppercase mb-4">{{ block.settings.copy_1 | escape }}</p><h2 class="font-display text-[38px] sm:text-[48px] font-black leading-[0.95]">{{ block.settings.copy_2 | escape }}</h2></div><div class="grid sm:grid-cols-3 gap-px bg-black/15"><div class="bg-[#F5B300] px-5 py-6"><h3 class="font-display text-[18px] font-extrabold">{{ block.settings.copy_3 | escape }}</h3><p class="text-black/60 text-[12px] leading-relaxed mt-2">{{ block.settings.copy_4 | escape }}</p></div><div class="bg-[#F5B300] px-5 py-6"><h3 class="font-display text-[18px] font-extrabold">{{ block.settings.copy_5 | escape }}</h3><p class="text-black/60 text-[12px] leading-relaxed mt-2">{{ block.settings.copy_6 | escape }}</p></div><div class="bg-[#F5B300] px-5 py-6"><h3 class="font-display text-[18px] font-extrabold">{{ block.settings.copy_7 | escape }}</h3><p class="text-black/60 text-[12px] leading-relaxed mt-2">{{ block.settings.copy_8 | escape }}</p></div></div></div></section>
+{% when 'band_6' %}
+<section {{ block.shopify_attributes }} class="relative min-h-[560px] flex items-center overflow-hidden">{% if block.settings.image_1 != blank %}{{ block.settings.image_1 | image_url: width: 1600 | image_tag: class: 'absolute inset-0 w-full h-full object-cover object-center', loading: 'lazy', sizes: '(min-width: 1024px) 50vw, 100vw', widths: '400, 750, 1100, 1600', alt: block.settings.image_1_alt }}{% else %}<img src="{{ 'sync-1fedaf93c7af.jpg' | asset_url }}" class="absolute inset-0 w-full h-full object-cover object-center" width="1600" height="1000" loading="lazy" alt="{{ block.settings.image_1_alt | escape }}">{% endif %}<div class="absolute inset-0 bg-black/65"></div><div class="relative z-10 max-w-[900px] mx-auto px-6 py-20 text-center text-white"><p class="text-[#F5B300] text-[10px] font-bold uppercase tracking-[0.25em] mb-6">{{ block.settings.copy_1 | escape }}</p><h2 class="font-display text-[42px] sm:text-[64px] font-black leading-[0.92] tracking-[-0.04em]">{{ block.settings.copy_2 | escape }}<br>{{ block.settings.copy_3 | escape }}</h2><p class="text-white/65 text-[16px] leading-relaxed max-w-[600px] mx-auto mt-6">{{ block.settings.copy_4 | escape }}</p><a class="mt-9 rounded-full bg-[#F5B300] text-[#1A1A1A] px-8 py-4 text-[11px] font-extrabold uppercase tracking-[0.16em] hover:bg-white transition-colors" href="{{ section.settings.link_1 }}">{{ block.settings.copy_5 | escape }}</a></div></section>
+{% endcase %}
+{% endfor %}
+</div>
+{% schema %}
+{
+  "name": "Ready Series about",
+  "settings": [
+    {
+      "type": "url",
+      "id": "link_1",
+      "label": "Link 1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "band_1",
+      "name": "Hero",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "copy_1",
+          "label": "READY-SERIES",
+          "default": "READY-SERIES"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_2",
+          "label": "by PERFORMANCE MEALS",
+          "default": "by PERFORMANCE MEALS"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_3",
+          "label": "Made for real life in Singapore",
+          "default": "Made for real life in Singapore"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_4",
+          "label": "More good days start with a meal that’s ready",
+          "default": "More good days start with a meal that’s ready."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_5",
+          "label": "Ready Series exists for the late meeting, the",
+          "default": "Ready Series exists for the late meeting, the school run, the training night, and every plan that changes. Proper food in the freezer means one less compromise when life gets full."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_6",
+          "label": "Explore the meals",
+          "default": "Explore the meals"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Photograph 1"
+        },
+        {
+          "type": "text",
+          "id": "image_1_alt",
+          "label": "Photograph 1 description",
+          "default": "Family sharing a meal together at home"
+        }
+      ]
+    },
+    {
+      "type": "band_2",
+      "name": "Context",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "copy_1",
+          "label": "The Ready Series story",
+          "default": "The Ready Series story"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_2",
+          "label": "Life moves quickly.",
+          "default": "Life moves quickly."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_3",
+          "label": "Eating well should keep up.",
+          "default": "Eating well should keep up."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_4",
+          "label": "Performance Meals began with a simple belief:",
+          "default": "Performance Meals began with a simple belief: busy people should not have to choose between food that supports them and food that fits their schedule."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_5",
+          "label": "Ready Series brings that belief into the ever",
+          "default": "Ready Series brings that belief into the everyday. It is the flexible side of our kitchen—meals you can keep on hand, choose on your terms, and reach for without reorganising your entire week."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_6",
+          "label": "Minutes",
+          "default": "Minutes"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_7",
+          "label": "From freezer to table",
+          "default": "From freezer to table"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_8",
+          "label": "Your way",
+          "default": "Your way"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_9",
+          "label": "Single, bundle, or subscription",
+          "default": "Single, bundle, or subscription"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_10",
+          "label": "Always there",
+          "default": "Always there"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_11",
+          "label": "A dependable meal at home",
+          "default": "A dependable meal at home"
+        }
+      ]
+    },
+    {
+      "type": "band_3",
+      "name": "Approach",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "copy_1",
+          "label": "From our kitchen to your freezer",
+          "default": "From our kitchen to your freezer"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_2",
+          "label": "How Ready Series",
+          "default": "How Ready Series"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_3",
+          "label": "comes together.",
+          "default": "comes together."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_4",
+          "label": "The format is convenient, but the thinking be",
+          "default": "The format is convenient, but the thinking behind it is deliberate. Every stage is designed to make the final meal clear, dependable, and genuinely useful."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_5",
+          "label": "01",
+          "default": "01"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_6",
+          "label": "Cook with purpose",
+          "default": "Cook with purpose"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_7",
+          "label": "Meals begin in the same trusted Performance M",
+          "default": "Meals begin in the same trusted Performance Meals kitchen, with flavour and everyday usefulness considered together."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_8",
+          "label": "02",
+          "default": "02"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_9",
+          "label": "Portion with clarity",
+          "default": "Portion with clarity"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_10",
+          "label": "Each option presents its protein, calories, a",
+          "default": "Each option presents its protein, calories, and meal information clearly so customers can choose with confidence."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_11",
+          "label": "03",
+          "default": "03"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_12",
+          "label": "Freeze for the moment ahead",
+          "default": "Freeze for the moment ahead"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_13",
+          "label": "Meals are frozen after preparation to help pr",
+          "default": "Meals are frozen after preparation to help preserve quality until the day they are needed."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_14",
+          "label": "04",
+          "default": "04"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_15",
+          "label": "Ready when life changes",
+          "default": "Ready when life changes"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_16",
+          "label": "Keep it in the freezer, heat it in minutes, a",
+          "default": "Keep it in the freezer, heat it in minutes, and make a busy day feel more manageable."
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Photograph 1"
+        },
+        {
+          "type": "text",
+          "id": "image_1_alt",
+          "label": "Photograph 1 description",
+          "default": "Food being prepared in a professional kitchen"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Photograph 2"
+        },
+        {
+          "type": "text",
+          "id": "image_2_alt",
+          "label": "Photograph 2 description",
+          "default": "Prepared meals moving through a professional kitchen"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_3",
+          "label": "Photograph 3"
+        },
+        {
+          "type": "text",
+          "id": "image_3_alt",
+          "label": "Photograph 3 description",
+          "default": "A balanced Ready Series meal"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_4",
+          "label": "Photograph 4"
+        },
+        {
+          "type": "text",
+          "id": "image_4_alt",
+          "label": "Photograph 4 description",
+          "default": "A prepared meal ready to store"
+        }
+      ]
+    },
+    {
+      "type": "band_4",
+      "name": "Programme",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "copy_1",
+          "label": "Why it matters",
+          "default": "Why it matters"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_2",
+          "label": "Not every important meal happens on schedule.",
+          "default": "Not every important meal happens on schedule."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_3",
+          "label": "Ready Series is not about replacing the meals",
+          "default": "Ready Series is not about replacing the meals you love. It is about protecting the moments when time, energy, or plans would otherwise push a proper meal aside."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_4",
+          "label": "01",
+          "default": "01"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_5",
+          "label": "After the late meeting",
+          "default": "After the late meeting"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_6",
+          "label": "Dinner is already handled, so a long workday ",
+          "default": "Dinner is already handled, so a long workday does not have to end with another decision."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_7",
+          "label": "02",
+          "default": "02"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_8",
+          "label": "Between training and home",
+          "default": "Between training and home"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_9",
+          "label": "A clear, high-protein option is ready when re",
+          "default": "A clear, high-protein option is ready when recovery matters and time is short."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_10",
+          "label": "03",
+          "default": "03"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_11",
+          "label": "When the family day changes",
+          "default": "When the family day changes"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_12",
+          "label": "A useful backup in the freezer creates room f",
+          "default": "A useful backup in the freezer creates room for the people and plans that need attention first."
+        }
+      ]
+    },
+    {
+      "type": "band_5",
+      "name": "Details",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "copy_1",
+          "label": "One range, three ways to buy",
+          "default": "One range, three ways to buy"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_2",
+          "label": "Choose what fits this season of life.",
+          "default": "Choose what fits this season of life."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_3",
+          "label": "Individual",
+          "default": "Individual"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_4",
+          "label": "Choose exactly what you want, once.",
+          "default": "Choose exactly what you want, once."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_5",
+          "label": "Bundles",
+          "default": "Bundles"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_6",
+          "label": "Stock up with a predefined selection.",
+          "default": "Stock up with a predefined selection."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_7",
+          "label": "Subscription",
+          "default": "Subscription"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_8",
+          "label": "Keep your freezer ready on a recurring plan.",
+          "default": "Keep your freezer ready on a recurring plan."
+        }
+      ]
+    },
+    {
+      "type": "band_6",
+      "name": "Closing",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "copy_1",
+          "label": "Ready for the life around the meal",
+          "default": "Ready for the life around the meal"
+        },
+        {
+          "type": "textarea",
+          "id": "copy_2",
+          "label": "Less time solving dinner.",
+          "default": "Less time solving dinner."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_3",
+          "label": "More time living it.",
+          "default": "More time living it."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_4",
+          "label": "Put a better fallback in the freezer and give",
+          "default": "Put a better fallback in the freezer and give tomorrow’s busy version of you one less thing to carry."
+        },
+        {
+          "type": "textarea",
+          "id": "copy_5",
+          "label": "Find your Ready Series",
+          "default": "Find your Ready Series"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Photograph 1"
+        },
+        {
+          "type": "text",
+          "id": "image_1_alt",
+          "label": "Photograph 1 description",
+          "default": "Family enjoying time together around a shared meal"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Ready Series about",
+      "blocks": [
+        {
+          "type": "band_1"
+        },
+        {
+          "type": "band_2"
+        },
+        {
+          "type": "band_3"
+        },
+        {
+          "type": "band_4"
+        },
+        {
+          "type": "band_5"
+        },
+        {
+          "type": "band_6"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

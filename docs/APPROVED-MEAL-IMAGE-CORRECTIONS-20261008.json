@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-08",
+  "store": "performance-meals-development.myshopify.com",
+  "sourceCommit": "58272e4e011d03249b196d392319ad22fa8dc0ca",
+  "corrections": [
+    {
+      "id": "gid://shopify/Product/10321879269460",
+      "name": "Teriyaki Chicken & Brown Rice",
+      "source": "https://images.unsplash.com/photo-1762631383520-df106b252f6a?w=600&h=450&fit=crop&auto=format&q=85",
+      "old": "gid://shopify/MediaImage/33014517268564",
+      "correctedFeatured": {
+        "id": "gid://shopify/MediaImage/33042552848468",
+        "status": "READY",
+        "image": {
+          "url": "https://cdn.shopify.com/s/files/1/0711/6649/2756/files/photo-1762631383520-df106b252f6a.jpg?v=1791484202"
+        }
+      },
+      "recovery": "Old file retained in Shopify Files. Restore product association with fileUpdate.referencesToAdd if needed."
+    },
+    {
+      "id": "gid://shopify/Product/10322493702228",
+      "name": "Beef Rendang & Cauliflower",
+      "source": "https://images.unsplash.com/photo-1661257711676-79a0fc533569?w=600&h=450&fit=crop&auto=format&q=85",
+      "old": "gid://shopify/MediaImage/33018255376468",
+      "correctedFeatured": {
+        "id": "gid://shopify/MediaImage/33042552881236",
+        "status": "READY",
+        "image": {
+          "url": "https://cdn.shopify.com/s/files/1/0711/6649/2756/files/photo-1661257711676-79a0fc533569.jpg?v=1791484203"
+        }
+      },
+      "recovery": "Old file retained in Shopify Files. Restore product association with fileUpdate.referencesToAdd if needed."
+    },
+    {
+      "id": "gid://shopify/Product/10322493800532",
+      "name": "Prawn Fried Rice",
+      "source": "https://images.unsplash.com/photo-1580683742795-49989f7ecb72?w=600&h=450&fit=crop&auto=format&q=85",
+      "old": "gid://shopify/MediaImage/33018255605844",
+      "correctedFeatured": {
+        "id": "gid://shopify/MediaImage/33042552946772",
+        "status": "READY",
+        "image": {
+          "url": "https://cdn.shopify.com/s/files/1/0711/6649/2756/files/photo-1580683742795-49989f7ecb72.jpg?v=1791484202"
+        }
+      },
+      "recovery": "Old file retained in Shopify Files. Restore product association with fileUpdate.referencesToAdd if needed."
+    }
+  ],
+  "verification": "Each corrected product has exactly one READY media entry, and featuredMedia matches its approved listing photo. No files deleted; no theme published."
+}

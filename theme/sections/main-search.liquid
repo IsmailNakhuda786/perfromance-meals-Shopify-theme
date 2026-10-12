@@ -1,0 +1,12 @@
+<section class="bg-[#111] text-white px-6 py-16 min-h-[70vh]"><div class="max-w-[1200px] mx-auto"><h1 class="font-display text-[40px] font-extrabold mb-8">{{ 'general.search' | t }}</h1><form action="{{ routes.search_url }}" method="get" class="flex gap-3 mb-10"><input type="hidden" name="type" value="product"><label class="sr-only" for="SearchInput">{{ 'general.search' | t }}</label><input id="SearchInput" type="search" name="q" value="{{ search.terms | escape }}" class="flex-1 border border-white/20 bg-transparent px-4 py-3"><button class="pm-button" type="submit">{{ 'general.search' | t }}</button></form>{% if search.performed %}{% paginate search.results by 24 %}<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">{% for result in search.results %}{% if result.object_type == 'product' %}{% render 'product-card', product: result, instance_id: section.id, show_quick_view: true %}{% endif %}{% else %}<p>{{ 'general.no_results' | t }}</p>{% endfor %}</div><div class="pm-pagination mt-10">{{ paginate | default_pagination }}</div>{% endpaginate %}{% endif %}</div></section>
+{% schema %}
+{
+  "name": "Search",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Search"
+    }
+  ]
+}
+{% endschema %}
