@@ -5,6 +5,7 @@ export type CancellationOrder = {
  id:string; name?:string; customerGid:string; createdAt:string; currency:string; amountMinor:number;
  paid:boolean; alreadyCancelled:boolean; hasEverDispatched:boolean|null;
  businessStreams:string[]; contractGids:string[]; renewalsVerified:boolean;
+ commencementStartsOn?:string|null;
 };
 export type CancellationGateway = {
  readOrder:(orderGid:string)=>Promise<CancellationOrder>;

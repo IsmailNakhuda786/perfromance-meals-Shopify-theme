@@ -14,24 +14,31 @@ function Account() {
   const [refresh, setRefresh] = useState(0);
   useEffect(() => {
     const controller = new AbortController();
+    setError('');setAccount(null);
+    const timeout=setTimeout(()=>{
+      setError('Your account information could not be loaded. Please try again later.');
+      controller.abort();
+    },30000);
     async function load() {
       try {
         const url = new URL(APP_URL);
         if (url.protocol !== 'https:') throw new Error('Invalid endpoint');
         const token = await shopify.sessionToken.get();
+        if(controller.signal.aborted)return;
         const response = await fetch(new URL('/api/account', url), {
           headers: {Authorization: `Bearer ${token}`}, signal: controller.signal,
         });
         if (!response.ok) throw new Error('Account unavailable');
         const data = await response.json();
+        if(controller.signal.aborted)return;
         if (!Array.isArray(data.plans)) throw new Error('Invalid account response');
         setAccount(data);
       } catch (failure) {
         if (!(failure instanceof Error && failure.name === 'AbortError')) setError('Your account information could not be loaded. Please try again later.');
-      }
+      } finally { clearTimeout(timeout); }
     }
     load();
-    return () => controller.abort();
+    return () => {clearTimeout(timeout);controller.abort();};
   }, [refresh]);
 
   return <s-page heading="Performance Meals">
@@ -39,7 +46,7 @@ function Account() {
       <s-stack direction="inline" gap="small">
         {SECTIONS.map(label => <s-button key={label} variant={section === label ? 'primary' : 'secondary'} onClick={() => setSection(label)}>{label}</s-button>)}
       </s-stack>
-      {error && <s-banner tone="warning">{error}</s-banner>}
+      {error && <s-banner tone="warning">{error}<s-button onClick={()=>setRefresh(value=>value+1)}>Retry loading account</s-button></s-banner>}
       {!account && !error && <s-spinner accessibilityLabel="Loading your account"/>}
       {section === 'Dashboard' && <s-section heading="Dashboard">
         <s-paragraph>Your Ready Series, Meal Plans and Gift Card purchases share one Performance Meals account.</s-paragraph>
@@ -166,7 +173,7 @@ function Rewards({data,onUpdated}) {
   const [pending,setPending]=useState(false);
   const [message,setMessage]=useState('');
   async function redeem(){
-    if(pending||requestKey)return;
+    if(pending||requestKey||!data?.rewardsEnabled||data.rewards?.balanceMatchesLedger!==true)return;
     const amount=Number(points);
     if(!/^\d+$/.test(points)||!Number.isSafeInteger(amount)||amount<1){setMessage('Enter a positive whole number of points.');return;}
     const key=crypto.randomUUID();setRequestKey(key);setPending(true);setMessage('');
@@ -181,16 +188,18 @@ function Rewards({data,onUpdated}) {
   }
   return <s-section heading="Rewards">
     <s-paragraph>Earn 1 point per SGD 1 of eligible food value. Only direct customer payments and customer-funded Wallet principal earn points. Cents, delivery, Gift Card-funded, Reward-funded and promotional credit, Gift Card purchases and Wallet top-ups are excluded. Redeem 10 points for SGD 1 Wallet credit.</s-paragraph>
-    {!data?.rewardsEnabled?<s-paragraph>Rewards earning and redemption are not available yet.</s-paragraph>:<s-stack gap="base">
-      <s-paragraph>Points Balance: {data.rewards?.points ?? 'Unavailable'}</s-paragraph>
-      <s-paragraph>Lifetime Earned: {data.rewards?.lifetimeEarned ?? 'Unavailable'}</s-paragraph>
-      {data.rewards?.balanceMatchesLedger===false?<s-paragraph>Your Rewards history is updating.</s-paragraph>:<>
+    {!data?.rewardsEnabled&&<s-paragraph>Rewards earning and redemption are not available yet.</s-paragraph>}
+    <s-stack gap="base">
+      <s-paragraph>Points Balance: {data?.rewards?.points ?? 'Unavailable'}</s-paragraph>
+      <s-paragraph>Lifetime Earned: {data?.rewards?.lifetimeEarned ?? 'Unavailable'}</s-paragraph>
+      {data?.rewards?.balanceMatchesLedger===false&&<s-paragraph>Your Rewards history is updating.</s-paragraph>}
+      {data?.rewardsEnabled&&data.rewards?.balanceMatchesLedger===true&&<>
         <s-text-field label="Points to redeem" value={points} disabled={pending||!!requestKey} onInput={event=>setPoints(event.currentTarget.value)}/>
         {/^[0-9]+$/.test(points)&&Number.isSafeInteger(Number(points))&&Number(points)>0&&<s-paragraph>Wallet credit: {new Intl.NumberFormat('en-SG',{style:'currency',currency:'SGD',currencyDisplay:'code'}).format(Number(points)/10)}</s-paragraph>}
         <s-button variant="primary" disabled={pending||!!requestKey||!points||!data.rewards} onClick={redeem}>Redeem points</s-button>
       </>}
-      {data.rewards?.history.map(entry=><s-paragraph key={entry.id}>{new Date(entry.createdAt).toLocaleDateString('en-SG',{timeZone:'Asia/Singapore'})} · {entry.kind==='earned'?'Earned':entry.kind==='redeemed'?'Redeemed':'Adjustment'} · {entry.pointsDelta} pts</s-paragraph>)}
-    </s-stack>}
+      {data?.rewards?.history.map(entry=><s-paragraph key={entry.id}>{new Date(entry.createdAt).toLocaleDateString('en-SG',{timeZone:'Asia/Singapore'})} · {entry.kind==='earned'?'Earned':entry.kind==='redeemed'?'Redeemed':'Adjustment'} · {entry.pointsDelta} pts</s-paragraph>)}
+    </s-stack>
     {pending&&<s-spinner accessibilityLabel="Redeeming points"/>}
     {message&&<s-paragraph>{message}</s-paragraph>}
   </s-section>;

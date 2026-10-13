@@ -36,6 +36,15 @@ export function nativeCancellationGateway(admin:Admin,shop:string):CancellationG
    const order=await read(id);
    const lines=order.lineItems.nodes as Array<{id:string;product?:{isGiftCard:boolean;stream?:{jsonValue:unknown}};sellingPlan?:{sellingPlanId:string}}>; 
    const operational=await db.operationalLine.findMany({where:{shop,orderGid:id}});
+   const selectionIds=operational.filter(line=>line.customerGid===order.customer?.id&&line.validationStatus==='VALIDATED'&&line.selectionId).map(line=>line.selectionId!);
+   const selections=await db.mealPlanSelection.findMany({where:{id:{in:selectionIds},shop,customerGid:order.customer?.id||'',orderGid:id},select:{id:true,orderLineGid:true,startsOn:true}});
+   const foodLines=lines.filter(line=>!line.product?.isGiftCard);
+   const dates=foodLines.map(line=>{
+    const route=operational.find(record=>record.orderLineGid===line.id&&record.customerGid===order.customer?.id&&record.validationStatus==='VALIDATED');
+    return selections.find(selection=>selection.id===route?.selectionId&&selection.orderLineGid===line.id)?.startsOn||null;
+   });
+   // Unknown or mixed dates must not inherit today's merchant availability.
+   const commencementStartsOn=dates.length&&dates.every(date=>date&&date===dates[0])?dates[0]:null;
    if(order.fulfillments.some((f:{status:string})=>f.status==='SUCCESS'))await db.operationalLine.updateMany({where:{shop,orderGid:id},data:{fulfillmentState:'DISPATCHED'}});
    const recurring=lines.filter(line=>line.sellingPlan);
    const contracts=recurring.map(line=>operational.find(record=>record.orderLineGid===line.id&&record.customerGid===order.customer?.id&&record.validationStatus==='VALIDATED')?.contractGid);
@@ -45,6 +54,7 @@ export function nativeCancellationGateway(admin:Admin,shop:string):CancellationG
    return {id,name:order.name,customerGid:order.customer?.id||'',createdAt:order.createdAt,currency:order.currencyCode,amountMinor:total,
     paid:order.displayFinancialStatus==='PAID'&&minorAmount(money[1].amount)===total&&minorAmount(money[2].amount)===0&&order.disputes.length===0,
     alreadyCancelled:!!order.cancelledAt,
+    commencementStartsOn,
     // A cancelled native fulfillment is unknown history and fails closed.
     hasEverDispatched:nativeDispatchEvidence(order.fulfillments.map((f:{status:string})=>f.status),operational.some(line=>line.fulfillmentState==='DISPATCHED')?true:false,true),
     businessStreams:lines.map(line=>line.product?.isGiftCard?'shared':typeof line.product?.stream?.jsonValue==='string'?line.product.stream.jsonValue:'unknown'),

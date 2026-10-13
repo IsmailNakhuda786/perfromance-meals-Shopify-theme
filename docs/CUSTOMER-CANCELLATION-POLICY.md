@@ -3,6 +3,14 @@
 Jerome's final policy supersedes automatic 48-hour cancellation and Wallet refunds.
 Historical QA records are retained; they are not current purchasing policy.
 
+Latest clarification: commencement is the selected/saved start date, not the first
+dispatch. Ready Series automatically assigns and shows the next date from the
+merchant's available preset dates. General availability edits affect new purchases
+only. A customer requesting a later date must contact Support; an authorized,
+auditable Support adjustment may change that purchased order's commencement date.
+The pre-commencement Ready Series Cancel button submits a team-approval request;
+it never independently cancels the order or issues Wallet credit.
+
 Ready Series Individual Selection and Bundles: cancellation/refund requests require
 Customer Support review. No automatic order cancellation or Wallet refund.
 

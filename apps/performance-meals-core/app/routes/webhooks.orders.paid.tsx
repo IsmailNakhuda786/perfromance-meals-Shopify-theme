@@ -4,7 +4,7 @@ import {assertShop} from '../services/security.server';
 import {recordOrder} from '../services/orders.server';
 import {earnNativeOrderRewards} from '../services/rewards-native.server';
 
-// Registration is intentionally deferred until scoped native webhook QA.
+// Registered through the Shopify SDK; earning remains policy-gated.
 // Shopify's authenticated notification is a trigger, never pricing evidence.
 export async function action({request}:ActionFunctionArgs){
  const {shop,admin,payload,topic}=await authenticate.webhook(request);assertShop(shop);

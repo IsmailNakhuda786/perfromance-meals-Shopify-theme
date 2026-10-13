@@ -9,7 +9,7 @@ process.env.ALLOWED_SHOP=shop;
 const money=amount=>({shopMoney:{amount,currencyCode:'SGD'}});
 const order=()=>({id,customer:{id:customer},createdAt:new Date().toISOString(),cancelledAt:null,currencyCode:'SGD',displayFinancialStatus:'PAID',disputes:[],totalPriceSet:money('22.90'),totalReceivedSet:money('22.90'),totalRefundedSet:money('0'),fulfillments:[],lineItems:{nodes:[{id:'gid://shopify/LineItem/983',product:{isGiftCard:false,stream:{jsonValue:'ready_series'}}}],pageInfo:{hasNextPage:false}}});
 const response=data=>new Response(JSON.stringify({data}),{headers:{'Content-Type':'application/json'}});
-test.after(async()=>{await db.operationalLine.deleteMany({where:{shop}});await db.$disconnect();});
+test.after(async()=>{await db.operationalLine.deleteMany({where:{shop}});await db.mealPlanSelection.deleteMany({where:{shop}});await db.$disconnect();});
 test('native price includes delivery; Gift Cards, missing data, dispute and historical dispatch cannot bypass checks',async()=>{
  let current=order();
  const admin={graphql:async query=>{assert.equal(query,CANCELLATION_ORDER_QUERY);return response({shop:{myshopifyDomain:shop},order:current});}};
@@ -35,4 +35,14 @@ test('renewal shutdown requires native customer, app and original-order ownershi
 test('retired native cancellation adapter cannot issue an automatic Wallet refund',async()=>{
  const admin={graphql:async()=>assert.fail('No native cancellation or financial mutation')};
  await assert.rejects(nativeCancellationGateway(admin,shop).cancelToWallet(id),/SUPPORT_APPROVAL_REQUIRED/);
+});
+
+test('Support dates come only from the bound customer selection, never current availability',async()=>{
+ const current=order();current.lineItems.nodes[0].product.stream.jsonValue='meal_plan';const lineId=current.lineItems.nodes[0].id;
+ const selection=await db.mealPlanSelection.create({data:{shop,customerGid:customer,programmeGid:'gid://shopify/Product/988',variantGid:'gid://shopify/ProductVariant/989',startsOn:'2026-10-19',selections:'[]',selectionHash:'fixture-date',cutoffAt:new Date('2026-10-15T05:00:00Z'),status:'ORDERED',orderGid:id,orderLineGid:lineId}});
+ await db.operationalLine.create({data:{shop,customerGid:customer,orderGid:id,orderLineGid:lineId,businessStream:'meal_plan',validationStatus:'VALIDATED',selectionId:selection.id}});
+ const admin={graphql:async()=>response({shop:{myshopifyDomain:shop},order:current})};const gateway=nativeCancellationGateway(admin,shop);
+ assert.equal((await gateway.readOrder(id)).commencementStartsOn,'2026-10-19');
+ await db.mealPlanSelection.update({where:{id:selection.id},data:{customerGid:'gid://shopify/Customer/999'}});
+ assert.equal((await gateway.readOrder(id)).commencementStartsOn,null);
 });

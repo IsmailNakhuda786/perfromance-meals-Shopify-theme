@@ -9,7 +9,7 @@ const gateway={readOrder:async()=>({id:orderGid,name:'#fixture',customerGid:cust
 test.after(async()=>{for(const table of ['orderSupportRequest','walletEntry'])await db[table].deleteMany({where:{shop}});await db.$disconnect();});
 test('Support request is persisted once even after dispatch and never cancels or credits',async()=>{
  const first=await requestOrderSupport(shop,customer,orderGid,gateway);
- assert.equal(first.state,'REQUESTED');assert.equal(JSON.parse(first.evidence).hasEverDispatched,true);
+ assert.equal(first.state,'REQUESTED');assert.equal(JSON.parse(first.evidence).hasEverDispatched,true);assert.equal(JSON.parse(first.evidence).commencement,'unknown');
  assert.equal((await requestOrderSupport(shop,customer,orderGid,gateway)).id,first.id);
  assert.equal(await db.walletEntry.count({where:{shop}}),0);
  await assert.rejects(requestOrderSupport(shop,'gid://shopify/Customer/999',orderGid,gateway),/unavailable/);
@@ -24,5 +24,13 @@ test('changed order totals retain original funding evidence without blocking Sup
  assert.equal(evidence.totalMinor,1800);
  assert.equal(evidence.originalFundingMatchesCurrent,false);
  assert.equal(evidence.directPaymentAttributionPending,true);
+ assert.equal(await db.walletEntry.count({where:{shop}}),0);
+});
+
+test('saved commencement is independent of dispatch and never authorizes a refund',async()=>{
+ const changedId='gid://shopify/Order/853';
+ const dated={readOrder:async()=>({...await gateway.readOrder(),id:changedId,commencementStartsOn:'2099-10-19'})};
+ const result=await requestOrderSupport(shop,customer,changedId,dated);const evidence=JSON.parse(result.evidence);
+ assert.equal(evidence.commencement,'before_start');assert.equal(evidence.commencementStartsOn,'2099-10-19');assert.equal(evidence.hasEverDispatched,true);
  assert.equal(await db.walletEntry.count({where:{shop}}),0);
 });

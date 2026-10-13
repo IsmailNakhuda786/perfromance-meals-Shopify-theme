@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "2b3fe3770dc5fdf0fe2f725e771ecda4d1601fe4",
+  "source_commit": "cc7382ced5ac970bd2db8da4ce19c0d921105200",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -256,7 +256,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/routes/webhooks.orders.paid.tsx",
-      "sha256": "050c584ea12723615960a25b15fbc3eb417340fbb103a3dd023a1a0ac3731350",
+      "sha256": "a4f16abf5ace53c07f98cb134c467505f9905454796d035d66d97be03ba5f922",
       "sanitized": false
     },
     {
@@ -266,7 +266,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/account-cancellations.server.ts",
-      "sha256": "24346a336f746ddf8d57252ed886842f4b929c7b8020e9763d44b2a182da33f1",
+      "sha256": "f4fed01c7d69fb8d546625d937ba33b945d58936301c01226825e827a35c9359",
       "sanitized": false
     },
     {
@@ -277,6 +277,11 @@
     {
       "path": "apps/performance-meals-core/app/services/catalog.server.ts",
       "sha256": "4cd6af4345ce30184a03c4d588b3a8720d71dafc6418259d5504254e2b646abf",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/commencement.ts",
+      "sha256": "6cd693b334ba3507ce80ea8d06a62026230a07f8cbc89483a0421e692ff6bfd9",
       "sanitized": false
     },
     {
@@ -321,7 +326,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/order-cancellation-native.server.ts",
-      "sha256": "18080bdd1b56ce39f62a38cf55e163dd6fc8e44fdd308f10045d4bfe81066009",
+      "sha256": "1e8c13d8e71a8eddfda227f54441bce47683a69c97940d168f0aa5d04e3b77b9",
       "sanitized": false
     },
     {
@@ -331,7 +336,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/order-cancellation.server.ts",
-      "sha256": "db863de5d93fa2b28fd6fac33147ca33dad7baa938e46d3f1b7aadce06a74167",
+      "sha256": "6c6ce97e941b6a70130937d52e486721c44190235f748d387eabfe24304bcaa0",
       "sanitized": false
     },
     {
@@ -341,7 +346,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/order-support.server.ts",
-      "sha256": "12eb2bb3abe6a2d18aa0ee551330c6fea3491db6912fae90784b3ac76aff3e58",
+      "sha256": "00a6d385e58fe9d20e19fa7b087007b40751462ba4199587a49c1e808885d6e2",
       "sanitized": false
     },
     {
@@ -381,7 +386,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/rewards-native.server.ts",
-      "sha256": "31e5772c8e5136ad54deee7575ef183ce2f508afd9468775a0680d2143bec1ab",
+      "sha256": "055ed37fabe046b9005c0efc0e47c739819c83bc9e552fb6437b533946b19630",
       "sanitized": false
     },
     {
@@ -476,7 +481,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/shopify.server.ts",
-      "sha256": "0aca7fd49ca07c2d1b92043bcaa8f66bac3ca9af73047ce285ca40ee67219870",
+      "sha256": "9b2d704c0fcd963a16e3af517116279a74895e6012f275e8cadef5190e346ae8",
       "sanitized": false
     },
     {
@@ -511,7 +516,7 @@
     },
     {
       "path": "apps/performance-meals-core/extensions/performance-meals-account/src/OrderStatusBlock.jsx",
-      "sha256": "6025f35001309902e9f52ef2e30d7d8ec2a7aead853fe7f18c794719cb7614a0",
+      "sha256": "e73520b82a5043d78897037faa48288bb0452a9600dd7e6f51db759d64e99d5f",
       "sanitized": false
     },
     {
@@ -765,6 +770,11 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/tests/commencement.test.mjs",
+      "sha256": "33a0f9fccc3d0486418266e3328c706027b93221e370c381ced89447419537d4",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/tests/core.test.mjs",
       "sha256": "b3a0131408c8d5dacc5ed189224b8d28a20788bc5d69e55aeffd0015eb814209",
       "sanitized": false
@@ -806,7 +816,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/order-cancellation-native.test.mjs",
-      "sha256": "df0fae87fb01d76f033eb36f8d9dae8666d39e110fb39696c25cac3a61affca5",
+      "sha256": "896c92b2109537135bdd6d13840582f9ceed7c0fb5a3d4cbceeb8ca59abde39d",
       "sanitized": false
     },
     {
@@ -826,7 +836,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/order-support.test.mjs",
-      "sha256": "ffb2a8443c43def7490c66ed44ccde0e41ff107086a4e39211b253e12e35604e",
+      "sha256": "5f2ff0efef5efc8ea3b0e5f2f771366fc04d0cda42f337ae09dc0ff529b211c2",
       "sanitized": false
     },
     {
@@ -866,7 +876,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/rewards-native.test.mjs",
-      "sha256": "30ac342fd72f31d9f2d7e1db9125a99a612a61ea576c0c3d05fe269401ef075f",
+      "sha256": "8988cb2f4ba9199f34aba6928c75f6a7ce270fd7e275448d5697e3c5f816d4d5",
       "sanitized": false
     },
     {
@@ -1576,7 +1586,7 @@
     },
     {
       "path": "docs/CUSTOMER-CANCELLATION-POLICY.md",
-      "sha256": "09dc2cbddddeaa12868f312c041d4c67572f79eff19c8f353373e6bcb66a65d0",
+      "sha256": "208c4dd9ddeee99688fd97f051945e95baf6e678b48a923dd7373e894f1c3e51",
       "sanitized": false
     },
     {
@@ -1611,8 +1621,8 @@
     },
     {
       "path": "docs/FINAL-CLIENT-POLICY-IMPLEMENTATION-20261013.md",
-      "sha256": "2522b342f3580795afeeff26dfdd2c7972515a6e617382b5ae6ba3b6c9aa905b",
-      "sanitized": false
+      "sha256": "7f9493b36f0f68f42a1161cfd153ac1d577ec294f49973eefd6701a046ad8e77",
+      "sanitized": true
     },
     {
       "path": "docs/GIFT-CARD-WALLET-QA.md",

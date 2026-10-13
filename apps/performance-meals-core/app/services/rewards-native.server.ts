@@ -10,13 +10,13 @@ export const REWARDS_ORDER_QUERY=`#graphql
 query RewardPaidOrder($id:ID!){shop{myshopifyDomain currencyCode} order(id:$id){
  id createdAt currencyCode displayFinancialStatus cancelledAt customer{id} disputes{id}
  totalPriceSet{shopMoney{amount currencyCode}} totalReceivedSet{shopMoney{amount currencyCode}} totalRefundedSet{shopMoney{amount currencyCode}} totalTaxSet{shopMoney{amount currencyCode}}
- transactions(first:100){id status kind gateway amountSet{shopMoney{amount currencyCode}}}
+ transactions(first:100){id status kind gateway processedAt amountSet{shopMoney{amount currencyCode}}}
  lineItems(first:250){nodes{id quantity currentQuantity isGiftCard priceAfterAllDiscountsBeforeTaxesSet{shopMoney{amount currencyCode}} product{id stream:metafield(namespace:"performance",key:"business_stream"){jsonValue}}}pageInfo{hasNextPage}}
 }}`;
 type Admin={graphql:(query:string,options:{variables:Record<string,unknown>})=>Promise<Response>};
 type Money={shopMoney:{amount:string;currencyCode:string}};
 type NativeLine={id:string;quantity:number;currentQuantity:number;isGiftCard:boolean;priceAfterAllDiscountsBeforeTaxesSet:Money;product:null|{id:string;stream:null|{jsonValue:unknown}}};
-type Payment={id:string;status:string;kind:string;gateway:string;amountSet:Money};
+type Payment={id:string;status:string;kind:string;gateway:string;processedAt:string|null;amountSet:Money};
 
 // Read-only verification. A paid webhook or authenticated account read must not
 // trust browser prices, source labels, or a native Store Credit total without
@@ -30,13 +30,16 @@ export async function readNativeRewardEvidence(admin:Admin,shop:string,orderGid:
  const policy=await db.commercePolicy.findUnique({where:{shop},select:{rewardsRules:true}});
  const rules=policy?.rewardsRules?JSON.parse(policy.rewardsRules):null;
  if(!rules||rules.qaOrderGid&&rules.qaOrderGid!==orderGid||rules.qaCustomerGid&&rules.qaCustomerGid!==order.customer.id)throw Error('Rewards order outside configured scope');
- if(rules.earningStartsAt&&Date.parse(order.createdAt)<Date.parse(rules.earningStartsAt))throw Error('Order predates Rewards activation');
  const total=money(order.totalPriceSet);
  if(money(order.totalReceivedSet)!==total||money(order.totalRefundedSet)!==0)throw Error('Rewards payment is not complete');
  // GST treatment is not yet confirmed. Do not invent earning on taxes.
  if(money(order.totalTaxSet)!==0)throw Error('Tax-inclusive Rewards requires merchant confirmation');
  const payments=(order.transactions as Payment[]).filter(p=>p.status==='SUCCESS'&&['SALE','CAPTURE'].includes(p.kind));
  if(!payments.length||new Set(payments.map(p=>p.id)).size!==payments.length||payments.reduce((sum,p)=>sum+money(p.amountSet),0)!==total)throw Error('Native payment funding differs');
+ const paymentTimes=payments.map(payment=>payment.processedAt?Date.parse(payment.processedAt):NaN);
+ if(paymentTimes.some(time=>!Number.isFinite(time)))throw Error('Native payment completion time unavailable');
+ const paidAt=new Date(Math.max(...paymentTimes)).toISOString();
+ if(rules.earningStartsAt&&Date.parse(paidAt)<Date.parse(rules.earningStartsAt))throw Error('Payment predates Rewards activation');
  const funding:OrderFunding={direct_customer:0,customer_funded:0,gift_card_funded:0,reward_funded:0,bonus:0};
  for(const payment of payments){
   if(!/^gid:\/\/shopify\/OrderTransaction\/\d+$/.test(payment.id)||!payment.gateway)throw Error('Payment receipt missing');
@@ -65,7 +68,7 @@ export async function readNativeRewardEvidence(admin:Admin,shop:string,orderGid:
   if(!route||route.orderGid!==orderGid||route.customerGid!==order.customer.id||route.productGid!==line.product.id||route.businessStream!==stream||route.validationStatus!=='VALIDATED')throw Error('Rewards operational stream snapshot differs');
   lines.push({productGid:line.product.id,stream:String(stream),netMinor:net,giftCard:false,walletTopUp:false});
  }
- return {shop,customerGid:order.customer.id,orderGid,paidAt:order.createdAt,lines:allocateGiftCardFirstFood(lines,funding,total)};
+ return {shop,customerGid:order.customer.id,orderGid,paidAt,lines:allocateGiftCardFirstFood(lines,funding,total)};
 }
 export async function earnNativeOrderRewards(admin:Admin,shop:string,orderGid:string){
  assertShop(shop);

@@ -6,7 +6,7 @@ await buildServices({entryPoints:['app/services/rewards-native.server.ts'],outdi
 const {readNativeRewardEvidence,REWARDS_ORDER_QUERY}=await import('../.shopify/rewards-native-test/rewards-native.server.js');
 const db=new PrismaClient(),shop=`rewards-native-${randomUUID()}.myshopify.com`,customer='gid://shopify/Customer/860',id='gid://shopify/Order/861';process.env.ALLOWED_SHOP=shop;
 const money=amount=>({shopMoney:{amount,currencyCode:'SGD'}});
-const makeOrder=()=>({id,createdAt:new Date().toISOString(),currencyCode:'SGD',displayFinancialStatus:'PAID',cancelledAt:null,customer:{id:customer},disputes:[],totalPriceSet:money('110'),totalReceivedSet:money('110'),totalRefundedSet:money('0'),totalTaxSet:money('0'),transactions:[{id:'gid://shopify/OrderTransaction/862',status:'SUCCESS',kind:'SALE',gateway:'gift_card',amountSet:money('50')},{id:'gid://shopify/OrderTransaction/863',status:'SUCCESS',kind:'SALE',gateway:'fixture_direct',amountSet:money('60')}],lineItems:{pageInfo:{hasNextPage:false},nodes:[{id:'gid://shopify/LineItem/864',quantity:1,currentQuantity:1,isGiftCard:false,priceAfterAllDiscountsBeforeTaxesSet:money('100'),product:{id:'gid://shopify/Product/865',stream:{jsonValue:'ready_series'}}}]}});
+const makeOrder=()=>({id,createdAt:new Date().toISOString(),currencyCode:'SGD',displayFinancialStatus:'PAID',cancelledAt:null,customer:{id:customer},disputes:[],totalPriceSet:money('110'),totalReceivedSet:money('110'),totalRefundedSet:money('0'),totalTaxSet:money('0'),transactions:[{id:'gid://shopify/OrderTransaction/862',status:'SUCCESS',kind:'SALE',gateway:'gift_card',processedAt:'2026-10-13T04:00:00Z',amountSet:money('50')},{id:'gid://shopify/OrderTransaction/863',status:'SUCCESS',kind:'SALE',gateway:'fixture_direct',processedAt:'2026-10-13T04:01:00Z',amountSet:money('60')}],lineItems:{pageInfo:{hasNextPage:false},nodes:[{id:'gid://shopify/LineItem/864',quantity:1,currentQuantity:1,isGiftCard:false,priceAfterAllDiscountsBeforeTaxesSet:money('100'),product:{id:'gid://shopify/Product/865',stream:{jsonValue:'ready_series'}}}]}});
 let order=makeOrder(),domain=shop;
 const admin={graphql:async(query)=>{assert.equal(query,REWARDS_ORDER_QUERY);return new Response(JSON.stringify({data:{shop:{myshopifyDomain:domain,currencyCode:'SGD'},order}}));}};
 test.after(async()=>{await db.operationalLine.deleteMany({where:{shop}});await db.commercePolicy.deleteMany({where:{shop}});await db.$disconnect();});
@@ -26,4 +26,15 @@ test('foreign store, unpaid/changed/refunded/disputed orders cannot establish ea
 test('unverified direct gateway and unreconciled Store Credit cannot masquerade as customer money',async()=>{
  order=makeOrder();order.transactions[1].gateway='unverified';await assert.rejects(readNativeRewardEvidence(admin,shop,id),/not verified/);
  order=makeOrder();order.transactions[1].gateway='shopify_store_credit';await assert.rejects(readNativeRewardEvidence(admin,shop,id),/reconciliation/);
+});
+
+test('promotion time follows completed funding, not order creation or authorization',async()=>{
+ order=makeOrder();order.createdAt='2026-10-12T00:00:00Z';
+ order.transactions.push({id:'gid://shopify/OrderTransaction/899',status:'SUCCESS',kind:'AUTHORIZATION',gateway:'fixture_direct',processedAt:'2026-10-14T00:00:00Z',amountSet:money('60')});
+ assert.equal((await readNativeRewardEvidence(admin,shop,id)).paidAt,'2026-10-13T04:01:00.000Z');
+ for(const processedAt of [null,'not-a-date']){order=makeOrder();order.transactions[1].processedAt=processedAt;await assert.rejects(readNativeRewardEvidence(admin,shop,id),/completion time/);}
+ order=makeOrder();
+ await db.commercePolicy.update({where:{shop},data:{rewardsRules:JSON.stringify({directPaymentGateways:['fixture_direct'],earningStartsAt:'2026-10-13T04:00:30Z'})}});
+ order.createdAt='2026-10-12T00:00:00Z';
+ assert.equal((await readNativeRewardEvidence(admin,shop,id)).paidAt,'2026-10-13T04:01:00.000Z');
 });
