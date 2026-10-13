@@ -2,9 +2,10 @@ import db from '../db.server';
 import {assertShop} from './security.server';
 import type {CancellationGateway} from './order-cancellation.server';
 import {parseFundedAllocations} from './wallet-fifo';
+import type {readOriginalOrderFunding} from './order-funding.server';
 // This customer action records a request only. It cannot cancel an order,
 // change a contract, grant credit, authorize Support, or reverse Rewards.
-export async function requestOrderSupport(shop:string,customerGid:string,orderGid:string,gateway:Pick<CancellationGateway,'readOrder'>){
+export async function requestOrderSupport(shop:string,customerGid:string,orderGid:string,gateway:Pick<CancellationGateway,'readOrder'>,funding?:Awaited<ReturnType<typeof readOriginalOrderFunding>>){
  assertShop(shop);
  if(!/^gid:\/\/shopify\/Customer\/\d+$/.test(customerGid)||!/^gid:\/\/shopify\/Order\/\d+$/.test(orderGid))throw Error('Invalid Support request');
  const order=await gateway.readOrder(orderGid);
@@ -16,7 +17,10 @@ export async function requestOrderSupport(shop:string,customerGid:string,orderGi
   try{for(const allocation of parseFundedAllocations(debit.fundedAllocations,-debit.fundedDelta))sources[allocation.sourceKind as keyof typeof sources]+=allocation.amountMinor;}
   catch{walletAttributionComplete=false;}
  }
- const evidence=JSON.stringify({currency:order.currency,totalMinor:order.amountMinor,paid:order.paid,alreadyCancelled:order.alreadyCancelled,hasEverDispatched:order.hasEverDispatched,businessStreams:order.businessStreams,walletSources:sources,walletAttributionComplete,directPaymentAttributionPending:true,observedAt:new Date().toISOString()});
+ // An edited order can differ from its original payment. Preserve both facts
+ // for Support review rather than preventing the customer from requesting it.
+ const originalFundingMatchesCurrent=!!funding&&funding.currency===order.currency&&funding.totalMinor===order.amountMinor;
+ const evidence=JSON.stringify({currency:order.currency,totalMinor:order.amountMinor,paid:order.paid,alreadyCancelled:order.alreadyCancelled,hasEverDispatched:order.hasEverDispatched,businessStreams:order.businessStreams,walletSources:sources,walletAttributionComplete,originalPaidFunding:funding||null,originalFundingMatchesCurrent,directPaymentAttributionPending:!originalFundingMatchesCurrent,observedAt:new Date().toISOString()});
  const existing=await db.orderSupportRequest.findUnique({where:{shop_orderGid:{shop,orderGid}}});
  if(existing&&existing.customerGid!==customerGid)throw Error('Support request ownership differs');
  return db.orderSupportRequest.upsert({where:{shop_orderGid:{shop,orderGid}},create:{shop,customerGid,orderGid,orderName:order.name||orderGid,state:'REQUESTED',evidence},update:{}});

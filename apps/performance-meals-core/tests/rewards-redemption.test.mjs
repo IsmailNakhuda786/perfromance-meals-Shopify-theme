@@ -15,7 +15,7 @@ test('persistent configuration does not enable earning; native-verified input ea
  await configureRewards(shop,rules);
  await assert.rejects(configureRewards(shop,{...rules,defaultPointsPerSgd:2}),/immutable/);
  await assert.rejects(earnVerifiedOrderRewards(input),/not activated/);
- await db.commercePolicy.update({where:{shop},data:{walletEnabled:true,rewardsEnabled:true}});
+ await db.commercePolicy.update({where:{shop},data:{walletEnabled:false,rewardsEnabled:true}});
  await earnVerifiedOrderRewards(input);await earnVerifiedOrderRewards(input);
  assert.equal((await db.rewardsAccount.findFirst({where:{shop}})).points,100);
  assert.equal(await db.walletEntry.count({where:{shop}}),0);

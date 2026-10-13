@@ -1,6 +1,9 @@
-{% comment %}Approved reward-copy amounts are formatted in the current Shopify currency. Replace longer tokens before $1 to preserve $11. No exchange or reward-ledger logic lives here.{% endcomment %}
+{% comment %}Format approved example amounts using native Shopify money filters, longest tokens first. No earning or ledger logic belongs in Liquid.{% endcomment %}
 {%- assign unit = 100 | money_with_currency -%}
 {%- assign five = 500 | money_with_currency -%}
 {%- assign eleven = 1100 | money_with_currency -%}
 {%- assign twenty_five = 2500 | money_with_currency -%}
-{{- text | replace: '$25', '[pm_reward_25]' | replace: '$11', '[pm_reward_11]' | replace: '$5', '[pm_reward_5]' | replace: '$1', '[pm_reward_1]' | replace: '[pm_reward_25]', twenty_five | replace: '[pm_reward_11]', eleven | replace: '[pm_reward_5]', five | replace: '[pm_reward_1]', unit | escape -}}
+{%- assign fifty = 5000 | money_with_currency -%}
+{%- assign hundred = 10000 | money_with_currency -%}
+{%- assign two_hundred = 20000 | money_with_currency -%}
+{{- text | replace: '$200', '[pm_reward_200]' | replace: '$100', '[pm_reward_100]' | replace: '$50', '[pm_reward_50]' | replace: '$25', '[pm_reward_25]' | replace: '$11', '[pm_reward_11]' | replace: '$5', '[pm_reward_5]' | replace: '$1', '[pm_reward_1]' | replace: '[pm_reward_200]', two_hundred | replace: '[pm_reward_100]', hundred | replace: '[pm_reward_50]', fifty | replace: '[pm_reward_25]', twenty_five | replace: '[pm_reward_11]', eleven | replace: '[pm_reward_5]', five | replace: '[pm_reward_1]', unit | escape -}}

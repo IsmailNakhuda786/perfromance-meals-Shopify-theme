@@ -1,54 +1,36 @@
-# Confirmed customer cancellation policy — 12 October 2026
+# Confirmed customer cancellation policy — 13 October 2026
 
-This supersedes the earlier blanket no-customer-refunds clarification.
+Jerome's final policy supersedes automatic 48-hour cancellation and Wallet refunds.
+Historical QA records are retained; they are not current purchasing policy.
 
-Ready Series individual purchases, bundles and prepaid terms, plus Meal Plan
-programmes/recurring subscriptions, can be cancelled within 48 elapsed hours of
-Shopify order placement only if no delivery has ever been dispatched. Card,
-Gift Card and Wallet-paid food purchases are covered. Eligible cancellation
-refunds the full paid total including delivery into the customer's Wallet and
-stops future automatic renewals. No refund to the original card is requested.
+Ready Series Individual Selection and Bundles: cancellation/refund requests require
+Customer Support review. No automatic order cancellation or Wallet refund.
 
-Any single dispatch blocks automatic order cancellation and automatic refund
-immediately. Customers contact support about disputes/remaining programme value.
-Stopping an ongoing subscription does not itself restore Wallet money.
-Exceptional payment reversals, chargebacks and authorised Admin adjustments must
-remain auditable and cannot duplicate credit or invent unsupported balances.
+Ready Series prepaid 3-/6-month terms: paid upfront and non-renewing. Active terms
+cannot be cancelled midway. Before commencement, an existing commitment requires
+Support approval to cancel. Where any future recurring renewal exists, stopping
+future renewals is separate from cancelling/refunding the active commitment.
 
-The eligibility policy, durable execution states, native cancellation adapter,
-renewal ownership verification, receipt reconciliation and native account
-confirmation UI are implemented. Unknown dispatch history fails closed.
-Execution is disabled by default. Development-only QA is restricted to approved
-Order #1011 through the server-owned qaCancellationOrderName policy field.
-Native end-to-end cancellation/refund acceptance remains pending; do not equate
-unit tests or granted access scopes with a successful Shopify refund.
+Meal Plan Biweekly, Monthly and 2 Months: recurring, with customer termination of
+future renewals and supported pauses. No midway cancellation of active plans.
+Before commencement, existing commitments require Support approval to cancel.
+6 by 60 and 6 by 60 Plus: one-time, non-renewing; requests go through Support.
 
-Confirmed mappings: Shopify Fulfilled counts as dispatched. Any single successful
-fulfillment locks automatic cancellation, even if that fulfillment is later
-cancelled or returned. Incomplete historical evidence requires review. Orders
-containing both food and a purchased Gift Card go through support; Core must not
-automatically cancel the Gift Card or refund its value along with food.
+Only an authorized Admin Support decision may initiate a discretionary Wallet
+refund. Include delivery fees only where approved; preserve original customer,
+Gift Card and Reward funding attribution; never convert Reward money into customer
+principal. Keep immutable decisions/receipts and prevent duplicate credits.
+The customer request endpoint only stores requests; it cannot approve or execute
+refunds. The retired automatic route/service/native mutation are blocked.
 
-Use native cancellation/refund-to-store-credit receipts rather than issuing an
-additional manual Wallet credit. Preserve original paid order/customer identity,
-source attribution and retries. A policy result is not native refund evidence.
+Option A: customers retain earned Rewards when Support approves refunds. No
+automatic clawback of points or existing Reward-funded value occurs.
 
-The native adapter uses orderCancel with storeCreditRefund, without expiry or
-an additional storeCreditAccountCredit call. Native receipts must match the
-customer, original order, SGD total and stopped renewals before completion.
-Cancelled native fulfillment history is ambiguous and cannot reopen eligibility.
-SUCCESS fulfillment observations persist as dispatch evidence in Core.
+Shopify native fulfillment remains dispatch evidence for Support. Dispatch,
+elapsed time, subscription stopping or a customer request never independently
+triggers a refund. Exceptional native reversals/Admin adjustments are reconciled
+from actual original payment and Wallet receipts, never inferred credits.
 
-Mutation attempts persist before sending. Lost responses become reconciliation
-cases, never automatic financial retries. Read-only recovery can finish only
-after native cancellation, full Wallet receipt and renewal shutdown are proven.
-Contracts owned by another subscription app, missing contract mappings and
-subsequent renewal orders without a verified original-order relationship require
-support/integration work; Core never cancels an unrelated contract.
-
-Native Wallet debit reverts restore the original recorded funding sources.
-Partial reversals without source allocation evidence stay under reconciliation.
-Promotional balances remain separate. Customer-account history labels positive
-native returns as Refund. Top-ups remain disabled.
-
-API reference: https://shopify.dev/docs/api/admin-graphql/2026-10/mutations/orderCancel
+Native account requests and persistent Support records are implemented. A full
+Support authorization/execution surface and native discretionary-refund QA remain
+pending. No Admin UI is implemented in this phase.

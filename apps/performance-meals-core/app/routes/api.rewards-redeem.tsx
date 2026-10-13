@@ -22,10 +22,16 @@ export async function action({request}:ActionFunctionArgs){
   const body=JSON.parse(text+decoder.decode());
   if(Object.keys(body).sort().join(',')!=='points,requestKey'||!Number.isSafeInteger(body.points)||typeof body.requestKey!=='string')throw Error();
   ({points,requestKey}=body);
- }catch{return cors(Response.json({error:'Enter a positive multiple of 10 points.'},{status:400,headers:privateHeaders}));}
+ }catch{return cors(Response.json({error:'Enter a positive whole number of points.'},{status:400,headers:privateHeaders}));}
+ let stage='admin-context';
  try{
   const {admin}=await unauthenticated.admin(shop);
+  stage='redemption-service';
   const result=await redeemRewards(shop,customerGid,requestKey,points,nativeGiftCardGateway(admin,shop));
   return cors(Response.json({id:result.id,state:result.state,amountMinor:result.amountMinor,currency:'SGD'},{headers:privateHeaders}));
- }catch{return cors(Response.json({error:'Redemption could not be confirmed. Check your Rewards and Wallet history before trying again.'},{status:409,headers:privateHeaders}));}
+ }catch(error){
+  const safe=['Rewards redemption is not activated','Invalid redemption context','Rewards outside approved QA scope','Insufficient reconciled Rewards','Rewards rules require approval','Invalid Rewards QA scope','Redemption request conflict'];
+  const diagnosis=error instanceof Error&&safe.includes(error.message)?error.message:error instanceof Error?error.name:'Unknown error';
+  console.warn('Rewards redemption rejected',{stage,diagnosis,revision:'native-store-credit-v2'});
+  return cors(Response.json({error:'Redemption could not be confirmed. Check your Rewards and Wallet history before trying again.'},{status:409,headers:privateHeaders}));}
 }

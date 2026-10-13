@@ -15,9 +15,12 @@ export async function redeemRewards(shop:string,customerGid:string,requestKey:st
  let operation=await db.$transaction(async tx=>{
   const existing=await tx.rewardRedemption.findUnique({where:key});
   if(existing){if(existing.points!==points||existing.amountMinor!==amountMinor)throw Error('Redemption request conflict');return existing;}
+  // walletEnabled gates the legacy custom reservation path, not native
+  // Shopify Store Credit. Redemption requires its own approved Rewards gate.
   const policy=await tx.commercePolicy.findUnique({where:{shop}});
-  if(!policy?.rewardsEnabled||!policy.walletEnabled||!policy.rewardsRules)throw Error('Rewards redemption is not activated');
+  if(!policy?.rewardsEnabled||!policy.rewardsRules)throw Error('Rewards redemption is not activated');
   const rules=validateRewardRules(JSON.parse(policy.rewardsRules));
+  if(rules.qaCustomerGid&&rules.qaCustomerGid!==customerGid)throw Error('Rewards outside approved QA scope');
   const account=await tx.rewardsAccount.findUnique({where:{shop_customerGid:{shop,customerGid}}});
   const ledger=await tx.rewardsEntry.aggregate({where:{shop,customerGid},_sum:{pointsDelta:true}});
   if(!account||account.points!==(ledger._sum.pointsDelta||0)||account.points<points)throw Error('Insufficient reconciled Rewards');

@@ -1,5 +1,5 @@
 {% unless section.settings.programme_active %}<p class="bg-[#F5B300] text-[#1A1A1A] px-6 py-4 text-center text-[12px]" role="status">{{ 'sync.rewards_pending' | t }}</p>{% endunless %}
-<div class="min-h-screen bg-[#1A1A1A] text-white"><div class="relative overflow-hidden bg-[#111] border-b border-white/8"><div class="absolute inset-0 opacity-[0.04]" style="background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(245,179,0,0.5) 40px,rgba(245,179,0,0.5) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(245,179,0,0.5) 40px,rgba(245,179,0,0.5) 41px)"></div><div class="absolute right-0 top-0 w-[600px] h-[600px] bg-[#F5B300]/8 rounded-full blur-[120px] pointer-events-none"></div><div class="relative max-w-[1200px] mx-auto px-6 py-20 sm:py-28"><div class="text-[#F5B300] text-[10px] font-mono tracking-[0.4em] uppercase mb-4">{{ section.settings.text_01 | escape }}</div><h1 class="font-display text-[48px] sm:text-[72px] font-extrabold leading-none mb-4">{{ section.settings.text_02 | escape }}<br><span class="text-[#F5B300]">{{ section.settings.text_03 | escape }}</span></h1><p class="text-white/50 text-[16px] max-w-[480px] leading-relaxed mb-8">{{ section.settings.text_04 | escape }}</p><div class="flex flex-wrap gap-3"><a class="bg-[#F5B300] text-[#111] px-8 py-4 font-extrabold text-[12px] tracking-[0.25em] uppercase hover:bg-white transition-colors" href="/pages/meal-plan">{{ section.settings.text_05 | escape }}</a><a class="border border-white/20 text-white px-8 py-4 font-bold text-[12px] tracking-[0.2em] uppercase hover:border-[#F5B300] hover:text-[#F5B300] transition-colors" href="{{ routes.account_url }}">{{ section.settings.text_06 | escape }}</a></div></div></div><section class="max-w-[1200px] mx-auto px-6 py-16"><div class="text-[10px] font-mono tracking-[0.3em] text-[#F5B300] uppercase mb-2">{{ section.settings.text_07 | escape }}</div><h2 class="font-display text-[32px] font-extrabold mb-10">{{ section.settings.text_08 | escape }}<span class="text-[#F5B300]">{{ section.settings.text_09 | escape }}</span></h2><div class="grid grid-cols-1 sm:grid-cols-3 gap-0 border border-white/8"><div class="p-8 border-b sm:border-b-0 sm:border-r border-white/8 last:border-0"><div class="font-mono text-[40px] font-extrabold text-white/8 leading-none mb-4">{{ section.settings.text_10 | escape }}</div><h3 class="font-bold text-[16px] text-white mb-2">{{ section.settings.text_11 | escape }}</h3><p class="text-white/40 text-[13px] leading-relaxed">{% render 'reward-money-text', text: section.settings.text_12 %}</p></div><div class="p-8 border-b sm:border-b-0 sm:border-r border-white/8 last:border-0"><div class="font-mono text-[40px] font-extrabold text-white/8 leading-none mb-4">{{ section.settings.text_13 | escape }}</div><h3 class="font-bold text-[16px] text-white mb-2">{{ section.settings.text_14 | escape }}</h3><p class="text-white/40 text-[13px] leading-relaxed">{{ section.settings.text_15 | escape }}</p></div><div class="p-8 border-b sm:border-b-0 sm:border-r border-white/8 last:border-0"><div class="font-mono text-[40px] font-extrabold text-white/8 leading-none mb-4">{{ section.settings.text_16 | escape }}</div><h3 class="font-bold text-[16px] text-white mb-2">{{ section.settings.text_17 | escape }}</h3><p class="text-white/40 text-[13px] leading-relaxed">{% render 'reward-money-text', text: section.settings.text_18 %}</p></div></div></section><section class="bg-[#111] border-y border-white/8 py-12"><div class="max-w-[1200px] mx-auto px-6"><div class="text-[10px] font-mono tracking-[0.3em] text-[#F5B300] uppercase mb-6 text-center">{{ section.settings.text_19 | escape }}</div><div class="grid grid-cols-1 sm:grid-cols-3 gap-0 border border-white/8"><div class="p-8 border-b sm:border-b-0 sm:border-r border-white/8 last:border-0 text-center"><div class="font-display text-[48px] font-extrabold text-[#F5B300] leading-none">{% render 'reward-money-text', text: section.settings.text_20 %}</div><div class="text-white/60 text-[14px] mt-1">{{ section.settings.text_21 | escape }}</div><div class="text-white/25 text-[11px] font-mono mt-2 uppercase tracking-wider">{{ section.settings.text_22 | escape }}</div></div><div class="p-8 border-b sm:border-b-0 sm:border-r border-white/8 last:border-0 text-center"><div class="font-display text-[48px] font-extrabold text-[#F5B300] leading-none">{% render 'reward-money-text', text: section.settings.text_23 %}</div><div class="text-white/60 text-[14px] mt-1">{{ section.settings.text_24 | escape }}</div><div class="text-[#F5B300] text-[11px] font-bold mt-1 tracking-wider">{{ section.settings.text_25 | escape }}</div><div class="text-white/25 text-[11px] font-mono mt-2 uppercase tracking-wider">{{ section.settings.text_26 | escape }}</div></div><div class="p-8 border-b sm:border-b-0 sm:border-r border-white/8 last:border-0 text-center"><div class="font-display text-[48px] font-extrabold text-[#F5B300] leading-none">{% render 'reward-money-text', text: section.settings.text_27 %}</div><div class="text-white/60 text-[14px] mt-1">{{ section.settings.text_28 | escape }}</div><div class="text-[#F5B300] text-[11px] font-bold mt-1 tracking-wider">{{ section.settings.text_29 | escape }}</div><div class="text-white/25 text-[11px] font-mono mt-2 uppercase tracking-wider">{{ section.settings.text_30 | escape }}</div></div></div><p class="text-white/25 text-[12px] text-center mt-4">{{ section.settings.text_31 | escape }}</p></div></section><section class="max-w-[1200px] mx-auto px-6 py-16"><div class="text-[10px] font-mono tracking-[0.3em] text-[#F5B300] uppercase mb-2">{{ section.settings.text_32 | escape }}</div><h2 class="font-display text-[32px] font-extrabold mb-10">{{ section.settings.text_33 | escape }}<span class="text-[#F5B300]">{{ section.settings.text_09 | escape }}</span></h2><div class="grid grid-cols-1 sm:grid-cols-3 gap-4"><div class="bg-[#111] border border-white/8 p-6 hover:border-[#F5B300]/30 transition-colors"><div class="w-10 h-1 mb-5" style="background-color:#888"></div><div class="font-display text-[22px] font-extrabold text-white mb-1">{{ section.settings.text_34 | escape }}</div><div class="text-[11px] font-mono text-white/30 mb-5">{{ section.settings.text_35 | escape }}</div><ul class="flex flex-col gap-2.5"><li class="flex items-start gap-2.5 text-[13px] text-white/60"><span class="text-[#F5B300] mt-0.5 shrink-0">{{ section.settings.text_37 | escape }}</span>{% render 'reward-money-text', text: section.settings.text_36 %}</li></ul></div><div class="bg-[#111] border border-white/8 p-6 hover:border-[#F5B300]/30 transition-colors"><div class="w-10 h-1 mb-5" style="background-color:#F5B300"></div><div class="font-display text-[22px] font-extrabold text-white mb-1">{{ section.settings.text_40 | escape }}</div><div class="text-[11px] font-mono text-white/30 mb-5">{{ section.settings.text_41 | escape }}</div><ul class="flex flex-col gap-2.5"><li class="flex items-start gap-2.5 text-[13px] text-white/60"><span class="text-[#F5B300] mt-0.5 shrink-0">{{ section.settings.text_37 | escape }}</span>{% render 'reward-money-text', text: section.settings.text_42 %}</li></ul></div><div class="bg-[#111] border border-white/8 p-6 hover:border-[#F5B300]/30 transition-colors"><div class="w-10 h-1 mb-5" style="background-color:#E0E0E0"></div><div class="font-display text-[22px] font-extrabold text-white mb-1">{{ section.settings.text_46 | escape }}</div><div class="text-[11px] font-mono text-white/30 mb-5">{{ section.settings.text_47 | escape }}</div><ul class="flex flex-col gap-2.5"><li class="flex items-start gap-2.5 text-[13px] text-white/60"><span class="text-[#F5B300] mt-0.5 shrink-0">{{ section.settings.text_37 | escape }}</span>{% render 'reward-money-text', text: section.settings.text_48 %}</li></ul></div></div></section><section class="bg-[#111] border-t border-white/8 py-16"><div class="max-w-[800px] mx-auto px-6"><div class="text-[10px] font-mono tracking-[0.3em] text-[#F5B300] uppercase mb-2">{{ section.settings.text_52 | escape }}</div><h2 class="font-display text-[32px] font-extrabold mb-10">{{ section.settings.text_53 | escape }}<span class="text-[#F5B300]">{{ section.settings.text_09 | escape }}</span></h2><div class="flex flex-col"><div class="border-b border-white/8 py-5"><p class="font-semibold text-[14px] text-white mb-2">{{ section.settings.text_54 | escape }}</p><p class="text-white/45 text-[13px] leading-relaxed">{{ section.settings.text_55 | escape }}</p></div><div class="border-b border-white/8 py-5"><p class="font-semibold text-[14px] text-white mb-2">{{ section.settings.text_56 | escape }}</p><p class="text-white/45 text-[13px] leading-relaxed">{{ section.settings.text_57 | escape }}</p></div><div class="border-b border-white/8 py-5"><p class="font-semibold text-[14px] text-white mb-2">{{ section.settings.text_58 | escape }}</p><p class="text-white/45 text-[13px] leading-relaxed">{{ section.settings.text_59 | escape }}</p></div><div class="border-b border-white/8 py-5"><p class="font-semibold text-[14px] text-white mb-2">{{ section.settings.text_60 | escape }}</p><p class="text-white/45 text-[13px] leading-relaxed">{{ section.settings.text_61 | escape }}</p></div></div></div></section><section class="max-w-[1200px] mx-auto px-6 py-16 text-center"><h2 class="font-display text-[36px] font-extrabold mb-4">{{ section.settings.text_62 | escape }}<span class="text-[#F5B300]">{{ section.settings.text_63 | escape }}</span></h2><p class="text-white/40 text-[14px] mb-8">{{ section.settings.text_64 | escape }}</p><div class="flex flex-wrap gap-3 justify-center"><a class="bg-[#F5B300] text-[#111] px-10 py-4 font-extrabold text-[12px] tracking-[0.25em] uppercase hover:bg-white transition-colors" href="{{ routes.collections_url }}/ready-series">{{ section.settings.text_65 | escape }}</a><a class="border border-white/20 text-white px-10 py-4 font-bold text-[12px] tracking-[0.2em] uppercase hover:border-[#F5B300] hover:text-[#F5B300] transition-colors" href="/pages/meal-plan">{{ section.settings.text_66 | escape }}</a></div></section></div>{% for block in section.blocks %}{% render block %}{% endfor %}
+<div class="min-h-screen bg-[#1A1A1A] text-white"><div class="relative overflow-hidden bg-[#111] border-b border-white/8"><div class="absolute inset-0 opacity-[0.04]" style="background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(245,179,0,0.5) 40px,rgba(245,179,0,0.5) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(245,179,0,0.5) 40px,rgba(245,179,0,0.5) 41px)"></div><div class="absolute right-0 top-0 w-[600px] h-[600px] bg-[#F5B300]/8 rounded-full blur-[120px] pointer-events-none"></div><div class="relative max-w-[1200px] mx-auto px-6 py-20 sm:py-28"><div class="text-[#F5B300] text-[10px] font-mono tracking-[0.4em] uppercase mb-4">{{ section.settings.text_01 | escape }}</div><h1 class="font-display text-[48px] sm:text-[72px] font-extrabold leading-none mb-4">{{ section.settings.text_02 | escape }}<br><span class="text-[#F5B300]">{{ section.settings.text_03 | escape }}</span></h1><p class="text-white/50 text-[16px] max-w-[480px] leading-relaxed mb-8">{{ section.settings.text_04 | escape }}</p><div class="flex flex-wrap gap-3"><a class="bg-[#F5B300] text-[#111] px-8 py-4 font-extrabold text-[12px] tracking-[0.25em] uppercase hover:bg-white transition-colors" href="/pages/meal-plan">{{ section.settings.text_05 | escape }}</a><a class="border border-white/20 text-white px-8 py-4 font-bold text-[12px] tracking-[0.2em] uppercase hover:border-[#F5B300] hover:text-[#F5B300] transition-colors" href="{{ routes.account_url }}">{{ section.settings.text_06 | escape }}</a></div></div></div><section class="max-w-[1200px] mx-auto px-6 py-16"><div class="text-[10px] font-mono tracking-[0.3em] text-[#F5B300] uppercase mb-2">{{ section.settings.text_07 | escape }}</div><h2 class="font-display text-[32px] font-extrabold mb-10">{{ section.settings.text_08 | escape }}<span class="text-[#F5B300]">{{ section.settings.text_09 | escape }}</span></h2><div class="grid grid-cols-1 sm:grid-cols-3 gap-0 border border-white/8"><div class="p-8 border-b sm:border-b-0 sm:border-r border-white/8 last:border-0"><div class="font-mono text-[40px] font-extrabold text-white/8 leading-none mb-4">{{ section.settings.text_10 | escape }}</div><h3 class="font-bold text-[16px] text-white mb-2">{{ section.settings.text_11 | escape }}</h3><p class="text-white/40 text-[13px] leading-relaxed">{% render 'reward-money-text', text: section.settings.text_12 %}</p></div><div class="p-8 border-b sm:border-b-0 sm:border-r border-white/8 last:border-0"><div class="font-mono text-[40px] font-extrabold text-white/8 leading-none mb-4">{{ section.settings.text_13 | escape }}</div><h3 class="font-bold text-[16px] text-white mb-2">{{ section.settings.text_14 | escape }}</h3><p class="text-white/40 text-[13px] leading-relaxed">{{ section.settings.text_15 | escape }}</p></div><div class="p-8 border-b sm:border-b-0 sm:border-r border-white/8 last:border-0"><div class="font-mono text-[40px] font-extrabold text-white/8 leading-none mb-4">{{ section.settings.text_16 | escape }}</div><h3 class="font-bold text-[16px] text-white mb-2">{{ section.settings.text_17 | escape }}</h3><p class="text-white/40 text-[13px] leading-relaxed">{% render 'reward-money-text', text: section.settings.text_18 %}</p></div></div></section><section class="bg-[#111] border-y border-white/8 py-12"><div class="max-w-[1200px] mx-auto px-6"><div class="text-[10px] font-mono tracking-[0.3em] text-[#F5B300] uppercase mb-6 text-center">{{ section.settings.text_19 | escape }}</div><div class="grid grid-cols-1 sm:grid-cols-3 gap-0 border border-white/8"><div class="p-8 border-b sm:border-b-0 sm:border-r border-white/8 last:border-0 text-center"><div class="font-display text-[48px] font-extrabold text-[#F5B300] leading-none">{% render 'reward-money-text', text: section.settings.text_20 %}</div><div class="text-white/60 text-[14px] mt-1">{{ section.settings.text_21 | escape }}</div><div class="text-white/25 text-[11px] font-mono mt-2 uppercase tracking-wider">{{ section.settings.text_22 | escape }}</div></div><div class="p-8 border-b sm:border-b-0 sm:border-r border-white/8 last:border-0 text-center"><div class="font-display text-[48px] font-extrabold text-[#F5B300] leading-none">{% render 'reward-money-text', text: section.settings.text_23 %}</div><div class="text-white/60 text-[14px] mt-1">{{ section.settings.text_24 | escape }}</div><div class="text-[#F5B300] text-[11px] font-bold mt-1 tracking-wider">{{ section.settings.text_25 | escape }}</div><div class="text-white/25 text-[11px] font-mono mt-2 uppercase tracking-wider">{{ section.settings.text_26 | escape }}</div></div><div class="p-8 border-b sm:border-b-0 sm:border-r border-white/8 last:border-0 text-center"><div class="font-display text-[48px] font-extrabold text-[#F5B300] leading-none">{% render 'reward-money-text', text: section.settings.text_27 %}</div><div class="text-white/60 text-[14px] mt-1">{{ section.settings.text_28 | escape }}</div><div class="text-[#F5B300] text-[11px] font-bold mt-1 tracking-wider">{{ section.settings.text_29 | escape }}</div><div class="text-white/25 text-[11px] font-mono mt-2 uppercase tracking-wider">{{ section.settings.text_30 | escape }}</div></div></div><p class="text-white/25 text-[12px] text-center mt-4">{{ section.settings.text_31 | escape }}</p></div></section>{% if section.settings.tiers_confirmed %}<section class="max-w-[1200px] mx-auto px-6 py-16"><div class="text-[10px] font-mono tracking-[0.3em] text-[#F5B300] uppercase mb-2">{{ section.settings.text_32 | escape }}</div><h2 class="font-display text-[32px] font-extrabold mb-10">{{ section.settings.text_33 | escape }}<span class="text-[#F5B300]">{{ section.settings.text_09 | escape }}</span></h2><div class="grid grid-cols-1 sm:grid-cols-3 gap-4"><div class="bg-[#111] border border-white/8 p-6 hover:border-[#F5B300]/30 transition-colors"><div class="w-10 h-1 mb-5" style="background-color:#888"></div><div class="font-display text-[22px] font-extrabold text-white mb-1">{{ section.settings.text_34 | escape }}</div><div class="text-[11px] font-mono text-white/30 mb-5">{{ section.settings.text_35 | escape }}</div><ul class="flex flex-col gap-2.5"><li class="flex items-start gap-2.5 text-[13px] text-white/60"><span class="text-[#F5B300] mt-0.5 shrink-0">{{ section.settings.text_37 | escape }}</span>{% render 'reward-money-text', text: section.settings.text_36 %}</li></ul></div><div class="bg-[#111] border border-white/8 p-6 hover:border-[#F5B300]/30 transition-colors"><div class="w-10 h-1 mb-5" style="background-color:#F5B300"></div><div class="font-display text-[22px] font-extrabold text-white mb-1">{{ section.settings.text_40 | escape }}</div><div class="text-[11px] font-mono text-white/30 mb-5">{{ section.settings.text_41 | escape }}</div><ul class="flex flex-col gap-2.5"><li class="flex items-start gap-2.5 text-[13px] text-white/60"><span class="text-[#F5B300] mt-0.5 shrink-0">{{ section.settings.text_37 | escape }}</span>{% render 'reward-money-text', text: section.settings.text_42 %}</li></ul></div><div class="bg-[#111] border border-white/8 p-6 hover:border-[#F5B300]/30 transition-colors"><div class="w-10 h-1 mb-5" style="background-color:#E0E0E0"></div><div class="font-display text-[22px] font-extrabold text-white mb-1">{{ section.settings.text_46 | escape }}</div><div class="text-[11px] font-mono text-white/30 mb-5">{{ section.settings.text_47 | escape }}</div><ul class="flex flex-col gap-2.5"><li class="flex items-start gap-2.5 text-[13px] text-white/60"><span class="text-[#F5B300] mt-0.5 shrink-0">{{ section.settings.text_37 | escape }}</span>{% render 'reward-money-text', text: section.settings.text_48 %}</li></ul></div></div></section>{% endif %}<section class="bg-[#111] border-t border-white/8 py-16"><div class="max-w-[800px] mx-auto px-6"><div class="text-[10px] font-mono tracking-[0.3em] text-[#F5B300] uppercase mb-2">{{ section.settings.text_52 | escape }}</div><h2 class="font-display text-[32px] font-extrabold mb-10">{{ section.settings.text_53 | escape }}<span class="text-[#F5B300]">{{ section.settings.text_09 | escape }}</span></h2><div class="flex flex-col"><div class="border-b border-white/8 py-5"><p class="font-semibold text-[14px] text-white mb-2">{{ section.settings.text_54 | escape }}</p><p class="text-white/45 text-[13px] leading-relaxed">{{ section.settings.text_55 | escape }}</p></div><div class="border-b border-white/8 py-5"><p class="font-semibold text-[14px] text-white mb-2">{{ section.settings.text_56 | escape }}</p><p class="text-white/45 text-[13px] leading-relaxed">{{ section.settings.text_57 | escape }}</p></div><div class="border-b border-white/8 py-5"><p class="font-semibold text-[14px] text-white mb-2">{{ section.settings.text_58 | escape }}</p><p class="text-white/45 text-[13px] leading-relaxed">{{ section.settings.text_59 | escape }}</p></div><div class="border-b border-white/8 py-5"><p class="font-semibold text-[14px] text-white mb-2">{{ section.settings.text_60 | escape }}</p><p class="text-white/45 text-[13px] leading-relaxed">{{ section.settings.text_61 | escape }}</p></div></div></div></section><section class="max-w-[1200px] mx-auto px-6 py-16 text-center"><h2 class="font-display text-[36px] font-extrabold mb-4">{{ section.settings.text_62 | escape }}<span class="text-[#F5B300]">{{ section.settings.text_63 | escape }}</span></h2><p class="text-white/40 text-[14px] mb-8">{{ section.settings.text_64 | escape }}</p><div class="flex flex-wrap gap-3 justify-center"><a class="bg-[#F5B300] text-[#111] px-10 py-4 font-extrabold text-[12px] tracking-[0.25em] uppercase hover:bg-white transition-colors" href="{{ routes.collections_url }}/ready-series">{{ section.settings.text_65 | escape }}</a><a class="border border-white/20 text-white px-10 py-4 font-bold text-[12px] tracking-[0.2em] uppercase hover:border-[#F5B300] hover:text-[#F5B300] transition-colors" href="/pages/meal-plan">{{ section.settings.text_66 | escape }}</a></div></section></div>{% for block in section.blocks %}{% render block %}{% endfor %}
 {% schema %}
 {
   "name": "Rewards",
@@ -8,6 +8,12 @@
       "type": "checkbox",
       "id": "programme_active",
       "label": "Show rewards programme (requires loyalty app)",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "tiers_confirmed",
+      "label": "Show confirmed membership tier content",
       "default": false
     },
     {
@@ -31,8 +37,8 @@
     {
       "type": "text",
       "id": "text_04",
-      "label": "Earn points on every order, unlock tiers, and re",
-      "default": "Earn points on every order, unlock tiers, and redeem for bonus wallet value on eligible Ready Series purchases."
+      "label": "Rewards copy text_04",
+      "default": "Earn points on eligible food paid with your own money, then redeem points into your Wallet."
     },
     {
       "type": "text",
@@ -79,8 +85,8 @@
     {
       "type": "text",
       "id": "text_12",
-      "label": "Every $1 spent earns you points. Meal Plan order",
-      "default": "Every $1 spent earns you points. Meal Plan orders earn 1.5× points automatically."
+      "label": "Rewards copy text_12",
+      "default": "Earn 1 point per $1 of eligible food paid directly or with customer-funded Wallet principal. Cents, delivery and non-customer-funded credit are excluded."
     },
     {
       "type": "text",
@@ -97,8 +103,8 @@
     {
       "type": "text",
       "id": "text_15",
-      "label": "No expiry on points as long as you order once ev",
-      "default": "Keep points active by ordering at least once every 90 days."
+      "label": "Rewards copy text_15",
+      "default": "Points stay separate from your Wallet until you redeem them."
     },
     {
       "type": "text",
@@ -109,92 +115,92 @@
     {
       "type": "text",
       "id": "text_17",
-      "label": "Redeem for credit",
-      "default": "Redeem for bonus value"
+      "label": "Rewards copy text_17",
+      "default": "Redeem into your Wallet"
     },
     {
       "type": "text",
       "id": "text_18",
-      "label": "Choose a voucher tier: 500 pts = $5 · 1,000 pts ",
-      "default": "Choose a bonus wallet tier: 500 pts = $5 · 1,000 pts = $11 · 2,000 pts = $25."
+      "label": "Rewards copy text_18",
+      "default": "Redeem points in Rewards: 10 points = $1 Wallet credit. Points do not convert automatically."
     },
     {
       "type": "text",
       "id": "text_19",
-      "label": "Voucher Tiers",
-      "default": "Voucher Tiers"
+      "label": "Rewards copy text_19",
+      "default": "Redemption examples"
     },
     {
       "type": "text",
       "id": "text_20",
-      "label": "$5",
-      "default": "$5"
+      "label": "Rewards copy text_20",
+      "default": "$50"
     },
     {
       "type": "text",
       "id": "text_21",
-      "label": "500 pts",
+      "label": "Rewards copy text_21",
       "default": "500 pts"
     },
     {
       "type": "text",
       "id": "text_22",
-      "label": "Starter voucher",
-      "default": "Bonus wallet credit"
+      "label": "Rewards copy text_22",
+      "default": "Reward-funded Wallet credit"
     },
     {
       "type": "text",
       "id": "text_23",
-      "label": "$11",
-      "default": "$11"
+      "label": "Rewards copy text_23",
+      "default": "$100"
     },
     {
       "type": "text",
       "id": "text_24",
-      "label": "1,000 pts",
+      "label": "Rewards copy text_24",
       "default": "1,000 pts"
     },
     {
       "type": "text",
       "id": "text_25",
-      "label": "10% bonus",
-      "default": "10% bonus"
+      "label": "Rewards copy text_25",
+      "default": "Fixed 10:1 conversion"
     },
     {
       "type": "text",
       "id": "text_26",
-      "label": "Value voucher",
-      "default": "Bonus wallet credit"
+      "label": "Rewards copy text_26",
+      "default": "Reward-funded Wallet credit"
     },
     {
       "type": "text",
       "id": "text_27",
-      "label": "$25",
-      "default": "$25"
+      "label": "Rewards copy text_27",
+      "default": "$200"
     },
     {
       "type": "text",
       "id": "text_28",
-      "label": "2,000 pts",
+      "label": "Rewards copy text_28",
       "default": "2,000 pts"
     },
     {
       "type": "text",
       "id": "text_29",
-      "label": "25% bonus",
-      "default": "25% bonus"
+      "label": "Rewards copy text_29",
+      "default": "Fixed 10:1 conversion"
     },
     {
       "type": "text",
       "id": "text_30",
-      "label": "Premium voucher",
-      "default": "Bonus wallet credit"
+      "label": "Rewards copy text_30",
+      "default": "Reward-funded Wallet credit"
     },
     {
       "type": "text",
       "id": "text_31",
-      "label": "Applied instantly at checkout — no codes needed.",
-      "default": "Reward redemptions are bonus wallet value for Ready Series Individual Selection and Bundles only. They cannot pay for Ready Series Subscription or Meal Plan."
+      "label": "Rewards copy text_31",
+      "default": "Reward-funded Wallet credit does not earn more points. Gift Card purchases, Wallet top-ups and delivery are excluded from earning."
     },
     {
       "type": "text",
@@ -289,20 +295,20 @@
     {
       "type": "text",
       "id": "text_55",
-      "label": "Points are credited within 24 hours of your orde",
-      "default": "Earning and redemption become available when the rewards programme is activated."
+      "label": "Rewards copy text_55",
+      "default": "Eligible food earns points after verified payment when Rewards is activated. Only original customer-paid money qualifies."
     },
     {
       "type": "text",
       "id": "text_56",
-      "label": "Do points expire?",
-      "default": "Do points expire?"
+      "label": "Rewards copy text_56",
+      "default": "Do points convert automatically?"
     },
     {
       "type": "textarea",
       "id": "text_57",
-      "label": "Points remain valid as long as you place at leas",
-      "default": "Order at least once every 90 days to keep points active."
+      "label": "Rewards copy text_57",
+      "default": "No. Redeem points through Rewards to add the corresponding value to your Wallet."
     },
     {
       "type": "text",
@@ -313,8 +319,8 @@
     {
       "type": "text",
       "id": "text_59",
-      "label": "Yes — bundles earn the same points as individual",
-      "default": "Yes — bundles earn the same points as individual meal orders. Meal Plans earn 1.5× the standard rate."
+      "label": "Rewards copy text_59",
+      "default": "Eligible Ready Series and Meal Plan food uses the configured earning rate. Active product promotions replace the regular rate; rates never stack."
     },
     {
       "type": "text",

@@ -30,6 +30,7 @@ export async function recordVerifiedRewardEvent(input:{shop:string;customerGid:s
   if(!policy?.rewardsEnabled||!policy.rewardsRules)throw Error('Rewards rules are not activated');
   const rules=JSON.parse(policy.rewardsRules);
   if(rules.version!==rulesVersion||rules.merchantApproved!==true)throw Error('Rewards rules require approval');
+  if(rules.qaOrderGid&&rules.qaOrderGid!==orderGid||rules.qaCustomerGid&&rules.qaCustomerGid!==customerGid)throw Error('Rewards event outside approved QA scope');
   const existing=await tx.rewardsEntry.findUnique({where:{shop_sourceEvent:{shop,sourceEvent}}});
   if(existing){if(existing.customerGid!==customerGid||existing.orderGid!==orderGid||existing.rulesVersion!==rulesVersion||existing.kind!==kind||existing.pointsDelta!==pointsDelta)throw Error('Rewards event conflict');return existing;}
   if(kind==='reversed'){

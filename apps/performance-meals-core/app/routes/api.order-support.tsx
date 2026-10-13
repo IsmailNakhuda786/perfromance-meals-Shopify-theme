@@ -3,6 +3,8 @@ import {authenticate,unauthenticated} from '../shopify.server';
 import {assertShop,privateHeaders} from '../services/security.server';
 import {requestOrderSupport} from '../services/order-support.server';
 import {nativeCancellationGateway} from '../services/order-cancellation-native.server';
+import {readOriginalOrderFunding} from '../services/order-funding.server';
+import {reconcileNativeWalletHistory} from '../services/native-wallet-returns.server';
 export async function loader({request}:LoaderFunctionArgs){
  const {cors}=await authenticate.public.customerAccount(request);
  return cors(new Response(null,{status:405,headers:{...privateHeaders,Allow:'POST'}}));
@@ -23,7 +25,9 @@ export async function action({request}:ActionFunctionArgs){
  }catch{return cors(Response.json({error:'Invalid order request.'},{status:400,headers:privateHeaders}));}
  try{
   const {admin}=await unauthenticated.admin(shop);
-  const result=await requestOrderSupport(shop,customerGid,orderGid,nativeCancellationGateway(admin,shop));
+  let funding;
+  try{await reconcileNativeWalletHistory(admin,shop,customerGid);funding=await readOriginalOrderFunding(admin,shop,customerGid,orderGid);}catch{ /* Save the request with explicit pending evidence, never invent funding. */ }
+  const result=await requestOrderSupport(shop,customerGid,orderGid,nativeCancellationGateway(admin,shop),funding);
   return cors(Response.json({id:result.id,state:result.state},{headers:privateHeaders}));
  }catch{return cors(Response.json({error:'Your Support request could not be saved. No cancellation or refund was performed.'},{status:409,headers:privateHeaders}));}
 }

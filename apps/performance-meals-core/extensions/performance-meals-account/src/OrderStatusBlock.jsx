@@ -168,7 +168,7 @@ function Rewards({data,onUpdated}) {
   async function redeem(){
     if(pending||requestKey)return;
     const amount=Number(points);
-    if(!/^\d+$/.test(points)||!Number.isSafeInteger(amount)||amount<10||amount%10){setMessage('Enter a positive multiple of 10 points.');return;}
+    if(!/^\d+$/.test(points)||!Number.isSafeInteger(amount)||amount<1){setMessage('Enter a positive whole number of points.');return;}
     const key=crypto.randomUUID();setRequestKey(key);setPending(true);setMessage('');
     try{
       const token=await shopify.sessionToken.get();
@@ -186,6 +186,7 @@ function Rewards({data,onUpdated}) {
       <s-paragraph>Lifetime Earned: {data.rewards?.lifetimeEarned ?? 'Unavailable'}</s-paragraph>
       {data.rewards?.balanceMatchesLedger===false?<s-paragraph>Your Rewards history is updating.</s-paragraph>:<>
         <s-text-field label="Points to redeem" value={points} disabled={pending||!!requestKey} onInput={event=>setPoints(event.currentTarget.value)}/>
+        {/^[0-9]+$/.test(points)&&Number.isSafeInteger(Number(points))&&Number(points)>0&&<s-paragraph>Wallet credit: {new Intl.NumberFormat('en-SG',{style:'currency',currency:'SGD',currencyDisplay:'code'}).format(Number(points)/10)}</s-paragraph>}
         <s-button variant="primary" disabled={pending||!!requestKey||!points||!data.rewards} onClick={redeem}>Redeem points</s-button>
       </>}
       {data.rewards?.history.map(entry=><s-paragraph key={entry.id}>{new Date(entry.createdAt).toLocaleDateString('en-SG',{timeZone:'Asia/Singapore'})} · {entry.kind==='earned'?'Earned':entry.kind==='redeemed'?'Redeemed':'Adjustment'} · {entry.pointsDelta} pts</s-paragraph>)}

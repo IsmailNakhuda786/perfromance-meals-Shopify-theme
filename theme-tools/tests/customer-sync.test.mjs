@@ -108,7 +108,8 @@ test('all approved programme links and anonymous rewards information remain visi
  for(const name of ['Biweekly','Monthly','2 Months','6 by 60','6 by 60 Plus']) assert.ok($('main a[href*="programme="]').filter((_,el)=>$(el).text().includes(name)).length,name);
  const rewards=load(await renderPage('/pages/rewards'));
  assert.match(rewards('main').text(),/500/);
- assert.match(rewards('main').text(),/90/);
+ assert.match(rewards('main').text(),/10 points = .*1\.00/);
+ assert.doesNotMatch(rewards('main').text(),/90.day|Platinum|Gold tier|Starter tier/);
  assert.doesNotMatch(rewards('main').text(),/Start Earning|200 points/);
 });
 test('palette generation preserves escaped CSS selectors',()=>{

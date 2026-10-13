@@ -1,10 +1,13 @@
 export type RewardRule={id:string;priority:number;kind:'regular'|'promotion';pointsPerSgd:number;stream?:'ready_series'|'meal_plan';productGid?:string;startsAt?:string;endsAt?:string};
-export type RewardRules={version:string;merchantApproved:true;defaultPointsPerSgd:number;rules:RewardRule[]};
+export type RewardRules={version:string;merchantApproved:true;defaultPointsPerSgd:number;directPaymentGateways?:string[];earningStartsAt?:string;qaOrderGid?:string;qaCustomerGid?:string;rules:RewardRule[]};
 export type RewardLine={productGid:string;stream:string;netMinor:number;funding:{direct_customer:number;customer_funded:number;gift_card_funded:number;reward_funded:number;bonus:number};giftCard:boolean;walletTopUp:boolean};
 function integer(value:number){if(!Number.isSafeInteger(value)||value<0||value>2147483647)throw Error('Invalid Rewards amount');}
 export function validateRewardRules(rules:RewardRules){
  if(!rules.version||rules.merchantApproved!==true||!Array.isArray(rules.rules))throw Error('Rewards rules require approval');
  integer(rules.defaultPointsPerSgd);
+ if(rules.directPaymentGateways&&(!Array.isArray(rules.directPaymentGateways)||rules.directPaymentGateways.some(g=>typeof g!=='string'||!g||g.length>100)||new Set(rules.directPaymentGateways).size!==rules.directPaymentGateways.length))throw Error('Invalid verified direct gateways');
+ if(rules.earningStartsAt&&!Number.isFinite(Date.parse(rules.earningStartsAt)))throw Error('Invalid Rewards start date');
+ if(rules.qaOrderGid&&!/^gid:\/\/shopify\/Order\/\d+$/.test(rules.qaOrderGid)||rules.qaCustomerGid&&!/^gid:\/\/shopify\/Customer\/\d+$/.test(rules.qaCustomerGid))throw Error('Invalid Rewards QA scope');
  const ids=new Set<string>();
  for(const rule of rules.rules){
   integer(rule.pointsPerSgd);integer(rule.priority);
@@ -39,6 +42,41 @@ export function calculateRewardPoints(lines:RewardLine[],rules:RewardRules,paidA
  const points=[...buckets].reduce((sum,[rate,minor])=>sum+Math.floor(minor/100)*rate,0);integer(points);return points;
 }
 export function rewardRedemptionMinor(points:number){
- integer(points);if(!points||points%10)throw Error('Redeem a positive multiple of 10 points');
+ integer(points);if(!points)throw Error('Redeem a positive whole number of points');
  const minor=points*10;integer(minor);return minor;
+}
+
+export type OrderFunding=RewardLine['funding'];
+// Merchant-confirmed: Gift Card funds cover food before delivery, distributed
+// proportionally across food lines. Wallet lot consumption remains FIFO.
+export function allocateGiftCardFirstFood(lines:Array<Omit<RewardLine,'funding'>>,funding:OrderFunding,orderTotalMinor:number):RewardLine[]{
+ integer(orderTotalMinor);
+ const kinds=['direct_customer','customer_funded','gift_card_funded','reward_funded','bonus'] as const;
+ for(const kind of kinds)integer(funding[kind]);
+ if(kinds.reduce((sum,kind)=>sum+funding[kind],0)!==orderTotalMinor)throw Error('Native paid funding total differs');
+ // Merchant has confirmed Gift Card allocation. Reward/bonus mixed allocation
+ // needs independent evidence rather than silently inventing a priority.
+ if(funding.reward_funded||funding.bonus)throw Error('Reward/bonus food funding requires verified line allocations');
+ if(lines.some(line=>line.giftCard||line.walletTopUp))throw Error('Mixed shared-commerce funding requires separate allocation');
+ const total=lines.reduce((sum,line)=>{integer(line.netMinor);return sum+line.netMinor;},0);integer(total);
+ if(total>orderTotalMinor)throw Error('Food exceeds native order total');
+ if(!total)return lines.map(line=>({...line,funding:{direct_customer:0,customer_funded:0,gift_card_funded:0,reward_funded:0,bonus:0}}));
+ const giftFood=Math.min(total,funding.gift_card_funded);
+ const allocate=(amount:number,weights:number[])=>{
+  const denominator=weights.reduce((a,b)=>a+b,0);if(!denominator)return weights.map(()=>0);
+  const parts=weights.map((weight,index)=>{const value=BigInt(weight)*BigInt(amount);return {index,minor:Number(value/BigInt(denominator)),remainder:value%BigInt(denominator)};});
+  let left=amount-parts.reduce((sum,part)=>sum+part.minor,0);
+  for(const part of [...parts].sort((a,b)=>a.remainder===b.remainder?a.index-b.index:a.remainder>b.remainder?-1:1)){if(!left)break;part.minor++;left--;}
+  return parts.map(part=>part.minor);
+ };
+ const gifts=allocate(giftFood,lines.map(line=>line.netMinor));
+ const eligible=lines.map((line,index)=>line.netMinor-gifts[index]);
+ const eligibleTotal=eligible.reduce((a,b)=>a+b,0);
+ const customerPool=funding.direct_customer+funding.customer_funded;
+ if(customerPool<eligibleTotal)throw Error('Customer food funding incomplete');
+ // Both customer sources qualify equally; proportional attribution preserves
+ // their separate audit values without creating different earning rates.
+ const walletFood=customerPool?Number(BigInt(eligibleTotal)*BigInt(funding.customer_funded)/BigInt(customerPool)):0;
+ const wallets=allocate(walletFood,eligible);
+ return lines.map((line,index)=>({...line,funding:{direct_customer:eligible[index]-wallets[index],customer_funded:wallets[index],gift_card_funded:gifts[index],reward_funded:0,bonus:0}}));
 }

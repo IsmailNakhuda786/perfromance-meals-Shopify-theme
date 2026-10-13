@@ -14,3 +14,15 @@ test('Support request is persisted once even after dispatch and never cancels or
  assert.equal(await db.walletEntry.count({where:{shop}}),0);
  await assert.rejects(requestOrderSupport(shop,'gid://shopify/Customer/999',orderGid,gateway),/unavailable/);
 });
+test('changed order totals retain original funding evidence without blocking Support',async()=>{
+ const changedId='gid://shopify/Order/852';
+ const changed={readOrder:async()=>({...await gateway.readOrder(),id:changedId,amountMinor:1800})};
+ const funding={currency:'SGD',totalMinor:2290,sources:{customer_funded:2290,gift_card_funded:0,reward_funded:0}};
+ const result=await requestOrderSupport(shop,customer,changedId,changed,funding);
+ const evidence=JSON.parse(result.evidence);
+ assert.equal(evidence.originalPaidFunding.totalMinor,2290);
+ assert.equal(evidence.totalMinor,1800);
+ assert.equal(evidence.originalFundingMatchesCurrent,false);
+ assert.equal(evidence.directPaymentAttributionPending,true);
+ assert.equal(await db.walletEntry.count({where:{shop}}),0);
+});
