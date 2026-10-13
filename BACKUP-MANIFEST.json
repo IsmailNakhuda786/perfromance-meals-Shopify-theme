@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "cc7382ced5ac970bd2db8da4ce19c0d921105200",
+  "source_commit": "ba2e2f01302f424bc1c693e255f8f8fb3da44d50",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -886,7 +886,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/rewards-redemption.test.mjs",
-      "sha256": "a25e7cbd090ac6a85d3514a427e7fe423047c7700cf802f4b6c224d1ed0e862d",
+      "sha256": "b4452a9a979662badfb2875173fa936cee3edcc495ff07a96f34e9f8d9c21a61",
       "sanitized": false
     },
     {

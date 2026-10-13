@@ -42,3 +42,33 @@ test('lost credit response holds points and never repeats an uncertain financial
  assert.equal((await db.rewardsAccount.findFirst({where:{shop}})).points,40);
  assert.equal((await db.rewardRedemption.findFirst({where:{shop,requestKey:'test-redemption-0003'}})).state,'RECONCILIATION_REQUIRED');
 });
+
+test('confirmed native credit survives ledger failure without a second credit on recovery',async()=>{
+ let credits=0;
+ const nativeId='gid://shopify/StoreCreditAccountCreditTransaction/815';
+ const conflict=await db.walletEntry.create({data:{shop,customerGid:'gid://shopify/Customer/999',currency:'SGD',sourceEvent:'redemption-fixture-conflict',sourceKind:'customer_funded',nativeTransactionGid:nativeId,fundedDelta:100,bonusDelta:0}});
+ const gateway={credit:async(owner,amount)=>{credits++;return {id:nativeId,ownerGid:owner,currency:'SGD',amountMinor:amount};}};
+ const before=(await db.customerWallet.findFirst({where:{shop,customerGid:customer}})).fundedBalance;
+ await assert.rejects(redeemRewards(shop,customer,'test-redemption-0004',10,gateway));
+ const pending=await db.rewardRedemption.findFirst({where:{shop,requestKey:'test-redemption-0004'}});
+ assert.equal(pending.state,'AWAITING_LEDGER');assert.equal(pending.nativeTransactionGid,nativeId);
+ assert.equal((await db.customerWallet.findFirst({where:{shop,customerGid:customer}})).fundedBalance,before);
+ await db.walletEntry.delete({where:{id:conflict.id}});
+ const recovered=await redeemRewards(shop,customer,'test-redemption-0004',10,gateway);
+ assert.equal(recovered.state,'COMPLETED');assert.equal(credits,1);
+ assert.equal((await db.customerWallet.findFirst({where:{shop,customerGid:customer}})).fundedBalance,before+100);
+ assert.equal(await db.walletEntry.count({where:{shop,sourceGid:recovered.id,sourceKind:'reward_funded'}}),1);
+});
+
+test('concurrent same-key redemptions cannot duplicate points deductions or native credit',async()=>{
+ let credits=0;
+ const gateway={credit:async(owner,amount)=>{credits++;await new Promise(resolve=>setTimeout(resolve,20));return {id:'gid://shopify/StoreCreditAccountCreditTransaction/816',ownerGid:owner,currency:'SGD',amountMinor:amount};}};
+ const before=(await db.rewardsAccount.findFirst({where:{shop,customerGid:customer}})).points;
+ const results=await Promise.allSettled([redeemRewards(shop,customer,'test-redemption-0005',10,gateway),redeemRewards(shop,customer,'test-redemption-0005',10,gateway)]);
+ assert.ok(results.some(result=>result.status==='fulfilled'));
+ assert.equal(credits,1);
+ assert.equal((await db.rewardsAccount.findFirst({where:{shop,customerGid:customer}})).points,before-10);
+ const operation=await db.rewardRedemption.findFirst({where:{shop,requestKey:'test-redemption-0005'}});
+ assert.equal(operation.state,'COMPLETED');
+ assert.equal(await db.walletEntry.count({where:{shop,sourceGid:operation.id,sourceKind:'reward_funded'}}),1);
+});
