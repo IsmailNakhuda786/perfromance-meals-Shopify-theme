@@ -43,7 +43,12 @@ money earns only on the remaining food. Wallet lots retain the approved FIFO rul
 Original payment-source evidence is also retained for Support review; an edited
 order's changed total does not prevent the customer from requesting Support.
 
-Pending: automatic paid-event integration,
+Paid-event handler is implemented locally with authenticated topic/event guards.
+Tests prove retry continues earning verification after routing was persisted and
+reject invalid events. Registration and native webhook delivery QA are pending;
+no new webhook subscription or general Rewards activation was performed.
+
+Pending: native paid-event delivery QA,
 uncertain-credit recovery receipt reconciliation, authorized
 Support approval/refund execution, subscription actions, and existing top-up gates.
 Reward/bonus-funded food-versus-delivery allocation and nonzero-tax earning need

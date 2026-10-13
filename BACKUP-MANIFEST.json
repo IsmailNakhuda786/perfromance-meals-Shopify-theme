@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "670f6d155540f03b52ee27dd873b43c33de7190d",
+  "source_commit": "2b3fe3770dc5fdf0fe2f725e771ecda4d1601fe4",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -252,6 +252,11 @@
     {
       "path": "apps/performance-meals-core/app/routes/webhooks.orders.create.tsx",
       "sha256": "0b1cdff25d06ab3e2c3b2e3be37cef5a356c19bb08a370abed620be1b0a2c616",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/routes/webhooks.orders.paid.tsx",
+      "sha256": "050c584ea12723615960a25b15fbc3eb417340fbb103a3dd023a1a0ac3731350",
       "sanitized": false
     },
     {
@@ -822,6 +827,11 @@
     {
       "path": "apps/performance-meals-core/tests/order-support.test.mjs",
       "sha256": "ffb2a8443c43def7490c66ed44ccde0e41ff107086a4e39211b253e12e35604e",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/paid-webhook.test.mjs",
+      "sha256": "e8941cf87e20f2fed3c92db2a33c475ddebe136c773f861b18f622419246bf86",
       "sanitized": false
     },
     {
@@ -1601,7 +1611,7 @@
     },
     {
       "path": "docs/FINAL-CLIENT-POLICY-IMPLEMENTATION-20261013.md",
-      "sha256": "c238176c193d91e79d6415d54ce42bc75e8c01a96bb680bb75401311d94024ed",
+      "sha256": "2522b342f3580795afeeff26dfdd2c7972515a6e617382b5ae6ba3b6c9aa905b",
       "sanitized": false
     },
     {
