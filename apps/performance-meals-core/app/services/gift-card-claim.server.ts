@@ -10,11 +10,11 @@ export type ClaimGateway = {
  credit:(customerGid:string,amountMinor:number)=>Promise<Receipt>;
 };
 
-// Internal orchestration only. No public financial route is enabled.
+// Authenticated claim orchestration; activation is controlled by merchant policy.
 export async function claimGiftCard(shop:string,customerGid:string,code:string,gateway:ClaimGateway){
  assertShop(shop);
  if(!/^gid:\/\/shopify\/Customer\/\d+$/.test(customerGid)||!/^[a-z0-9]{8,20}$/i.test(code))throw new Error('Invalid Gift Card claim');
- const policy=await db.commercePolicy.findUnique({where:{shop}});
+ const policy=await db.commercePolicy.findUnique({where:{shop},select:{giftCardClaimsEnabled:true}});
  if(!policy?.giftCardClaimsEnabled)throw new Error('Gift Card claims are not activated');
  const card=await gateway.resolve(code); // Never persist or log the code.
  if(!/^gid:\/\/shopify\/GiftCard\/\d+$/.test(card.id)||card.recipientGid!==customerGid||card.currency!=='SGD')throw new Error('Gift Card recipient or currency does not match');
@@ -22,7 +22,7 @@ export async function claimGiftCard(shop:string,customerGid:string,code:string,g
  const today=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Singapore',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
  let claim=await db.giftCardWalletClaim.findUnique({where:key});
  if(claim&&claim.customerGid!==customerGid)throw new Error('Gift Card claim conflict');
- if(claim?.state==='COMPLETED')return claim;
+ if(claim?.state==='COMPLETED')return {...claim,alreadyCompleted:true};
  if(!claim){
   if(!card.enabled||(card.expiresOn&&card.expiresOn<today)||!Number.isSafeInteger(card.amountMinor)||card.amountMinor<1||card.amountMinor>2147483647)throw new Error('Gift Card is unavailable');
   // Unique card key allows only one recipient claim, including concurrent requests.
@@ -59,5 +59,6 @@ export async function claimGiftCard(shop:string,customerGid:string,code:string,g
  }
  if(claim.state!=='AWAITING_LEDGER'||!claim.debitGid||!claim.creditGid)throw new Error('Gift Card transfer evidence is incomplete');
  const entry=await recordSettledWalletCredit({shop,customerGid,currency:claim.currency,sourceEvent:'gift-card-claim:'+claim.id,sourceKind:'gift_card_funded',amountMinor:claim.amountMinor,sourceGid:claim.giftCardGid,nativeSourceTransactionGid:claim.debitGid,nativeTransactionGid:claim.creditGid});
- return db.giftCardWalletClaim.update({where:{id:claim.id},data:{state:'COMPLETED',ledgerEntryId:entry.id}});
+ const completed=await db.giftCardWalletClaim.update({where:{id:claim.id},data:{state:'COMPLETED',ledgerEntryId:entry.id}});
+ return {...completed,alreadyCompleted:false};
 }

@@ -1,0 +1,44 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {randomUUID} from 'node:crypto';
+import {PrismaClient,buildServices} from './support/database.mjs';
+await buildServices({entryPoints:['app/services/rewards-redemption.server.ts','app/services/rewards-ledger.server.ts','app/services/wallet-ledger.server.ts'],outdir:'.shopify/rewards-redemption-test',bundle:true,packages:'external',format:'esm',platform:'node'});
+const {redeemRewards}=await import('../.shopify/rewards-redemption-test/rewards-redemption.server.js');
+const {configureRewards,earnVerifiedOrderRewards}=await import('../.shopify/rewards-redemption-test/rewards-ledger.server.js');
+const {readWalletLedger}=await import('../.shopify/rewards-redemption-test/wallet-ledger.server.js');
+const db=new PrismaClient(),shop=`reward-redemption-${randomUUID()}.myshopify.com`,customer='gid://shopify/Customer/810';
+process.env.ALLOWED_SHOP=shop;
+const rules={version:'client-20261013',merchantApproved:true,defaultPointsPerSgd:1,rules:[]};
+const input={shop,customerGid:customer,orderGid:'gid://shopify/Order/811',paidAt:new Date().toISOString(),lines:[{productGid:'gid://shopify/Product/812',stream:'meal_plan',netMinor:10000,funding:{direct_customer:10000,customer_funded:0,gift_card_funded:0,reward_funded:0,bonus:0},giftCard:false,walletTopUp:false}]};
+test.after(async()=>{for(const table of ['walletEntry','customerWallet','rewardRedemption','rewardsEntry','rewardsAccount','commercePolicy','rewardRuleVersion'])await db[table].deleteMany({where:{shop}});await db.$disconnect();});
+test('persistent configuration does not enable earning; native-verified input earns once without auto Wallet credit',async()=>{
+ await configureRewards(shop,rules);
+ await assert.rejects(configureRewards(shop,{...rules,defaultPointsPerSgd:2}),/immutable/);
+ await assert.rejects(earnVerifiedOrderRewards(input),/not activated/);
+ await db.commercePolicy.update({where:{shop},data:{walletEnabled:true,rewardsEnabled:true}});
+ await earnVerifiedOrderRewards(input);await earnVerifiedOrderRewards(input);
+ assert.equal((await db.rewardsAccount.findFirst({where:{shop}})).points,100);
+ assert.equal(await db.walletEntry.count({where:{shop}}),0);
+});
+test('redemption deducts points once and credits native-backed Wallet with Reward attribution',async()=>{
+ let credits=0;
+ const gateway={credit:async(owner,amount)=>{credits++;return {id:'gid://shopify/StoreCreditAccountCreditTransaction/813',ownerGid:owner,currency:'SGD',amountMinor:amount};}};
+ const first=await redeemRewards(shop,customer,'test-redemption-0001',50,gateway);
+ assert.equal(first.state,'COMPLETED');
+ assert.equal((await redeemRewards(shop,customer,'test-redemption-0001',50,gateway)).id,first.id);
+ assert.equal(credits,1);
+ assert.equal((await db.rewardsAccount.findFirst({where:{shop}})).points,50);
+ const ledger=await readWalletLedger(shop,customer,'SGD');
+ assert.equal(ledger.sources[0].sourceKind,'reward_funded');assert.equal(ledger.sources[0].fundedDelta,500);
+ assert.equal(ledger.balanceMatchesLedger,true);
+ await assert.rejects(redeemRewards(shop,customer,'test-redemption-0001',60,gateway),/conflict/);
+ await assert.rejects(redeemRewards(shop,customer,'test-redemption-0002',60,gateway),/Insufficient/);
+});
+test('lost credit response holds points and never repeats an uncertain financial mutation',async()=>{
+ let calls=0;const gateway={credit:async()=>{calls++;throw Error('lost response');}};
+ await assert.rejects(redeemRewards(shop,customer,'test-redemption-0003',10,gateway),/reconciliation/);
+ await assert.rejects(redeemRewards(shop,customer,'test-redemption-0003',10,gateway),/reconciliation/);
+ assert.equal(calls,1);
+ assert.equal((await db.rewardsAccount.findFirst({where:{shop}})).points,40);
+ assert.equal((await db.rewardRedemption.findFirst({where:{shop,requestKey:'test-redemption-0003'}})).state,'RECONCILIATION_REQUIRED');
+});

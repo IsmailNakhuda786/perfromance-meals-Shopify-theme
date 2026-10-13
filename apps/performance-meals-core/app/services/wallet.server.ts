@@ -28,14 +28,14 @@ export async function releaseWalletReservation(shop:string,id:string){
  });
 }
 
-export type WalletCreditSource='customer_funded'|'gift_card_funded'|'bonus';
+export type WalletCreditSource='customer_funded'|'gift_card_funded'|'reward_funded'|'bonus';
 // Internal settlement hook only. Gift Card value may be credited only after both
 // the native Gift Card debit and native store-credit settlement are reconciled.
 // This function is deliberately not exposed as a browser top-up endpoint.
 export async function recordSettledWalletCredit(input:{shop:string;customerGid:string;currency:string;sourceEvent:string;sourceKind:WalletCreditSource;amountMinor:number;sourceGid:string;nativeTransactionGid:string;nativeSourceTransactionGid?:string}){
  const {shop,customerGid,currency,sourceEvent,sourceKind,amountMinor,sourceGid,nativeTransactionGid,nativeSourceTransactionGid}=input;
  money(amountMinor);
- if(!amountMinor||!shop||!/^gid:\/\/shopify\/Customer\/\d+$/.test(customerGid)||!/^[A-Z]{3}$/.test(currency)||!sourceEvent||!sourceGid||!nativeTransactionGid||!['customer_funded','gift_card_funded','bonus'].includes(sourceKind)||(sourceKind==='gift_card_funded'&&!nativeSourceTransactionGid))throw Error('Invalid settled wallet credit');
+ if(!amountMinor||!shop||!/^gid:\/\/shopify\/Customer\/\d+$/.test(customerGid)||!/^[A-Z]{3}$/.test(currency)||!sourceEvent||!sourceGid||!nativeTransactionGid||!['customer_funded','gift_card_funded','reward_funded','bonus'].includes(sourceKind)||(sourceKind==='gift_card_funded'&&!nativeSourceTransactionGid))throw Error('Invalid settled wallet credit');
  return db.$transaction(async tx=>{
   const existing=await tx.walletEntry.findUnique({where:{shop_sourceEvent:{shop,sourceEvent}}});
   const fundedDelta=sourceKind==='bonus'?0:amountMinor,bonusDelta=sourceKind==='bonus'?amountMinor:0;

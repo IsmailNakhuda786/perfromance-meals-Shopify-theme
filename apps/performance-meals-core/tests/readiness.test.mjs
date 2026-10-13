@@ -1,8 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {build} from 'esbuild';
-import {PrismaClient} from '@prisma/client';
-await build({entryPoints:{'wallet-policy':'app/services/wallet-policy.ts','wallet.server':'app/services/wallet.server.ts','runtime-config.server':'app/services/runtime-config.server.ts','health':'app/routes/health.tsx'},outdir:'.shopify/readiness-test',bundle:true,packages:'external',format:'esm',platform:'node'});
+import {PrismaClient,buildServices} from './support/database.mjs';
+await buildServices({entryPoints:{'wallet-policy':'app/services/wallet-policy.ts','wallet.server':'app/services/wallet.server.ts','runtime-config.server':'app/services/runtime-config.server.ts','health':'app/routes/health.tsx'},outdir:'.shopify/readiness-test',bundle:true,packages:'external',format:'esm',platform:'node'});
 const {allocateWallet,bonusEligible}=await import('../.shopify/readiness-test/wallet-policy.js');
 const {reserveWallet,releaseWalletReservation,recordSettledWalletCredit}=await import('../.shopify/readiness-test/wallet.server.js');
 const {productionConfigIssues}=await import('../.shopify/readiness-test/runtime-config.server.js');

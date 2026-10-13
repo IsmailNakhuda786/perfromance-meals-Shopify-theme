@@ -20,6 +20,7 @@ test('claim defaults closed, then credits only the recipient after both native r
  source.amountMinor=0;
  const second=await claimGiftCard(shop,customerGid,code,wrapped);
  assert.equal(first.id,second.id);assert.equal(first.state,'COMPLETED');assert.equal(debits,1);assert.equal(credits,1);
+ assert.equal(first.alreadyCompleted,false);assert.equal(second.alreadyCompleted,true);
  const entry=await db.walletEntry.findUnique({where:{id:first.ledgerEntryId}});
  assert.equal(entry.sourceKind,'gift_card_funded');assert.equal(entry.fundedDelta,1000);assert.equal(entry.bonusDelta,0);
  assert.equal(JSON.stringify(first).includes(code),false);

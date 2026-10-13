@@ -4,16 +4,22 @@ import {minorAmount} from './gift-card-native.server';
 import {allocateFundedFifo} from './wallet-fifo';
 export const NATIVE_DEBITS_QUERY="query NativeWalletDebits($id:ID!) { shop { myshopifyDomain } customer(id:$id) { id storeCreditAccounts(first:50) { nodes { transactions(first:50,query:\"type:debit\") { nodes { ... on StoreCreditAccountDebitTransaction { id createdAt amount { amount currencyCode } event origin { ... on OrderTransaction { status kind gateway amountSet { shopMoney { amount currencyCode } } order { id currencyCode customer { id } } } } } } pageInfo { hasNextPage } } } pageInfo { hasNextPage } } } }";
 type Admin={graphql:(query:string,options:{variables:Record<string,unknown>})=>Promise<Response>};
-type Debit={id:string;createdAt:string;event:string;amount:{amount:string;currencyCode:string};origin:null|{status:string;kind:string;gateway:string;amountSet:{shopMoney:{amount:string;currencyCode:string}};order:{id:string;currencyCode:string;customer:{id:string}|null}}};
+type Debit={id:string;createdAt:string;event:string;amount:{amount:string;currencyCode:string};origin:null|{id?:string;status:string;kind:string;gateway:string;amountSet:{shopMoney:{amount:string;currencyCode:string}};order:{id:string;currencyCode:string;customer:{id:string}|null}}};
 export async function recordNativeWalletDebit(shop:string,customerGid:string,debit:Debit){
  assertShop(shop);
  const origin=debit.origin,currency=debit.amount.currencyCode;
  if(!/^gid:\/\/shopify\/Customer\/\d+$/.test(customerGid)||!/^gid:\/\/shopify\/StoreCreditAccountDebitTransaction\/\d+$/.test(debit.id)||debit.event!=='ORDER_PAYMENT'||!debit.amount.amount.startsWith('-')||!origin||origin.status!=='SUCCESS'||!['SALE','CAPTURE'].includes(origin.kind)||origin.gateway!=='shopify_store_credit'||origin.order.customer?.id!==customerGid||!/^gid:\/\/shopify\/Order\/\d+$/.test(origin.order.id)||origin.order.currencyCode!==currency||origin.amountSet.shopMoney.currencyCode!==currency)throw new Error('Native Wallet debit evidence invalid');
  const amount=minorAmount(debit.amount.amount.slice(1));
+ if(origin.id&&!/^gid:\/\/shopify\/OrderTransaction\/\d+$/.test(origin.id))throw Error('Native Wallet payment reference invalid');
  if(!amount||minorAmount(origin.amountSet.shopMoney.amount)!==amount)throw new Error('Native Wallet debit amounts differ');
  return db.$transaction(async tx=>{
   const existing=await tx.walletEntry.findUnique({where:{shop_nativeTransactionGid:{shop,nativeTransactionGid:debit.id}}});
-  if(existing){if(existing.customerGid!==customerGid||existing.currency!==currency||existing.sourceGid!==origin.order.id||existing.fundedDelta!==-amount||existing.bonusDelta!==0)throw new Error('Wallet debit conflict');return existing;}
+  if(existing){
+   if(existing.customerGid!==customerGid||existing.currency!==currency||existing.sourceGid!==origin.order.id||existing.fundedDelta!==-amount||existing.bonusDelta!==0||(origin.id&&existing.nativeSourceTransactionGid&&existing.nativeSourceTransactionGid!==origin.id))throw new Error('Wallet debit conflict');
+   // Fresh native evidence can enrich a historical receipt without changing money.
+   if(origin.id&&!existing.nativeSourceTransactionGid)return tx.walletEntry.update({where:{id:existing.id},data:{nativeSourceTransactionGid:origin.id}});
+   return existing;
+  }
   const where={shop,customerGid,currency};
   const wallet=await tx.customerWallet.findUniqueOrThrow({where:{shop_customerGid_currency:where}});
   const entries=await tx.walletEntry.findMany({where,orderBy:[{createdAt:'asc'},{id:'asc'}],select:{id:true,sourceKind:true,fundedDelta:true,fundedAllocations:true}});
@@ -23,7 +29,7 @@ export async function recordNativeWalletDebit(shop:string,customerGid:string,deb
   const sourceKind=kinds.size===1?allocations[0].sourceKind:'funded_spend';
   const changed=await tx.customerWallet.updateMany({where:{id:wallet.id,revision:wallet.revision},data:{fundedBalance:{decrement:amount},revision:{increment:1}}});
   if(changed.count!==1)throw new Error('Wallet changed; retry reconciliation');
-  return tx.walletEntry.create({data:{...where,sourceEvent:'native-wallet-debit:'+debit.id,sourceGid:origin.order.id,sourceKind,fundedAllocations:JSON.stringify(allocations),nativeTransactionGid:debit.id,fundedDelta:-amount,bonusDelta:0}});
+  return tx.walletEntry.create({data:{...where,sourceEvent:'native-wallet-debit:'+debit.id,sourceGid:origin.order.id,sourceKind,fundedAllocations:JSON.stringify(allocations),nativeTransactionGid:debit.id,nativeSourceTransactionGid:origin.id,fundedDelta:-amount,bonusDelta:0}});
  });
 }
 export async function reconcileNativeWalletDebits(admin:Admin,shop:string,customerGid:string){

@@ -1,0 +1,32 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {randomUUID} from 'node:crypto';
+import {PrismaClient,buildServices} from './support/database.mjs';
+await buildServices({entryPoints:['app/services/rewards-ledger.server.ts'],outdir:'.shopify/rewards-ledger-test',bundle:true,packages:'external',format:'esm',platform:'node'});
+const {recordVerifiedRewardEvent,readRewardsLedger}=await import('../.shopify/rewards-ledger-test/rewards-ledger.server.js');
+const db=new PrismaClient(),shop=`rewards-${randomUUID()}.myshopify.com`,customer='gid://shopify/Customer/971',order='gid://shopify/Order/972';
+process.env.ALLOWED_SHOP=shop;
+const input={shop,customerGid:customer,sourceEvent:'rewards-earned:'+order,orderGid:order,rulesVersion:'isolated-fixture-only',kind:'earned',pointsDelta:30};
+test.after(async()=>{await db.rewardsEntry.deleteMany({where:{shop}});await db.rewardsAccount.deleteMany({where:{shop}});await db.commercePolicy.deleteMany({where:{shop}});await db.$disconnect();});
+test('no invented production points; earning requires explicitly activated approved rules',async()=>{
+ assert.equal((await readRewardsLedger(shop,customer)).points,0);
+ await assert.rejects(recordVerifiedRewardEvent(input),/not activated/);
+ await db.commercePolicy.create({data:{shop,rewardsEnabled:true,rewardsRules:JSON.stringify({version:input.rulesVersion,merchantApproved:false})}});
+ await assert.rejects(recordVerifiedRewardEvent(input),/approval/);
+ await db.commercePolicy.update({where:{shop},data:{rewardsRules:JSON.stringify({version:input.rulesVersion,merchantApproved:true})}});
+ const first=await recordVerifiedRewardEvent(input);
+ assert.equal((await recordVerifiedRewardEvent(input)).id,first.id);
+ assert.equal((await readRewardsLedger(shop,customer)).points,30);
+ await assert.rejects(recordVerifiedRewardEvent({...input,pointsDelta:40}),/conflict/);
+ await assert.rejects(recordVerifiedRewardEvent({...input,sourceEvent:'another-earn'}));
+});
+test('reversal is bounded by original order earning and idempotent; customers cannot see each others history',async()=>{
+ const reverse={...input,kind:'reversed',sourceEvent:'fixture-reversal',pointsDelta:-10};
+ await recordVerifiedRewardEvent(reverse);await recordVerifiedRewardEvent(reverse);
+ const ledger=await readRewardsLedger(shop,customer);
+ assert.equal(ledger.points,20);assert.equal(ledger.lifetimeEarned,30);assert.equal(ledger.balanceMatchesLedger,true);
+ await assert.rejects(recordVerifiedRewardEvent({...reverse,sourceEvent:'excess-reversal',pointsDelta:-21}),/exceeds/);
+ await assert.rejects(recordVerifiedRewardEvent({...reverse,orderGid:'gid://shopify/Order/999',sourceEvent:'wrong-order'}),/exceeds/);
+ assert.equal((await readRewardsLedger(shop,'gid://shopify/Customer/999')).history.length,0);
+ assert.equal(await db.walletEntry.count({where:{shop}}),0);
+});

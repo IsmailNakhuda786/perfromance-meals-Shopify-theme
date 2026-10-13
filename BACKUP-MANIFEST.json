@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "2cbb5fd1523f898baa8dc2e67f10602fb130ef6a",
+  "source_commit": "54e7535bb99ee3637f2ab16f8422d86d4d84971d",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -186,12 +186,27 @@
     },
     {
       "path": "apps/performance-meals-core/app/routes/api.account.tsx",
-      "sha256": "561cda75ff9a25968c31a95c43e7c971543d94b1fa075be5184c78e4502616fa",
+      "sha256": "b4ddf4907a191c8dfca61f5d3ffef543caffd207a43a1bfc6df59b41bba060ce",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/routes/api.gift-card-claim.tsx",
-      "sha256": "40d237aa1de2b52aa16ca8c0014c04e00f809bfb6e7b2a45b3f156017da7ca17",
+      "sha256": "5d2e87b87794629743563be713f1cd3b1413ebd461cb6e659dcd3dd056e36dd0",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/routes/api.order-cancel.tsx",
+      "sha256": "ec8c7d188db17ba23c86a81fff0986b3b7e8609ab270b4039b1a7c2755c85ff5",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/routes/api.order-support.tsx",
+      "sha256": "fee01f0202819fd3aa20530c9097324469f70ce069f8e26e459e3a95404b1271",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/routes/api.rewards-redeem.tsx",
+      "sha256": "8f7910d9ee06eae416c96729097db17a60597af72c7967307172eec54bf57ab4",
       "sanitized": false
     },
     {
@@ -241,7 +256,12 @@
     },
     {
       "path": "apps/performance-meals-core/app/routes/webhooks.privacy.tsx",
-      "sha256": "de7434d560d93fda0e458cb24d79277db1d4ea5c8718f13f48ab1f3210273318",
+      "sha256": "cb6749fd33de5eed9c6fb0b5cee3e181f0b51b64852b4faec9e570b91c3c0188",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/account-cancellations.server.ts",
+      "sha256": "24346a336f746ddf8d57252ed886842f4b929c7b8020e9763d44b2a182da33f1",
       "sanitized": false
     },
     {
@@ -256,7 +276,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/gift-card-claim.server.ts",
-      "sha256": "3450bc61b80613ee8aee5cb3f719170a5d10bf2d2632b0abebe1dc4ef634af33",
+      "sha256": "e1bc0ca7381348b7e3be3ecf36d735c8c75043ff327a00a3672c62caecfcb688",
       "sanitized": false
     },
     {
@@ -276,7 +296,17 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/native-wallet-debits.server.ts",
-      "sha256": "66ad6c529dd96753ebf87cdbe9e961462d28e6edeed740f71122dce870c9eded",
+      "sha256": "4b0670ad6f6ebb7c9c6f344e2e45034e03714b7b6f414a8997976cc34753e438",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/native-wallet-history.server.ts",
+      "sha256": "8350fb9adc2a50fb8d8d5d031a68fb686633af9cbb20f3d6c7e3bee39eb2a497",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/native-wallet-returns.server.ts",
+      "sha256": "7997153115ac83aab31258da0d8ede709807356bb89e2390ebcfc7a3b23327ca",
       "sanitized": false
     },
     {
@@ -285,8 +315,23 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/app/services/order-cancellation-native.server.ts",
+      "sha256": "18080bdd1b56ce39f62a38cf55e163dd6fc8e44fdd308f10045d4bfe81066009",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/app/services/order-cancellation-policy.ts",
-      "sha256": "fe3582c1e811d3e7ba1c42faf23993b75ec7d10d2f0afaa4bcf46176bc1e1c99",
+      "sha256": "bb3760369ab3ee2bc2c3275ee25281addbec58bb9efdfb40a4d0b45b00fdda87",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/order-cancellation.server.ts",
+      "sha256": "db863de5d93fa2b28fd6fac33147ca33dad7baa938e46d3f1b7aadce06a74167",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/order-support.server.ts",
+      "sha256": "99071b60c02d957a84f3734d378433de137b99c309bbbd14cabf91610c741ea2",
       "sanitized": false
     },
     {
@@ -320,6 +365,21 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/app/services/rewards-ledger.server.ts",
+      "sha256": "87bec3c234693dee260fd9fc1101c6c82f25c0f4a88cffeada568ac2d640608b",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/rewards-policy.ts",
+      "sha256": "245e0bf861815a75bc0ee83aa52ef2347e0f08ef32b33faffdd25b069b999ea4",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/rewards-redemption.server.ts",
+      "sha256": "eb736d2a73f2cd14322161542f183f8d55c7dfb75bbce77fd2085fa7f6e79a4e",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/app/services/runtime-config.server.ts",
       "sha256": "712a2770cd789bc756aba4376f21ac1a932f97abe2a3f948b4b5a6d44a507063",
       "sanitized": false
@@ -336,12 +396,12 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/wallet-fifo.ts",
-      "sha256": "8e0ded66c23bc244a26b7d2c406f72d53018150b663c1729fddd6c61ad9e05da",
+      "sha256": "5cb319e805f71ae732a1f77dc343dc0576b57e234abfdfd803fe67b5623a02e5",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/services/wallet-ledger.server.ts",
-      "sha256": "7a88ab76fa0839383d12db8b4a987e5eaa51d24bd6f8e098ff90af9fcc0beaaf",
+      "sha256": "a7d12febaf8a18daf1160922e1a727f9f0478a68ab8b9c41c09807822ab613df",
       "sanitized": false
     },
     {
@@ -355,23 +415,38 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/app/services/wallet-top-up-checkout.server.ts",
+      "sha256": "7d6c6ccbf2fe48715b88e2bd88aa0aa70543681b3086c6663767e3cc6bd98106",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/wallet-top-up-draft-native.server.ts",
+      "sha256": "a070b08d08b8b961f8fa2e09dd49598f923950fe3d9159640d31186aac02c3cf",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/wallet-top-up-intent.server.ts",
+      "sha256": "20bcf754414b27a02c2342ce844c65787e60b1d8901ba7a432b394c28f92dec7",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/app/services/wallet-top-up-lifecycle.ts",
       "sha256": "1b72b5403159138d04775824782c20175930ed9c054a95a4516d70817464fd5d",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/services/wallet-top-up-native.server.ts",
-      "sha256": "82a059871d0251e9a069e58175623e94b6ba36b1da4274179f63ff9486612c6d",
+      "sha256": "329c44aac7b7ca3ffd1af32359c487863ad2f77ffcf731bc9b98a41cc8b4150a",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/services/wallet-top-up-policy.ts",
-      "sha256": "14eb3f3df66c41f0a87cf9dba2ec99a4d6690abd6f4c5462c3fecb8bd2ed816d",
+      "sha256": "50f26437be13ed0c41fc9a2bd2271492a7ec4c4dd45cc5fad5ea5866e03504fb",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/services/wallet-top-up-reconciliation.server.ts",
-      "sha256": "d9dc0b033efd34ab2b753804233ebc0cb6b97118113edc695275c66afcf81eab",
+      "sha256": "db23ea9559f22c58fd015d605842ffe97cbbf96f35e12c5673d72565a8ef5b05",
       "sanitized": false
     },
     {
@@ -381,7 +456,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/wallet.server.ts",
-      "sha256": "34cf89e22794d634a6300a94bf38039a9ace265c516b9c64218781e2e4cfd7bc",
+      "sha256": "3d8fda7ad2d5ba1047480ffcc2398d7a0d9105a0d6f4dfbd380a0b869d516995",
       "sanitized": false
     },
     {
@@ -421,7 +496,7 @@
     },
     {
       "path": "apps/performance-meals-core/extensions/performance-meals-account/src/OrderStatusBlock.jsx",
-      "sha256": "241b08ff10766a7ffed719e296af9abee884a33a348ef7a403f496111a75ce75",
+      "sha256": "de33190aa0a326e87257213eda8a898bd830937eb45dc15cc625e2551fc83824",
       "sanitized": false
     },
     {
@@ -500,6 +575,36 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/prisma/migrations/20261012210000_order_cancellation/migration.sql",
+      "sha256": "6bc51e37e4ce06249c9010197ac06b2bce5500990aa069d89d34891c63607a54",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/prisma/migrations/20261012220000_rewards_ledger/migration.sql",
+      "sha256": "dc92e867932700b64ad4dd4fee439695c74ff777a55ee3ff7455b36fa74fd6a5",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/prisma/migrations/20261013070000_wallet_top_up_intents/migration.sql",
+      "sha256": "330efbaa9495501e05c45cb05871bf37521c32ff26261a37a973ea05c76bfe37",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/prisma/migrations/20261013110000_reward_redemptions/migration.sql",
+      "sha256": "cb5dfb26ce814775bad3fbc869655f25e73380a3c5c880c0241701ea7bbb163b",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/prisma/migrations/20261013120000_order_support_requests/migration.sql",
+      "sha256": "a5900ace537b0e6a8e490c02a3d2080fac9da62f0a31a3b736c1b71f1a9aeb2a",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/prisma/migrations/20261013130000_reward_rule_versions/migration.sql",
+      "sha256": "3742e777b88d40ccade34a8ae868d5d026a747ed93a3c7b6fad2b38254cf4f11",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/prisma/migrations/migration_lock.toml",
       "sha256": "3389dbaf2a3cf4b413275867ac6f550b27f79efe85ee9c12082cdd8c5b8239c4",
       "sanitized": false
@@ -545,18 +650,48 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/prisma/production/migrations/20261012210000_order_cancellation/migration.sql",
+      "sha256": "472f93e3407ab5aaa377156186dfa2d5dc438bd91b501e9db177beeaad8bb862",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/prisma/production/migrations/20261012220000_rewards_ledger/migration.sql",
+      "sha256": "f955147ce11d437dc8d3a7c2a56dc235c0173a2a7465bb1cd73730dc3d115128",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/prisma/production/migrations/20261013070000_wallet_top_up_intents/migration.sql",
+      "sha256": "934c7ee67cc255d1e9e0bcef0e38f63f5c3d9777688cc6ab6e19ab709f566fb4",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/prisma/production/migrations/20261013110000_reward_redemptions/migration.sql",
+      "sha256": "7227ab83380aeb9bd64231fd08d61c78d626e7f266e14a2f4edb9d9a361f07db",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/prisma/production/migrations/20261013120000_order_support_requests/migration.sql",
+      "sha256": "f9668c49321cadf32f6491f6d568273f714ffb2a02ead8c7652cf0a724fbb486",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/prisma/production/migrations/20261013130000_reward_rule_versions/migration.sql",
+      "sha256": "6896356b64d312204c008333d035bf7736e1a427f3e042ca32cfa1666e0389cb",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/prisma/production/migrations/migration_lock.toml",
       "sha256": "1db17a8d051aa136110736752c5e1f8b7ed92b6ea8e803112fbbe2497047c210",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/prisma/production/schema.prisma",
-      "sha256": "e90f7943a134ce035b486a9db08d4121361f6ad7150ed03e766a8cda344073aa",
+      "sha256": "0e5efe467229dcdf292ade538ca2522f036318af51205d88ab7d21d2f19d4ba3",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/prisma/schema.prisma",
-      "sha256": "baa416ac395c4684f8c053aef4ff9224c6cc114b8a2ce2008847bc4f2138ae28",
+      "sha256": "01d1178bf3f96efa6bfa1dcf963d25e454882879f55257771e00627f86df2c00",
       "sanitized": false
     },
     {
@@ -601,7 +736,7 @@
     },
     {
       "path": "apps/performance-meals-core/shopify.app.toml",
-      "sha256": "92d7b75c67c50430db1be4e5ef93123ebc8c96a5cc57278e1edc286b5b984913",
+      "sha256": "d081c31282f5c5729a2ecffc8816efb1323c9dcef3aae87a7aaf3e2876f6f457",
       "sanitized": false
     },
     {
@@ -626,7 +761,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/gift-card-claim.test.mjs",
-      "sha256": "c1a4fb6e7dd3de3c66dc6fbb3f5cb63418191e5958e2ce47acd5eb44f11097dc",
+      "sha256": "dae059bb5a1347bdea6a7a144f3b6f9fcb1604ebfae60c930fee542071913fbf",
       "sanitized": false
     },
     {
@@ -640,13 +775,38 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/tests/native-wallet-history.test.mjs",
+      "sha256": "08efbf474eb95602e6a707cb7fd8323168932b9ce7bf2caf95b9e0e24eddf921",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/native-wallet-returns.test.mjs",
+      "sha256": "64c5a45a6242df647abf6923d33a0faa1f287ecdd52cf199226f19fd27389b6f",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/tests/native-wallet.test.mjs",
       "sha256": "6ae7e3357286ddf0180509542ddc53c43515483357a68e7bc77ed30d111d64d2",
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/tests/order-cancellation-native.test.mjs",
+      "sha256": "df0fae87fb01d76f033eb36f8d9dae8666d39e110fb39696c25cac3a61affca5",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/tests/order-cancellation-policy.test.mjs",
-      "sha256": "85792e4d2360a7baf4e1e374dca446194f6a2012591081f2b11cafe4118bbd05",
+      "sha256": "7a45dff7bdc9f1ceb7acca46d6ac9ed8b0ab351eacfedcec8b16fa815ed12ddc",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/order-cancellation.test.mjs",
+      "sha256": "d842bb50c09080eb8c42c96fa19d9deb1ef628e29dd44e1f0c1278425b7392ec",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/order-support.test.mjs",
+      "sha256": "73df8436c9d31ce06578e065354b64adb1f82a08dcab3ccc2c123e01a9b2c79d",
       "sanitized": false
     },
     {
@@ -671,12 +831,27 @@
     },
     {
       "path": "apps/performance-meals-core/tests/readiness.test.mjs",
-      "sha256": "78bf5b325ab0fe54d61fa2125eff2749a310cec692015cf812d99747be476ecf",
+      "sha256": "1638f859a9c5817685a6dad39c8c784eb6c6d3045bce1b5cd3be68ba217a51f1",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/rewards-ledger.test.mjs",
+      "sha256": "73eb007acfb3fa20b94291c37dfc8ac30318370d3c5c057e3f427b1e5742781a",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/rewards-policy.test.mjs",
+      "sha256": "15633317fa513a172637f13e8e8bc1ac8c596c38a2a5beeaccb20c4615dfd0a3",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/rewards-redemption.test.mjs",
+      "sha256": "b7b12dbe26307bbd35a2deae892043c82fcc3994d68c8ad99a57c6e2369b425b",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/tests/support/database.mjs",
-      "sha256": "7434c32325d2e2c466167460f8220f4256d8d2b44f391d9824fdf92ef73afbf7",
+      "sha256": "c9727aa4819c25eb3f214c9787e5416f7ebeffa37903d46bba13983999674b19",
       "sanitized": false
     },
     {
@@ -695,28 +870,43 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/tests/wallet-top-up-checkout.test.mjs",
+      "sha256": "40eb68bb8ffd914e2ea2b3d6d025d85ed8e1e3f4197f9ee679a7242be12bbeae",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/wallet-top-up-draft-native.test.mjs",
+      "sha256": "71ec34c47105860b5860859517b36ad08906575aa3c24a96b39f5c8536f37ee5",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/wallet-top-up-intent.test.mjs",
+      "sha256": "24d509f258229362c721684cf04e6895486502454409d567f4fc0335e05ee864",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/tests/wallet-top-up-lifecycle.test.mjs",
       "sha256": "5e215038a06b20505926d530ca3750a1b759aa2bb88d2caae898ed6c1c421649",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/tests/wallet-top-up-native.test.mjs",
-      "sha256": "b64c7292ac0f175c8c3ea99182acedf41697e3749c1184f35235f14774540220",
+      "sha256": "b4f5afad2f2ab53c1b4819c0eae85347b3b6f48ce055c2c7334b9cf1d54090fc",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/tests/wallet-top-up-policy.test.mjs",
-      "sha256": "37762d8abdc5fcc0e2ac58dea409830b80d2a3449ef5adc6b1be25a667c91e1c",
+      "sha256": "4fc17036f259d2d73f05d3678ee24915bb6a3afb2edf4bc7020c2a0227c68904",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/tests/wallet-top-up-reconciliation.test.mjs",
-      "sha256": "4b11c0228c7e0c92cd898b085db8d361880c393130ced460db0fdc098550fb40",
+      "sha256": "56371289aa7bf93fc922f3fc50f0dc5bfe86f518c4e24a9ba2ca474a2024cf45",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/tests/wallet-top-up-settlement.test.mjs",
-      "sha256": "5e301fbe56c6a34098846e1f1cb5243456546a0eaaaac90c5041227908536433",
+      "sha256": "d280b061a427c5f60f5afea96138591c3c0850ac2713d6f7bc0b2b73f7dd8dd9",
       "sanitized": false
     },
     {
@@ -737,6 +927,596 @@
     {
       "path": "artifacts/Performance-Meals-Complete-Prototype-Screens.pdf",
       "sha256": "611990d770937ad4a7431a47934fff775f15b48ffe6ff8db04909b987d46451a",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/account-review/source-reference/vite.config.ts",
+      "sha256": "47df42dadb4067eabc0bc34da0627d7569fab7c2feb50a2422b842f9aea1b6b5",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/build-chrome.py",
+      "sha256": "dc063978b3e50c4c1c6b75dbd827fff3d2b3de87fdc7d1ad551167d17d847805",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/build-home.py",
+      "sha256": "4406b73bc69693a5afcae214cfbc97e5921ca28351e09688bdcbc20e66aa9cca",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/catalog-check.mjs",
+      "sha256": "0b0f1052934e8ab55cb23518b4aac79d776a72924e9a85ac443fd0560a1538a4",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/catalogue-completion/audit.graphql",
+      "sha256": "da5e33f7f6b8f73537510264a3b4ce00b5a70c1329178c2b400fcfdbcead722d",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/catalogue-completion/operation.graphql",
+      "sha256": "92baf8e3553e923aadbcdb852fae4b9283f61d8d53d18979275ee59cef3c9bee",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/catalogue-completion/operations.graphql",
+      "sha256": "a243b15967c74f7c51d10fa0cdc84c1627093d76e286d4e76d140e9bbb1840f4",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/audit.graphql",
+      "sha256": "75ca291123ae22fb5acf069e4f27630703d001f1f317a3aea5407c4990ea2ada",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/configured-theme/assets/catalog-purchase.js",
+      "sha256": "765f53ed67bd6f7ecd68fc5ea8723b23d11d6fcf6bddc1b48845b67223314f25",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/configured-theme/assets/catalog.js",
+      "sha256": "e4837ebf88376ec1302ed13785cc1aa74f3a028af8fbe5e55cc7763922e480d6",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/configured-theme/assets/gift-card.js",
+      "sha256": "7dfd4ec070d02a4df8f49dadd0056f1c91d2a4d191c678e734ee2ecbdd173dd5",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/configured-theme/assets/home.js",
+      "sha256": "15baa14a3828ed340d1534e4372d562a229019bc836eb90535158ddc207b0499",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/configured-theme/assets/meal-plan.js",
+      "sha256": "2f37ac1dbffd95431534d3a1961badd5dc0056893c43bbdbc9859c8ebe1acdc0",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/configured-theme/assets/support.js",
+      "sha256": "cd647341daac460f765756b053ebe3a00d07897f6f8f50187384f51323fcf848",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/configured-theme/assets/theme.js",
+      "sha256": "ca13d161474c9a2df091a03c047b20ba3c0990add8443ecc80b870659511d82a",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/connect.mjs",
+      "sha256": "d1776014bb16091d2238f2d7e95448421d4ffeb5d1e66a7d2e1213b3004ad8d4",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/environment.graphql",
+      "sha256": "a5fa59240673ecebed344f1c88d2a2bd3c4b874e95cb09346ea98e4352eec8d0",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/gift-availability.graphql",
+      "sha256": "cf7c08d146a5583f3235b45a3799781e390354e064b3d7fcce78489f5ff5d079",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/gift-readback.graphql",
+      "sha256": "ef79fe5364f9aa1302242953420128cb5e459cda75c5e1112e0baf1cb3e079e4",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/media-readback.graphql",
+      "sha256": "bdd342bccc833b071314a330cc4bce656a259fafc9fe8d1fce6ab8a370e01bc6",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/media.graphql",
+      "sha256": "e995cfef313875fe2a68c4171b79bf6621cd445c10e28d018ba7225f35f4fbfe",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/media.mjs",
+      "sha256": "b2229b25f8c89f129c8152d0ef3dcd87d71cac2d30388047ee2d9386ab0eaa0c",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/operation.graphql",
+      "sha256": "e995cfef313875fe2a68c4171b79bf6621cd445c10e28d018ba7225f35f4fbfe",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/order-stream-read.graphql",
+      "sha256": "3dc6ae092474886cfe5b0cf351866061e2a49684b4a9019f6ba79fac2528e23e",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/readback.graphql",
+      "sha256": "ec692650b224912c1d07591c42f37f0dbf995a4ad1028ee94f347da4a9ba025c",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/seed.mjs",
+      "sha256": "7330b8844fa6b64cd4fa54613e0308ab823391d835f1ad8ba4768a69a3317359",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/setup.graphql",
+      "sha256": "1a65d391f1b1e0c0afe9efeb4bb715835037f2fa8f8d2d3c45697e803e672744",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/sgd-read.graphql",
+      "sha256": "e2dce23056a4887c7d06cd2e62d3afc44eb6279f8a9d6012bfd3427ac326aa72",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/test-order-read.graphql",
+      "sha256": "2aeeba933e71c10114f9660524e32a95f56e458056211505489714c790fcfa72",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/collection.graphql",
+      "sha256": "f181058f8fb5758a2c5085500984f71bfdeef3f644fd0429395da623a3015e03",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/compiled/catalog.server.js",
+      "sha256": "2c287758192f5b796054946b8e1b5a457dd0ed9aebb67a3ce45a9a2b9238c7de",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/compiled/menu-validation.js",
+      "sha256": "a22469b5476f59dc1f48dba7271d267edd5d9b4aad82390799956e36287dd93a",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/core-catalog.graphql",
+      "sha256": "7caceb1fa261aa27c00e91109035cdc9e9a71f6aaf1a81e2dc1ff8c61402f3e0",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/definition.graphql",
+      "sha256": "353364785e22c2f45e860d3c0a7019472e19831ea6a7345e0ac0391ce546a883",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/deploy/assets/catalog-purchase.js",
+      "sha256": "8807ca567342aac7a2a26fbc5432f94e6748e0f1a292821cf16d4f20f24072db",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/deploy/assets/catalog.js",
+      "sha256": "b1ac9eaa681dccfe5edf9cb3d6c5e43b21122513ec9b93b61f41b3ca7bc7d501",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/deploy/assets/gift-card.js",
+      "sha256": "2e86249af5cb0f800aaaba14c2e3037fc96bd19666732b4e67c12a55962d1d02",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/deploy/assets/home.js",
+      "sha256": "15baa14a3828ed340d1534e4372d562a229019bc836eb90535158ddc207b0499",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/deploy/assets/meal-plan.js",
+      "sha256": "869c3b565d65ec298b34cc3538fb48792c9079e8b544628e39cc99f302a61a8f",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/deploy/assets/support.js",
+      "sha256": "cd647341daac460f765756b053ebe3a00d07897f6f8f50187384f51323fcf848",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/deploy/assets/theme.js",
+      "sha256": "693a2c335d80880f9f0f1f44fd11baa889cadaddb7755cf6d3ebbdc745581fcb",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/gift.graphql",
+      "sha256": "2efdf0a965a40af7f28a278fd081a7f06823f3abbdee2cb8a8bed78eb241f5f4",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/order.graphql",
+      "sha256": "1b55ce651ad10e786dc4e27d577050b64da1e10b4174ad39ca1b23ff144e2211",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/ordering.graphql",
+      "sha256": "48b779910f5238783f76be241dbf1670b85ec2c20726d5eea43ffe36f8266eca",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/prices.graphql",
+      "sha256": "31f18d16d579d201e6d943f6ace3f129d6dfe22587b78976876248155b49c8fe",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/values.graphql",
+      "sha256": "e5f359037e878224d135db539e4e600f64f85d9043b4ee90278cc96c40e8e4ea",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/visibility.graphql",
+      "sha256": "3ea7fb25e6299b76ef27005c78e890b65bd66df3f77ef60d13232ea98401f342",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/core-foundation/catalog.graphql",
+      "sha256": "8bc775b8b78c851f7f7a125c49a74d24733cf7ebe9f93c063c866033bcee4761",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/core-foundation/definition-update.graphql",
+      "sha256": "dac31d033a4b5d0167b8efdbc651ab38bc40db1d3bf01a7fb90b255ab3e03dc3",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/core-foundation/meal-plan-recurring-only.graphql",
+      "sha256": "9efaf64356cdf9b8e0eee20f210cce36eb6828e8a733a0b29bee7d225cc7e292",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/core-foundation/order.graphql",
+      "sha256": "110bf9a8e98a44113d6a8788b8045149b6de5cd931fcc9a9a72c5b6767abee6e",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/core-foundation/readiness.graphql",
+      "sha256": "2de5bee70cd25d9d6abe339359de08a963955a8f41f256df4ecddd5318f9eeea",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/core-gift-claim-candidates.graphql",
+      "sha256": "c92e96857c77584a4f5e9a038bc5b9ae6993e6444334eaf388e495d2a7a3e54a",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/customer-sync-page.graphql",
+      "sha256": "62f4f730937dfa8da18b15165ad1cf5184b99e9997f96e00788794c4175c2719",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/customer-sync-pages-read.graphql",
+      "sha256": "aa82798e52fbd880af68676810da6eb9e6f7e499892c03c7ab1e719cc418490e",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/design-sync/editorial-render.mjs",
+      "sha256": "949f5fdcddee9097356ea26361e179419cd84f92e67c23512629f9d0507e7b3b",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/design-sync/finish-shared.py",
+      "sha256": "1ebeaec42e72a9c832365d02483e4d56ada89b366673a8407d91cc00ab3d2fb2",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/design-sync/port-editorial.mjs",
+      "sha256": "b4205dba96f456c1c1b4ccaee67b23a36a12974322089a276960395e2becd71f",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/design-sync/shared-edits.py",
+      "sha256": "708a3ed0b6065bdbfc5a9170f41e369c012547ca3cf6fd845fb1fed1e161c678",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/fix-runtime-schema.py",
+      "sha256": "02d9a2c6c0e341ce3583f919db23ec3669acd7f45743b5155926d0d48f3fec66",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/gift-operational-evidence.graphql",
+      "sha256": "dc6819d25bf868c6b92a99ef4c5c300b7efbab174fd238ddd2e42946a7df4a58",
+      "sanitized": true
+    },
+    {
+      "path": "development-reference/gift-order-fulfillment.graphql",
+      "sha256": "7f1684fcdd97a21faf9c5dbd657b5f323f81d0274cb78749eac041be86149201",
+      "sanitized": true
+    },
+    {
+      "path": "development-reference/gift-purchase-evidence.graphql",
+      "sha256": "f494b82a1b8eab9707996081a0b8d4659c9b1469219e9ba0bcbcdb41926feb26",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/gift-wallet-readback.graphql",
+      "sha256": "84263e249f229d09636f0de7ba7b96f67d31b0f0239f39fe8d6cc3d81ff3686c",
+      "sanitized": true
+    },
+    {
+      "path": "development-reference/home-validation/assets/builders-box.js",
+      "sha256": "168820c4ca3e23af7b70ec912c9fe5544964680da62f04e8dc626a5c42b1d21d",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/home-validation/assets/catalog.js",
+      "sha256": "5820f357b701c6d2e2fba8c092e77d22d00854a2d2149c78b7d55a59f0b04f85",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/home-validation/assets/home.js",
+      "sha256": "15baa14a3828ed340d1534e4372d562a229019bc836eb90535158ddc207b0499",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/home-validation/assets/support.js",
+      "sha256": "cd647341daac460f765756b053ebe3a00d07897f6f8f50187384f51323fcf848",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/migration-history/fix-gift-responsive.mjs",
+      "sha256": "f5c1403408f16df8b10f0e1cc8d10fab86dbd93b209b6c24e068e9615b3b077b",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/migration-history/marketing-sections.mjs",
+      "sha256": "e4425fb52d9bf974ac4d8abf6e4c7ac6fc06549ec50414c12aa67c8074d45f10",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/migration-history/repair-integration.mjs",
+      "sha256": "1702497c321a37d025319f3f11e3942866dfe0e8e9a7dcaa55a81fa1bdf57f04",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/naming-audit/audit.graphql",
+      "sha256": "033fed5faec660230c5964b0b3ede18a850f619f1074092b77b0545336250723",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/naming-audit/correct.mjs",
+      "sha256": "86c442fe5ffefff1a32eea627dd85a71a691c8fe49d1b603db37af6857b20667",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/naming-audit/detach-old-plan.graphql",
+      "sha256": "e05b0b4bdb678cb749ff7d33791c22ea5b60b7d8d3e1a06a64777bf25f2910ec",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/naming-audit/operation.graphql",
+      "sha256": "674dd81dac703843d252cd10ea2ee9aab1bcb2a762f0ca30666c6bf555ef79b1",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/naming-audit/plan-operation.graphql",
+      "sha256": "b731ed36d360753f02062a1149df1e49cf37eb78fa0bda1bcaba62d726a190f6",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/naming-audit/plans.mjs",
+      "sha256": "f40ba29c01d6ca60c4a521366949340ebea29995751a46bc86415c9ffea3b978",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/naming-audit/update.graphql",
+      "sha256": "a100b026a9c853a39490cfaa58731933beb6f96e8b7546214265090aeaab4e8a",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/parity-fixes.py",
+      "sha256": "03dd8724dd425e9fc1f744d08f66c57f5c530525962403734daa9686546d3d1a",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/parity-footer.tsx",
+      "sha256": "2c10f8f186be49d4f7a86c46a8d0b95b68942b210926a6fea4c241c9c328f6aa",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/parity-home.tsx",
+      "sha256": "b70c206c76835d12334d93b5c3bd462a1a8ee97ffcc91ac4fec239f2e16285ad",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/parity-nav.tsx",
+      "sha256": "7b734b9db067f1d83b64ba6237716e716d8cd14c29422cdb95ece19f1c370df0",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/parity-remote-before/assets/catalog-purchase.js",
+      "sha256": "8807ca567342aac7a2a26fbc5432f94e6748e0f1a292821cf16d4f20f24072db",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/parity-remote-before/assets/catalog.js",
+      "sha256": "4c89902f17d363eea18f606d7976e0d244cd411f2c6dedba6170aeb14c3111e8",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/parity-remote-before/assets/gift-card.js",
+      "sha256": "7dfd4ec070d02a4df8f49dadd0056f1c91d2a4d191c678e734ee2ecbdd173dd5",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/parity-remote-before/assets/home.js",
+      "sha256": "15baa14a3828ed340d1534e4372d562a229019bc836eb90535158ddc207b0499",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/parity-remote-before/assets/meal-plan.js",
+      "sha256": "3b017dbb57c23124a219008f477baf5be192a7ac1dc709244c9c1bc44ad6aee8",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/parity-remote-before/assets/support.js",
+      "sha256": "cd647341daac460f765756b053ebe3a00d07897f6f8f50187384f51323fcf848",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/parity-remote-before/assets/theme.js",
+      "sha256": "ca13d161474c9a2df091a03c047b20ba3c0990add8443ecc80b870659511d82a",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/parity-remote-final/assets/catalog-purchase.js",
+      "sha256": "8807ca567342aac7a2a26fbc5432f94e6748e0f1a292821cf16d4f20f24072db",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/parity-remote-final/assets/catalog.js",
+      "sha256": "2b40316290a55e506fdbf4a6fffe2da92d7c64a5056799f040649f3119084f99",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/parity-remote-final/assets/gift-card.js",
+      "sha256": "2e86249af5cb0f800aaaba14c2e3037fc96bd19666732b4e67c12a55962d1d02",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/parity-remote-final/assets/theme.js",
+      "sha256": "693a2c335d80880f9f0f1f44fd11baa889cadaddb7755cf6d3ebbdc745581fcb",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/qa-homepage-fixed-remote/assets/catalog-purchase.js",
+      "sha256": "765f53ed67bd6f7ecd68fc5ea8723b23d11d6fcf6bddc1b48845b67223314f25",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/qa-homepage-fixed-remote/assets/catalog.js",
+      "sha256": "e4837ebf88376ec1302ed13785cc1aa74f3a028af8fbe5e55cc7763922e480d6",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/qa-homepage-fixed-remote/assets/gift-card.js",
+      "sha256": "7dfd4ec070d02a4df8f49dadd0056f1c91d2a4d191c678e734ee2ecbdd173dd5",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/qa-homepage-fixed-remote/assets/home.js",
+      "sha256": "15baa14a3828ed340d1534e4372d562a229019bc836eb90535158ddc207b0499",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/qa-homepage-fixed-remote/assets/meal-plan.js",
+      "sha256": "2f37ac1dbffd95431534d3a1961badd5dc0056893c43bbdbc9859c8ebe1acdc0",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/qa-homepage-fixed-remote/assets/support.js",
+      "sha256": "cd647341daac460f765756b053ebe3a00d07897f6f8f50187384f51323fcf848",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/qa-homepage-fixed-remote/assets/theme.js",
+      "sha256": "ca13d161474c9a2df091a03c047b20ba3c0990add8443ecc80b870659511d82a",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/qa-homepage-remote/assets/catalog-purchase.js",
+      "sha256": "765f53ed67bd6f7ecd68fc5ea8723b23d11d6fcf6bddc1b48845b67223314f25",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/qa-homepage-remote/assets/catalog.js",
+      "sha256": "e4837ebf88376ec1302ed13785cc1aa74f3a028af8fbe5e55cc7763922e480d6",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/qa-homepage-remote/assets/gift-card.js",
+      "sha256": "7dfd4ec070d02a4df8f49dadd0056f1c91d2a4d191c678e734ee2ecbdd173dd5",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/qa-homepage-remote/assets/home.js",
+      "sha256": "15baa14a3828ed340d1534e4372d562a229019bc836eb90535158ddc207b0499",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/qa-homepage-remote/assets/meal-plan.js",
+      "sha256": "2f37ac1dbffd95431534d3a1961badd5dc0056893c43bbdbc9859c8ebe1acdc0",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/qa-homepage-remote/assets/support.js",
+      "sha256": "cd647341daac460f765756b053ebe3a00d07897f6f8f50187384f51323fcf848",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/qa-homepage-remote/assets/theme.js",
+      "sha256": "ca13d161474c9a2df091a03c047b20ba3c0990add8443ecc80b870659511d82a",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/stream-separation/definition.graphql",
+      "sha256": "02f33cd71e10957c523fd515dc145a31bed535a0a279933f6436d3dce698b76b",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/stream-separation/metaDefinitionUpdate.graphql",
+      "sha256": "18abf5ac6480521841846bb11c0391cc23f854961e4cc99054d78d8ce0df2085",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/stream-separation/metaValues.graphql",
+      "sha256": "91c0a4d59b8a15869d1ee3ba044443137ff90ba0da8700158d9a643f859637a6",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/stream-separation/read.graphql",
+      "sha256": "1bb7d42487364f77e67b0cf63d528cf97c697449ac9d7d618cd2a39b52072ad3",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/stream-separation/subscription-read.graphql",
+      "sha256": "5b764aaac2a4732f974dfbe3512275902c411601a3fbc40f4ef9e7a2bf4f0d93",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/stream-separation/values.graphql",
+      "sha256": "8d053269434436764ece1063e9684d12eacaf503b21fa3b6d2c77a3c1608e005",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/sync-navigation.py",
+      "sha256": "a574f4ff70062a1f0e5a831e5424f238f4a27c2b7ac4e385469678fb66a2e6f6",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/visual-parity-visibility.graphql",
+      "sha256": "a2f6ce35c5229bfdd6ec53b55afbae61b003a4e2216f2755c19f494bbc928fa7",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/wallet-spend-evidence.graphql",
+      "sha256": "8018c3f0523ff5c93a60bca93ce7fa1cef110d0e06476f21b5e06da5b02fa54a",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/wallet-test-product.graphql",
+      "sha256": "c7465c53c24ad00589072f1e676f84866fcae739f6e732db2bc2b06f95b3c7f5",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/wallet-top-up-order.graphql",
+      "sha256": "f16ee511eab8982be8887ceb4946c7a4c550aa09b1221253c5ab74e3d9626de0",
       "sanitized": false
     },
     {
@@ -766,13 +1546,13 @@
     },
     {
       "path": "docs/CUSTOMER-CANCELLATION-POLICY.md",
-      "sha256": "95e327438c798fa45315e2018ef9c36469663f07bb49d8a84f49832c22484ddc",
+      "sha256": "39ebede75899cd0bb29db2bfb3101b597093323250ff274cdac0a29211c89bc4",
       "sanitized": false
     },
     {
       "path": "docs/CUSTOMER-CORE-COMPLETION-TRACKER.md",
-      "sha256": "cc8f0d7a1fecd0d6c22d1d70805e6115d0ee51f0f67ecfaac8a436701dd3090f",
-      "sanitized": false
+      "sha256": "20e16999e8937ba23aabe0e622ee95544501fc82ddbf89cad0a4f609cfd281b9",
+      "sanitized": true
     },
     {
       "path": "docs/CUSTOMER-FLOW-AUDIT.md",
@@ -797,6 +1577,11 @@
     {
       "path": "docs/DEV-BUNDLE-INVENTORY-20261008.json",
       "sha256": "e8d6869fa30dd1e63bf3b06019f309b36328c332b3ea5513f300caa78339d1a3",
+      "sanitized": false
+    },
+    {
+      "path": "docs/FINAL-CLIENT-POLICY-IMPLEMENTATION-20261013.md",
+      "sha256": "24d1a66eb05cc6ad9fdad2ad1caeee8f039fa66d2293a7d67e17523d716762a3",
       "sanitized": false
     },
     {
@@ -2173,596 +2958,6 @@
       "path": "vite.config.ts",
       "sha256": "7c7abc2cdcf48682513609da594fd4557866a841f0ee1f71f01239f85d491edb",
       "sanitized": false
-    },
-    {
-      "path": "development-reference/core-gift-claim-candidates.graphql",
-      "sha256": "c92e96857c77584a4f5e9a038bc5b9ae6993e6444334eaf388e495d2a7a3e54a",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/parity-footer.tsx",
-      "sha256": "2c10f8f186be49d4f7a86c46a8d0b95b68942b210926a6fea4c241c9c328f6aa",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/parity-home.tsx",
-      "sha256": "b70c206c76835d12334d93b5c3bd462a1a8ee97ffcc91ac4fec239f2e16285ad",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/visual-parity-visibility.graphql",
-      "sha256": "a2f6ce35c5229bfdd6ec53b55afbae61b003a4e2216f2755c19f494bbc928fa7",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/wallet-top-up-order.graphql",
-      "sha256": "f16ee511eab8982be8887ceb4946c7a4c550aa09b1221253c5ab74e3d9626de0",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/parity-fixes.py",
-      "sha256": "03dd8724dd425e9fc1f744d08f66c57f5c530525962403734daa9686546d3d1a",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/build-home.py",
-      "sha256": "4406b73bc69693a5afcae214cfbc97e5921ca28351e09688bdcbc20e66aa9cca",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/fix-runtime-schema.py",
-      "sha256": "02d9a2c6c0e341ce3583f919db23ec3669acd7f45743b5155926d0d48f3fec66",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/parity-nav.tsx",
-      "sha256": "7b734b9db067f1d83b64ba6237716e716d8cd14c29422cdb95ece19f1c370df0",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/wallet-spend-evidence.graphql",
-      "sha256": "8018c3f0523ff5c93a60bca93ce7fa1cef110d0e06476f21b5e06da5b02fa54a",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/customer-sync-pages-read.graphql",
-      "sha256": "aa82798e52fbd880af68676810da6eb9e6f7e499892c03c7ab1e719cc418490e",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/build-chrome.py",
-      "sha256": "dc063978b3e50c4c1c6b75dbd827fff3d2b3de87fdc7d1ad551167d17d847805",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/sync-navigation.py",
-      "sha256": "a574f4ff70062a1f0e5a831e5424f238f4a27c2b7ac4e385469678fb66a2e6f6",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/wallet-test-product.graphql",
-      "sha256": "c7465c53c24ad00589072f1e676f84866fcae739f6e732db2bc2b06f95b3c7f5",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/gift-wallet-readback.graphql",
-      "sha256": "84263e249f229d09636f0de7ba7b96f67d31b0f0239f39fe8d6cc3d81ff3686c",
-      "sanitized": true
-    },
-    {
-      "path": "development-reference/gift-operational-evidence.graphql",
-      "sha256": "dc6819d25bf868c6b92a99ef4c5c300b7efbab174fd238ddd2e42946a7df4a58",
-      "sanitized": true
-    },
-    {
-      "path": "development-reference/gift-order-fulfillment.graphql",
-      "sha256": "7f1684fcdd97a21faf9c5dbd657b5f323f81d0274cb78749eac041be86149201",
-      "sanitized": true
-    },
-    {
-      "path": "development-reference/gift-purchase-evidence.graphql",
-      "sha256": "f494b82a1b8eab9707996081a0b8d4659c9b1469219e9ba0bcbcdb41926feb26",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/customer-sync-page.graphql",
-      "sha256": "62f4f730937dfa8da18b15165ad1cf5184b99e9997f96e00788794c4175c2719",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/catalog-check.mjs",
-      "sha256": "0b0f1052934e8ab55cb23518b4aac79d776a72924e9a85ac443fd0560a1538a4",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/account-review/source-reference/vite.config.ts",
-      "sha256": "47df42dadb4067eabc0bc34da0627d7569fab7c2feb50a2422b842f9aea1b6b5",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/migration-history/marketing-sections.mjs",
-      "sha256": "e4425fb52d9bf974ac4d8abf6e4c7ac6fc06549ec50414c12aa67c8074d45f10",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/migration-history/fix-gift-responsive.mjs",
-      "sha256": "f5c1403408f16df8b10f0e1cc8d10fab86dbd93b209b6c24e068e9615b3b077b",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/migration-history/repair-integration.mjs",
-      "sha256": "1702497c321a37d025319f3f11e3942866dfe0e8e9a7dcaa55a81fa1bdf57f04",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/home-validation/assets/catalog.js",
-      "sha256": "5820f357b701c6d2e2fba8c092e77d22d00854a2d2149c78b7d55a59f0b04f85",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/home-validation/assets/home.js",
-      "sha256": "15baa14a3828ed340d1534e4372d562a229019bc836eb90535158ddc207b0499",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/home-validation/assets/support.js",
-      "sha256": "cd647341daac460f765756b053ebe3a00d07897f6f8f50187384f51323fcf848",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/home-validation/assets/builders-box.js",
-      "sha256": "168820c4ca3e23af7b70ec912c9fe5544964680da62f04e8dc626a5c42b1d21d",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/core-foundation/definition-update.graphql",
-      "sha256": "dac31d033a4b5d0167b8efdbc651ab38bc40db1d3bf01a7fb90b255ab3e03dc3",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/core-foundation/order.graphql",
-      "sha256": "110bf9a8e98a44113d6a8788b8045149b6de5cd931fcc9a9a72c5b6767abee6e",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/core-foundation/catalog.graphql",
-      "sha256": "8bc775b8b78c851f7f7a125c49a74d24733cf7ebe9f93c063c866033bcee4761",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/core-foundation/meal-plan-recurring-only.graphql",
-      "sha256": "9efaf64356cdf9b8e0eee20f210cce36eb6828e8a733a0b29bee7d225cc7e292",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/core-foundation/readiness.graphql",
-      "sha256": "2de5bee70cd25d9d6abe339359de08a963955a8f41f256df4ecddd5318f9eeea",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/commerce-qa/seed.mjs",
-      "sha256": "7330b8844fa6b64cd4fa54613e0308ab823391d835f1ad8ba4768a69a3317359",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/commerce-qa/readback.graphql",
-      "sha256": "ec692650b224912c1d07591c42f37f0dbf995a4ad1028ee94f347da4a9ba025c",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/commerce-qa/audit.graphql",
-      "sha256": "75ca291123ae22fb5acf069e4f27630703d001f1f317a3aea5407c4990ea2ada",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/commerce-qa/operation.graphql",
-      "sha256": "e995cfef313875fe2a68c4171b79bf6621cd445c10e28d018ba7225f35f4fbfe",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/commerce-qa/gift-availability.graphql",
-      "sha256": "cf7c08d146a5583f3235b45a3799781e390354e064b3d7fcce78489f5ff5d079",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/commerce-qa/gift-readback.graphql",
-      "sha256": "ef79fe5364f9aa1302242953420128cb5e459cda75c5e1112e0baf1cb3e079e4",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/commerce-qa/test-order-read.graphql",
-      "sha256": "2aeeba933e71c10114f9660524e32a95f56e458056211505489714c790fcfa72",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/commerce-qa/media-readback.graphql",
-      "sha256": "bdd342bccc833b071314a330cc4bce656a259fafc9fe8d1fce6ab8a370e01bc6",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/commerce-qa/media.mjs",
-      "sha256": "b2229b25f8c89f129c8152d0ef3dcd87d71cac2d30388047ee2d9386ab0eaa0c",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/commerce-qa/order-stream-read.graphql",
-      "sha256": "3dc6ae092474886cfe5b0cf351866061e2a49684b4a9019f6ba79fac2528e23e",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/commerce-qa/environment.graphql",
-      "sha256": "a5fa59240673ecebed344f1c88d2a2bd3c4b874e95cb09346ea98e4352eec8d0",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/commerce-qa/sgd-read.graphql",
-      "sha256": "e2dce23056a4887c7d06cd2e62d3afc44eb6279f8a9d6012bfd3427ac326aa72",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/commerce-qa/media.graphql",
-      "sha256": "e995cfef313875fe2a68c4171b79bf6621cd445c10e28d018ba7225f35f4fbfe",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/commerce-qa/setup.graphql",
-      "sha256": "1a65d391f1b1e0c0afe9efeb4bb715835037f2fa8f8d2d3c45697e803e672744",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/commerce-qa/connect.mjs",
-      "sha256": "d1776014bb16091d2238f2d7e95448421d4ffeb5d1e66a7d2e1213b3004ad8d4",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/commerce-qa/configured-theme/assets/catalog.js",
-      "sha256": "e4837ebf88376ec1302ed13785cc1aa74f3a028af8fbe5e55cc7763922e480d6",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/commerce-qa/configured-theme/assets/theme.js",
-      "sha256": "ca13d161474c9a2df091a03c047b20ba3c0990add8443ecc80b870659511d82a",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/commerce-qa/configured-theme/assets/home.js",
-      "sha256": "15baa14a3828ed340d1534e4372d562a229019bc836eb90535158ddc207b0499",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/commerce-qa/configured-theme/assets/support.js",
-      "sha256": "cd647341daac460f765756b053ebe3a00d07897f6f8f50187384f51323fcf848",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/commerce-qa/configured-theme/assets/gift-card.js",
-      "sha256": "7dfd4ec070d02a4df8f49dadd0056f1c91d2a4d191c678e734ee2ecbdd173dd5",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/commerce-qa/configured-theme/assets/catalog-purchase.js",
-      "sha256": "765f53ed67bd6f7ecd68fc5ea8723b23d11d6fcf6bddc1b48845b67223314f25",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/commerce-qa/configured-theme/assets/meal-plan.js",
-      "sha256": "2f37ac1dbffd95431534d3a1961badd5dc0056893c43bbdbc9859c8ebe1acdc0",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/stream-separation/read.graphql",
-      "sha256": "1bb7d42487364f77e67b0cf63d528cf97c697449ac9d7d618cd2a39b52072ad3",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/stream-separation/definition.graphql",
-      "sha256": "02f33cd71e10957c523fd515dc145a31bed535a0a279933f6436d3dce698b76b",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/stream-separation/values.graphql",
-      "sha256": "8d053269434436764ece1063e9684d12eacaf503b21fa3b6d2c77a3c1608e005",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/stream-separation/metaValues.graphql",
-      "sha256": "91c0a4d59b8a15869d1ee3ba044443137ff90ba0da8700158d9a643f859637a6",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/stream-separation/subscription-read.graphql",
-      "sha256": "5b764aaac2a4732f974dfbe3512275902c411601a3fbc40f4ef9e7a2bf4f0d93",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/stream-separation/metaDefinitionUpdate.graphql",
-      "sha256": "18abf5ac6480521841846bb11c0391cc23f854961e4cc99054d78d8ce0df2085",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/parity-remote-final/assets/catalog.js",
-      "sha256": "2b40316290a55e506fdbf4a6fffe2da92d7c64a5056799f040649f3119084f99",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/parity-remote-final/assets/theme.js",
-      "sha256": "693a2c335d80880f9f0f1f44fd11baa889cadaddb7755cf6d3ebbdc745581fcb",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/parity-remote-final/assets/gift-card.js",
-      "sha256": "2e86249af5cb0f800aaaba14c2e3037fc96bd19666732b4e67c12a55962d1d02",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/parity-remote-final/assets/catalog-purchase.js",
-      "sha256": "8807ca567342aac7a2a26fbc5432f94e6748e0f1a292821cf16d4f20f24072db",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/catalogue-completion/audit.graphql",
-      "sha256": "da5e33f7f6b8f73537510264a3b4ce00b5a70c1329178c2b400fcfdbcead722d",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/catalogue-completion/operation.graphql",
-      "sha256": "92baf8e3553e923aadbcdb852fae4b9283f61d8d53d18979275ee59cef3c9bee",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/catalogue-completion/operations.graphql",
-      "sha256": "a243b15967c74f7c51d10fa0cdc84c1627093d76e286d4e76d140e9bbb1840f4",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/parity-remote-before/assets/catalog.js",
-      "sha256": "4c89902f17d363eea18f606d7976e0d244cd411f2c6dedba6170aeb14c3111e8",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/parity-remote-before/assets/theme.js",
-      "sha256": "ca13d161474c9a2df091a03c047b20ba3c0990add8443ecc80b870659511d82a",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/parity-remote-before/assets/home.js",
-      "sha256": "15baa14a3828ed340d1534e4372d562a229019bc836eb90535158ddc207b0499",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/parity-remote-before/assets/support.js",
-      "sha256": "cd647341daac460f765756b053ebe3a00d07897f6f8f50187384f51323fcf848",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/parity-remote-before/assets/gift-card.js",
-      "sha256": "7dfd4ec070d02a4df8f49dadd0056f1c91d2a4d191c678e734ee2ecbdd173dd5",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/parity-remote-before/assets/catalog-purchase.js",
-      "sha256": "8807ca567342aac7a2a26fbc5432f94e6748e0f1a292821cf16d4f20f24072db",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/parity-remote-before/assets/meal-plan.js",
-      "sha256": "3b017dbb57c23124a219008f477baf5be192a7ac1dc709244c9c1bc44ad6aee8",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/naming-audit/audit.graphql",
-      "sha256": "033fed5faec660230c5964b0b3ede18a850f619f1074092b77b0545336250723",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/naming-audit/operation.graphql",
-      "sha256": "674dd81dac703843d252cd10ea2ee9aab1bcb2a762f0ca30666c6bf555ef79b1",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/naming-audit/plan-operation.graphql",
-      "sha256": "b731ed36d360753f02062a1149df1e49cf37eb78fa0bda1bcaba62d726a190f6",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/naming-audit/correct.mjs",
-      "sha256": "86c442fe5ffefff1a32eea627dd85a71a691c8fe49d1b603db37af6857b20667",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/naming-audit/plans.mjs",
-      "sha256": "f40ba29c01d6ca60c4a521366949340ebea29995751a46bc86415c9ffea3b978",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/naming-audit/update.graphql",
-      "sha256": "a100b026a9c853a39490cfaa58731933beb6f96e8b7546214265090aeaab4e8a",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/naming-audit/detach-old-plan.graphql",
-      "sha256": "e05b0b4bdb678cb749ff7d33791c22ea5b60b7d8d3e1a06a64777bf25f2910ec",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/design-sync/shared-edits.py",
-      "sha256": "708a3ed0b6065bdbfc5a9170f41e369c012547ca3cf6fd845fb1fed1e161c678",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/design-sync/port-editorial.mjs",
-      "sha256": "b4205dba96f456c1c1b4ccaee67b23a36a12974322089a276960395e2becd71f",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/design-sync/editorial-render.mjs",
-      "sha256": "949f5fdcddee9097356ea26361e179419cd84f92e67c23512629f9d0507e7b3b",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/design-sync/finish-shared.py",
-      "sha256": "1ebeaec42e72a9c832365d02483e4d56ada89b366673a8407d91cc00ab3d2fb2",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/qa-homepage-fixed-remote/assets/catalog.js",
-      "sha256": "e4837ebf88376ec1302ed13785cc1aa74f3a028af8fbe5e55cc7763922e480d6",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/qa-homepage-fixed-remote/assets/theme.js",
-      "sha256": "ca13d161474c9a2df091a03c047b20ba3c0990add8443ecc80b870659511d82a",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/qa-homepage-fixed-remote/assets/home.js",
-      "sha256": "15baa14a3828ed340d1534e4372d562a229019bc836eb90535158ddc207b0499",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/qa-homepage-fixed-remote/assets/support.js",
-      "sha256": "cd647341daac460f765756b053ebe3a00d07897f6f8f50187384f51323fcf848",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/qa-homepage-fixed-remote/assets/gift-card.js",
-      "sha256": "7dfd4ec070d02a4df8f49dadd0056f1c91d2a4d191c678e734ee2ecbdd173dd5",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/qa-homepage-fixed-remote/assets/catalog-purchase.js",
-      "sha256": "765f53ed67bd6f7ecd68fc5ea8723b23d11d6fcf6bddc1b48845b67223314f25",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/qa-homepage-fixed-remote/assets/meal-plan.js",
-      "sha256": "2f37ac1dbffd95431534d3a1961badd5dc0056893c43bbdbc9859c8ebe1acdc0",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/completion-gate/gift.graphql",
-      "sha256": "2efdf0a965a40af7f28a278fd081a7f06823f3abbdee2cb8a8bed78eb241f5f4",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/completion-gate/definition.graphql",
-      "sha256": "353364785e22c2f45e860d3c0a7019472e19831ea6a7345e0ac0391ce546a883",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/completion-gate/values.graphql",
-      "sha256": "e5f359037e878224d135db539e4e600f64f85d9043b4ee90278cc96c40e8e4ea",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/completion-gate/order.graphql",
-      "sha256": "1b55ce651ad10e786dc4e27d577050b64da1e10b4174ad39ca1b23ff144e2211",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/completion-gate/core-catalog.graphql",
-      "sha256": "7caceb1fa261aa27c00e91109035cdc9e9a71f6aaf1a81e2dc1ff8c61402f3e0",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/completion-gate/visibility.graphql",
-      "sha256": "3ea7fb25e6299b76ef27005c78e890b65bd66df3f77ef60d13232ea98401f342",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/completion-gate/prices.graphql",
-      "sha256": "31f18d16d579d201e6d943f6ace3f129d6dfe22587b78976876248155b49c8fe",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/completion-gate/ordering.graphql",
-      "sha256": "48b779910f5238783f76be241dbf1670b85ec2c20726d5eea43ffe36f8266eca",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/completion-gate/collection.graphql",
-      "sha256": "f181058f8fb5758a2c5085500984f71bfdeef3f644fd0429395da623a3015e03",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/completion-gate/deploy/assets/catalog.js",
-      "sha256": "b1ac9eaa681dccfe5edf9cb3d6c5e43b21122513ec9b93b61f41b3ca7bc7d501",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/completion-gate/deploy/assets/theme.js",
-      "sha256": "693a2c335d80880f9f0f1f44fd11baa889cadaddb7755cf6d3ebbdc745581fcb",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/completion-gate/deploy/assets/home.js",
-      "sha256": "15baa14a3828ed340d1534e4372d562a229019bc836eb90535158ddc207b0499",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/completion-gate/deploy/assets/support.js",
-      "sha256": "cd647341daac460f765756b053ebe3a00d07897f6f8f50187384f51323fcf848",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/completion-gate/deploy/assets/gift-card.js",
-      "sha256": "2e86249af5cb0f800aaaba14c2e3037fc96bd19666732b4e67c12a55962d1d02",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/completion-gate/deploy/assets/catalog-purchase.js",
-      "sha256": "8807ca567342aac7a2a26fbc5432f94e6748e0f1a292821cf16d4f20f24072db",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/completion-gate/deploy/assets/meal-plan.js",
-      "sha256": "869c3b565d65ec298b34cc3538fb48792c9079e8b544628e39cc99f302a61a8f",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/completion-gate/compiled/catalog.server.js",
-      "sha256": "2c287758192f5b796054946b8e1b5a457dd0ed9aebb67a3ce45a9a2b9238c7de",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/completion-gate/compiled/menu-validation.js",
-      "sha256": "a22469b5476f59dc1f48dba7271d267edd5d9b4aad82390799956e36287dd93a",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/qa-homepage-remote/assets/catalog.js",
-      "sha256": "e4837ebf88376ec1302ed13785cc1aa74f3a028af8fbe5e55cc7763922e480d6",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/qa-homepage-remote/assets/theme.js",
-      "sha256": "ca13d161474c9a2df091a03c047b20ba3c0990add8443ecc80b870659511d82a",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/qa-homepage-remote/assets/home.js",
-      "sha256": "15baa14a3828ed340d1534e4372d562a229019bc836eb90535158ddc207b0499",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/qa-homepage-remote/assets/support.js",
-      "sha256": "cd647341daac460f765756b053ebe3a00d07897f6f8f50187384f51323fcf848",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/qa-homepage-remote/assets/gift-card.js",
-      "sha256": "7dfd4ec070d02a4df8f49dadd0056f1c91d2a4d191c678e734ee2ecbdd173dd5",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/qa-homepage-remote/assets/catalog-purchase.js",
-      "sha256": "765f53ed67bd6f7ecd68fc5ea8723b23d11d6fcf6bddc1b48845b67223314f25",
-      "sanitized": false
-    },
-    {
-      "path": "development-reference/qa-homepage-remote/assets/meal-plan.js",
-      "sha256": "2f37ac1dbffd95431534d3a1961badd5dc0056893c43bbdbc9859c8ebe1acdc0",
-      "sanitized": false
     }
   ],
   "sanitized_files": [
@@ -2794,5 +2989,10 @@
     "configured_secret_comparison": "no credential matches; only a non-secret SQLite file-path test fixture matched",
     "customer_details": "QA emails and native customer/financial identifiers anonymized",
     "source_worktree": "not modified"
-  }
+  },
+  "excluded_private_evidence": [
+    "docs/CANCELLATION-WALLET-QA-20261013.md",
+    "docs/WALLET-TOP-UP-SAFEGUARD-QA-20261013.md",
+    "docs/CUSTOMER-CORE-CHECKPOINT-20261012.md"
+  ]
 }

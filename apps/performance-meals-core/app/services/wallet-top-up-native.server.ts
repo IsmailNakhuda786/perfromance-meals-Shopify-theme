@@ -15,7 +15,7 @@ query WalletTopUpPaidOrder($id:ID!) {
   totalShippingPriceSet { shopMoney { amount currencyCode } }
   lineItems(first:2) {
    nodes {
-    quantity variant { id } product { id isGiftCard }
+    quantity requiresShipping taxable variant { id } product { id isGiftCard }
     originalTotalSet { shopMoney { amount currencyCode } }
     discountedTotalSet { shopMoney { amount currencyCode } }
    }

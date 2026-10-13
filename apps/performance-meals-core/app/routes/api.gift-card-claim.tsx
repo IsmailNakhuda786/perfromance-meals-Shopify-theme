@@ -24,7 +24,7 @@ export async function action({request}:ActionFunctionArgs){
  try{
   const {admin}=await unauthenticated.admin(shop);
   const claim=await claimGiftCard(shop,customerGid,code,nativeGiftCardGateway(admin,shop));
-  return cors(Response.json({id:claim.id,state:claim.state,currency:claim.currency,amountMinor:claim.amountMinor},{headers:privateHeaders}));
+  return cors(Response.json({id:claim.id,state:claim.state,currency:claim.currency,amountMinor:claim.amountMinor,alreadyCompleted:claim.alreadyCompleted},{headers:privateHeaders}));
  }catch{
   // Do not echo Gift Card codes, native error payloads or financial identifiers.
   return cors(Response.json({error:'The Gift Card transfer could not be confirmed. Check your Wallet history before trying again.'},{status:409,headers:privateHeaders}));

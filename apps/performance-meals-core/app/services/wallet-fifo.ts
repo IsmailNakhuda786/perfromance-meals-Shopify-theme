@@ -1,6 +1,6 @@
 export type FundedAllocation={creditEntryId:string;sourceKind:string;amountMinor:number};
 type Entry={id:string;sourceKind:string;fundedDelta:number;fundedAllocations:string};
-const fundedKinds=['customer_funded','gift_card_funded'];
+const fundedKinds=['customer_funded','gift_card_funded','reward_funded'];
 export function parseFundedAllocations(value:string,amount:number):FundedAllocation[]{
  const allocations=JSON.parse(value);
  if(!Array.isArray(allocations)||!allocations.length||allocations.some(a=>typeof a.creditEntryId!=='string'||!fundedKinds.includes(a.sourceKind)||!Number.isSafeInteger(a.amountMinor)||a.amountMinor<1)||new Set(allocations.map(a=>a.creditEntryId)).size!==allocations.length||allocations.reduce((sum,a)=>sum+a.amountMinor,0)!==amount)throw new Error('Invalid funded allocation evidence');
@@ -12,6 +12,11 @@ export function allocateFundedFifo(entries:Entry[],amount:number):FundedAllocati
  const lots:Array<{id:string;sourceKind:string;remaining:number}>=[];
  for(const entry of entries){
   if(entry.fundedDelta>0){
+   if(entry.sourceKind==='funded_return'){
+    const parts=parseFundedAllocations(entry.fundedAllocations,entry.fundedDelta);
+    for(const part of parts)lots.push({id:entry.id+':'+part.creditEntryId,sourceKind:part.sourceKind,remaining:part.amountMinor});
+    continue;
+   }
    if(!fundedKinds.includes(entry.sourceKind))throw new Error('Unknown funding source requires reconciliation');
    lots.push({id:entry.id,sourceKind:entry.sourceKind,remaining:entry.fundedDelta});
   }else if(entry.fundedDelta<0){

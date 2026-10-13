@@ -175,6 +175,7 @@ model CommercePolicy {
   walletEnabled Boolean @default(false)
   giftCardClaimsEnabled Boolean @default(false)
   walletTopUpsEnabled Boolean @default(false)
+  orderCancellationsEnabled Boolean @default(false)
   rewardsEnabled Boolean @default(false)
   bonusTiers String?
   bonusExpiry String?
@@ -183,6 +184,48 @@ model CommercePolicy {
   giftCardRenewals Boolean?
   rewardsRules String?
   updatedAt DateTime @updatedAt
+}
+
+model OrderCancellation {
+  id String @id @default(uuid())
+  shop String
+  orderGid String
+  customerGid String
+  currency String
+  amountMinor Int
+  contractGids String
+  state String @default("PREPARED")
+  jobGid String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([shop, orderGid])
+  @@index([shop, customerGid, state])
+}
+
+model RewardsAccount {
+  id String @id @default(uuid())
+  shop String
+  customerGid String
+  points Int @default(0)
+  lifetimeEarned Int @default(0)
+  revision Int @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([shop, customerGid])
+}
+
+model RewardsEntry {
+  id String @id @default(uuid())
+  shop String
+  customerGid String
+  sourceEvent String
+  orderGid String?
+  rulesVersion String
+  kind String
+  pointsDelta Int
+  createdAt DateTime @default(now())
+  @@unique([shop, sourceEvent])
+  @@index([shop, customerGid, createdAt])
 }
 
 model GiftCardWalletClaim {
@@ -223,6 +266,26 @@ model WalletTopUpSettlement {
   @@index([shop, customerGid, state])
 }
 
+model WalletTopUpIntent {
+  id String @id @default(uuid())
+  shop String
+  customerGid String
+  requestKey String
+  currency String
+  amountMinor Int
+  productGid String
+  variantGid String
+  state String @default("PREPARED")
+  draftGid String?
+  checkoutUrl String?
+  orderGid String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([shop, customerGid, requestKey])
+  @@unique([shop, draftGid])
+  @@unique([shop, orderGid])
+}
+
 model MealPlanMenuRevision {
   id String @id @default(uuid())
   shop String
@@ -237,4 +300,45 @@ model MealPlanMenuRevision {
   createdAt DateTime @default(now())
   @@unique([shop, selectionId, block, revision])
   @@index([shop, customerGid, selectionId])
+}
+
+model RewardRedemption {
+ id String @id @default(uuid())
+ shop String
+ customerGid String
+ requestKey String
+ rulesVersion String
+ points Int
+ amountMinor Int
+ state String @default("PREPARED")
+ nativeTransactionGid String?
+ ledgerEntryId String?
+ createdAt DateTime @default(now())
+ updatedAt DateTime @updatedAt
+ @@unique([shop, customerGid, requestKey])
+ @@unique([shop, nativeTransactionGid])
+ @@index([shop, customerGid, state])
+}
+
+model OrderSupportRequest {
+ id String @id @default(uuid())
+ shop String
+ customerGid String
+ orderGid String
+ orderName String
+ state String @default("REQUESTED")
+ evidence String
+ createdAt DateTime @default(now())
+ updatedAt DateTime @updatedAt
+ @@unique([shop, orderGid])
+ @@index([shop, customerGid, createdAt])
+}
+
+model RewardRuleVersion {
+ id String @id @default(uuid())
+ shop String
+ version String
+ rules String
+ createdAt DateTime @default(now())
+ @@unique([shop, version])
 }

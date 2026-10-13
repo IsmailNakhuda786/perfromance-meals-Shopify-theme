@@ -9,7 +9,7 @@ export type TopUpOrder = {
  totalPriceSet:MoneyBag;totalReceivedSet:MoneyBag;totalRefundedSet:MoneyBag;
  totalDiscountsSet:MoneyBag;totalTaxSet:MoneyBag;totalShippingPriceSet:MoneyBag;
  lineItems:{pageInfo:{hasNextPage:boolean};nodes:Array<{
-  quantity:number;variant:{id:string}|null;product:{id:string;isGiftCard:boolean}|null;
+  quantity:number;requiresShipping:boolean;taxable:boolean;variant:{id:string}|null;product:{id:string;isGiftCard:boolean}|null;
   originalTotalSet:MoneyBag;discountedTotalSet:MoneyBag;
  }>};
  transactions:Array<{id:string;status:string;kind:string;gateway:string;amountSet:MoneyBag}>;
@@ -33,7 +33,7 @@ export function verifyPaidTopUp(order:TopUpOrder,customerGid:string,config:TopUp
  if(order.lineItems.pageInfo.hasNextPage||order.lineItems.nodes.length!==1)throw new Error('Top-up requires one isolated checkout item');
  const line=order.lineItems.nodes[0],variantGid=line.variant?.id;
  const amount=variantGid?config.variants[variantGid]:undefined;
- if(!variantGid||!gid(variantGid,'ProductVariant')||typeof amount!=='number'||!Number.isSafeInteger(amount)||amount<500||amount>50000||line.quantity!==1||line.product?.id!==config.productGid||line.product.isGiftCard||minor(line.originalTotalSet)!==amount||minor(line.discountedTotalSet)!==amount)throw new Error('Top-up catalogue or amount differs');
+ if(!variantGid||!gid(variantGid,'ProductVariant')||typeof amount!=='number'||!Number.isSafeInteger(amount)||amount<500||amount>50000||line.quantity!==1||line.requiresShipping!==false||line.taxable!==false||line.product?.id!==config.productGid||line.product.isGiftCard||minor(line.originalTotalSet)!==amount||minor(line.discountedTotalSet)!==amount)throw new Error('Top-up catalogue or amount differs');
  if([order.totalDiscountsSet,order.totalRefundedSet,order.totalTaxSet,order.totalShippingPriceSet].some(value=>minor(value)!==0)||minor(order.totalPriceSet)!==amount||minor(order.totalReceivedSet)!==amount)throw new Error('Top-up payment is adjusted or incomplete');
  const receipts=order.transactions.filter(transaction=>transaction.status==='SUCCESS'&&['SALE','CAPTURE'].includes(transaction.kind));
  // One verified capture avoids inventing allocation rules for split funding.
