@@ -1,13 +1,15 @@
 import db from '../db.server';
 import {assertShop} from './security.server';
 import {minorAmount} from './gift-card-native.server';
-import {allocateFundedFifo} from './wallet-fifo';
+import {allocateFundedFifo,allocateFundedPriority} from './wallet-fifo';
+import {coreWalletPolicyStartedAt} from './wallet-core-policy.server';
 export const NATIVE_DEBITS_QUERY="query NativeWalletDebits($id:ID!) { shop { myshopifyDomain } customer(id:$id) { id storeCreditAccounts(first:50) { nodes { transactions(first:50,query:\"type:debit\") { nodes { ... on StoreCreditAccountDebitTransaction { id createdAt amount { amount currencyCode } event origin { ... on OrderTransaction { status kind gateway amountSet { shopMoney { amount currencyCode } } order { id currencyCode customer { id } } } } } } pageInfo { hasNextPage } } } pageInfo { hasNextPage } } } }";
 type Admin={graphql:(query:string,options:{variables:Record<string,unknown>})=>Promise<Response>};
 type Debit={id:string;createdAt:string;event:string;amount:{amount:string;currencyCode:string};origin:null|{id?:string;status:string;kind:string;gateway:string;amountSet:{shopMoney:{amount:string;currencyCode:string}};order:{id:string;currencyCode:string;customer:{id:string}|null}}};
 export async function recordNativeWalletDebit(shop:string,customerGid:string,debit:Debit){
  assertShop(shop);
  const origin=debit.origin,currency=debit.amount.currencyCode;
+ if(!Number.isFinite(Date.parse(debit.createdAt)))throw new Error('Native Wallet debit time unavailable');
  if(!/^gid:\/\/shopify\/Customer\/\d+$/.test(customerGid)||!/^gid:\/\/shopify\/StoreCreditAccountDebitTransaction\/\d+$/.test(debit.id)||debit.event!=='ORDER_PAYMENT'||!debit.amount.amount.startsWith('-')||!origin||origin.status!=='SUCCESS'||!['SALE','CAPTURE'].includes(origin.kind)||origin.gateway!=='shopify_store_credit'||origin.order.customer?.id!==customerGid||!/^gid:\/\/shopify\/Order\/\d+$/.test(origin.order.id)||origin.order.currencyCode!==currency||origin.amountSet.shopMoney.currencyCode!==currency)throw new Error('Native Wallet debit evidence invalid');
  const amount=minorAmount(debit.amount.amount.slice(1));
  if(origin.id&&!/^gid:\/\/shopify\/OrderTransaction\/\d+$/.test(origin.id))throw Error('Native Wallet payment reference invalid');
@@ -24,7 +26,8 @@ export async function recordNativeWalletDebit(shop:string,customerGid:string,deb
   const wallet=await tx.customerWallet.findUniqueOrThrow({where:{shop_customerGid_currency:where}});
   const entries=await tx.walletEntry.findMany({where,orderBy:[{createdAt:'asc'},{id:'asc'}],select:{id:true,sourceKind:true,fundedDelta:true,fundedAllocations:true}});
   if(entries.reduce((sum,entry)=>sum+entry.fundedDelta,0)!==wallet.fundedBalance||wallet.fundedBalance-wallet.fundedReserved<amount)throw new Error('Wallet balance requires reconciliation');
-  const allocations=allocateFundedFifo(entries,amount);
+  const sourcePriority=process.env.WALLET_CORE_EXPIRY_ENABLED==='true'&&new Date(debit.createdAt)>=coreWalletPolicyStartedAt();
+  const allocations=sourcePriority?allocateFundedPriority(entries,amount):allocateFundedFifo(entries,amount);
   const kinds=new Set(allocations.map(allocation=>allocation.sourceKind));
   const sourceKind=kinds.size===1?allocations[0].sourceKind:'funded_spend';
   const changed=await tx.customerWallet.updateMany({where:{id:wallet.id,revision:wallet.revision},data:{fundedBalance:{decrement:amount},revision:{increment:1}}});

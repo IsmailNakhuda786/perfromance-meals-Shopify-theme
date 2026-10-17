@@ -298,7 +298,7 @@ export default function Nav({ currentPage, navigate, navigateToWizard, cart, car
                     <label className="block text-[10px] font-mono tracking-[0.2em] uppercase text-[#888] mb-1.5">Email address</label>
                     <input
                       type="email" value={loginEmail} onChange={(e) => { setLoginEmail(e.target.value); setLoginError(false); }}
-                      placeholder="jerome@email.com"
+                      placeholder="qa@example.invalid"
                       className={`w-full border px-4 py-3 text-[14px] outline-none transition-colors ${loginError && !loginEmail ? "border-red-400 bg-red-50" : "border-[#D0CCC4] focus:border-[#111]"}`}
                     />
                   </div>
@@ -350,7 +350,7 @@ export default function Nav({ currentPage, navigate, navigateToWizard, cart, car
                     <label className="block text-[10px] font-mono tracking-[0.2em] uppercase text-[#888] mb-1.5">Your email address</label>
                     <input
                       type="email" value={forgotEmail} onChange={(e) => setForgotEmail(e.target.value)}
-                      placeholder="jerome@email.com"
+                      placeholder="qa@example.invalid"
                       className="w-full border border-[#D0CCC4] focus:border-[#111] px-4 py-3 text-[14px] outline-none transition-colors"
                     />
                   </div>
@@ -396,7 +396,7 @@ export default function Nav({ currentPage, navigate, navigateToWizard, cart, car
                   </div>
                   <div className="mb-3">
                     <label className="block text-[10px] font-mono tracking-[0.2em] uppercase text-[#888] mb-1.5">Email address</label>
-                    <input type="email" value={suEmail} onChange={(e) => { setSuEmail(e.target.value); setSuError(false); }} placeholder="jerome@email.com"
+                    <input type="email" value={suEmail} onChange={(e) => { setSuEmail(e.target.value); setSuError(false); }} placeholder="qa@example.invalid"
                       className={`w-full border px-4 py-3 text-[14px] outline-none transition-colors ${suError && !suEmail ? "border-red-400 bg-red-50" : "border-[#D0CCC4] focus:border-[#111]"}`} />
                   </div>
                   <div className="mb-3">
@@ -449,7 +449,7 @@ export default function Nav({ currentPage, navigate, navigateToWizard, cart, car
                     <span className="text-[18px]">✉️</span>
                     <div className="text-left flex-1 min-w-0">
                       <div className="text-[12px] font-semibold">Email</div>
-                      <div className="text-[11px] text-white/50 truncate">{suEmail || "jerome@email.com"}</div>
+                      <div className="text-[11px] text-white/50 truncate">{suEmail || "qa@example.invalid"}</div>
                     </div>
                     <span className="text-[#F5B300] text-[11px] font-bold shrink-0">✓ Sent</span>
                   </div>

@@ -130,7 +130,7 @@ export default function ConfirmationPage({ navigate, orderType, isGuest = false,
           <span className="text-[24px]">✉️</span>
           <div className="flex-1 min-w-0">
             <div className="font-medium text-[14px]">Confirmation also sent to your email</div>
-            <div className="text-white/40 text-[12px] mt-0.5">Check <strong className="text-white/70">jerome@email.com</strong> for your {orderType === "plan" ? "full meal plan schedule and delivery windows" : "order receipt and delivery details"}</div>
+            <div className="text-white/40 text-[12px] mt-0.5">Check <strong className="text-white/70">qa@example.invalid</strong> for your {orderType === "plan" ? "full meal plan schedule and delivery windows" : "order receipt and delivery details"}</div>
           </div>
           <div className="shrink-0 text-[#F5B300] text-[10px] font-bold tracking-wider uppercase">
             ✓ Sent
@@ -238,7 +238,7 @@ export default function ConfirmationPage({ navigate, orderType, isGuest = false,
                 <div className="space-y-3 mb-5">
                   {[
                     { label: "Full Name", val: suName, set: setSuName, type: "text", placeholder: "Your name" },
-                    { label: "Email", val: suEmail, set: setSuEmail, type: "email", placeholder: "you@email.com" },
+                    { label: "Email", val: suEmail, set: setSuEmail, type: "email", placeholder: "qa@example.invalid" },
                     { label: "Phone (WhatsApp updates)", val: suPhone, set: setSuPhone, type: "tel", placeholder: "+65 9123 4567" },
                     { label: "Password", val: suPassword, set: setSuPassword, type: "password", placeholder: "Min. 8 characters" },
                   ].map((f) => (
@@ -278,7 +278,7 @@ export default function ConfirmationPage({ navigate, orderType, isGuest = false,
                     <span className="text-[16px]">✉️</span>
                     <div className="flex-1">
                       <p className="text-[13px] font-semibold">Email confirmation</p>
-                      <p className="text-[12px] text-[#666]">{suEmail || "your@email.com"}</p>
+                      <p className="text-[12px] text-[#666]">{suEmail || "qa@example.invalid"}</p>
                     </div>
                     <span className="text-[#111] bg-[#F5B300] text-[10px] font-bold px-2 py-0.5">✓ Sent</span>
                   </div>

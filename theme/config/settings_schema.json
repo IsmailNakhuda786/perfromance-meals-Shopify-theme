@@ -96,8 +96,15 @@
         "type": "number",
         "id": "food_delivery_threshold",
         "label": "Free delivery threshold (currency minor units)",
-        "default": 12000,
-        "info": "Must match the Shopify Singapore delivery profile. Counts Ready Series and Meal Plan after discounts; excludes Gift Cards."
+        "default": 12500,
+        "info": "Ordinary Ready Series food after discounts only. Excludes delivery-included packages, Gift Cards and top-ups. Must match native checkout."
+      },
+      {
+        "type": "checkbox",
+        "id": "food_delivery_policy_verified",
+        "label": "Native delivery policy has passed checkout QA",
+        "default": false,
+        "info": "Enable delivery progress promises only after native mixed-cart and boundary checks pass."
       }
     ]
   }

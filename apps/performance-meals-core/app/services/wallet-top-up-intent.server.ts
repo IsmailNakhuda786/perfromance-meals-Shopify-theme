@@ -28,6 +28,7 @@ export async function createWalletTopUpCheckout(admin:Admin,shop:string,customer
  const amount=parseWalletTopUpAmount(value);
  const policy=await db.commercePolicy.findUnique({where:{shop},select:{walletTopUpsEnabled:true}});
  if(!policy?.walletTopUpsEnabled)throw Error('Wallet top-ups are not activated');
+ if(process.env.WALLET_LEGACY_TOP_UP_QA_ENABLED!=='true'||process.env.NODE_ENV==='production')throw Error('Legacy top-up QA is not activated; use approved packages');
  const prepared=await prepareWalletTopUpDraft(admin,shop,customerGid,value,catalogue);
  const key={shop_customerGid_requestKey:{shop,customerGid,requestKey}};
  let intent=await db.walletTopUpIntent.findUnique({where:key});

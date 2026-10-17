@@ -1,0 +1,213 @@
+{
+  "version": "fresher-product-photos-20261016",
+  "sourceObservedAt": "2026-10-16",
+  "photos": [
+    {
+      "title": "Bulgogi Beef Slices",
+      "sourceProductId": 284282,
+      "sourceUrl": "https://fresher.com.sg/wp-content/uploads/2026/09/JP-bulgogi-beef-plated.png",
+      "sourceAlt": "",
+      "sha256": "bd9c27feaf473e43b7562fa88604f7ee7abc37856bee1bd7aadea5aece440a00",
+      "review": "Source product association matched exactly; real plated-food image visually inspected. Identity is supplied by source catalogue, not inferred from appearance.",
+      "draftOnly": true
+    },
+    {
+      "title": "Cajun Chicken Green Bowl",
+      "sourceProductId": 266697,
+      "sourceUrl": "https://fresher.com.sg/wp-content/uploads/2025/02/RTG-French-Forestiere-plated-2.png",
+      "sourceAlt": "",
+      "sha256": "48d70fc9d830bcbc59305fe78f2c9f24db32ff00c6dcd15f54c05a3a2ea0f981",
+      "review": "Source product association matched exactly; real plated-food image visually inspected. Identity is supplied by source catalogue, not inferred from appearance.",
+      "draftOnly": true
+    },
+    {
+      "title": "Charsiew Chicken Kolo \"Mee\"",
+      "sourceProductId": 274808,
+      "sourceUrl": "https://fresher.com.sg/wp-content/uploads/2025/08/RTG-French-Forestiere-plated.png",
+      "sourceAlt": "",
+      "sha256": "a61d11c33842c40faaa2be20482b4eea8d941f578bff83d3f88ff310a4defa01",
+      "review": "Source product association matched exactly; real plated-food image visually inspected. Identity is supplied by source catalogue, not inferred from appearance.",
+      "draftOnly": true
+    },
+    {
+      "title": "Chicken Ratatouille",
+      "sourceProductId": 257925,
+      "sourceUrl": "https://fresher.com.sg/wp-content/uploads/2025/05/RTG-chicken-Ratatouille-plated.png",
+      "sourceAlt": "RTG chicken Ratatouille plated",
+      "sha256": "a9873d1a133b09a0b5f29c0d7c6ab1c9b9712cd60f31e254cd879234bc1f0d00",
+      "review": "Source product association matched exactly; real plated-food image visually inspected. Identity is supplied by source catalogue, not inferred from appearance.",
+      "draftOnly": true
+    },
+    {
+      "title": "Chilli \"Crab\" Pasta",
+      "sourceProductId": 266694,
+      "sourceUrl": "https://fresher.com.sg/wp-content/uploads/2025/02/RTG-French-Forestiere-plated-4.png",
+      "sourceAlt": "",
+      "sha256": "e241a771ee258d7aa319855855717f43dd429bfed785e17883c27f650d493d60",
+      "review": "Source product association matched exactly; real plated-food image visually inspected. Identity is supplied by source catalogue, not inferred from appearance.",
+      "draftOnly": true
+    },
+    {
+      "title": "Chilli Con Carne Beef",
+      "sourceProductId": 257923,
+      "sourceUrl": "https://fresher.com.sg/wp-content/uploads/2025/05/RTG-Chili-Con-Carne-plated.png",
+      "sourceAlt": "RTG Chili Con Carne plated",
+      "sha256": "2c09b1a20456f544971a177637b23bb2336e645649ddd03b17a22cc30dbd10ae",
+      "review": "Source product association matched exactly; real plated-food image visually inspected. Identity is supplied by source catalogue, not inferred from appearance.",
+      "draftOnly": true
+    },
+    {
+      "title": "Chipotle Chicken Bowl",
+      "sourceProductId": 264890,
+      "sourceUrl": "https://fresher.com.sg/wp-content/uploads/2025/05/RTG-Chipotle-Chicken-plated.png",
+      "sourceAlt": "RTG Chipotle Chicken plated",
+      "sha256": "3f4743078ee5fa69fe5bb17bf5c929dc0dc94c6811ddd2ba3f4d40e18a5e1c66",
+      "review": "Source product association matched exactly; real plated-food image visually inspected. Identity is supplied by source catalogue, not inferred from appearance.",
+      "draftOnly": true
+    },
+    {
+      "title": "Garlic Herb Grilled Chicken Breast",
+      "sourceProductId": 284263,
+      "sourceUrl": "https://fresher.com.sg/wp-content/uploads/2026/09/JP-Garlic-Herb.png",
+      "sourceAlt": "",
+      "sha256": "2853a37b17495bbcdc03ae49cc714173d4e9ae0a0964597633426f92977041f3",
+      "review": "Source product association matched exactly; real plated-food image visually inspected. Identity is supplied by source catalogue, not inferred from appearance.",
+      "draftOnly": true
+    },
+    {
+      "title": "Gochujang Chicken",
+      "sourceProductId": 257279,
+      "sourceUrl": "https://fresher.com.sg/wp-content/uploads/2025/05/RTG-Korean-Soy-Duck-plated.png",
+      "sourceAlt": "RTG Korean Soy Duck plated",
+      "sha256": "2c420a2efbe58f9bb2561e5dc422a75160566353b095818e0136a88e07ff4f7c",
+      "review": "Source product association matched exactly; real plated-food image visually inspected. Identity is supplied by source catalogue, not inferred from appearance.",
+      "draftOnly": true
+    },
+    {
+      "title": "Gochujang Pepper Grilled Chicken Breast",
+      "sourceProductId": 284283,
+      "sourceUrl": "https://fresher.com.sg/wp-content/uploads/2026/09/JP-Gochujang.png",
+      "sourceAlt": "",
+      "sha256": "786b4dad8e6a5fc7ff7561130235531952f59ea71b34b077dff6c7067a12efe4",
+      "review": "Source product association matched exactly; real plated-food image visually inspected. Identity is supplied by source catalogue, not inferred from appearance.",
+      "draftOnly": true
+    },
+    {
+      "title": "Hainanese Chicken \"Cauli-Rice\"",
+      "sourceProductId": 273884,
+      "sourceUrl": "https://fresher.com.sg/wp-content/uploads/2025/07/RTG-French-Forestiere-plated-2.png",
+      "sourceAlt": "",
+      "sha256": "db67e7f2fcada3f2f754aaa59212fbf09767c77a6aeab1556377aafa515e8691",
+      "review": "Source product association matched exactly; real plated-food image visually inspected. Identity is supplied by source catalogue, not inferred from appearance.",
+      "draftOnly": true
+    },
+    {
+      "title": "Harissa Spiced Chicken",
+      "sourceProductId": 257903,
+      "sourceUrl": "https://fresher.com.sg/wp-content/uploads/2025/05/RTG-Harissa-Chicken-Bowl-plated.png",
+      "sourceAlt": "RTG Harissa Chicken Bowl plated",
+      "sha256": "06e276ce50cbbb3bdb81165613a34fed6a13d77c6f3c1326aa2adc3171c38123",
+      "review": "Source product association matched exactly; real plated-food image visually inspected. Identity is supplied by source catalogue, not inferred from appearance.",
+      "draftOnly": true
+    },
+    {
+      "title": "Homemade Meat-Loaf Army Stew",
+      "sourceProductId": 264887,
+      "sourceUrl": "https://fresher.com.sg/wp-content/uploads/2025/05/RTG-Army-Stew-plated.png",
+      "sourceAlt": "RTG Army Stew plated",
+      "sha256": "a676285600eac08f155bba5a6689f7ab1e686421881be94e8da532f63a6af7ee",
+      "review": "Source product association matched exactly; real plated-food image visually inspected. Identity is supplied by source catalogue, not inferred from appearance.",
+      "draftOnly": true
+    },
+    {
+      "title": "Homestyle Beef Stew",
+      "sourceProductId": 257992,
+      "sourceUrl": "https://fresher.com.sg/wp-content/uploads/2025/05/RTG-Beef-Stew-plated-1.png",
+      "sourceAlt": "RTG Beef Stew plated",
+      "sha256": "816456b5904dc0bbd4fd8e58e7630d8ee2d945b48c47a50897428cb8092f20de",
+      "review": "Source product association matched exactly; real plated-food image visually inspected. Identity is supplied by source catalogue, not inferred from appearance.",
+      "draftOnly": true
+    },
+    {
+      "title": "Honey Charsiew Chicken Breast",
+      "sourceProductId": 284286,
+      "sourceUrl": "https://fresher.com.sg/wp-content/uploads/2026/09/JP-char-siew.png",
+      "sourceAlt": "",
+      "sha256": "b49e35c83c29caef607527432d7c0c9ca286f5fccb266a78cd3b75e2870c59d8",
+      "review": "Source product association matched exactly; real plated-food image visually inspected. Identity is supplied by source catalogue, not inferred from appearance.",
+      "draftOnly": true
+    },
+    {
+      "title": "Housemade Beefballs & Rosti",
+      "sourceProductId": 266700,
+      "sourceUrl": "https://fresher.com.sg/wp-content/uploads/2025/02/RTG-Potato-Rosti-plated.png",
+      "sourceAlt": "",
+      "sha256": "e39d3c1fac956c3fed98ea2b817734d7cb85b238307aec126fcd89189cd7de4f",
+      "review": "Source product association matched exactly; real plated-food image visually inspected. Identity is supplied by source catalogue, not inferred from appearance.",
+      "draftOnly": true
+    },
+    {
+      "title": "Low-Carb Chicken Mala",
+      "sourceProductId": 284502,
+      "sourceUrl": "https://fresher.com.sg/wp-content/uploads/2026/10/LC-Mala-Chicken-Noodles-plated.png",
+      "sourceAlt": "",
+      "sha256": "00f1ee1a9b0a29cca66f0f8b59bfe78f0bdba56e0ab27b3074a558c3ce64bc6a",
+      "review": "Source product association matched exactly; real plated-food image visually inspected. Identity is supplied by source catalogue, not inferred from appearance.",
+      "draftOnly": true
+    },
+    {
+      "title": "Mango Salsa Panko Fish",
+      "sourceProductId": 284284,
+      "sourceUrl": "https://fresher.com.sg/wp-content/uploads/2026/09/JP-Mango-Panko.png",
+      "sourceAlt": "",
+      "sha256": "47ee0e0510b804811c46ce51ede15a9d730ceef8bd0731d7ddc3e1fbab3e20cf",
+      "review": "Source product association matched exactly; real plated-food image visually inspected. Identity is supplied by source catalogue, not inferred from appearance.",
+      "draftOnly": true
+    },
+    {
+      "title": "Miso Cream Chicken Udon",
+      "sourceProductId": 264710,
+      "sourceUrl": "https://fresher.com.sg/wp-content/uploads/2025/05/RTG-Teriyaki-Miso-plated.png",
+      "sourceAlt": "RTG Teriyaki Miso plated",
+      "sha256": "7d7edd19e6ba564a19c5b0ce3139fe97e5f78df6068a597ba2021a04639085e8",
+      "review": "Source product association matched exactly; real plated-food image visually inspected. Identity is supplied by source catalogue, not inferred from appearance.",
+      "draftOnly": true
+    },
+    {
+      "title": "Peri Peri Grilled Chicken Breast",
+      "sourceProductId": 256158,
+      "sourceUrl": "https://fresher.com.sg/wp-content/uploads/2025/05/JP-Peri-Peri-Chicken-plated-1.png",
+      "sourceAlt": "JP Peri Peri Chicken plated",
+      "sha256": "4476aed13d5d012c5f8bd6bd44d408e4dd9e5e3704f131d346147e7db994871c",
+      "review": "Source product association matched exactly; real plated-food image visually inspected. Identity is supplied by source catalogue, not inferred from appearance.",
+      "draftOnly": true
+    },
+    {
+      "title": "Shawarma Chicken Rice Bowl",
+      "sourceProductId": 257264,
+      "sourceUrl": "https://fresher.com.sg/wp-content/uploads/2025/05/RTG-Shawarma-Chicken-plated.png",
+      "sourceAlt": "RTG Shawarma Chicken plated",
+      "sha256": "08add420f5c1e14eff8e85e2b65276fbd4ea2cc1bf617036505c2ee82bbecedf",
+      "review": "Source product association matched exactly; real plated-food image visually inspected. Identity is supplied by source catalogue, not inferred from appearance.",
+      "draftOnly": true
+    },
+    {
+      "title": "Thai Green Curry Chicken",
+      "sourceProductId": 266699,
+      "sourceUrl": "https://fresher.com.sg/wp-content/uploads/2025/02/RTG-French-Forestiere-plated.png",
+      "sourceAlt": "",
+      "sha256": "c4053fb69d00c45360f477283047fd57e4ce818e742bc20a0ad4306602e0e4f9",
+      "review": "Source product association matched exactly; real plated-food image visually inspected. Identity is supplied by source catalogue, not inferred from appearance.",
+      "draftOnly": true
+    },
+    {
+      "title": "Tomato Fish Curry",
+      "sourceProductId": 264700,
+      "sourceUrl": "https://fresher.com.sg/wp-content/uploads/2025/05/RTG-Halibut-Tomato-Curry-plated.png",
+      "sourceAlt": "RTG Halibut Tomato Curry plated",
+      "sha256": "4d5155cf5cd4c9dec531b922fca315a538d26d37ec5c5bc98565562a50d2a19f",
+      "review": "Source product association matched exactly; real plated-food image visually inspected. Identity is supplied by source catalogue, not inferred from appearance.",
+      "draftOnly": true
+    }
+  ]
+}

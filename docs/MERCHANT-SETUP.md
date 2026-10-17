@@ -54,7 +54,7 @@ Enable Shopify Search & Discovery filters for `performance.category` (Low Carb, 
 
 ## Metafield definitions
 
-All custom fields use the merchant-owned namespace `performance`; there is no app-owned `$app` namespace because this is a theme migration. The manifest supplies all 27 owner/type definitions. Product nutrition fields are calories_kcal (integer), protein_g/carbs_g/fat_g/sugar_g/saturated_fat_g/fibre_g/sodium_mg (decimal). Optional missing nutrition is never estimated.
+All custom fields use the merchant-owned namespace `performance`; there is no app-owned `$app` namespace because this is a theme migration. The manifest supplies the complete owner/type definitions. Product nutrition fields are calories_kcal (integer), protein_g/carbs_g/fat_g/sugar_g/saturated_fat_g/fibre_g/sodium_mg (decimal). Optional missing nutrition is never estimated.
 
 Product descriptive fields: category, subscription_category, badge, prep_time, storage, heat_method, nutrition_note (single-line text); ingredients, allergens, preparation (multi-line text); highlights and inclusions (lists of single-line text); accent_color (color); related_products (list of product references).
 
@@ -102,3 +102,10 @@ Upload instructions when access is available: Online Store → Themes → Add th
 ## Business stream classification
 
 Set performance.business_stream on every Performance Meals commerce product to ready_series or meal_plan. All variants inherit it. Populate business_stream on bundle/menu metaobjects; validate stream ownership of references. See [BUSINESS-STREAM-SEPARATION.md](BUSINESS-STREAM-SEPARATION.md) for the completed dev-store tests, shared gift-card/mixed-cart merchant decisions and future server validation requirements. Do not use product titles or collection handles as identifiers.
+
+
+## Provisional Ready Series nutrition — 15 October 2026
+
+Use product-owned `performance.nutrition_pending` (boolean) for unconfirmed serving basis or provisional nutrition mapping. Set true on the new merchant-source records while Jerome verifies their serving basis. The theme retains stored figures but renders “Nutrition details are being confirmed” on cards and product details. It does not render the source’s100-servings/0.0g claims. Do not estimate missing values.
+
+After verification, the merchant can update calories/macros and `nutrition_basis` (single-line text), `serving_weight_g` and `servings_per_container` (decimals) in Shopify product metafields, then clear the pending flag. Positive verified weight/container values display in the full facts section; zero/absent values do not. Existing records without this new flag keep their existing behavior. Definitions are prepared in the setup inventory; this local change does not create native fields, overwrite products or publish a theme.

@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {reviewMerchantCatalogue} from './review-merchant.mjs';
+const [nativePath, outputPath, bindingsPath] = process.argv.slice(2);
+if (!nativePath || !outputPath || !path.isAbsolute(outputPath)) throw Error('Usage: node review-merchant-cli.mjs native-evidence.json /absolute/review.json [explicit-bindings.json]');
+if (fs.existsSync(outputPath)) throw Error('Preserve existing review output; choose a new path');
+const manifest = JSON.parse(fs.readFileSync(new URL('../merchant-catalogue-20261015.json', import.meta.url)));
+const report = reviewMerchantCatalogue(manifest, JSON.parse(fs.readFileSync(nativePath)), bindingsPath ? JSON.parse(fs.readFileSync(bindingsPath)) : {});
+fs.writeFileSync(outputPath, JSON.stringify(report, null, 2)+'\n', {flag:'wx', mode:0o600});
+console.log(JSON.stringify({records:report.records.length, distinctDishes:report.distinctDishes, mappedDishes:report.mappedDishes, unresolved:report.unresolved.length, readyForActivation:false, nativeWritesPerformed:false}));

@@ -1,4 +1,6 @@
-# Ready Series finite prepaid terms
+# Ready Series finite prepaid terms — historical decision
+
+**Superseded by Jerome’s confirmed monthly-delivery and automatic term-renewal policy. See READY-SERIES-MERCHANT-POLICY-20261014.md. This document preserves prior QA context and must not govern new selling-plan configuration.**
 
 Authority: customer's 12 October clarification overrides earlier source wording and term-boundary renewal instructions. Ready Series retains its approved Subscription display label.
 

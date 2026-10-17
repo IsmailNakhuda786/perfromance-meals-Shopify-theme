@@ -2,7 +2,10 @@
   "sections": {
     "hero": {
       "type": "home-hero",
-      "settings": {},
+      "settings": {
+        "reference_layout": true,
+        "reference_url": "#our-brands"
+      },
       "blocks": {
         "1": {
           "type": "slide",
@@ -48,51 +51,44 @@
     },
     "stats": {
       "type": "home-stats",
-      "settings": {},
+      "settings": {
+        "reference_layout": true
+      },
       "blocks": {
         "1": {
           "type": "stat",
           "settings": {
-            "value": 8400,
+            "value": 500000,
             "suffix": "+",
-            "label": "ACTIVE CUSTOMERS"
+            "label": "Meals sold"
           }
         },
         "2": {
           "type": "stat",
           "settings": {
-            "value": 40,
-            "suffix": "+",
-            "label": "READY MEALS"
+            "value": 5000,
+            "label": "Customers supporting us"
           }
         },
         "3": {
           "type": "stat",
           "settings": {
-            "value": 3,
-            "suffix": " min",
-            "label": "READY TO EAT"
-          }
-        },
-        "4": {
-          "type": "stat",
-          "settings": {
-            "value": 2,
-            "suffix": "",
-            "label": "MAIN JOURNEYS"
+            "display_value": "4.8",
+            "label": "Stars on Google"
           }
         }
       },
       "block_order": [
         "1",
         "2",
-        "3",
-        "4"
+        "3"
       ]
     },
     "standard": {
       "type": "home-standard",
-      "settings": {},
+      "settings": {
+        "reference_layout": true
+      },
       "blocks": {
         "1": {
           "type": "principle",
@@ -124,23 +120,31 @@
     },
     "experiences": {
       "type": "home-experiences",
-      "settings": {},
+      "settings": {
+        "reference_layout": true,
+        "heading": "One performance standard.\nChoose Ready Series or Meal Plans.",
+        "body": "Frozen flexibility or fresh structure. Find the approach that fits your routine.",
+        "split_layout": true
+      },
       "blocks": {
         "1": {
           "type": "experience",
           "settings": {
             "fallback_image": "sync-70290fd45c9a.jpg",
-            "image_alt": "Ready Series for everyday routines"
+            "image_alt": "Ready Series for everyday routines",
+            "heading": "Your day moves.\nYour meals keep up.",
+            "body": "For busy days, changing schedules and a good meal waiting in the freezer when you need it.",
+            "label": "Explore Ready Series"
           }
         },
         "2": {
           "type": "experience",
           "settings": {
             "eyebrow": "MEAL PLAN",
-            "heading": "BOUTIQUE\nPROGRESS.",
-            "body": "Fresh structure, personal guidance and support around a clear goal.",
-            "label": "EXPLORE MEAL PLAN",
-            "url": "/pages/meal-plan-builder",
+            "heading": "A little structure.\nA lot of possibility.",
+            "body": "For people who want a regular meal routine, clear goals and personal support along the way.",
+            "label": "Explore Meal Plans",
+            "url": "/pages/meal-plan",
             "fallback_image": "sync-16c2c47ecb77.jpg",
             "background": "#FFFFFF",
             "foreground": "#1A1A1A",
@@ -212,13 +216,57 @@
     "closing": {
       "type": "home-closing",
       "settings": {}
+    },
+    "stories": {
+      "type": "customer-stories",
+      "settings": {
+        "eyebrow": "TWO ROUTINES. TWO KINDS OF SUPPORT.",
+        "heading": "Which rhythm works for you?",
+        "body": "See how each approach fits a different routine.",
+        "note": "Individual experiences; results vary."
+      },
+      "blocks": {
+        "matt": {
+          "type": "story",
+          "settings": {
+            "eyebrow": "READY SERIES / EVERYDAY CONVENIENCE",
+            "heading": "Healthy eating for a busy schedule.",
+            "name": "Dr Matt Winter",
+            "body": "With the convenience of Ready Series, he can keep up his healthy eating even when his schedule is busy.",
+            "fallback_image": "story-matt-winter.webp",
+            "photo_alt": "Dr Matt Winter \u2014 Ready Series customer",
+            "label": "Explore Ready Series",
+            "url": "/pages/ready-series"
+          }
+        },
+        "su": {
+          "type": "story",
+          "settings": {
+            "eyebrow": "MEAL PLANS / GUIDED PROGRESS",
+            "heading": "6 kg lost with Meal Plans.",
+            "name": "Su",
+            "body": "Her Meal Plans experience is an example for customers looking for guided dieting, structure and result-focused goals.",
+            "fallback_image": "story-su-outdoors.webp",
+            "photo_alt": "Su wearing red outdoors",
+            "second_fallback": "story-su-training.webp",
+            "second_alt": "Su wearing blue at the gym",
+            "label": "Explore Meal Plans",
+            "url": "/pages/meal-plan"
+          }
+        }
+      },
+      "block_order": [
+        "matt",
+        "su"
+      ]
     }
   },
   "order": [
     "hero",
-    "stats",
     "standard",
+    "stats",
     "experiences",
+    "stories",
     "brands",
     "mission",
     "closing"

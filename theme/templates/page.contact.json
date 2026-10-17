@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "main": {
+      "type": "community-page",
+      "settings": {
+        "heading": "Let’s have a conversation.",
+        "introduction": "<p>Talk to us about your meals, delivery or how Performance Meals can support your everyday routine.</p>",
+        "contact_details": true,
+        "whatsapp": "+65 89318076",
+        "phone": "+65 91370180",
+        "email": "qa@example.invalid",
+        "address": "5 Mandai Foodlink\n#06-04/08\nSingapore 72865",
+        "cta_label": "Message us on WhatsApp",
+        "cta_url": "https://wa.me/6589318076"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

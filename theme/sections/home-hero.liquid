@@ -1,3 +1,6 @@
+{% if section.settings.reference_layout %}
+  {% render 'home-reference-hero', section: section %}
+{% else %}
 <section class="relative bg-white overflow-hidden" data-home-hero data-autoplay="{{ section.settings.autoplay }}" aria-roledescription="{{ 'home.carousel' | t }}" aria-label="{{ 'home.featured' | t }}">
   <div class="flex flex-col lg:flex-row" style="min-height:clamp(500px,70vh,620px)">
     <div class="relative z-10 w-full lg:w-[53%] flex-shrink-0 px-6 sm:px-10 lg:px-14 py-10 lg:py-14 flex flex-col justify-between order-2 lg:order-1" style="min-height:clamp(340px,50vw,560px)">
@@ -38,10 +41,46 @@
 .pm-hero-control{color:#7a7a75;font-size:15px;min-width:24px;min-height:24px}.pm-hero-control:hover{color:#1a1a1a}[data-hero-slide]{transition:opacity .5s ease,transform .5s ease}[data-home-hero][data-phase=exit] [data-hero-slide]{opacity:0;transform:translateY(10px)}
 {% endstylesheet %}
 
+{% endif %}
+
 {% schema %}
 {
   "name": "Homepage hero",
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "reference_layout",
+      "label": "Use approved parent brand layout",
+      "default": false
+    },
+    {
+      "type": "textarea",
+      "id": "reference_heading",
+      "label": "Parent heading",
+      "default": "Gold standard\nfor meal prep\nin Singapore"
+    },
+    {
+      "type": "text",
+      "id": "reference_label",
+      "label": "Explore button label",
+      "default": "Explore our meal ranges"
+    },
+    {
+      "type": "url",
+      "id": "reference_url",
+      "label": "Explore button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "reference_image",
+      "label": "Parent hero image"
+    },
+    {
+      "type": "text",
+      "id": "reference_image_alt",
+      "label": "Parent hero image description",
+      "default": "Black meal plate held in two hands"
+    },
     {
       "type": "text",
       "id": "standard",

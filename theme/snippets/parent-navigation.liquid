@@ -1,0 +1,37 @@
+{% doc %}
+  Parent brand navigation, preserving native account/cart and header controls.
+  @param {object} section - Header section with merchant-owned destinations.
+{% enddoc %}
+{{ 'parent-navigation.css' | asset_url | stylesheet_tag }}
+<nav class="pm-parent-navigation" data-pm-header aria-label="{{ 'navigation.main' | t }}">
+  <div class="pm-parent-navigation__row">
+    <a href="{{ routes.root_url }}" class="pm-parent-navigation__logo" aria-label="{{ 'brands.performance_meals' | t }}">{% render 'logos', brand: 'pm', size: 'md', variant: 'dark' %}</a>
+    <div class="pm-parent-navigation__links">
+      <a href="{{ section.settings.about_url | default: '/pages/about' }}">{{ 'navigation.about' | t }}</a>
+      {% if section.settings.affiliate_url != blank %}<a href="{{ section.settings.affiliate_url }}">{{ 'navigation.affiliate' | t }}</a>{% endif %}
+      {% if section.settings.contact_url != blank %}<a href="{{ section.settings.contact_url }}">{{ 'navigation.contact' | t }}</a>{% endif %}
+      <details data-brand-switcher>
+        <summary>{{ 'navigation.our_brands' | t }} <span aria-hidden="true">⌄</span></summary>
+        <div class="pm-parent-navigation__brands">
+          <a href="{{ routes.root_url }}">{{ 'brands.performance_meals' | t }}</a>
+          <a href="{{ section.settings.meal_plan_url | default: '/pages/meal-plan' }}">{{ 'brands.meal_plan' | t }}</a>
+          <a href="{{ section.settings.ready_series_url | default: '/pages/ready-series' }}">{{ 'brands.ready_series' | t }}</a>
+        </div>
+      </details>
+    </div>
+    <div class="pm-parent-navigation__actions">
+      {% if shop.customer_accounts_enabled %}<a href="{{ routes.account_url }}">{{ 'account.title' | t }}</a>{% endif %}
+      {% if customer %}<a class="pm-parent-navigation__logout" href="{{ routes.account_logout_url }}">{{ 'account.log_out' | t }}</a>{% endif %}
+      <a href="{{ routes.cart_url }}" data-cart-open aria-label="{{ 'cart.title' | t }}">{{ 'cart.title' | t }} <span data-cart-count {% if cart.item_count == 0 %}hidden{% endif %}>{{ cart.item_count }}</span></a>
+      <button type="button" data-mobile-toggle aria-label="{{ 'navigation.menu' | t }}" aria-expanded="false" aria-controls="ParentMenu-{{ section.id }}"><span data-menu-icon>{{ 'navigation.menu' | t }}</span><span data-close-icon hidden>{{ 'general.close' | t }}</span></button>
+    </div>
+  </div>
+  <div id="ParentMenu-{{ section.id }}" class="pm-parent-navigation__mobile" data-mobile-menu hidden>
+    <a href="{{ section.settings.about_url | default: '/pages/about' }}">{{ 'navigation.about' | t }}</a>
+    {% if section.settings.affiliate_url != blank %}<a href="{{ section.settings.affiliate_url }}">{{ 'navigation.affiliate' | t }}</a>{% endif %}
+    {% if section.settings.contact_url != blank %}<a href="{{ section.settings.contact_url }}">{{ 'navigation.contact' | t }}</a>{% endif %}
+    <a href="{{ section.settings.meal_plan_url | default: '/pages/meal-plan' }}">{{ 'brands.meal_plan' | t }}</a>
+    <a href="{{ section.settings.ready_series_url | default: '/pages/ready-series' }}">{{ 'brands.ready_series' | t }}</a>
+    {% if customer %}<a href="{{ routes.account_logout_url }}">{{ 'account.log_out' | t }}</a>{% endif %}
+  </div>
+</nav>

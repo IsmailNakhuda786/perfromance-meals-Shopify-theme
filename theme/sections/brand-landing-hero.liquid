@@ -1,0 +1,203 @@
+{{ 'brand-landing-hero.css' | asset_url | stylesheet_tag }}
+<pm-brand-carousel data-autoplay="{{ section.settings.autoplay }}" data-interval="{{ section.settings.rotation_seconds | times: 1000 }}" role="region" aria-label="{{ section.settings.carousel_label | escape }}" aria-roledescription="carousel">
+  <div data-slide role="group" aria-roledescription="slide" aria-label="1 of {{ section.blocks.size | plus: 1 }}">
+    {% render 'brand-hero-slide', slide: section.settings, slide_id: 'first', heading_tag: 'h1', section: section %}
+  </div>
+  {% for block in section.blocks %}
+    <div data-slide role="group" aria-roledescription="slide" aria-label="{{ forloop.index | plus: 1 }} of {{ section.blocks.size | plus: 1 }}" {{ block.shopify_attributes }}>
+      {% render 'brand-hero-slide', slide: block.settings, slide_id: block.id, heading_tag: 'h2', section: section %}
+    </div>
+  {% endfor %}
+  {% if section.blocks.size > 0 %}
+    <div class="pm-brand-carousel__controls" data-controls hidden>
+      <span data-counter aria-hidden="true">01 / {{ section.blocks.size | plus: 1 }}</span>
+      <div class="pm-brand-carousel__dots" role="group" aria-label="Choose featured slide">
+        <button type="button" data-go="0" aria-label="Show slide 1: {{ section.settings.heading | newline_to_br | replace: '<br />', ' ' | strip_newlines | escape }}" aria-pressed="true"></button>
+        {% for block in section.blocks %}<button type="button" data-go="{{ forloop.index }}" aria-label="Show slide {{ forloop.index | plus: 1 }}: {{ block.settings.heading | newline_to_br | replace: '<br />', ' ' | strip_newlines | escape }}" aria-pressed="false"></button>{% endfor %}
+      </div>
+      <div class="pm-brand-carousel__arrows">
+        <button type="button" data-pause aria-label="Pause automatic rotation">Ⅱ</button>
+        <button type="button" data-previous aria-label="Previous featured slide">←</button>
+        <button type="button" data-next aria-label="Next featured slide">→</button>
+      </div>
+      <span class="visually-hidden" data-status aria-live="polite" aria-atomic="true"></span>
+    </div>
+  {% endif %}
+</pm-brand-carousel>
+<script src="{{ 'brand-carousel.js' | asset_url }}" defer></script>
+{% schema %}
+{
+  "name": "Brand landing hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Introduction"
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Primary action label"
+    },
+    {
+      "type": "url",
+      "id": "primary_url",
+      "label": "Primary action destination"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary action label"
+    },
+    {
+      "type": "url",
+      "id": "secondary_url",
+      "label": "Secondary action destination"
+    },
+    {
+      "type": "text",
+      "id": "features",
+      "label": "Features"
+    },
+    {
+      "type": "color",
+      "id": "accent",
+      "label": "Brand accent",
+      "default": "#E4BB50"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero photograph"
+    },
+    {
+      "type": "text",
+      "id": "fallback_image",
+      "label": "Theme asset filename"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Photograph description"
+    },
+    {
+      "type": "text",
+      "id": "carousel_label",
+      "label": "Carousel description",
+      "default": "Featured meals and bundles"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Automatically rotate slides",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "rotation_seconds",
+      "label": "Seconds between slides",
+      "min": 5,
+      "max": 15,
+      "step": 1,
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand landing hero"
+    }
+  ],
+  "max_blocks": 5,
+  "blocks": [
+    {
+      "type": "promotion",
+      "name": "Featured promotion",
+      "settings": [
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow"
+        },
+        {
+          "type": "textarea",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Introduction"
+        },
+        {
+          "type": "text",
+          "id": "primary_label",
+          "label": "Primary action label"
+        },
+        {
+          "type": "url",
+          "id": "primary_url",
+          "label": "Primary action destination"
+        },
+        {
+          "type": "text",
+          "id": "secondary_label",
+          "label": "Secondary action label"
+        },
+        {
+          "type": "url",
+          "id": "secondary_url",
+          "label": "Secondary action destination"
+        },
+        {
+          "type": "text",
+          "id": "features",
+          "label": "Features"
+        },
+        {
+          "type": "color",
+          "id": "accent",
+          "label": "Brand accent",
+          "default": "#E4BB50"
+        },
+        {
+          "type": "color",
+          "id": "background",
+          "label": "Background",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Hero photograph"
+        },
+        {
+          "type": "text",
+          "id": "fallback_image",
+          "label": "Theme asset filename"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Photograph description"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

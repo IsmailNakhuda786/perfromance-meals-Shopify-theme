@@ -654,7 +654,7 @@ export default function MealPlanWizardPage({ navigate, initialPlan, onCheckoutCo
                 </div>
                 <Field label="Email Address">
                   <input value={details.email} onChange={(e) => setDetails({ ...details, email: e.target.value })}
-                    type="email" placeholder="alex@email.com" className={inputCls} />
+                    type="email" placeholder="qa@example.invalid" className={inputCls} />
                 </Field>
               </div>
 
@@ -742,7 +742,7 @@ export default function MealPlanWizardPage({ navigate, initialPlan, onCheckoutCo
                   <p className="text-[#555] text-[14px] mb-5">Takes 30 seconds — earn points from day one.</p>
                   <div className="space-y-3 mb-5">
                     <Field label="Full Name"><input value={waName} onChange={(e) => setWaName(e.target.value)} placeholder="Your name" className={inputCls} /></Field>
-                    <Field label="Email"><input value={waEmail} onChange={(e) => setWaEmail(e.target.value)} type="email" placeholder="your@email.com" className={inputCls} /></Field>
+                    <Field label="Email"><input value={waEmail} onChange={(e) => setWaEmail(e.target.value)} type="email" placeholder="qa@example.invalid" className={inputCls} /></Field>
                     <Field label="Phone (for WhatsApp updates)"><input value={waPhone} onChange={(e) => setWaPhone(e.target.value)} type="tel" placeholder="+60 12-345 6789" className={inputCls} /></Field>
                     <Field label="Password"><input value={waPass} onChange={(e) => setWaPass(e.target.value)} type="password" placeholder="Create password" className={inputCls} /></Field>
                   </div>
@@ -764,7 +764,7 @@ export default function MealPlanWizardPage({ navigate, initialPlan, onCheckoutCo
                   <p className="text-[10px] font-extrabold tracking-[0.3em] uppercase text-[#888] mb-1">Sign In</p>
                   <p className="text-[#555] text-[14px] mb-5">Welcome back — let us activate your plan.</p>
                   <div className="space-y-3 mb-5">
-                    <Field label="Email"><input value={waEmail} onChange={(e) => setWaEmail(e.target.value)} type="email" placeholder="your@email.com" className={inputCls} /></Field>
+                    <Field label="Email"><input value={waEmail} onChange={(e) => setWaEmail(e.target.value)} type="email" placeholder="qa@example.invalid" className={inputCls} /></Field>
                     <Field label="Password"><input value={waPass} onChange={(e) => setWaPass(e.target.value)} type="password" placeholder="Your password" className={inputCls} /></Field>
                   </div>
                   <button disabled={!waEmail || !waPass} onClick={() => setAuthMode("done")}

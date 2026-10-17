@@ -1,0 +1,1483 @@
+{
+  "version": "merchant-20261015",
+  "currency": "SGD",
+  "purpose": "Approved catalogue data; native product/component/image mapping still required before import",
+  "shopifyWritesPerformed": false,
+  "bundles": [
+    {
+      "title": "High Carb | Signature 5 bundle",
+      "contents": [
+        {
+          "name": "Harissa Spiced Chicken",
+          "sourceLabel": "Harissa Spiced Chicken",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Miso Cream Chicken Udon",
+          "sourceLabel": "Miso Cream Chicken Udon",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Shawarma Chicken Rice Bowl",
+          "sourceLabel": "Shawarma Chicken Rice Bowl",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Gochujang Chicken",
+          "sourceLabel": "Gochujang Chicken",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Housemade Beefballs & Rosti",
+          "sourceLabel": "Housemade Beefballs & Rosti",
+          "sourceCategory": null,
+          "quantity": 1
+        }
+      ],
+      "itemsPerDelivery": 5,
+      "gstIncluded": true,
+      "source": {
+        "file": "High_Carb_Bundles_Menu_Synced (1).pptx",
+        "sha256": "16aa3aa975c9673e0ed871a9ee878873dbbbb9902cee2fbfcf359aa7cb4f6b21",
+        "slide": 1
+      },
+      "nativeMappingVerified": false,
+      "purchasePriceMinor": 5040,
+      "displayUnitMinor": 1008
+    },
+    {
+      "title": "High Carb | Signature 5 (No-beef)",
+      "contents": [
+        {
+          "name": "Harissa Spiced Chicken",
+          "sourceLabel": "Harissa Spiced Chicken",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Miso Cream Chicken Udon",
+          "sourceLabel": "Miso Cream Chicken Udon",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Shawarma Chicken Rice Bowl",
+          "sourceLabel": "Shawarma Chicken Rice Bowl",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Gochujang Chicken",
+          "sourceLabel": "Gochujang Chicken",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Chilli \"Crab\" Pasta",
+          "sourceLabel": "Chilli \"Crab\" Pasta",
+          "sourceCategory": null,
+          "quantity": 1
+        }
+      ],
+      "itemsPerDelivery": 5,
+      "gstIncluded": true,
+      "source": {
+        "file": "High_Carb_Bundles_Menu_Synced (1).pptx",
+        "sha256": "16aa3aa975c9673e0ed871a9ee878873dbbbb9902cee2fbfcf359aa7cb4f6b21",
+        "slide": 2
+      },
+      "nativeMappingVerified": false,
+      "purchasePriceMinor": 5040,
+      "displayUnitMinor": 1008
+    },
+    {
+      "title": "High Carb | Variety 9 bundle",
+      "contents": [
+        {
+          "name": "Gochujang Chicken",
+          "sourceLabel": "Gochujang Chicken",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Tomato Fish Curry",
+          "sourceLabel": "Tomato Fish Curry",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Shawarma Chicken Rice Bowl",
+          "sourceLabel": "Shawarma Chicken Rice Bowl",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Housemade Beefballs & Rosti",
+          "sourceLabel": "Housemade Beefballs & Rosti",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Homestyle Beef Stew",
+          "sourceLabel": "Homestyle Beef Stew",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Chilli \"Crab\" Pasta",
+          "sourceLabel": "Chilli \"Crab\" Pasta",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Harissa Spiced Chicken",
+          "sourceLabel": "Harissa Spiced Chicken",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Charsiew Chicken Kolo \"Mee\"",
+          "sourceLabel": "Charsiew Chicken Kolo \"Mee\"",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Miso Cream Chicken Udon",
+          "sourceLabel": "Miso Cream Chicken Udon",
+          "sourceCategory": null,
+          "quantity": 1
+        }
+      ],
+      "itemsPerDelivery": 9,
+      "gstIncluded": true,
+      "source": {
+        "file": "High_Carb_Bundles_Menu_Synced (1).pptx",
+        "sha256": "16aa3aa975c9673e0ed871a9ee878873dbbbb9902cee2fbfcf359aa7cb4f6b21",
+        "slide": 3
+      },
+      "nativeMappingVerified": false,
+      "purchasePriceMinor": 9080,
+      "displayUnitMinor": 1009
+    },
+    {
+      "title": "High Carb | Essential 10 bundle",
+      "contents": [
+        {
+          "name": "Shawarma Chicken Rice Bowl",
+          "sourceLabel": "Shawarma Chicken Rice Bowl",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Harissa Spiced Chicken",
+          "sourceLabel": "Harissa Spiced Chicken",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Miso Cream Chicken Udon",
+          "sourceLabel": "Miso Cream Chicken Udon",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Charsiew Chicken Kolo \"Mee\"",
+          "sourceLabel": "Charsiew Chicken Kolo \"Mee\"",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Gochujang Chicken",
+          "sourceLabel": "Gochujang Chicken",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Housemade Beefballs & Rosti",
+          "sourceLabel": "Housemade Beefballs & Rosti",
+          "sourceCategory": null,
+          "quantity": 1
+        }
+      ],
+      "itemsPerDelivery": 10,
+      "gstIncluded": true,
+      "source": {
+        "file": "High_Carb_Bundles_Menu_Synced (1).pptx",
+        "sha256": "16aa3aa975c9673e0ed871a9ee878873dbbbb9902cee2fbfcf359aa7cb4f6b21",
+        "slide": 4
+      },
+      "nativeMappingVerified": false,
+      "purchasePriceMinor": 9720,
+      "displayUnitMinor": 972
+    },
+    {
+      "title": "High Carb | Essential 10 bundle (No-Beef)",
+      "contents": [
+        {
+          "name": "Shawarma Chicken Rice Bowl",
+          "sourceLabel": "Shawarma Chicken Rice Bowl",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Harissa Spiced Chicken",
+          "sourceLabel": "Harissa Spiced Chicken",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Miso Cream Chicken Udon",
+          "sourceLabel": "Miso Cream Chicken Udon",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Charsiew Chicken Kolo \"Mee\"",
+          "sourceLabel": "Charsiew Chicken Kolo \"Mee\"",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Gochujang Chicken",
+          "sourceLabel": "Gochujang Chicken",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Chilli \"Crab\" Pasta",
+          "sourceLabel": "Chilli \"Crab\" Pasta",
+          "sourceCategory": null,
+          "quantity": 1
+        }
+      ],
+      "itemsPerDelivery": 10,
+      "gstIncluded": true,
+      "source": {
+        "file": "High_Carb_Bundles_Menu_Synced (1).pptx",
+        "sha256": "16aa3aa975c9673e0ed871a9ee878873dbbbb9902cee2fbfcf359aa7cb4f6b21",
+        "slide": 5
+      },
+      "nativeMappingVerified": false,
+      "purchasePriceMinor": 9720,
+      "displayUnitMinor": 972
+    },
+    {
+      "title": "Just Protein | Variety 10 bundle",
+      "contents": [
+        {
+          "name": "Mango Salsa Panko Fish",
+          "sourceLabel": "Mango Salsa Panko Fish",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Chimichurri Creamed Grilled Chicken Breast",
+          "sourceLabel": "Chimichurri Creamed Grilled Chicken Breast",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Garlic Herb Grilled Chicken Breast",
+          "sourceLabel": "Garlic Herb Grilled Chicken Breast",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Dill & Yogurt Grilled Tilapia",
+          "sourceLabel": "Dill & Yogurt Grilled Tilapia",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Honey Charsiew Chicken Breast",
+          "sourceLabel": "Honey Charsiew Chicken Breast",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Gochujang Pepper Grilled Chicken Breast",
+          "sourceLabel": "Gochujang Pepper Grilled Chicken Breast",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Peri Peri Grilled Chicken Breast",
+          "sourceLabel": "Peri Peri Grilled Chicken Breast",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Handformed Beefballs in Gravy",
+          "sourceLabel": "Handformed Beefballs in Gravy",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Chipotle Chicken Grilled Chicken Breast",
+          "sourceLabel": "Chipotle Chicken Grilled Chicken Breast",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Bulgogi Beef Slices",
+          "sourceLabel": "Bulgogi Beef Slices",
+          "sourceCategory": null,
+          "quantity": 1
+        }
+      ],
+      "itemsPerDelivery": 10,
+      "gstIncluded": true,
+      "source": {
+        "file": "Just_Protein_and_Mixed_Bundles_Menu_Synced (1).pptx",
+        "sha256": "d4cecdaafe32ef55a23094266174b5ee59072db2cf5959552abc8ccaa8227f55",
+        "slide": 1
+      },
+      "nativeMappingVerified": false,
+      "purchasePriceMinor": 5990,
+      "displayUnitMinor": 599
+    },
+    {
+      "title": "Low Carb + Just Protein | Mixed Bundle",
+      "contents": [
+        {
+          "name": "Chicken Ratatouille",
+          "sourceLabel": "Chicken Ratatouille",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Low-Carb Chicken Mala",
+          "sourceLabel": "Low-Carb Chicken Mala",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Homemade Meat-Loaf Army Stew",
+          "sourceLabel": "Homemade Meat-Loaf Army Stew",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Chipotle Chicken Bowl",
+          "sourceLabel": "Chipotle Chicken Bowl",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Grilled Tilapia in Paprika Sauce",
+          "sourceLabel": "Grilled Tilapia in Paprika Sauce",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Chilli Con Carne Beef",
+          "sourceLabel": "Chilli Con Carne Beef",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Cajun Chicken Green Bowl",
+          "sourceLabel": "Cajun Chicken Green Bowl",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Peri Peri Grilled Chicken Breast",
+          "sourceLabel": "Peri Peri Grilled Chicken Breast",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Chipotle Chicken Grilled Chicken Breast",
+          "sourceLabel": "Chipotle Chicken Grilled Chicken Breast",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Chimichurri Creamed Grilled Chicken Breast",
+          "sourceLabel": "Chimichurri Creamed Grilled Chicken Breast",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Mango Salsa Panko Fish",
+          "sourceLabel": "Mango Salsa Panko Fish",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Handformed Beefballs in Gravy",
+          "sourceLabel": "Handformed Beefballs in Gravy",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Gochujang Pepper Grilled Chicken Breast",
+          "sourceLabel": "Gochujang Pepper Grilled Chicken Breast",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Dill & Yogurt Grilled Tilapia",
+          "sourceLabel": "Dill & Yogurt Grilled Tilapia",
+          "sourceCategory": null,
+          "quantity": 1
+        }
+      ],
+      "itemsPerDelivery": 14,
+      "gstIncluded": true,
+      "source": {
+        "file": "Just_Protein_and_Mixed_Bundles_Menu_Synced (1).pptx",
+        "sha256": "d4cecdaafe32ef55a23094266174b5ee59072db2cf5959552abc8ccaa8227f55",
+        "slide": 2
+      },
+      "nativeMappingVerified": false,
+      "purchasePriceMinor": 10980,
+      "displayUnitMinor": 784,
+      "displayCorrection": "User approved 14 items / SGD 109.80 total / SGD 7.84 each on 15 October 2026."
+    },
+    {
+      "title": "High Carb + Just Protein | Mixed Bundle",
+      "contents": [
+        {
+          "name": "Shawarma Chicken Rice Bowl",
+          "sourceLabel": "Shawarma Chicken Rice Bowl",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Gochujang Chicken",
+          "sourceLabel": "Gochujang Chicken",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Harissa Spiced Chicken",
+          "sourceLabel": "Harissa Spiced Chicken",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Chilli \"Crab\" Pasta",
+          "sourceLabel": "Chilli \"Crab\" Pasta",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Housemade Beefballs & Rosti",
+          "sourceLabel": "Housemade Beefballs & Rosti",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Charsiew Chicken Kolo \"Mee\"",
+          "sourceLabel": "Charsiew Chicken Kolo \"Mee\"",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Miso Cream Chicken Udon",
+          "sourceLabel": "Miso Cream Chicken Udon",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Peri Peri Grilled Chicken Breast",
+          "sourceLabel": "Peri Peri Grilled Chicken Breast",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Chipotle Chicken Grilled Chicken Breast",
+          "sourceLabel": "Chipotle Chicken Grilled Chicken Breast",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Chimichurri Creamed Grilled Chicken Breast",
+          "sourceLabel": "Chimichurri Creamed Grilled Chicken Breast",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Mango Salsa Panko Fish",
+          "sourceLabel": "Mango Salsa Panko Fish",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Handformed Beefballs in Gravy",
+          "sourceLabel": "Handformed Beefballs in Gravy",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Gochujang Pepper Grilled Chicken Breast",
+          "sourceLabel": "Gochujang Pepper Grilled Chicken Breast",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Dill & Yogurt Grilled Tilapia",
+          "sourceLabel": "Dill & Yogurt Grilled Tilapia",
+          "sourceCategory": null,
+          "quantity": 1
+        }
+      ],
+      "itemsPerDelivery": 14,
+      "gstIncluded": true,
+      "source": {
+        "file": "Just_Protein_and_Mixed_Bundles_Menu_Synced (1).pptx",
+        "sha256": "d4cecdaafe32ef55a23094266174b5ee59072db2cf5959552abc8ccaa8227f55",
+        "slide": 3
+      },
+      "nativeMappingVerified": false,
+      "purchasePriceMinor": 10980,
+      "displayUnitMinor": 784,
+      "displayCorrection": "User approved 14 items / SGD 109.80 total / SGD 7.84 each on 15 October 2026."
+    },
+    {
+      "title": "Low Carb | Signature 5 bundle",
+      "contents": [
+        {
+          "name": "Chipotle Chicken Bowl",
+          "sourceLabel": "Chipotle Chicken Bowl",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Hainanese Chicken \"Cauli-Rice\"",
+          "sourceLabel": "Hainanese Chicken \"Cauli-Rice\"",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Chicken Ratatouille",
+          "sourceLabel": "Chicken Ratatouille",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Chilli Con Carne Beef",
+          "sourceLabel": "Chilli Con Carne Beef",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Cajun Chicken Green Bowl",
+          "sourceLabel": "Cajun Chicken Green Bowl",
+          "sourceCategory": null,
+          "quantity": 1
+        }
+      ],
+      "itemsPerDelivery": 5,
+      "gstIncluded": true,
+      "source": {
+        "file": "Low_Carb_Bundles_Menu_Synced (1).pptx",
+        "sha256": "f2d5c6f006538a0b08827371e1daf2896376125e6e8ea3f78571081134d4478d",
+        "slide": 1
+      },
+      "nativeMappingVerified": false,
+      "purchasePriceMinor": 5040,
+      "displayUnitMinor": 1008
+    },
+    {
+      "title": "Low Carb | Signature 5 bundle (No-Beef)",
+      "contents": [
+        {
+          "name": "Chipotle Chicken Bowl",
+          "sourceLabel": "Chipotle Chicken Bowl",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Cajun Chicken Green Bowl",
+          "sourceLabel": "Cajun Chicken Green Bowl",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Chicken Ratatouille",
+          "sourceLabel": "Chicken Ratatouille",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Hainanese Chicken \"Cauli-Rice\"",
+          "sourceLabel": "Hainanese Chicken \"Cauli-Rice\"",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Grilled Tilapia in Paprika Sauce",
+          "sourceLabel": "Grilled Tilapia in Paprika Sauce",
+          "sourceCategory": null,
+          "quantity": 1
+        }
+      ],
+      "itemsPerDelivery": 5,
+      "gstIncluded": true,
+      "source": {
+        "file": "Low_Carb_Bundles_Menu_Synced (1).pptx",
+        "sha256": "f2d5c6f006538a0b08827371e1daf2896376125e6e8ea3f78571081134d4478d",
+        "slide": 2
+      },
+      "nativeMappingVerified": false,
+      "purchasePriceMinor": 5040,
+      "displayUnitMinor": 1008
+    },
+    {
+      "title": "Low Carb | Variety 9 bundle",
+      "contents": [
+        {
+          "name": "Hainanese Chicken \"Cauli-Rice\"",
+          "sourceLabel": "Hainanese Chicken \"Cauli-Rice\"",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Homemade Meat-Loaf Army Stew",
+          "sourceLabel": "Homemade Meat-Loaf Army Stew",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Chilli Con Carne Beef",
+          "sourceLabel": "Chilli Con Carne Beef",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Chipotle Chicken Bowl",
+          "sourceLabel": "Chipotle Chicken Bowl",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Chicken Ratatouille",
+          "sourceLabel": "Chicken Ratatouille",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Grilled Tilapia in Paprika Sauce",
+          "sourceLabel": "Grilled Tilapia in Paprika Sauce",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Low-Carb Chicken Mala",
+          "sourceLabel": "Low-Carb Chicken Mala",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Thai Green Curry Chicken",
+          "sourceLabel": "Thai Green Curry Chicken",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Cajun Chicken Green Bowl",
+          "sourceLabel": "Cajun Chicken Green Bowl",
+          "sourceCategory": null,
+          "quantity": 1
+        }
+      ],
+      "itemsPerDelivery": 9,
+      "gstIncluded": true,
+      "source": {
+        "file": "Low_Carb_Bundles_Menu_Synced (1).pptx",
+        "sha256": "f2d5c6f006538a0b08827371e1daf2896376125e6e8ea3f78571081134d4478d",
+        "slide": 3
+      },
+      "nativeMappingVerified": false,
+      "purchasePriceMinor": 8990,
+      "displayUnitMinor": 999
+    },
+    {
+      "title": "Low Carb | Essential 10 bundle",
+      "contents": [
+        {
+          "name": "Hainanese Chicken \"Cauli-Rice\"",
+          "sourceLabel": "Hainanese Chicken \"Cauli-Rice\"",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Cajun Chicken Green Bowl",
+          "sourceLabel": "Cajun Chicken Green Bowl",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Chicken Ratatouille",
+          "sourceLabel": "Chicken Ratatouille",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Homemade Meat-Loaf Army Stew",
+          "sourceLabel": "Homemade Meat-Loaf Army Stew",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Chipotle Chicken Bowl",
+          "sourceLabel": "Chipotle Chicken Bowl",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Chilli Con Carne Beef",
+          "sourceLabel": "Chilli Con Carne Beef",
+          "sourceCategory": null,
+          "quantity": 1
+        }
+      ],
+      "itemsPerDelivery": 10,
+      "gstIncluded": true,
+      "source": {
+        "file": "Low_Carb_Bundles_Menu_Synced (1).pptx",
+        "sha256": "f2d5c6f006538a0b08827371e1daf2896376125e6e8ea3f78571081134d4478d",
+        "slide": 4
+      },
+      "nativeMappingVerified": false,
+      "purchasePriceMinor": 9720,
+      "displayUnitMinor": 972
+    },
+    {
+      "title": "Low Carb | Essential 10 (No-Beef)",
+      "contents": [
+        {
+          "name": "Hainanese Chicken \"Cauli-Rice\"",
+          "sourceLabel": "Hainanese Chicken \"Cauli-Rice\"",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Chicken Ratatouille",
+          "sourceLabel": "Chicken Ratatouille",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Chipotle Chicken Bowl",
+          "sourceLabel": "Chipotle Chicken Bowl",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Cajun Chicken Green Bowl",
+          "sourceLabel": "Cajun Chicken Green Bowl",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Homemade Meat-Loaf Army Stew",
+          "sourceLabel": "Homemade Meat-Loaf Army Stew",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Grilled Tilapia in Paprika Sauce",
+          "sourceLabel": "Grilled Tilapia in Paprika Sauce",
+          "sourceCategory": null,
+          "quantity": 1
+        }
+      ],
+      "itemsPerDelivery": 10,
+      "gstIncluded": true,
+      "source": {
+        "file": "Low_Carb_Bundles_Menu_Synced (1).pptx",
+        "sha256": "f2d5c6f006538a0b08827371e1daf2896376125e6e8ea3f78571081134d4478d",
+        "slide": 5
+      },
+      "nativeMappingVerified": false,
+      "purchasePriceMinor": 9720,
+      "displayUnitMinor": 972
+    }
+  ],
+  "subscriptions": [
+    {
+      "title": "Just Protein | Non-Beef",
+      "contents": [
+        {
+          "name": "Mango Salsa Panko Fish",
+          "sourceLabel": "Mango Salsa Panko Fish",
+          "sourceCategory": null,
+          "quantity": 3
+        },
+        {
+          "name": "Chipotle Chicken Grilled Chicken Breast",
+          "sourceLabel": "Chipotle Chicken Grilled Chicken Breast",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Garlic Herb Grilled Chicken Breast",
+          "sourceLabel": "Garlic Herb Grilled Chicken Breast",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Chimichurri Creamed Grilled Chicken Breast",
+          "sourceLabel": "Chimichurri Creamed Grilled Chicken Breast",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Honey Charsiew Chicken Breast",
+          "sourceLabel": "Honey Charsiew Chicken Breast",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Dill & Yogurt Grilled Tilapia",
+          "sourceLabel": "Dill & Yogurt Grilled Tilapia",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Peri Peri Grilled Chicken Breast",
+          "sourceLabel": "Peri Peri Grilled Chicken Breast",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Gochujang Pepper Grilled Chicken Breast",
+          "sourceLabel": "Gochujang Pepper Grilled Chicken Breast",
+          "sourceCategory": null,
+          "quantity": 1
+        }
+      ],
+      "itemsPerDelivery": 15,
+      "gstIncluded": true,
+      "source": {
+        "file": "Meal_Subscriptions_Menu_Synced (1).pptx",
+        "sha256": "3d864e3716abd996d3b80bbd20067ff515b31db2c3869d5f8a7130a41f62f38a",
+        "slide": 1
+      },
+      "nativeMappingVerified": false,
+      "terms": [
+        {
+          "months": 3,
+          "deliveries": 3,
+          "upfrontMinor": 25520
+        },
+        {
+          "months": 6,
+          "deliveries": 6,
+          "upfrontMinor": 49360
+        }
+      ],
+      "comparisonOnlyOneMonth": true,
+      "automaticTermRenewal": true,
+      "calendarRuleStatus": "MERCHANT_CLARIFICATION_PENDING",
+      "deliveryIncluded": true
+    },
+    {
+      "title": "Just Protein | Beef",
+      "contents": [
+        {
+          "name": "Mango Salsa Panko Fish",
+          "sourceLabel": "Mango Salsa Panko Fish",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Garlic Herb Grilled Chicken Breast",
+          "sourceLabel": "Garlic Herb Grilled Chicken Breast",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Honey Charsiew Chicken Breast",
+          "sourceLabel": "Honey Charsiew Chicken Breast",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Peri Peri Grilled Chicken Breast",
+          "sourceLabel": "Peri Peri Grilled Chicken Breast",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Chipotle Chicken Grilled Chicken Breast",
+          "sourceLabel": "Chipotle Chicken Grilled Chicken Breast",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Chimichurri Creamed Grilled Chicken Breast",
+          "sourceLabel": "Chimichurri Creamed Grilled Chicken Breast",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Dill & Yogurt Grilled Tilapia",
+          "sourceLabel": "Dill & Yogurt Grilled Tilapia",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Gochujang Pepper Grilled Chicken Breast",
+          "sourceLabel": "Gochujang Pepper Grilled Chicken Breast",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Handformed Beefballs in Gravy",
+          "sourceLabel": "Handformed Beefballs in Gravy",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Bulgogi Beef Slices",
+          "sourceLabel": "Bulgogi Beef Slices",
+          "sourceCategory": null,
+          "quantity": 1
+        }
+      ],
+      "itemsPerDelivery": 15,
+      "gstIncluded": true,
+      "source": {
+        "file": "Meal_Subscriptions_Menu_Synced (1).pptx",
+        "sha256": "3d864e3716abd996d3b80bbd20067ff515b31db2c3869d5f8a7130a41f62f38a",
+        "slide": 2
+      },
+      "nativeMappingVerified": false,
+      "terms": [
+        {
+          "months": 3,
+          "deliveries": 3,
+          "upfrontMinor": 25360
+        },
+        {
+          "months": 6,
+          "deliveries": 6,
+          "upfrontMinor": 49050
+        }
+      ],
+      "comparisonOnlyOneMonth": true,
+      "automaticTermRenewal": true,
+      "calendarRuleStatus": "MERCHANT_CLARIFICATION_PENDING",
+      "deliveryIncluded": true
+    },
+    {
+      "title": "Low Carb | Non-Beef",
+      "contents": [
+        {
+          "name": "Hainanese Chicken \"Cauli-Rice\"",
+          "sourceLabel": "Hainanese Chicken \"Cauli-Rice\"",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Chipotle Chicken Bowl",
+          "sourceLabel": "Chipotle Chicken Bowl",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Chicken Ratatouille",
+          "sourceLabel": "Chicken Ratatouille",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Thai Green Curry Chicken",
+          "sourceLabel": "Thai Green Curry Chicken",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Low-Carb Chicken Mala",
+          "sourceLabel": "Low-Carb Chicken Mala",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Cajun Chicken Green Bowl",
+          "sourceLabel": "Cajun Chicken Green Bowl",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Homemade Meat-Loaf Army Stew",
+          "sourceLabel": "Homemade Meat-Loaf Army Stew",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Grilled Tilapia in Paprika Sauce",
+          "sourceLabel": "Grilled Tilapia in Paprika Sauce",
+          "sourceCategory": null,
+          "quantity": 2
+        }
+      ],
+      "itemsPerDelivery": 10,
+      "gstIncluded": true,
+      "source": {
+        "file": "Meal_Subscriptions_Menu_Synced (1).pptx",
+        "sha256": "3d864e3716abd996d3b80bbd20067ff515b31db2c3869d5f8a7130a41f62f38a",
+        "slide": 3
+      },
+      "nativeMappingVerified": false,
+      "terms": [
+        {
+          "months": 3,
+          "deliveries": 3,
+          "upfrontMinor": 28665
+        },
+        {
+          "months": 6,
+          "deliveries": 6,
+          "upfrontMinor": 55440
+        }
+      ],
+      "comparisonOnlyOneMonth": true,
+      "automaticTermRenewal": true,
+      "calendarRuleStatus": "MERCHANT_CLARIFICATION_PENDING",
+      "deliveryIncluded": true
+    },
+    {
+      "title": "Low Carb | Beef",
+      "contents": [
+        {
+          "name": "Hainanese Chicken \"Cauli-Rice\"",
+          "sourceLabel": "Hainanese Chicken \"Cauli-Rice\"",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Chicken Ratatouille",
+          "sourceLabel": "Chicken Ratatouille",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Low-Carb Chicken Mala",
+          "sourceLabel": "Low-Carb Chicken Mala",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Homemade Meat-Loaf Army Stew",
+          "sourceLabel": "Homemade Meat-Loaf Army Stew",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Chipotle Chicken Bowl",
+          "sourceLabel": "Chipotle Chicken Bowl",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Thai Green Curry Chicken",
+          "sourceLabel": "Thai Green Curry Chicken",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Cajun Chicken Green Bowl",
+          "sourceLabel": "Cajun Chicken Green Bowl",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Chilli Con Carne Beef",
+          "sourceLabel": "Chilli Con Carne Beef",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Grilled Tilapia in Paprika Sauce",
+          "sourceLabel": "Grilled Tilapia in Paprika Sauce",
+          "sourceCategory": null,
+          "quantity": 1
+        }
+      ],
+      "itemsPerDelivery": 10,
+      "gstIncluded": true,
+      "source": {
+        "file": "Meal_Subscriptions_Menu_Synced (1).pptx",
+        "sha256": "3d864e3716abd996d3b80bbd20067ff515b31db2c3869d5f8a7130a41f62f38a",
+        "slide": 4
+      },
+      "nativeMappingVerified": false,
+      "terms": [
+        {
+          "months": 3,
+          "deliveries": 3,
+          "upfrontMinor": 28665
+        },
+        {
+          "months": 6,
+          "deliveries": 6,
+          "upfrontMinor": 55440
+        }
+      ],
+      "comparisonOnlyOneMonth": true,
+      "automaticTermRenewal": true,
+      "calendarRuleStatus": "MERCHANT_CLARIFICATION_PENDING",
+      "deliveryIncluded": true
+    },
+    {
+      "title": "High Carb | Non-Beef",
+      "contents": [
+        {
+          "name": "Gochujang Chicken",
+          "sourceLabel": "Gochujang Chicken",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Tomato Fish Curry",
+          "sourceLabel": "Tomato Fish Curry",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Shawarma Chicken Rice Bowl",
+          "sourceLabel": "Shawarma Chicken Rice Bowl",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Chilli \"Crab\" Pasta",
+          "sourceLabel": "Chilli \"Crab\" Pasta",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Harissa Spiced Chicken",
+          "sourceLabel": "Harissa Spiced Chicken",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Charsiew Chicken Kolo \"Mee\"",
+          "sourceLabel": "Charsiew Chicken Kolo \"Mee\"",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Miso Cream Chicken Udon",
+          "sourceLabel": "Miso Cream Chicken Udon",
+          "sourceCategory": null,
+          "quantity": 1
+        }
+      ],
+      "itemsPerDelivery": 10,
+      "gstIncluded": true,
+      "source": {
+        "file": "Meal_Subscriptions_Menu_Synced (1).pptx",
+        "sha256": "3d864e3716abd996d3b80bbd20067ff515b31db2c3869d5f8a7130a41f62f38a",
+        "slide": 5
+      },
+      "nativeMappingVerified": false,
+      "terms": [
+        {
+          "months": 3,
+          "deliveries": 3,
+          "upfrontMinor": 28665
+        },
+        {
+          "months": 6,
+          "deliveries": 6,
+          "upfrontMinor": 55440
+        }
+      ],
+      "comparisonOnlyOneMonth": true,
+      "automaticTermRenewal": true,
+      "calendarRuleStatus": "MERCHANT_CLARIFICATION_PENDING",
+      "deliveryIncluded": true
+    },
+    {
+      "title": "High Carb | Beef",
+      "contents": [
+        {
+          "name": "Gochujang Chicken",
+          "sourceLabel": "Gochujang Chicken",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Shawarma Chicken Rice Bowl",
+          "sourceLabel": "Shawarma Chicken Rice Bowl",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Harissa Spiced Chicken",
+          "sourceLabel": "Harissa Spiced Chicken",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Miso Cream Chicken Udon",
+          "sourceLabel": "Miso Cream Chicken Udon",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Homestyle Beef Stew",
+          "sourceLabel": "Homestyle Beef Stew",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Chilli \"Crab\" Pasta",
+          "sourceLabel": "Chilli \"Crab\" Pasta",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Charsiew Chicken Kolo \"Mee\"",
+          "sourceLabel": "Charsiew Chicken Kolo \"Mee\"",
+          "sourceCategory": null,
+          "quantity": 1
+        }
+      ],
+      "itemsPerDelivery": 10,
+      "gstIncluded": true,
+      "source": {
+        "file": "Meal_Subscriptions_Menu_Synced (1).pptx",
+        "sha256": "3d864e3716abd996d3b80bbd20067ff515b31db2c3869d5f8a7130a41f62f38a",
+        "slide": 6
+      },
+      "nativeMappingVerified": false,
+      "terms": [
+        {
+          "months": 3,
+          "deliveries": 3,
+          "upfrontMinor": 28665
+        },
+        {
+          "months": 6,
+          "deliveries": 6,
+          "upfrontMinor": 55440
+        }
+      ],
+      "comparisonOnlyOneMonth": true,
+      "automaticTermRenewal": true,
+      "calendarRuleStatus": "MERCHANT_CLARIFICATION_PENDING",
+      "deliveryIncluded": true
+    },
+    {
+      "title": "Low Carb + Just Protein | Mixed",
+      "contents": [
+        {
+          "name": "Hainanese Chicken \"Cauli-Rice\"",
+          "sourceLabel": "Hainanese Chicken \"Cauli-Rice\"",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Chicken Ratatouille",
+          "sourceLabel": "Chicken Ratatouille",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Chilli Con Carne Beef",
+          "sourceLabel": "Chilli Con Carne Beef",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Homemade Meat-Loaf Army Stew",
+          "sourceLabel": "Homemade Meat-Loaf Army Stew",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Chipotle Chicken Bowl",
+          "sourceLabel": "Chipotle Chicken Bowl",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Cajun Chicken Green Bowl",
+          "sourceLabel": "Cajun Chicken Green Bowl",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Grilled Tilapia in Paprika Sauce",
+          "sourceLabel": "Grilled Tilapia in Paprika Sauce",
+          "sourceCategory": null,
+          "quantity": 2
+        },
+        {
+          "name": "Mango Salsa Panko Fish",
+          "sourceLabel": "Mango Salsa Panko Fish",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Garlic Herb Grilled Chicken Breast",
+          "sourceLabel": "Garlic Herb Grilled Chicken Breast",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Chimichurri Creamed Grilled Chicken Breast",
+          "sourceLabel": "Chimichurri Creamed Grilled Chicken Breast",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Chipotle Chicken Grilled Chicken Breast",
+          "sourceLabel": "Chipotle Chicken Grilled Chicken Breast",
+          "sourceCategory": null,
+          "quantity": 1
+        },
+        {
+          "name": "Gochujang Pepper Grilled Chicken Breast",
+          "sourceLabel": "Gochujang Pepper Grilled Chicken Breast",
+          "sourceCategory": null,
+          "quantity": 2
+        }
+      ],
+      "itemsPerDelivery": 15,
+      "gstIncluded": true,
+      "source": {
+        "file": "Meal_Subscriptions_Menu_Synced (1).pptx",
+        "sha256": "3d864e3716abd996d3b80bbd20067ff515b31db2c3869d5f8a7130a41f62f38a",
+        "slide": 7
+      },
+      "nativeMappingVerified": false,
+      "terms": [
+        {
+          "months": 3,
+          "deliveries": 3,
+          "upfrontMinor": 35900
+        },
+        {
+          "months": 6,
+          "deliveries": 6,
+          "upfrontMinor": 69430
+        }
+      ],
+      "comparisonOnlyOneMonth": true,
+      "automaticTermRenewal": true,
+      "calendarRuleStatus": "MERCHANT_CLARIFICATION_PENDING",
+      "deliveryIncluded": true
+    },
+    {
+      "title": "High Carb + Just Protein | Mixed",
+      "contents": [
+        {
+          "name": "Mango Salsa Panko Fish",
+          "sourceLabel": "JP \u00b7 Mango Salsa Panko Fish",
+          "sourceCategory": "JP",
+          "quantity": 1
+        },
+        {
+          "name": "Garlic Herb Grilled Chicken Breast",
+          "sourceLabel": "JP \u00b7 Garlic Herb Grilled Chicken Breast",
+          "sourceCategory": "JP",
+          "quantity": 1
+        },
+        {
+          "name": "Chimichurri Creamed Grilled Chicken Breast",
+          "sourceLabel": "JP \u00b7 Chimichurri Creamed Grilled Chicken Breast",
+          "sourceCategory": "JP",
+          "quantity": 1
+        },
+        {
+          "name": "Chipotle Chicken Grilled Chicken Breast",
+          "sourceLabel": "JP \u00b7 Chipotle Chicken Grilled Chicken Breast",
+          "sourceCategory": "JP",
+          "quantity": 1
+        },
+        {
+          "name": "Gochujang Pepper Grilled Chicken Breast",
+          "sourceLabel": "JP \u00b7 Gochujang Pepper Grilled Chicken Breast",
+          "sourceCategory": "JP",
+          "quantity": 2
+        },
+        {
+          "name": "Gochujang Chicken",
+          "sourceLabel": "HC \u00b7 Gochujang Chicken",
+          "sourceCategory": "HC",
+          "quantity": 1
+        },
+        {
+          "name": "Shawarma Chicken Rice Bowl",
+          "sourceLabel": "HC \u00b7 Shawarma Chicken Rice Bowl",
+          "sourceCategory": "HC",
+          "quantity": 1
+        },
+        {
+          "name": "Homestyle Beef Stew",
+          "sourceLabel": "HC \u00b7 Homestyle Beef Stew",
+          "sourceCategory": "HC",
+          "quantity": 1
+        },
+        {
+          "name": "Harissa Spiced Chicken",
+          "sourceLabel": "HC \u00b7 Harissa Spiced Chicken",
+          "sourceCategory": "HC",
+          "quantity": 2
+        },
+        {
+          "name": "Miso Cream Chicken Udon",
+          "sourceLabel": "HC \u00b7 Miso Cream Chicken Udon",
+          "sourceCategory": "HC",
+          "quantity": 1
+        },
+        {
+          "name": "Charsiew Chicken Kolo \"Mee\"",
+          "sourceLabel": "HC \u00b7 Charsiew Chicken Kolo \"Mee\"",
+          "sourceCategory": "HC",
+          "quantity": 1
+        },
+        {
+          "name": "Housemade Beefballs & Rosti",
+          "sourceLabel": "HC \u00b7 Housemade Beefballs & Rosti",
+          "sourceCategory": "HC",
+          "quantity": 1
+        },
+        {
+          "name": "Chilli \"Crab\" Pasta",
+          "sourceLabel": "HC \u00b7 Chilli \"Crab\" Pasta",
+          "sourceCategory": "HC",
+          "quantity": 1
+        }
+      ],
+      "itemsPerDelivery": 15,
+      "gstIncluded": true,
+      "source": {
+        "file": "Meal_Subscriptions_Menu_Synced (1).pptx",
+        "sha256": "3d864e3716abd996d3b80bbd20067ff515b31db2c3869d5f8a7130a41f62f38a",
+        "slide": 8
+      },
+      "nativeMappingVerified": false,
+      "terms": [
+        {
+          "months": 3,
+          "deliveries": 3,
+          "upfrontMinor": 35900
+        },
+        {
+          "months": 6,
+          "deliveries": 6,
+          "upfrontMinor": 69430
+        }
+      ],
+      "comparisonOnlyOneMonth": true,
+      "automaticTermRenewal": true,
+      "calendarRuleStatus": "MERCHANT_CLARIFICATION_PENDING",
+      "deliveryIncluded": true
+    }
+  ]
+}

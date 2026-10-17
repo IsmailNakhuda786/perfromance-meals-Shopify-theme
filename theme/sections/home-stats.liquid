@@ -1,16 +1,26 @@
-<div class="bg-[#F5B300] py-8 px-8 sm:px-16" data-home-stats>
+<div class="{% if section.settings.reference_layout %}pm-parent-stats{% endif %} bg-[#F5B300] py-8 px-8 sm:px-16" data-home-stats>
   <div class="max-w-[1440px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0">
     {% for block in section.blocks %}<div class="flex flex-col gap-1 md:border-l md:first:border-l-0 border-[#1A1A1A]/15 md:pl-10 md:first:pl-0" {{ block.shopify_attributes }}>
-      <span class="font-display font-extrabold text-[#1A1A1A] leading-none tabular-nums" style="font-size:clamp(24px,2.8vw,38px)"><span data-count-up="{{ block.settings.value }}">{{ block.settings.value }}</span>{{ block.settings.suffix | escape }}</span>
+      <span class="font-display font-extrabold text-[#1A1A1A] leading-none tabular-nums" style="font-size:clamp(24px,2.8vw,38px)">{% if block.settings.display_value != blank %}{{ block.settings.display_value | escape }}{% else %}<span data-count-up="{{ block.settings.value }}">{{ block.settings.value }}</span>{% endif %}{{ block.settings.suffix | escape }}</span>
       <span class="font-mono text-[10px] tracking-[0.28em] uppercase text-[#1A1A1A]/60">{{ block.settings.label | escape }}</span>
     </div>{% endfor %}
   </div>
 </div>
 
+{% stylesheet %}
+.pm-parent-stats{background:#fff;border-bottom:1px solid #eee;padding-top:40px;padding-bottom:40px}.pm-parent-stats [data-count-up]{font-weight:600}.pm-parent-stats>div{grid-template-columns:repeat(3,minmax(0,1fr))}@media(max-width:639px){.pm-parent-stats>div{grid-template-columns:minmax(0,1fr)}}
+{% endstylesheet %}
 {% schema %}
 {
   "name": "Homepage statistics",
-  "settings": [],
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "reference_layout",
+      "label": "Use approved parent palette",
+      "default": false
+    }
+  ],
   "presets": [
     {
       "name": "Homepage statistics",
@@ -71,6 +81,11 @@
           "id": "label",
           "label": "Label",
           "default": "STATISTIC"
+        },
+        {
+          "type": "text",
+          "id": "display_value",
+          "label": "Static value (for ratings or decimals)"
         }
       ]
     }

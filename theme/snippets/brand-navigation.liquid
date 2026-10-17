@@ -1,0 +1,35 @@
+{% doc %}
+  Brand navigation using shared native account/cart and existing contextual routes.
+  @param {object} section - Header settings.
+  @param {string} brand - rs or mp.
+  @param {string} brand_label - Translated brand name.
+{% enddoc %}
+{{ 'brand-navigation.css' | asset_url | stylesheet_tag }}
+<nav class="pm-brand-navigation" data-pm-header data-brand="{{ brand }}" aria-label="{{ 'navigation.main' | t }}">
+  <div class="pm-brand-navigation__row">
+    {% if brand == 'mp' %}{% assign brand_url = section.settings.meal_plan_url | default: '/pages/meal-plan' %}{% assign logo_variant = 'light' %}{% else %}{% assign brand_url = section.settings.ready_series_url | default: '/pages/ready-series' %}{% assign logo_variant = 'dark' %}{% endif %}
+    <a class="pm-brand-navigation__logo" href="{{ brand_url }}" aria-label="{{ brand_label }}">{% render 'logos', brand: brand, size: 'md', variant: logo_variant %}</a>
+    <div class="pm-brand-navigation__links">{% render 'context-navigation', brand: brand, mode: 'desktop', config: section.settings, reference_style: true %}</div>
+    <div class="pm-brand-navigation__actions">
+      <details data-brand-switcher><summary>{{ 'navigation.our_brands' | t }}</summary><div class="pm-brand-navigation__brands">
+        <a href="{{ routes.root_url }}">{{ 'brands.performance_meals' | t }}</a>
+        <a href="{{ section.settings.meal_plan_url | default: '/pages/meal-plan' }}">{{ 'brands.meal_plan' | t }}</a>
+        <a href="{{ section.settings.ready_series_url | default: '/pages/ready-series' }}">{{ 'brands.ready_series' | t }}</a>
+      </div></details>
+      {% if shop.customer_accounts_enabled %}<a href="{{ routes.account_url }}">{{ 'account.title' | t }}</a>{% endif %}
+      {% if customer %}<a class="pm-brand-navigation__logout" href="{{ routes.account_logout_url }}">{{ 'account.log_out' | t }}</a>{% endif %}
+      <a href="{{ routes.cart_url }}" data-cart-open aria-label="{{ 'cart.title' | t }}">{{ 'cart.title' | t }} <span data-cart-count {% if cart.item_count == 0 %}hidden{% endif %}>{{ cart.item_count }}</span></a>
+      <button type="button" data-mobile-toggle aria-label="{{ 'navigation.menu' | t }}" aria-expanded="false" aria-controls="BrandMenu-{{ section.id }}"><span data-menu-icon>{{ 'navigation.menu' | t }}</span><span data-close-icon hidden>{{ 'general.close' | t }}</span></button>
+    </div>
+  </div>
+  <div id="BrandMenu-{{ section.id }}" class="pm-brand-navigation__mobile" data-mobile-menu hidden>
+    {% render 'context-navigation', brand: brand, mode: 'mobile', config: section.settings, reference_style: true %}
+    <div class="pm-brand-navigation__mobile-brands">
+      <p>{{ 'navigation.our_brands' | t }}</p>
+      <a href="{{ routes.root_url }}">{{ 'brands.performance_meals' | t }}</a>
+      <a href="{{ section.settings.meal_plan_url | default: '/pages/meal-plan' }}">{{ 'brands.meal_plan' | t }}</a>
+      <a href="{{ section.settings.ready_series_url | default: '/pages/ready-series' }}">{{ 'brands.ready_series' | t }}</a>
+    </div>
+    {% if customer %}<a href="{{ routes.account_logout_url }}">{{ 'account.log_out' | t }}</a>{% endif %}
+  </div>
+</nav>

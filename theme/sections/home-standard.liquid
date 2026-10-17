@@ -1,3 +1,6 @@
+{% if section.settings.reference_layout %}
+<section class="pm-parent-standard"><h2>{{ section.settings.reference_heading | escape | newline_to_br }}</h2><p>{{ section.settings.reference_body | escape }}</p></section>
+{% else %}
 <section class="bg-[#1A1A1A] overflow-hidden">
   <div class="flex flex-col lg:flex-row">
     <div class="flex-1 px-6 sm:px-10 lg:px-14 py-10 sm:py-14 lg:py-16 flex flex-col justify-between"><div>
@@ -14,10 +17,32 @@
   </div>
 </section>
 
+{% endif %}
+{% stylesheet %}
+.pm-parent-standard{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;padding:72px 56px;background:#fff;border-bottom:1px solid #eee;color:#111}.pm-parent-standard h2{font-family:var(--font-display);font-size:clamp(36px,4.5vw,64px);font-weight:600;line-height:1.08;letter-spacing:-.045em}.pm-parent-standard p{align-self:center;font-size:18px;line-height:1.7;color:#585853;max-width:600px}@media(max-width:767px){.pm-parent-standard{grid-template-columns:minmax(0,1fr);gap:24px;padding:48px 24px}.pm-parent-standard p{font-size:16px}}
+{% endstylesheet %}
 {% schema %}
 {
   "name": "The Performance standard",
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "reference_layout",
+      "label": "Use approved parent layout",
+      "default": false
+    },
+    {
+      "type": "textarea",
+      "id": "reference_heading",
+      "label": "Parent heading",
+      "default": "Two specialised\nservices for best\nperformance."
+    },
+    {
+      "type": "textarea",
+      "id": "reference_body",
+      "label": "Parent introduction",
+      "default": "Frozen flexibility when your week moves fast. Fresh structure when your routine matters. Two clear experiences, built around the same belief: better meals make a better everyday."
+    },
     {
       "type": "text",
       "id": "number",

@@ -73,6 +73,7 @@
       {% if purchase_mode == 'bundles' %}
         <p class="text-[12px] text-white/40 leading-relaxed flex-1">{{ product.description | strip_html | truncate: 160 }}</p>
         {% if contents != blank %}<ul class="flex flex-wrap gap-1.5" aria-label="{{ 'catalog.bundle_contents' | t }}">{% for item in contents limit: 3 %}{% assign included_product = item.variant.value.product | default: item.product.value %}{% if included_product %}<li class="text-[10px] px-2 py-0.5 leading-snug bg-white/5 border border-white/10 text-white/50">{{ included_product.title | escape }} ×{{ item.quantity.value }}</li>{% endif %}{% endfor %}</ul>{% endif %}
+      {% elsif product.metafields.performance.nutrition_pending.value == true %}<p class="text-[10px] text-white/40" data-nutrition-pending>{{ 'nutrition.pending' | t }}</p>
       {% else %}<div class="flex gap-3 text-[10px] font-mono text-white/40">{% if product.metafields.performance.protein_g != blank %}<span>{{ product.metafields.performance.protein_g.value | plus: 0 }}g protein</span>{% endif %}{% if product.metafields.performance.calories_kcal != blank %}<span>·</span><span>{{ product.metafields.performance.calories_kcal.value }} cal</span>{% endif %}</div>{% endif %}
     {% if rating and rating_count > 0 %}<a href="{{ card_url }}#ProductReviews" class="flex items-center gap-1.5 text-left"><span class="flex text-[11px] text-[#F5B300]" aria-hidden="true">{% assign filled_stars = rating.rating | round %}{% for star in (1..5) %}<span{% if star > filled_stars %} class="text-white/20"{% endif %}>★</span>{% endfor %}</span><span class="text-[11px] font-mono text-white/40">{{ rating.rating }}</span><span class="text-[10px] text-white/30">({{ 'catalog.review_count' | t: count: rating_count }})</span></a>{% endif %}
 
@@ -91,7 +92,7 @@
       {% if purchase_mode == 'single' %}
         <div class="mt-auto flex items-center justify-between gap-2 pt-3 border-t border-white/8"><span class="font-display text-[18px] font-extrabold">{% render 'price', product: product %}</span><div class="shrink-0">{{ card_actions }}</div></div>
       {% else %}
-        <div class="flex items-baseline justify-between gap-3 mt-auto pt-3 border-t border-white/8"><span class="font-display text-[22px] font-extrabold">{% render 'price', product: product, variant: variant %}</span>{% if meal_count > 0 %}<span class="text-[11px] text-white/30">{{ 'catalog.meal_count' | t: count: meal_count }} · {{ variant.price | divided_by: meal_count | round | money }}/{{ 'catalog.meal_unit' | t }}</span>{% endif %}</div><div class="flex gap-2">{{ card_actions }}</div>
+        <div class="flex items-baseline justify-between gap-3 mt-auto pt-3 border-t border-white/8"><span class="font-display text-[22px] font-extrabold">{% render 'price', product: product, variant: variant %}</span>{% if meal_count > 0 %}<span class="text-[11px] text-white/30">{{ 'catalog.meal_count' | t: count: meal_count }}</span>{% endif %}</div>{% if purchase_mode == 'bundles' %}{% render 'bundle-savings', variant: variant, contents: contents %}{% endif %}<div class="flex gap-2">{{ card_actions }}</div>
       {% endif %}
     {% endif %}
   </div>

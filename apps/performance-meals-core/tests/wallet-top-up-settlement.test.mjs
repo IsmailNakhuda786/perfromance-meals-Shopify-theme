@@ -5,11 +5,11 @@ import {PrismaClient,buildServices} from './support/database.mjs';
 await buildServices({entryPoints:['app/services/wallet-top-up-settlement.server.ts'],outdir:'.shopify/top-up-settlement-test',bundle:true,packages:'external',format:'esm',platform:'node'});
 const {settleWalletTopUp}=await import('../.shopify/top-up-settlement-test/wallet-top-up-settlement.server.js');
 const db=new PrismaClient(),shop=`top-up-${randomUUID()}.myshopify.com`,customer='gid://shopify/Customer/801';
-process.env.ALLOWED_SHOP=shop;
+process.env.ALLOWED_SHOP=shop;process.env.WALLET_LEGACY_TOP_UP_QA_ENABLED='true';
 const config={productGid:'gid://shopify/Product/802',variants:{'gid://shopify/ProductVariant/803':2000},paymentGateways:['fixture_external_gateway']};
 const money=amount=>({shopMoney:{amount,currencyCode:'SGD'}});
 const order=id=>({id:`gid://shopify/Order/${id}`,cancelledAt:null,disputes:[],displayFinancialStatus:'PAID',currencyCode:'SGD',customer:{id:customer},totalPriceSet:money('20'),totalReceivedSet:money('20'),totalRefundedSet:money('0'),totalDiscountsSet:money('0'),totalTaxSet:money('0'),totalShippingPriceSet:money('0'),lineItems:{pageInfo:{hasNextPage:false},nodes:[{quantity:1,requiresShipping:false,taxable:false,variant:{id:'gid://shopify/ProductVariant/803'},product:{id:config.productGid,isGiftCard:false},originalTotalSet:money('20'),discountedTotalSet:money('20')}]},transactions:[{id:`gid://shopify/OrderTransaction/${id}`,status:'SUCCESS',kind:'SALE',gateway:'fixture_external_gateway',amountSet:money('20')}]});
-const gateway=id=>({readOrder:async()=>order(id),credit:async owner=>({id:`gid://shopify/StoreCreditAccountCreditTransaction/${id}`,ownerGid:owner,amountMinor:2000,currency:'SGD'})});
+const gateway=id=>({assertWalletReady:async()=>{},readOrder:async()=>order(id),credit:async owner=>({id:`gid://shopify/StoreCreditAccountCreditTransaction/${id}`,ownerGid:owner,amountMinor:2000,currency:'SGD'})});
 test.after(async()=>{await db.walletTopUpSettlement.deleteMany({where:{shop}});await db.walletEntry.deleteMany({where:{shop}});await db.customerWallet.deleteMany({where:{shop}});await db.commercePolicy.deleteMany({where:{shop}});await db.$disconnect();});
 
 test('top-ups remain closed by default; paid settlement and duplicate delivery credit exactly once',async()=>{
@@ -64,4 +64,16 @@ test('ledger failure preserves native evidence and can recover without issuing c
  assert.equal((await settleWalletTopUp(shop,customer,order(814).id,config,api)).state,'COMPLETED');
  assert.equal(credits,1);
  assert.equal((await db.customerWallet.findFirst({where:{shop,customerGid:customer}})).fundedBalance,before+2000);
+});
+
+test('unreconciled Wallet holds a paid top-up without issuing credit',async()=>{
+ const api=gateway(820);let credits=0;api.assertWalletReady=async()=>{throw Error('Wallet requires reconciliation before new credit');};api.credit=async()=>{credits++;throw Error('Must not credit');};
+ const before=(await db.customerWallet.findFirst({where:{shop,customerGid:customer}})).fundedBalance;
+ await assert.rejects(settleWalletTopUp(shop,customer,order(820).id,config,api),/before new credit/);assert.equal(credits,0);assert.equal((await db.customerWallet.findFirst({where:{shop,customerGid:customer}})).fundedBalance,before);assert.equal((await db.walletTopUpSettlement.findUnique({where:{shop_orderGid:{shop,orderGid:order(820).id}}})).state,'PREPARED');
+});
+
+
+test('general activation cannot credit retired top-up denominations without isolated QA opt-in',async()=>{
+ delete process.env.WALLET_LEGACY_TOP_UP_QA_ENABLED;let calls=0;
+ try{await assert.rejects(settleWalletTopUp(shop,customer,order(899).id,config,{readOrder:async()=>{calls++;throw Error('Must not read');}}),/Legacy top-up QA/);assert.equal(calls,0);}finally{process.env.WALLET_LEGACY_TOP_UP_QA_ENABLED='true';}
 });

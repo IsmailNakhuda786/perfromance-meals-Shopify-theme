@@ -17,6 +17,11 @@
   endif
 %}
 {% if section.settings.announcement != blank %}<div class="bg-[#F5B300] text-[#1A1A1A] text-center py-2 px-4 text-[10px] sm:text-[11px] tracking-[0.15em] sm:tracking-[0.2em] uppercase font-semibold" data-pm-announcement>{{ section.settings.announcement }}</div>{% endif %}
+{% if brand == 'pm' and section.settings.parent_reference_layout %}
+  {% render 'parent-navigation', section: section %}
+{% elsif brand != 'pm' and section.settings.brand_reference_layout %}
+  {% render 'brand-navigation', section: section, brand: brand, brand_label: brand_label %}
+{% else %}
 <nav class="bg-[#1A1A1A] text-white border-b border-white/10" data-pm-header aria-label="{{ 'navigation.main' | t }}">
   <div class="max-w-[1440px] mx-auto px-4 sm:px-6 h-[56px] sm:h-[60px] flex items-center justify-between gap-4">
     <details class="relative shrink-0" data-brand-switcher><summary class="flex items-center gap-3 hover:opacity-80 transition-opacity group cursor-pointer list-none">
@@ -54,6 +59,7 @@
     {% endif %}
   </div></div>
 </nav>
+{% endif %}
 {% stylesheet %}
 .pm-header-section{position:sticky;top:calc(-1 * var(--pm-announcement-height,0px));z-index:50}[data-brand-switcher] summary::-webkit-details-marker{display:none}[data-brand-switcher][open] summary svg{transform:rotate(180deg)}
 {% endstylesheet %}
@@ -63,6 +69,28 @@
   "name": "Performance Meals header",
   "class": "pm-header-section",
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "parent_reference_layout",
+      "label": "Use approved parent navigation",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "brand_reference_layout",
+      "label": "Use approved brand navigation",
+      "default": false
+    },
+    {
+      "type": "url",
+      "id": "affiliate_url",
+      "label": "Affiliate destination"
+    },
+    {
+      "type": "url",
+      "id": "contact_url",
+      "label": "Contact destination"
+    },
     {
       "type": "inline_richtext",
       "id": "announcement",

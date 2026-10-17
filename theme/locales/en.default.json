@@ -63,7 +63,9 @@
     "footer_meal_plans": "Meal Plan",
     "privacy": "Privacy",
     "terms": "Terms",
-    "refunds": "Refunds"
+    "refunds": "Refunds",
+    "affiliate": "Affiliate",
+    "contact": "Contact us"
   },
   "home": {
     "carousel": "Carousel",
@@ -175,7 +177,8 @@
     "more_ready_series": "More from Ready-Series",
     "view": "View",
     "meal_unit": "meal",
-    "shop_ready_series": "Shop all Ready-Series"
+    "shop_ready_series": "Shop all Ready-Series",
+    "bundle_savings": "Save {{ amount }} compared with buying these items individually"
   },
   "nutrition": {
     "protein_g": "Protein",
@@ -191,7 +194,10 @@
     "g": "g",
     "unavailable": "Nutrition information has not been added for this meal.",
     "per_serving": "Per serving",
-    "facts": "Nutrition facts"
+    "facts": "Nutrition facts",
+    "pending": "Nutrition details are being confirmed.",
+    "serving_weight": "Serving weight",
+    "servings_count": "Servings per container"
   },
   "marketing": {
     "about_image_0": "Real food for real routines",
@@ -248,7 +254,8 @@
     "order_message": "my order status",
     "meal_plan_message": "the Meal Plan subscription",
     "ready_series_message": "Ready Series products",
-    "delivery_message": "delivery to my area"
+    "delivery_message": "delivery to my area",
+    "whatsapp": "WhatsApp only"
   },
   "meal_plan": {
     "steps_label": "Build your meal plan",
@@ -340,5 +347,10 @@
     "referral_pending": "Referral rewards will be confirmed before the programme launches.",
     "delivery_title": "Singapore delivery",
     "ready_series": "Ready Series"
+  },
+  "contact": {
+    "phone": "Call",
+    "email": "Email",
+    "address": "Address"
   }
 }

@@ -1,0 +1,25 @@
+{% doc %}
+  @param {object} slide - Merchant-configured slide settings.
+  @param {string} slide_id - Section-local identifier.
+  @param {string} heading_tag - Heading level; h1 for the first slide, h2 otherwise.
+  @param {section} section - Parent section.
+{% enddoc %}
+<section class="pm-brand-hero" style="--pm-hero-accent:{{ slide.accent }};--pm-hero-background:{{ slide.background }}" aria-labelledby="BrandHero-{{ section.id }}-{{ slide_id }}">
+  <div class="pm-brand-hero__copy">
+    <p class="pm-brand-hero__eyebrow">{{ slide.eyebrow | escape }}</p>
+    <{{ heading_tag }} id="BrandHero-{{ section.id }}-{{ slide_id }}">{{ slide.heading | escape | newline_to_br }}</{{ heading_tag }}>
+    <p class="pm-brand-hero__body">{{ slide.body | escape }}</p>
+    <div class="pm-brand-hero__actions">
+      {% if slide.primary_url != blank %}<a class="pm-brand-hero__primary" href="{{ slide.primary_url }}">{{ slide.primary_label | escape }}</a>{% endif %}
+      {% if slide.secondary_url != blank %}<a href="{{ slide.secondary_url }}">{{ slide.secondary_label | escape }}</a>{% endif %}
+    </div>
+    {% if slide.features != blank %}<p class="pm-brand-hero__features">{{ slide.features | escape }}</p>{% endif %}
+  </div>
+  <div class="pm-brand-hero__photo">
+    {% if slide.image != blank %}
+      {{ slide.image | image_url: width: 1600 | image_tag: widths: '400, 600, 800, 1200, 1600', sizes: '(min-width: 1024px) 50vw, 100vw', loading: 'eager', fetchpriority: 'high', alt: slide.image_alt }}
+    {% elsif slide.fallback_image != blank %}
+      <img src="{{ slide.fallback_image | asset_url }}" alt="{{ slide.image_alt | escape }}" width="1200" height="900" fetchpriority="high">
+    {% endif %}
+  </div>
+</section>

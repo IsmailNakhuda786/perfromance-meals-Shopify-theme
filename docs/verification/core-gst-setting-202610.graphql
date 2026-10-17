@@ -1,0 +1,3 @@
+query CoreInclusivePriceSetting {
+ shop { myshopifyDomain currencyCode taxesIncluded ianaTimezone }
+}

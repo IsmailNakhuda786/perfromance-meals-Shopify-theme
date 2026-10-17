@@ -3,11 +3,15 @@ Contextual brand navigation using merchant-configured destinations.
 @param {string} brand - Current brand key
 @param {string} mode - desktop or mobile
 @param {object} config - Header section settings
+@param {boolean} [reference_style] - Use the reference header's inherited colours.
 {% enddoc %}
 {% liquid
  assign link_class = 'text-[11px] tracking-[0.16em] uppercase font-semibold text-white/45 hover:text-white transition-colors'
  if mode == 'mobile'
   assign link_class = 'block w-full text-left py-3 px-3 text-[15px] text-white/70 hover:text-white hover:bg-white/5 border-b border-white/5'
+ endif
+ if reference_style
+  assign link_class = 'pm-brand-navigation__link'
  endif
 %}
 {% if brand == 'rs' %}

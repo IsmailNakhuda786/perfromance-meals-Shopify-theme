@@ -15,9 +15,9 @@ export async function readWalletLedger(shop:string,customerGid:string,currency:s
   const history=await tx.walletEntry.findMany({where,orderBy:[{createdAt:'desc'},{id:'desc'}],take:51,...(after?{cursor:{id:after},skip:1}:{}),select:{id:true,sourceKind:true,fundedDelta:true,bonusDelta:true,createdAt:true}});
   const funded=sources.reduce((sum,source)=>sum+(source._sum.fundedDelta||0),0);
   const bonus=sources.reduce((sum,source)=>sum+(source._sum.bonusDelta||0),0);
-  let attributionComplete=sources.every(source=>['customer_funded','gift_card_funded','reward_funded','bonus','funded_spend','funded_return'].includes(source.sourceKind));
-  const sourceTotals=new Map(sources.filter(source=>!['funded_spend','funded_return'].includes(source.sourceKind)).map(source=>[source.sourceKind,{sourceKind:source.sourceKind,fundedDelta:source._sum.fundedDelta||0,bonusDelta:source._sum.bonusDelta||0,entries:source._count._all}]));
-  const mixed=await tx.walletEntry.findMany({where:{...where,sourceKind:{in:['funded_spend','funded_return']}},select:{fundedDelta:true,fundedAllocations:true}});
+  let attributionComplete=sources.every(source=>['customer_funded','gift_card_funded','reward_funded','bonus','funded_spend','funded_return','funded_expiry'].includes(source.sourceKind));
+  const sourceTotals=new Map(sources.filter(source=>!['funded_spend','funded_return','funded_expiry'].includes(source.sourceKind)).map(source=>[source.sourceKind,{sourceKind:source.sourceKind,fundedDelta:source._sum.fundedDelta||0,bonusDelta:source._sum.bonusDelta||0,entries:source._count._all}]));
+  const mixed=await tx.walletEntry.findMany({where:{...where,sourceKind:{in:['funded_spend','funded_return','funded_expiry']}},select:{fundedDelta:true,fundedAllocations:true}});
   for(const entry of mixed){
    try{
     const parts=parseFundedAllocations(entry.fundedAllocations,Math.abs(entry.fundedDelta));

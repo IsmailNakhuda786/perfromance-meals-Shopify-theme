@@ -1,6 +1,6 @@
 import db from '../db.server';
 import {assertShop} from './security.server';
-import {calculateRewardPoints,validateRewardRules,type RewardLine,type RewardRules} from './rewards-policy';
+import {calculateRewardPoints,rewardTimestamp,validateRewardRules,type RewardLine,type RewardRules} from './rewards-policy';
 
 function customerContext(shop:string,customerGid:string){
  assertShop(shop);
@@ -29,7 +29,8 @@ export async function recordVerifiedRewardEvent(input:{shop:string;customerGid:s
   const policy=await tx.commercePolicy.findUnique({where:{shop}});
   if(!policy?.rewardsEnabled||!policy.rewardsRules)throw Error('Rewards rules are not activated');
   const rules=JSON.parse(policy.rewardsRules);
-  if(rules.version!==rulesVersion||rules.merchantApproved!==true)throw Error('Rewards rules require approval');
+  const snapshot=await tx.rewardRuleVersion.findUnique({where:{shop_version:{shop,version:rulesVersion}}});
+  if(rules.merchantApproved!==true||!snapshot||validateRewardRules(JSON.parse(snapshot.rules)).version!==rulesVersion)throw Error('Rewards rules require approval');
   if(rules.qaOrderGid&&rules.qaOrderGid!==orderGid||rules.qaCustomerGid&&rules.qaCustomerGid!==customerGid)throw Error('Rewards event outside approved QA scope');
   const existing=await tx.rewardsEntry.findUnique({where:{shop_sourceEvent:{shop,sourceEvent}}});
   if(existing){if(existing.customerGid!==customerGid||existing.orderGid!==orderGid||existing.rulesVersion!==rulesVersion||existing.kind!==kind||existing.pointsDelta!==pointsDelta)throw Error('Rewards event conflict');return existing;}
@@ -48,15 +49,37 @@ export async function recordVerifiedRewardEvent(input:{shop:string;customerGid:s
 }
 
 // Internal configuration hook only; no merchant Admin UI is introduced.
-export async function configureRewards(shop:string,rules:RewardRules){
+export async function configureRewards(shop:string,rules:RewardRules,activatedAt=new Date()){
  assertShop(shop);validateRewardRules(rules);
+ if(!Number.isFinite(activatedAt.getTime()))throw Error('Invalid Rewards activation time');
  return db.$transaction(async tx=>{
   const value=JSON.stringify(rules);
   const existing=await tx.rewardRuleVersion.findUnique({where:{shop_version:{shop,version:rules.version}}});
   if(existing&&existing.rules!==value)throw Error('Rewards version is immutable');
   if(!existing)await tx.rewardRuleVersion.create({data:{shop,version:rules.version,rules:value}});
+  const [current,last]=await Promise.all([
+   tx.commercePolicy.findUnique({where:{shop},select:{rewardsRules:true}}),
+   tx.rewardRuleActivation.findFirst({where:{shop},orderBy:{effectiveAt:'desc'}}),
+  ]);
+  if(current?.rewardsRules!==value||!last){
+   if(last&&activatedAt<=last.effectiveAt)throw Error('Rewards activation must follow the previous change');
+   await tx.rewardRuleActivation.create({data:{shop,rulesVersion:rules.version,effectiveAt:activatedAt}});
+  }
   return tx.commercePolicy.upsert({where:{shop},create:{shop,rewardsRules:value},update:{rewardsRules:value}});
  });
+}
+
+// Never backfill an unknown historical rate from today's settings. The current
+// policy still controls activation/QA authorization; this selects earning rates.
+export async function rewardRulesAtPayment(shop:string,paidAt:string){
+ assertShop(shop);const time=new Date(rewardTimestamp(paidAt));
+ const activation=await db.rewardRuleActivation.findFirst({where:{shop,effectiveAt:{lte:time}},orderBy:{effectiveAt:'desc'}});
+ if(!activation)throw Error('Rewards rate at payment time is not recorded; review required');
+ const version=await db.rewardRuleVersion.findUnique({where:{shop_version:{shop,version:activation.rulesVersion}}});
+ if(!version)throw Error('Rewards rate snapshot unavailable');
+ const rules=validateRewardRules(JSON.parse(version.rules));
+ if(rules.version!==activation.rulesVersion)throw Error('Rewards rate snapshot differs');
+ return rules;
 }
 // The native-order verifier must supply post-discount food values and exact
 // Reward-funded allocations. Browser prices and unreconciled totals are rejected.
@@ -66,7 +89,10 @@ export async function earnVerifiedOrderRewards(input:{shop:string;customerGid:st
  if(existing){if(existing.customerGid!==input.customerGid||existing.orderGid!==input.orderGid||existing.kind!=='earned')throw Error('Rewards event conflict');return existing;}
  const policy=await db.commercePolicy.findUnique({where:{shop:input.shop}});
  if(!policy?.rewardsEnabled||!policy.rewardsRules)throw Error('Rewards rules are not activated');
- const rules=validateRewardRules(JSON.parse(policy.rewardsRules));
+ const current=validateRewardRules(JSON.parse(policy.rewardsRules));
+ if(current.qaOrderGid&&current.qaOrderGid!==input.orderGid||current.qaCustomerGid&&current.qaCustomerGid!==input.customerGid)throw Error('Rewards event outside approved QA scope');
+ if(current.earningStartsAt&&rewardTimestamp(input.paidAt)<rewardTimestamp(current.earningStartsAt))throw Error('Payment predates Rewards activation');
+ const rules=await rewardRulesAtPayment(input.shop,input.paidAt);
  const pointsDelta=calculateRewardPoints(input.lines,rules,input.paidAt);
  if(!pointsDelta)return null;
  return recordVerifiedRewardEvent({shop:input.shop,customerGid:input.customerGid,orderGid:input.orderGid,sourceEvent:'rewards-earned:'+input.orderGid,rulesVersion:rules.version,kind:'earned',pointsDelta});

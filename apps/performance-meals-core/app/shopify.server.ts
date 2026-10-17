@@ -22,6 +22,7 @@ const shopify = shopifyApp({
     ORDERS_CREATE:{deliveryMethod:DeliveryMethod.Http,callbackUrl:"/webhooks/orders/create"},
     ORDERS_UPDATED:{deliveryMethod:DeliveryMethod.Http,callbackUrl:"/webhooks/orders/create"},
     ORDERS_PAID:{deliveryMethod:DeliveryMethod.Http,callbackUrl:"/webhooks/orders/paid"},
+    SUBSCRIPTION_CONTRACTS_CREATE:{deliveryMethod:DeliveryMethod.Http,callbackUrl:"/webhooks/subscriptions/create"},
   },
   hooks: {afterAuth:async ({session})=>{assertShop(session.shop);await shopify.registerWebhooks({session});}},
   future: {

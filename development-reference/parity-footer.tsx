@@ -33,7 +33,7 @@ export default function Footer({ navigate, navigateToWizard }: FooterProps) {
 
         {/* Contact micro */}
         <div className="text-[11px] text-white/30 text-right shrink-0 hidden lg:block">
-          <div>hello@performancemeals.com.sg</div>
+          <div>qa@example.invalid</div>
           <div className="mt-0.5">+65 6123 4567 · Toa Payoh, SG</div>
         </div>
       </div>

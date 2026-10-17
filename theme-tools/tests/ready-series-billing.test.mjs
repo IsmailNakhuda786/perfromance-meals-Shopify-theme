@@ -3,13 +3,21 @@ import assert from 'node:assert/strict';
 import {readySeriesBilling, auditReadySeriesPlan} from '../ready-series-billing.mjs';
 import {mealPlanBilling} from '../meal-plan-billing.mjs';
 
-test('finite Ready Series terms reject monthly installments and unlimited renewal', () => {
+test('Ready Series prepaid terms require term-boundary renewal and reject monthly installments', () => {
   for (const months of [3, 6]) {
     const policy = readySeriesBilling(months);
     const valid = {billingPolicy: policy.billingPolicy.recurring, deliveryPolicy: policy.deliveryPolicy.recurring};
     assert.equal(auditReadySeriesPlan(valid, months).valid, true);
+    assert.equal(policy.automaticRenewal, true);
+    assert.equal(policy.deliveriesPerTerm, months);
+    assert.deepEqual(policy.deliveryPolicy.recurring,{interval:'MONTH',intervalCount:1});
+    assert.equal(auditReadySeriesPlan({...valid,deliveryPolicy:{interval:'DAY',intervalCount:28}},months).valid,false);
+    assert.equal(auditReadySeriesPlan({...valid,deliveryPolicy:{interval:'WEEK',intervalCount:4}},months).valid,false);
+    assert.equal(auditReadySeriesPlan(valid,months).nativeAcceptance,false);
     assert.equal(auditReadySeriesPlan({...valid, billingPolicy: {...valid.billingPolicy, intervalCount: 1, minCycles: months, maxCycles: months}}, months).valid, false);
-    assert.equal(auditReadySeriesPlan({...valid, billingPolicy: {...valid.billingPolicy, maxCycles: null}}, months).valid, false);
+    assert.equal(auditReadySeriesPlan({...valid, billingPolicy: {...valid.billingPolicy, maxCycles: 1}}, months).valid, false);
+    assert.equal(auditReadySeriesPlan({...valid, billingPolicy: {...valid.billingPolicy, maxCycles: 2}}, months).valid, false);
+    assert.equal(auditReadySeriesPlan({...valid, billingPolicy: {...valid.billingPolicy, maxCycles: undefined}}, months).valid, false);
     assert.equal(auditReadySeriesPlan({...valid, deliveryPolicy: {interval: 'MONTH', intervalCount: months}}, months).valid, false);
   }
   assert.throws(() => readySeriesBilling(1), /3 or 6/);

@@ -1,0 +1,37 @@
+{{ 'community-page.css' | asset_url | stylesheet_tag }}
+<section class="pm-community-page" aria-labelledby="CommunityTitle-{{ section.id }}">
+  <p class="pm-community-page__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+  <h1 id="CommunityTitle-{{ section.id }}">{{ section.settings.heading | escape }}</h1>
+  <div class="pm-richtext pm-community-page__intro">{{ section.settings.introduction }}</div>
+  {% if section.settings.contact_details %}
+    <dl class="pm-community-page__contacts">
+      {% if section.settings.whatsapp != blank %}<div><dt>{{ 'support.whatsapp' | t }}</dt><dd><a href="https://wa.me/{{ section.settings.whatsapp | remove: '+' | remove: ' ' }}">{{ section.settings.whatsapp | escape }}</a></dd></div>{% endif %}
+      {% if section.settings.phone != blank %}<div><dt>{{ 'contact.phone' | t }}</dt><dd><a href="tel:{{ section.settings.phone | remove: ' ' }}">{{ section.settings.phone | escape }}</a></dd></div>{% endif %}
+      {% if section.settings.email != blank %}<div><dt>{{ 'contact.email' | t }}</dt><dd><a href="mailto:{{ section.settings.email | escape }}">{{ section.settings.email | escape }}</a></dd></div>{% endif %}
+      {% if section.settings.address != blank %}<div><dt>{{ 'contact.address' | t }}</dt><dd>{{ section.settings.address | escape | newline_to_br }}</dd></div>{% endif %}
+    </dl>
+  {% endif %}
+  {% for block in section.blocks %}
+    <article class="pm-community-page__topic" {{ block.shopify_attributes }}><h2>{{ block.settings.heading | escape }}</h2><div class="pm-richtext">{{ block.settings.body }}</div></article>
+  {% endfor %}
+  {% if section.settings.cta_url != blank %}<a class="pm-community-page__cta" href="{{ section.settings.cta_url }}">{{ section.settings.cta_label | escape }}</a>{% endif %}
+</section>
+{% schema %}
+{
+  "name": "Community and contact",
+  "settings": [
+    {"type":"text","id":"eyebrow","label":"Eyebrow","default":"PERFORMANCE MEALS"},
+    {"type":"text","id":"heading","label":"Heading","default":"Let’s have a conversation."},
+    {"type":"richtext","id":"introduction","label":"Introduction"},
+    {"type":"checkbox","id":"contact_details","label":"Show contact details","default":false},
+    {"type":"text","id":"whatsapp","label":"WhatsApp number"},
+    {"type":"text","id":"phone","label":"Telephone number"},
+    {"type":"text","id":"email","label":"Email address"},
+    {"type":"textarea","id":"address","label":"Address"},
+    {"type":"text","id":"cta_label","label":"Contact button label","default":"Contact us"},
+    {"type":"url","id":"cta_url","label":"Contact button destination"}
+  ],
+  "blocks":[{"type":"topic","name":"Community topic","settings":[{"type":"text","id":"heading","label":"Heading"},{"type":"richtext","id":"body","label":"Body"}]}],
+  "presets":[{"name":"Community and contact"}]
+}
+{% endschema %}

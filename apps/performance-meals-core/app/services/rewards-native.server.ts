@@ -2,20 +2,22 @@ import db from '../db.server';
 import {assertShop} from './security.server';
 import {minorAmount} from './gift-card-native.server';
 import {parseFundedAllocations} from './wallet-fifo';
-import {allocateGiftCardFirstFood,type OrderFunding,type RewardLine} from './rewards-policy';
+import {allocateGiftCardFirstFood,rewardTimestamp,type OrderFunding,type RewardLine} from './rewards-policy';
 import {earnVerifiedOrderRewards} from './rewards-ledger.server';
 import {reconcileNativeWalletHistory} from './native-wallet-returns.server';
 
 export const REWARDS_ORDER_QUERY=`#graphql
 query RewardPaidOrder($id:ID!){shop{myshopifyDomain currencyCode} order(id:$id){
- id createdAt currencyCode displayFinancialStatus cancelledAt customer{id} disputes{id}
+ id createdAt currencyCode taxesIncluded displayFinancialStatus cancelledAt customer{id} disputes{id}
  totalPriceSet{shopMoney{amount currencyCode}} totalReceivedSet{shopMoney{amount currencyCode}} totalRefundedSet{shopMoney{amount currencyCode}} totalTaxSet{shopMoney{amount currencyCode}}
  transactions(first:100){id status kind gateway processedAt amountSet{shopMoney{amount currencyCode}}}
- lineItems(first:250){nodes{id quantity currentQuantity isGiftCard priceAfterAllDiscountsBeforeTaxesSet{shopMoney{amount currencyCode}} product{id stream:metafield(namespace:"performance",key:"business_stream"){jsonValue}}}pageInfo{hasNextPage}}
+ lineItems(first:250){nodes{id quantity currentQuantity isGiftCard priceAfterAllDiscountsBeforeTaxesSet{shopMoney{amount currencyCode}} taxLines{priceSet{shopMoney{amount currencyCode}}} product{id stream:metafield(namespace:"performance",key:"business_stream"){jsonValue}}}pageInfo{hasNextPage}}
+ shippingLines(first:100){nodes{isRemoved discountedPriceSet{shopMoney{amount currencyCode}} taxLines{priceSet{shopMoney{amount currencyCode}}}}pageInfo{hasNextPage}}
 }}`;
 type Admin={graphql:(query:string,options:{variables:Record<string,unknown>})=>Promise<Response>};
 type Money={shopMoney:{amount:string;currencyCode:string}};
-type NativeLine={id:string;quantity:number;currentQuantity:number;isGiftCard:boolean;priceAfterAllDiscountsBeforeTaxesSet:Money;product:null|{id:string;stream:null|{jsonValue:unknown}}};
+type TaxLine={priceSet:Money};
+type NativeLine={id:string;quantity:number;currentQuantity:number;isGiftCard:boolean;priceAfterAllDiscountsBeforeTaxesSet:Money;taxLines:TaxLine[];product:null|{id:string;stream:null|{jsonValue:unknown}}};
 type Payment={id:string;status:string;kind:string;gateway:string;processedAt:string|null;amountSet:Money};
 
 // Read-only verification. A paid webhook or authenticated account read must not
@@ -32,14 +34,23 @@ export async function readNativeRewardEvidence(admin:Admin,shop:string,orderGid:
  if(!rules||rules.qaOrderGid&&rules.qaOrderGid!==orderGid||rules.qaCustomerGid&&rules.qaCustomerGid!==order.customer.id)throw Error('Rewards order outside configured scope');
  const total=money(order.totalPriceSet);
  if(money(order.totalReceivedSet)!==total||money(order.totalRefundedSet)!==0)throw Error('Rewards payment is not complete');
- // GST treatment is not yet confirmed. Do not invent earning on taxes.
- if(money(order.totalTaxSet)!==0)throw Error('Tax-inclusive Rewards requires merchant confirmation');
+ const taxes=(taxLines:TaxLine[])=>{
+  if(!Array.isArray(taxLines))throw Error('Native tax evidence missing');
+  return taxLines.reduce((sum,tax)=>sum+money(tax.priceSet),0);
+ };
+ if(typeof order.taxesIncluded!=='boolean'||!order.shippingLines||order.shippingLines.pageInfo.hasNextPage||order.shippingLines.nodes.some((line:{isRemoved:boolean})=>line.isRemoved))throw Error('Native shipping tax evidence incomplete');
+ const itemTaxes=(order.lineItems.nodes as NativeLine[]).reduce((sum,line)=>sum+taxes(line.taxLines),0);
+ const shippingTaxes=order.shippingLines.nodes.reduce((sum:number,line:{taxLines:TaxLine[]})=>sum+taxes(line.taxLines),0);
+ if(itemTaxes+shippingTaxes!==money(order.totalTaxSet))throw Error('Native tax totals differ');
+ const itemTotal=(order.lineItems.nodes as NativeLine[]).reduce((sum,line)=>sum+money(line.priceAfterAllDiscountsBeforeTaxesSet)+taxes(line.taxLines),0);
+ const shippingTotal=order.shippingLines.nodes.reduce((sum:number,line:{discountedPriceSet:Money;taxLines:TaxLine[]})=>sum+money(line.discountedPriceSet)+(order.taxesIncluded?0:taxes(line.taxLines)),0);
+ if(itemTotal+shippingTotal!==total)throw Error('Native food and delivery total incomplete');
  const payments=(order.transactions as Payment[]).filter(p=>p.status==='SUCCESS'&&['SALE','CAPTURE'].includes(p.kind));
  if(!payments.length||new Set(payments.map(p=>p.id)).size!==payments.length||payments.reduce((sum,p)=>sum+money(p.amountSet),0)!==total)throw Error('Native payment funding differs');
- const paymentTimes=payments.map(payment=>payment.processedAt?Date.parse(payment.processedAt):NaN);
+ const paymentTimes=payments.map(payment=>{try{return payment.processedAt?rewardTimestamp(payment.processedAt):NaN;}catch{return NaN;}});
  if(paymentTimes.some(time=>!Number.isFinite(time)))throw Error('Native payment completion time unavailable');
  const paidAt=new Date(Math.max(...paymentTimes)).toISOString();
- if(rules.earningStartsAt&&Date.parse(paidAt)<Date.parse(rules.earningStartsAt))throw Error('Payment predates Rewards activation');
+ if(rules.earningStartsAt&&rewardTimestamp(paidAt)<rewardTimestamp(rules.earningStartsAt))throw Error('Payment predates Rewards activation');
  const funding:OrderFunding={direct_customer:0,customer_funded:0,gift_card_funded:0,reward_funded:0,bonus:0};
  for(const payment of payments){
   if(!/^gid:\/\/shopify\/OrderTransaction\/\d+$/.test(payment.id)||!payment.gateway)throw Error('Payment receipt missing');
@@ -58,16 +69,18 @@ export async function readNativeRewardEvidence(admin:Admin,shop:string,orderGid:
   }
  }
  const lines:Array<Omit<RewardLine,'funding'>>=[];
+ let sharedValue=0;
  for(const line of order.lineItems.nodes as NativeLine[]){
-  const net=money(line.priceAfterAllDiscountsBeforeTaxesSet);
+  const net=money(line.priceAfterAllDiscountsBeforeTaxesSet)+taxes(line.taxLines);
   if(line.currentQuantity!==line.quantity)throw Error('Changed order lines require original earning evidence');
   const stream=line.product?.stream?.jsonValue;
-  if(line.isGiftCard||stream==='shared')continue;
+  if(line.isGiftCard||stream==='shared'){sharedValue+=net;continue;}
   if(!line.product||!['ready_series','meal_plan'].includes(String(stream)))throw Error('Food stream evidence incomplete');
   const route=await db.operationalLine.findUnique({where:{shop_orderLineGid:{shop,orderLineGid:line.id}}});
   if(!route||route.orderGid!==orderGid||route.customerGid!==order.customer.id||route.productGid!==line.product.id||route.businessStream!==stream||route.validationStatus!=='VALIDATED')throw Error('Rewards operational stream snapshot differs');
   lines.push({productGid:line.product.id,stream:String(stream),netMinor:net,giftCard:false,walletTopUp:false});
  }
+ if(sharedValue&&lines.length&&(funding.gift_card_funded||funding.reward_funded))throw Error('Shared-commerce credit allocation requires verification');
  return {shop,customerGid:order.customer.id,orderGid,paidAt,lines:allocateGiftCardFirstFood(lines,funding,total)};
 }
 export async function earnNativeOrderRewards(admin:Admin,shop:string,orderGid:string){

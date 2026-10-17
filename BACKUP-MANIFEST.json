@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "ba2e2f01302f424bc1c693e255f8f8fb3da44d50",
+  "source_commit": "33e672aec32944acfbe0faa13d97cea2eb914426",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -186,7 +186,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/routes/api.account.tsx",
-      "sha256": "a5cc4afc60f8522037b280d97a1978e4883290f275b1fb45b4a06c9f89b0aced",
+      "sha256": "7fea33e7a7153e583e1663e095a5682fa5d5ce80d3949e945685948edf71a4f4",
       "sanitized": false
     },
     {
@@ -211,7 +211,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/routes/app._index.tsx",
-      "sha256": "c676e18cb5293a359cc60fc283e9131ad21dc6395cc1abc9d147343c398d89bd",
+      "sha256": "49d067339e34b9cb2c26c750dbcb60364a2e323b52c2dbff8f2ffbd39bf5717c",
       "sanitized": false
     },
     {
@@ -265,6 +265,11 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/app/routes/webhooks.subscriptions.create.tsx",
+      "sha256": "752130bb730620f85897f9814d933c844899caaf089abec9f2d89d471fd11ee7",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/app/services/account-cancellations.server.ts",
       "sha256": "f4fed01c7d69fb8d546625d937ba33b945d58936301c01226825e827a35c9359",
       "sanitized": false
@@ -275,8 +280,13 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/app/services/account-subscriptions.server.ts",
+      "sha256": "9182579267b50618a7356db2dc446401d9893a8769f0ef28ba71b46591f7f384",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/app/services/catalog.server.ts",
-      "sha256": "4cd6af4345ce30184a03c4d588b3a8720d71dafc6418259d5504254e2b646abf",
+      "sha256": "ee30db65f89a9611bee9e53f1d499f05ca44a65b5df0a21032d9e482f7c097f6",
       "sanitized": false
     },
     {
@@ -285,13 +295,48 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/app/services/core-delivery-options.ts",
+      "sha256": "f884c9068ccadc53b1e9b104ec7599da02c392049bcf6cb83b6854ca9ead7a26",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/core-wallet-redemption.ts",
+      "sha256": "432769a8ffe48b642e5d7922f6e965fa6f980ca98178cf9032c50d3ba467581d",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/delivery-charge-audit.server.ts",
+      "sha256": "ac73f54be0c429ba4d6fc5da858772148b216aeb117ddd204bda6db9ce2f34d4",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/delivery-policy.ts",
+      "sha256": "3fd2a10e28934881219cfcaa4d3b4c5d0486c57f467da4275d72d7a6fef1f011",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/app/services/gift-card-claim.server.ts",
-      "sha256": "e1bc0ca7381348b7e3be3ecf36d735c8c75043ff327a00a3672c62caecfcb688",
+      "sha256": "d26401273c3b43e9067eb92f7d6e9a4e823b10d7c5ad5a174f4b5aee0126a711",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/gift-card-expiry-policy.server.ts",
+      "sha256": "0f4d6a88040b52075737da9e7363a4c66c598552ee839db2662a115fca9045e9",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/services/gift-card-native.server.ts",
-      "sha256": "b561c0ca91510c954366c616b72ec7c590da1bfe5d62afa0e167ec2fe04864d4",
+      "sha256": "06787d6a1a70393ecca3998a4c3e04b38f15063c7ce3ecb9528bf59dd94c28f2",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/gift-card-reminder-batch.server.ts",
+      "sha256": "7fb1cde43cc27b5fb259b402eb9dfb9656a117bb8d68840b567cfb9f691e93cd",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/gift-card-reminder.server.ts",
+      "sha256": "4d7b07fa8c3d9a751a472b2b79dafaf1dd62029c2f1ab67157fc02b64554ab8f",
       "sanitized": false
     },
     {
@@ -301,12 +346,22 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/menu-validation.ts",
-      "sha256": "e2d77ee0ebd9711991b10f76e020ad0448fc9a4db938d28fe1eec0f55d0d041e",
+      "sha256": "9686b9715218c95bab59e4cacfdfc8e28835b6e95b797abde97506afe65c004b",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/native-quote-review.ts",
+      "sha256": "e6157c3211578683c2041644f1b50e7cc3809a131f1e3513e93bac97512af0ca",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/native-wallet-credit-ready.server.ts",
+      "sha256": "d13472b54f3a2767f6e35c66f7ff9469eab3290f9fa968f293a732caa8ae7c08",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/services/native-wallet-debits.server.ts",
-      "sha256": "4b0670ad6f6ebb7c9c6f344e2e45034e03714b7b6f414a8997976cc34753e438",
+      "sha256": "a76b7cfc8f598b40da221f114f40c55241ddaab0f9f515f975c6ba5ac175f184",
       "sanitized": false
     },
     {
@@ -316,7 +371,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/native-wallet-returns.server.ts",
-      "sha256": "7997153115ac83aab31258da0d8ede709807356bb89e2390ebcfc7a3b23327ca",
+      "sha256": "7b1d920c64afe4bdc668ce46139ad83ccd05c9f1a0128d74f2243f492e141c86",
       "sanitized": false
     },
     {
@@ -340,6 +395,11 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/app/services/order-event-connections.ts",
+      "sha256": "3d66937d025158e05c9c902476677758f37be4efe74f0e0ac24e508fb9dc65c0",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/app/services/order-funding.server.ts",
       "sha256": "8f716b281a788fa2e10bbb7cfc2925535526253db70a3c00c56c252584dde4eb",
       "sanitized": false
@@ -351,27 +411,42 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/orders.server.ts",
-      "sha256": "41167cccbbb5ca4282afb4445a2737eacafab5468fc893e1f79be1a2b3d73f18",
+      "sha256": "b914a6f3e33cc75df5516abfb984be8d39d7bc11e477c1956663f4df7bf75f33",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/services/prepaid-fulfillment.ts",
-      "sha256": "5d014dd633fc244cfe6e0457f5246e31e3c909ce78cd16a333fe35a88a201e10",
+      "sha256": "c27abd6af41e952d691c4edfdd945e7b5d0b3d185a9e7dc6f991536a726c1293",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/services/prepaid-verification.server.ts",
-      "sha256": "b49c69481cc6a67d24920d60b233e303195682974e4851ea16e068e78b299077",
+      "sha256": "4f4130bb660ac3167eabf5dacce1443b1f4729cbeebc97cd1f95e5586fb48da7",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/services/programme-menus.server.ts",
-      "sha256": "09f0cd87f706514c110bac3f0cf5dc50c0bd2e312dde504c91e238874b1c989a",
+      "sha256": "0594fad5234eee5b2921f2cddbb641adfe780360780baf2592ea035e178c3020",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/services/programme-period.ts",
-      "sha256": "27cbc51a6ac45a71d815b4a23fb8bf72a0a613ce85aba2a5f6bc526e57a8a5fe",
+      "sha256": "38864b5048b6fb0267a557cb871bfb4021d068fc5b2c3ec2ea31328be8b4d872",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/ready-delivery-draft.server.ts",
+      "sha256": "48b17c8517ea8a08099f347d9145720d9d8aab1af766a2cf9311cb87274505a5",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/ready-delivery-notice.ts",
+      "sha256": "e2578c45eaefc5188d3d4d5c557406e25c6cfcf5b19946ce2c7fa5c46f1089ca",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/ready-series-calendar.ts",
+      "sha256": "4cd1f4534389f8b943204832556381808843e4e427f646680673f4f24ba06123",
       "sanitized": false
     },
     {
@@ -381,27 +456,27 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/rewards-ledger.server.ts",
-      "sha256": "065ef23914ab3651b2532e730257138497f68f56e1b1df99824cece2f167a714",
+      "sha256": "64bc65809de2a634a80f41ac44d5f2589bb16314e3a8b690b5919e5110b3f4cc",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/services/rewards-native.server.ts",
-      "sha256": "055ed37fabe046b9005c0efc0e47c739819c83bc9e552fb6437b533946b19630",
+      "sha256": "9ca93810a02c1175de9e04ab48cf9fdec51c0464174192d32a373dd08250bef0",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/services/rewards-policy.ts",
-      "sha256": "be94c8f0049c24d905b0c71e7ae215edab3b9e8443326275f6c17f28c6f7ee0c",
+      "sha256": "833b5cea6b082181a39c0201925e6374b86a73c219d069260e266f481256cfd4",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/services/rewards-redemption.server.ts",
-      "sha256": "efe4e70c671f5ab0322afae64066aedec8e72e880591db7ce95d51d5d99dce1f",
+      "sha256": "0d5391bae52a0fe078a40b6a08c2ce377f0675dee14ef85f273193c6c6698488",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/services/runtime-config.server.ts",
-      "sha256": "712a2770cd789bc756aba4376f21ac1a932f97abe2a3f948b4b5a6d44a507063",
+      "sha256": "470bc71a04321aefd8a9aa8c7626396be53d2ea36cdb3d3a9b1810748e79a7d8",
       "sanitized": false
     },
     {
@@ -411,23 +486,68 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/selections.server.ts",
-      "sha256": "7bb6be0a865071598cf21229311defd1b6f73d0d98308a59afb874476cf539b6",
+      "sha256": "657e012d9f9221484a52269e5a957d89fccf003b780ad60b2907082e284b68f8",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/subscription-links.server.ts",
+      "sha256": "0c728a3a742548d3f8e8dd73cf91ed629ffb82e67853b8f803e9f11938a03ee9",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/wallet-core-expiry.server.ts",
+      "sha256": "76ffb1cec16228254eea3bc5b15015edbf9c64b0761666ffbf414c73ee48423c",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/wallet-core-policy.server.ts",
+      "sha256": "ea620d8fa62c5469326702429d24c2ca7242c59c41fee08bd5206c8997accc41",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/wallet-credit-policy.ts",
+      "sha256": "e0e1f68066ff135d4b41210105489cde9754fe0a65577643d613b5d1aad2f29e",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/wallet-credit-term.server.ts",
+      "sha256": "a27981e3d1b7bde849280b57c47dd4685a30b72f1db510eba8197c47572d4f39",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/wallet-expiry-batch.server.ts",
+      "sha256": "6efa0fcca9b44bb54526e12f06e7f462f07541e94909d628727c01074485dbb4",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/wallet-expiry.server.ts",
+      "sha256": "31183c32364ef6cedab6a406ba0e8b27a326d45b5e0cb71c7563181687e8a0aa",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/services/wallet-fifo.ts",
-      "sha256": "5cb319e805f71ae732a1f77dc343dc0576b57e234abfdfd803fe67b5623a02e5",
+      "sha256": "ebb3c251c5a7406b0aadadac085c2606ac7a5a80f1d951516a6be01dfbb649db",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/services/wallet-ledger.server.ts",
-      "sha256": "a7d12febaf8a18daf1160922e1a727f9f0478a68ab8b9c41c09807822ab613df",
+      "sha256": "a2aa910504ec272af3fb20e81f73970fe05dc8ce20ef91337b2fe0ee8f5314ba",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/services/wallet-policy.ts",
-      "sha256": "cd2d0eaa1b061222ed0c3f8b48e8537619f4c519bb8a13ae57ae405678d143e8",
+      "sha256": "4011afb46797037e4486fdcff7e3a9ba2cc6e0e8206fe8152e770550f1d81489",
       "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/wallet-reminder-batch.server.ts",
+      "sha256": "16845225ea7774da7c0b1707f878283b12b412f89aab93bb72231c429beb9644",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/wallet-reminder-development.server.ts",
+      "sha256": "c42ba1def7ff213c91d56414cfec7bc0bd0d6fa747646ca9205219bacc51c2be",
+      "sanitized": true
     },
     {
       "path": "apps/performance-meals-core/app/services/wallet-top-up-amount.ts",
@@ -436,7 +556,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/wallet-top-up-checkout.server.ts",
-      "sha256": "7d6c6ccbf2fe48715b88e2bd88aa0aa70543681b3086c6663767e3cc6bd98106",
+      "sha256": "acab2bcae456e8246207a5db0cb1abf632f5a8ab4bfd194894f6d75e6e7e005b",
       "sanitized": false
     },
     {
@@ -446,7 +566,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/wallet-top-up-intent.server.ts",
-      "sha256": "20bcf754414b27a02c2342ce844c65787e60b1d8901ba7a432b394c28f92dec7",
+      "sha256": "d94d6d83d230adda5ead69a7b2c415c514bce4e7ea928a81f960f55e48c599da",
       "sanitized": false
     },
     {
@@ -461,7 +581,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/wallet-top-up-policy.ts",
-      "sha256": "50f26437be13ed0c41fc9a2bd2271492a7ec4c4dd45cc5fad5ea5866e03504fb",
+      "sha256": "04c63bac6e329747d2001ea8e01a666cf820ac2f5b157ea4094f2f1b1d2aed6c",
       "sanitized": false
     },
     {
@@ -471,17 +591,17 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/wallet-top-up-settlement.server.ts",
-      "sha256": "c83cf50ac1b7dcf271468475829fe2f05c6754c7102986e0b27e01af993e6852",
+      "sha256": "53801f6cd124608dbefe7c2b0967412af1d31ec58efacd03138d68b1121e7d1b",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/services/wallet.server.ts",
-      "sha256": "3d8fda7ad2d5ba1047480ffcc2398d7a0d9105a0d6f4dfbd380a0b869d516995",
+      "sha256": "2d2621d0571dc1005b13857f6dc5c908c0ed82f3933d0ef593652b9485cadf84",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/shopify.server.ts",
-      "sha256": "9b2d704c0fcd963a16e3af517116279a74895e6012f275e8cadef5190e346ae8",
+      "sha256": "607971299cc34c712406e8dbc00e16248dc7be68a3b24700d4fdd2bf160f1497",
       "sanitized": false
     },
     {
@@ -516,7 +636,7 @@
     },
     {
       "path": "apps/performance-meals-core/extensions/performance-meals-account/src/OrderStatusBlock.jsx",
-      "sha256": "e73520b82a5043d78897037faa48288bb0452a9600dd7e6f51db759d64e99d5f",
+      "sha256": "28e5c9f4e574349fde4a6dc0033450aa85f38725f8c5d02d53c907b24c48fd8c",
       "sanitized": false
     },
     {
@@ -625,6 +745,41 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/prisma/migrations/20261015183000_wallet_expiry_outbox/migration.sql",
+      "sha256": "86315f9461026a34f288cda373085dc7dd99799a7bc6676ecdd2add0cbff599a",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/prisma/migrations/20261015190000_core_managed_expiry/migration.sql",
+      "sha256": "c0fdcbada4fb8933661b3fc1d3a7c10906aed0cb4d36003348075bf11219ffce",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/prisma/migrations/20261016090000_gift_card_reminders/migration.sql",
+      "sha256": "71ca44ae0d9769df661695dc5a3e485ebe89ae39b63a9f14a4cdeac4ccfbddc4",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/prisma/migrations/20261016100000_reward_rate_history/migration.sql",
+      "sha256": "b2b31ef33a57fc5031d2ac2f29b3d6700acb2c80e38558fec01f63e3f96c9161",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/prisma/migrations/20261016110000_programme_entitlement/migration.sql",
+      "sha256": "d449984526c6cbd08bf286ba3e3911eedf76e5a92d6b159e00e27a9d18ec5d4f",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/prisma/migrations/20261017110000_gift_claim_original_expiry/migration.sql",
+      "sha256": "001707d3d30cec95ed88988e5dd8879f7be02779e7ebd362bad9f3db9110e67f",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/prisma/migrations/20261017120000_ready_delivery_reminder_draft/migration.sql",
+      "sha256": "fc9ec53c011b10e6d156b5aa02a8773314e9403520ca63af8aec7c3d3e6bbbdc",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/prisma/migrations/migration_lock.toml",
       "sha256": "3389dbaf2a3cf4b413275867ac6f550b27f79efe85ee9c12082cdd8c5b8239c4",
       "sanitized": false
@@ -700,18 +855,53 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/prisma/production/migrations/20261015183000_wallet_expiry_outbox/migration.sql",
+      "sha256": "3a20d25ba35bfc122f8c383eaa2f83737c493ec2738e5635e8f9019184fedfc4",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/prisma/production/migrations/20261015190000_core_managed_expiry/migration.sql",
+      "sha256": "d349615e5c63127220b3c86a54ca859423693376f412db1480f5776dac259413",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/prisma/production/migrations/20261016090000_gift_card_reminders/migration.sql",
+      "sha256": "d2c55c594841d033cea6346ff5f86ef3edb6c8231826ffa1bb1ccc152dc810e0",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/prisma/production/migrations/20261016100000_reward_rate_history/migration.sql",
+      "sha256": "b14c84119bf4051fef186fb54efa96696c65a8831038f717ca2e4f7b8189826d",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/prisma/production/migrations/20261016110000_programme_entitlement/migration.sql",
+      "sha256": "cba1f1de719f5d271a68b2b8e22d0978b01a46adf23c3a4bb18cf4e837e5896c",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/prisma/production/migrations/20261017110000_gift_claim_original_expiry/migration.sql",
+      "sha256": "001707d3d30cec95ed88988e5dd8879f7be02779e7ebd362bad9f3db9110e67f",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/prisma/production/migrations/20261017120000_ready_delivery_reminder_draft/migration.sql",
+      "sha256": "6f1559d4996effc82885cf968e3d00ff0b7f9d1f9ac511e5d91f7e441c47ef83",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/prisma/production/migrations/migration_lock.toml",
       "sha256": "1db17a8d051aa136110736752c5e1f8b7ed92b6ea8e803112fbbe2497047c210",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/prisma/production/schema.prisma",
-      "sha256": "0e5efe467229dcdf292ade538ca2522f036318af51205d88ab7d21d2f19d4ba3",
+      "sha256": "a14247d5c14b7ad5be82f081d4c5a204ce9d6ee6576179ece0d9ef17815dfad6",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/prisma/schema.prisma",
-      "sha256": "01d1178bf3f96efa6bfa1dcf963d25e454882879f55257771e00627f86df2c00",
+      "sha256": "69fd5385080442033b45093881ddfbbca15e46d7744f45f4a0fa9887ed1b6764",
       "sanitized": false
     },
     {
@@ -756,7 +946,7 @@
     },
     {
       "path": "apps/performance-meals-core/shopify.app.toml",
-      "sha256": "d081c31282f5c5729a2ecffc8816efb1323c9dcef3aae87a7aaf3e2876f6f457",
+      "sha256": "5e38246b08081fd6df3f6045e0fdc032459c827e5d01741da2976fbb004c5ea0",
       "sanitized": false
     },
     {
@@ -770,13 +960,38 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/tests/account-subscriptions.test.mjs",
+      "sha256": "e9fb3245209b570e80dbec8787d9f83605834c588e41c0ec02f2b963ad844b89",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/tests/commencement.test.mjs",
       "sha256": "33a0f9fccc3d0486418266e3328c706027b93221e370c381ced89447419537d4",
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/tests/core-delivery-options.test.mjs",
+      "sha256": "5a614e91c931f8763ebb1ab781ba6034272e527aee180c27f58282b490cc80a9",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/core-wallet-redemption.test.mjs",
+      "sha256": "2d0e93a8bc54fb3abe438dd6ac3b1b09d303924561b0e8912890ed3f6254890d",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/tests/core.test.mjs",
-      "sha256": "b3a0131408c8d5dacc5ed189224b8d28a20788bc5d69e55aeffd0015eb814209",
+      "sha256": "64f98337d2b97a1d3be0cb4319823046d4b682c48bc4eec72ef6e7eb1b2326ec",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/delivery-charge-audit.test.mjs",
+      "sha256": "2fb4d4af2aca69e32306457f75080402d16f8ace1b9b0e292ebd6e92aefedafb",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/delivery-policy.test.mjs",
+      "sha256": "654214e7b6f1973fc2064340ca36e8cd7fe323147caf8f856ef4113a0edbf594",
       "sanitized": false
     },
     {
@@ -786,12 +1001,32 @@
     },
     {
       "path": "apps/performance-meals-core/tests/gift-card-claim.test.mjs",
-      "sha256": "dae059bb5a1347bdea6a7a144f3b6f9fcb1604ebfae60c930fee542071913fbf",
+      "sha256": "a7baa401ece773e208f4eff202c5f293d91532c308038f13a09d1cfbd26dd20b",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/gift-card-expiry-policy.test.mjs",
+      "sha256": "945798aefa71cbfd4a16edc4f256ffcd45dacd65283444bd5dab1244a7a9913f",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/gift-card-reminder.test.mjs",
+      "sha256": "7b0f92663bb75a4b0983faae3256c07917438442decd21a3694e23b7ea24f453",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/tests/gift-card-request.test.mjs",
       "sha256": "65b92c552c01f12d9bbd9838ea04bd1e80baf89067057010663d2f550b84af5c",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/native-quote-review.test.mjs",
+      "sha256": "4b3dd9fcfcdf1714f6e0276cad2279616b15eab041321e40e072313ccd1b6ed2",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/native-wallet-credit-ready.test.mjs",
+      "sha256": "30d9c1d6692a41d3eec8ed94b43a0bfe7b260aa198bbb32d920bd73aa0eabe20",
       "sanitized": false
     },
     {
@@ -806,7 +1041,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/native-wallet-returns.test.mjs",
-      "sha256": "64c5a45a6242df647abf6923d33a0faa1f287ecdd52cf199226f19fd27389b6f",
+      "sha256": "79c202e216e591c46b2f7894fb7debe9b0a776738cc30c6f7ca1dfbc587412f0",
       "sanitized": false
     },
     {
@@ -830,8 +1065,18 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/tests/order-event-connections.test.mjs",
+      "sha256": "50fcb83305ae0a29ca2f616ac94f63b7d4037b725f9437629f5ea4349d64b3c4",
+      "sanitized": true
+    },
+    {
       "path": "apps/performance-meals-core/tests/order-funding.test.mjs",
       "sha256": "ada15cbee7a0cf1def57c3326ce1fa9bac2d853597bcd84e831bfdb741a5c0cb",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/order-routing-evidence.test.mjs",
+      "sha256": "430b6fe70edc5698be265bd5e256b325f66826a031365d8c0f11abad334b05bc",
       "sanitized": false
     },
     {
@@ -846,47 +1091,77 @@
     },
     {
       "path": "apps/performance-meals-core/tests/prepaid-fulfillment.test.mjs",
-      "sha256": "e9634a7588611142343c74bfaf70433af0b34210c7be3827933b80bdae6ca3b6",
+      "sha256": "e51f517b05b34414359f93f423ba7e5d5a4abbdddec25e992b27388bd82a6ef6",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/tests/prepaid-verification.test.mjs",
-      "sha256": "ba08554eca93af6ecdfc50a739067213074022ff5e07e2766374140627e06ef2",
+      "sha256": "3c07b172821ff67802e970e8fec227974ec4f59ce83511a774e0303ae5246681",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/tests/programme-menus.test.mjs",
-      "sha256": "a15b5669350aabacc319ed4d6b34808dc898d2cd71bb0fb828b3f1e1356b3b08",
+      "sha256": "5031435015a95b6c02eaa9665dc83662e0fde7fdb2104b1350215c68d35c7a0c",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/tests/programme-period.test.mjs",
-      "sha256": "053e0b3f2815a1d329ce85ed006d2ad6dd15fc7cff6b533de8af365151b1481d",
+      "sha256": "ce9716d41563f1de538f68d8166ecda023cd99bf90daedd5f497a6c760526bbf",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/tests/readiness.test.mjs",
-      "sha256": "1638f859a9c5817685a6dad39c8c784eb6c6d3045bce1b5cd3be68ba217a51f1",
+      "sha256": "5c36d80e4c63c76393e0a3e422f340b626ba3b51a0605a3d01895dee0becc5f6",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/ready-delivery-draft.test.mjs",
+      "sha256": "30e04b373e61c3da3131b782a51f2344986ff6596acfd739a9d85cabfe51deff",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/ready-delivery-notice.test.mjs",
+      "sha256": "22c0389c178be03d96011076c6b81802127f55bd5a4ebbb9e45ff8bd8dcd4847",
+      "sanitized": true
+    },
+    {
+      "path": "apps/performance-meals-core/tests/ready-series-calendar.test.mjs",
+      "sha256": "50758ae8c1f2edcc3be6a6963be18bb14d32776d9240637629093120bc3e4cd9",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/tests/rewards-ledger.test.mjs",
-      "sha256": "73eb007acfb3fa20b94291c37dfc8ac30318370d3c5c057e3f427b1e5742781a",
+      "sha256": "647c986970eea1cb0ba5d3c573f544b6828b541688378467cb3347bb6958f58f",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/tests/rewards-native.test.mjs",
-      "sha256": "8988cb2f4ba9199f34aba6928c75f6a7ce270fd7e275448d5697e3c5f816d4d5",
+      "sha256": "bf71327f747414461591837c1558a75edbfcde4963ef509c6062f790d715d01c",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/tests/rewards-policy.test.mjs",
-      "sha256": "286bbd256265415d0d67e5a43033571345e3adaa11749c299d290286f25d3b6a",
+      "sha256": "e7aaaa28f3cf752f6a90ffb87faca83a8cdc948357540695aeac06a5ee06b92c",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/rewards-rate-history.test.mjs",
+      "sha256": "8a4df62064ce42dde5d3317b851d05425bfdf9e397951b9687e8163cd0974fe7",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/tests/rewards-redemption.test.mjs",
-      "sha256": "b4452a9a979662badfb2875173fa936cee3edcc495ff07a96f34e9f8d9c21a61",
+      "sha256": "446cf20291c0dcafc10d5ac3571c63ed1f5f0755e24fb064bcf9aa598ad5668c",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/subscription-links.test.mjs",
+      "sha256": "8706ea8d611c99c016e2c923608d6efc7a0ef6f5637054e09ed061ff5f9b3c98",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/subscription-webhook.test.mjs",
+      "sha256": "a553c64e20e6eb98677d5f42b2570bbe8d37234055b8f53fe4b0bd5e87c48488",
       "sanitized": false
     },
     {
@@ -895,14 +1170,39 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/tests/wallet-approved-package.test.mjs",
+      "sha256": "6b318c30645d2789192184fefffb9dbda5e7bc0d165b356311ac3b4751c07229",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/wallet-core-expiry.test.mjs",
+      "sha256": "7cd740e061453c5468b4606c9edc3c68a8580aa7aea32596740e2b05fcfbe0e4",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/wallet-credit-policy.test.mjs",
+      "sha256": "e522b4ba92bc29423282f6bb28b2979cf1dd43d9d891ce70c72aebb8d61232f5",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/wallet-expiry.test.mjs",
+      "sha256": "486e7140d63459cd65708973aac4fc7e919d4f36f1695ce4f2a0199c32af3530",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/tests/wallet-fifo.test.mjs",
-      "sha256": "f3af1bc927bd5b39e309682b535a1cec5e90e7b9876252e5e102d7ccf6194777",
+      "sha256": "30aceefc417b193c2cbd33de01a12330bb3a1a9e8ea4f5f933a2d9cb8ba8a002",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/tests/wallet-ledger.test.mjs",
       "sha256": "9ffcdf98a2c02e89f8c8139a31cf5b69e333ab4c6e1f8735124eb9f07c239a95",
       "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/wallet-reminder-development.test.mjs",
+      "sha256": "1aaab2f62b2c62234b2a21df7a6a760f69346c50e105b39c8858149ebc0fe037",
+      "sanitized": true
     },
     {
       "path": "apps/performance-meals-core/tests/wallet-top-up-amount.test.mjs",
@@ -921,7 +1221,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/wallet-top-up-intent.test.mjs",
-      "sha256": "24d509f258229362c721684cf04e6895486502454409d567f4fc0335e05ee864",
+      "sha256": "29aa8bff67b5c2caa7c8d46d43493b650401338f5f8588f74fa2b09334ebbae2",
       "sanitized": false
     },
     {
@@ -936,7 +1236,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/wallet-top-up-policy.test.mjs",
-      "sha256": "4fc17036f259d2d73f05d3678ee24915bb6a3afb2edf4bc7020c2a0227c68904",
+      "sha256": "f0732bf6ebe12d9870485ac0b153abe8caf1acb7de91bebdf11437cc093b1aac",
       "sanitized": false
     },
     {
@@ -946,7 +1246,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/wallet-top-up-settlement.test.mjs",
-      "sha256": "d280b061a427c5f60f5afea96138591c3c0850ac2713d6f7bc0b2b73f7dd8dd9",
+      "sha256": "f023cb1e3a00d5f4882c5035e676e42141bcd544635e61185de82d9d12b7ea6e",
       "sanitized": false
     },
     {
@@ -1366,8 +1666,8 @@
     },
     {
       "path": "development-reference/parity-footer.tsx",
-      "sha256": "2c10f8f186be49d4f7a86c46a8d0b95b68942b210926a6fea4c241c9c328f6aa",
-      "sanitized": false
+      "sha256": "22ed1fc7f15fca658a2e8972c385d689620ea00bfdd7debc02483c5d7697f7c9",
+      "sanitized": true
     },
     {
       "path": "development-reference/parity-home.tsx",
@@ -1376,8 +1676,8 @@
     },
     {
       "path": "development-reference/parity-nav.tsx",
-      "sha256": "7b734b9db067f1d83b64ba6237716e716d8cd14c29422cdb95ece19f1c370df0",
-      "sanitized": false
+      "sha256": "a24b77d9a7f6d3317b86ed23c0ca1df2b6f2ba411839b13c8726a6da9910651a",
+      "sanitized": true
     },
     {
       "path": "development-reference/parity-remote-before/assets/catalog-purchase.js",
@@ -1546,8 +1846,8 @@
     },
     {
       "path": "development-reference/wallet-spend-evidence.graphql",
-      "sha256": "8018c3f0523ff5c93a60bca93ce7fa1cef110d0e06476f21b5e06da5b02fa54a",
-      "sanitized": false
+      "sha256": "5f35e064053092e82771b0c39aebdbc6ea427224fca2cd0fa0a6d0fd0bfc7f05",
+      "sanitized": true
     },
     {
       "path": "development-reference/wallet-test-product.graphql",
@@ -1570,6 +1870,11 @@
       "sanitized": false
     },
     {
+      "path": "docs/APPROVED-REFERENCE-STORIES-20261014.md",
+      "sha256": "f2b708d700cbe3201590476f5ec706642079209b035532cd1a91d7ace3109f5b",
+      "sanitized": false
+    },
+    {
       "path": "docs/BUSINESS-STREAM-SEPARATION.md",
       "sha256": "b5d7ba95e6c34baeaf5f0d202eeb2c306c52f48b852f5df961436bfba3318daf",
       "sanitized": false
@@ -1577,6 +1882,11 @@
     {
       "path": "docs/CORE-DEPLOYMENT.md",
       "sha256": "207d38c65b7917f2522eb0b4715ab63d128f592bbe014d7b6dc4e7c7b47c6107",
+      "sanitized": false
+    },
+    {
+      "path": "docs/CORE-FIRST-WALLET-INVESTIGATION-20261017.md",
+      "sha256": "33e474ba8d997f5586721311d0e28bcc7e62b7a913a4770ac4223dea8eefc633",
       "sanitized": false
     },
     {
@@ -1615,19 +1925,49 @@
       "sanitized": false
     },
     {
+      "path": "docs/DELIVERY-POLICY-20261016.md",
+      "sha256": "5fc68e20725a921e9583acd0cb2318beb6ebfb051ab456201f7945d9f569c55e",
+      "sanitized": false
+    },
+    {
+      "path": "docs/DESIGN-REVIEW-CHECKPOINT-20261015.md",
+      "sha256": "f5d418b04bc2d9455cba88af311f1a0c4e7ed0ba901ecf887e139366924acbee",
+      "sanitized": false
+    },
+    {
       "path": "docs/DEV-BUNDLE-INVENTORY-20261008.json",
       "sha256": "e8d6869fa30dd1e63bf3b06019f309b36328c332b3ea5513f300caa78339d1a3",
       "sanitized": false
     },
     {
+      "path": "docs/FIGMA-THEME-REFERENCE-REVIEW-20261017.md",
+      "sha256": "4b14ca54ec183659914ec9d17870e089e22beffc7faf48184756d659965abdc2",
+      "sanitized": false
+    },
+    {
       "path": "docs/FINAL-CLIENT-POLICY-IMPLEMENTATION-20261013.md",
-      "sha256": "7f9493b36f0f68f42a1161cfd153ac1d577ec294f49973eefd6701a046ad8e77",
-      "sanitized": true
+      "sha256": "047a06f249174f8752c60a1bd70d200aaf9db007a90b83a5bec6228f635d983b",
+      "sanitized": false
+    },
+    {
+      "path": "docs/FRESHER-SOURCE-AUTHORITY-20261014.md",
+      "sha256": "d995d0ef179a62a448870f0479959c6113205d6b08f9a351393d1591eefe0e4f",
+      "sanitized": false
+    },
+    {
+      "path": "docs/GIFT-CARD-EXPIRY-READINESS-20261015.md",
+      "sha256": "d2d7d4cb33b4651ef0e2060f07a50f73d7ad76788874834850afb1b78c91b52e",
+      "sanitized": false
     },
     {
       "path": "docs/GIFT-CARD-WALLET-QA.md",
       "sha256": "4e2d4fb387ae077427bd850f1686aff8ba4579876df51267fb38fb3d6a2afd9f",
       "sanitized": true
+    },
+    {
+      "path": "docs/GST-INCLUSIVE-DEVELOPMENT-QA-20261017.md",
+      "sha256": "25c35313e7c923215931d72a1c98f7cee078e8f4e43fef5f208b1a55cb4c9bcc",
+      "sanitized": false
     },
     {
       "path": "docs/MEAL-PLAN-60-DAY-BILLING-DECISION-20261009.md",
@@ -1640,13 +1980,38 @@
       "sanitized": false
     },
     {
+      "path": "docs/MERCHANT-CATALOGUE-EDITING.md",
+      "sha256": "ab6d0a7308081e2cad65042ee57c0071101eaa96395203ee2535dc32cf27cb90",
+      "sanitized": false
+    },
+    {
+      "path": "docs/MERCHANT-CATALOGUE-UPDATE-20261015.md",
+      "sha256": "9f00e6a9b9d2f582e15fe03765bd0d96b15b751f409a898a5e47f43a61ef9dfc",
+      "sanitized": false
+    },
+    {
+      "path": "docs/MERCHANT-DRAFT-STAGING-20261016.md",
+      "sha256": "a692f1a49c064040bde25ea68153842d8a11bb0f8740e5332fe23829230f044c",
+      "sanitized": false
+    },
+    {
+      "path": "docs/MERCHANT-GST-READINESS-20261016.md",
+      "sha256": "2944e52ccd8ee9a557fa249f5cf7387def8f6b08b62459ba4b944acd7a5863ac",
+      "sanitized": false
+    },
+    {
+      "path": "docs/MERCHANT-RULES-20261017.md",
+      "sha256": "b2c426bd5ec04eb25e72e04d762f910d1e6444ac5f8d657c6592940efe50e24b",
+      "sanitized": false
+    },
+    {
       "path": "docs/MERCHANT-SETUP-MANIFEST.json",
-      "sha256": "32188f41c33e75ad1f1875624ff966a4523c4c288d7f8685444be85f361fbea5",
+      "sha256": "4782c1aa8fb80eea3f605826e9fff21365035d6f5233f7573a41a8576cc14eef",
       "sanitized": false
     },
     {
       "path": "docs/MERCHANT-SETUP.md",
-      "sha256": "804755bb5e35c4e034227d1671fa1f9e34587216645f73a584d2650ffb936249",
+      "sha256": "cd30ddc4353644b24f6fb4293208adc09461972574f5dea16ebcd5c10d0a1b0d",
       "sanitized": false
     },
     {
@@ -1676,12 +2041,47 @@
     },
     {
       "path": "docs/READY-SERIES-FINITE-TERM-DECISION-20261012.md",
-      "sha256": "e75d81e06bf24d9e4bf668880a66cdf1aa3bc27610844ace140f20f613739da9",
+      "sha256": "dda51e91a4fb5c2e5e084989ee0cc7e255d0825207255e43068501a9f691af59",
+      "sanitized": false
+    },
+    {
+      "path": "docs/READY-SERIES-MERCHANT-POLICY-20261014.md",
+      "sha256": "ce7dd391d7739401264dd7172315b667b4fb47ef575d8564ec93016ad174522a",
+      "sanitized": false
+    },
+    {
+      "path": "docs/RESUME-CHECKPOINT-20261015-WALLET-EXPIRY.md",
+      "sha256": "aa72562387971ed9317220e5f4a1903e20774556175ae306e04666f0244a691d",
+      "sanitized": true
+    },
+    {
+      "path": "docs/RESUME-CHECKPOINT-20261016.md",
+      "sha256": "9458b7439980800d62f41a12d74c558412588632bdc792822d14491ccb0be9d8",
+      "sanitized": false
+    },
+    {
+      "path": "docs/RESUME-CHECKPOINT-20261017.md",
+      "sha256": "d64256accb2e6af49692054228ff084d7836cf665d296b76adc4987b5b0670ed",
+      "sanitized": true
+    },
+    {
+      "path": "docs/REWARDS-FUNDING-VALIDATION-20261014.md",
+      "sha256": "3708fd6d37ba9d1c492daf6374e41c6564d2b98deecac27ef7f5dac81cae714b",
       "sanitized": false
     },
     {
       "path": "docs/SGD-FOUNDATION.md",
       "sha256": "5587bc56893f89acbc4c80e39a1fc147ca9c216ed5b5de0bc4a643509bb9cf10",
+      "sanitized": true
+    },
+    {
+      "path": "docs/SHIPPING-NATIVE-QA-PLAN-20261016.md",
+      "sha256": "ce20cdf79265019c3e709a5a631bb2220a6fc488ad0f60e99ffa75907b92bfcf",
+      "sanitized": false
+    },
+    {
+      "path": "docs/SHOPIFY-PLAN-DECISION-20261015.md",
+      "sha256": "e764856b926807de5aa7f920c5762cb5a5b47d77b1afbecc0444653c095dee05",
       "sanitized": true
     },
     {
@@ -1725,13 +2125,68 @@
       "sanitized": false
     },
     {
+      "path": "docs/WALLET-CORE-EXPIRY-QA-20261015.md",
+      "sha256": "1506e214dda04edc1173fa38168d4ccc5c3db59bfd09c35f96f4a5052e323414",
+      "sanitized": false
+    },
+    {
+      "path": "docs/WALLET-EXPIRY-NATIVE-QA-20261015.md",
+      "sha256": "1d178abcacfded8c08abe211557ab97cbab76eebfbb9a70c057b4212264058f6",
+      "sanitized": false
+    },
+    {
+      "path": "docs/WALLET-EXPIRY-READINESS-20261015.md",
+      "sha256": "5a2ff6738638004949d10d01a15dad1be86e4e6c72d51f238e22026760d8f75c",
+      "sanitized": false
+    },
+    {
+      "path": "docs/WALLET-FOOD-BONUS-CALCULATION-QA-20261015.md",
+      "sha256": "d353ea349e85e05dfacae486db293a905b39bee16236703e8f2a3bdd985dcb9b",
+      "sanitized": false
+    },
+    {
       "path": "docs/WALLET-LEDGER-QA-20261012.md",
       "sha256": "7555e39af5528c1d3e266629428536f2b61534d361d0b68e043d983bc0fe9eec",
       "sanitized": false
     },
     {
+      "path": "docs/WALLET-MERCHANT-RULES-20261015.md",
+      "sha256": "75640c555a760428971d9915596f471f4551cfbd808ceb1c38baeb2423ee32fc",
+      "sanitized": false
+    },
+    {
+      "path": "docs/WALLET-PLATFORM-SUPPORT-BRIEF-20261016.md",
+      "sha256": "c74c0f76014265f047c47941dc0dee9e98b5af4d7b08ffe19a580435db265e2a",
+      "sanitized": false
+    },
+    {
+      "path": "docs/WALLET-REMINDER-DEVELOPMENT-20261015.md",
+      "sha256": "4796815ffb92aef344b7d8740323439cbf04dd10d77fc4f5105290d958d6bcf2",
+      "sanitized": false
+    },
+    {
+      "path": "docs/WALLET-SUPPORT-FINDINGS-20261016.md",
+      "sha256": "1d96195ba771e4e17e6c98c3ca15c62d33db085900a7cff99a3c8b5537e90498",
+      "sanitized": false
+    },
+    {
       "path": "docs/WALLET-TOP-UP-IMPLEMENTATION.md",
       "sha256": "bad03fbec789d77b5767e2f2df91a0201ab1aa692bead1ddb806262bab485ace",
+      "sanitized": false
+    },
+    {
+      "path": "docs/verification/core-delivery-input-202610.graphql",
+      "sha256": "9a242b8613d38fcfb128dad3da61f92e7e9b7adc2923f834c3c86618ddbdf843",
+      "sanitized": false
+    },
+    {
+      "path": "docs/verification/core-event-connections-202610.graphql",
+      "sha256": "0b15a0ff353e8a9174d9bacf0a2641d4cd31f5258f4736ac7796d64a7070fcc3",
+      "sanitized": false
+    },
+    {
+      "path": "docs/verification/core-gst-setting-202610.graphql",
+      "sha256": "2bf11c8a5fb1f2f8a72afe34bcafa9a68bdee182e98876dfb41d3f0c42a618fe",
       "sanitized": false
     },
     {
@@ -1786,8 +2241,8 @@
     },
     {
       "path": "public/performance-meals-prototype.html",
-      "sha256": "2ba73a14150eb0e18d1ad018efe12da305519f0883141deb696fc020d5752f41",
-      "sanitized": false
+      "sha256": "4a16b2a3910a5f6ed922eafa5232c24834a223dc69c27ef4b8a6efdabf3492f0",
+      "sanitized": true
     },
     {
       "path": "scripts/generate-prototype-html.mjs",
@@ -1871,8 +2326,8 @@
     },
     {
       "path": "src/components/Footer.tsx",
-      "sha256": "2c10f8f186be49d4f7a86c46a8d0b95b68942b210926a6fea4c241c9c328f6aa",
-      "sanitized": false
+      "sha256": "22ed1fc7f15fca658a2e8972c385d689620ea00bfdd7debc02483c5d7697f7c9",
+      "sanitized": true
     },
     {
       "path": "src/components/Logos.tsx",
@@ -1881,8 +2336,8 @@
     },
     {
       "path": "src/components/Nav.tsx",
-      "sha256": "aecc90f6bc0c349b8578db188b07333e44f5bba5204e29db48687f6cfc20123d",
-      "sanitized": false
+      "sha256": "1214f1819fb610ffa5f2ce8a0b6f69737d9597d83bb18d9ba4390f7e3f765340",
+      "sanitized": true
     },
     {
       "path": "src/components/PromoPopup.tsx",
@@ -1911,8 +2366,8 @@
     },
     {
       "path": "src/pages/AccountPage.tsx",
-      "sha256": "0b455728e6ab928f83877a727d525fbee42c121d1f8c33d2f5b4d609424bb7dc",
-      "sanitized": false
+      "sha256": "6a5d91781c4ff830f21374b5d67f635940542e0ed4fd600d09fd6771c38f57e8",
+      "sanitized": true
     },
     {
       "path": "src/pages/BlueprintPage.tsx",
@@ -1921,13 +2376,13 @@
     },
     {
       "path": "src/pages/CheckoutPage.tsx",
-      "sha256": "682b0f2cd539dc2fab5dfc0e6e258b83834f82dbb2e6f65eaab8ee5884bf41f5",
-      "sanitized": false
+      "sha256": "aadfc7414735b7e70831e2ec80285cc18657cd20ff9f77431f92610810dbc5d1",
+      "sanitized": true
     },
     {
       "path": "src/pages/ConfirmationPage.tsx",
-      "sha256": "672510e47ec285befa801131f549691d87ef1dda3c1e5a6e3e09b0235c51cc76",
-      "sanitized": false
+      "sha256": "5f166ed0f42f48008260af10a9318342aa4a83d8c7201e54e5c1ca3987b940e1",
+      "sanitized": true
     },
     {
       "path": "src/pages/GiftCardPage.tsx",
@@ -1951,8 +2406,8 @@
     },
     {
       "path": "src/pages/MealPlanWizardPage.tsx",
-      "sha256": "d7fd4b3b18cfd374439d9de716a55f3e2357b4aae114866b5933144f5e10cef2",
-      "sanitized": false
+      "sha256": "dfb64472b45dd8068910043a77d8ab6747190d92fe81d3f1cc94b152345a6954",
+      "sanitized": true
     },
     {
       "path": "src/pages/ReadySeriesPage.tsx",
@@ -1991,7 +2446,7 @@
     },
     {
       "path": "theme-tools/README.md",
-      "sha256": "79a94ba8580078bed91b8d3942708b6db58784c54b489d653b640abeef25a96a",
+      "sha256": "82ffcf665f5a8dd723c14f212960f60e5d084ebada1f734c50098523dccba0cd",
       "sanitized": false
     },
     {
@@ -2050,13 +2505,33 @@
       "sanitized": false
     },
     {
+      "path": "theme-tools/catalogue/build-merchant-manifest.py",
+      "sha256": "59ab833905049ed59e3a5f9f73c49b8749a6ef5f7367cf958ffe82324cbe8fb1",
+      "sanitized": false
+    },
+    {
       "path": "theme-tools/catalogue/complete-existing.mjs",
       "sha256": "677e49d817ecebc7ea1cfc8dec0eec86da35a609648bd2b8691aae2c59646c44",
       "sanitized": false
     },
     {
+      "path": "theme-tools/catalogue/fresher-audit.mjs",
+      "sha256": "627445ef2c389c682c59487c6f7ec7c60fda707255e823d11cb9ac75d47a7e9b",
+      "sanitized": false
+    },
+    {
       "path": "theme-tools/catalogue/menu.mjs",
       "sha256": "3929529bfb4ba29c9dd7a3c9b22aa7abd5023bd596854ca4ea46d86e83df846b",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/catalogue/merchant-sheets.py",
+      "sha256": "f07134b6bc0fdc3ef80c9e25abf8769fecaa03ced7ac43a9f5c8363e59c552cc",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/catalogue/nutrition-evidence.py",
+      "sha256": "bcccebe2c1510879a8d065416e6f34c99d6830752fa4e4642d22a09b3d12de2a",
       "sanitized": false
     },
     {
@@ -2067,6 +2542,26 @@
     {
       "path": "theme-tools/catalogue/order-existing.mjs",
       "sha256": "c0fac3c63b4f57b94a23e915311f819a48f221af98336f7d22763a0ec9914f9c",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/catalogue/plan-draft-assembly.mjs",
+      "sha256": "3c0276ab3a13bf7fb913454bd66a9ac0dca46e87c8113c702ffcfc09224df015",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/catalogue/plan-individual-prices.mjs",
+      "sha256": "9486f41f280a4f1a0a5e92cf29f14cb1897d9639d1254b894319cd563e19a2b6",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/catalogue/review-merchant-cli.mjs",
+      "sha256": "91e8f89e0ddec927edff61a867658e2994f1359626ca4a1e605be430fd6d0397",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/catalogue/review-merchant.mjs",
+      "sha256": "32b17fd1bce5812e590205ea72b3b0ebaa3dc6860fb3b0ebeb749b05b5d6eda3",
       "sanitized": false
     },
     {
@@ -2165,13 +2660,38 @@
       "sanitized": false
     },
     {
+      "path": "theme-tools/fresher-individual-prices-20261016.json",
+      "sha256": "97c7b48fb200678ab4ba7e869b79026665d0d4080f06edbd2529f381ef3d2a7d",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/fresher-product-photos-20261016.json",
+      "sha256": "8768b2fe54725290bf7a9018b087fb25c5a9dc8e97aa9c1c9c3a4301d97d5fe0",
+      "sanitized": false
+    },
+    {
       "path": "theme-tools/meal-plan-billing.mjs",
       "sha256": "d006db11581d86630690dcdb51ef0df484e13d576fa3ff14e0d1ccb6bc35b3ee",
       "sanitized": false
     },
     {
+      "path": "theme-tools/merchant-catalogue-20261015.json",
+      "sha256": "e3e457b27922dc9aa1dc2b5ed2c6f56796ccd07e6175c210fef6ae2417a60b73",
+      "sanitized": false
+    },
+    {
       "path": "theme-tools/merchant-manifest.mjs",
-      "sha256": "fe5a5fba5d19ef50bbf796fa5bc754c05f1ca18130460414aed244087daf31dc",
+      "sha256": "f118416f43025328b07f928aa356a7b1e9e10a48a08a54bc287231583721fd9e",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/merchant-nutrition-evidence-20261015.json",
+      "sha256": "49b69d74a4b0f2d685fe28d0f85221b283c9c586eeea6e4318c755dcbae389b9",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/merchant-nutrition-transcription-20261016.json",
+      "sha256": "3cce7e9cad6392ac2516bd0ddd28d67490083f5cb8829216d7b9a4468d2228f5",
       "sanitized": false
     },
     {
@@ -2191,12 +2711,17 @@
     },
     {
       "path": "theme-tools/preview.mjs",
-      "sha256": "74365d8de4a0a5c2acbfa35aa64977a6bbe642558ff1f9c0ccac61ce4b0db25e",
+      "sha256": "b4468392e7847c40c8fb668dac071466c0f29ccca6cd79e0f5dcfa1b48e42699",
       "sanitized": false
     },
     {
       "path": "theme-tools/ready-series-billing.mjs",
-      "sha256": "5ccbc97b91bdc2612ccda2f8a36c1894bc3cda5f5208d393b21d4cfaa5897730",
+      "sha256": "5d884f5d3a71ab029a022b7b3ed3b49a6b1ea9ba69883533592cb6640c05b091",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/tests/bundle-savings.test.mjs",
+      "sha256": "87b06ca1f48ed078baacfe2b70e577272cbee7b167910d72cee2957caf550d2c",
       "sanitized": false
     },
     {
@@ -2211,12 +2736,17 @@
     },
     {
       "path": "theme-tools/tests/customer-sync.test.mjs",
-      "sha256": "a54a23bb1ef40f7f0fd72fc173f3061cf308f2bc311a73bf1ad7c79b99c18164",
+      "sha256": "7f6d0d0aefc69b3fa57b6ce3416fd0d16acbe3dd584db8197e586de1b0a91899",
       "sanitized": false
     },
     {
       "path": "theme-tools/tests/delivery.test.mjs",
-      "sha256": "ed9ea1aa8abc825c484eddd96cf9fc3ffd03ed1522072100f2a520f1f6f3730b",
+      "sha256": "f7818dab4225788dd2ffc3a15dbfd5a2752058886790a9c0737213ebc4a9109c",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/tests/individual-prices.test.mjs",
+      "sha256": "78f79b4aa54d0e5d5ffa7b9c379e0dcf118eaf5c023094e16bc064c0aef9dd6a",
       "sanitized": false
     },
     {
@@ -2225,8 +2755,38 @@
       "sanitized": false
     },
     {
+      "path": "theme-tools/tests/merchant-catalogue-review.test.mjs",
+      "sha256": "e3dd176a1029131bac5f62052ac800b029a7ff57000d4878da23b97ff7ec4558",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/tests/merchant-draft-assembly.test.mjs",
+      "sha256": "d5286696b37e79b6ca3e1abd2499035876a920ecf4f426b8bcb6eb60518eab4d",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/tests/merchant-manifest.test.mjs",
+      "sha256": "6911ab0c39fddb8981c94d479340ba62bb55967f3598575d9d139a7e3388d2d0",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/tests/nutrition-pending.test.mjs",
+      "sha256": "0d23ea68d9c223f1cf74a3b3e503f2375ec1f1e097c281d63f8574c50cc0f895",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/tests/nutrition-source-evidence.test.mjs",
+      "sha256": "a6bacb345a0733de20b1a258c419d9eaeff7e361839620606f6f6f1f417a79c9",
+      "sanitized": false
+    },
+    {
       "path": "theme-tools/tests/ready-series-billing.test.mjs",
-      "sha256": "f64820bb408d640b78990371cc465c963d9d2ff24f4d9f141597d45c6d87a3d5",
+      "sha256": "24d462eff174b3dbf2766ee584a7174afbdc19ed84d6c21ae3e5bb6cf2294da5",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/tests/ready-series-policy.test.mjs",
+      "sha256": "8b66496441dcf2efb2f4c080ed1a27f8bab700e3ebb9685891fe468b2928a770",
       "sanitized": false
     },
     {
@@ -2325,6 +2885,21 @@
       "sanitized": false
     },
     {
+      "path": "theme/assets/brand-carousel.js",
+      "sha256": "74dc6d51dc12a5340c18e58eecbc0adaea918bae542642cc99232164947123a1",
+      "sanitized": false
+    },
+    {
+      "path": "theme/assets/brand-landing-hero.css",
+      "sha256": "bcac7633e154271736cb57d19e2ffb9753fa9cdfa3544f0997d428d12bda3839",
+      "sanitized": false
+    },
+    {
+      "path": "theme/assets/brand-navigation.css",
+      "sha256": "b5410d4eb51ffaa64c83f26d7b636e8b00d430fb8ec2c874f8aaaf335df977ed",
+      "sanitized": false
+    },
+    {
       "path": "theme/assets/catalog-purchase.js",
       "sha256": "8807ca567342aac7a2a26fbc5432f94e6748e0f1a292821cf16d4f20f24072db",
       "sanitized": false
@@ -2332,6 +2907,16 @@
     {
       "path": "theme/assets/catalog.js",
       "sha256": "9fc6e4ec143dfdecfd421ecb17f4685434ec5793fc3a0871ef1a0ff10e937e1c",
+      "sanitized": false
+    },
+    {
+      "path": "theme/assets/community-page.css",
+      "sha256": "ba1dfb91485b5f1f59c87e1e2abc7e21a8cc7d06f7eb40c36b5899d4b0f33153",
+      "sanitized": false
+    },
+    {
+      "path": "theme/assets/customer-stories.css",
+      "sha256": "1b31d73e57dc0b7f21a3a5fe01adaeda26d0d95310146926daf38e8717615b6a",
       "sanitized": false
     },
     {
@@ -2352,6 +2937,26 @@
     {
       "path": "theme/assets/meal-plan.js",
       "sha256": "ab2ad5b07dee95a3b83069c9a21b7149670839086ada869bf986b8d63331c448",
+      "sanitized": false
+    },
+    {
+      "path": "theme/assets/parent-experiences.css",
+      "sha256": "8a121255daf303a62c424439f063d75ad6bf9bd5994ccb7b42e68b86147e7e0e",
+      "sanitized": false
+    },
+    {
+      "path": "theme/assets/parent-hero-plate.webp",
+      "sha256": "327a08cd208b2efaacc0266ccaecb209dd4d0e8c8e8c82b7c64e556020b31879",
+      "sanitized": false
+    },
+    {
+      "path": "theme/assets/parent-hero.css",
+      "sha256": "e413f9bc3168800111d232d7de23af382d27feca77e026127761e2bdd884cba2",
+      "sanitized": false
+    },
+    {
+      "path": "theme/assets/parent-navigation.css",
+      "sha256": "117fdb6aeced74a328e4def1a1aa1145ec79cbcb7ed0d011af86d52a2f7cbda6",
       "sanitized": false
     },
     {
@@ -2487,6 +3092,21 @@
     {
       "path": "theme/assets/ready-series-hero.jpg",
       "sha256": "79eea03a0d9be2fd27836256ae04cb2c68ca863fd9e3a5ad50d78cedd1e65305",
+      "sanitized": false
+    },
+    {
+      "path": "theme/assets/story-matt-winter.webp",
+      "sha256": "35266a4e4853652fef92a3cdfb09087fd965ff1819ef2d72559b9029b932b69b",
+      "sanitized": false
+    },
+    {
+      "path": "theme/assets/story-su-outdoors.webp",
+      "sha256": "a46013956e481cd455b13aeb3024244656428044b370877b425991c81a41106c",
+      "sanitized": false
+    },
+    {
+      "path": "theme/assets/story-su-training.webp",
+      "sha256": "2b5c187d88d4cbb9d3551ea156f3fe2368fc62b443403aa02eb0aa68c7d1c161",
       "sanitized": false
     },
     {
@@ -2631,12 +3251,12 @@
     },
     {
       "path": "theme/config/settings_data.json",
-      "sha256": "0c3ef87526276694f10dc1c5214329ade4f41ccd3f770c154b458554af42c159",
+      "sha256": "e5f3e159e9f18db41e1db552e7be7f3d95bb230b87f8c434cd8a55e84cd00b21",
       "sanitized": false
     },
     {
       "path": "theme/config/settings_schema.json",
-      "sha256": "3a96b27d777006d912e798781d68337370770e6fb19424e046f53f5fdf4ed153",
+      "sha256": "dc7945ac1a0519d3afe31ca9cfdaa9a92214ee4285ab326fb7f832695271bdc7",
       "sanitized": false
     },
     {
@@ -2646,7 +3266,7 @@
     },
     {
       "path": "theme/locales/en.default.json",
-      "sha256": "e578309c6bc7ae1b72c597c2e12b7759362f957e05c1dfa88f10fc82907208ac",
+      "sha256": "036f4c2104c822e1fac7c8cd44eabea85b60c0551525bbbc1a1784425cff2675",
       "sanitized": false
     },
     {
@@ -2655,8 +3275,23 @@
       "sanitized": false
     },
     {
+      "path": "theme/sections/brand-landing-hero.liquid",
+      "sha256": "f567e402aac0cfee293e7384b4f2f268c17d085227bf53fedfdcab1c61e1a436",
+      "sanitized": false
+    },
+    {
       "path": "theme/sections/cart-drawer.liquid",
       "sha256": "20b20145eee9d0100bb6f1d8b22c0a952109d7a1df3117d3189847979a394d10",
+      "sanitized": false
+    },
+    {
+      "path": "theme/sections/community-page.liquid",
+      "sha256": "77b74da3915f537f5cf881f808265d1ad9bd6bf9f810caf7329af0c5ccb1148e",
+      "sanitized": false
+    },
+    {
+      "path": "theme/sections/customer-stories.liquid",
+      "sha256": "bc40765491407654296e11e97ba1c0f8ce2feaaa57a43bca7c7db793d141ee1a",
       "sanitized": false
     },
     {
@@ -2676,12 +3311,12 @@
     },
     {
       "path": "theme/sections/header-group.json",
-      "sha256": "bcf82455b250a5d911402bbf4989e9ed531435f8f4b11c095ca36c69b3f7d063",
+      "sha256": "5af695b7324272f31b867cce1e84965bbdfc343db00e717ccc307db7ac001dd0",
       "sanitized": false
     },
     {
       "path": "theme/sections/header.liquid",
-      "sha256": "8720433c5512d3916f9447adaaddfcf63ef77de04271cfe079225e4aa4db7142",
+      "sha256": "cc44133c68df9454f5a97361baaa647148cd23962edb6105648790eadf4bc230",
       "sanitized": false
     },
     {
@@ -2696,12 +3331,12 @@
     },
     {
       "path": "theme/sections/home-experiences.liquid",
-      "sha256": "cee75d51cb7c2c184d4a110387ffc4ac95d9231240d3873fee07cab0c45c122d",
+      "sha256": "d66475cbe77d9b778d81252d1b196bd3fda8ebc28f25fa305c2e7fccc532087f",
       "sanitized": false
     },
     {
       "path": "theme/sections/home-hero.liquid",
-      "sha256": "9acb89ed28ac8d8c42dbf4eee5650fe9f8141e719f1187e0eda5e8a91f0ffb70",
+      "sha256": "e928cbe057af3f1d1077ab1689175baa1ac1db4f5be362d3463e98bc78b245ba",
       "sanitized": false
     },
     {
@@ -2711,12 +3346,12 @@
     },
     {
       "path": "theme/sections/home-standard.liquid",
-      "sha256": "660a6548318c141799aeb96f8b19498a03ffbd2966172a03596a9013e1b3a890",
+      "sha256": "94d41de2ff9e956687d8e300420a1ac612b7d9507e81e0a3c78c1e35e5c75b65",
       "sanitized": false
     },
     {
       "path": "theme/sections/home-stats.liquid",
-      "sha256": "0bbe8995ebff9e70b92f039063034a1c91ba06ac18362fc4aeb6f4b32e0c61c3",
+      "sha256": "716b0b570cd2d9fedc9d850e20ab0a58302f9e8703a9646356b6e2534df73a02",
       "sanitized": false
     },
     {
@@ -2731,7 +3366,7 @@
     },
     {
       "path": "theme/sections/main-collection.liquid",
-      "sha256": "9281f0bc1df96dce356cdd7ecfa777fa29c35fa62493dba4c156ddcc6ebb1a85",
+      "sha256": "c1d72a7de70c86167513c96f865dc699658c1f79c534636fc736f3b5fe63ceb7",
       "sanitized": false
     },
     {
@@ -2741,7 +3376,7 @@
     },
     {
       "path": "theme/sections/main-product.liquid",
-      "sha256": "dddb19c1ff7d65ace243929122ac143ceef5904ba4afb455e2270319d4ef90c7",
+      "sha256": "c602a0b24d88dbb1faf7721d50beeb7bb669a505d490384cb4c9bc7d916f8a72",
       "sanitized": false
     },
     {
@@ -2761,7 +3396,7 @@
     },
     {
       "path": "theme/sections/meal-plan-landing.liquid",
-      "sha256": "18f2e29c8b9561e278919884555374452014dad9db9e855efbf5559b67bd7c3c",
+      "sha256": "839d2b318818136157d47bcf1c1c891d0a8f4c12e796bd389e494bbbe9ec3f83",
       "sanitized": false
     },
     {
@@ -2781,12 +3416,27 @@
     },
     {
       "path": "theme/sections/ready-series-editorial.liquid",
-      "sha256": "45dac7f86eb2b5b9f92f977a5bff93dd7ec2052f843ad6e5bb1166852528b936",
+      "sha256": "4cf7eedc724ca11f39cb0f16b04bf3d186170951678771a1e7410357a5c6e6b4",
       "sanitized": false
     },
     {
       "path": "theme/sections/rewards.liquid",
       "sha256": "01d2f40395d38cdcf44d8ec20bb863f1080290cf722b5a7f403fe5ad9301660c",
+      "sanitized": false
+    },
+    {
+      "path": "theme/snippets/brand-hero-slide.liquid",
+      "sha256": "6df235174467b0853f9b0c973ea867d99503ed5c6ea6a1512cc13b12eadf033f",
+      "sanitized": false
+    },
+    {
+      "path": "theme/snippets/brand-navigation.liquid",
+      "sha256": "8025696d7b065d55195635f9c7e86d618f39474d8deb1d06016814e3e8f3ed5d",
+      "sanitized": false
+    },
+    {
+      "path": "theme/snippets/bundle-savings.liquid",
+      "sha256": "212736c679e6ea41fa3d32e1d2baf9917c94978dbaa6ce0d51c9ad533d4743e3",
       "sanitized": false
     },
     {
@@ -2796,7 +3446,7 @@
     },
     {
       "path": "theme/snippets/cart-bundle.liquid",
-      "sha256": "485346283074bea6314e28f256b79659ead292c869cfbbb96194d61eca53d321",
+      "sha256": "9156cb65c6e58ead0655e56b9b07e0e3098e7e4cf75c32e76a667da23ba948ef",
       "sanitized": false
     },
     {
@@ -2806,7 +3456,7 @@
     },
     {
       "path": "theme/snippets/cart-delivery-progress.liquid",
-      "sha256": "af239ce24bb1e9570fa621e5b36bce0405bc3172ca988ada92efb636928ce840",
+      "sha256": "93ebc663b513d0169d5cfbad0a861f23f88c81f5365c71f09b3090a63f3ff25c",
       "sanitized": false
     },
     {
@@ -2816,7 +3466,12 @@
     },
     {
       "path": "theme/snippets/context-navigation.liquid",
-      "sha256": "917f8529204d2dbab73b605ac273b641fc219e6b47f79f79a0b1c20fbd2390d5",
+      "sha256": "398326123acc7c338c668dc7e7480f915bd5f4d442fb6c3560333651a6d8d929",
+      "sanitized": false
+    },
+    {
+      "path": "theme/snippets/home-reference-hero.liquid",
+      "sha256": "2148ec2fbc8a8471d99e0fa97635c066558f620ef91c8affadc61fe89bd04dbb",
       "sanitized": false
     },
     {
@@ -2826,7 +3481,12 @@
     },
     {
       "path": "theme/snippets/nutrition.liquid",
-      "sha256": "b1b738ea86c82569b4f828e721db0bf77578ff3626e700fbd167fdba016a776b",
+      "sha256": "8bbc5fbf64b0ca3d60ec09c8fd4d3930f6758156783e66ef2580d3b938ca0f29",
+      "sanitized": false
+    },
+    {
+      "path": "theme/snippets/parent-navigation.liquid",
+      "sha256": "a7e393013a5fd642fc678dd4600c3c1939deca64ee4e0fd78b70098e608425a1",
       "sanitized": false
     },
     {
@@ -2836,7 +3496,7 @@
     },
     {
       "path": "theme/snippets/product-card.liquid",
-      "sha256": "484ba9a2903e1399d71402ca06a16289533a7ba036abeb1982518b3e13097a9d",
+      "sha256": "27b4cd6864e76fed5d3bf8c0e6a7b7cb8396fc59cf0c92b5a6ffa55fc960cc23",
       "sanitized": false
     },
     {
@@ -2906,13 +3566,23 @@
     },
     {
       "path": "theme/templates/index.json",
-      "sha256": "1734d1df61b240f2a6587bb9b7619d9ef71cd76c8fdae08e31d0e0f1edd2b53d",
+      "sha256": "5fbbf8838fe5c51615bccc7d37618b6d898c113d978b9e99297233a580610aa3",
       "sanitized": false
     },
     {
       "path": "theme/templates/page.about.json",
       "sha256": "becdf8c22a281b0b0c902e159a0953c813f0fb912df49c0f6824960eef24138b",
       "sanitized": false
+    },
+    {
+      "path": "theme/templates/page.affiliate.json",
+      "sha256": "7f3faed1db38699b8b1227e1b489883bca50f6a473348bd8054274a8a7c16e46",
+      "sanitized": false
+    },
+    {
+      "path": "theme/templates/page.contact.json",
+      "sha256": "87962ad5fc4736e9dfeac3da32672f7e24d07ec72711e5e4c8cfa490a89a7d47",
+      "sanitized": true
     },
     {
       "path": "theme/templates/page.gift-card.json",
@@ -2941,7 +3611,7 @@
     },
     {
       "path": "theme/templates/page.meal-plan.json",
-      "sha256": "04b3312f9d3c01de4353ca2ab4846875ab4c3902f159d2df26281ccc3d7dd8be",
+      "sha256": "f535d1564da16a6ba5ec5ea7399f3b91668b99877b6ed8924eff522ceafeff77",
       "sanitized": false
     },
     {
@@ -2951,7 +3621,7 @@
     },
     {
       "path": "theme/templates/page.ready-series.json",
-      "sha256": "cd2986f0b807d047d448aa4a1231d1e682f908208fb072a277d67d3cf31e809c",
+      "sha256": "21d74c4d27b5ebcfd298951299520c0e9d09d96fc0471a426b0b2e4bf95b5c1d",
       "sanitized": false
     },
     {
@@ -3035,5 +3705,16 @@
     "docs/WALLET-TOP-UP-SAFEGUARD-QA-20261013.md",
     "docs/CUSTOMER-CORE-CHECKPOINT-20261012.md"
   ],
-  "excluded": []
+  "excluded": [],
+  "backup_updated_at": "2026-10-17",
+  "excluded_private_qa_documents": [
+    "docs/CANCELLATION-WALLET-QA-20261013.md",
+    "docs/CUSTOMER-CORE-CHECKPOINT-20261012.md",
+    "docs/CUSTOMER-CORE-COMPLETION-TRACKER.md",
+    "docs/PAID-REWARDS-WEBHOOK-QA-20261013.md",
+    "docs/RESUME-CHECKPOINT-20261013.md",
+    "docs/REWARDS-NATIVE-QA-20261013.md",
+    "docs/WALLET-TOP-UP-SAFEGUARD-QA-20261013.md",
+    "docs/WALLET-TOP-UP-SAFGUARD-QA-20261013.md"
+  ]
 }

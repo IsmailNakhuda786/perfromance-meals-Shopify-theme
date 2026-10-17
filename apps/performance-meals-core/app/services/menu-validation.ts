@@ -1,4 +1,4 @@
-import {sixtyDayPeriod,consecutiveMenuWeeks} from './programme-period';
+import {sixtyDayPeriod,consecutiveMenuWeeks,sixtyDayEntitlement} from './programme-period';
 export type Programme = {id:string; stream:string; menuWeeks:number; purchasePolicy?:{mode:string;durationDays:number;startDay:string}; variant:{id:string; productGid:string; available:boolean; mealsPerDay:number; requiresPlan:boolean; plans:string[]}};
 export type MenuWindow = {key:string;stream:string;days:number;meals:string[]};
 export type MenuWeek = {handle:string;stream:string;startsOn:string;endsOn:string;cutoffAt:string;programmes:string[];windows:MenuWindow[]};
@@ -17,10 +17,20 @@ export function validateSelection(input:DraftInput,programme:Programme,weeks:Men
   const period=periodBased?sixtyDayPeriod(input.startMonday || ''):null;
   if(!periodBased && input.startMonday) throw new Error('Unexpected programme start date');
   if (!Number.isInteger(programme.menuWeeks)||programme.menuWeeks<1||!Number.isInteger(programme.variant.mealsPerDay)||programme.variant.mealsPerDay<1) throw new Error('Incomplete programme configuration');
+  if(periodBased&&programme.variant.mealsPerDay!==2)throw new Error('60-day programme must include two weekday meals');
   const eligible=weeks.filter(w=>w.stream==='meal_plan' && Date.parse(w.cutoffAt)>now && (!w.programmes.length||w.programmes.includes(programme.id)) && (!period || w.startsOn>=period.startsOn)).sort((a,b)=>a.startsOn.localeCompare(b.startsOn)).slice(0,programme.menuWeeks);
   if(period && eligible[0]?.startsOn!==period.startsOn) throw new Error('Selected Monday unavailable');
   if(eligible.length!==programme.menuWeeks) throw new Error('Published menu unavailable');
-  if(period && !consecutiveMenuWeeks(eligible,period.startsOn,programme.menuWeeks)) throw new Error('Consecutive published menus unavailable');
+  // Every Meal Plan begins on a published Monday, including recurring plans.
+  // Validate the selected weeks only; never repair or invent merchant dates.
+  for(const week of eligible){
+   const start=Date.parse(week.startsOn+'T00:00:00Z'),end=Date.parse(week.endsOn+'T00:00:00Z');
+   for(const value of [week.startsOn,week.endsOn]){const time=Date.parse(value+'T00:00:00Z');if(!/^\d{4}-\d{2}-\d{2}$/.test(value)||!Number.isFinite(time)||new Date(time).toISOString().slice(0,10)!==value)throw new Error('Invalid published menu dates');}
+   if(new Date(start).getUTCDay()!==1||end<start||end-start>6*86400000)throw new Error('Published menu must cover a valid Monday week');
+   if(!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z$/.test(week.cutoffAt)||!Number.isFinite(Date.parse(week.cutoffAt))||new Date(week.cutoffAt).toISOString().slice(0,19)!==week.cutoffAt.slice(0,19))throw new Error('Invalid published menu cutoff');
+   if(!week.handle||!Array.isArray(week.windows)||!week.windows.length||new Set(week.windows.map(window=>window.key)).size!==week.windows.length||week.windows.some(window=>!window.key||!Number.isSafeInteger(window.days)||window.days<1||window.days>7)||week.windows.reduce((sum,window)=>sum+window.days,0)>7)throw new Error('Invalid published delivery windows');
+  }
+  if(new Set(eligible.map(week=>week.handle)).size!==eligible.length||!consecutiveMenuWeeks(eligible,eligible[0].startsOn,programme.menuWeeks)) throw new Error('Consecutive published menus unavailable');
   if (!input.selections || typeof input.selections!=='object'||Array.isArray(input.selections)) throw new Error('Invalid selection payload');
   for(const key of Object.keys(input.selections)) if(!eligible.some(w=>w.handle===key)) throw new Error('Unknown or expired menu week');
   const result=[];
@@ -30,9 +40,11 @@ export function validateSelection(input:DraftInput,programme:Programme,weeks:Men
     for(const key of Object.keys(selected)) if(!week.windows.some(w=>w.key===key)) throw new Error('Unknown delivery window');
     for(const window of week.windows) {
       if(window.stream!=='meal_plan'||!Number.isInteger(window.days)||window.days<1) throw new Error('Invalid delivery window');
-      const meals=[];let total=0;
+      const meals=[];const selectedProducts=new Set<string>();let total=0;
       for(const [id,quantity] of Object.entries(selected[window.key]||{})) {
         const productId=gid('Product',id);
+        if(selectedProducts.has(productId))throw new Error('Duplicate meal selection reference');
+        selectedProducts.add(productId);
         if(!window.meals.includes(productId)||!Number.isSafeInteger(quantity)||quantity<1) throw new Error('Invalid meal or quantity');
         total+=quantity;meals.push({productGid:productId,quantity});
       }
@@ -41,7 +53,7 @@ export function validateSelection(input:DraftInput,programme:Programme,weeks:Men
       result.push({businessStream:'meal_plan',schemaVersion:1,week:week.handle,startsOn:week.startsOn,endsOn:week.endsOn,window:window.key,meals});
     }
   }
-  return {programmeGid:programme.id,variantGid:programme.variant.id,sellingPlanGid:plan,startsOn:period?.startsOn||null,endsOn:period?.endsOn||null,windows:result,cutoffAt:new Date(Math.min(...eligible.map(w=>Date.parse(w.cutoffAt))))};
+  return {programmeGid:programme.id,variantGid:programme.variant.id,sellingPlanGid:plan,startsOn:period?.startsOn||null,endsOn:period?.endsOn||null,entitlement:period?sixtyDayEntitlement(period.startsOn):null,windows:result,cutoffAt:new Date(Math.min(...eligible.map(w=>Date.parse(w.cutoffAt))))};
 }
 export const STREAMS=['ready_series','meal_plan','shared'] as const;
 export function department(stream:string,isGiftCard:boolean) {

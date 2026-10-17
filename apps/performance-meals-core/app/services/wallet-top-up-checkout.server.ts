@@ -1,5 +1,6 @@
 import {assertShop} from './security.server';
 import {parseWalletTopUpAmount} from './wallet-top-up-amount';
+import {approvedTopUpPackage,WALLET_CREDIT_POLICY_VERSION} from './wallet-credit-policy';
 
 export const TOP_UP_VARIANT_QUERY=`#graphql
 query WalletTopUpVariant($id:ID!) {
@@ -17,11 +18,10 @@ type Catalogue={productGid:string;variantGid:string};
 
 // Internal preparation only. No public route, draft creation, checkout URL or
 // payment-rule activation. The catalogue IDs must come from server configuration.
-export async function prepareWalletTopUpDraft(admin:Admin,shop:string,customerGid:string,value:unknown,catalogue:Catalogue){
+async function prepareDraft(admin:Admin,shop:string,customerGid:string,amount:{amountMinor:number;amount:string},catalogue:Catalogue){
  assertShop(shop);
  const gid=(id:string,type:string)=>new RegExp('^gid://shopify/'+type+'/\\d+$').test(id);
  if(!gid(customerGid,'Customer')||!gid(catalogue.productGid,'Product')||!gid(catalogue.variantGid,'ProductVariant'))throw new Error('Invalid Wallet top-up configuration');
- const amount=parseWalletTopUpAmount(value);
  const response=await admin.graphql(TOP_UP_VARIANT_QUERY,{variables:{id:catalogue.variantGid}});
  const body=await response.json() as {errors?:unknown;data?:{shop:{myshopifyDomain:string};productVariant:Variant|null}};
  const variant=body.data?.productVariant;
@@ -37,4 +37,18 @@ export async function prepareWalletTopUpDraft(admin:Admin,shop:string,customerGi
    lineItems:[{variantId:catalogue.variantGid,quantity:1,priceOverride:{amount:amount.amount,currencyCode:'SGD'}}],
   },
  };
+}
+
+// Retained for existing, disabled legacy QA intents. Never advertises old tiers.
+export async function prepareWalletTopUpDraft(admin:Admin,shop:string,customerGid:string,value:unknown,catalogue:Catalogue){
+ return prepareDraft(admin,shop,customerGid,parseWalletTopUpAmount(value),catalogue);
+}
+// Current merchant packages are server-owned. Request values cannot supply a
+// bonus, price, marketing duration or expiry. This does not create a draft or
+// enable checkout; paired principal/bonus settlement remains separately gated.
+export async function prepareApprovedWalletTopUpDraft(admin:Admin,shop:string,customerGid:string,packagePaidMinor:number,catalogue:Catalogue){
+ const pack=approvedTopUpPackage(packagePaidMinor);
+ const amount={amountMinor:pack.paidMinor,amount:(pack.paidMinor/100).toFixed(2)};
+ const prepared=await prepareDraft(admin,shop,customerGid,amount,catalogue);
+ return {...prepared,creditPlan:{policyVersion:WALLET_CREDIT_POLICY_VERSION,packageId:pack.id,customerFundedMinor:pack.paidMinor,foodOnlyBonusMinor:pack.bonusMinor,totalMinor:pack.totalMinor,expiryYears:1,reminderMonthsBefore:1}};
 }

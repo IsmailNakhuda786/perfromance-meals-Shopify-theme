@@ -2,9 +2,11 @@ import db from '../db.server';
 import {assertShop} from './security.server';
 import {recordSettledWalletCredit} from './wallet.server';
 import {verifyPaidTopUp,type TopUpConfiguration,type TopUpOrder} from './wallet-top-up-policy';
+import type {CreditContext} from './native-wallet-credit-ready.server';
 
 type NativeCredit={id:string;ownerGid:string;amountMinor:number;currency:string};
 type TopUpGateway={
+ assertWalletReady:(customerGid:string,context?:CreditContext)=>Promise<void>;
  readOrder:(orderGid:string)=>Promise<TopUpOrder>;
  credit:(customerGid:string,amountMinor:number)=>Promise<NativeCredit>;
 };
@@ -15,6 +17,7 @@ export async function settleWalletTopUp(shop:string,customerGid:string,orderGid:
  assertShop(shop);
  const policy=await db.commercePolicy.findUnique({where:{shop}});
  if(!policy?.walletTopUpsEnabled)throw new Error('Wallet top-ups are not activated');
+ if(process.env.WALLET_LEGACY_TOP_UP_QA_ENABLED!=='true'||process.env.NODE_ENV==='production')throw Error('Legacy top-up QA is not activated; use approved packages');
  const order=await gateway.readOrder(orderGid);
  if(order.id!==orderGid)throw new Error('Top-up native order differs');
  const proof=verifyPaidTopUp(order,customerGid,configuration);
@@ -25,6 +28,7 @@ export async function settleWalletTopUp(shop:string,customerGid:string,orderGid:
  if(settlement.state==='COMPLETED')return settlement;
  if(['CREDIT_PENDING','RECONCILIATION_REQUIRED'].includes(settlement.state))throw new Error('Top-up requires reconciliation; no automatic financial retry');
  if(settlement.state==='PREPARED'){
+  await gateway.assertWalletReady(customerGid,{topUpSettlementId:settlement.id});
   const changed=await db.walletTopUpSettlement.updateMany({where:{id:settlement.id,shop,state:'PREPARED'},data:{state:'CREDIT_PENDING'}});
   if(changed.count!==1)throw new Error('Wallet top-up changed; reload');
   try{

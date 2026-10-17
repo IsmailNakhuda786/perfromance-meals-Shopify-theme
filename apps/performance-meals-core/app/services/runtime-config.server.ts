@@ -8,5 +8,10 @@ export function productionConfigIssues(env:Record<string,string|undefined>){
  }
  if(env.SHOPIFY_APP_URL!==env.PERFORMANCE_MEALS_APP_URL)problems.push('Application and account origins must match');
  if(env.ALLOWED_SHOP&&!/^[a-z0-9][a-z0-9-]*\.myshopify\.com$/.test(env.ALLOWED_SHOP))problems.push('ALLOWED_SHOP must name one authorized Shopify store');
+ if(env.WALLET_CORE_EXPIRY_ENABLED==='true')problems.push('Core-managed Wallet expiry is development-only until durable scheduling and native checkout protection are verified');
+ if(env.WALLET_EXPIRY_REMINDERS_ENABLED==='true')problems.push('Wallet expiry email delivery is development-only until provider receipts and durable scheduling are verified');
+ if(env.GIFT_CARD_EXPIRY_WRITES_ENABLED==='true')problems.push('Gift Card expiry writes are development-only until native issuance and expiry QA are verified');
+ if(env.GIFT_CARD_EXPIRY_REMINDERS_ENABLED==='true')problems.push('Gift Card reminders are development-only until recipient delivery and durable scheduling are verified');
+ if(env.WALLET_LEGACY_TOP_UP_QA_ENABLED==='true')problems.push('Legacy Wallet top-up QA cannot be activated in production');
  return [...new Set(problems)];
 }

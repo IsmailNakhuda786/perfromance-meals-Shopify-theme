@@ -51,18 +51,18 @@ function Account() {
       {section === 'Dashboard' && <s-section heading="Dashboard">
         <s-paragraph>Your Ready Series, Meal Plans and Gift Card purchases share one Performance Meals account.</s-paragraph>
         <s-grid gridTemplateColumns="repeat(auto-fit, minmax(240px, 1fr))" gap="base">
-          <s-section heading="Active Plan"><s-paragraph>Your subscription status is not available here yet.</s-paragraph><s-button onClick={() => setSection('My Plan')}>Manage Plan</s-button></s-section>
+          <s-section heading="Active Plan">{renderSubscriptions(account)}<s-button onClick={() => setSection('My Plan')}>Manage Plan</s-button></s-section>
           <s-section heading="Monetary Wallet">{renderWallet(account)}<s-button onClick={() => setSection('Wallet')}>Wallet</s-button></s-section>
         </s-grid>
       </s-section>}
       {section === 'My Plan' && <s-section heading="My Plan">
-        <s-section heading="Ready Series"><s-paragraph>Ready Series subscription details are not available here yet.</s-paragraph></s-section>
-        <s-section heading="Meal Plan">{renderPlans(account)}</s-section>
+        <s-section heading="Ready Series">{renderSubscriptions(account,'ready_series')}</s-section>
+        <s-section heading="Meal Plan">{renderSubscriptions(account,'meal_plan')}{renderPlans(account)}</s-section>
       </s-section>}
       {section === 'Order History' && <s-section heading="Order History"><s-paragraph>Your Ready Series, Meal Plan and Gift Card purchases remain together in your Shopify order history.</s-paragraph><s-link href="shopify:customer-account/orders">View all orders</s-link><OrderCancellations data={account?.cancellations} onUpdated={() => setRefresh(value => value + 1)}/></s-section>}
       {section === 'Wallet' && <s-section heading="Wallet">{renderWallet(account)}</s-section>}
       {section === 'Rewards' && <Rewards data={account} onUpdated={() => setRefresh(value => value + 1)}/>}
-      {section === 'Gift Cards' && <s-section heading="Gift Cards"><s-paragraph>Your Gift Card purchases appear in your Shopify order history. Use your Gift Card code at checkout.</s-paragraph><GiftCardClaim enabled={account?.giftCardClaimsEnabled} onClaimed={() => setRefresh(value => value + 1)}/></s-section>}
+      {section === 'Gift Cards' && <s-section heading="Gift Cards"><s-paragraph>Your Gift Card purchases appear in your Shopify order history. Use your Gift Card code at checkout.</s-paragraph><GiftCardClaim enabled={account?.giftCardClaimsEnabled} blocked={!account?.nativeWallet||account?.walletHistoryPending||account?.walletCreditPending} onClaimed={() => setRefresh(value => value + 1)}/></s-section>}
       {section === 'Settings' && <s-section heading="Account Settings"><s-paragraph>Manage your personal details and saved addresses in your Shopify profile.</s-paragraph><s-link href="shopify:customer-account/profile">View profile</s-link></s-section>}
     </s-stack>
   </s-page>;
@@ -73,6 +73,7 @@ function renderPlans(account) {
   if (!account.plans.length) return <s-paragraph>You have no saved Meal Plans yet.</s-paragraph>;
   return account.plans.map(plan => <s-section key={plan.id} heading={plan.programmeTitle || 'Programme details unavailable'}>
     {plan.startsOn && plan.endsOn && <s-paragraph>Programme: {plan.startsOn} – {plan.endsOn} · No automatic renewal</s-paragraph>}
+    {plan.entitlement && <s-paragraph>Includes {plan.entitlement.weekdayMeals} weekday meals and {plan.entitlement.frozenMeals} frozen meals ({plan.entitlement.totalMeals} meals total). Frozen deliveries follow your menu or merchant arrangements.</s-paragraph>}
     {plan.variantTitle && plan.variantTitle !== 'Default Title' && <s-paragraph>{plan.variantTitle}</s-paragraph>}
     <s-paragraph>{plan.status === 'CANCELLED' ? 'Cancelled' : plan.status === 'ORDERED' ? 'Order received' : 'Selections saved for checkout'}</s-paragraph>
     {!plan.menus?.length && plan.selections.map(window => <s-paragraph key={`${window.week}:${window.window}`}>{window.startsOn} · {window.meals.reduce((sum, meal) => sum + meal.quantity, 0)} meals</s-paragraph>)}
@@ -116,24 +117,25 @@ function renderWallet(account) {
   const balance = new Intl.NumberFormat('en-SG', {style: 'currency', currency, currencyDisplay: 'code'}).format(balanceMinor / 100);
   return <s-stack gap="base">
     <s-section heading="Wallet Balance"><s-paragraph>{balance}</s-paragraph></s-section>
-    {account.walletHistoryPending && <s-paragraph>Your Wallet history is updating.</s-paragraph>}
-    <s-paragraph>Your monetary balance is held as Shopify store credit. Promotional credits are kept separately.</s-paragraph>
+    {account.walletHistoryPending && <s-paragraph>We’re checking your Wallet history. Contact Support if this continues.</s-paragraph>}
+    {account.walletCreditPending && <s-paragraph>A previous Wallet transfer needs checking. Please contact Support before adding more credit.</s-paragraph>}
+    <s-paragraph>Use your available Wallet balance at checkout while signed in.</s-paragraph>
     {account.walletLedger?.map(ledger => <s-section key={ledger.currency} heading="Transaction History">
       {ledger.history.length === 0 && <s-paragraph>No Wallet transactions yet.</s-paragraph>}
       {ledger.history.map(entry => <s-paragraph key={entry.id}>
-        {new Date(entry.createdAt).toLocaleDateString('en-SG', {timeZone: 'Asia/Singapore'})} · {entry.fundedDelta < 0 ? 'Purchase' : entry.sourceKind === 'funded_return' ? 'Refund' : entry.sourceKind === 'gift_card_funded' ? 'Gift Card' : entry.sourceKind === 'customer_funded' ? 'Wallet top-up' : entry.sourceKind === 'reward_funded' ? 'Rewards redemption' : entry.sourceKind === 'bonus' ? 'Promotional credit' : 'Transaction'} · {new Intl.NumberFormat('en-SG', {style: 'currency', currency: ledger.currency, currencyDisplay: 'code'}).format((entry.fundedDelta + entry.bonusDelta) / 100)}
+        {new Date(entry.createdAt).toLocaleDateString('en-SG', {timeZone: 'Asia/Singapore'})} · {entry.sourceKind === 'funded_expiry' ? 'Expired credit' : entry.fundedDelta < 0 ? 'Purchase' : entry.sourceKind === 'funded_return' ? 'Refund' : entry.sourceKind === 'gift_card_funded' ? 'Gift Card' : entry.sourceKind === 'customer_funded' ? 'Wallet top-up' : entry.sourceKind === 'reward_funded' ? 'Rewards redemption' : entry.sourceKind === 'bonus' ? 'Promotional credit' : 'Transaction'} · {new Intl.NumberFormat('en-SG', {style: 'currency', currency: ledger.currency, currencyDisplay: 'code'}).format((entry.fundedDelta + entry.bonusDelta) / 100)}
       </s-paragraph>)}
       {ledger.hasMore && <s-paragraph>Showing the latest 50 transactions.</s-paragraph>}
     </s-section>)}
   </s-stack>;
 }
 
-function GiftCardClaim({enabled, onClaimed}) {
+function GiftCardClaim({enabled, blocked, onClaimed}) {
   const [code, setCode] = useState('');
   const [pending, setPending] = useState(false);
   const [message, setMessage] = useState('');
   async function redeem() {
-    if (pending || !enabled) return;
+    if (pending || !enabled || blocked) return;
     setPending(true);
     setMessage('');
     try {
@@ -156,11 +158,12 @@ function GiftCardClaim({enabled, onClaimed}) {
   }
   return <s-section heading="Redeem a Gift Card">
     {!enabled ? <s-paragraph>Gift Card to Wallet conversion is not available here yet.</s-paragraph> : <s-stack gap="base">
-      <s-password-field label="Gift Card Code" autocomplete="off" value={code} disabled={pending} onInput={event => {
+      {blocked && <s-paragraph>Your Wallet needs checking before another transfer. Please contact Support.</s-paragraph>}
+      <s-password-field label="Gift Card Code" autocomplete="off" value={code} disabled={pending || blocked} onInput={event => {
         const field = event.currentTarget;
         if (field && 'value' in field && typeof field.value === 'string') setCode(field.value);
       }}/>
-      <s-button variant="primary" disabled={pending || !code.trim()} onClick={redeem}>Redeem</s-button>
+      <s-button variant="primary" disabled={pending || blocked || !code.trim()} onClick={redeem}>Redeem</s-button>
       {pending && <s-spinner accessibilityLabel="Confirming Gift Card transfer"/>}
       {message && <s-paragraph>{message}</s-paragraph>}
     </s-stack>}
@@ -172,8 +175,9 @@ function Rewards({data,onUpdated}) {
   const [requestKey,setRequestKey]=useState(null);
   const [pending,setPending]=useState(false);
   const [message,setMessage]=useState('');
+  const walletReady=!!data?.nativeWallet&&!data.walletHistoryPending&&!data.walletCreditPending;
   async function redeem(){
-    if(pending||requestKey||!data?.rewardsEnabled||data.rewards?.balanceMatchesLedger!==true)return;
+    if(pending||requestKey||!walletReady||!data?.rewardsEnabled||data.rewards?.balanceMatchesLedger!==true)return;
     const amount=Number(points);
     if(!/^\d+$/.test(points)||!Number.isSafeInteger(amount)||amount<1){setMessage('Enter a positive whole number of points.');return;}
     const key=crypto.randomUUID();setRequestKey(key);setPending(true);setMessage('');
@@ -187,20 +191,30 @@ function Rewards({data,onUpdated}) {
     finally{setPending(false);}
   }
   return <s-section heading="Rewards">
-    <s-paragraph>Earn 1 point per SGD 1 of eligible food value. Only direct customer payments and customer-funded Wallet principal earn points. Cents, delivery, Gift Card-funded, Reward-funded and promotional credit, Gift Card purchases and Wallet top-ups are excluded. Redeem 10 points for SGD 1 Wallet credit.</s-paragraph>
+    <s-paragraph>Earn 1 point per SGD 1 of eligible food value, including food GST paid with qualifying customer money. Only direct customer payments and customer-funded Wallet principal earn points. Cents, delivery and delivery tax, Gift Card-funded, Reward-funded and promotional credit, Gift Card purchases and Wallet top-ups are excluded. Redeem 10 points for SGD 1 Wallet credit.</s-paragraph>
     {!data?.rewardsEnabled&&<s-paragraph>Rewards earning and redemption are not available yet.</s-paragraph>}
+    {data?.rewardsEnabled&&!walletReady&&<s-paragraph>Your Wallet needs checking before points can be redeemed. Please contact Support.</s-paragraph>}
     <s-stack gap="base">
       <s-paragraph>Points Balance: {data?.rewards?.points ?? 'Unavailable'}</s-paragraph>
       <s-paragraph>Lifetime Earned: {data?.rewards?.lifetimeEarned ?? 'Unavailable'}</s-paragraph>
       {data?.rewards?.balanceMatchesLedger===false&&<s-paragraph>Your Rewards history is updating.</s-paragraph>}
       {data?.rewardsEnabled&&data.rewards?.balanceMatchesLedger===true&&<>
-        <s-text-field label="Points to redeem" value={points} disabled={pending||!!requestKey} onInput={event=>setPoints(event.currentTarget.value)}/>
+        <s-text-field label="Points to redeem" value={points} disabled={pending||!!requestKey||!walletReady} onInput={event=>setPoints(event.currentTarget.value)}/>
         {/^[0-9]+$/.test(points)&&Number.isSafeInteger(Number(points))&&Number(points)>0&&<s-paragraph>Wallet credit: {new Intl.NumberFormat('en-SG',{style:'currency',currency:'SGD',currencyDisplay:'code'}).format(Number(points)/10)}</s-paragraph>}
-        <s-button variant="primary" disabled={pending||!!requestKey||!points||!data.rewards} onClick={redeem}>Redeem points</s-button>
+        <s-button variant="primary" disabled={pending||!!requestKey||!walletReady||!points||!data.rewards} onClick={redeem}>Redeem points</s-button>
       </>}
       {data?.rewards?.history.map(entry=><s-paragraph key={entry.id}>{new Date(entry.createdAt).toLocaleDateString('en-SG',{timeZone:'Asia/Singapore'})} · {entry.kind==='earned'?'Earned':entry.kind==='redeemed'?'Redeemed':'Adjustment'} · {entry.pointsDelta} pts</s-paragraph>)}
     </s-stack>
     {pending&&<s-spinner accessibilityLabel="Redeeming points"/>}
     {message&&<s-paragraph>{message}</s-paragraph>}
   </s-section>;
+}
+
+function renderSubscriptions(account,stream){
+  if(!account)return null;
+  if(account.subscriptionHistoryPending)return <s-paragraph>Linked subscription details could not be verified. Please use Shopify’s Subscriptions menu or contact Support.</s-paragraph>;
+  const records=(account.subscriptions||[]).filter(record=>!stream||record.streams.includes(stream));
+  if(!records.length)return <s-paragraph>No linked subscription details are available here. Other subscriptions remain in Shopify’s Subscriptions menu.</s-paragraph>;
+  const labels={ACTIVE:'Active',PAUSED:'Paused',CANCELLED:'Cancelled',EXPIRED:'Expired',FAILED:'Payment issue'};
+  return <s-stack direction="block" gap="small">{records.map(record=><s-section key={record.id} heading="Linked subscription"><s-paragraph>Status: {labels[record.status]||'Unavailable'}</s-paragraph>{record.lines.map(line=><s-paragraph key={line.id}>{line.title} × {line.quantity}</s-paragraph>)}<s-paragraph>Use Shopify’s Subscriptions menu or contact Support for available management options.</s-paragraph></s-section>)}</s-stack>;
 }

@@ -1,0 +1,36 @@
+{
+  "sections": {
+    "main": {
+      "type": "community-page",
+      "settings": {
+        "heading": "Better meals. Stronger everyday.",
+        "introduction": "<p>Food is part of our culture and our everyday lives. Performance Meals brings that connection into the routines of Singapore’s working families and people living independently.</p>",
+        "cta_label": "Let’s have a conversation",
+        "cta_url": "/pages/contact"
+      },
+      "blocks": {
+        "culture": {
+          "type": "topic",
+          "settings": {
+            "heading": "Food that fits real life.",
+            "body": "<p>Work, family and daily commitments can leave little time to plan meals. Our focus is making everyday eating easier while keeping food at the centre of the experience.</p>"
+          }
+        },
+        "community": {
+          "type": "topic",
+          "settings": {
+            "heading": "A shared conversation.",
+            "body": "<p>We welcome conversations with people and organisations who care about food, culture and making everyday life easier for Singapore’s communities.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "culture",
+        "community"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

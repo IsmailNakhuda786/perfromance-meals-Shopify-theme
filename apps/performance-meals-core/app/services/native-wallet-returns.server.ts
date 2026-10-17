@@ -27,6 +27,13 @@ export async function recordNativeWalletReturn(shop:string,customerGid:string,re
   const existing=await tx.walletEntry.findFirst({where:{shop,OR:[{nativeTransactionGid:receipt.id},{sourceEvent}]}});
   if(existing){if(existing.nativeTransactionGid!==receipt.id||existing.customerGid!==customerGid||existing.currency!==currency||existing.fundedDelta!==amount||existing.sourceGid!==origin.order.id)throw Error('Wallet return conflict');return existing;}
   let parts;
+  const nonWalletSource=async(gateway:string)=>{
+   if(gateway==='gift_card')return 'gift_card_funded';
+   const policy=await tx.commercePolicy.findUnique({where:{shop},select:{rewardsRules:true}});
+   const approved=policy?.rewardsRules?JSON.parse(policy.rewardsRules).directPaymentGateways:null;
+   if(!Array.isArray(approved)||!approved.includes(gateway))throw Error('Original refund payment gateway requires verification');
+   return 'customer_funded';
+  };
   let restoredDebitGid:string|undefined;
   const restoreDebit=async(debit:Awaited<ReturnType<typeof tx.walletEntry.findUnique>>,expected:number)=>{
    if(!debit||debit.customerGid!==customerGid||debit.currency!==currency||debit.sourceGid!==origin.order.id||debit.fundedDelta!==-expected||!debit.nativeTransactionGid)throw Error('Original Wallet debit requires reconciliation');
@@ -57,12 +64,12 @@ export async function recordNativeWalletReturn(shop:string,customerGid:string,re
     if(payment.gateway==='shopify_store_credit'){
      const debit=await tx.walletEntry.findUnique({where:{shop_nativeSourceTransactionGid:{shop,nativeSourceTransactionGid:payment.id}}});
      parts.push(...await restoreDebit(debit,paid));
-    }else parts.push({creditEntryId:payment.id,sourceKind:payment.gateway==='gift_card'?'gift_card_funded':'customer_funded',amountMinor:paid});
+    }else parts.push({creditEntryId:payment.id,sourceKind:await nonWalletSource(payment.gateway),amountMinor:paid});
    }
    parseFundedAllocations(JSON.stringify(parts),amount);
   }else{
    if(receipt.event!=='ORDER_REFUND'||origin.kind!=='REFUND'||!origin.parentTransaction||origin.parentTransaction.gateway==='shopify_store_credit'||origin.amountSet.shopMoney.currencyCode!==currency||minorAmount(origin.amountSet.shopMoney.amount)!==amount)throw Error('Refund funding requires reconciliation');
-   parts=[{creditEntryId:origin.parentTransaction.id,sourceKind:origin.parentTransaction.gateway==='gift_card'?'gift_card_funded':'customer_funded',amountMinor:amount}];
+   parts=[{creditEntryId:origin.parentTransaction.id,sourceKind:await nonWalletSource(origin.parentTransaction.gateway),amountMinor:amount}];
   }
   const wallet=await tx.customerWallet.upsert({where:{shop_customerGid_currency:where},create:where,update:{}});
   if(!Number.isSafeInteger(wallet.fundedBalance+amount)||wallet.fundedBalance+amount>2147483647)throw Error('Wallet balance overflow');

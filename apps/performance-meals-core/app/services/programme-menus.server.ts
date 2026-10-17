@@ -1,11 +1,12 @@
 import type {AdminApiContext} from '@shopify/shopify-app-react-router/server';
 import db from '../db.server';
+import {assertShop} from './security.server';
 import {catalog} from './catalog.server';
 import {validateSelection,type DraftInput,type MenuWeek,type Programme} from './menu-validation';
 import {programmeMenuBlock,sixtyDayPeriod} from './programme-period';
 
 export const PAID_PROGRAMME_QUERY=`#graphql
-query PaidProgramme($id:ID!){order(id:$id){id cancelledAt displayFinancialStatus customer{id}}}`;
+query PaidProgramme($id:ID!){shop{myshopifyDomain}order(id:$id){id cancelledAt displayFinancialStatus customer{id}}}`;
 
 export function validateProgrammeMenuBlock(input:DraftInput,programme:Programme,weeks:MenuWeek[],startsOn:string,block:number,complete:boolean,now=Date.now(),previous:ReturnType<typeof validateSelection>["windows"]=[]) {
  const period=sixtyDayPeriod(startsOn);
@@ -38,14 +39,16 @@ export function validateProgrammeMenuBlock(input:DraftInput,programme:Programme,
 }
 
 export async function paidProgramme(shop:string,customerGid:string,selectionId:string,admin:AdminApiContext) {
+ assertShop(shop);
  const record=await db.mealPlanSelection.findFirst({where:{id:selectionId,shop,customerGid,status:'ORDERED',sellingPlanGid:null}});
  if(!record?.startsOn||!record.endsOn||!record.orderGid||!record.orderLineGid) throw new Response('Programme unavailable',{status:404});
  if(sixtyDayPeriod(record.startsOn).endsOn!==record.endsOn) throw new Error('Invalid programme period');
  const line=await db.operationalLine.findUnique({where:{shop_orderLineGid:{shop,orderLineGid:record.orderLineGid}}});
- if(line?.selectionId!==record.id||line.validationStatus!=='VALIDATED'||line.customerGid!==customerGid||line.businessStream!=='meal_plan') throw new Response('Programme unavailable',{status:404});
- const result=await admin.graphql(PAID_PROGRAMME_QUERY,{variables:{id:record.orderGid}}).then(r=>r.json()) as {errors?:unknown;data?:{order?:{customer?:{id:string};cancelledAt:string|null;displayFinancialStatus:string}}};
+ if(line?.selectionId!==record.id||line.validationStatus!=='VALIDATED'||line.customerGid!==customerGid||line.businessStream!=='meal_plan'||line.orderGid!==record.orderGid||line.productGid!==record.programmeGid||line.variantGid!==record.variantGid) throw new Response('Programme unavailable',{status:404});
+ const response=await admin.graphql(PAID_PROGRAMME_QUERY,{variables:{id:record.orderGid}});
+ const result=await response.json() as {errors?:unknown;data?:{shop?:{myshopifyDomain:string};order?:{id:string;customer?:{id:string};cancelledAt:string|null;displayFinancialStatus:string}}};
  const order=result.data?.order;
- if(result.errors||!order||order.customer?.id!==customerGid||order.cancelledAt||order.displayFinancialStatus!=='PAID') throw new Response('Paid programme unavailable',{status:409});
+ if(!response.ok||result.errors||result.data?.shop?.myshopifyDomain!==shop||!order||order.id!==record.orderGid||order.customer?.id!==customerGid||order.cancelledAt||order.displayFinancialStatus!=='PAID') throw new Response('Paid programme unavailable',{status:409});
  return record;
 }
 
@@ -53,7 +56,7 @@ export async function saveProgrammeMenu(shop:string,customerGid:string,selection
  if(!Number.isSafeInteger(revision)||revision<0) throw new Response('Invalid revision',{status:400});
  const record=await paidProgramme(shop,customerGid,selectionId,admin);
  if(input.programmeId!==record.programmeGid||input.variantId!==record.variantGid||input.sellingPlanId) throw new Response('Programme cannot be changed',{status:422});
- const {programme,weeks}=await catalog(admin,input);
+ const {programme,weeks}=await catalog(admin,input,shop);
  if(programme.purchasePolicy?.mode!=='period') throw new Response('Programme policy unavailable',{status:409});
  // Existing paid entitlements do not depend on stock available for a new purchase.
 

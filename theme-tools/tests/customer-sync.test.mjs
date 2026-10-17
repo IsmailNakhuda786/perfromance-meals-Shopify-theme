@@ -25,7 +25,7 @@ test('unverified Ready Series terms cannot charge monthly installments',()=>{
 });
 
 test('approved contextual links exclude extra menus while shared routes remain',async()=>{
- const expected=[['/',['Our Brands','About Us']],['/pages/ready-series-about',['Overview','About','Order']],['/pages/meal-plan-about',['Overview','About','Order','Customer Stories']]];
+ const expected=[['/',['About Us','Affiliate','Contact us']],['/pages/ready-series-about',['Overview','About','Order']],['/pages/meal-plan-about',['Overview','About','Order','Customer Stories']]];
  for(const [route,labels]of expected){
   const $=load(await renderPage(route));
   const nav=$('[data-pm-header]');
@@ -35,6 +35,7 @@ test('approved contextual links exclude extra menus while shared routes remain',
   const mobile=nav.find('[data-mobile-menu]');
   assert.deepEqual(mobile.find('a').filter((_,el)=>labels.includes($(el).text().trim())).map((_,el)=>$(el).text().trim()).get(),labels,route);
   if(route!=='/')assert.equal(nav.find('a[aria-current="page"]').length,2,route);
+  else {assert.equal(nav.find('[data-brand-switcher] summary').text().replace('⌄','').trim(),'Our Brands');for(const path of ['/','/pages/meal-plan','/pages/ready-series'])assert.ok(nav.find(`[data-brand-switcher] a[href="${path}"]`).length);assert.ok(nav.find('a[data-cart-open][href="/cart"]').length);assert.ok(nav.find('a[href="/account"]').length);}
   assert.deepEqual($('footer nav a').map((_,el)=>$(el).text().trim()).get(),['Ready Series','Meal Plan','Gift Cards','About Us']);
  }
  for(const route of ['/pages/rewards','/pages/gift-card','/search?q=chicken'])assert.ok(load(await renderPage(route))('main').text().trim().length>100,route);

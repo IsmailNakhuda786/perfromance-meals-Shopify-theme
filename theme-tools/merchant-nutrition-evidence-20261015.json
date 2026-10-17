@@ -1,0 +1,608 @@
+{
+  "version": "nutrition-source-review-20261015",
+  "shopifyWritesPerformed": false,
+  "warning": "Slide labels differ from catalogue names. Images contain nutrition values; source serving basis requires confirmation. No inferred aliases or macros.",
+  "sources": [
+    {
+      "file": "Justprotein2026_No_Costs.pptx",
+      "sha256": "db6afa0c4b2e7a171c7c06f06972016421cdaf6b0b7f7d175564c7dfdcdec8b7",
+      "slides": [
+        {
+          "slide": 1,
+          "sourceText": [
+            "Garlic confit ",
+            "CHICKEN BREAST"
+          ],
+          "images": [
+            {
+              "archivePath": "ppt/media/image2.png",
+              "sha256": "3a3fca1874e9da97333b2075d2f53218c66a65bec7b1bae4472dd77051d65064"
+            }
+          ],
+          "nutritionValuesTranscribed": false,
+          "merchantAliasVerified": false,
+          "servingBasisVerified": false,
+          "publishable": false
+        },
+        {
+          "slide": 2,
+          "sourceText": [
+            "BULGOGI BEEF",
+            "Last updated: 11/09/26"
+          ],
+          "images": [
+            {
+              "archivePath": "ppt/media/image3.png",
+              "sha256": "9c59897fa2b2667f7537df1d700d6e32040cc8911ced45c46c037965a4b70776"
+            }
+          ],
+          "nutritionValuesTranscribed": false,
+          "merchantAliasVerified": false,
+          "servingBasisVerified": false,
+          "publishable": false
+        },
+        {
+          "slide": 3,
+          "sourceText": [
+            "GOCHUJANG PEPPER CHICKEN BREAST SLICE",
+            "Last updated: 11/09/26"
+          ],
+          "images": [
+            {
+              "archivePath": "ppt/media/image5.png",
+              "sha256": "3df9242a5cad7bfa4fb223da7b7a7ca2a1df8311c4ebde895bce0c34e87676c1"
+            }
+          ],
+          "nutritionValuesTranscribed": false,
+          "merchantAliasVerified": false,
+          "servingBasisVerified": false,
+          "publishable": false
+        },
+        {
+          "slide": 4,
+          "sourceText": [
+            "Chipotle chicken ",
+            "W",
+            "ith Sundried ",
+            "tomato sauce",
+            "Last updated: 11/09/26"
+          ],
+          "images": [
+            {
+              "archivePath": "ppt/media/image10.png",
+              "sha256": "fdb24b905864a987e5e9c2f80ffaef75fa615d894b7700b81bf40b695a36c8d6"
+            }
+          ],
+          "nutritionValuesTranscribed": false,
+          "merchantAliasVerified": false,
+          "servingBasisVerified": false,
+          "publishable": false
+        },
+        {
+          "slide": 5,
+          "sourceText": [
+            "GRILLED TILAPIA FISH",
+            "w",
+            "ith Dill-Herb Sauce",
+            "Last updated: 11/09/26"
+          ],
+          "images": [
+            {
+              "archivePath": "ppt/media/image7.png",
+              "sha256": "b93beec2faad1c2d9ea706a8115874ddf85aa8792296699c5cc7fef7482ff554"
+            }
+          ],
+          "nutritionValuesTranscribed": false,
+          "merchantAliasVerified": false,
+          "servingBasisVerified": false,
+          "publishable": false
+        },
+        {
+          "slide": 6,
+          "sourceText": [
+            "HANDFORMED BEEFBALLS ",
+            "in Classic Demi Glace",
+            "Last updated: 11/09/26"
+          ],
+          "images": [
+            {
+              "archivePath": "ppt/media/image4.png",
+              "sha256": "0aa5b76e8b263072592a9770995023f1ecc183e470905152f7466df24146fefe"
+            }
+          ],
+          "nutritionValuesTranscribed": false,
+          "merchantAliasVerified": false,
+          "servingBasisVerified": false,
+          "publishable": false
+        },
+        {
+          "slide": 7,
+          "sourceText": [
+            "PERI PERI GRILLED CHICKEN BREAST",
+            "Last updated: 11/09/26"
+          ],
+          "images": [
+            {
+              "archivePath": "ppt/media/image8.png",
+              "sha256": "990e5b6f4f49254059145070da230d8a7283cd8826a3952ba81011611ab025f0"
+            }
+          ],
+          "nutritionValuesTranscribed": false,
+          "merchantAliasVerified": false,
+          "servingBasisVerified": false,
+          "publishable": false
+        },
+        {
+          "slide": 8,
+          "sourceText": [
+            "Grilled Chicken ",
+            "w",
+            "ith ",
+            "Creamy Chimichurri Sauce",
+            "Last updated: 11/09/26"
+          ],
+          "images": [
+            {
+              "archivePath": "ppt/media/image1.png",
+              "sha256": "aa2f53f74ddde10fb7a0b9b28db353e014ace660301724d66d16f5cfd02e3e97"
+            }
+          ],
+          "nutritionValuesTranscribed": false,
+          "merchantAliasVerified": false,
+          "servingBasisVerified": false,
+          "publishable": false
+        },
+        {
+          "slide": 9,
+          "sourceText": [
+            "Breaded Dory with mango sauce",
+            "Last updated: 11/09/26"
+          ],
+          "images": [
+            {
+              "archivePath": "ppt/media/image6.png",
+              "sha256": "c7507c65063c4e7dc92f93ca53e5a6fd71d7ed230678861ffe09fab678572a90"
+            }
+          ],
+          "nutritionValuesTranscribed": false,
+          "merchantAliasVerified": false,
+          "servingBasisVerified": false,
+          "publishable": false
+        },
+        {
+          "slide": 10,
+          "sourceText": [
+            "Chicken Char Siew slice",
+            "Last updated: 11/09/26"
+          ],
+          "images": [
+            {
+              "archivePath": "ppt/media/image9.png",
+              "sha256": "1138e82e50a34193e5284a5dd25ba9b52ee7b6d93070b289449800ecc76bcfa1"
+            }
+          ],
+          "nutritionValuesTranscribed": false,
+          "merchantAliasVerified": false,
+          "servingBasisVerified": false,
+          "publishable": false
+        }
+      ]
+    },
+    {
+      "file": "FPMFROZENHPHC2026_No_Costs.pptx",
+      "sha256": "aa1a2a5868c87bedbb0030dc2042ddf9d0641d2aa24c46958e77e12767ec11fb",
+      "slides": [
+        {
+          "slide": 1,
+          "sourceText": [
+            "Meal type: ",
+            "High",
+            " carb",
+            "Shawarma chicken with basmati rice",
+            "with Tzatziki Sauce & Grilled Eggplant",
+            "Last updated: 11/09/26"
+          ],
+          "images": [
+            {
+              "archivePath": "ppt/media/image5.png",
+              "sha256": "8e547e41caa1405aee3fd522a7633ac9261c2dc5ac14f38671817179a8b97ea5"
+            }
+          ],
+          "nutritionValuesTranscribed": false,
+          "merchantAliasVerified": false,
+          "servingBasisVerified": false,
+          "publishable": false
+        },
+        {
+          "slide": 2,
+          "sourceText": [
+            "Meal type: ",
+            "High",
+            " carb",
+            "Gochujang chicken slice",
+            "With Kimchi Rice ",
+            "Last updated: 11/09/26"
+          ],
+          "images": [
+            {
+              "archivePath": "ppt/media/image2.png",
+              "sha256": "a7ca99e9212a47bb18d7f6dee81bce92382851f9962ca259dfa67599aef31f3a"
+            }
+          ],
+          "nutritionValuesTranscribed": false,
+          "merchantAliasVerified": false,
+          "servingBasisVerified": false,
+          "publishable": false
+        },
+        {
+          "slide": 3,
+          "sourceText": [
+            "Meal type: ",
+            "High",
+            " carb",
+            "Harissa chicken ",
+            "with Basmati Rice, Black Beans & Tomato ",
+            "Last updated: 11/09/26"
+          ],
+          "images": [
+            {
+              "archivePath": "ppt/media/image6.png",
+              "sha256": "27cd596167ed2934ee8d47612f75469c29cd0b64e3b729cb8ec8debea0d8b04b"
+            }
+          ],
+          "nutritionValuesTranscribed": false,
+          "merchantAliasVerified": false,
+          "servingBasisVerified": false,
+          "publishable": false
+        },
+        {
+          "slide": 4,
+          "sourceText": [
+            "Meal type: ",
+            "High",
+            " carb",
+            "Beef stew",
+            "with Mash potato, Carrot & Onion",
+            "Last updated: 11/09/26"
+          ],
+          "images": [
+            {
+              "archivePath": "ppt/media/image4.png",
+              "sha256": "09f5835303ecaa593cff30e9441457a05bf85544e7d0d462efb07866db90947c"
+            }
+          ],
+          "nutritionValuesTranscribed": false,
+          "merchantAliasVerified": false,
+          "servingBasisVerified": false,
+          "publishable": false
+        },
+        {
+          "slide": 5,
+          "sourceText": [
+            "Meal type: ",
+            "High",
+            " carb",
+            "Tomato curry Fish",
+            "w",
+            "ith Snap Peas & Brown Rice",
+            "Last updated: 11/09/26"
+          ],
+          "images": [
+            {
+              "archivePath": "ppt/media/image7.png",
+              "sha256": "afaaee66c1433daa7b350be7c4b1c94e5f42a11fc9b6e1382201edc0d6835281"
+            }
+          ],
+          "nutritionValuesTranscribed": false,
+          "merchantAliasVerified": false,
+          "servingBasisVerified": false,
+          "publishable": false
+        },
+        {
+          "slide": 6,
+          "sourceText": [
+            "Meal type: ",
+            "High",
+            " carb",
+            "Teriyaki chicken miso cream udon",
+            "w",
+            "ith ",
+            "Broccoli & Shiitake Mushroom",
+            "Last updated: 11/09/26"
+          ],
+          "images": [
+            {
+              "archivePath": "ppt/media/image9.png",
+              "sha256": "fd7980c61577084bd6a1c952856afa110b04bcee91fe992b302df7ca09b2cf7d"
+            }
+          ],
+          "nutritionValuesTranscribed": false,
+          "merchantAliasVerified": false,
+          "servingBasisVerified": false,
+          "publishable": false
+        },
+        {
+          "slide": 7,
+          "sourceText": [
+            "Meal type: High carb",
+            "Chicken Char Siew ",
+            "Kolo \u201cMee\u201d Tagliolini",
+            "Broccolini, Chicken",
+            "Last updated: 11/09/26"
+          ],
+          "images": [
+            {
+              "archivePath": "ppt/media/image8.png",
+              "sha256": "1ad2606ec621810923796411d41c04bbdd75eb8600b1238ea58f53488bc0359b"
+            }
+          ],
+          "nutritionValuesTranscribed": false,
+          "merchantAliasVerified": false,
+          "servingBasisVerified": false,
+          "publishable": false
+        },
+        {
+          "slide": 8,
+          "sourceText": [
+            "Meal type: ",
+            "High",
+            " carb",
+            "Potato Rosti & Housemade Beefballs",
+            "w",
+            "ith ",
+            "Cranberry Sauce & Broccoli",
+            "Last updated: 11/09/26"
+          ],
+          "images": [
+            {
+              "archivePath": "ppt/media/image1.png",
+              "sha256": "b454367520ae37b0ef76fbbbab05c4c55b6bcc88e2df1a20159ad4fbfaf30960"
+            }
+          ],
+          "nutritionValuesTranscribed": false,
+          "merchantAliasVerified": false,
+          "servingBasisVerified": false,
+          "publishable": false
+        },
+        {
+          "slide": 9,
+          "sourceText": [
+            "Meal type: ",
+            "High",
+            " carb",
+            "Chilli \"Crab\" Gravy Linguine",
+            "w",
+            "ith ",
+            "Grilled Tilapia & Asparagus",
+            "Last updated: 11/09/26"
+          ],
+          "images": [
+            {
+              "archivePath": "ppt/media/image3.png",
+              "sha256": "ce533c854a6b19c839d71eef9fca019729e41f503eeb749325fb721518565157"
+            }
+          ],
+          "nutritionValuesTranscribed": false,
+          "merchantAliasVerified": false,
+          "servingBasisVerified": false,
+          "publishable": false
+        }
+      ]
+    },
+    {
+      "file": "FPMFROZENHPLC2026_No_Costs.pptx",
+      "sha256": "ea2fd1e795eae978ab314e88c599ef0edf64db9d804af3c8dfdcc56fa661bc7a",
+      "slides": [
+        {
+          "slide": 1,
+          "sourceText": [
+            "Meal type: ",
+            "Low",
+            " carb",
+            "HERB CHICKEN BREAST",
+            "with Ratatouille (Zucchini, Eggplant, Yellow Bell Pepper, Tomato)",
+            "Last Updated: 10/9/26"
+          ],
+          "images": [
+            {
+              "archivePath": "ppt/media/image3.png",
+              "sha256": "e82b5a1157bdc4beca139dc520d1701bd32c0c678ae3e0a1494cac29d13929fc"
+            }
+          ],
+          "nutritionValuesTranscribed": false,
+          "merchantAliasVerified": false,
+          "servingBasisVerified": false,
+          "publishable": false
+        },
+        {
+          "slide": 2,
+          "sourceText": [
+            "Meal type: ",
+            "Low",
+            " carb",
+            "Chipotle C",
+            "hicken",
+            " Bowl",
+            "with roasted Broccoli, Sweet Potato, Red Bell Pepper, Yellow Bell Pepper, corn & black beans",
+            "Last Updated: 10/9/26"
+          ],
+          "images": [
+            {
+              "archivePath": "ppt/media/image4.png",
+              "sha256": "58c64558a129c8a17f68d671ff0911d7745e12624bd5c3a5b81ccfad1e810aa0"
+            }
+          ],
+          "nutritionValuesTranscribed": false,
+          "merchantAliasVerified": false,
+          "servingBasisVerified": false,
+          "publishable": false
+        },
+        {
+          "slide": 3,
+          "sourceText": [
+            "Meal type: ",
+            "Low",
+            " carb",
+            "Chili con beefball",
+            "with Roasted Broccoli & Red Bell Pepper",
+            "Last Updated: 10/9/26"
+          ],
+          "images": [
+            {
+              "archivePath": "ppt/media/image9.png",
+              "sha256": "2c050085cf0f96a177d23009610b89d28cefc2161c525b3c4b81e441ca166466"
+            }
+          ],
+          "nutritionValuesTranscribed": false,
+          "merchantAliasVerified": false,
+          "servingBasisVerified": false,
+          "publishable": false
+        },
+        {
+          "slide": 4,
+          "sourceText": [
+            "Meal type: ",
+            "Low",
+            " carb",
+            "Tilapia Paprikash Goulash",
+            " with Bell Pepper, Broccoli & Carrot Roast",
+            "Last Updated: 10/9/26"
+          ],
+          "images": [
+            {
+              "archivePath": "ppt/media/image5.png",
+              "sha256": "5247b9b0675f770018564ec9d0702825a1825b1bf13b3229ff198211c1b1bb99"
+            }
+          ],
+          "nutritionValuesTranscribed": false,
+          "merchantAliasVerified": false,
+          "servingBasisVerified": false,
+          "publishable": false
+        },
+        {
+          "slide": 5,
+          "sourceText": [
+            "Meal type: ",
+            "Low",
+            " carb",
+            "Cajun chicken breast with Mango sauce",
+            "with Kale, Grill Zucchini & Roasted Red Onion",
+            "Last Updated: 10/9/26"
+          ],
+          "images": [
+            {
+              "archivePath": "ppt/media/image7.png",
+              "sha256": "8fc22bb0362b6632722c9ba7f8fb50f1c26547c90cd49a76aa934ffbfde21fa1"
+            }
+          ],
+          "nutritionValuesTranscribed": false,
+          "merchantAliasVerified": false,
+          "servingBasisVerified": false,
+          "publishable": false
+        },
+        {
+          "slide": 6,
+          "sourceText": [
+            "Meal type: ",
+            "Low",
+            " carb",
+            "Green Curry chicken",
+            "with Grill Eggplant, French Bean & Roasted Cauliflower",
+            "Last Updated: 10/9/26"
+          ],
+          "images": [
+            {
+              "archivePath": "ppt/media/image2.png",
+              "sha256": "f0c9c3cf9179ef479e1235c3db1be7fb4c4178789595194f2ade164db2fd57c9"
+            }
+          ],
+          "nutritionValuesTranscribed": false,
+          "merchantAliasVerified": false,
+          "servingBasisVerified": false,
+          "publishable": false
+        },
+        {
+          "slide": 7,
+          "sourceText": [
+            "Meal type: ",
+            "Low",
+            " carb",
+            "Chicken slice Mala Tofu Noodle",
+            "with Grill Broccoli & carrot",
+            "Last Updated: 10/09/2026 "
+          ],
+          "images": [
+            {
+              "archivePath": "ppt/media/image6.png",
+              "sha256": "a244df87292b661a3c91134fbff1f7eeeb3f38103d6ea44cf7fdbb9ced64183c"
+            }
+          ],
+          "nutritionValuesTranscribed": false,
+          "merchantAliasVerified": false,
+          "servingBasisVerified": false,
+          "publishable": false
+        },
+        {
+          "slide": 8,
+          "sourceText": [
+            "Meal type: ",
+            "Low",
+            " carb",
+            "Homemade luncheon meat Army stew",
+            "with Stir fry Cabbage, Onion, Leek & Shiitake",
+            "Last Updated: 10/9/26"
+          ],
+          "images": [
+            {
+              "archivePath": "ppt/media/image8.png",
+              "sha256": "1c0dad924c3500e44b2a6525225a7dcf5c10301b399e281b383f73c6d54183b7"
+            }
+          ],
+          "nutritionValuesTranscribed": false,
+          "merchantAliasVerified": false,
+          "servingBasisVerified": false,
+          "publishable": false
+        },
+        {
+          "slide": 9,
+          "sourceText": [
+            "Meal type: ",
+            "Low",
+            " carb",
+            "HAINANESE CHICKEN ",
+            "\u201cCAULI-RICE\u201d",
+            "with Housemade Chilli Achar",
+            "Last Updated: 10/9/26"
+          ],
+          "images": [
+            {
+              "archivePath": "ppt/media/image1.png",
+              "sha256": "ddd3d044d8eb95181e60953eaccbafbe4a5c50dd134dbfcbbae4212eea17298d"
+            }
+          ],
+          "nutritionValuesTranscribed": false,
+          "merchantAliasVerified": false,
+          "servingBasisVerified": false,
+          "publishable": false
+        }
+      ]
+    }
+  ],
+  "provisionalMappings": [
+    {
+      "catalogueName": "Chilli Con Carne Beef",
+      "sourceFile": "FPMFROZENHPLC2026_No_Costs.pptx",
+      "slide": 3,
+      "status": "USER_APPROVED_PLACEHOLDER",
+      "nutritionPending": true
+    },
+    {
+      "catalogueName": "Mango Salsa Panko Fish",
+      "sourceFile": "Justprotein2026_No_Costs.pptx",
+      "slide": 9,
+      "status": "USER_APPROVED_PLACEHOLDER",
+      "nutritionPending": true
+    }
+  ],
+  "servingBasisDecision": "Do not assume per-meal values. Preserve source figures; hide 100 servings and0.0g. Jerome to confirm serving basis, weight and servings per container."
+}

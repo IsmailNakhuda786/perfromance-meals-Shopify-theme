@@ -134,7 +134,7 @@ export default function CheckoutPage({ navigate, cart, savedAddress, requireAcco
               <div className="space-y-4 mb-6">
                 {[
                   { label: "Full Name", val: authName, set: setAuthName, type: "text", placeholder: "Jerome Tan" },
-                  { label: "Email", val: authEmail, set: setAuthEmail, type: "email", placeholder: "jerome@email.com" },
+                  { label: "Email", val: authEmail, set: setAuthEmail, type: "email", placeholder: "qa@example.invalid" },
                   { label: "Phone (WhatsApp)", val: authPhone, set: setAuthPhone, type: "tel", placeholder: "+65 9123 4567" },
                   { label: "Password", val: authPassword, set: setAuthPassword, type: "password", placeholder: "Min. 8 characters" },
                 ].map((f) => (
@@ -178,7 +178,7 @@ export default function CheckoutPage({ navigate, cart, savedAddress, requireAcco
                   <span className="text-[18px]">✉️</span>
                   <div>
                     <p className="text-[13px] font-semibold text-[#111]">Email confirmation sent</p>
-                    <p className="text-[12px] text-[#666]">{authEmail || "your@email.com"}</p>
+                    <p className="text-[12px] text-[#666]">{authEmail || "qa@example.invalid"}</p>
                   </div>
                   <span className="ml-auto text-[#F5B300] bg-[#111] text-[10px] font-bold px-2 py-0.5">✓ Sent</span>
                 </div>
@@ -197,7 +197,7 @@ export default function CheckoutPage({ navigate, cart, savedAddress, requireAcco
               <h1 className="font-display text-[28px] font-bold mb-6">Welcome back</h1>
               <div className="space-y-4 mb-6">
                 {[
-                  { label: "Email", val: authEmail, set: setAuthEmail, type: "email", placeholder: "jerome@email.com" },
+                  { label: "Email", val: authEmail, set: setAuthEmail, type: "email", placeholder: "qa@example.invalid" },
                   { label: "Password", val: authPassword, set: setAuthPassword, type: "password", placeholder: "Your password" },
                 ].map((f) => (
                   <div key={f.label}>

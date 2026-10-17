@@ -10,9 +10,9 @@ const db=new PrismaClient(),shop=`reward-redemption-${randomUUID()}.myshopify.co
 process.env.ALLOWED_SHOP=shop;
 const rules={version:'client-20261013',merchantApproved:true,defaultPointsPerSgd:1,rules:[]};
 const input={shop,customerGid:customer,orderGid:'gid://shopify/Order/811',paidAt:new Date().toISOString(),lines:[{productGid:'gid://shopify/Product/812',stream:'meal_plan',netMinor:10000,funding:{direct_customer:10000,customer_funded:0,gift_card_funded:0,reward_funded:0,bonus:0},giftCard:false,walletTopUp:false}]};
-test.after(async()=>{for(const table of ['walletEntry','customerWallet','rewardRedemption','rewardsEntry','rewardsAccount','commercePolicy','rewardRuleVersion'])await db[table].deleteMany({where:{shop}});await db.$disconnect();});
+test.after(async()=>{for(const table of ['walletEntry','customerWallet','rewardRedemption','rewardsEntry','rewardsAccount','commercePolicy','rewardRuleActivation','rewardRuleVersion'])await db[table].deleteMany({where:{shop}});await db.$disconnect();});
 test('persistent configuration does not enable earning; native-verified input earns once without auto Wallet credit',async()=>{
- await configureRewards(shop,rules);
+ await configureRewards(shop,rules,new Date('2026-01-01T00:00:00Z'));
  await assert.rejects(configureRewards(shop,{...rules,defaultPointsPerSgd:2}),/immutable/);
  await assert.rejects(earnVerifiedOrderRewards(input),/not activated/);
  await db.commercePolicy.update({where:{shop},data:{walletEnabled:false,rewardsEnabled:true}});
@@ -22,7 +22,7 @@ test('persistent configuration does not enable earning; native-verified input ea
 });
 test('redemption deducts points once and credits native-backed Wallet with Reward attribution',async()=>{
  let credits=0;
- const gateway={credit:async(owner,amount)=>{credits++;return {id:'gid://shopify/StoreCreditAccountCreditTransaction/813',ownerGid:owner,currency:'SGD',amountMinor:amount};}};
+ const gateway={assertWalletReady:async()=>{},credit:async(owner,amount)=>{credits++;return {id:'gid://shopify/StoreCreditAccountCreditTransaction/813',ownerGid:owner,currency:'SGD',amountMinor:amount};}};
  const first=await redeemRewards(shop,customer,'test-redemption-0001',50,gateway);
  assert.equal(first.state,'COMPLETED');
  assert.equal((await redeemRewards(shop,customer,'test-redemption-0001',50,gateway)).id,first.id);
@@ -35,7 +35,7 @@ test('redemption deducts points once and credits native-backed Wallet with Rewar
  await assert.rejects(redeemRewards(shop,customer,'test-redemption-0002',60,gateway),/Insufficient/);
 });
 test('lost credit response holds points and never repeats an uncertain financial mutation',async()=>{
- let calls=0;const gateway={credit:async()=>{calls++;throw Error('lost response');}};
+ let calls=0;const gateway={assertWalletReady:async()=>{},credit:async()=>{calls++;throw Error('lost response');}};
  await assert.rejects(redeemRewards(shop,customer,'test-redemption-0003',10,gateway),/reconciliation/);
  await assert.rejects(redeemRewards(shop,customer,'test-redemption-0003',10,gateway),/reconciliation/);
  assert.equal(calls,1);
@@ -47,7 +47,7 @@ test('confirmed native credit survives ledger failure without a second credit on
  let credits=0;
  const nativeId='gid://shopify/StoreCreditAccountCreditTransaction/815';
  const conflict=await db.walletEntry.create({data:{shop,customerGid:'gid://shopify/Customer/999',currency:'SGD',sourceEvent:'redemption-fixture-conflict',sourceKind:'customer_funded',nativeTransactionGid:nativeId,fundedDelta:100,bonusDelta:0}});
- const gateway={credit:async(owner,amount)=>{credits++;return {id:nativeId,ownerGid:owner,currency:'SGD',amountMinor:amount};}};
+ const gateway={assertWalletReady:async()=>{},credit:async(owner,amount)=>{credits++;return {id:nativeId,ownerGid:owner,currency:'SGD',amountMinor:amount};}};
  const before=(await db.customerWallet.findFirst({where:{shop,customerGid:customer}})).fundedBalance;
  await assert.rejects(redeemRewards(shop,customer,'test-redemption-0004',10,gateway));
  const pending=await db.rewardRedemption.findFirst({where:{shop,requestKey:'test-redemption-0004'}});
@@ -62,7 +62,7 @@ test('confirmed native credit survives ledger failure without a second credit on
 
 test('concurrent same-key redemptions cannot duplicate points deductions or native credit',async()=>{
  let credits=0;
- const gateway={credit:async(owner,amount)=>{credits++;await new Promise(resolve=>setTimeout(resolve,20));return {id:'gid://shopify/StoreCreditAccountCreditTransaction/816',ownerGid:owner,currency:'SGD',amountMinor:amount};}};
+ const gateway={assertWalletReady:async()=>{},credit:async(owner,amount)=>{credits++;await new Promise(resolve=>setTimeout(resolve,20));return {id:'gid://shopify/StoreCreditAccountCreditTransaction/816',ownerGid:owner,currency:'SGD',amountMinor:amount};}};
  const before=(await db.rewardsAccount.findFirst({where:{shop,customerGid:customer}})).points;
  const results=await Promise.allSettled([redeemRewards(shop,customer,'test-redemption-0005',10,gateway),redeemRewards(shop,customer,'test-redemption-0005',10,gateway)]);
  assert.ok(results.some(result=>result.status==='fulfilled'));
@@ -71,4 +71,10 @@ test('concurrent same-key redemptions cannot duplicate points deductions or nati
  const operation=await db.rewardRedemption.findFirst({where:{shop,requestKey:'test-redemption-0005'}});
  assert.equal(operation.state,'COMPLETED');
  assert.equal(await db.walletEntry.count({where:{shop,sourceGid:operation.id,sourceKind:'reward_funded'}}),1);
+});
+
+test('unreconciled Wallet holds new redemption before points or native money change',async()=>{
+ const before=(await db.rewardsAccount.findFirst({where:{shop,customerGid:customer}})).points;const count=await db.rewardRedemption.count({where:{shop}});let credits=0;
+ const gateway={assertWalletReady:async()=>{throw Error('Wallet requires reconciliation before new credit');},credit:async()=>{credits++;throw Error('Must not credit');}};
+ await assert.rejects(redeemRewards(shop,customer,'test-redemption-unreconciled',10,gateway),/before new credit/);assert.equal(credits,0);assert.equal((await db.rewardsAccount.findFirst({where:{shop,customerGid:customer}})).points,before);assert.equal(await db.rewardRedemption.count({where:{shop}}),count);
 });

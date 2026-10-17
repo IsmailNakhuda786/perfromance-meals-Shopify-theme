@@ -1,0 +1,30 @@
+{% doc %}
+  Shows savings against the current individual prices of every bundle component.
+  @param {variant} variant - Selected one-time bundle variant.
+  @param contents - Merchant-managed component metaobjects.
+{% enddoc %}
+{% liquid
+  assign comparison_total = 0
+  assign comparison_complete = true
+  if contents == blank or variant.price <= 0
+    assign comparison_complete = false
+  endif
+  for part in contents
+    assign component_variant = part.variant.value
+    assign component_product = part.product.value
+    if component_variant == blank and component_product.has_only_default_variant
+      assign component_variant = component_product.selected_or_first_available_variant
+    endif
+    assign component_quantity = part.quantity.value | plus: 0
+    assign quantity_fraction = component_quantity | modulo: 1
+    if component_variant == blank or component_variant.price <= 0 or component_quantity <= 0 or quantity_fraction != 0
+      assign comparison_complete = false
+    else
+      assign component_total = component_variant.price | times: component_quantity
+      assign comparison_total = comparison_total | plus: component_total
+    endif
+  endfor
+  assign savings = comparison_total | minus: variant.price
+%}
+{% assign savings_money = savings | money_with_currency %}
+{% if comparison_complete and savings > 0 %}<p class="text-[11px] text-[#187a4d]" data-bundle-savings>{{ 'catalog.bundle_savings' | t: amount: savings_money }}</p>{% endif %}

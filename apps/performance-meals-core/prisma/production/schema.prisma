@@ -50,6 +50,7 @@ model MealPlanSelection {
   endsOn String?
   businessStream String @default("meal_plan")
   schemaVersion Int @default(1)
+  entitlement String?
   selections String
   selectionHash String
   cutoffAt DateTime
@@ -234,6 +235,7 @@ model GiftCardWalletClaim {
   giftCardGid String
   customerGid String
   currency String
+  giftCardExpiresOn String?
   amountMinor Int
   state String @default("PREPARED")
   debitGid String?
@@ -341,4 +343,104 @@ model RewardRuleVersion {
  rules String
  createdAt DateTime @default(now())
  @@unique([shop, version])
+}
+
+// Immutable record of when an approved rule version became active.
+model RewardRuleActivation {
+ id String @id @default(uuid())
+ shop String
+ rulesVersion String
+ effectiveAt DateTime
+ createdAt DateTime @default(now())
+ @@unique([shop, effectiveAt])
+}
+
+// Native receipt-backed expiry metadata and reminder outbox only. These records
+// never debit a Wallet, create credit or change a Shopify expiration date.
+model WalletCreditExpiry {
+  id String @id @default(uuid())
+  shop String
+  customerGid String
+  currency String
+  walletEntryId String
+  nativeCreditGid String
+  nativeAccountGid String
+  sourceKind String
+  amountMinor Int
+  remainingMinor Int
+  issuedAt DateTime
+  expiresAt DateTime
+  reminderAt DateTime
+  observedAt DateTime
+  enforcementMode String @default("NATIVE_OBSERVED")
+  expiryState String @default("PENDING")
+  expiredMinor Int @default(0)
+  expiryAllocations String @default("[]")
+  nativeExpiryDebitGid String? @unique
+  expiryLedgerEntryId String?
+  reminderState String @default("PENDING")
+  deliveryKey String? @unique
+  deliveryReference String?
+  notifiedAt DateTime?
+  revision Int @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([shop, walletEntryId])
+  @@unique([shop, nativeCreditGid])
+  @@index([shop, reminderState, reminderAt])
+}
+
+// Unclaimed Gift Card notifications only; never stores card codes or email addresses.
+model GiftCardExpiryReminder {
+  id String @id @default(uuid())
+  shop String
+  giftCardGid String
+  customerGid String
+  expiresOn String
+  reminderAt DateTime
+  remainingMinor Int
+  state String @default("PENDING")
+  deliveryKey String? @unique
+  deliveryReference String?
+  notifiedAt DateTime?
+  revision Int @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([shop, giftCardGid])
+  @@index([shop, state, reminderAt])
+}
+
+
+// Internal preparation only. No worker may send from a DRAFT delivery.
+// Activation requires native paid-term/slot/fulfilment verification separately.
+model ReadyDeliveryDraft {
+ id String @id @default(uuid())
+ shop String
+ customerGid String
+ operationalLineId String
+ occurrence Int
+ deliveryAt DateTime
+ revision Int @default(1)
+ state String @default("DRAFT")
+ createdAt DateTime @default(now())
+ updatedAt DateTime @updatedAt
+ @@unique([shop, operationalLineId, occurrence])
+ @@index([shop, customerGid])
+}
+model ReadyDeliveryReminder {
+ id String @id @default(uuid())
+ shop String
+ customerGid String
+ deliveryDraftId String
+ deliveryRevision Int
+ channel String
+ hoursBefore Int
+ scheduledAt DateTime
+ deliveryAt DateTime
+ state String @default("DRAFT")
+ deliveryKey String @unique
+ createdAt DateTime @default(now())
+ updatedAt DateTime @updatedAt
+ @@unique([shop, deliveryDraftId, deliveryRevision, channel, hoursBefore], map: "ReadyDeliveryReminder_occurrence_revision_channel_lead_key")
+ @@index([shop, state, scheduledAt])
 }

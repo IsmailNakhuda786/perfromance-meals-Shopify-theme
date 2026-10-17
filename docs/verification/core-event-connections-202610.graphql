@@ -1,0 +1,7 @@
+query CoreConnection {
+ shop { myshopifyDomain currencyCode ianaTimezone }
+ webhookSubscriptions(first:100) {
+  nodes { topic uri }
+  pageInfo { hasNextPage }
+ }
+}

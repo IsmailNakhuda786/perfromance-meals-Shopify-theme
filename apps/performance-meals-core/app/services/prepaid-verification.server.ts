@@ -41,11 +41,13 @@ export async function inspectPrepaidContract(admin: Admin, shop: string, contrac
  if (contract.customer?.id !== expected.customerGid || contract.originOrder?.customer?.id !== expected.customerGid) issues.push('Customer identity differs from the original order');
  if (contract.originOrder?.id !== expected.orderGid || contract.originOrder?.test !== true) issues.push('Expected original test order is missing');
  if ([body.data.shop.currencyCode, contract.currencyCode, contract.originOrder?.currencyCode].some(currency => currency !== 'SGD')) issues.push('Currency is not SGD');
- const billing = contract.billingPolicy, delivery = contract.deliveryPolicy;
- if (billing.interval !== 'MONTH' || billing.intervalCount !== expected.months || billing.minCycles !== 1 || billing.maxCycles !== 1) issues.push('Billing must be one finite upfront term without recharge');
- if (delivery.interval !== 'MONTH' || delivery.intervalCount !== 1) issues.push('Delivery must be monthly');
+ const billing = contract.billingPolicy;
+ if (billing.interval !== 'MONTH' || billing.intervalCount !== expected.months || billing.minCycles !== 1 || billing.maxCycles !== null) issues.push('Billing must charge the full prepaid term and renew without a fixed cycle cap');
  const lines = contract.lines.nodes.filter(line => line.productId === expected.productGid && line.variantId === expected.variantGid && line.sellingPlanId === expected.sellingPlanGid);
  if (lines.length !== 1 || lines[0].quantity !== 1 || lines[0].currentPrice.currencyCode !== 'SGD') issues.push('Approved product, variant, plan or quantity does not match');
- return {configurationMatches: issues.length === 0, issues, contract,
-  pendingEvidence: ['Exact approved upfront transaction amount', 'Actual scheduled monthly fulfillment orders', 'Core operational-line reconciliation', 'Expiry/no further charge behavior']};
+ const delivery=contract.deliveryPolicy;
+ const deliveryPolicyMatches=delivery?.interval==='MONTH'&&delivery.intervalCount===1;
+ const deliveryIssues=deliveryPolicyMatches?[]:['Delivery policy must repeat monthly independently of calendar-month billing'];
+ return {configurationMatches: false, billingConfigurationMatches: issues.length === 0, deliveryPolicyMatches, deliveryCalendarPending: false, issues:[...issues,...deliveryIssues], contract,
+  pendingEvidence: ['Exact approved upfront transaction amount', 'Actual scheduled fulfillment orders under the approved monthly calendar and merchant availability', 'Core operational-line reconciliation', 'Automatic term renewal and cancellation behavior']};
 }

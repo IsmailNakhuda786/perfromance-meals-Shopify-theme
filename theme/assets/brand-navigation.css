@@ -1,0 +1,19 @@
+.pm-brand-navigation{--pm-header-background:#191919;--pm-header-foreground:#fff;background:var(--pm-header-background);color:var(--pm-header-foreground);border-bottom:1px solid #ffffff20}
+.pm-brand-navigation[data-brand=mp]{--pm-header-background:#fff;--pm-header-foreground:#111;border-bottom-color:#d56625}
+.pm-brand-navigation__row{max-width:1440px;margin:auto;padding:20px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.pm-brand-navigation__logo{flex-shrink:0}
+.pm-brand-navigation__links,.pm-brand-navigation__actions{display:flex;align-items:center;gap:20px}
+.pm-brand-navigation a,.pm-brand-navigation summary,.pm-brand-navigation button{display:inline-flex;align-items:center;min-height:44px;font-size:13px;font-weight:500}
+.pm-brand-navigation a:hover,.pm-brand-navigation summary:hover{text-decoration:underline;text-underline-offset:6px}
+.pm-brand-navigation a[aria-current=page]{text-decoration:underline;text-underline-offset:6px}
+.pm-brand-navigation details{position:relative}
+.pm-brand-navigation summary{cursor:pointer;list-style:none}
+.pm-brand-navigation summary::-webkit-details-marker{display:none}
+.pm-brand-navigation__brands{position:absolute;right:0;top:100%;width:240px;padding:12px;background:var(--pm-header-background);border:1px solid #8885;z-index:60}
+.pm-brand-navigation__brands a{display:flex;padding:8px 12px}
+.pm-brand-navigation [data-mobile-toggle]{display:none}
+.pm-brand-navigation__mobile{padding:12px 24px;border-top:1px solid #8885}
+.pm-brand-navigation__mobile a{display:flex;padding:8px 0}
+.pm-brand-navigation__mobile-brands{border-top:1px solid #8885;margin-top:12px;padding-top:20px}.pm-brand-navigation__mobile-brands p{font-size:12px;opacity:.65}
+@media(max-width:1023px){.pm-brand-navigation__row{padding:16px 24px;gap:12px}.pm-brand-navigation__links,.pm-brand-navigation__logout{display:none!important}.pm-brand-navigation__actions{gap:12px}.pm-brand-navigation [data-mobile-toggle]{display:inline-flex;justify-content:center;min-width:44px}}
+@media(max-width:479px){.pm-brand-navigation__actions>details{display:none}.pm-brand-navigation__logo{max-width:100%}}

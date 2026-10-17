@@ -1,5 +1,5 @@
 query WalletSpendEvidence {
  shop { myshopifyDomain currencyCode }
- node(id:"gid://shopify/StoreCreditAccount/987955284") { ... on StoreCreditAccount { id balance { amount currencyCode } owner { ... on Customer { id } } transactions(first:50,query:"type:debit") { nodes { ... on StoreCreditAccountDebitTransaction { id amount { amount currencyCode } event origin { ... on OrderTransaction { id status kind gateway amountSet { shopMoney { amount currencyCode } } order { id name test currencyCode customer { id } } } } } } pageInfo { hasNextPage } } } }
+ node(id:"gid://shopify/StoreCreditAccount/100001") { ... on StoreCreditAccount { id balance { amount currencyCode } owner { ... on Customer { id } } transactions(first:50,query:"type:debit") { nodes { ... on StoreCreditAccountDebitTransaction { id amount { amount currencyCode } event origin { ... on OrderTransaction { id status kind gateway amountSet { shopMoney { amount currencyCode } } order { id name test currencyCode customer { id } } } } } } pageInfo { hasNextPage } } } }
  orders(first:2,sortKey:CREATED_AT,reverse:true) { nodes { id name test displayFinancialStatus currencyCode totalPriceSet { shopMoney { amount currencyCode } } customer { id } lineItems(first:5) { nodes { title quantity customAttributes { key value } } } } }
 }

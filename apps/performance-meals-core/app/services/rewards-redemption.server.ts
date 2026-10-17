@@ -2,8 +2,9 @@ import db from '../db.server';
 import {assertShop} from './security.server';
 import {rewardRedemptionMinor,validateRewardRules} from './rewards-policy';
 import {recordSettledWalletCredit} from './wallet.server';
+import type {CreditContext} from './native-wallet-credit-ready.server';
 type Receipt={id:string;ownerGid:string;currency:string;amountMinor:number};
-type Gateway={credit:(customerGid:string,amountMinor:number)=>Promise<Receipt>};
+type Gateway={assertWalletReady:(customerGid:string,context?:CreditContext)=>Promise<void>;credit:(customerGid:string,amountMinor:number)=>Promise<Receipt>};
 
 // Points are deducted atomically before native credit. A lost native response
 // holds the operation for reconciliation; it must NEVER blindly credit again.
@@ -12,6 +13,12 @@ export async function redeemRewards(shop:string,customerGid:string,requestKey:st
  if(!/^gid:\/\/shopify\/Customer\/\d+$/.test(customerGid)||!/^[-a-zA-Z0-9]{16,80}$/.test(requestKey))throw Error('Invalid redemption context');
  const amountMinor=rewardRedemptionMinor(points);
  const key={shop_customerGid_requestKey:{shop,customerGid,requestKey}};
+ const previous=await db.rewardRedemption.findUnique({where:key});
+ if(!previous){
+  const policy=await db.commercePolicy.findUnique({where:{shop},select:{rewardsEnabled:true}});
+  if(!policy?.rewardsEnabled)throw Error('Rewards redemption is not activated');
+ }
+ if(!previous||previous.state==='PREPARED')await gateway.assertWalletReady(customerGid,{rewardRedemptionId:previous?.id});
  let operation=await db.$transaction(async tx=>{
   const existing=await tx.rewardRedemption.findUnique({where:key});
   if(existing){if(existing.points!==points||existing.amountMinor!==amountMinor)throw Error('Redemption request conflict');return existing;}

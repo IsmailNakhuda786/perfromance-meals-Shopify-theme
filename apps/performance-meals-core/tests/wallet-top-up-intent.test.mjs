@@ -5,7 +5,7 @@ import {PrismaClient,buildServices} from './support/database.mjs';
 await buildServices({entryPoints:['app/services/wallet-top-up-intent.server.ts'],outdir:'.shopify/top-up-intent-test',bundle:true,packages:'external',format:'esm',platform:'node'});
 const {createWalletTopUpCheckout,settleWalletTopUpCheckout}=await import('../.shopify/top-up-intent-test/wallet-top-up-intent.server.js');
 const db=new PrismaClient(),shop=`intent-${randomUUID()}.myshopify.com`,customer='gid://shopify/Customer/1301';
-process.env.ALLOWED_SHOP=shop;
+process.env.ALLOWED_SHOP=shop;process.env.WALLET_LEGACY_TOP_UP_QA_ENABLED='true';
 const catalogue={productGid:'gid://shopify/Product/1302',variantGid:'gid://shopify/ProductVariant/1303'};
 const admin={graphql:async()=>Response.json({data:{shop:{myshopifyDomain:shop},productVariant:{id:catalogue.variantGid,taxable:false,requiresComponents:false,inventoryItem:{requiresShipping:false},product:{id:catalogue.productGid,isGiftCard:false,requiresSellingPlan:false}}}})};
 const receipt=id=>({id:`gid://shopify/DraftOrder/${id}`,customerGid:customer,currency:'SGD',amountMinor:2001,checkoutUrl:`https://${shop}/invoices/internal-${id}`,orderGid:null});
@@ -47,7 +47,7 @@ test('fresh native draft-to-order binding and immutable custom amount settle exa
  const source=receipt(1601),intent=await request('request-key-1601',{create:async()=>source});
  const drafts={read:async id=>{assert.equal(id,source.id);return {...source,orderGid:'gid://shopify/Order/1601'};}};
  let credits=0;
- const payments={readOrder:async id=>{assert.equal(id,'gid://shopify/Order/1601');return paidOrder(1601);},credit:async(owner,amount)=>{credits++;assert.equal(amount,2001);return {id:'gid://shopify/StoreCreditAccountCreditTransaction/1601',ownerGid:owner,currency:'SGD',amountMinor:amount};}};
+ const payments={assertWalletReady:async()=>{},readOrder:async id=>{assert.equal(id,'gid://shopify/Order/1601');return paidOrder(1601);},credit:async(owner,amount)=>{credits++;assert.equal(amount,2001);return {id:'gid://shopify/StoreCreditAccountCreditTransaction/1601',ownerGid:owner,currency:'SGD',amountMinor:amount};}};
  const first=await settleWalletTopUpCheckout(shop,customer,intent.id,drafts,['fixture_external'],payments);
  const second=await settleWalletTopUpCheckout(shop,customer,intent.id,drafts,['fixture_external'],payments);
  assert.equal(first.id,second.id);assert.equal(first.state,'COMPLETED');assert.equal(credits,1);
@@ -58,7 +58,7 @@ test('fresh native draft-to-order binding and immutable custom amount settle exa
 test('unpaid/foreign/changed draft, changed native total and Wallet funding cannot issue credit',async()=>{
  const source=receipt(1602),intent=await request('request-key-1602',{create:async()=>source});
  let credits=0;
- const payments={readOrder:async()=>paidOrder(1602),credit:async()=>{credits++;throw Error('Unexpected credit');}};
+ const payments={assertWalletReady:async()=>{},readOrder:async()=>paidOrder(1602),credit:async()=>{credits++;throw Error('Unexpected credit');}};
  for(const edit of [r=>r.orderGid=null,r=>r.id=receipt(999).id,r=>r.customerGid='gid://shopify/Customer/999',r=>r.amountMinor=5000,r=>r.checkoutUrl=`https://${shop}/invoices/changed`]){
   const native={...source,orderGid:'gid://shopify/Order/1602'};edit(native);
   await assert.rejects(settleWalletTopUpCheckout(shop,customer,intent.id,{read:async()=>native},['fixture_external'],payments),/binding/);
@@ -70,4 +70,10 @@ test('unpaid/foreign/changed draft, changed native total and Wallet funding cann
  }
  await assert.rejects(settleWalletTopUpCheckout(shop,'gid://shopify/Customer/999',intent.id,drafts,['fixture_external'],payments),/unavailable/);
  assert.equal(credits,0);
+});
+
+
+test('general activation cannot reopen retired custom-denomination checkout',async()=>{
+ delete process.env.WALLET_LEGACY_TOP_UP_QA_ENABLED;let creates=0;
+ try{await assert.rejects(request('retired-request-1234',{create:async()=>{creates++;throw Error('Must not create');}}),/Legacy top-up QA/);assert.equal(creates,0);}finally{process.env.WALLET_LEGACY_TOP_UP_QA_ENABLED='true';}
 });

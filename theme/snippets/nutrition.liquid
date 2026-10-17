@@ -17,7 +17,15 @@
     endif
   endfor
 %}
-{% if has_nutrition %}
+{% if product.metafields.performance.nutrition_pending.value == true %}
+  <p class="text-white/45 text-[14px]" data-nutrition-pending>{{ 'nutrition.pending' | t }}</p>
+{% elsif has_nutrition %}
+  {% unless compact %}
+    {% assign serving_weight = product.metafields.performance.serving_weight_g.value | plus: 0 %}
+    {% assign servings_count = product.metafields.performance.servings_per_container.value | plus: 0 %}
+    {% if serving_weight > 0 %}<p class="text-white/55 text-[13px] mb-2">{{ 'nutrition.serving_weight' | t }}: {{ product.metafields.performance.serving_weight_g.value }}{{ 'nutrition.g' | t }}</p>{% endif %}
+    {% if servings_count > 0 %}<p class="text-white/55 text-[13px] mb-2">{{ 'nutrition.servings_count' | t }}: {{ product.metafields.performance.servings_per_container.value }}</p>{% endif %}
+  {% endunless %}
   <dl class="{% if compact %}grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/8 pm-macros{% else %}border border-white/10 pm-nutrition{% endif %}">
     {% for key in nutrition_keys %}
       {% assign fact = product.metafields.performance[key] %}

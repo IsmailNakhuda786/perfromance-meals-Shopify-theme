@@ -1,0 +1,19 @@
+.pm-experiences-reference{background:#fff;padding:72px max(24px,calc((100% - 1200px)/2))}.pm-experiences-reference>div>div:first-child{display:none}.pm-experiences-reference>div>h2{max-width:720px;font-size:clamp(32px,4vw,56px)!important;font-weight:600;line-height:1.08!important;letter-spacing:-.035em!important}.pm-experiences-reference>div>p{max-width:640px;margin:24px 0 40px}.pm-experiences-reference>div>div:last-child{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}.pm-experiences-reference .pm-experience-card{display:flex;flex-direction:column;min-width:0}.pm-experiences-reference .pm-experience-card>div:first-child{width:100%;height:340px;min-height:0;flex:auto}.pm-experiences-reference .pm-experience-spine{display:none}.pm-experiences-reference .pm-experience-card>div:last-child{padding:32px}.pm-experiences-reference .pm-experience-card h3{font-weight:600;line-height:1.12!important;letter-spacing:-.025em!important}.pm-experiences-reference .pm-experience-card:hover,.pm-experiences-reference .pm-experience-card:focus-visible{transform:none;box-shadow:0 8px 28px #00000015}@media(max-width:749px){.pm-experiences-reference{padding:48px 24px}.pm-experiences-reference>div>div:last-child{grid-template-columns:1fr}.pm-experiences-reference .pm-experience-card>div:first-child{height:280px}.pm-experiences-reference .pm-experience-card>div:last-child{padding:24px}}@media(prefers-reduced-motion:reduce){.pm-experiences-reference .pm-experience-card,.pm-experiences-reference img{transition:none!important;transform:none!important}}
+
+/* Updated Figma brand split; approved photography and Shopify links stay merchant editable. */
+.pm-experiences-split{padding:0;background:#f7f4ee}
+.pm-experiences-split>div{max-width:none;position:relative}
+.pm-experiences-split>div>h2,.pm-experiences-split>div>p{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.pm-experiences-split>div>div:last-child{gap:0}
+.pm-experiences-split .pm-experience-card{position:relative;min-height:700px!important;isolation:isolate;background:var(--card-bg);justify-content:center;overflow:hidden}
+.pm-experiences-split .pm-experience-card>div:first-child{position:absolute;inset:0;width:100%;height:100%;z-index:-2}
+.pm-experiences-split .pm-experience-card>div:first-child img{opacity:.23}
+.pm-experiences-split .pm-experience-card:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,var(--card-bg),transparent 75%)}
+.pm-experiences-split .pm-experience-card>div:last-child{flex:0;padding:100px clamp(24px,5.5vw,88px)}
+.pm-experiences-split .pm-experience-card h3{font-size:clamp(32px,3.8vw,58px)!important;font-weight:700;line-height:1.03!important;letter-spacing:-.045em!important}
+.pm-experiences-split .pm-experience-card p{max-width:430px}
+.pm-experiences-split .pm-experience-card>div:last-child>span{border:0!important;background:var(--card-accent);color:var(--card-bg);padding:18px 24px;align-self:flex-start;margin-top:32px}
+.pm-experiences-split .pm-experience-card:hover .pm-experience-link{color:inherit}
+.pm-experiences-split .pm-experience-card:focus-visible{outline:3px solid var(--card-accent);outline-offset:-6px}
+@media(min-width:1024px){.pm-experiences-split .pm-experience-card:first-child{clip-path:polygon(0 0,100% 0,88% 100%,0 100%);margin-right:-56px;z-index:1}.pm-experiences-split .pm-experience-card:last-child{margin-left:-56px;padding-left:56px}}
+@media(max-width:1023px){.pm-experiences-split>div>div:last-child{grid-template-columns:1fr}.pm-experiences-split .pm-experience-card{min-height:460px!important}.pm-experiences-split .pm-experience-card>div:last-child{padding:72px 28px}.pm-experiences-split .pm-experience-card h3{font-size:clamp(36px,7vw,56px)!important}}

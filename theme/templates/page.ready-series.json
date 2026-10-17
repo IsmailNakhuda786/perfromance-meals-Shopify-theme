@@ -7,7 +7,8 @@
         "link_2": "/pages/ready-series-about",
         "link_3": "/collections/ready-series",
         "link_4": "/collections/ready-series-bundles",
-        "link_5": "/collections/ready-series-subscriptions"
+        "link_5": "/collections/ready-series-subscriptions",
+        "separate_hero": true
       },
       "blocks": {
         "band_1": {
@@ -58,7 +59,7 @@
             "copy_3": "Choose. Heat. Keep moving.",
             "copy_4": "01",
             "copy_5": "Choose what fits",
-            "copy_6": "Browse individual meals, predefined bundles, or a prepaid 3- or 6-month subscription with monthly deliveries and no automatic renewal.",
+            "copy_6": "Browse individual meals, predefined bundles, or a prepaid 3- or 6-month subscription. Subscription deliveries repeat monthly; billing renews every 3 or 6 calendar months unless future renewal is cancelled.",
             "copy_7": "02",
             "copy_8": "Keep it ready",
             "copy_9": "Store meals in the freezer for the unpredictable days ahead.",
@@ -74,21 +75,21 @@
             "copy_1": "Ready Series subscription",
             "copy_2": "Stock up once.",
             "copy_3": "Stay ready for months.",
-            "copy_4": "Choose from 10 predefined plans across Just Protein, Low Carb, High Carb, and Mixed. Select a 3- or 6-month term and receive one planned delivery each month.",
+            "copy_4": "Choose a predefined package across Just Protein, Low Carb, High Carb, and Mixed. Pay upfront for 3 or 6 deliveries, scheduled monthly from the next available first delivery. Renewal billing follows a separate 3- or 6-calendar-month schedule.",
             "copy_5": "Compare subscription plans",
             "copy_6": "Subscriptions require a shared Performance Meals account.",
             "copy_7": "01",
-            "copy_8": "10",
-            "copy_9": "predefined plans",
+            "copy_8": "Curated",
+            "copy_9": "predefined packages",
             "copy_10": "02",
             "copy_11": "3 or 6",
-            "copy_12": "month terms",
+            "copy_12": "deliveries per term",
             "copy_13": "03",
-            "copy_14": "1",
-            "copy_15": "delivery each month",
+            "copy_14": "Monthly",
+            "copy_15": "delivery schedule",
             "copy_16": "04",
-            "copy_17": "Monthly",
-            "copy_18": "delivery rhythm"
+            "copy_17": "3 / 6 months",
+            "copy_18": "renewal billing cycle"
           }
         },
         "band_5": {
@@ -99,15 +100,15 @@
             "copy_3": "01",
             "copy_4": "Individual Selection",
             "copy_5": "Pick the meals you want for a flexible one-time order.",
-            "copy_6": "Choose meals →",
+            "copy_6": "Choose meals \u2192",
             "copy_7": "02",
             "copy_8": "Bundles",
             "copy_9": "Stock up with a predefined selection and clear one-time pricing.",
-            "copy_10": "See bundles →",
+            "copy_10": "See bundles \u2192",
             "copy_11": "03",
             "copy_12": "Subscription",
             "copy_13": "Choose a predefined plan for 3 or 6 months and keep the freezer ready.",
-            "copy_14": "Compare plans →"
+            "copy_14": "Compare plans \u2192"
           }
         },
         "band_6": {
@@ -115,7 +116,7 @@
           "settings": {
             "copy_1": "Stock up. Stay on track.",
             "copy_2": "Put a better fallback in the freezer.",
-            "copy_3": "Ready Series protects your routine when time is short—without asking the rest of life to slow down.",
+            "copy_3": "Ready Series protects your routine when time is short\u2014without asking the rest of life to slow down.",
             "copy_4": "Shop meals",
             "copy_5": "Our story"
           }
@@ -129,9 +130,61 @@
         "band_5",
         "band_6"
       ]
+    },
+    "hero": {
+      "type": "brand-landing-hero",
+      "settings": {
+        "eyebrow": "FROZEN MEALS / EVERYDAY MOMENTUM",
+        "heading": "Frozen\nat peak.\nReady on\ndemand.",
+        "body": "Fast, enjoyable frozen meals for days that don\u2019t go to plan. Keep your freezer stocked. Keep your week moving.",
+        "primary_label": "Find your favourites",
+        "primary_url": "/collections/ready-series",
+        "features": "FROZEN \u00b7 FLEXIBLE \u00b7 FOOD-FIRST",
+        "background": "#E8E8E8",
+        "accent": "#E4BB50",
+        "fallback_image": "sync-47154501d87a.jpg",
+        "image_alt": "Family enjoying a meal together",
+        "autoplay": true,
+        "carousel_label": "Ready Series featured meals and bundles"
+      },
+      "blocks": {
+        "bundles": {
+          "type": "promotion",
+          "settings": {
+            "eyebrow": "READY SERIES / BUNDLES",
+            "heading": "Signature\nbundles.",
+            "body": "Explore the available Ready Series bundles.",
+            "primary_label": "Explore bundles",
+            "primary_url": "/collections/ready-series-bundles",
+            "fallback_image": "sync-70290fd45c9a.jpg",
+            "image_alt": "Ready Series meals",
+            "accent": "#F5B300",
+            "background": "#F1ECE5"
+          }
+        },
+        "meals": {
+          "type": "promotion",
+          "settings": {
+            "eyebrow": "READY SERIES / INDIVIDUAL SELECTION",
+            "heading": "Find your\nfavourites.",
+            "body": "Choose individual meals to suit your routine.",
+            "primary_label": "Shop individual meals",
+            "primary_url": "/collections/ready-series",
+            "fallback_image": "sync-16c2c47ecb77.jpg",
+            "image_alt": "Prepared meals",
+            "accent": "#F5B300",
+            "background": "#EFEFEB"
+          }
+        }
+      },
+      "block_order": [
+        "bundles",
+        "meals"
+      ]
     }
   },
   "order": [
+    "hero",
     "main"
   ]
 }

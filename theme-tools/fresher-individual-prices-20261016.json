@@ -1,0 +1,200 @@
+{
+  "version": "fresher-individual-prices-20261016",
+  "observedAt": "2026-10-16T11:20:30.599Z",
+  "source": "Fresher public Woo Store API, pages 1\u20133",
+  "matching": "Exact name after HTML entity, quote, whitespace and case normalization; no fuzzy aliases.",
+  "prices": [
+    {
+      "title": "Bulgogi Beef Slices",
+      "sourceProductId": 284282,
+      "sourceName": "Bulgogi Beef Slices",
+      "sourceUrl": "https://fresher.com.sg/product/garlic-herb-grilled-chicken-breast-copy/",
+      "priceMinor": 630,
+      "currency": "SGD"
+    },
+    {
+      "title": "Cajun Chicken Green Bowl",
+      "sourceProductId": 266697,
+      "sourceName": "CAJUN CHICKEN GREEN BOWL",
+      "sourceUrl": "https://fresher.com.sg/product/cajun-chicken-in-thai-mango-dip/",
+      "priceMinor": 1190,
+      "currency": "SGD"
+    },
+    {
+      "title": "Charsiew Chicken Kolo \"Mee\"",
+      "sourceProductId": 274808,
+      "sourceName": "CHARSIEW CHICKEN KOLO &#8220;MEE&#8221;",
+      "sourceUrl": "https://fresher.com.sg/product/chicken-char-siew-kolo-mee-tagliolini/",
+      "priceMinor": 1190,
+      "currency": "SGD"
+    },
+    {
+      "title": "Chicken Ratatouille",
+      "sourceProductId": 257925,
+      "sourceName": "CHICKEN RATATOUILLE",
+      "sourceUrl": "https://fresher.com.sg/product/herb-chicken/",
+      "priceMinor": 1190,
+      "currency": "SGD"
+    },
+    {
+      "title": "Chilli \"Crab\" Pasta",
+      "sourceProductId": 266694,
+      "sourceName": "CHILLI &#8220;CRAB&#8221; PASTA",
+      "sourceUrl": "https://fresher.com.sg/product/chilli-crab-gravy-linguine/",
+      "priceMinor": 1240,
+      "currency": "SGD"
+    },
+    {
+      "title": "Chilli Con Carne Beef",
+      "sourceProductId": 257923,
+      "sourceName": "CHILLI CON CARNE BEEF",
+      "sourceUrl": "https://fresher.com.sg/product/beef-ball-chilli-con-carne/",
+      "priceMinor": 1240,
+      "currency": "SGD"
+    },
+    {
+      "title": "Chipotle Chicken Bowl",
+      "sourceProductId": 264890,
+      "sourceName": "CHIPOTLE CHICKEN BOWL",
+      "sourceUrl": "https://fresher.com.sg/product/chipotle-grilled-chicken-bowl-2/",
+      "priceMinor": 1190,
+      "currency": "SGD"
+    },
+    {
+      "title": "Garlic Herb Grilled Chicken Breast",
+      "sourceProductId": 284263,
+      "sourceName": "Garlic Herb Grilled Chicken Breast",
+      "sourceUrl": "https://fresher.com.sg/product/garlic-herb-grilled-chicken-breast/",
+      "priceMinor": 540,
+      "currency": "SGD"
+    },
+    {
+      "title": "Gochujang Chicken",
+      "sourceProductId": 257279,
+      "sourceName": "GOCHUJANG CHICKEN",
+      "sourceUrl": "https://fresher.com.sg/product/korean-soy-pulled-duck-bowl-2/",
+      "priceMinor": 1240,
+      "currency": "SGD"
+    },
+    {
+      "title": "Gochujang Pepper Grilled Chicken Breast",
+      "sourceProductId": 284283,
+      "sourceName": "Gochujang Pepper Grilled Chicken Breast",
+      "sourceUrl": "https://fresher.com.sg/product/gochujang-pepper-grilled-chicken-breast/",
+      "priceMinor": 540,
+      "currency": "SGD"
+    },
+    {
+      "title": "Hainanese Chicken \"Cauli-Rice\"",
+      "sourceProductId": 273884,
+      "sourceName": "HAINANESE CHICKEN &#8220;CAULI-RICE&#8221;",
+      "sourceUrl": "https://fresher.com.sg/product/hainanese-chicken-cauli-rice/",
+      "priceMinor": 1190,
+      "currency": "SGD"
+    },
+    {
+      "title": "Harissa Spiced Chicken",
+      "sourceProductId": 257903,
+      "sourceName": "HARISSA SPICED CHICKEN",
+      "sourceUrl": "https://fresher.com.sg/product/blueprint-page/",
+      "priceMinor": 1190,
+      "currency": "SGD"
+    },
+    {
+      "title": "Homemade Meat-Loaf Army Stew",
+      "sourceProductId": 264887,
+      "sourceName": "HOMEMADE MEAT-LOAF ARMY STEW",
+      "sourceUrl": "https://fresher.com.sg/product/chipotle-grilled-chicken-bowl/",
+      "priceMinor": 1190,
+      "currency": "SGD"
+    },
+    {
+      "title": "Homestyle Beef Stew",
+      "sourceProductId": 257992,
+      "sourceName": "HOMESTYLE BEEF STEW",
+      "sourceUrl": "https://fresher.com.sg/product/home-style-beef-stew/",
+      "priceMinor": 1240,
+      "currency": "SGD"
+    },
+    {
+      "title": "Honey Charsiew Chicken Breast",
+      "sourceProductId": 284286,
+      "sourceName": "Honey Charsiew Chicken Breast",
+      "sourceUrl": "https://fresher.com.sg/product/honey-charsiew-chicken-breast-2/",
+      "priceMinor": 540,
+      "currency": "SGD"
+    },
+    {
+      "title": "Housemade Beefballs & Rosti",
+      "sourceProductId": 266700,
+      "sourceName": "HOUSEMADE BEEFBALLS &#038; ROSTI",
+      "sourceUrl": "https://fresher.com.sg/product/potato-rosti-housemade-beefballs/",
+      "priceMinor": 1240,
+      "currency": "SGD"
+    },
+    {
+      "title": "Low-Carb Chicken Mala",
+      "sourceProductId": 284502,
+      "sourceName": "LOW-CARB CHICKEN MALA",
+      "sourceUrl": "https://fresher.com.sg/product/low-carb-chicken-mala/",
+      "priceMinor": 1240,
+      "currency": "SGD"
+    },
+    {
+      "title": "Mango Salsa Panko Fish",
+      "sourceProductId": 284284,
+      "sourceName": "Mango Salsa Panko Fish",
+      "sourceUrl": "https://fresher.com.sg/product/honey-charsiew-chicken-breast/",
+      "priceMinor": 590,
+      "currency": "SGD"
+    },
+    {
+      "title": "Miso Cream Chicken Udon",
+      "sourceProductId": 264710,
+      "sourceName": "MISO CREAM CHICKEN UDON",
+      "sourceUrl": "https://fresher.com.sg/product/teriyaki-chicken-with-miso-creamed-udon/",
+      "priceMinor": 1190,
+      "currency": "SGD"
+    },
+    {
+      "title": "Peri Peri Grilled Chicken Breast",
+      "sourceProductId": 256158,
+      "sourceName": "Peri Peri Grilled Chicken Breast",
+      "sourceUrl": "https://fresher.com.sg/product/peri-peri-grilled-chicken-breast/",
+      "priceMinor": 580,
+      "currency": "SGD"
+    },
+    {
+      "title": "Shawarma Chicken Rice Bowl",
+      "sourceProductId": 257264,
+      "sourceName": "SHAWARMA CHICKEN RICE BOWL",
+      "sourceUrl": "https://fresher.com.sg/product/pulled-sharwama-chicken/",
+      "priceMinor": 1190,
+      "currency": "SGD"
+    },
+    {
+      "title": "Thai Green Curry Chicken",
+      "sourceProductId": 266699,
+      "sourceName": "THAI GREEN CURRY CHICKEN",
+      "sourceUrl": "https://fresher.com.sg/product/thai-green-curry-chicken/",
+      "priceMinor": 1190,
+      "currency": "SGD"
+    },
+    {
+      "title": "Tomato Fish Curry",
+      "sourceProductId": 264700,
+      "sourceName": "TOMATO FISH CURRY",
+      "sourceUrl": "https://fresher.com.sg/product/poached-halibut-tomato-curry-blend/",
+      "priceMinor": 1240,
+      "currency": "SGD"
+    }
+  ],
+  "pending": [
+    "Chimichurri Creamed Grilled Chicken Breast",
+    "Chipotle Chicken Grilled Chicken Breast",
+    "Dill & Yogurt Grilled Tilapia",
+    "Grilled Tilapia in Paprika Sauce",
+    "Handformed Beefballs in Gravy"
+  ],
+  "mediaApproved": false
+}

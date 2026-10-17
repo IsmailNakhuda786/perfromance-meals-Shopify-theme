@@ -4,7 +4,12 @@
   "sections": {
     "header": {
       "type": "header",
-      "settings": {}
+      "settings": {
+        "parent_reference_layout": true,
+        "affiliate_url": "/pages/affiliate",
+        "contact_url": "/pages/contact",
+        "brand_reference_layout": true
+      }
     }
   },
   "order": [

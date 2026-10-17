@@ -1,9 +1,10 @@
-// Latest merchant decision: finite prepaid terms, not automatically renewed.
+// Confirmed17October: full term upfront,monthly delivery, calendar-month renewal.
+// Configuration intent only; native multi-fulfilment/checkout support remains unverified.
 export function readySeriesBilling(months) {
   if (months !== 3 && months !== 6) throw new Error('Ready Series term must be 3 or 6 months');
   return {
-    paymentMode: 'upfront', automaticRenewal: false, deliveries: months,
-    billingPolicy: {recurring: {interval: 'MONTH', intervalCount: months, minCycles: 1, maxCycles: 1}},
+    paymentMode: 'upfront', automaticRenewal: true, deliveriesPerTerm: months,
+    billingPolicy: {recurring: {interval: 'MONTH', intervalCount: months, minCycles: 1, maxCycles: null}},
     deliveryPolicy: {recurring: {interval: 'MONTH', intervalCount: 1}},
   };
 }
@@ -17,11 +18,11 @@ export function auditReadySeriesPlan(plan, months) {
   if (!billing || billing.interval !== 'MONTH' || billing.intervalCount !== months) {
     issues.push('Billing must cover the full selected term upfront');
   }
-  if (!billing || billing.minCycles !== 1 || billing.maxCycles !== 1) {
-    issues.push('Only one billing cycle is allowed; automatic recharge is prohibited');
+  if (!billing || billing.minCycles !== 1 || billing.maxCycles !== null) {
+    issues.push('The prepaid term must renew automatically without a fixed billing-cycle cap');
   }
-  if (!delivery || delivery.interval !== 'MONTH' || delivery.intervalCount !== 1) {
-    issues.push('Deliveries must be monthly');
+  if (!delivery || !(delivery.interval === 'MONTH' && delivery.intervalCount === 1)) {
+    issues.push('Deliveries must repeat monthly independently of calendar-month billing');
   }
-  return {valid: issues.length === 0, issues, expected};
+  return {valid: issues.length === 0, issues, expected, nativeAcceptance: false};
 }

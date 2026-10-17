@@ -27,3 +27,24 @@ export function programmeMenuBlock(startMonday:string, block:number) {
   end.setUTCDate(end.getUTCDate()+(block===2?3:27));
   return {startsOn:start.toISOString().slice(0,10),endsOn:end.toISOString().slice(0,10),menuWeeks:block===2?1:4,servedDays:block===2?4:20};
 }
+
+// Jerome confirmed these totals for both 6 by60 programmes. Frozen dispatches
+// are arranged through menus/merchant; no weekday or batch split is invented.
+export function sixtyDayEntitlement(startMonday:string){
+ const period=sixtyDayPeriod(startMonday);
+ const weekdays=[0,1,2].reduce((sum,block)=>sum+programmeMenuBlock(startMonday,block).servedDays,0);
+ if(weekdays!==44)throw Error('Programme weekday coverage differs');
+ return {policyVersion:'sixty-day-20261012',...period,weekdayDays:weekdays,mealsPerWeekday:2,weekdayMeals:88,frozenMeals:32,totalMeals:120,automaticRenewal:false,frozenDelivery:'MENU_OR_MERCHANT_ARRANGED'};
+}
+
+// Historical rows without a saved snapshot stay explicit; catalogue edits must
+// not manufacture or alter an already purchased entitlement.
+export function savedSixtyDayEntitlement(snapshot:string|null,startsOn:string|null,endsOn:string|null){
+ if(!snapshot||!startsOn||!endsOn)return null;
+ try{
+  const expected=sixtyDayEntitlement(startsOn),saved=JSON.parse(snapshot);
+  if(expected.endsOn!==endsOn||!saved||Object.keys(saved).length!==Object.keys(expected).length)return null;
+  if(Object.entries(expected).some(([key,value])=>saved[key]!==value))return null;
+  return expected;
+ }catch{return null;}
+}

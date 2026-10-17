@@ -1,6 +1,8 @@
+import {assertShop} from './security.server';
 import { gid, type DraftInput, type Programme, type MenuWeek } from './menu-validation';
 export const CATALOG_QUERY = `#graphql
 query ProgrammeCatalog($variantId: ID!) {
+ shop { myshopifyDomain }
  productVariant(id:$variantId) {
   id availableForSale
   mealsPerDay: metafield(namespace:"performance",key:"meals_per_day"){jsonValue}
@@ -10,12 +12,15 @@ query ProgrammeCatalog($variantId: ID!) {
  metaobjects(type:"performance_menu_week",first:100){nodes{handle capabilities{publishable{status}} fields{key value references(first:50){pageInfo{hasNextPage}nodes{... on Product{id} ... on Metaobject{capabilities{publishable{status}} fields{key value references(first:50){pageInfo{hasNextPage}nodes{... on Product{id status}}}}}}}}}pageInfo{hasNextPage}}
 }`;
 type GraphQL = {graphql:(query:string,options?:{variables:Record<string,unknown>})=>Promise<Response>};
-export async function catalog(admin:GraphQL,input:DraftInput) {
+export async function catalog(admin:GraphQL,input:DraftInput,shop:string) {
+ assertShop(shop);
  const response=await admin.graphql(CATALOG_QUERY,{variables:{variantId:gid('ProductVariant',input.variantId)}});
  const body=await response.json();
- if(body.errors||!body.data?.productVariant||body.data.metaobjects.pageInfo.hasNextPage||body.data.productVariant.sellingPlanGroups.pageInfo.hasNextPage||body.data.productVariant.sellingPlanGroups.nodes.some((g:{sellingPlans:{pageInfo:{hasNextPage:boolean}}})=>g.sellingPlans.pageInfo.hasNextPage)) throw new Error('Catalog validation unavailable');
+ const variant=body.data?.productVariant,menus=body.data?.metaobjects;
+ if(!response.ok||body.errors||body.data?.shop?.myshopifyDomain!==shop||!variant||variant.id!==gid('ProductVariant',input.variantId)||!/^gid:\/\/shopify\/Product\/\d+$/.test(variant.product?.id)||typeof variant.availableForSale!=='boolean'||typeof variant.product.requiresSellingPlan!=='boolean'||menus?.pageInfo?.hasNextPage!==false||!Array.isArray(menus.nodes)||variant.sellingPlanGroups?.pageInfo?.hasNextPage!==false||!Array.isArray(variant.sellingPlanGroups.nodes)||variant.sellingPlanGroups.nodes.some((g:{sellingPlans?:{pageInfo?:{hasNextPage:boolean};nodes?:unknown[]}})=>g.sellingPlans?.pageInfo?.hasNextPage!==false||!Array.isArray(g.sellingPlans.nodes))) throw new Error('Catalog validation unavailable');
  const checkReferences=(fields:Array<{references?:{pageInfo?:{hasNextPage:boolean};nodes:Array<{fields?:unknown[]}>}}>)=>{
- for(const field of fields){if(field.references?.pageInfo?.hasNextPage) throw new Error('Menu references require pagination');for(const ref of field.references?.nodes||[])if(ref.fields)checkReferences(ref.fields as typeof fields);}
+ if(!Array.isArray(fields))throw new Error('Menu fields unavailable');
+ for(const field of fields){if(field.references&&(field.references.pageInfo?.hasNextPage!==false||!Array.isArray(field.references.nodes))) throw new Error('Menu references require pagination');for(const ref of field.references?.nodes||[])if(ref.fields)checkReferences(ref.fields as typeof fields);}
  };
  for(const week of body.data.metaobjects.nodes) checkReferences(week.fields);
  const v=body.data.productVariant;

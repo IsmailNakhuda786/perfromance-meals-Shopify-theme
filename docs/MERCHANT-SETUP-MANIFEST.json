@@ -712,36 +712,97 @@
     ],
     "products": [
       {
+        "key": "bi-weekly",
         "name": "Biweekly",
+        "menuWeeks": 2,
         "kind": "recurring",
-        "menuWeeks": 2
+        "recurring": true,
+        "billing": {
+          "interval": "WEEK",
+          "intervalCount": 2
+        },
+        "paymentMode": "subscription",
+        "automaticRenewal": true,
+        "mealFrequencies": [
+          "Lunch Only",
+          "Lunch & Dinner"
+        ]
       },
       {
+        "key": "monthly",
         "name": "Monthly",
+        "menuWeeks": 4,
         "kind": "recurring",
-        "menuWeeks": 4
+        "recurring": true,
+        "billing": {
+          "interval": "MONTH",
+          "intervalCount": 1
+        },
+        "paymentMode": "subscription",
+        "automaticRenewal": true,
+        "mealFrequencies": [
+          "Lunch Only",
+          "Lunch & Dinner"
+        ]
       },
       {
+        "key": "2-months",
         "name": "2 Months",
+        "menuWeeks": 4,
         "kind": "recurring",
-        "menuWeeks": 4
+        "recurring": true,
+        "billing": {
+          "interval": "MONTH",
+          "intervalCount": 2
+        },
+        "paymentMode": "subscription",
+        "automaticRenewal": true,
+        "mealFrequencies": [
+          "Lunch Only",
+          "Lunch & Dinner"
+        ]
       },
       {
+        "key": "6by60",
         "name": "6 by 60",
-        "kind": "recurring",
-        "menuWeeks": 4
+        "menuWeeks": 4,
+        "kind": "period",
+        "recurring": false,
+        "billing": null,
+        "paymentMode": "upfront",
+        "automaticRenewal": false,
+        "durationDays": 60,
+        "startDay": "MONDAY",
+        "weekdayMeals": 88,
+        "frozenMeals": 32,
+        "totalMeals": 120,
+        "mealFrequencies": [
+          "Lunch & Dinner"
+        ]
       },
       {
+        "key": "6by60plus",
         "name": "6 by 60 Plus",
-        "kind": "recurring",
-        "menuWeeks": 4
+        "menuWeeks": 4,
+        "kind": "period",
+        "recurring": false,
+        "billing": null,
+        "paymentMode": "upfront",
+        "automaticRenewal": false,
+        "durationDays": 60,
+        "startDay": "MONDAY",
+        "weekdayMeals": 88,
+        "frozenMeals": 32,
+        "totalMeals": 120,
+        "mealFrequencies": [
+          "Lunch & Dinner"
+        ]
       }
     ],
     "variantOptions": [
-      "Low Carb Regular",
-      "Low Carb Regular+",
-      "Balance Regular",
-      "Balance Regular+"
+      "Balanced Regular",
+      "Weight Loss Regular",
+      "Weight Loss Petite"
     ],
     "mealFrequency": [
       {
@@ -753,17 +814,19 @@
         "mealsPerDay": 2
       }
     ],
-    "note": "Every programme is subscription-only. Configure native variants and recurring allocations; 6 by 60 is marketing messaging, never a billing or order type. Merchant confirms every native price, menu_weeks, selling plan and coverage day. Populate matched programme blocks on both landing and builder. Published menu weeks represent initial choices, not full 60-day fulfilment."
+    "note": "Biweekly, Monthly and 2 Months recur. Both 60-day programmes are paid upfront, start Monday and do not renew. Initial menus do not represent all 120 meals; preserve paid entitlement snapshots and later menus. Latest merchant/Fresher-approved catalogue evidence must govern import; this setup inventory does not activate purchases."
   },
   "sellingPlans": {
     "readySeries": [
-      "3-month term",
-      "6-month term"
+      "3-month prepaid term with automatic term renewal",
+      "6-month prepaid term with automatic term renewal"
     ],
     "mealPlan": [
-      "Recurring programme billing plan"
+      "Biweekly recurring",
+      "Monthly recurring",
+      "2 Months recurring"
     ],
-    "note": "Shopify Subscriptions is the preferred engine. Every Meal Plan product requires a recurring selling plan. Single Purchase and Bundles stay one-time; only Ready Series Subscription is recurring. 6 by 60 is marketing only."
+    "note": "Selling plans apply only to recurring Meal Plans and approved Ready Series prepaid subscriptions. 6by60/Plus, Ready Series single purchases and one-time bundles have no recurring selling plan. Ready Series calendar and native subscription acceptance remain pending."
   },
   "menus": [
     {
@@ -970,6 +1033,31 @@
       "type": "list.metaobject_reference",
       "referenceType": "performance_bundle_item",
       "requiredFor": "Bundles and Subscription"
+    },
+    {
+      "owner": "PRODUCT",
+      "namespace": "performance",
+      "key": "nutrition_pending",
+      "type": "boolean",
+      "requiredFor": "True for provisional nutrition; hide figures until source mapping and serving basis are verified."
+    },
+    {
+      "owner": "PRODUCT",
+      "namespace": "performance",
+      "key": "nutrition_basis",
+      "type": "single_line_text_field"
+    },
+    {
+      "owner": "PRODUCT",
+      "namespace": "performance",
+      "key": "serving_weight_g",
+      "type": "number_decimal"
+    },
+    {
+      "owner": "PRODUCT",
+      "namespace": "performance",
+      "key": "servings_per_container",
+      "type": "number_decimal"
     }
   ],
   "metaobjectDefinitions": [
@@ -4476,5 +4564,10 @@
     "Gift card denominations/content approval",
     "Shipping, delivery eligibility, taxes, discounts and policies",
     "Actual customer account configuration"
-  ]
+  ],
+  "authoritativeMerchantCatalogue": {
+    "file": "theme-tools/merchant-catalogue-20261015.json",
+    "version": "merchant-20261015",
+    "note": "Merchant bundle/package sheets supersede prototype prices and contents. Ready Series calendar remains pending Jerome."
+  }
 }

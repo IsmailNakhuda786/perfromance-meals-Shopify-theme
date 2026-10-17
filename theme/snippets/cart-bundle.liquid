@@ -7,7 +7,6 @@ Renders the approved bundle drawer presentation from native cart and contents.
 <div class="pm-cart-bundle-header">
   <div>
     <a href="{{ item.url }}" class="pm-cart-bundle-title">{{ item.product.title | escape }}{% unless item.variant.title == 'Default Title' or item.product.title contains item.variant.title %} — {{ item.variant.title | escape }}{% endunless %}</a>
-    {% if meal_count > 0 %}<p class="pm-cart-bundle-unit">{{ item.final_line_price | divided_by: item.quantity | divided_by: meal_count | round | money }}{{ 'cart.per_meal' | t }}</p>{% endif %}
   </div>
   <div class="pm-cart-bundle-price"><strong>{{ item.final_line_price | money }}</strong><a href="{{ item.url_to_remove }}" data-cart-remove data-key="{{ item.key | escape }}" aria-label="{{ 'cart.remove_product' | t: product: item.product.title | escape }}"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></a></div>
 </div>

@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {build} from 'esbuild';
 await build({entryPoints:['app/services/programme-period.ts'],outdir:'.shopify/period-test',bundle:true,format:'esm',platform:'node'});
-const {sixtyDayPeriod,consecutiveMenuWeeks,programmeMenuBlock} = await import('../.shopify/period-test/programme-period.js');
+const {sixtyDayPeriod,consecutiveMenuWeeks,programmeMenuBlock,sixtyDayEntitlement,savedSixtyDayEntitlement} = await import('../.shopify/period-test/programme-period.js');
 
 test('customer Monday is retained and inclusive coverage is exactly 60 calendar days', () => {
   assert.deepEqual(sixtyDayPeriod('2026-10-12'), {startsOn:'2026-10-12',endsOn:'2026-12-10',durationDays:60});
@@ -29,4 +29,21 @@ test('weekday-only coverage includes the final four days within the original 60-
   assert.deepEqual(programmeMenuBlock('2026-10-12',2),{startsOn:'2026-12-07',endsOn:'2026-12-10',menuWeeks:1,servedDays:4});
   assert.equal([0,1,2].reduce((sum,block)=>sum+programmeMenuBlock('2026-10-12',block).servedDays*2,0),88);
   for(const block of [-1,3,1.5]) assert.throws(()=>programmeMenuBlock('2026-10-12',block));
+});
+
+test('both 60-day programmes have88weekday and32frozen meals without an invented delivery schedule',()=>{
+ for(const monday of ['2026-10-12','2026-12-28','2028-02-28']){
+  const entitlement=sixtyDayEntitlement(monday);
+  assert.equal(entitlement.weekdayDays,44);assert.equal(entitlement.mealsPerWeekday,2);
+  assert.equal(entitlement.weekdayMeals,88);assert.equal(entitlement.frozenMeals,32);assert.equal(entitlement.totalMeals,120);
+  assert.equal(entitlement.automaticRenewal,false);assert.equal(entitlement.frozenDelivery,'MENU_OR_MERCHANT_ARRANGED');
+  assert.equal(entitlement.startsOn,monday);assert.equal(entitlement.endsOn,sixtyDayPeriod(monday).endsOn);
+ }
+});
+
+test('account entitlement reads only the preserved snapshot and never invents a historical entitlement',()=>{
+ const expected=sixtyDayEntitlement('2026-10-12');
+ assert.deepEqual(savedSixtyDayEntitlement(JSON.stringify(expected),expected.startsOn,expected.endsOn),expected);
+ for(const snapshot of [null,'invalid',JSON.stringify({...expected,frozenMeals:31}),JSON.stringify({...expected,automaticRenewal:true})])assert.equal(savedSixtyDayEntitlement(snapshot,expected.startsOn,expected.endsOn),null);
+ assert.equal(savedSixtyDayEntitlement(JSON.stringify(expected),expected.startsOn,'2026-12-11'),null);
 });

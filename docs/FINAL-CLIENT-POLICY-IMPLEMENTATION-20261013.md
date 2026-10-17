@@ -58,7 +58,7 @@ confirmation; those cases fail closed. No guessed allocation is activated.
 Toolkit customer-account source validator is unavailable because its bundled types
 index is missing; local backend/type/lint/build checks are not native UI proof.
 
-Historical development QA evidence is preserved privately. Earned Rewards remain available on
+Historical #1010/#1011 evidence is preserved. Earned Rewards remain available on
 Support-approved refunds (Option A). No automatic reward reversal hook is added.
 
 Latest validation: 95 Core tests plus the added changed-order Support regression,

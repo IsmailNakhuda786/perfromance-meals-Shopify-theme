@@ -1,4 +1,5 @@
-<section class="bg-[#F7F4EB] overflow-hidden py-10 sm:py-14 lg:py-16 px-6 sm:px-10 lg:px-16"><div class="max-w-[1380px] mx-auto">
+{% if section.settings.reference_layout %}{{ 'parent-experiences.css' | asset_url | stylesheet_tag }}{% endif %}
+<section class="{% if section.settings.reference_layout %}pm-experiences-reference {% if section.settings.split_layout %}pm-experiences-split {% endif %}{% endif %}bg-[#F7F4EB] overflow-hidden py-10 sm:py-14 lg:py-16 px-6 sm:px-10 lg:px-16"><div class="max-w-[1380px] mx-auto">
   <div class="flex items-baseline gap-5 mb-4"><span class="font-display font-bold text-[#1A1A1A]" style="font-size:clamp(36px,4vw,52px);line-height:1;letter-spacing:-.03em">{{ section.settings.number | escape }}</span><span class="text-[#1A1A1A] text-[10px] sm:text-[11px] font-medium tracking-[0.05em]">{{ section.settings.eyebrow | escape }}</span></div>
   <h2 class="font-display font-bold text-[#1A1A1A] mb-4" style="font-size:clamp(28px,3.2vw,42px);line-height:.92;letter-spacing:-.021em">{{ section.settings.heading | escape | newline_to_br }}</h2><p class="text-[#7A7A75] leading-[1.45] mb-8 max-w-[440px] text-[14px]">{{ section.settings.body | escape }}</p>
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -19,6 +20,13 @@
 {
   "name": "Choose your experience",
   "settings": [
+    {"type":"checkbox","id":"split_layout","label":"Use updated split brand panels","default":false},
+    {
+      "type": "checkbox",
+      "id": "reference_layout",
+      "label": "Use approved reference layout",
+      "default": false
+    },
     {
       "type": "text",
       "id": "number",
@@ -120,6 +128,14 @@
             {
               "value": "98c55.png",
               "label": "Meal Plan"
+            },
+            {
+              "value": "sync-70290fd45c9a.jpg",
+              "label": "Approved Ready Series photo"
+            },
+            {
+              "value": "sync-16c2c47ecb77.jpg",
+              "label": "Approved Meal Plan photo"
             }
           ],
           "default": "d006a.png"

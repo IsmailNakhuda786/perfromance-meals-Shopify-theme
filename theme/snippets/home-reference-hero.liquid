@@ -1,0 +1,21 @@
+{% doc %}
+  Renders the approved parent brand hero without changing the saved carousel.
+  @param {object} section - Homepage hero section and merchant settings.
+{% enddoc %}
+{{ 'parent-hero.css' | asset_url | stylesheet_tag }}
+<section class="pm-parent-hero" aria-labelledby="ParentHero-{{ section.id }}">
+  <div class="pm-parent-hero__copy">
+    {% assign heading_lines = section.settings.reference_heading | escape | newline_to_br | split: '<br />' %}
+    <h1 id="ParentHero-{{ section.id }}">{% for line in heading_lines %}{% if forloop.first %}<span class="pm-parent-hero__highlight">{{ line }}</span>{% else %}<br>{{ line }}{% endif %}{% endfor %}</h1>
+    <a href="{{ section.settings.reference_url | default: '#our-brands' }}" class="pm-parent-hero__link">
+      {{ section.settings.reference_label | escape }} <span aria-hidden="true">↓</span>
+    </a>
+  </div>
+  <div class="pm-parent-hero__image">
+    {% if section.settings.reference_image != blank %}
+      {{ section.settings.reference_image | image_url: width: 1600 | image_tag: widths: '400, 600, 800, 1200, 1600', sizes: '(min-width: 1024px) 50vw, 100vw', loading: 'eager', fetchpriority: 'high', alt: section.settings.reference_image_alt }}
+    {% else %}
+      <img src="{{ 'parent-hero-plate.webp' | asset_url }}" alt="{{ section.settings.reference_image_alt | escape }}" width="1264" height="1232" fetchpriority="high">
+    {% endif %}
+  </div>
+</section>

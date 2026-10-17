@@ -95,7 +95,7 @@ export async function renderPage(url, options = {}) {
     shop: { name: 'Performance Meals', currency: 'SGD', customer_accounts_enabled: true, policies: [], enabled_payment_types: [] },
     routes: { root_url: '/', collections_url: '/collections', search_url: '/search', cart_url: '/cart', cart_add_url: '/cart/add', cart_change_url: '/cart/change', account_url: '/account', account_login_url: '/account/login', storefront_login_url: '/account/login', account_logout_url: '/account/logout' },
     search: { performed: requestURL.searchParams.has('q'), terms: requestURL.searchParams.get('q') || '', results: fixtures.meals, results_count: fixtures.meals.length },
-    settings: { support_label: 'Performance Meals', whatsapp_number: '' }, content_for_header: '', canonical_url: `http://localhost:4173${pathname}`, page_title: product?.title || collection?.title || 'Performance Meals' };
+    settings: { support_label: 'Performance Meals', whatsapp_number: '',...options.settings }, content_for_header: '', canonical_url: `http://localhost:4173${pathname}`, page_title: product?.title || collection?.title || 'Performance Meals' };
   if (pathname === '/gift_cards/review') {
     context.shop.url = '/';
     context.gift_card = { balance: 10000, code: 'REVIEWNOTVALID', enabled: true, expired: false, recipient: { name: 'Review Recipient' }, message: 'Synthetic gift card preview only.' };

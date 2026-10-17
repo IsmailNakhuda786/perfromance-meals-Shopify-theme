@@ -1,0 +1,29 @@
+query Input {
+ cart {
+  lines {
+   id
+   quantity
+   cost { subtotalAmount { amount currencyCode } totalAmount { amount currencyCode } }
+   discountAllocations { discountedAmount { amount currencyCode } }
+   sellingPlanAllocation { sellingPlan { id } }
+   merchandise {
+    __typename
+    ... on ProductVariant {
+     id
+     product {
+      id
+      isGiftCard
+      stream: metafield(namespace: "performance", key: "business_stream") { jsonValue }
+      deliveryIncluded: metafield(namespace: "performance", key: "delivery_included") { jsonValue }
+     }
+    }
+   }
+  }
+  deliveryGroups {
+   id
+   cartLines { id }
+   deliveryAddress { countryCode }
+   deliveryOptions { handle cost { amount currencyCode } }
+  }
+ }
+}

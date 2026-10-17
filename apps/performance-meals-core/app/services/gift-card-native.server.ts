@@ -1,5 +1,6 @@
 import {assertShop} from './security.server';
 import type {ClaimGateway} from './gift-card-claim.server';
+import {assertNativeWalletCreditReady} from './native-wallet-credit-ready.server';
 export const CLAIM_SOURCE_QUERY = `#graphql
 query GiftCardClaimSource($query: String!) {
  shop { myshopifyDomain currencyCode }
@@ -44,6 +45,7 @@ export function nativeGiftCardGateway(admin:Admin,shop:string):ClaimGateway{
   return Math.floor(value/100)+'.'+String(value%100).padStart(2,'0');
  };
  return {
+  assertWalletReady:(customerGid,context)=>assertNativeWalletCreditReady(admin,shop,customerGid,context),
   async resolve(code){
    if(!/^[a-z0-9]{8,20}$/i.test(code))throw new Error('Invalid Gift Card code');
    const data=await request(CLAIM_SOURCE_QUERY,{query:'"'+code+'"'});

@@ -1410,7 +1410,7 @@ export default function AccountPage({ navigate, initialTab, initialSection }: Pr
                   <span className="text-[18px]">✉️</span>
                   <div className="text-left flex-1">
                     <div className="text-[12px] font-semibold">Email receipt sent</div>
-                    <div className="text-[11px] text-white/50">jerome@email.com</div>
+                    <div className="text-[11px] text-white/50">qa@example.invalid</div>
                   </div>
                   <span className="text-[#F5B300] text-[11px] font-bold">✓ Sent</span>
                 </div>

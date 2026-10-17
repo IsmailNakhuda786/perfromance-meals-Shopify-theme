@@ -1,0 +1,12 @@
+.pm-community-page{max-width:1080px;margin:auto;padding:72px 40px 96px;color:#111}
+.pm-community-page__eyebrow{font-size:12px;letter-spacing:.12em;margin-bottom:24px}
+.pm-community-page h1{font-family:var(--font-display);font-weight:600;font-size:clamp(40px,6vw,72px);line-height:1.06;letter-spacing:-.04em;margin-bottom:32px}
+.pm-community-page__intro{max-width:720px;color:#585853;font-size:18px}
+.pm-community-page__contacts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px;margin:48px 0}
+.pm-community-page__contacts>div{border-top:1px solid #e8e4dc;padding-top:20px}
+.pm-community-page dt{font-size:13px;font-weight:600;margin-bottom:12px}
+.pm-community-page dd{margin:0;line-height:1.7;overflow-wrap:anywhere}
+.pm-community-page__topic{max-width:720px;margin-top:40px;border-top:1px solid #e8e4dc;padding-top:24px}
+.pm-community-page__topic h2{font-family:var(--font-display);font-weight:600;font-size:30px;margin-bottom:16px;line-height:1.15}
+.pm-community-page__cta{display:inline-flex;align-items:center;min-height:44px;border-bottom:2px solid #e4bb50;margin-top:40px;font-weight:500}
+@media(max-width:639px){.pm-community-page{padding:48px 24px 64px}.pm-community-page__contacts{grid-template-columns:minmax(0,1fr)}.pm-community-page__intro{font-size:16px}}

@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {buildServices} from './support/database.mjs';
 await buildServices({entryPoints:['app/services/wallet-top-up-policy.ts'],outdir:'.shopify/top-up-policy-test',bundle:true,packages:'external',format:'esm',platform:'node'});
-const {verifyPaidTopUp}=await import('../.shopify/top-up-policy-test/wallet-top-up-policy.js');
+const {verifyPaidTopUp,verifyPaidApprovedTopUp}=await import('../.shopify/top-up-policy-test/wallet-top-up-policy.js');
 const customer='gid://shopify/Customer/801',product='gid://shopify/Product/802',variant='gid://shopify/ProductVariant/803';
 const money=amount=>({shopMoney:{amount,currencyCode:'SGD'}});
 const config={productGid:product,variants:{[variant]:2000},paymentGateways:['fixture_external_gateway']};
@@ -23,4 +23,25 @@ test('Wallet, Gift Card and unapproved payments cannot be relabelled customer ca
  const refunded=order();refunded.transactions.push({...refunded.transactions[0],kind:'REFUND',id:'gid://shopify/OrderTransaction/807'});
  assert.throws(()=>verifyPaidTopUp(refunded,customer,config));
  assert.throws(()=>verifyPaidTopUp(order(),customer,{...config,variants:{[variant]:2000.1}}));
+});
+
+
+test('approved package payment proof separates paid principal and food-only bonus',()=>{
+ for(const [paid,bonus,total] of [[87000,8500,95500],[174000,18500,192500],[269000,40000,309000]]){
+  const native=order(),amount=(paid/100).toFixed(2);
+  native.totalPriceSet=money(amount);native.totalReceivedSet=money(amount);
+  native.lineItems.nodes[0].originalTotalSet=money(amount);native.lineItems.nodes[0].discountedTotalSet=money(amount);
+  native.transactions[0].amountSet=money(amount);
+  const configured={...config,variants:{[variant]:paid}};
+  const proof=verifyPaidApprovedTopUp(native,customer,configured);
+  assert.equal(proof.amountMinor,paid);assert.equal(proof.creditPlan.customerFundedMinor,paid);
+  assert.equal(proof.creditPlan.foodOnlyBonusMinor,bonus);assert.equal(proof.creditPlan.totalMinor,total);
+  assert.equal(proof.creditPlan.expiryYears,1);
+  assert.throws(()=>verifyPaidTopUp(native,customer,configured),'legacy settlement must not accept a package');
+  for(const edit of [o=>o.transactions[0].gateway='shopify_store_credit',o=>o.transactions[0].gateway='gift_card',o=>o.totalDiscountsSet=money('1'),o=>o.totalShippingPriceSet=money('10'),o=>o.totalReceivedSet=money('869.99'),o=>o.customer.id='gid://shopify/Customer/999',o=>o.disputes=[{id:'gid://shopify/OrderDisputeSummary/808',status:'NEEDS_RESPONSE'}]]){
+   const invalid=structuredClone(native);edit(invalid);
+   assert.throws(()=>verifyPaidApprovedTopUp(invalid,customer,configured));
+  }
+ }
+ assert.throws(()=>verifyPaidApprovedTopUp(order(),customer,config),'old tier is not an approved package');
 });

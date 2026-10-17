@@ -32,7 +32,8 @@
         "programme_3_duration": "60-day duration",
         "programme_4_copy": "A selectable 60-day programme with all-week coverage and muscle support.",
         "programme_4_headline": "60-day Plus",
-        "programme_4_duration": "60-day duration"
+        "programme_4_duration": "60-day duration",
+        "separate_hero": true
       },
       "blocks": {
         "lunch": {
@@ -62,9 +63,71 @@
         "dinner",
         "full"
       ]
+    },
+    "hero": {
+      "type": "brand-landing-hero",
+      "settings": {
+        "eyebrow": "CHILLED MEALS / BOUTIQUE PROGRESS",
+        "heading": "Fresh\nstructure.\nPersonal\nsupport.",
+        "body": "Exceptional meals, tailored guidance and practical support for meaningful progress. Built around the way you actually live.",
+        "primary_label": "Start your plan",
+        "primary_url": "/pages/meal-plan-builder",
+        "secondary_label": "About & Guide",
+        "secondary_url": "/pages/meal-plan-about",
+        "features": "CHILLED & FRESH \u00b7 GOAL-LED \u00b7 PERSONAL SUPPORT",
+        "background": "#FFFFFF",
+        "accent": "#D56625",
+        "fallback_image": "sync-1a76f2a373e9.png",
+        "image_alt": "Fresh Meal Plan preparation"
+      }
+    },
+    "stories": {
+      "type": "customer-stories",
+      "settings": {
+        "eyebrow": "TWO ROUTINES. TWO KINDS OF SUPPORT.",
+        "heading": "Which rhythm works for you?",
+        "body": "See how each approach fits a different routine.",
+        "note": "Individual experiences; results vary."
+      },
+      "blocks": {
+        "matt": {
+          "type": "story",
+          "settings": {
+            "eyebrow": "READY SERIES / EVERYDAY CONVENIENCE",
+            "heading": "Healthy eating for a busy schedule.",
+            "name": "Dr Matt Winter",
+            "body": "With the convenience of Ready Series, he can keep up his healthy eating even when his schedule is busy.",
+            "fallback_image": "story-matt-winter.webp",
+            "photo_alt": "Dr Matt Winter \u2014 Ready Series customer",
+            "label": "Explore Ready Series",
+            "url": "/pages/ready-series"
+          }
+        },
+        "su": {
+          "type": "story",
+          "settings": {
+            "eyebrow": "MEAL PLANS / GUIDED PROGRESS",
+            "heading": "6 kg lost with Meal Plans.",
+            "name": "Su",
+            "body": "Her Meal Plans experience is an example for customers looking for guided dieting, structure and result-focused goals.",
+            "fallback_image": "story-su-outdoors.webp",
+            "photo_alt": "Su wearing red outdoors",
+            "second_fallback": "story-su-training.webp",
+            "second_alt": "Su wearing blue at the gym",
+            "label": "Explore Meal Plans",
+            "url": "/pages/meal-plan"
+          }
+        }
+      },
+      "block_order": [
+        "matt",
+        "su"
+      ]
     }
   },
   "order": [
-    "main"
+    "hero",
+    "main",
+    "stories"
   ]
 }

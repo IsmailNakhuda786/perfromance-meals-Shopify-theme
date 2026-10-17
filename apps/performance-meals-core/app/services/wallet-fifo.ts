@@ -7,8 +7,7 @@ export function parseFundedAllocations(value:string,amount:number):FundedAllocat
  return allocations;
 }
 // Entries are ordered by persisted creation time, then ID. Bonus is never consumed.
-export function allocateFundedFifo(entries:Entry[],amount:number):FundedAllocation[]{
- if(!Number.isSafeInteger(amount)||amount<1)throw new Error('Invalid funded debit');
+export function remainingFundedLots(entries:Entry[]){
  const lots:Array<{id:string;sourceKind:string;remaining:number}>=[];
  for(const entry of entries){
   if(entry.fundedDelta>0){
@@ -34,6 +33,10 @@ export function allocateFundedFifo(entries:Entry[],amount:number):FundedAllocati
    }
   }
  }
+ return lots;
+}
+function consume(lots:ReturnType<typeof remainingFundedLots>,amount:number):FundedAllocation[]{
+ if(!Number.isSafeInteger(amount)||amount<1)throw new Error('Invalid funded debit');
  let remaining=amount;
  const result:FundedAllocation[]=[];
  for(const lot of lots){
@@ -42,4 +45,14 @@ export function allocateFundedFifo(entries:Entry[],amount:number):FundedAllocati
   if(!remaining)return result;
  }
  throw new Error('Insufficient verified funded credit');
+}
+
+export function allocateFundedFifo(entries:Entry[],amount:number):FundedAllocation[]{
+ return consume(remainingFundedLots(entries),amount);
+}
+// New allocation only. Historical debit/return allocations above stay immutable.
+// Bonus remains separate and requires verified food-only checkout enforcement.
+export function allocateFundedPriority(entries:Entry[],amount:number):FundedAllocation[]{
+ const priority=['customer_funded','gift_card_funded','reward_funded'];
+ return consume(remainingFundedLots(entries).sort((a,b)=>priority.indexOf(a.sourceKind)-priority.indexOf(b.sourceKind)),amount);
 }

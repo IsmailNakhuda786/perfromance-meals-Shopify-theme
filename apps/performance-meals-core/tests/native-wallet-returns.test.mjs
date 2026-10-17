@@ -11,8 +11,9 @@ const db=new PrismaClient(),shop=`return-${randomUUID()}.myshopify.com`,customer
 process.env.ALLOWED_SHOP=shop;
 const origin={id:'gid://shopify/OrderTransaction/953',status:'SUCCESS',kind:'REFUND',gateway:'shopify_store_credit',amountSet:{shopMoney:{amount:'22.90',currencyCode:'SGD'}},order:{id:order,currencyCode:'SGD',customer:{id:customer}},parentTransaction:{id:'gid://shopify/OrderTransaction/954',gateway:'fixture_card'}};
 const credit=()=>({id:'gid://shopify/StoreCreditAccountCreditTransaction/955',createdAt:new Date().toISOString(),amount:{amount:'22.90',currencyCode:'SGD'},event:'ORDER_REFUND',origin});
-test.after(async()=>{await db.walletEntry.deleteMany({where:{shop}});await db.customerWallet.deleteMany({where:{shop}});await db.$disconnect();});
+test.after(async()=>{await db.walletEntry.deleteMany({where:{shop}});await db.customerWallet.deleteMany({where:{shop}});await db.commercePolicy.deleteMany({where:{shop}});await db.$disconnect();});
 test('native card refund records full amount once and remains spendable with clear funding attribution',async()=>{
+ await db.commercePolicy.create({data:{shop,rewardsRules:JSON.stringify({directPaymentGateways:['fixture_card']})}});
  const first=await recordNativeWalletReturn(shop,customer,credit());
  assert.equal((await recordNativeWalletReturn(shop,customer,credit())).id,first.id);
  assert.equal((await db.customerWallet.findFirst({where:{shop}})).fundedBalance,2290);
@@ -22,6 +23,20 @@ test('native card refund records full amount once and remains spendable with cle
  assert.equal(ledger.balanceMatchesLedger,true);assert.equal(ledger.attributionComplete,true);
  assert.equal(ledger.sources[0].fundedDelta,2290);
  await assert.rejects(recordNativeWalletReturn(shop,'gid://shopify/Customer/999',credit()));
+});
+
+test('unverified refund gateways cannot create qualifying customer-funded Wallet principal',async()=>{
+ const before=await db.customerWallet.findUnique({where:{shop_customerGid_currency:{shop,customerGid:customer,currency:'SGD'}}});
+ const entries=await db.walletEntry.count({where:{shop}});
+ const receipt={...credit(),id:'gid://shopify/StoreCreditAccountCreditTransaction/1101',origin:{...origin,parentTransaction:{id:'gid://shopify/OrderTransaction/1102',gateway:'unverified'}}};
+ await assert.rejects(recordNativeWalletReturn(shop,customer,receipt),/gateway requires verification/);
+ const full={...receipt,id:'gid://shopify/StoreCreditAccountCreditTransaction/1103',origin:{...origin,id:'gid://shopify/OrderTransaction/1104',parentTransaction:null}};
+ const funding={id:order,customer:{id:customer},currencyCode:'SGD',totalReceivedSet:origin.amountSet,totalRefundedSet:origin.amountSet,transactions:[
+  {...origin,id:'gid://shopify/OrderTransaction/1105',kind:'SALE',gateway:'unverified'},full.origin,
+ ]};
+ await assert.rejects(recordNativeWalletReturn(shop,customer,full,funding),/gateway requires verification/);
+ assert.deepEqual(await db.customerWallet.findUnique({where:{shop_customerGid_currency:{shop,customerGid:customer,currency:'SGD'}}}),before);
+ assert.equal(await db.walletEntry.count({where:{shop}}),entries);
 });
 test('Gift Card refund and Wallet debit revert retain their original funding sources',async()=>{
  const gift={...credit(),id:'gid://shopify/StoreCreditAccountCreditTransaction/956',origin:{...origin,parentTransaction:{id:'gid://shopify/OrderTransaction/957',gateway:'gift_card'}}};

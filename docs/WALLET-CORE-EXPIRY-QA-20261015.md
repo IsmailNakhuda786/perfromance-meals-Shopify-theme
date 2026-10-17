@@ -1,0 +1,21 @@
+# Core-managed Wallet expiry — guarded development checkpoint
+
+User approved the Core-managed approach on 15 October. Native monetary credits remain aggregate non-expiring Store Credit; Core assigns independent one-year terms only to freshly verified settled credits after an explicit activation boundary. Existing historical credits are not redated. The feature remains off.
+
+Implemented: source-lot registration, customer principal → Gift Card → Rewards allocation (food-only bonus stays separate), exact unspent-lot expiry, reserved expiry amount, fresh owner/account/SGD evidence, one native debit attempt, durable receipt before bookkeeping, held unknown outcomes, and bookkeeping recovery without a second native debit. Wallet history labels expiry separately from purchases. Reminders use Core source-lot remainder rather than Shopify's physical credit remainder when Core owns expiry.
+
+Verification: 141 Core tests pass, including concurrent expiry workers, lost native response, partial spending, bookkeeping failure/recovery, foreign/not-due/reserved/spent credit rejection, reminder balance drift and source-priority preservation. Typecheck, lint and PostgreSQL schema synchronization pass. The additive `20261015190000_core_managed_expiry` migration is applied to development PostgreSQL. Read-only readback confirms five existing Wallet ledger entries, zero expiry registrations/sent reminders and disabled top-ups/general Rewards. The account preview renders again with the existing five-entry history and SGD 0.00 balance after the prior mixed-payment test.
+
+No actual expiry debit or reminder email was performed. No historical financial attribution was rewritten. No publication, deployment, provider change or live-store access occurred.
+
+Activation gates remain: reliable scheduled execution; native checkout protection against spending overdue balance while the worker is delayed; automatic verified registration for every newly settled credit source; reconciled food-only bonus reservation and settlement; approved notification provider with delivery-receipt recovery. These tests establish internal worker behavior, not complete top-up acceptance. Top-ups must remain disabled.
+
+## Integration follow-up
+
+New-credit receipt registration is now callable independently and runs from the authenticated account reconciliation path only when Core expiry is enabled. Unregistered post-activation monetary credits block further financial issuance until verified registration completes. Historical credits are excluded. The bounded scheduler entry point supports continuation cursors, reports held outcomes and never selects UNKNOWN/DEBIT_PENDING records for another debit attempt. No scheduler invokes it yet.
+
+The historical aggregate reservation API is rejected under the new policy; its older bonus-first/Ready-only rules cannot accidentally govern the new source-lot flow. Production preflight explicitly refuses the development-only expiry/reminder switches until checkout protection, durable scheduling and provider receipts are verified. Backend build passes; 145 tests pass following these changes. A fresh empty SQLite database successfully applied all18 migrations and matches the canonical schema with no differences.
+
+Official checkout investigation: Shopify documents validation support for online/accelerated/draft checkout, but not recurring subscription orders. Custom-app Functions availability depends on Shopify Plus; App Store-distributed Functions have broader plan availability. No custom Function was installed, deployed or activated, and no store upgrade was requested. A suitable existing public-app protection path still needs demonstration before activation. References: https://shopify.dev/docs/apps/build/functions and https://shopify.dev/docs/api/functions/latest/cart-and-checkout-validation.
+
+Registration and batch pagination were tested with101 new credit receipts and a two-page expiry run. Repeated registration skips already verified immutable records. A completed cursor record originally caused the ORM cursor query to skip the following page; explicit `(expiresAt,id)` keyset continuation fixes that regression. The bounded registration returns PENDING until every receipt is registered, retaining the financial hold meanwhile. These were isolated fixtures, not development customer credits.

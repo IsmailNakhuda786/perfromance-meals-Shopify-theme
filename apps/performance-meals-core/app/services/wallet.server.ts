@@ -1,8 +1,11 @@
 import db from '../db.server';
+import {assertShop} from './security.server';
 import {allocateWallet,type WalletLine,money} from './wallet-policy';
 // Internal reservation only. No public top-up/debit route or custom payment engine exists.
 // Caller must supply freshly verified Shopify lines; browser prices/categories are never trusted.
 export async function reserveWallet(shop:string,customerGid:string,currency:string,checkoutReference:string,lines:WalletLine[]){
+ assertShop(shop);
+ if(process.env.WALLET_CORE_EXPIRY_ENABLED==='true')throw new Error('Legacy Wallet reservation cannot enforce approved source priority and expiry');
  if(!/^gid:\/\/shopify\/Customer\/\d+$/.test(customerGid)||!/^\w{3}$/.test(currency)||!checkoutReference)throw new Error('Invalid wallet context');
  return db.$transaction(async tx=>{
   const policy=await tx.commercePolicy.findUnique({where:{shop}});
@@ -18,6 +21,7 @@ export async function reserveWallet(shop:string,customerGid:string,currency:stri
  });
 }
 export async function releaseWalletReservation(shop:string,id:string){
+ assertShop(shop);
  return db.$transaction(async tx=>{
   const reservation=await tx.walletReservation.findFirst({where:{shop,id}});
   if(!reservation||reservation.state!=='RESERVED')return;
@@ -34,11 +38,13 @@ export type WalletCreditSource='customer_funded'|'gift_card_funded'|'reward_fund
 // This function is deliberately not exposed as a browser top-up endpoint.
 export async function recordSettledWalletCredit(input:{shop:string;customerGid:string;currency:string;sourceEvent:string;sourceKind:WalletCreditSource;amountMinor:number;sourceGid:string;nativeTransactionGid:string;nativeSourceTransactionGid?:string}){
  const {shop,customerGid,currency,sourceEvent,sourceKind,amountMinor,sourceGid,nativeTransactionGid,nativeSourceTransactionGid}=input;
+ assertShop(shop);
+ if(sourceKind==='bonus')throw Error('Food-only bonus cannot use unrestricted native Store Credit settlement');
  money(amountMinor);
- if(!amountMinor||!shop||!/^gid:\/\/shopify\/Customer\/\d+$/.test(customerGid)||!/^[A-Z]{3}$/.test(currency)||!sourceEvent||!sourceGid||!nativeTransactionGid||!['customer_funded','gift_card_funded','reward_funded','bonus'].includes(sourceKind)||(sourceKind==='gift_card_funded'&&!nativeSourceTransactionGid))throw Error('Invalid settled wallet credit');
+ if(!amountMinor||!/^gid:\/\/shopify\/Customer\/\d+$/.test(customerGid)||!/^[A-Z]{3}$/.test(currency)||!sourceEvent||!sourceGid||!/^gid:\/\/shopify\/StoreCreditAccountCreditTransaction\/\d+$/.test(nativeTransactionGid)||!['customer_funded','gift_card_funded','reward_funded','bonus'].includes(sourceKind)||(sourceKind==='gift_card_funded'&&!/^gid:\/\/shopify\/GiftCardDebitTransaction\/\d+$/.test(nativeSourceTransactionGid||'')))throw Error('Invalid settled wallet credit');
  return db.$transaction(async tx=>{
   const existing=await tx.walletEntry.findUnique({where:{shop_sourceEvent:{shop,sourceEvent}}});
-  const fundedDelta=sourceKind==='bonus'?0:amountMinor,bonusDelta=sourceKind==='bonus'?amountMinor:0;
+  const fundedDelta=amountMinor,bonusDelta=0;
   if(existing){if(existing.customerGid!==customerGid||existing.currency!==currency||existing.sourceKind!==sourceKind||existing.sourceGid!==sourceGid||existing.nativeTransactionGid!==nativeTransactionGid||existing.nativeSourceTransactionGid!==(nativeSourceTransactionGid||null)||existing.fundedDelta!==fundedDelta||existing.bonusDelta!==bonusDelta)throw Error('Wallet settlement conflict');return existing;}
   const wallet=await tx.customerWallet.upsert({where:{shop_customerGid_currency:{shop,customerGid,currency}},create:{shop,customerGid,currency},update:{}});
   money(wallet.fundedBalance+fundedDelta);money(wallet.bonusBalance+bonusDelta);

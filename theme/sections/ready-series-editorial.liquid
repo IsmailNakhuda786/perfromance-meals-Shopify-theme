@@ -2,7 +2,9 @@
 {% for block in section.blocks %}
 {% case block.type %}
 {% when 'band_1' %}
+{% unless section.settings.separate_hero %}
 <section {{ block.shopify_attributes }} class="relative overflow-hidden bg-[#1A1A1A] text-white"><div class="max-w-[1440px] mx-auto grid lg:grid-cols-[0.9fr_1.1fr] min-h-[740px]"><div class="relative z-10 px-6 sm:px-10 lg:px-16 py-16 lg:py-20 flex flex-col"><div class="inline-flex items-center gap-[11px] select-none " style="transform:scale(1);transform-origin:left center"><div class="shrink-0 w-[36px] h-[36px] rounded-full" style="background-color:#F5B300"></div><div class="flex flex-col leading-none"><span style="font-family:'Outfit', sans-serif;font-weight:800;font-style:italic;font-size:22px;letter-spacing:0.02em;color:#FFFFFF;line-height:1">{{ block.settings.copy_1 | escape }}</span><div style="height:2px;background-color:#F5B300;margin-top:3px;margin-bottom:3px"></div><span style="font-family:'Outfit', sans-serif;font-weight:500;font-size:7.5px;letter-spacing:0.22em;color:#FFFFFF;opacity:0.55;line-height:1">{{ block.settings.copy_2 | escape }}</span></div></div><div class="mt-auto pt-20 max-w-[650px]"><div class="inline-flex items-center gap-3 bg-[#F5B300] text-[#1A1A1A] rounded-full px-4 py-2 mb-7"><span class="w-2 h-2 bg-[#1A1A1A] rounded-full"></span><span class="text-[9px] font-extrabold tracking-[0.2em] uppercase">{{ block.settings.copy_3 | escape }}</span></div><h1 class="font-display text-[52px] sm:text-[72px] lg:text-[84px] font-black leading-[0.86] tracking-[-0.045em]">{{ block.settings.copy_4 | escape }}<br><span class="text-[#F5B300]">{{ block.settings.copy_5 | escape }}</span></h1><p class="text-white/70 text-[17px] sm:text-[19px] leading-relaxed max-w-[560px] mt-8">{{ block.settings.copy_6 | escape }}</p><div class="flex flex-col sm:flex-row gap-3 mt-9"><a class="group inline-flex items-center justify-between gap-8 rounded-full bg-[#F5B300] text-[#1A1A1A] pl-7 pr-2 py-2 text-[11px] font-extrabold tracking-[0.16em] uppercase hover:bg-white transition-colors" href="{{ section.settings.link_1 }}">{{ block.settings.copy_7 | escape }}<span class="w-10 h-10 rounded-full bg-[#1A1A1A] text-white flex items-center justify-center group-hover:translate-x-1 transition-transform"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a><a class="rounded-full border border-white/25 px-7 py-4 text-[11px] font-bold tracking-[0.14em] uppercase hover:bg-white hover:text-[#1A1A1A] transition-colors" href="{{ section.settings.link_5 }}">{{ block.settings.copy_8 | escape }}</a></div></div></div><div class="relative min-h-[560px] lg:min-h-full overflow-hidden">{% if section.settings.image_6 != blank %}{{ section.settings.image_6 | image_url: width: 1600 | image_tag: class: 'absolute inset-0 w-full h-full object-cover object-center', loading: 'eager', sizes: '(min-width: 1024px) 50vw, 100vw', widths: '400, 750, 1100, 1600', alt: block.settings.image_1_alt }}{% else %}<img src="{{ 'sync-47154501d87a.jpg' | asset_url }}" class="absolute inset-0 w-full h-full object-cover object-center" width="1400" height="1200" loading="eager" alt="{{ block.settings.image_1_alt | escape }}">{% endif %}<div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/10"></div><div class="absolute top-6 right-6 bg-white text-[#1A1A1A] rounded-2xl px-5 py-4 shadow-xl"><div class="text-[9px] font-bold tracking-[0.18em] uppercase text-[#897F74]">{{ block.settings.copy_9 | escape }}</div><div class="font-display text-[28px] font-black mt-1">{{ block.settings.copy_10 | escape }}</div></div><div class="absolute left-5 right-5 sm:left-8 sm:right-8 bottom-6 grid grid-cols-3 rounded-2xl overflow-hidden bg-white/92 backdrop-blur-md text-[#1A1A1A] shadow-2xl"><div class="px-3 sm:px-5 py-5 border-r border-[#D7D0C6] last:border-0"><div class="font-display text-[13px] sm:text-[16px] font-extrabold">{{ block.settings.copy_11 | escape }}</div><div class="text-[#7B7167] text-[9px] sm:text-[10px] mt-1">{{ block.settings.copy_12 | escape }}</div></div><div class="px-3 sm:px-5 py-5 border-r border-[#D7D0C6] last:border-0"><div class="font-display text-[13px] sm:text-[16px] font-extrabold">{{ block.settings.copy_13 | escape }}</div><div class="text-[#7B7167] text-[9px] sm:text-[10px] mt-1">{{ block.settings.copy_14 | escape }}</div></div><div class="px-3 sm:px-5 py-5 border-r border-[#D7D0C6] last:border-0"><div class="font-display text-[13px] sm:text-[16px] font-extrabold">{{ block.settings.copy_15 | escape }}</div><div class="text-[#7B7167] text-[9px] sm:text-[10px] mt-1">{{ block.settings.copy_16 | escape }}</div></div></div></div></div></section>
+{% endunless %}
 {% when 'band_2' %}
 <section {{ block.shopify_attributes }} class="px-6 sm:px-10 py-20 sm:py-28"><div class="max-w-[1280px] mx-auto"><div class="grid lg:grid-cols-[0.85fr_1.15fr] gap-12 lg:gap-20 items-end mb-12"><div><p class="text-[#806A2A] text-[10px] font-bold tracking-[0.24em] uppercase mb-5">{{ block.settings.copy_1 | escape }}</p><h2 class="font-display text-[42px] sm:text-[58px] font-black leading-[0.93] tracking-[-0.035em]">{{ block.settings.copy_2 | escape }}<br>{{ block.settings.copy_3 | escape }}</h2></div><p class="text-[#6F665D] text-[16px] leading-relaxed max-w-[540px] lg:justify-self-end">{{ block.settings.copy_4 | escape }}</p></div><div class="grid md:grid-cols-3 gap-4"><article class="bg-white border border-[#DED7CD] rounded-2xl p-7 min-h-[260px] flex flex-col hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(52,42,30,0.09)] transition-all duration-300"><span class="font-mono text-[10px] text-[#A87500]">{{ block.settings.copy_5 | escape }}</span><div class="mt-auto"><h3 class="font-display text-[23px] font-extrabold">{{ block.settings.copy_6 | escape }}</h3><p class="text-[#71685F] text-[13px] leading-relaxed mt-3">{{ block.settings.copy_7 | escape }}</p></div></article><article class="bg-white border border-[#DED7CD] rounded-2xl p-7 min-h-[260px] flex flex-col hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(52,42,30,0.09)] transition-all duration-300"><span class="font-mono text-[10px] text-[#A87500]">{{ block.settings.copy_8 | escape }}</span><div class="mt-auto"><h3 class="font-display text-[23px] font-extrabold">{{ block.settings.copy_9 | escape }}</h3><p class="text-[#71685F] text-[13px] leading-relaxed mt-3">{{ block.settings.copy_10 | escape }}</p></div></article><article class="bg-white border border-[#DED7CD] rounded-2xl p-7 min-h-[260px] flex flex-col hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(52,42,30,0.09)] transition-all duration-300"><span class="font-mono text-[10px] text-[#A87500]">{{ block.settings.copy_11 | escape }}</span><div class="mt-auto"><h3 class="font-display text-[23px] font-extrabold">{{ block.settings.copy_12 | escape }}</h3><p class="text-[#71685F] text-[13px] leading-relaxed mt-3">{{ block.settings.copy_13 | escape }}</p></div></article></div></div></section>
 {% when 'band_3' %}
@@ -20,6 +22,12 @@
 {
   "name": "Ready Series overview",
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "separate_hero",
+      "label": "Use separate brand hero section",
+      "default": false
+    },
     {
       "type": "url",
       "id": "link_1",
@@ -285,7 +293,7 @@
           "type": "textarea",
           "id": "copy_6",
           "label": "Browse individual meals, predefined bundles, ",
-          "default": "Browse individual meals, predefined bundles, or a prepaid 3- or 6-month subscription with monthly deliveries and no automatic renewal."
+          "default": "Browse individual meals, predefined bundles, or a prepaid 3- or 6-month subscription. Subscription deliveries repeat monthly; billing renews every 3 or 6 calendar months unless future renewal is cancelled."
         },
         {
           "type": "textarea",
@@ -362,8 +370,8 @@
         {
           "type": "textarea",
           "id": "copy_4",
-          "label": "Choose from 10 predefined plans across Just P",
-          "default": "Choose from 10 predefined plans across Just Protein, Low Carb, High Carb, and Mixed. Select a 3- or 6-month term and receive one planned delivery each month."
+          "label": "Prepaid package explanation",
+          "default": "Choose a predefined package across Just Protein, Low Carb, High Carb, and Mixed. Pay upfront for 3 or 6 deliveries, scheduled monthly from the next available first delivery. Renewal billing follows a separate 3- or 6-calendar-month schedule."
         },
         {
           "type": "textarea",
@@ -386,14 +394,14 @@
         {
           "type": "textarea",
           "id": "copy_8",
-          "label": "10",
-          "default": "10"
+          "label": "Package selection",
+          "default": "Curated"
         },
         {
           "type": "textarea",
           "id": "copy_9",
           "label": "predefined plans",
-          "default": "predefined plans"
+          "default": "predefined packages"
         },
         {
           "type": "textarea",
@@ -410,8 +418,8 @@
         {
           "type": "textarea",
           "id": "copy_12",
-          "label": "month terms",
-          "default": "month terms"
+          "label": "deliveries per term",
+          "default": "deliveries per term"
         },
         {
           "type": "textarea",
@@ -423,13 +431,13 @@
           "type": "textarea",
           "id": "copy_14",
           "label": "1",
-          "default": "1"
+          "default": "Monthly"
         },
         {
           "type": "textarea",
           "id": "copy_15",
-          "label": "delivery each month",
-          "default": "delivery each month"
+          "label": "delivery schedule",
+          "default": "delivery schedule"
         },
         {
           "type": "textarea",
@@ -440,14 +448,14 @@
         {
           "type": "textarea",
           "id": "copy_17",
-          "label": "Monthly",
-          "default": "Monthly"
+          "label": "3 / 6 months",
+          "default": "3 / 6 months"
         },
         {
           "type": "textarea",
           "id": "copy_18",
-          "label": "delivery rhythm",
-          "default": "delivery rhythm"
+          "label": "renewal billing cycle",
+          "default": "renewal billing cycle"
         }
       ]
     },

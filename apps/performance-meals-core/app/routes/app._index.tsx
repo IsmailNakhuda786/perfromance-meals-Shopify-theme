@@ -3,12 +3,14 @@ import {Form,useLoaderData,useActionData} from 'react-router';
 import {authenticate,registerWebhooks} from '../shopify.server';
 import {assertShop} from '../services/security.server';
 import {reconcilePending} from '../services/reconciliation.server';
+import {reviewOrderEventConnections} from '../services/order-event-connections';
 export async function loader({request}:LoaderFunctionArgs) {
  const {session,admin}=await authenticate.admin(request);assertShop(session.shop);
  const response=await admin.graphql(`#graphql
- query CoreConnection {shop {myshopifyDomain currencyCode ianaTimezone} webhookSubscriptions(first:20){nodes{topic uri}}}`);
- const result=await response.json();if(!result.data) throw new Response('Connection unavailable',{status:503});
- return {shop:result.data.shop,connected:result.data.webhookSubscriptions.nodes.some((s:{topic:string;uri:string})=>s.topic==='ORDERS_CREATE'&&s.uri===new URL('/webhooks/orders/create',process.env.SHOPIFY_APP_URL).href)};
+ query CoreConnection {shop {myshopifyDomain currencyCode ianaTimezone} webhookSubscriptions(first:100){nodes{topic uri}pageInfo{hasNextPage}}}`);
+ const result=await response.json();if(!response.ok||("errors" in result&&result.errors)||!result.data?.shop||result.data.shop.myshopifyDomain!==session.shop||!result.data.webhookSubscriptions) throw new Response('Connection unavailable',{status:503});
+ const subscriptions=result.data.webhookSubscriptions;
+ return {shop:result.data.shop,...reviewOrderEventConnections(process.env.SHOPIFY_APP_URL,subscriptions.nodes,subscriptions.pageInfo?.hasNextPage===false)};
 }
 export async function action({request}:ActionFunctionArgs){
  const {session,admin}=await authenticate.admin(request);assertShop(session.shop);
