@@ -81,9 +81,9 @@ test('batch continuation survives state changes and never retries uncertain prov
 test('development email adapter composes with the durable batch and keeps timed-out sends held',async()=>{
  await db.giftCardExpiryReminder.updateMany({where:{shop,state:'PENDING'},data:{state:'UNAVAILABLE'}});
  const samples=await Promise.all([registered(),registered()]);const cards=new Map(samples.map(item=>[item.card.id,item.card]));
- process.env.GIFT_CARD_REMINDER_TEST_RECIPIENT='qa@example.invalid';process.env.GIFT_CARD_REMINDER_TEST_CUSTOMER=customer;
- let calls=0;const send=developmentGiftCardReminderSender({apiKey:'re_test',recipient:'qa@example.invalid',customerGid:customer,transport:async(url,request)=>{
-  calls++;const body=JSON.parse(request.body);assert.deepEqual(body.to,['qa@example.invalid']);assert.match(body.text,/15 October 2027/);assert.ok(!body.text.includes(customer));
+ process.env.GIFT_CARD_REMINDER_TEST_RECIPIENT='qa@example.test';process.env.GIFT_CARD_REMINDER_TEST_CUSTOMER=customer;
+ let calls=0;const send=developmentGiftCardReminderSender({apiKey:'re_test',recipient:'qa@example.test',customerGid:customer,transport:async(url,request)=>{
+  calls++;const body=JSON.parse(request.body);assert.deepEqual(body.to,['qa@example.test']);assert.match(body.text,/15 October 2027/);assert.ok(!body.text.includes(customer));
   if(calls===2)throw Error('Uncertain provider response');return Response.json({id:'22222222-2222-4222-8222-222222222222'});
  }});
  const gateway={adminFor:()=>({graphql:async(query,{variables})=>admin(cards.get(variables.id)).graphql(query)}),send};
