@@ -2,7 +2,8 @@ import {calculateSingaporeDelivery,type DeliveryLine} from './delivery-policy';
 
 type Money={amount:string;currencyCode:string};
 type Field={jsonValue:unknown}|null;
-type CartLine={id:string;quantity:number;cost:{subtotalAmount:Money;totalAmount:Money};discountAllocations:{discountedAmount:Money}[];sellingPlanAllocation:null|{sellingPlan:{id:string}};merchandise:{__typename:string;id?:string;product?:{id:string;isGiftCard:boolean;stream:Field;deliveryIncluded:Field}}};
+type BooleanField={type:string;value:string}|null;
+type CartLine={id:string;quantity:number;cost:{subtotalAmount:Money;totalAmount:Money};discountAllocations:{discountedAmount:Money}[];sellingPlanAllocation:null|{sellingPlan:{id:string}};merchandise:{__typename:string;id?:string;product?:{id:string;isGiftCard:boolean;stream:Field;deliveryIncluded:BooleanField}}};
 type Group={id:string;cartLines:{id:string}[];deliveryAddress:{countryCode:string}|null;deliveryOptions:{handle:string;cost:Money}[]};
 export type CoreDeliveryInput={cart:{lines:CartLine[];deliveryGroups:Group[]}};
 export type CoreDeliveryConfiguration={pricesIncludeTaxVerified:boolean;topUpProductGid?:string};
@@ -14,10 +15,10 @@ function amount(value:Money){
  const [whole,fraction='']=value.amount.split('.');const result=BigInt(whole)*100n+BigInt(fraction.padEnd(2,'0'));
  if(result>2147483647n)throw Error('Amount outside supported range');return Number(result);
 }
-// Offline Core decision adapter for the validated Function input, NOT an active
-// Function. No rates are created and no checkout is blocked or changed here.
-// A future Function must return no operations on HELD and independently prove
-// native discount/tax semantics, deployment eligibility and all cart paths.
+// Core decision adapter for validated native Function input. The isolated
+// development Function consumes a source-verified snapshot of this policy.
+// HELD returns no decisions; the caller must not treat that as correct shipping.
+// No rates are created here. Wider native tax/cart/distribution gates remain.
 export function planCoreDeliveryOptions(input:CoreDeliveryInput,configuration:CoreDeliveryConfiguration){
  try{
   if(configuration?.pricesIncludeTaxVerified!==true)throw Error('GST-inclusive price evidence required');
@@ -31,10 +32,16 @@ export function planCoreDeliveryOptions(input:CoreDeliveryInput,configuration:Co
    const original=amount(line.cost?.subtotalAmount),discount=sum(line.discountAllocations.map(discount=>amount(discount.discountedAmount)));
    if(discount>original)throw Error('Discount exceeds original food value');
    const netMinor=original-discount;
-   // Refuse ambiguous/differing evidence rather than subtracting a discount twice.
-   if(amount(line.cost.totalAmount)!==netMinor)throw Error('Native line totals and allocated discounts require verification');
-   const stream=product.stream?.jsonValue,included=product.deliveryIncluded?.jsonValue;
-   if(included!==undefined&&included!==null&&typeof included!=='boolean')throw Error('Invalid delivery metadata');
+   // Native checkout evidence (18 Oct): totalAmount can still be 100 when an
+   // order allocation is 30. Derive net once from subtotal minus ALL allocations;
+   // totalAmount is only a consistency bound, not a second discount deduction.
+   const observedTotal=amount(line.cost.totalAmount);
+   if(observedTotal<netMinor||observedTotal>original)throw Error('Native line totals and allocated discounts require verification');
+   const stream=product.stream?.jsonValue,field=product.deliveryIncluded;
+   // Native boolean false was returned as the string "false" by jsonValue.
+   // Read the declared type and raw value instead of relying on truthiness.
+   if(field!==null&&field!==undefined&&(field.type!=='boolean'||!['true','false'].includes(field.value)))throw Error('Invalid delivery metadata');
+   const included=field?.value==='true';
    const sellingPlan=line.sellingPlanAllocation;
    if(sellingPlan!==null&&(!sellingPlan||!gid('SellingPlan',sellingPlan.sellingPlan?.id)))throw Error('Invalid native selling plan evidence');
    let kind:DeliveryLine['kind'];

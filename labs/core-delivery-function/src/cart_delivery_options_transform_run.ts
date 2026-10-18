@@ -13,6 +13,13 @@ export function cartDeliveryOptionsTransformRun(input:Input):CartDeliveryOptions
  if(!Array.isArray(input?.cart?.lines)||input.cart.lines.some(line=>!allowed.includes(line?.merchandise?.product?.id)))return {operations:[]};
  if(config.topUpProductGid!==undefined&&typeof config.topUpProductGid!=="string")return {operations:[]};
  const result=planCoreDeliveryOptions(input,{pricesIncludeTaxVerified:true,topUpProductGid:config.topUpProductGid as string|undefined});
- if(result.state!=="PLANNED")return {operations:[]};
- return {operations:result.decisions.flatMap(group=>group.hideHandles.map(handle=>({deliveryOptionHide:{deliveryOptionHandle:handle}})))};
+ const operations:CartDeliveryOptionsTransformRunResult["operations"]=result.state==="PLANNED"?result.decisions.flatMap(group=>group.hideHandles.map(handle=>({deliveryOptionHide:{deliveryOptionHandle:handle}}))):[];
+ // Explicit QA-only diagnostics. No customer data, prices or eligibility are changed.
+ // Exact product allowlist above remains mandatory, even in diagnostic mode.
+ if(config.diagnostics===true){
+  const observed=input.cart.lines.map(line=>({subtotal:line.cost?.subtotalAmount?.amount,total:line.cost?.totalAmount?.amount,discounts:line.discountAllocations?.map(d=>d.discountedAmount?.amount)}));
+  const label=result.state==="HELD"?"HELD "+JSON.stringify(observed):"food "+result.eligibleSubtotalMinor+" cents";
+  for(const group of input.cart.deliveryGroups)for(const option of group.deliveryOptions)operations.push({deliveryOptionRename:{deliveryOptionHandle:option.handle,title:("PM Core QA — "+label).slice(0,200)}});
+ }
+ return {operations};
 }

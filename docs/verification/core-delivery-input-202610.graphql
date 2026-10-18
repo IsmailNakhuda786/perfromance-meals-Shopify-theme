@@ -14,7 +14,7 @@ query Input {
       id
       isGiftCard
       stream: metafield(namespace: "performance", key: "business_stream") { jsonValue }
-      deliveryIncluded: metafield(namespace: "performance", key: "delivery_included") { jsonValue }
+      deliveryIncluded: metafield(namespace: "performance", key: "delivery_included") { type value }
      }
     }
    }

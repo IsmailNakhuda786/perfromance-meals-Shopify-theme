@@ -48,7 +48,8 @@
                   "jsonValue": "ready_series"
                 },
                 "deliveryIncluded": {
-                  "jsonValue": false
+                  "type": "boolean",
+                  "value": "false"
                 }
               }
             }

@@ -9,3 +9,6 @@ extensions/*/shopify.d.ts
 extensions/*/dist
 .react-router
 extensions/*/src/app-endpoint.generated.js
+
+# Shopify schema-generated Function types; retained in TypeScript checking.
+extensions/*/generated

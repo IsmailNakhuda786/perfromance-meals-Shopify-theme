@@ -1,0 +1,19 @@
+{
+  "schema": "schema.graphql",
+  "documents": "src/*.graphql",
+  "generates": {
+    "./generated/api.ts": {
+      "plugins": [
+        "typescript",
+        "typescript-operations"
+      ]
+    }
+  },
+  "config": {
+    "omitOperationSuffix": true,
+    "scalars": {
+      "Decimal": "string",
+      "JSON": "unknown"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+api_version = "2026-10"
+
+[[extensions]]
+name = "t:name"
+handle = "core-delivery-qa"
+uid = "0a11ad73-71d0-479b-9c1a-ce4b4e2868759dff255d"
+type = "function"
+description = "t:description"
+
+  [[extensions.targeting]]
+  target = "cart.delivery-options.transform.run"
+  input_query = "src/cart_delivery_options_transform_run.graphql"
+  export = "cart-delivery-options-transform-run"
+
+  [extensions.build]
+  command = ""
+  typegen_command = "node ../../node_modules/@graphql-codegen/cli/cjs/bin.js --config codegen.json"
+  path = "dist/function.wasm"
+
+  [extensions.ui.paths]
+  create = "/"
+  details = "/"

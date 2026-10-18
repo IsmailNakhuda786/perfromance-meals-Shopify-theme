@@ -30,7 +30,7 @@
                 "currencyCode": "SGD"
               },
               "totalAmount": {
-                "amount": "70.00",
+                "amount": "100.00",
                 "currencyCode": "SGD"
               }
             },
@@ -53,7 +53,8 @@
                   "jsonValue": "ready_series"
                 },
                 "deliveryIncluded": {
-                  "jsonValue": false
+                  "type": "boolean",
+                  "value": "false"
                 }
               }
             }

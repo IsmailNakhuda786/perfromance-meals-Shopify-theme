@@ -90,8 +90,8 @@ Delivery Customization input-schema validation. It requests native line subtotal
 total and allocated discounts, product/plan metadata and delivery groups/options.
 
 `core-delivery-options.ts` is an offline decision adapter, NOT an active Function.
-It subtracts allocated discounts from subtotal and requires agreement with native
-total; excludes prepaid/Gift Card/top-up values; charges ordinary food separately;
+It subtracts allocated discounts from subtotal once and bounds native total
+between net and subtotal (18October native order-discount correction); excludes prepaid/Gift Card/top-up values; charges ordinary food separately;
 uses75/125inclusive boundaries and never multiplies native line totals twice.
 Unknown GST basis, conflicting money, foreign/duplicate/split lines, multiple
 ordinary-food groups or missing rates return HELD/no decisions.
@@ -112,3 +112,8 @@ pending review, not a completed rejection of every possible architecture. No new
 support message was sent. User-approved development inclusive-price setting is now
 on and API-verified;0tax native calculations preserve four product totals. This
 does not yet prove nonzeroGST and does not activate the shipping decision adapter.
+
+18October follow-up: shipping candidate compiled and25official runner fixtures pass.
+User approved a development-only upload/test.11unpaid native shipping comparisons
+pass; exact rule disabled afterward. See CORE-SHIPPING-FUNCTION-QA-20261018.md.
+This is shipping progress only, not approval of the blocked Wallet architecture.

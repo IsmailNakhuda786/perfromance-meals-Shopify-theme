@@ -36,3 +36,28 @@ All23SQLite migrations reconstructed an empty isolated temporary fixture.
 Existing development database, balances and records untouched. The60-day programme
 retains88weekday+32frozen meals; frozen dispatches remain merchant-arranged without
 invented batch dates. Continued implementation must respect that boundary.
+
+## Approved next native step
+
+User specifically approved a development-only Function upload/activation restricted
+to isolated test products, with no completed order/payment/theme publication or
+production change. Preparing preserved Core preview with a new core-delivery-qa
+extension and narrow read/write_delivery_customizations access.23official WASM
+fixtures pass, including mandatory exact-product allowlist rejection. Missing or
+unlisted products return no operations; no broad production rule is permitted.
+No native activation/checkout acceptance claimed until recorded readback.
+
+Public sanitized backup independently fetched: a1911ab172a97283e7f4601552ccf1ff99b64fbd
+on backup/customer-core-20261012,776files. Original source history is preserved
+locally and not exported to this public snapshot. Subsequent native-test scaffolding
+needs its next checkpoint/backup after verification.
+
+## Native test result checkpoint
+
+Approved scoped development preview upload completed.11unpaid native shipping cases
+pass; rule disabled and diagnostics off after QA. See CORE-SHIPPING-FUNCTION-QA-20261018.md
+for exact cases, native input corrections and remaining gates.25official WASM
+fixtures and274Core tests pass with typecheck/lint/schema alignment.4callbacks
+independently verified. New native rule remains inactive; no released app version,
+production, financial action or published-profile change. Accountbrowser check is
+automatically blocked despite approval; no bypass. Native GST collection remains0.

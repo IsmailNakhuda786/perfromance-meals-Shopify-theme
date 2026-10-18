@@ -14,7 +14,7 @@ identity if present, plus a mandatory exact-product allowlist for isolated QA.
 Any cart containing an unlisted product returns no operations. Fixture configuration is SYNTHETIC evidence, not a claim that
 GST/checkout acceptance has passed. No customer or private store data is included.
 
-23 synthetic fixtures passed the official Shopify WASM test helpers and Function
+25 synthetic fixtures passed the official Shopify WASM test helpers and Function
 runner on 18 October 2026. Inputs, input-query matching and expected outputs were
 validated against the fetched 2026-10 schema. This includes order discounts, exact
 75/125 boundaries, mixed/prepaid/excluded products, separate prepaid groups, native
@@ -32,3 +32,7 @@ and draft/subscription cases, plan/distribution eligibility, multiple ordinary-f
 groups, actual published-product profile/rate compatibility. Delivery customization
 only hides existing rate options; it creates no rates. HELD means no operations,
 NOT enforced correct shipping. Existing QA rules remain inactive.
+
+Approved native development evidence now exists for the active QA copy under
+apps/performance-meals-core/extensions/core-delivery-qa. See the18October QA report.
+The lab remains isolated. Native rule is disabled after11unpaid comparisons.
