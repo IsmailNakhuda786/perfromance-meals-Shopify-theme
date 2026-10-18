@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "33e672aec32944acfbe0faa13d97cea2eb914426",
+  "source_commit": "ce972f6c0273018433f5129b3fc22f97d9dd3db9",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -2065,6 +2065,11 @@
       "sanitized": true
     },
     {
+      "path": "docs/RESUME-CHECKPOINT-20261018.md",
+      "sha256": "e974716c79d0ac9660f88ae78e91f600601e7a80e25abc099e5f7dab58e8d2f0",
+      "sanitized": false
+    },
+    {
       "path": "docs/REWARDS-FUNDING-VALIDATION-20261014.md",
       "sha256": "3708fd6d37ba9d1c492daf6374e41c6564d2b98deecac27ef7f5dac81cae714b",
       "sanitized": false
@@ -2192,6 +2197,201 @@
     {
       "path": "index.html",
       "sha256": "768eac67e6271681de61c23f1c94a6bf688607bbad2d0bccafd8f4bfe789a079",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/.gitignore",
+      "sha256": "d6f9c6a2e3244e2844efb6da07e77a0a11c1a819449d91865e997987f367ad44",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/README.md",
+      "sha256": "bd17686056e89fa5e9366ea8c1bc22376150596ad0d20ae837f250d7965a425c",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/core-source-hashes.json",
+      "sha256": "a9b1ae49bd086b79ad99c51701f9c39bcaac510fbc961b0eb0a7074b72072508",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/locales/en.default.json",
+      "sha256": "27194357734c995845ba3efc0475f06976b6ad2c300fef080f63a60f3134b5f0",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/package.json",
+      "sha256": "b0672ecbf01098e150a0d9afcb5bf7adff9cce9a1c05b791ebe7e2e856e32b9a",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/schema.graphql",
+      "sha256": "fb059d3888f78b0eae1d4b2a266b5f90402af82d8b81d6e62bb6bec76bf44e61",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/shopify.extension.toml",
+      "sha256": "b0f37c72a2132ebcde9c741eec2855c357f636bb604f3f6455482cf93aa3e404",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/src/cart_delivery_options_transform_run.graphql",
+      "sha256": "329acd1bb5b7e4a86612a643a138e0259137881cf3e25eaf381bd49ad121b66f",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/src/cart_delivery_options_transform_run.ts",
+      "sha256": "e4f3d703fb533caeabd460a7c55954b397abb5461541b0fc64fd27e0b0a67a97",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/src/core-delivery-options.ts",
+      "sha256": "f884c9068ccadc53b1e9b104ec7599da02c392049bcf6cb83b6854ca9ead7a26",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/src/delivery-policy.ts",
+      "sha256": "3fd2a10e28934881219cfcaa4d3b4c5d0486c57f467da4275d72d7a6fef1f011",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/src/index.ts",
+      "sha256": "8db1e60317dc2e2be532f47247f193115968dc92dd83ed0d364f028a9aac2dca",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/core-source.test.js",
+      "sha256": "1cfc74802f703e8ac231cc075fe5826eb690b138f5e837a4ad81ab4adc6a67bb",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/default.test.js",
+      "sha256": "a9e34c0c02ec9ae1376d10e6bf338b8fa96620eb2cfe18c5ea79f58142092875",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/boundary-12499.json",
+      "sha256": "59bd7c90f47e28d07a6e1b7f0b395368c00a785650f8e6187f9461477b845d50",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/boundary-12500.json",
+      "sha256": "3498721575a75ff28031a18b19e7ab546303a0b6c32f9b39500c96897c3532ca",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/boundary-7499.json",
+      "sha256": "e9f54c47686b3c016410730fc97729ba65380d2c32494748906715bcd8dc2337",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/boundary-7500.json",
+      "sha256": "cb446468c79a7c06873dd477f3cce8ce10ab7e560ab15f8602dfa0ecf7d70542",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/conflicting-totals.json",
+      "sha256": "bf885ea79af0146542372b8737ad64858a8b7587936e3c941a12929b31d64293",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/disabled.json",
+      "sha256": "d36dde03634fd113bac13ca7cb4fa82358ce6ec5e2631a269ff69dac189e11e7",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/duplicate-product-allowlist.json",
+      "sha256": "d907035478fcce1c57341381a57d0ec3e300e0723cbe3afea455f9e4e9e72e18",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/excluded-funding-products.json",
+      "sha256": "1c43b1e1fad596a9f9b32bb09f4b81cd9120a3b03fba9ec6e62260416f2394d4",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/foreign-destination.json",
+      "sha256": "88e028e56a5b875176418f11b041fde63944704e082fa69d4c0bed695a59350b",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/maximum-cart.json",
+      "sha256": "48fe7fe733af545bea770d76ddb4d680fbf07cfabb698337b6b582ffa6f0bc98",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/missing-configuration.json",
+      "sha256": "d111a8c28b7a93285e7bdfb49c01a2463f8e80d1787ab6ed12af1949aae0c84e",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/missing-product-allowlist.json",
+      "sha256": "a40eb1e1444763e5e1a0d225218aef18d430b5bf805ea48f4fc0968617fd8174",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/missing-rate.json",
+      "sha256": "513259cb511156730906c84eac6038f9d23804a72d7ab60278968bcd9138ae60",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/mixed-prepaid.json",
+      "sha256": "fc8a7269c27196d844706a3aca00e302608a6260967f509735e1742dd76b890a",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/multiple-discount-allocations.json",
+      "sha256": "003c8023e5bd1359e9a3b9005a11b8394c84b199fecc79b1b9e74ddd00911afa",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/native-quantity-totals-once.json",
+      "sha256": "08adf69991f35ac47b3b919e9595c0e2da91f2513c8cba277649b1f3bf28a80f",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/order-discount.json",
+      "sha256": "2f2e920796978f260423dd8912a27522c4c805961fb6ba8061662681e4a8f162",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/prepaid-only.json",
+      "sha256": "103aecf9911dadef523a0e12b9b0230a5cf7cb18e4df4a197e8a105590f954bc",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/separate-prepaid.json",
+      "sha256": "596164d2948a89c99159162c0731cefa214d15f33698431cea98af3567b9d2b5",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/split-ordinary-held.json",
+      "sha256": "01f365fcfe8d01387326a78f7d0360264c8ca896f978ea7c68ab3c32e4500ba3",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/unknown-policy.json",
+      "sha256": "b6622a0ec13ecf1c0eafa6a26ffad07a1e317e3086cd0babc3c3ac02a46557da",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/unlisted-product.json",
+      "sha256": "f65b5e528b63faf54c5584c3b9b06bf8b2f83f198986e066430342a003e1640e",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/unverified-tax.json",
+      "sha256": "b4612e93d7e2b84d2d41b03696888f931e5876348e8a0522f54af5433f1fec4b",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/vite.config.js",
+      "sha256": "59d4a4ed9b8afbf23167616714c64da6b728444a805474d613d94c2e5d19604a",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/vitest.config.js",
+      "sha256": "62783db9202ab01d511c99c47f594297bb0f16dac578fee048a121227a554b98",
       "sanitized": false
     },
     {
@@ -3706,7 +3906,7 @@
     "docs/CUSTOMER-CORE-CHECKPOINT-20261012.md"
   ],
   "excluded": [],
-  "backup_updated_at": "2026-10-17",
+  "backup_updated_at": "2026-10-18",
   "excluded_private_qa_documents": [
     "docs/CANCELLATION-WALLET-QA-20261013.md",
     "docs/CUSTOMER-CORE-CHECKPOINT-20261012.md",

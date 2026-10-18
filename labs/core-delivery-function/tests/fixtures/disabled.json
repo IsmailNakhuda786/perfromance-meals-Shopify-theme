@@ -1,0 +1,97 @@
+{
+  "payload": {
+    "export": "cart-delivery-options-transform-run",
+    "target": "cart.delivery-options.transform.run",
+    "input": {
+      "deliveryCustomization": {
+        "metafield": {
+          "jsonValue": {
+            "enabled": false,
+            "policyVersion": "sg-delivery-20261018",
+            "pricesIncludeTaxVerified": true,
+            "topUpProductGid": "gid://shopify/Product/9",
+            "allowedProductGids": [
+              "gid://shopify/Product/1",
+              "gid://shopify/Product/2",
+              "gid://shopify/Product/8",
+              "gid://shopify/Product/9"
+            ]
+          }
+        }
+      },
+      "cart": {
+        "lines": [
+          {
+            "id": "gid://shopify/CartLine/1",
+            "quantity": 1,
+            "cost": {
+              "subtotalAmount": {
+                "amount": "20.00",
+                "currencyCode": "SGD"
+              },
+              "totalAmount": {
+                "amount": "20.00",
+                "currencyCode": "SGD"
+              }
+            },
+            "discountAllocations": [],
+            "sellingPlanAllocation": null,
+            "merchandise": {
+              "__typename": "ProductVariant",
+              "id": "gid://shopify/ProductVariant/1",
+              "product": {
+                "id": "gid://shopify/Product/1",
+                "isGiftCard": false,
+                "stream": {
+                  "jsonValue": "ready_series"
+                },
+                "deliveryIncluded": {
+                  "jsonValue": false
+                }
+              }
+            }
+          }
+        ],
+        "deliveryGroups": [
+          {
+            "id": "gid://shopify/CartDeliveryGroup/1",
+            "cartLines": [
+              {
+                "id": "gid://shopify/CartLine/1"
+              }
+            ],
+            "deliveryAddress": {
+              "countryCode": "SG"
+            },
+            "deliveryOptions": [
+              {
+                "handle": "rate-1-0",
+                "cost": {
+                  "amount": "0.00",
+                  "currencyCode": "SGD"
+                }
+              },
+              {
+                "handle": "rate-1-500",
+                "cost": {
+                  "amount": "5.00",
+                  "currencyCode": "SGD"
+                }
+              },
+              {
+                "handle": "rate-1-1000",
+                "cost": {
+                  "amount": "10.00",
+                  "currencyCode": "SGD"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "output": {
+      "operations": []
+    }
+  }
+}
