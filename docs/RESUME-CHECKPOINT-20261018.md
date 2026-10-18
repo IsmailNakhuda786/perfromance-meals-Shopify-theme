@@ -61,3 +61,17 @@ fixtures and274Core tests pass with typecheck/lint/schema alignment.4callbacks
 independently verified. New native rule remains inactive; no released app version,
 production, financial action or published-profile change. Accountbrowser check is
 automatically blocked despite approval; no bypass. Native GST collection remains0.
+
+## Gift Card reminder adapter follow-up
+
+Added development-only original-expiry email adapter for the existing reminder
+batch.9focused tests pass, including durable outbox/provider mock integration and
+unknown-response no-resend. No actual mail, secret changes, native Gift Card change,
+worker or activation. Separate QA configuration remains unset. See
+GIFT-CARD-REMINDER-DEVELOPMENT-20261018.md. Shipping checkpoint1dce07b is publicly
+backed up at50694e79cc6241ce788842259870041d2ff20ab7,791files verified by fetch.
+
+Latest full verification:278Core tests pass with the isolated SQLite client;
+typecheck/lint/PostgreSQL-schema alignment pass. Read-only connected Gmail check
+found no matching new Shopify Wallet technical reply. Shipy’s existing original-
+price acknowledgement is unchanged; no new support email was sent.

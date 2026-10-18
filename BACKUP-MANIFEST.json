@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "1dce07b295319fac5f10925da5821046a92fc3d4",
+  "source_commit": "6fd7fa25c5c28f38d8f38aebe6f61a0ef5143298",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -333,6 +333,11 @@
       "path": "apps/performance-meals-core/app/services/gift-card-reminder-batch.server.ts",
       "sha256": "7fb1cde43cc27b5fb259b402eb9dfb9656a117bb8d68840b567cfb9f691e93cd",
       "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/gift-card-reminder-development.server.ts",
+      "sha256": "0b4e2bc384610fd9506f6d21e236996fbecbf347771fcc15034d5bba72f75fb6",
+      "sanitized": true
     },
     {
       "path": "apps/performance-meals-core/app/services/gift-card-reminder.server.ts",
@@ -1070,9 +1075,14 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/tests/gift-card-reminder-development.test.mjs",
+      "sha256": "47ce1311db349725bbc57edf74893468ec56f0736581cd199b93a9a12bd1a5a7",
+      "sanitized": true
+    },
+    {
       "path": "apps/performance-meals-core/tests/gift-card-reminder.test.mjs",
-      "sha256": "7b0f92663bb75a4b0983faae3256c07917438442decd21a3694e23b7ea24f453",
-      "sanitized": false
+      "sha256": "3f134232d92d4c90d42cf9c5d7ff2edb4443cb47f6535e5a259afc0dcab13ed0",
+      "sanitized": true
     },
     {
       "path": "apps/performance-meals-core/tests/gift-card-request.test.mjs",
@@ -2025,6 +2035,11 @@
       "sanitized": false
     },
     {
+      "path": "docs/GIFT-CARD-REMINDER-DEVELOPMENT-20261018.md",
+      "sha256": "da8bae25f0dcfc445f1f8dea79ceb8519b7ebd8f3d8d74ec154bc2817aaae0e5",
+      "sanitized": false
+    },
+    {
       "path": "docs/GIFT-CARD-WALLET-QA.md",
       "sha256": "4e2d4fb387ae077427bd850f1686aff8ba4579876df51267fb38fb3d6a2afd9f",
       "sanitized": true
@@ -2131,7 +2146,7 @@
     },
     {
       "path": "docs/RESUME-CHECKPOINT-20261018.md",
-      "sha256": "90a31e2a383a9fa69cd4cf9bf169cc8b30c97de474b98deb1b8f319d870e31a3",
+      "sha256": "4b77ff57bc9e9bef768c838c1c2a09e67b1bf0ea6fd3effc442e497096356acc",
       "sanitized": false
     },
     {

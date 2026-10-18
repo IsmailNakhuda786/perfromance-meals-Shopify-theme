@@ -2,9 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
 import {PrismaClient,buildServices} from './support/database.mjs';
-await buildServices({entryPoints:['app/services/gift-card-reminder.server.ts','app/services/gift-card-reminder-batch.server.ts'],outdir:'.shopify/gift-reminder-test',bundle:true,packages:'external',format:'esm',platform:'node'});
+await buildServices({entryPoints:['app/services/gift-card-reminder.server.ts','app/services/gift-card-reminder-batch.server.ts','app/services/gift-card-reminder-development.server.ts'],outdir:'.shopify/gift-reminder-test',bundle:true,packages:'external',format:'esm',platform:'node'});
 const {registerGiftCardReminder,prepareGiftCardReminder,finishGiftCardReminder}=await import('../.shopify/gift-reminder-test/gift-card-reminder.server.js');
 const {runGiftCardReminderBatch}=await import('../.shopify/gift-reminder-test/gift-card-reminder-batch.server.js');
+const {developmentGiftCardReminderSender}=await import('../.shopify/gift-reminder-test/gift-card-reminder-development.server.js');
 const db=new PrismaClient(),shop=`gift-reminder-${randomUUID()}.myshopify.com`,customer='gid://shopify/Customer/1401',boundary='2026-10-15T00:00:00Z',due=new Date('2027-09-14T16:00:00Z');
 process.env.ALLOWED_SHOP=shop;
 let sequence=1402;
@@ -75,4 +76,19 @@ test('batch continuation survives state changes and never retries uncertain prov
  assert.equal(states.filter(item=>item.state==='UNKNOWN').length,1);assert.equal(states.filter(item=>item.state==='SENT').length,2);
  await assert.rejects(runGiftCardReminderBatch(shop,boundary,gateway,{now:due,limit:101}));
  await assert.rejects(runGiftCardReminderBatch(shop,boundary,gateway,{now:due,after:'not-a-cursor'}));
+});
+
+test('development email adapter composes with the durable batch and keeps timed-out sends held',async()=>{
+ await db.giftCardExpiryReminder.updateMany({where:{shop,state:'PENDING'},data:{state:'UNAVAILABLE'}});
+ const samples=await Promise.all([registered(),registered()]);const cards=new Map(samples.map(item=>[item.card.id,item.card]));
+ process.env.GIFT_CARD_REMINDER_TEST_RECIPIENT='qa@example.invalid';process.env.GIFT_CARD_REMINDER_TEST_CUSTOMER=customer;
+ let calls=0;const send=developmentGiftCardReminderSender({apiKey:'re_test',recipient:'qa@example.invalid',customerGid:customer,transport:async(url,request)=>{
+  calls++;const body=JSON.parse(request.body);assert.deepEqual(body.to,['qa@example.invalid']);assert.match(body.text,/15 October 2027/);assert.ok(!body.text.includes(customer));
+  if(calls===2)throw Error('Uncertain provider response');return Response.json({id:'22222222-2222-4222-8222-222222222222'});
+ }});
+ const gateway={adminFor:()=>({graphql:async(query,{variables})=>admin(cards.get(variables.id)).graphql(query)}),send};
+ const page=await runGiftCardReminderBatch(shop,boundary,gateway,{now:due,limit:2});assert.equal(page.processed,2);assert.equal(calls,2);
+ const rows=await db.giftCardExpiryReminder.findMany({where:{id:{in:samples.map(s=>s.record.id)}}});
+ assert.equal(rows.filter(r=>r.state==='SENT'&&r.deliveryReference==='resend:22222222-2222-4222-8222-222222222222').length,1);assert.equal(rows.filter(r=>r.state==='UNKNOWN').length,1);
+ assert.equal((await runGiftCardReminderBatch(shop,boundary,gateway,{now:due})).processed,0);assert.equal(calls,2);
 });
