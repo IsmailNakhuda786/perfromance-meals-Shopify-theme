@@ -91,3 +91,15 @@ test('concurrent catch-up never duplicates immediate rows and early confirmation
  assert.equal(await db.readyDeliveryReminder.count({where:{shop,deliveryDraftId:first.draft.id,hoursBefore:0}}),2);
  await assert.rejects(stageReadyDeliveryCatchUp({...late,confirmedAt:input.deliveryAt}));
 });
+test('catch-up racing a reschedule cannot leave active reminders on a stale revision',async()=>{
+ const input=await seed(),first=await stageReadyDeliveryReminders(input);
+ const attempts=await Promise.allSettled([
+  stageReadyDeliveryCatchUp({shop,customerGid,draftId:first.draft.id,expectedRevision:1,confirmedAt:'2027-02-28T12:00:00Z'}),
+  stageReadyDeliveryReminders({...input,expectedRevision:1,deliveryAt:'2027-03-02T00:00:00Z'})
+ ]);
+ assert.ok(attempts.some(x=>x.status==='fulfilled'));
+ const draft=await db.readyDeliveryDraft.findUnique({where:{id:first.draft.id}});
+ const active=await db.readyDeliveryReminder.findMany({where:{shop,deliveryDraftId:first.draft.id,state:'DRAFT'}});
+ assert.ok(active.every(x=>x.deliveryRevision===draft.revision));
+ assert.equal(active.length,draft.revision===1?2:4);
+});

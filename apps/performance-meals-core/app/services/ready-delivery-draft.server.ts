@@ -49,6 +49,10 @@ export async function stageReadyDeliveryCatchUp(input:{shop:string;customerGid:s
  return db.$transaction(async tx=>{
   const draft=await tx.readyDeliveryDraft.findFirst({where:{id:draftId,shop,customerGid,state:'DRAFT',revision:expectedRevision}});
   if(!draft)throw Error('Delivery draft changed; reload');
+  // Serialize catch-up against rescheduling on the parent draft in PostgreSQL.
+  // Lock before reading reminder rows; revision CAS prevents stale insertion.
+  const locked=await tx.readyDeliveryDraft.updateMany({where:{id:draft.id,shop,customerGid,state:'DRAFT',revision:expectedRevision},data:{updatedAt:new Date()}});
+  if(locked.count!==1)throw Error('Delivery draft changed; reload');
   const line=await tx.operationalLine.findFirst({where:{id:draft.operationalLineId,shop,customerGid,validationStatus:'VALIDATED',businessStream:'ready_series',fulfillmentState:'UNASSIGNED'}});
   if(!line?.contractGid)throw Error('Validated undispatched linked Ready Series line required');
   const original=planReadyDeliveryReminders(draft.id,draft.revision,draft.deliveryAt.toISOString());

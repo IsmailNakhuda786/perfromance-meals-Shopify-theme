@@ -134,6 +134,11 @@ supersedes only missed original stages and retains future rows. Replay must matc
 the same confirmation evidence; unknown/sent/missing/extra records hold for review.
 Ownership, linked undispatched line and revision are rechecked. Concurrent fixture
 calls do not duplicate rows. No public caller, paid-term verification, sender or
-booking activation added; these remain explicit gates.311Core tests pass, plus
+booking activation added; these remain explicit gates.312Core tests pass, plus
 fresh typecheck/lint. No schema changes. Previous backupf3f9795verified803files,
 800manifest hashes with no mismatches; this follow-through is next backup delta.
+
+Catch-up now locks the parent draft before reading reminders, so revision changes
+and immediate preparation serialize in PostgreSQL. A catch-up/reschedule race
+fixture verifies no active reminder remains attached to a stale revision. Native
+PostgreSQL concurrency acceptance remains distinct from SQLite fixture coverage.
