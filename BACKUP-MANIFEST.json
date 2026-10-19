@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "6fd7fa25c5c28f38d8f38aebe6f61a0ef5143298",
+  "source_commit": "6103a726cdb3ff87ab7341ba09756c432d9a6afc",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -471,7 +471,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/rewards-policy.ts",
-      "sha256": "833b5cea6b082181a39c0201925e6374b86a73c219d069260e266f481256cfd4",
+      "sha256": "dc26ef500bc996a34c7c347550ad681d774aca1f560df2129c779f7733f924e6",
       "sanitized": false
     },
     {
@@ -1080,171 +1080,98 @@
       "sanitized": false
     },
     {
-      "path": "app…21562 tokens truncated…eal-plan.js",
-      "sha256": "ab2ad5b07dee95a3b83069c9a21b7149670839086ada869bf986b8d63331c448",
+      "path": "apps/performance-meals-core/tests/gift-card-reminder.test.mjs",
+      "sha256": "daa486f119dfedf76d9f83173ca801ebc7a9398bcc62b49e4d08384ede44d2d8",
       "sanitized": false
     },
     {
-      "path": "theme/assets/parent-experiences.css",
-      "sha256": "8a121255daf303a62c424439f063d75ad6bf9bd5994ccb7b42e68b86147e7e0e",
+      "path": "apps/performance-meals-core/tests/gift-card-request.test.mjs",
+      "sha256": "65b92c552c01f12d9bbd9838ea04bd1e80baf89067057010663d2f550b84af5c",
       "sanitized": false
     },
     {
-      "path": "theme/assets/parent-hero-plate.webp",
-      "sha256": "327a08cd208b2efaacc0266ccaecb209dd4d0e8c8e8c82b7c64e556020b31879",
+      "path": "apps/performance-meals-core/tests/native-quote-review.test.mjs",
+      "sha256": "4b3dd9fcfcdf1714f6e0276cad2279616b15eab041321e40e072313ccd1b6ed2",
       "sanitized": false
     },
     {
-      "path": "theme/assets/parent-hero.css",
-      "sha256": "e413f9bc3168800111d232d7de23af382d27feca77e026127761e2bdd884cba2",
+      "path": "apps/performance-meals-core/tests/native-wallet-credit-ready.test.mjs",
+      "sha256": "30d9c1d6692a41d3eec8ed94b43a0bfe7b260aa198bbb32d920bd73aa0eabe20",
       "sanitized": false
     },
     {
-      "path": "theme/assets/parent-navigation.css",
-      "sha256": "117fdb6aeced74a328e4def1a1aa1145ec79cbcb7ed0d011af86d52a2f7cbda6",
+      "path": "apps/performance-meals-core/tests/native-wallet-debits.test.mjs",
+      "sha256": "b9e4f4bbbb9cd05f52a8c098eea50cd32a74d7da659320e96c7b49bff057c5d1",
       "sanitized": false
     },
     {
-      "path": "theme/assets/pm-font-0.ttf",
-      "sha256": "3428fd01a45310781cfc06d8957c5485de2432132b405ebe6e53efec0719c229",
+      "path": "apps/performance-meals-core/tests/native-wallet-history.test.mjs",
+      "sha256": "08efbf474eb95602e6a707cb7fd8323168932b9ce7bf2caf95b9e0e24eddf921",
       "sanitized": false
     },
     {
-      "path": "theme/assets/pm-font-1.ttf",
-      "sha256": "1be2b11bc5c1e0f78deeeb4e8049b2f5cca9c476b77bb1912aac748ba4a37312",
+      "path": "apps/performance-meals-core/tests/native-wallet-returns.test.mjs",
+      "sha256": "79c202e216e591c46b2f7894fb7debe9b0a776738cc30c6f7ca1dfbc587412f0",
       "sanitized": false
     },
     {
-      "path": "theme/assets/pm-font-10.ttf",
-      "sha256": "3620bdfbafa8c6060fd8c71c796a73d02fe75cae55e748d52f7f430dc2351416",
+      "path": "apps/performance-meals-core/tests/native-wallet.test.mjs",
+      "sha256": "6ae7e3357286ddf0180509542ddc53c43515483357a68e7bc77ed30d111d64d2",
       "sanitized": false
     },
     {
-      "path": "theme/assets/pm-font-11.ttf",
-      "sha256": "62bbab00e0b0faffb38a3d111341a814f8731fd50778aa0b495d3293b8290aaf",
+      "path": "apps/performance-meals-core/tests/order-cancellation-native.test.mjs",
+      "sha256": "896c92b2109537135bdd6d13840582f9ceed7c0fb5a3d4cbceeb8ca59abde39d",
       "sanitized": false
     },
     {
-      "path": "theme/assets/pm-font-12.ttf",
-      "sha256": "44ce4a84f20d60f24539bd0cef11f79c29e38609e0f8adf18551c9794a5d9dc3",
+      "path": "apps/performance-meals-core/tests/order-cancellation-policy.test.mjs",
+      "sha256": "7a45dff7bdc9f1ceb7acca46d6ac9ed8b0ab351eacfedcec8b16fa815ed12ddc",
       "sanitized": false
     },
     {
-      "path": "theme/assets/pm-font-13.ttf",
-      "sha256": "3386a05f6ece969e4537de6be894170d20558e82f7d56c8c5d332972ef172160",
+      "path": "apps/performance-meals-core/tests/order-cancellation.test.mjs",
+      "sha256": "d842bb50c09080eb8c42c96fa19d9deb1ef628e29dd44e1f0c1278425b7392ec",
       "sanitized": false
     },
     {
-      "path": "theme/assets/pm-font-14.ttf",
-      "sha256": "df54dbfafba61d4911eb3dab9bba2d20531fb009f01d64dd42fa96ab862584d8",
+      "path": "apps/performance-meals-core/tests/order-event-connections.test.mjs",
+      "sha256": "50fcb83305ae0a29ca2f616ac94f63b7d4037b725f9437629f5ea4349d64b3c4",
+      "sanitized": true
+    },
+    {
+      "path": "apps/performance-meals-core/tests/order-funding.test.mjs",
+      "sha256": "ada15cbee7a0cf1def57c3326ce1fa9bac2d853597bcd84e831bfdb741a5c0cb",
       "sanitized": false
     },
     {
-      "path": "theme/assets/pm-font-15.ttf",
-      "sha256": "a1d92abc6b02a87faed23d98067ab1027e8e95242fd7c9978a072ea383b89d1a",
+      "path": "apps/performance-meals-core/tests/order-routing-evidence.test.mjs",
+      "sha256": "430b6fe70edc5698be265bd5e256b325f66826a031365d8c0f11abad334b05bc",
       "sanitized": false
     },
     {
-      "path": "theme/assets/pm-font-16.ttf",
-      "sha256": "bc31e0b0583e8530795907883e768597bf7bdb4e47a65861dc393b4411439e22",
+      "path": "apps/performance-meals-core/tests/order-support.test.mjs",
+      "sha256": "5f2ff0efef5efc8ea3b0e5f2f771366fc04d0cda42f337ae09dc0ff529b211c2",
       "sanitized": false
     },
     {
-      "path": "theme/assets/pm-font-17.ttf",
-      "sha256": "0647b32d8910497efe5ed2eff805da035c52ff8114925fe56e8e3b03ca0012e4",
+      "path": "apps/performance-meals-core/tests/paid-webhook.test.mjs",
+      "sha256": "e8941cf87e20f2fed3c92db2a33c475ddebe136c773f861b18f622419246bf86",
       "sanitized": false
     },
     {
-      "path": "theme/assets/pm-font-18.ttf",
-      "sha256": "691c8ec268ebe0f79a67bfdbdf76ee3ca6947852ba13adc7ec6badfe17c9ec2c",
+      "path": "apps/performance-meals-core/tests/prepaid-fulfillment.test.mjs",
+      "sha256": "e51f517b05b34414359f93f423ba7e5d5a4abbdddec25e992b27388bd82a6ef6",
       "sanitized": false
     },
     {
-      "path": "theme/assets/pm-font-19.ttf",
-      "sha256": "643f64e9bfc140a9352ebf1b33958d5d5e0548ddc1bf7dc439e8da3df482473a",
+      "path": "apps/performance-meals-core/tests/prepaid-verification.test.mjs",
+      "sha256": "3c07b172821ff67802e970e8fec227974ec4f59ce83511a774e0303ae5246681",
       "sanitized": false
     },
     {
-      "path": "theme/assets/pm-font-2.ttf",
-      "sha256": "d0f4bc7faca468376e3db9b5e57afcdc2192134c9ac82a9511f32767b56853a4",
-      "sanitized": false
-    },
-    {
-      "path": "theme/assets/pm-font-20.ttf",
-      "sha256": "6a8c9be856a6b9e09c66615634904616152c9de5e44db343a3ced240479c586a",
-      "sanitized": false
-    },
-    {
-      "path": "theme/assets/pm-font-21.ttf",
-      "sha256": "9a9f465776e653cd6175661d844555e08684d432518f1d2c621bcb3006598f9c",
-      "sanitized": false
-    },
-    {
-      "path": "theme/assets/pm-font-22.ttf",
-      "sha256": "8900df5726b5a6f23e723594f11d5ea27e695bd85c884f18d88ed080544fe205",
-      "sanitized": false
-    },
-    {
-      "path": "theme/assets/pm-font-23.ttf",
-      "sha256": "49dcdf653a004a2575b3de649f5e4c549d774fecddf317812330edd0ad70685a",
-      "sanitized": false
-    },
-    {
-      "path": "theme/assets/pm-font-24.ttf",
-      "sha256": "27147c0353ecafbb8e69fe02da56680f7d12bdc2764c8346012ec031374036d6",
-      "sanitized": false
-    },
-    {
-      "path": "theme/assets/pm-font-25.ttf",
-      "sha256": "33717e4797d38639bb590087b9f0a57ffdc9292b637954326f6703b90c3003ae",
-      "sanitized": false
-    },
-    {
-      "path": "theme/assets/pm-font-3.ttf",
-      "sha256": "1b08e7fc267a5c7e1d614100f604b83e7e8a0be241f0f288faa2b3ac93a683ba",
-      "sanitized": false
-    },
-    {
-      "path": "theme/assets/pm-font-4.ttf",
-      "sha256": "8c883f63b2c4157d997319f2c8bc6995ed4357ef371940d31ca159004a4aae63",
-      "sanitized": false
-    },
-    {
-      "path": "theme/assets/pm-font-5.ttf",
-      "sha256": "e7a1aaf7eda9f2fad4131725fa556265ec75ca7b2d756260173a040363e8d4f7",
-      "sanitized": false
-    },
-    {
-      "path": "theme/assets/pm-font-6.ttf",
-      "sha256": "b37284b5701b6b168dfc770aa1a4ac492106422fd3ba76bc7641e37434e8019c",
-      "sanitized": false
-    },
-    {
-      "path": "theme/assets/pm-font-7.ttf",
-      "sha256": "eec66af7f2337bd34fe6e801cf92ededcb57a20c0d7bc40a61d4eefcbe3dd40c",
-      "sanitized": false
-    },
-    {
-      "path": "theme/assets/pm-font-8.ttf",
-      "sha256": "5b717029a2c4cfca2167e97be1157edb24151591e5ec96eb484745c392817a7a",
-      "sanitized": false
-    },
-    {
-      "path": "theme/assets/pm-font-9.ttf",
-      "sha256": "4b15a4f0ed67b209aed9a9cb06e717485f0f416f7f8c3b8eb1b3f041539d5efc",
-      "sanitized": false
-    },
-    {
-      "path": "theme/assets/ready-series-hero.jpg",
-      "sha256": "79eea03a0d9be2fd27836256ae04cb2c68ca863fd9e3a5ad50d78cedd1e65305",
-      "sanitized": false
-    },
-    {
-      "path": "theme/assets/story-matt-winter.webp",
-      "sha256": "35266a4e4853652fef92a3cdfb09087fd965ff1819ef2d72559b9029b932b69b",
-      "sanitized": false
-    },
-    {
+      "path": "apps/performance-meals-core/tests/programme-menus.test.mjs",
+      "sha256": "5031435015a9…22156 tokens truncated… {
       "path": "theme/assets/story-su-outdoors.webp",
       "sha256": "a46013956e481cd455b13aeb3024244656428044b370877b425991c81a41106c",
       "sanitized": false
@@ -1851,7 +1778,7 @@
     "docs/CUSTOMER-CORE-CHECKPOINT-20261012.md"
   ],
   "excluded": [],
-  "backup_updated_at": "2026-10-18",
+  "backup_updated_at": "2026-10-19",
   "excluded_private_qa_documents": [
     "docs/CANCELLATION-WALLET-QA-20261013.md",
     "docs/CUSTOMER-CORE-CHECKPOINT-20261012.md",

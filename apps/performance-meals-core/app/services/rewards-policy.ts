@@ -59,17 +59,21 @@ export function rewardRedemptionMinor(points:number){
 export type OrderFunding=RewardLine['funding'];
 // Merchant-confirmed: Gift Card funds cover food before delivery, distributed
 // proportionally across food lines. Wallet lot consumption remains FIFO.
-function allocateFoodFunding(lines:Array<Omit<RewardLine,'funding'>>,funding:OrderFunding,orderTotalMinor:number,verifiedFoodBonus:boolean):RewardLine[]{
+function allocateFoodFunding(lines:Array<Omit<RewardLine,'funding'>>,funding:OrderFunding,orderTotalMinor:number,currentPolicy:boolean):RewardLine[]{
  integer(orderTotalMinor);
  const kinds=['direct_customer','customer_funded','gift_card_funded','reward_funded','bonus'] as const;
  for(const kind of kinds)integer(funding[kind]);
  if(kinds.reduce((sum,kind)=>sum+funding[kind],0)!==orderTotalMinor)throw Error('Native paid funding total differs');
- if(funding.bonus&&!verifiedFoodBonus)throw Error('Bonus food funding requires verified line allocations');
+ if(funding.bonus&&!currentPolicy)throw Error('Bonus food funding requires verified line allocations');
  if(lines.some(line=>line.giftCard||line.walletTopUp))throw Error('Mixed shared-commerce funding requires separate allocation');
  const total=lines.reduce((sum,line)=>{integer(line.netMinor);return sum+line.netMinor;},0);integer(total);
  if(total>orderTotalMinor)throw Error('Food exceeds native order total');
- if(!total)return lines.map(line=>({...line,funding:{direct_customer:0,customer_funded:0,gift_card_funded:0,reward_funded:0,bonus:0}}));
- const giftFood=Math.min(total,funding.gift_card_funded);
+ if(!total){
+  if(funding.bonus)throw Error('Bonus exceeds eligible food value');
+  return lines.map(line=>({...line,funding:{direct_customer:0,customer_funded:0,gift_card_funded:0,reward_funded:0,bonus:0}}));
+ }
+ const principalFood=currentPolicy?Math.max(0,funding.customer_funded-(orderTotalMinor-total)):0;
+ const giftFood=Math.min(total-principalFood,funding.gift_card_funded);
  const allocate=(amount:number,weights:number[])=>{
   const denominator=weights.reduce((a,b)=>a+b,0);if(!denominator)return weights.map(()=>0);
   const parts=weights.map((weight,index)=>{const value=BigInt(weight)*BigInt(amount);return {index,minor:Number(value/BigInt(denominator)),remainder:value%BigInt(denominator)};});
@@ -77,22 +81,27 @@ function allocateFoodFunding(lines:Array<Omit<RewardLine,'funding'>>,funding:Ord
   for(const part of [...parts].sort((a,b)=>a.remainder===b.remainder?a.index-b.index:a.remainder>b.remainder?-1:1)){if(!left)break;part.minor++;left--;}
   return parts.map(part=>part.minor);
  };
- const gifts=allocate(giftFood,lines.map(line=>line.netMinor));
- const afterGift=lines.map((line,index)=>line.netMinor-gifts[index]);
+ const principals=allocate(principalFood,lines.map(line=>line.netMinor));
+ const gifts=allocate(giftFood,lines.map((line,index)=>line.netMinor-principals[index]));
+ const afterGift=lines.map((line,index)=>line.netMinor-principals[index]-gifts[index]);
  if(funding.bonus>afterGift.reduce((sum,value)=>sum+value,0))throw Error('Bonus exceeds eligible food value');
  const bonuses=allocate(funding.bonus,afterGift);
  const remainingFood=afterGift.map((amount,index)=>amount-bonuses[index]);
- const remainingNonFood=orderTotalMinor-total-(funding.gift_card_funded-giftFood);
- const rewards=allocate(funding.reward_funded,[...remainingFood,remainingNonFood]).slice(0,lines.length);
+ const principalOther=currentPolicy?funding.customer_funded-principalFood:0;
+ const remainingNonFood=orderTotalMinor-total-principalOther-(funding.gift_card_funded-giftFood);
+ if(remainingNonFood<0)throw Error('Wallet funding exceeds remaining delivery value');
+ const remainingFoodTotal=remainingFood.reduce((a,b)=>a+b,0);
+ const rewardFood=remainingFoodTotal+remainingNonFood?Number(BigInt(funding.reward_funded)*BigInt(remainingFoodTotal)/BigInt(remainingFoodTotal+remainingNonFood)):0;
+ const rewards=currentPolicy?allocate(rewardFood,remainingFood):allocate(funding.reward_funded,[...remainingFood,remainingNonFood]).slice(0,lines.length);
  const eligible=remainingFood.map((amount,index)=>amount-rewards[index]);
  const eligibleTotal=eligible.reduce((a,b)=>a+b,0);
- const customerPool=funding.direct_customer+funding.customer_funded;
+ const customerPool=funding.direct_customer+(currentPolicy?0:funding.customer_funded);
  if(customerPool<eligibleTotal)throw Error('Customer food funding incomplete');
- // Both customer sources qualify equally; proportional attribution preserves
- // their separate audit values without creating different earning rates.
- const walletFood=customerPool?Number(BigInt(eligibleTotal)*BigInt(funding.customer_funded)/BigInt(customerPool)):0;
- const wallets=allocate(walletFood,eligible);
- return lines.map((line,index)=>({...line,funding:{direct_customer:eligible[index]-wallets[index],customer_funded:wallets[index],gift_card_funded:gifts[index],reward_funded:rewards[index],bonus:bonuses[index]}}));
+ // Historical readback retains proportional customer-source attribution.
+ // Current Core planning preserves principal already consumed before Gift Card.
+ const walletFood=!currentPolicy&&customerPool?Number(BigInt(eligibleTotal)*BigInt(funding.customer_funded)/BigInt(customerPool)):0;
+ const wallets=currentPolicy?principals:allocate(walletFood,eligible);
+ return lines.map((line,index)=>({...line,funding:{direct_customer:eligible[index]-(currentPolicy?0:wallets[index]),customer_funded:wallets[index],gift_card_funded:gifts[index],reward_funded:rewards[index],bonus:bonuses[index]}}));
 }
 
 // Historical no-bonus readback remains stable. Bonus cannot silently enter the
@@ -100,7 +109,10 @@ function allocateFoodFunding(lines:Array<Omit<RewardLine,'funding'>>,funding:Ord
 export function allocateGiftCardFirstFood(lines:Array<Omit<RewardLine,'funding'>>,funding:OrderFunding,orderTotalMinor:number):RewardLine[]{
  return allocateFoodFunding(lines,funding,orderTotalMinor,false);
 }
-// Current policy engine; caller must supply independently verified source totals
+// Current policy engine: Wallet principal covers non-food first, then food;
+// Gift Card, food-only bonus and proportional Reward follow in approved order.
+// Historical native helper above retains its original attribution.
+// Caller must supply independently verified source totals
 // and food-only bonus settlement. Neither function authorizes a native credit.
 export function allocateApprovedFoodFunding(lines:Array<Omit<RewardLine,'funding'>>,funding:OrderFunding,orderTotalMinor:number):RewardLine[]{
  return allocateFoodFunding(lines,funding,orderTotalMinor,true);
