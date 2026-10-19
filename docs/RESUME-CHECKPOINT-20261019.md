@@ -140,5 +140,12 @@ fresh typecheck/lint. No schema changes. Previous backupf3f9795verified803files,
 
 Catch-up now locks the parent draft before reading reminders, so revision changes
 and immediate preparation serialize in PostgreSQL. A catch-up/reschedule race
-fixture verifies no active reminder remains attached to a stale revision. Native
-PostgreSQL concurrency acceptance remains distinct from SQLite fixture coverage.
+fixture verifies no active reminder remains attached to a stale revision. The same9reminder fixtures also pass against development PostgreSQL, including
+concurrent catch-up/rescheduling, with scoped records cleaned up. No sending or
+financial changes occurred. This does not complete native paid-term/sender QA.
+
+Additional development PostgreSQL verification:22dispatch/webhook/privacy fixtures
+pass, with scoped test cleanup. Together with9reminder fixtures,31targeted
+PostgreSQL tests pass. These are controlled service fixtures, not new native
+fulfillment, order payment, real erasure or sending acceptance. Full isolated
+suite remains312passed; typecheck/lint/schema checks passed.

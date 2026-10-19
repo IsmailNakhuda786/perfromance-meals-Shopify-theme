@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "286fcbc989b383cd69198445139572efde24d2a4",
+  "source_commit": "27c97f3fa6644b0e8a78a903eb0b303883cb434f",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -2186,7 +2186,7 @@
     },
     {
       "path": "docs/RESUME-CHECKPOINT-20261019.md",
-      "sha256": "482522e61cb99277c104f01db9132724ec21e94a3234907cbf6bd115fdb5261d",
+      "sha256": "76b15d2462ab939456450567bc92978478299553fc2a49719f9809e3a53d83e5",
       "sanitized": false
     },
     {
