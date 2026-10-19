@@ -126,3 +126,14 @@ reminder persistence still requires an explicit guarded integration before activ
 
 Top-ups remain disabled. No production, theme publication, payment provider or new
 store-setting changes in this checkpoint. Unrelated preexisting edits preserved.
+
+
+### Catch-up persistence follow-through
+Inactive transactional catch-up staging now persists one immediate row per channel,
+supersedes only missed original stages and retains future rows. Replay must match
+the same confirmation evidence; unknown/sent/missing/extra records hold for review.
+Ownership, linked undispatched line and revision are rechecked. Concurrent fixture
+calls do not duplicate rows. No public caller, paid-term verification, sender or
+booking activation added; these remain explicit gates.311Core tests pass, plus
+fresh typecheck/lint. No schema changes. Previous backupf3f9795verified803files,
+800manifest hashes with no mismatches; this follow-through is next backup delta.

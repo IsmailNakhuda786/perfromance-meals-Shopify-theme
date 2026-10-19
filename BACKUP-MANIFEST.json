@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "fb1e3ceffa894dc62e93d04a04822853265e1a70",
+  "source_commit": "dd810cb47ec440e13b58a0789875e9a229a06caa",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -451,7 +451,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/ready-delivery-draft.server.ts",
-      "sha256": "48b17c8517ea8a08099f347d9145720d9d8aab1af766a2cf9311cb87274505a5",
+      "sha256": "7852c26444efc097197cb6e0bd31d0003572a786c241c8a46d7f80d9386fd7cf",
       "sanitized": false
     },
     {
@@ -1211,7 +1211,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/ready-delivery-draft.test.mjs",
-      "sha256": "30e04b373e61c3da3131b782a51f2344986ff6596acfd739a9d85cabfe51deff",
+      "sha256": "b3b6ad8429a0442e115371a97ba1c11b373a40cbc66d49a558c05749e6114027",
       "sanitized": false
     },
     {
@@ -2186,7 +2186,7 @@
     },
     {
       "path": "docs/RESUME-CHECKPOINT-20261019.md",
-      "sha256": "8d750b62469218385545088c0b5fa5f6aa33335b06cee9540efa28b20b2f0862",
+      "sha256": "f0302db4e0705179d3f6075a8dd5cb8f0c19d437a7bd3c98e2f64ca703222d61",
       "sanitized": false
     },
     {
