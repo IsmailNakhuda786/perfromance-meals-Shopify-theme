@@ -48,3 +48,41 @@ Normal discount-code path, normal combinedGST, wider multi-group shipping and
 native subscription checkout remain. Production profiles/rates and supported
 production app distribution/plan require acceptance. No overall production pass.
 Private checkout receipts/screenshots and copy-state files remain outside Git.
+
+## Resumed normal discount and GST acceptance
+
+Reused the same approved isolated copies and shipping profile. The existing
+SGD1code remains restricted to the existing QA customer and one-time purchases,
+with one-use limits unchanged. Temporarily activated it, completed no order,
+and deactivated it afterward (Expired status, no code use).
+
+| Normal storefront cart | Order discount SGD | Only delivery option SGD | Gross total SGD | Included GST SGD |
+| --- | ---: | ---: | ---: | ---: |
+|75ordinary|1|10|84|0(collection off)|
+|125ordinary|1|5|129|0(collection off)|
+|125ordinary, temporary GST on|1|5|129|10.65|
+|75ordinary +255.20prepaid, GST on|1|10|339.20|28.01|
+|Same mixed cart, coupon removed, GST on|0|5|335.20|27.67|
+
+Native checkout returned ready_for_complete with exactly one correct shipping
+option in each case. No completion tool or payment button was used. The mixed
+coupon case proves allocated order discounts can move the ordinary-food portion
+below75without prepaid value subsidising delivery. Removing the code restores5.
+Exact per-line discount allocation is not exposed by the checkout receipt and is
+not inferred here.
+
+Important evidence distinction: native checkout's machine receipt omits included
+tax when prices are inclusive. The expanded visible order summary independently
+shows10.65,28.01and27.67included tax; receipt totals alone do not prove nonzeroGST.
+
+Cleanup verified: Singapore collection removed, existing tax checkboxes untouched;
+shipping Function disabled with original allowlist; profile restored to3original
+entries and unchanged0/5/10rates; copiesDRAFTwith original copiedprices; both
+temporarily available copies unpublished again (third was never republished).
+Independent readback confirms3merchant originals unchanged. Original cart variants,
+quantities, line amounts and61.89total restored exactly; a timed-out address update
+was read back before retry. Private receipts and screenshots stay outside Git.
+
+Normal discount/combinedGST gates now have development evidence. Native selling
+plans/subscription groups, broader delivery groups, production profiles and
+supported production distribution remain open; no overall production acceptance.

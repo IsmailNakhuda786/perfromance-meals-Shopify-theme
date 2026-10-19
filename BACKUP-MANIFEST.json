@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "c1fdac00c9f78334ce467b96b6146df1a341a36c",
+  "source_commit": "495d637a7554db10a9ac04436e6d1f221b72ca00",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -261,7 +261,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/routes/webhooks.privacy.tsx",
-      "sha256": "cb6749fd33de5eed9c6fb0b5cee3e181f0b51b64852b4faec9e570b91c3c0188",
+      "sha256": "81e9af56d145048d618261d3d637a16331350424d920248c986bccf8cc934181",
       "sanitized": false
     },
     {
@@ -427,6 +427,11 @@
     {
       "path": "apps/performance-meals-core/app/services/prepaid-verification.server.ts",
       "sha256": "4f4130bb660ac3167eabf5dacce1443b1f4729cbeebc97cd1f95e5586fb48da7",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/privacy.server.ts",
+      "sha256": "80a42d60c0a614bb8451e0a6326ecc7924ebd8f14ac2d06c30832b7ad44e861a",
       "sanitized": false
     },
     {
@@ -940,7 +945,2193 @@
       "sanitized": false
     },
     {
-      "path": "apps/performance-meals-core/prisma/production/migrations/20261017110000_gift_claim_or…22055 tokens truncated…93333feaaa48e2462ae873effa192b7db4ab8f51bd862e86cc5",
+      "path": "apps/performance-meals-core/prisma/production/migrations/20261017110000_gift_claim_original_expiry/migration.sql",
+      "sha256": "001707d3d30cec95ed88988e5dd8879f7be02779e7ebd362bad9f3db9110e67f",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/prisma/production/migrations/20261017120000_ready_delivery_reminder_draft/migration.sql",
+      "sha256": "6f1559d4996effc82885cf968e3d00ff0b7f9d1f9ac511e5d91f7e441c47ef83",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/prisma/production/migrations/migration_lock.toml",
+      "sha256": "1db17a8d051aa136110736752c5e1f8b7ed92b6ea8e803112fbbe2497047c210",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/prisma/production/schema.prisma",
+      "sha256": "a14247d5c14b7ad5be82f081d4c5a204ce9d6ee6576179ece0d9ef17815dfad6",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/prisma/schema.prisma",
+      "sha256": "69fd5385080442033b45093881ddfbbca15e46d7744f45f4a0fa9887ed1b6764",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/public/favicon.ico",
+      "sha256": "39ff6fa1450c106b5bbc2b7368d888e70f6e799df8f117fccee2a469926b4417",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/react-router.config.ts",
+      "sha256": "e022cf48fd6885555ba89e7c4083c75d1d73257087be55d89c5ffde97fb9c56a",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/scripts/configure-account-endpoint.mjs",
+      "sha256": "909ea7fcb3f1bbd6700e9f773ecbecae4a3e19d16fd15c87f75e56b841febdf1",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/scripts/production-preflight.mjs",
+      "sha256": "7addfde82188d08cb046212fa646c109be6dbca33533751d8b869aa4f4fa95ea",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/scripts/setup-database.mjs",
+      "sha256": "97c5bf6849748514ed13b2c54252d7bf89fb223763f3d2e1fbd3d09dda3b1fb7",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/scripts/sync-production-schema.mjs",
+      "sha256": "bdcb719170073055124dfde246fd652fa02141777dc56efea202bf6a68e8f9ae",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/scripts/test-postgres.mjs",
+      "sha256": "5950748e5c45368e40d86ba7eaaf1c3025880aa1620c46d64160b0b4bd2d1538",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/scripts/transfer-operational-state.mjs",
+      "sha256": "478718046d23d07828a83c7fc54c3b6ef1882147cb9d3430c6ca43cf2f68293d",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/shopify.app.toml",
+      "sha256": "06f3b5ad9f4d516c2308d5b4b81f87c190b7ee7a1ce707d22dc2f74af1c2b084",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/shopify.web.toml",
+      "sha256": "41837cd7b89a8b7e4470e4ec174fb458cde9d38d94abf8b50d888be1d549384c",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/account-programmes.test.mjs",
+      "sha256": "131df547d000456665058303a99144b69f5688a3a9b2f66850326fab20ed191e",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/account-subscriptions.test.mjs",
+      "sha256": "e9fb3245209b570e80dbec8787d9f83605834c588e41c0ec02f2b963ad844b89",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/commencement.test.mjs",
+      "sha256": "33a0f9fccc3d0486418266e3328c706027b93221e370c381ced89447419537d4",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/core-delivery-options.test.mjs",
+      "sha256": "eaf124c9180d2cad9d8524c9431e8560484900aaba5dafe1ec3765f130ff5949",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/core-delivery-qa.test.mjs",
+      "sha256": "360f96e937b0c08f8f749f883cc27c7e6a72d1c100a3d5dd417b555beadba86e",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/core-wallet-redemption.test.mjs",
+      "sha256": "2d0e93a8bc54fb3abe438dd6ac3b1b09d303924561b0e8912890ed3f6254890d",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/core.test.mjs",
+      "sha256": "64f98337d2b97a1d3be0cb4319823046d4b682c48bc4eec72ef6e7eb1b2326ec",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/delivery-charge-audit.test.mjs",
+      "sha256": "2fb4d4af2aca69e32306457f75080402d16f8ace1b9b0e292ebd6e92aefedafb",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/delivery-policy.test.mjs",
+      "sha256": "654214e7b6f1973fc2064340ca36e8cd7fe323147caf8f856ef4113a0edbf594",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/dev-config.test.mjs",
+      "sha256": "35d93fbaacbf434da495e5c71276a5d648dd82e8a22c13ab2f75adeb190bda0f",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/gift-card-claim.test.mjs",
+      "sha256": "a7baa401ece773e208f4eff202c5f293d91532c308038f13a09d1cfbd26dd20b",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/gift-card-expiry-policy.test.mjs",
+      "sha256": "945798aefa71cbfd4a16edc4f256ffcd45dacd65283444bd5dab1244a7a9913f",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/gift-card-reminder-development.test.mjs",
+      "sha256": "b9a3d450dd80ee266e97148b016c1e10f9c992d4dae06dfee64074b3544b28aa",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/gift-card-reminder.test.mjs",
+      "sha256": "daa486f119dfedf76d9f83173ca801ebc7a9398bcc62b49e4d08384ede44d2d8",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/gift-card-request.test.mjs",
+      "sha256": "65b92c552c01f12d9bbd9838ea04bd1e80baf89067057010663d2f550b84af5c",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/native-quote-review.test.mjs",
+      "sha256": "4b3dd9fcfcdf1714f6e0276cad2279616b15eab041321e40e072313ccd1b6ed2",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/native-wallet-credit-ready.test.mjs",
+      "sha256": "30d9c1d6692a41d3eec8ed94b43a0bfe7b260aa198bbb32d920bd73aa0eabe20",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/native-wallet-debits.test.mjs",
+      "sha256": "b9e4f4bbbb9cd05f52a8c098eea50cd32a74d7da659320e96c7b49bff057c5d1",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/native-wallet-history.test.mjs",
+      "sha256": "08efbf474eb95602e6a707cb7fd8323168932b9ce7bf2caf95b9e0e24eddf921",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/native-wallet-returns.test.mjs",
+      "sha256": "79c202e216e591c46b2f7894fb7debe9b0a776738cc30c6f7ca1dfbc587412f0",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/native-wallet.test.mjs",
+      "sha256": "6ae7e3357286ddf0180509542ddc53c43515483357a68e7bc77ed30d111d64d2",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/order-cancellation-native.test.mjs",
+      "sha256": "896c92b2109537135bdd6d13840582f9ceed7c0fb5a3d4cbceeb8ca59abde39d",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/order-cancellation-policy.test.mjs",
+      "sha256": "7a45dff7bdc9f1ceb7acca46d6ac9ed8b0ab351eacfedcec8b16fa815ed12ddc",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/order-cancellation.test.mjs",
+      "sha256": "d842bb50c09080eb8c42c96fa19d9deb1ef628e29dd44e1f0c1278425b7392ec",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/order-event-connections.test.mjs",
+      "sha256": "50fcb83305ae0a29ca2f616ac94f63b7d4037b725f9437629f5ea4349d64b3c4",
+      "sanitized": true
+    },
+    {
+      "path": "apps/performance-meals-core/tests/order-funding.test.mjs",
+      "sha256": "ada15cbee7a0cf1def57c3326ce1fa9bac2d853597bcd84e831bfdb741a5c0cb",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/order-routing-evidence.test.mjs",
+      "sha256": "430b6fe70edc5698be265bd5e256b325f66826a031365d8c0f11abad334b05bc",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/order-support.test.mjs",
+      "sha256": "5f2ff0efef5efc8ea3b0e5f2f771366fc04d0cda42f337ae09dc0ff529b211c2",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/paid-webhook.test.mjs",
+      "sha256": "e8941cf87e20f2fed3c92db2a33c475ddebe136c773f861b18f622419246bf86",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/prepaid-fulfillment.test.mjs",
+      "sha256": "e51f517b05b34414359f93f423ba7e5d5a4abbdddec25e992b27388bd82a6ef6",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/prepaid-verification.test.mjs",
+      "sha256": "3c07b172821ff67802e970e8fec227974ec4f59ce83511a774e0303ae5246681",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/privacy.test.mjs",
+      "sha256": "00906a210efb76ca0060229917bcb0ac40ff53b35250e1443f8dfecf64ca9754",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/programme-menus.test.mjs",
+      "sha256": "5031435015a95b6c02eaa9665dc83662e0fde7fdb2104b1350215c68d35c7a0c",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/programme-period.test.mjs",
+      "sha256": "ce9716d41563f1de538f68d8166ecda023cd99bf90daedd5f497a6c760526bbf",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/readiness.test.mjs",
+      "sha256": "5c36d80e4c63c76393e0a3e422f340b626ba3b51a0605a3d01895dee0becc5f6",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/ready-delivery-draft.test.mjs",
+      "sha256": "30e04b373e61c3da3131b782a51f2344986ff6596acfd739a9d85cabfe51deff",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/ready-delivery-notice.test.mjs",
+      "sha256": "22c0389c178be03d96011076c6b81802127f55bd5a4ebbb9e45ff8bd8dcd4847",
+      "sanitized": true
+    },
+    {
+      "path": "apps/performance-meals-core/tests/ready-series-calendar.test.mjs",
+      "sha256": "50758ae8c1f2edcc3be6a6963be18bb14d32776d9240637629093120bc3e4cd9",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/rewards-ledger.test.mjs",
+      "sha256": "647c986970eea1cb0ba5d3c573f544b6828b541688378467cb3347bb6958f58f",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/rewards-native.test.mjs",
+      "sha256": "bf71327f747414461591837c1558a75edbfcde4963ef509c6062f790d715d01c",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/rewards-policy.test.mjs",
+      "sha256": "ce2d697d3f85fb01aa4180986281056b52afd1e13c00394ff6471c0af4bff352",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/rewards-rate-history.test.mjs",
+      "sha256": "8a4df62064ce42dde5d3317b851d05425bfdf9e397951b9687e8163cd0974fe7",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/rewards-redemption.test.mjs",
+      "sha256": "446cf20291c0dcafc10d5ac3571c63ed1f5f0755e24fb064bcf9aa598ad5668c",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/subscription-links.test.mjs",
+      "sha256": "8706ea8d611c99c016e2c923608d6efc7a0ef6f5637054e09ed061ff5f9b3c98",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/subscription-webhook.test.mjs",
+      "sha256": "a553c64e20e6eb98677d5f42b2570bbe8d37234055b8f53fe4b0bd5e87c48488",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/support/database.mjs",
+      "sha256": "c9727aa4819c25eb3f214c9787e5416f7ebeffa37903d46bba13983999674b19",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/wallet-approved-package.test.mjs",
+      "sha256": "6b318c30645d2789192184fefffb9dbda5e7bc0d165b356311ac3b4751c07229",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/wallet-core-expiry.test.mjs",
+      "sha256": "7cd740e061453c5468b4606c9edc3c68a8580aa7aea32596740e2b05fcfbe0e4",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/wallet-credit-policy.test.mjs",
+      "sha256": "e522b4ba92bc29423282f6bb28b2979cf1dd43d9d891ce70c72aebb8d61232f5",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/wallet-expiry.test.mjs",
+      "sha256": "486e7140d63459cd65708973aac4fc7e919d4f36f1695ce4f2a0199c32af3530",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/wallet-fifo.test.mjs",
+      "sha256": "30aceefc417b193c2cbd33de01a12330bb3a1a9e8ea4f5f933a2d9cb8ba8a002",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/wallet-ledger.test.mjs",
+      "sha256": "9ffcdf98a2c02e89f8c8139a31cf5b69e333ab4c6e1f8735124eb9f07c239a95",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/wallet-reminder-development.test.mjs",
+      "sha256": "1aaab2f62b2c62234b2a21df7a6a760f69346c50e105b39c8858149ebc0fe037",
+      "sanitized": true
+    },
+    {
+      "path": "apps/performance-meals-core/tests/wallet-top-up-amount.test.mjs",
+      "sha256": "bde0badd93e52cdb2ae06834b3e2f4886c3053aaf63c13fc503f8e8b9cafc9d5",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/wallet-top-up-checkout.test.mjs",
+      "sha256": "40eb68bb8ffd914e2ea2b3d6d025d85ed8e1e3f4197f9ee679a7242be12bbeae",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/wallet-top-up-draft-native.test.mjs",
+      "sha256": "71ec34c47105860b5860859517b36ad08906575aa3c24a96b39f5c8536f37ee5",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/wallet-top-up-intent.test.mjs",
+      "sha256": "29aa8bff67b5c2caa7c8d46d43493b650401338f5f8588f74fa2b09334ebbae2",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/wallet-top-up-lifecycle.test.mjs",
+      "sha256": "5e215038a06b20505926d530ca3750a1b759aa2bb88d2caae898ed6c1c421649",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/wallet-top-up-native.test.mjs",
+      "sha256": "b4f5afad2f2ab53c1b4819c0eae85347b3b6f48ce055c2c7334b9cf1d54090fc",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/wallet-top-up-policy.test.mjs",
+      "sha256": "f0732bf6ebe12d9870485ac0b153abe8caf1acb7de91bebdf11437cc093b1aac",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/wallet-top-up-reconciliation.test.mjs",
+      "sha256": "56371289aa7bf93fc922f3fc50f0dc5bfe86f518c4e24a9ba2ca474a2024cf45",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/wallet-top-up-settlement.test.mjs",
+      "sha256": "f023cb1e3a00d5f4882c5035e676e42141bcd544635e61185de82d9d12b7ea6e",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tsconfig.json",
+      "sha256": "3cf47583b185cf91bc4ab513b0b6efbfcbb6a78af25d5a2df7fb3e6f4b95cba6",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/vercel.json",
+      "sha256": "d621803e99465851360b7c52769c08ebbaa863d40f6b6df1a6a238ec7340abf1",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/vite.config.ts",
+      "sha256": "134bd3c12862c5be3c7866f19604ec5db09556ed95fc2b33fa32daa1433440a7",
+      "sanitized": false
+    },
+    {
+      "path": "artifacts/Performance-Meals-Complete-Prototype-Screens.pdf",
+      "sha256": "611990d770937ad4a7431a47934fff775f15b48ffe6ff8db04909b987d46451a",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/account-review/source-reference/vite.config.ts",
+      "sha256": "47df42dadb4067eabc0bc34da0627d7569fab7c2feb50a2422b842f9aea1b6b5",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/build-chrome.py",
+      "sha256": "dc063978b3e50c4c1c6b75dbd827fff3d2b3de87fdc7d1ad551167d17d847805",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/build-home.py",
+      "sha256": "4406b73bc69693a5afcae214cfbc97e5921ca28351e09688bdcbc20e66aa9cca",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/catalog-check.mjs",
+      "sha256": "0b0f1052934e8ab55cb23518b4aac79d776a72924e9a85ac443fd0560a1538a4",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/catalogue-completion/audit.graphql",
+      "sha256": "da5e33f7f6b8f73537510264a3b4ce00b5a70c1329178c2b400fcfdbcead722d",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/catalogue-completion/operation.graphql",
+      "sha256": "92baf8e3553e923aadbcdb852fae4b9283f61d8d53d18979275ee59cef3c9bee",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/catalogue-completion/operations.graphql",
+      "sha256": "a243b15967c74f7c51d10fa0cdc84c1627093d76e286d4e76d140e9bbb1840f4",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/audit.graphql",
+      "sha256": "75ca291123ae22fb5acf069e4f27630703d001f1f317a3aea5407c4990ea2ada",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/configured-theme/assets/catalog-purchase.js",
+      "sha256": "765f53ed67bd6f7ecd68fc5ea8723b23d11d6fcf6bddc1b48845b67223314f25",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/configured-theme/assets/catalog.js",
+      "sha256": "e4837ebf88376ec1302ed13785cc1aa74f3a028af8fbe5e55cc7763922e480d6",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/configured-theme/assets/gift-card.js",
+      "sha256": "7dfd4ec070d02a4df8f49dadd0056f1c91d2a4d191c678e734ee2ecbdd173dd5",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/configured-theme/assets/home.js",
+      "sha256": "15baa14a3828ed340d1534e4372d562a229019bc836eb90535158ddc207b0499",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/configured-theme/assets/meal-plan.js",
+      "sha256": "2f37ac1dbffd95431534d3a1961badd5dc0056893c43bbdbc9859c8ebe1acdc0",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/configured-theme/assets/support.js",
+      "sha256": "cd647341daac460f765756b053ebe3a00d07897f6f8f50187384f51323fcf848",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/configured-theme/assets/theme.js",
+      "sha256": "ca13d161474c9a2df091a03c047b20ba3c0990add8443ecc80b870659511d82a",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/connect.mjs",
+      "sha256": "d1776014bb16091d2238f2d7e95448421d4ffeb5d1e66a7d2e1213b3004ad8d4",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/environment.graphql",
+      "sha256": "a5fa59240673ecebed344f1c88d2a2bd3c4b874e95cb09346ea98e4352eec8d0",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/gift-availability.graphql",
+      "sha256": "cf7c08d146a5583f3235b45a3799781e390354e064b3d7fcce78489f5ff5d079",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/gift-readback.graphql",
+      "sha256": "ef79fe5364f9aa1302242953420128cb5e459cda75c5e1112e0baf1cb3e079e4",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/media-readback.graphql",
+      "sha256": "bdd342bccc833b071314a330cc4bce656a259fafc9fe8d1fce6ab8a370e01bc6",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/media.graphql",
+      "sha256": "e995cfef313875fe2a68c4171b79bf6621cd445c10e28d018ba7225f35f4fbfe",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/media.mjs",
+      "sha256": "b2229b25f8c89f129c8152d0ef3dcd87d71cac2d30388047ee2d9386ab0eaa0c",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/operation.graphql",
+      "sha256": "e995cfef313875fe2a68c4171b79bf6621cd445c10e28d018ba7225f35f4fbfe",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/order-stream-read.graphql",
+      "sha256": "3dc6ae092474886cfe5b0cf351866061e2a49684b4a9019f6ba79fac2528e23e",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/readback.graphql",
+      "sha256": "ec692650b224912c1d07591c42f37f0dbf995a4ad1028ee94f347da4a9ba025c",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/seed.mjs",
+      "sha256": "7330b8844fa6b64cd4fa54613e0308ab823391d835f1ad8ba4768a69a3317359",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/setup.graphql",
+      "sha256": "1a65d391f1b1e0c0afe9efeb4bb715835037f2fa8f8d2d3c45697e803e672744",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/sgd-read.graphql",
+      "sha256": "e2dce23056a4887c7d06cd2e62d3afc44eb6279f8a9d6012bfd3427ac326aa72",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/commerce-qa/test-order-read.graphql",
+      "sha256": "2aeeba933e71c10114f9660524e32a95f56e458056211505489714c790fcfa72",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/collection.graphql",
+      "sha256": "f181058f8fb5758a2c5085500984f71bfdeef3f644fd0429395da623a3015e03",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/compiled/catalog.server.js",
+      "sha256": "2c287758192f5b796054946b8e1b5a457dd0ed9aebb67a3ce45a9a2b9238c7de",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/compiled/menu-validation.js",
+      "sha256": "a22469b5476f59dc1f48dba7271d267edd5d9b4aad82390799956e36287dd93a",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/core-catalog.graphql",
+      "sha256": "7caceb1fa261aa27c00e91109035cdc9e9a71f6aaf1a81e2dc1ff8c61402f3e0",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/definition.graphql",
+      "sha256": "353364785e22c2f45e860d3c0a7019472e19831ea6a7345e0ac0391ce546a883",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/deploy/assets/catalog-purchase.js",
+      "sha256": "8807ca567342aac7a2a26fbc5432f94e6748e0f1a292821cf16d4f20f24072db",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/deploy/assets/catalog.js",
+      "sha256": "b1ac9eaa681dccfe5edf9cb3d6c5e43b21122513ec9b93b61f41b3ca7bc7d501",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/deploy/assets/gift-card.js",
+      "sha256": "2e86249af5cb0f800aaaba14c2e3037fc96bd19666732b4e67c12a55962d1d02",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/deploy/assets/home.js",
+      "sha256": "15baa14a3828ed340d1534e4372d562a229019bc836eb90535158ddc207b0499",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/deploy/assets/meal-plan.js",
+      "sha256": "869c3b565d65ec298b34cc3538fb48792c9079e8b544628e39cc99f302a61a8f",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/deploy/assets/support.js",
+      "sha256": "cd647341daac460f765756b053ebe3a00d07897f6f8f50187384f51323fcf848",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/deploy/assets/theme.js",
+      "sha256": "693a2c335d80880f9f0f1f44fd11baa889cadaddb7755cf6d3ebbdc745581fcb",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/gift.graphql",
+      "sha256": "2efdf0a965a40af7f28a278fd081a7f06823f3abbdee2cb8a8bed78eb241f5f4",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/order.graphql",
+      "sha256": "1b55ce651ad10e786dc4e27d577050b64da1e10b4174ad39ca1b23ff144e2211",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/ordering.graphql",
+      "sha256": "48b779910f5238783f76be241dbf1670b85ec2c20726d5eea43ffe36f8266eca",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/prices.graphql",
+      "sha256": "31f18d16d579d201e6d943f6ace3f129d6dfe22587b78976876248155b49c8fe",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/values.graphql",
+      "sha256": "e5f359037e878224d135db539e4e600f64f85d9043b4ee90278cc96c40e8e4ea",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/completion-gate/visibility.graphql",
+      "sha256": "3ea7fb25e6299b76ef27005c78e890b65bd66df3f77ef60d13232ea98401f342",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/core-foundation/catalog.graphql",
+      "sha256": "8bc775b8b78c851f7f7a125c49a74d24733cf7ebe9f93c063c866033bcee4761",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/core-foundation/definition-update.graphql",
+      "sha256": "dac31d033a4b5d0167b8efdbc651ab38bc40db1d3bf01a7fb90b255ab3e03dc3",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/core-foundation/meal-plan-recurring-only.graphql",
+      "sha256": "9efaf64356cdf9b8e0eee20f210cce36eb6828e8a733a0b29bee7d225cc7e292",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/core-foundation/order.graphql",
+      "sha256": "110bf9a8e98a44113d6a8788b8045149b6de5cd931fcc9a9a72c5b6767abee6e",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/core-foundation/readiness.graphql",
+      "sha256": "2de5bee70cd25d9d6abe339359de08a963955a8f41f256df4ecddd5318f9eeea",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/core-gift-claim-candidates.graphql",
+      "sha256": "c92e96857c77584a4f5e9a038bc5b9ae6993e6444334eaf388e495d2a7a3e54a",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/customer-sync-page.graphql",
+      "sha256": "62f4f730937dfa8da18b15165ad1cf5184b99e9997f96e00788794c4175c2719",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/customer-sync-pages-read.graphql",
+      "sha256": "aa82798e52fbd880af68676810da6eb9e6f7e499892c03c7ab1e719cc418490e",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/design-sync/editorial-render.mjs",
+      "sha256": "949f5fdcddee9097356ea26361e179419cd84f92e67c23512629f9d0507e7b3b",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/design-sync/finish-shared.py",
+      "sha256": "1ebeaec42e72a9c832365d02483e4d56ada89b366673a8407d91cc00ab3d2fb2",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/design-sync/port-editorial.mjs",
+      "sha256": "b4205dba96f456c1c1b4ccaee67b23a36a12974322089a276960395e2becd71f",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/design-sync/shared-edits.py",
+      "sha256": "708a3ed0b6065bdbfc5a9170f41e369c012547ca3cf6fd845fb1fed1e161c678",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/fix-runtime-schema.py",
+      "sha256": "02d9a2c6c0e341ce3583f919db23ec3669acd7f45743b5155926d0d48f3fec66",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/gift-operational-evidence.graphql",
+      "sha256": "dc6819d25bf868c6b92a99ef4c5c300b7efbab174fd238ddd2e42946a7df4a58",
+      "sanitized": true
+    },
+    {
+      "path": "development-reference/gift-order-fulfillment.graphql",
+      "sha256": "7f1684fcdd97a21faf9c5dbd657b5f323f81d0274cb78749eac041be86149201",
+      "sanitized": true
+    },
+    {
+      "path": "development-reference/gift-purchase-evidence.graphql",
+      "sha256": "f494b82a1b8eab9707996081a0b8d4659c9b1469219e9ba0bcbcdb41926feb26",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/gift-wallet-readback.graphql",
+      "sha256": "84263e249f229d09636f0de7ba7b96f67d31b0f0239f39fe8d6cc3d81ff3686c",
+      "sanitized": true
+    },
+    {
+      "path": "development-reference/home-validation/assets/builders-box.js",
+      "sha256": "168820c4ca3e23af7b70ec912c9fe5544964680da62f04e8dc626a5c42b1d21d",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/home-validation/assets/catalog.js",
+      "sha256": "5820f357b701c6d2e2fba8c092e77d22d00854a2d2149c78b7d55a59f0b04f85",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/home-validation/assets/home.js",
+      "sha256": "15baa14a3828ed340d1534e4372d562a229019bc836eb90535158ddc207b0499",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/home-validation/assets/support.js",
+      "sha256": "cd647341daac460f765756b053ebe3a00d07897f6f8f50187384f51323fcf848",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/migration-history/fix-gift-responsive.mjs",
+      "sha256": "f5c1403408f16df8b10f0e1cc8d10fab86dbd93b209b6c24e068e9615b3b077b",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/migration-history/marketing-sections.mjs",
+      "sha256": "e4425fb52d9bf974ac4d8abf6e4c7ac6fc06549ec50414c12aa67c8074d45f10",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/migration-history/repair-integration.mjs",
+      "sha256": "1702497c321a37d025319f3f11e3942866dfe0e8e9a7dcaa55a81fa1bdf57f04",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/naming-audit/audit.graphql",
+      "sha256": "033fed5faec660230c5964b0b3ede18a850f619f1074092b77b0545336250723",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/naming-audit/correct.mjs",
+      "sha256": "86c442fe5ffefff1a32eea627dd85a71a691c8fe49d1b603db37af6857b20667",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/naming-audit/detach-old-plan.graphql",
+      "sha256": "e05b0b4bdb678cb749ff7d33791c22ea5b60b7d8d3e1a06a64777bf25f2910ec",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/naming-audit/operation.graphql",
+      "sha256": "674dd81dac703843d252cd10ea2ee9aab1bcb2a762f0ca30666c6bf555ef79b1",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/naming-audit/plan-operation.graphql",
+      "sha256": "b731ed36d360753f02062a1149df1e49cf37eb78fa0bda1bcaba62d726a190f6",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/naming-audit/plans.mjs",
+      "sha256": "f40ba29c01d6ca60c4a521366949340ebea29995751a46bc86415c9ffea3b978",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/naming-audit/update.graphql",
+      "sha256": "a100b026a9c853a39490cfaa58731933beb6f96e8b7546214265090aeaab4e8a",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/parity-fixes.py",
+      "sha256": "03dd8724dd425e9fc1f744d08f66c57f5c530525962403734daa9686546d3d1a",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/parity-footer.tsx",
+      "sha256": "22ed1fc7f15fca658a2e8972c385d689620ea00bfdd7debc02483c5d7697f7c9",
+      "sanitized": true
+    },
+    {
+      "path": "development-reference/parity-home.tsx",
+      "sha256": "b70c206c76835d12334d93b5c3bd462a1a8ee97ffcc91ac4fec239f2e16285ad",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/parity-nav.tsx",
+      "sha256": "a24b77d9a7f6d3317b86ed23c0ca1df2b6f2ba411839b13c8726a6da9910651a",
+      "sanitized": true
+    },
+    {
+      "path": "development-reference/parity-remote-before/assets/catalog-purchase.js",
+      "sha256": "8807ca567342aac7a2a26fbc5432f94e6748e0f1a292821cf16d4f20f24072db",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/parity-remote-before/assets/catalog.js",
+      "sha256": "4c89902f17d363eea18f606d7976e0d244cd411f2c6dedba6170aeb14c3111e8",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/parity-remote-before/assets/gift-card.js",
+      "sha256": "7dfd4ec070d02a4df8f49dadd0056f1c91d2a4d191c678e734ee2ecbdd173dd5",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/parity-remote-before/assets/home.js",
+      "sha256": "15baa14a3828ed340d1534e4372d562a229019bc836eb90535158ddc207b0499",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/parity-remote-before/assets/meal-plan.js",
+      "sha256": "3b017dbb57c23124a219008f477baf5be192a7ac1dc709244c9c1bc44ad6aee8",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/parity-remote-before/assets/support.js",
+      "sha256": "cd647341daac460f765756b053ebe3a00d07897f6f8f50187384f51323fcf848",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/parity-remote-before/assets/theme.js",
+      "sha256": "ca13d161474c9a2df091a03c047b20ba3c0990add8443ecc80b870659511d82a",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/parity-remote-final/assets/catalog-purchase.js",
+      "sha256": "8807ca567342aac7a2a26fbc5432f94e6748e0f1a292821cf16d4f20f24072db",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/parity-remote-final/assets/catalog.js",
+      "sha256": "2b40316290a55e506fdbf4a6fffe2da92d7c64a5056799f040649f3119084f99",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/parity-remote-final/assets/gift-card.js",
+      "sha256": "2e86249af5cb0f800aaaba14c2e3037fc96bd19666732b4e67c12a55962d1d02",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/parity-remote-final/assets/theme.js",
+      "sha256": "693a2c335d80880f9f0f1f44fd11baa889cadaddb7755cf6d3ebbdc745581fcb",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/qa-homepage-fixed-remote/assets/catalog-purchase.js",
+      "sha256": "765f53ed67bd6f7ecd68fc5ea8723b23d11d6fcf6bddc1b48845b67223314f25",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/qa-homepage-fixed-remote/assets/catalog.js",
+      "sha256": "e4837ebf88376ec1302ed13785cc1aa74f3a028af8fbe5e55cc7763922e480d6",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/qa-homepage-fixed-remote/assets/gift-card.js",
+      "sha256": "7dfd4ec070d02a4df8f49dadd0056f1c91d2a4d191c678e734ee2ecbdd173dd5",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/qa-homepage-fixed-remote/assets/home.js",
+      "sha256": "15baa14a3828ed340d1534e4372d562a229019bc836eb90535158ddc207b0499",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/qa-homepage-fixed-remote/assets/meal-plan.js",
+      "sha256": "2f37ac1dbffd95431534d3a1961badd5dc0056893c43bbdbc9859c8ebe1acdc0",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/qa-homepage-fixed-remote/assets/support.js",
+      "sha256": "cd647341daac460f765756b053ebe3a00d07897f6f8f50187384f51323fcf848",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/qa-homepage-fixed-remote/assets/theme.js",
+      "sha256": "ca13d161474c9a2df091a03c047b20ba3c0990add8443ecc80b870659511d82a",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/qa-homepage-remote/assets/catalog-purchase.js",
+      "sha256": "765f53ed67bd6f7ecd68fc5ea8723b23d11d6fcf6bddc1b48845b67223314f25",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/qa-homepage-remote/assets/catalog.js",
+      "sha256": "e4837ebf88376ec1302ed13785cc1aa74f3a028af8fbe5e55cc7763922e480d6",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/qa-homepage-remote/assets/gift-card.js",
+      "sha256": "7dfd4ec070d02a4df8f49dadd0056f1c91d2a4d191c678e734ee2ecbdd173dd5",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/qa-homepage-remote/assets/home.js",
+      "sha256": "15baa14a3828ed340d1534e4372d562a229019bc836eb90535158ddc207b0499",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/qa-homepage-remote/assets/meal-plan.js",
+      "sha256": "2f37ac1dbffd95431534d3a1961badd5dc0056893c43bbdbc9859c8ebe1acdc0",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/qa-homepage-remote/assets/support.js",
+      "sha256": "cd647341daac460f765756b053ebe3a00d07897f6f8f50187384f51323fcf848",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/qa-homepage-remote/assets/theme.js",
+      "sha256": "ca13d161474c9a2df091a03c047b20ba3c0990add8443ecc80b870659511d82a",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/stream-separation/definition.graphql",
+      "sha256": "02f33cd71e10957c523fd515dc145a31bed535a0a279933f6436d3dce698b76b",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/stream-separation/metaDefinitionUpdate.graphql",
+      "sha256": "18abf5ac6480521841846bb11c0391cc23f854961e4cc99054d78d8ce0df2085",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/stream-separation/metaValues.graphql",
+      "sha256": "91c0a4d59b8a15869d1ee3ba044443137ff90ba0da8700158d9a643f859637a6",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/stream-separation/read.graphql",
+      "sha256": "1bb7d42487364f77e67b0cf63d528cf97c697449ac9d7d618cd2a39b52072ad3",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/stream-separation/subscription-read.graphql",
+      "sha256": "5b764aaac2a4732f974dfbe3512275902c411601a3fbc40f4ef9e7a2bf4f0d93",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/stream-separation/values.graphql",
+      "sha256": "8d053269434436764ece1063e9684d12eacaf503b21fa3b6d2c77a3c1608e005",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/sync-navigation.py",
+      "sha256": "a574f4ff70062a1f0e5a831e5424f238f4a27c2b7ac4e385469678fb66a2e6f6",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/visual-parity-visibility.graphql",
+      "sha256": "a2f6ce35c5229bfdd6ec53b55afbae61b003a4e2216f2755c19f494bbc928fa7",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/wallet-spend-evidence.graphql",
+      "sha256": "5f35e064053092e82771b0c39aebdbc6ea427224fca2cd0fa0a6d0fd0bfc7f05",
+      "sanitized": true
+    },
+    {
+      "path": "development-reference/wallet-test-product.graphql",
+      "sha256": "c7465c53c24ad00589072f1e676f84866fcae739f6e732db2bc2b06f95b3c7f5",
+      "sanitized": false
+    },
+    {
+      "path": "development-reference/wallet-top-up-order.graphql",
+      "sha256": "f16ee511eab8982be8887ceb4946c7a4c550aa09b1221253c5ab74e3d9626de0",
+      "sanitized": false
+    },
+    {
+      "path": "docs/APPROVED-CATALOG-MAPPING.md",
+      "sha256": "4d010709761c534b2662a024a3fc724688594784579f718fe217969c9ac2f193",
+      "sanitized": false
+    },
+    {
+      "path": "docs/APPROVED-MEAL-IMAGE-CORRECTIONS-20261008.json",
+      "sha256": "4a35832746082e1fb1a87db1998a449b3ec991fd6496e9680c69a68cc2ba3245",
+      "sanitized": false
+    },
+    {
+      "path": "docs/APPROVED-REFERENCE-STORIES-20261014.md",
+      "sha256": "f2b708d700cbe3201590476f5ec706642079209b035532cd1a91d7ace3109f5b",
+      "sanitized": false
+    },
+    {
+      "path": "docs/BUSINESS-STREAM-SEPARATION.md",
+      "sha256": "b5d7ba95e6c34baeaf5f0d202eeb2c306c52f48b852f5df961436bfba3318daf",
+      "sanitized": false
+    },
+    {
+      "path": "docs/CORE-DEPLOYMENT.md",
+      "sha256": "207d38c65b7917f2522eb0b4715ab63d128f592bbe014d7b6dc4e7c7b47c6107",
+      "sanitized": false
+    },
+    {
+      "path": "docs/CORE-FIRST-WALLET-INVESTIGATION-20261017.md",
+      "sha256": "bcabbd5f3215976e1507487f049145b4a3541c93b5cec9bca89c833f7f6df595",
+      "sanitized": false
+    },
+    {
+      "path": "docs/CORE-FOUNDATION.md",
+      "sha256": "fe7b5e248310c9eecc744e878c8cead92145e32bf53be31097f60ef0a87b48d5",
+      "sanitized": true
+    },
+    {
+      "path": "docs/CORE-SHIPPING-FUNCTION-QA-20261018.md",
+      "sha256": "1f52e3119cbf8da4fe094ce724efeaa90418141029f11a873b76674c01998a2c",
+      "sanitized": false
+    },
+    {
+      "path": "docs/CUSTOMER-CANCELLATION-POLICY.md",
+      "sha256": "208c4dd9ddeee99688fd97f051945e95baf6e678b48a923dd7373e894f1c3e51",
+      "sanitized": false
+    },
+    {
+      "path": "docs/CUSTOMER-CORE-COMPLETION-TRACKER.md",
+      "sha256": "20e16999e8937ba23aabe0e622ee95544501fc82ddbf89cad0a4f609cfd281b9",
+      "sanitized": true
+    },
+    {
+      "path": "docs/CUSTOMER-FLOW-AUDIT.md",
+      "sha256": "738588adce5c7646c148a4bd0eb6cb45dc33696eadaf5ed1a69dfdf0e808566d",
+      "sanitized": false
+    },
+    {
+      "path": "docs/CUSTOMER-READINESS-20261006.md",
+      "sha256": "574fde6e9c6f1a7309a8a1135c63f81c55d8f7e950df96044384896a4b6d6e58",
+      "sanitized": false
+    },
+    {
+      "path": "docs/CUSTOMER-SYNC-20261007.md",
+      "sha256": "b2f6b3f246a97426a95c894a2326db884dd9faefe6185be41c5c2981c6aa1c6e",
+      "sanitized": false
+    },
+    {
+      "path": "docs/CUSTOMER-SYNC-20261008.md",
+      "sha256": "478f30d001e45dacf33c83f276551e7e1276dbff0d4866724783bc41d5bcb624",
+      "sanitized": false
+    },
+    {
+      "path": "docs/DELIVERY-POLICY-20261016.md",
+      "sha256": "5fc68e20725a921e9583acd0cb2318beb6ebfb051ab456201f7945d9f569c55e",
+      "sanitized": false
+    },
+    {
+      "path": "docs/DESIGN-REVIEW-CHECKPOINT-20261015.md",
+      "sha256": "f5d418b04bc2d9455cba88af311f1a0c4e7ed0ba901ecf887e139366924acbee",
+      "sanitized": false
+    },
+    {
+      "path": "docs/DEV-BUNDLE-INVENTORY-20261008.json",
+      "sha256": "e8d6869fa30dd1e63bf3b06019f309b36328c332b3ea5513f300caa78339d1a3",
+      "sanitized": false
+    },
+    {
+      "path": "docs/FIGMA-THEME-REFERENCE-REVIEW-20261017.md",
+      "sha256": "4b14ca54ec183659914ec9d17870e089e22beffc7faf48184756d659965abdc2",
+      "sanitized": false
+    },
+    {
+      "path": "docs/FINAL-CLIENT-POLICY-IMPLEMENTATION-20261013.md",
+      "sha256": "047a06f249174f8752c60a1bd70d200aaf9db007a90b83a5bec6228f635d983b",
+      "sanitized": false
+    },
+    {
+      "path": "docs/FRESHER-SOURCE-AUTHORITY-20261014.md",
+      "sha256": "d995d0ef179a62a448870f0479959c6113205d6b08f9a351393d1591eefe0e4f",
+      "sanitized": false
+    },
+    {
+      "path": "docs/GIFT-CARD-EXPIRY-READINESS-20261015.md",
+      "sha256": "d2d7d4cb33b4651ef0e2060f07a50f73d7ad76788874834850afb1b78c91b52e",
+      "sanitized": false
+    },
+    {
+      "path": "docs/GIFT-CARD-REMINDER-DEVELOPMENT-20261018.md",
+      "sha256": "da8bae25f0dcfc445f1f8dea79ceb8519b7ebd8f3d8d74ec154bc2817aaae0e5",
+      "sanitized": false
+    },
+    {
+      "path": "docs/GIFT-CARD-WALLET-QA.md",
+      "sha256": "4e2d4fb387ae077427bd850f1686aff8ba4579876df51267fb38fb3d6a2afd9f",
+      "sanitized": true
+    },
+    {
+      "path": "docs/GST-CHECKOUT-QA-20261019.md",
+      "sha256": "91e119d8783227f14bf813f5bbfc96ef9f30fb53d4332862a4aafbe84782833e",
+      "sanitized": false
+    },
+    {
+      "path": "docs/GST-INCLUSIVE-DEVELOPMENT-QA-20261017.md",
+      "sha256": "25c35313e7c923215931d72a1c98f7cee078e8f4e43fef5f208b1a55cb4c9bcc",
+      "sanitized": false
+    },
+    {
+      "path": "docs/MEAL-PLAN-60-DAY-BILLING-DECISION-20261009.md",
+      "sha256": "70b14addca327595af1309c5d7bdc3f5e65b6ddbbfaaa686900e551c1216a883",
+      "sanitized": false
+    },
+    {
+      "path": "docs/MEAL-PLAN-LATER-MENU-QA-20261011.md",
+      "sha256": "fca436fd318d5aa08b7a245b26eb7dae2c970b49fadb0dcfec85d70ce3fd99e5",
+      "sanitized": false
+    },
+    {
+      "path": "docs/MERCHANT-CATALOGUE-EDITING.md",
+      "sha256": "ab6d0a7308081e2cad65042ee57c0071101eaa96395203ee2535dc32cf27cb90",
+      "sanitized": false
+    },
+    {
+      "path": "docs/MERCHANT-CATALOGUE-UPDATE-20261015.md",
+      "sha256": "9f00e6a9b9d2f582e15fe03765bd0d96b15b751f409a898a5e47f43a61ef9dfc",
+      "sanitized": false
+    },
+    {
+      "path": "docs/MERCHANT-DRAFT-STAGING-20261016.md",
+      "sha256": "a692f1a49c064040bde25ea68153842d8a11bb0f8740e5332fe23829230f044c",
+      "sanitized": false
+    },
+    {
+      "path": "docs/MERCHANT-GST-READINESS-20261016.md",
+      "sha256": "2944e52ccd8ee9a557fa249f5cf7387def8f6b08b62459ba4b944acd7a5863ac",
+      "sanitized": false
+    },
+    {
+      "path": "docs/MERCHANT-RULES-20261017.md",
+      "sha256": "b2c426bd5ec04eb25e72e04d762f910d1e6444ac5f8d657c6592940efe50e24b",
+      "sanitized": false
+    },
+    {
+      "path": "docs/MERCHANT-SETUP-MANIFEST.json",
+      "sha256": "4782c1aa8fb80eea3f605826e9fff21365035d6f5233f7573a41a8576cc14eef",
+      "sanitized": false
+    },
+    {
+      "path": "docs/MERCHANT-SETUP.md",
+      "sha256": "cd30ddc4353644b24f6fb4293208adc09461972574f5dea16ebcd5c10d0a1b0d",
+      "sanitized": false
+    },
+    {
+      "path": "docs/MIGRATION-PLAN.md",
+      "sha256": "2b40eb826be162f677fd0e7466c82425fa5517078ae69342c27de9e0c9cbfe08",
+      "sanitized": false
+    },
+    {
+      "path": "docs/NATIVE-ACCOUNT-COMPARISON-20261008.md",
+      "sha256": "0b5ff4ae8f17c06050d6cb591871b8f11f94451eaaad94a61bdc4e1dc535f0a5",
+      "sanitized": false
+    },
+    {
+      "path": "docs/NATIVE-ACCOUNT-RENDERED-REVIEW-20261009.md",
+      "sha256": "960072d8eef25bad7b4f3a82ec36d739a312372b7bf757eb9ff270efd4c984eb",
+      "sanitized": false
+    },
+    {
+      "path": "docs/POSTGRES-PERSISTENCE-QA-20261012.md",
+      "sha256": "0346b38a1ee340928901b41ff7bbda5174b42c152649b698b94edd274dfbf342",
+      "sanitized": false
+    },
+    {
+      "path": "docs/PRIVACY-REVIEW-GATE-20261019.md",
+      "sha256": "58c66ee8029b8a581d5d37fbc877925ec3dcda7069b0da4b199cae40b8370a55",
+      "sanitized": false
+    },
+    {
+      "path": "docs/PUBLISHED-PROTOTYPE-REVIEW.md",
+      "sha256": "7b0d60f7f4e163ac118be9eae4875f919f2b16764342859207c7a217d6d79248",
+      "sanitized": false
+    },
+    {
+      "path": "docs/READY-SERIES-FINITE-TERM-DECISION-20261012.md",
+      "sha256": "dda51e91a4fb5c2e5e084989ee0cc7e255d0825207255e43068501a9f691af59",
+      "sanitized": false
+    },
+    {
+      "path": "docs/READY-SERIES-MERCHANT-POLICY-20261014.md",
+      "sha256": "ce7dd391d7739401264dd7172315b667b4fb47ef575d8564ec93016ad174522a",
+      "sanitized": false
+    },
+    {
+      "path": "docs/RESUME-CHECKPOINT-20261015-WALLET-EXPIRY.md",
+      "sha256": "aa72562387971ed9317220e5f4a1903e20774556175ae306e04666f0244a691d",
+      "sanitized": true
+    },
+    {
+      "path": "docs/RESUME-CHECKPOINT-20261016.md",
+      "sha256": "9458b7439980800d62f41a12d74c558412588632bdc792822d14491ccb0be9d8",
+      "sanitized": false
+    },
+    {
+      "path": "docs/RESUME-CHECKPOINT-20261017.md",
+      "sha256": "d64256accb2e6af49692054228ff084d7836cf665d296b76adc4987b5b0670ed",
+      "sanitized": true
+    },
+    {
+      "path": "docs/RESUME-CHECKPOINT-20261018.md",
+      "sha256": "4b77ff57bc9e9bef768c838c1c2a09e67b1bf0ea6fd3effc442e497096356acc",
+      "sanitized": false
+    },
+    {
+      "path": "docs/RESUME-CHECKPOINT-20261019.md",
+      "sha256": "f0166bf33601e6312d773d728a62e425ea81860c7eefd6870f0a25d8aafc8bbb",
+      "sanitized": false
+    },
+    {
+      "path": "docs/REWARDS-FUNDING-VALIDATION-20261014.md",
+      "sha256": "3708fd6d37ba9d1c492daf6374e41c6564d2b98deecac27ef7f5dac81cae714b",
+      "sanitized": false
+    },
+    {
+      "path": "docs/SGD-FOUNDATION.md",
+      "sha256": "5587bc56893f89acbc4c80e39a1fc147ca9c216ed5b5de0bc4a643509bb9cf10",
+      "sanitized": true
+    },
+    {
+      "path": "docs/SHIPPING-NATIVE-QA-PLAN-20261016.md",
+      "sha256": "ce20cdf79265019c3e709a5a631bb2220a6fc488ad0f60e99ffa75907b92bfcf",
+      "sanitized": false
+    },
+    {
+      "path": "docs/SHOPIFY-PLAN-DECISION-20261015.md",
+      "sha256": "e764856b926807de5aa7f920c5762cb5a5b47d77b1afbecc0444653c095dee05",
+      "sanitized": true
+    },
+    {
+      "path": "docs/SINGAPORE-FOOD-DELIVERY-20261008.md",
+      "sha256": "cd216e04ca3528029788d4bdf0e1ceb00f8d9f81813b82e70851487c50139c3b",
+      "sanitized": false
+    },
+    {
+      "path": "docs/STATUS.md",
+      "sha256": "f316cc912940084e33202dd9b0592fd948a6955604d7993e3b2c328d73a77e6d",
+      "sanitized": false
+    },
+    {
+      "path": "docs/STOREFRONT-QA-NEXT-PHASE.md",
+      "sha256": "e920d28e82e2c1d1b1a981ad3160b1d5999ca73ad1d554475dd934e68618d2e2",
+      "sanitized": false
+    },
+    {
+      "path": "docs/STOREFRONT-QA-REPORT.md",
+      "sha256": "3e79c0888ff42fe803bd038b8c995e474a5b35648ebf291933132b8788cb62c6",
+      "sanitized": false
+    },
+    {
+      "path": "docs/STOREFRONT-SHIPPING-QA-20261019.md",
+      "sha256": "8f31f3b6990b3cd4f72a1b83e8882bfcac2ebefe3522dc7ab360c43674fcd6ca",
+      "sanitized": false
+    },
+    {
+      "path": "docs/SUBSCRIPTION-TEST-GATEWAY-INVESTIGATION-20261012.md",
+      "sha256": "fc0ec9bd0a5dc9907e1e8431872531f6879f40660e4b21cb4e984b58d8b7c1f9",
+      "sanitized": true
+    },
+    {
+      "path": "docs/VERIFICATION.md",
+      "sha256": "72e8dddbf701e502104eb6c59bd612c50c734f91f9869c82ac55debb50e2cedb",
+      "sanitized": false
+    },
+    {
+      "path": "docs/VISUAL-PARITY-20261007.md",
+      "sha256": "1b01caf16b9dce437f29d2ea3e50d83f47ba17c59cb6578e3b5ae7d6359c9b95",
+      "sanitized": false
+    },
+    {
+      "path": "docs/VISUAL-PARITY-DATA-GAPS-20261007.md",
+      "sha256": "cee79e0d575f59de00cc151abbb99cf72d003c0dda5f6bee7f5367a9f36163ce",
+      "sanitized": false
+    },
+    {
+      "path": "docs/WALLET-CORE-EXPIRY-QA-20261015.md",
+      "sha256": "1506e214dda04edc1173fa38168d4ccc5c3db59bfd09c35f96f4a5052e323414",
+      "sanitized": false
+    },
+    {
+      "path": "docs/WALLET-EXPIRY-NATIVE-QA-20261015.md",
+      "sha256": "1d178abcacfded8c08abe211557ab97cbab76eebfbb9a70c057b4212264058f6",
+      "sanitized": false
+    },
+    {
+      "path": "docs/WALLET-EXPIRY-READINESS-20261015.md",
+      "sha256": "5a2ff6738638004949d10d01a15dad1be86e4e6c72d51f238e22026760d8f75c",
+      "sanitized": false
+    },
+    {
+      "path": "docs/WALLET-FOOD-BONUS-CALCULATION-QA-20261015.md",
+      "sha256": "d353ea349e85e05dfacae486db293a905b39bee16236703e8f2a3bdd985dcb9b",
+      "sanitized": false
+    },
+    {
+      "path": "docs/WALLET-LEDGER-QA-20261012.md",
+      "sha256": "7555e39af5528c1d3e266629428536f2b61534d361d0b68e043d983bc0fe9eec",
+      "sanitized": false
+    },
+    {
+      "path": "docs/WALLET-MERCHANT-RULES-20261015.md",
+      "sha256": "75640c555a760428971d9915596f471f4551cfbd808ceb1c38baeb2423ee32fc",
+      "sanitized": false
+    },
+    {
+      "path": "docs/WALLET-PLATFORM-SUPPORT-BRIEF-20261016.md",
+      "sha256": "c74c0f76014265f047c47941dc0dee9e98b5af4d7b08ffe19a580435db265e2a",
+      "sanitized": false
+    },
+    {
+      "path": "docs/WALLET-REMINDER-DEVELOPMENT-20261015.md",
+      "sha256": "4796815ffb92aef344b7d8740323439cbf04dd10d77fc4f5105290d958d6bcf2",
+      "sanitized": false
+    },
+    {
+      "path": "docs/WALLET-SUPPORT-FINDINGS-20261016.md",
+      "sha256": "1d96195ba771e4e17e6c98c3ca15c62d33db085900a7cff99a3c8b5537e90498",
+      "sanitized": false
+    },
+    {
+      "path": "docs/WALLET-TOP-UP-IMPLEMENTATION.md",
+      "sha256": "bad03fbec789d77b5767e2f2df91a0201ab1aa692bead1ddb806262bab485ace",
+      "sanitized": false
+    },
+    {
+      "path": "docs/verification/core-delivery-input-202610.graphql",
+      "sha256": "43a5485d471309b42f753cd4a19a97b7f9f911fc5a33cc2aab3868c54183fcf8",
+      "sanitized": false
+    },
+    {
+      "path": "docs/verification/core-event-connections-202610.graphql",
+      "sha256": "0b15a0ff353e8a9174d9bacf0a2641d4cd31f5258f4736ac7796d64a7070fcc3",
+      "sanitized": false
+    },
+    {
+      "path": "docs/verification/core-gst-setting-202610.graphql",
+      "sha256": "2bf11c8a5fb1f2f8a72afe34bcafa9a68bdee182e98876dfb41d3f0c42a618fe",
+      "sanitized": false
+    },
+    {
+      "path": "index.html",
+      "sha256": "768eac67e6271681de61c23f1c94a6bf688607bbad2d0bccafd8f4bfe789a079",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/.gitignore",
+      "sha256": "d6f9c6a2e3244e2844efb6da07e77a0a11c1a819449d91865e997987f367ad44",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/README.md",
+      "sha256": "62f8a15901163a334893d14012c9dbee1c140e455f9532315636075684e7ba42",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/core-source-hashes.json",
+      "sha256": "47ec28156992c57d9e6d990cfca2e7c10c241d3906433ea1a91ff82fec5c6e09",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/locales/en.default.json",
+      "sha256": "27194357734c995845ba3efc0475f06976b6ad2c300fef080f63a60f3134b5f0",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/package.json",
+      "sha256": "b0672ecbf01098e150a0d9afcb5bf7adff9cce9a1c05b791ebe7e2e856e32b9a",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/schema.graphql",
+      "sha256": "fb059d3888f78b0eae1d4b2a266b5f90402af82d8b81d6e62bb6bec76bf44e61",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/shopify.extension.toml",
+      "sha256": "b0f37c72a2132ebcde9c741eec2855c357f636bb604f3f6455482cf93aa3e404",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/src/cart_delivery_options_transform_run.graphql",
+      "sha256": "05a1eaa55700ab8ebc86f47feda8da79ac4b13aab6b6a43bf5549da17715d9bd",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/src/cart_delivery_options_transform_run.ts",
+      "sha256": "3b7f47ae0830e1df0935ef9b37721855c4ec3e51d0e65f01336b03c49acd9bf3",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/src/core-delivery-options.ts",
+      "sha256": "007b68bb4a703b47ba9a5274d4f10ff2a91dab157a2d5763873bc6497669e9c7",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/src/delivery-policy.ts",
+      "sha256": "3fd2a10e28934881219cfcaa4d3b4c5d0486c57f467da4275d72d7a6fef1f011",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/src/index.ts",
+      "sha256": "8db1e60317dc2e2be532f47247f193115968dc92dd83ed0d364f028a9aac2dca",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/core-source.test.js",
+      "sha256": "1cfc74802f703e8ac231cc075fe5826eb690b138f5e837a4ad81ab4adc6a67bb",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/default.test.js",
+      "sha256": "a9e34c0c02ec9ae1376d10e6bf338b8fa96620eb2cfe18c5ea79f58142092875",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/boundary-12499.json",
+      "sha256": "41b6d54c445a5d2afc91f7e9d6109976974bf14ace7bd0eb58faf8a8b39d25c3",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/boundary-12500.json",
+      "sha256": "80a5e1625e7b65bd795ffdfcd566ac083ea224bbee66e1b1a0e0df5eff0bab17",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/boundary-7499.json",
+      "sha256": "a31300c2fd622ffca672bf317a73bde8d3c5898c0e81869b8a45948561cdd359",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/boundary-7500.json",
+      "sha256": "102cec8a59876ee478a363101ac614a0c7b24d7ed4a5fc3133b21f3c087d6afa",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/conflicting-totals.json",
+      "sha256": "572fdb5f19996044c71d9be1ddf8f82db09eb4cdfb2d6378d5515b38daf341c7",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/disabled.json",
+      "sha256": "9187dbd58807b07698e2769d3adf56651981b6b104e2871f5e746e4a5462d8fd",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/duplicate-product-allowlist.json",
+      "sha256": "48e220c8171157fbfe61b3c8c0ace03c0204691051d340de3f95ff96644faef4",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/excluded-funding-products.json",
+      "sha256": "ee2086f80acbee93528c41e4d2f0328e19cace57e9c7798cdcf6623b2daf8bd0",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/foreign-destination.json",
+      "sha256": "5ac2f1b2d31aa0ca20fa7f96cb9797ea2ac6c66a015cb38ecf5f7626577d86d0",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/maximum-cart.json",
+      "sha256": "a3a284a87bfd7816e5f02ebdb08309edb29d314a145b07a6bd9313b904395d64",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/missing-configuration.json",
+      "sha256": "0e3cb1085cc83b2d76103eaed4e789f75cbb5fc7cd83f0a9c1e9d55c93b6d25e",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/missing-product-allowlist.json",
+      "sha256": "df45e757f61afa88ddc049bd211695d48bd86375d2a1f38e6702f3ba71841517",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/missing-rate.json",
+      "sha256": "923a116c65f9dd6ff9427399c1bb5273d470f8dd27aa2fa0e20766275d60080c",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/mixed-prepaid.json",
+      "sha256": "282ed4bf43fa869bbb0e06690dec58a28f3e8518644413a4cf61b19e9de3e777",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/multiple-discount-allocations.json",
+      "sha256": "05c1d7f90d2635cba8eedd745894f462833db491c03801b903e9df151d281dd8",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/native-product-and-order-discounts.json",
+      "sha256": "78ab05dcb3fb003513db4e2a4e4e6814c1213548fbb19207b3bba2855c5c4e94",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/native-quantity-totals-once.json",
+      "sha256": "9f8d87e91118d7e4e685010fd42b37fc4f6349f592c8f0bade29e2670174998d",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/order-discount.json",
+      "sha256": "f45636e80dc6378b6646c1609a6f68546acebd89ef72273148398a79a81617ff",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/prepaid-only.json",
+      "sha256": "93eaa1ec0f3018f844a35c4bdbc48be5059e58ddada6891952c48a04a347cfb7",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/scoped-diagnostics.json",
+      "sha256": "498437eda6defc49ad1f803e9bcba0d75e359acdeba50bedb10819e7a56bc571",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/separate-prepaid.json",
+      "sha256": "d1a85c60d2b628d176ec9ba2d292a7e3663556cfbaa2fcd7432fb93bc734f78c",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/split-ordinary-held.json",
+      "sha256": "cbf690539090fd8224f414080d9e19eaed290b7a015f46133d742a365d298d52",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/unknown-policy.json",
+      "sha256": "015e2a0b4d2397cfab6200c8c3506773767d1aca2fb83784b8169426f9692c90",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/unlisted-product.json",
+      "sha256": "162ee694cea737461a8735d78f604a5900fc15b3997e7060e3e05707688196d0",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/tests/fixtures/unverified-tax.json",
+      "sha256": "c7c78fcb739a096511e0ff7ad459f6c8fb37916063d7df80119dfe24cc1f387e",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/vite.config.js",
+      "sha256": "59d4a4ed9b8afbf23167616714c64da6b728444a805474d613d94c2e5d19604a",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-delivery-function/vitest.config.js",
+      "sha256": "62783db9202ab01d511c99c47f594297bb0f16dac578fee048a121227a554b98",
+      "sanitized": false
+    },
+    {
+      "path": "package.json",
+      "sha256": "ea2500d2fb0d1cc8a087954fda111eebe419297aa9c1673fadcc8acca6ec4b9b",
+      "sanitized": false
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "sha256": "8fe8b6a78b7e26fab6a4faa2a380725cdce431dc2de6798a24b4f47644af3d5c",
+      "sanitized": false
+    },
+    {
+      "path": "public/13da6.png",
+      "sha256": "cd6cd4830ed51adb170c4a8ba526cfc81b2f3c115c20ecb1f47a73937598a9c7",
+      "sanitized": false
+    },
+    {
+      "path": "public/19606.png",
+      "sha256": "6b62c454bcd50025e9547e72b5184ff45b92f1f1ed9bc291b035ce973a1813ac",
+      "sanitized": false
+    },
+    {
+      "path": "public/98c55.png",
+      "sha256": "e5b7a34cd2d7a16c660aaaf3aa430420fdff90396e655009cab49d2add271a4c",
+      "sanitized": false
+    },
+    {
+      "path": "public/Performance-Meals-Complete-Prototype-Screens.pdf",
+      "sha256": "611990d770937ad4a7431a47934fff775f15b48ffe6ff8db04909b987d46451a",
+      "sanitized": false
+    },
+    {
+      "path": "public/Performance-Meals-Current-QA-Handoff.pdf",
+      "sha256": "30493c069055687d89a615370be159c455715a4dc03354450680a67257ce814c",
+      "sanitized": false
+    },
+    {
+      "path": "public/d006a.png",
+      "sha256": "729f30447231650a99dd41385f449f67ba37ac54ba1462fd6ad2da30602ed3ea",
+      "sanitized": false
+    },
+    {
+      "path": "public/performance-meals-figma-make.tar.gz",
+      "sha256": "4f625726ba68a96357c2879d4199ddccb67466be748406d559543e67c7bead88",
+      "sanitized": false
+    },
+    {
+      "path": "public/performance-meals-prototype.html",
+      "sha256": "4a16b2a3910a5f6ed922eafa5232c24834a223dc69c27ef4b8a6efdabf3492f0",
+      "sanitized": true
+    },
+    {
+      "path": "scripts/generate-prototype-html.mjs",
+      "sha256": "436f23cbd45e4125109f6ec3859c5d919723d7953afa0636d416cb37e1a76cce",
+      "sanitized": false
+    },
+    {
+      "path": "src/App.tsx",
+      "sha256": "c84ba7e5b0b1e898599333d68d8207326f45d218cf6251cd5d7a7b09c919adcf",
+      "sanitized": false
+    },
+    {
+      "path": "src/assets/attachment-bug-ref.png",
+      "sha256": "175bcff4bc94917cf457e760720ba181658b23c9af730bf39377e142606ea5dd",
+      "sanitized": false
+    },
+    {
+      "path": "src/assets/attachment-nav-ref.png",
+      "sha256": "40ff642a0929f44d014d800c6d9f2575d67757c1397080807614420afe1133f9",
+      "sanitized": false
+    },
+    {
+      "path": "src/assets/attachment1.bin",
+      "sha256": "c315133a5ee7daf6e3f6831cb103e95718b97df1cb4a8570f33e7cca63b92d05",
+      "sanitized": false
+    },
+    {
+      "path": "src/assets/attachment2.bin",
+      "sha256": "91a8b027b13b1be8d3201155f47ee82cb6307901392d8a5e0b0932feccec3c47",
+      "sanitized": false
+    },
+    {
+      "path": "src/assets/brand_template.pdf",
+      "sha256": "c315133a5ee7daf6e3f6831cb103e95718b97df1cb4a8570f33e7cca63b92d05",
+      "sanitized": false
+    },
+    {
+      "path": "src/assets/bug1.png",
+      "sha256": "6d1e2f63182f360d49513f020cfa8f4f9e5a088324290a5577611c5bacda3992",
+      "sanitized": false
+    },
+    {
+      "path": "src/assets/bug2.png",
+      "sha256": "084f347f198a59ab625fb90a26b1a5e3da68b3e903644c3bae136988884285d9",
+      "sanitized": false
+    },
+    {
+      "path": "src/assets/check1.png",
+      "sha256": "33f19f6de602e425842baa9928d7aacdd7973e04fb7515e25bd9ba5cccefb309",
+      "sanitized": false
+    },
+    {
+      "path": "src/assets/check2.png",
+      "sha256": "10d1d8f7de36dd1c0fedb0da2a546df1cbb3dd79e022756751eb283c9e57740b",
+      "sanitized": false
+    },
+    {
+      "path": "src/assets/doc1.bin",
+      "sha256": "14d6469823ba1eb773d112ce71d99482d3e912a76553772d4e9276af9c211e5c",
+      "sanitized": false
+    },
+    {
+      "path": "src/assets/doc2.bin",
+      "sha256": "11a1b4093f76ab6afdd959a69887d09f94dd2f2b76484ebbe7d9ab9bbd2f281b",
+      "sanitized": false
+    },
+    {
+      "path": "src/assets/doc3.bin",
+      "sha256": "64807360d5f548665b34ce85cf14335981001e4649d3fbd3e852cd47616ac820",
+      "sanitized": false
+    },
+    {
+      "path": "src/assets/doc4.bin",
+      "sha256": "f11d8e3a58778260265a5699d888e4ccd9ef048ebe56011793751d1d2c1eee1b",
+      "sanitized": false
+    },
+    {
+      "path": "src/assets/prompt-doc.png",
+      "sha256": "10d1d8f7de36dd1c0fedb0da2a546df1cbb3dd79e022756751eb283c9e57740b",
+      "sanitized": false
+    },
+    {
+      "path": "src/components/Footer.tsx",
+      "sha256": "22ed1fc7f15fca658a2e8972c385d689620ea00bfdd7debc02483c5d7697f7c9",
+      "sanitized": true
+    },
+    {
+      "path": "src/components/Logos.tsx",
+      "sha256": "b27df4b4a931cc8cb826ab609f943eae198c2b7202b8af8f42618242ab4cddc9",
+      "sanitized": false
+    },
+    {
+      "path": "src/components/Nav.tsx",
+      "sha256": "1214f1819fb610ffa5f2ce8a0b6f69737d9597d83bb18d9ba4390f7e3f765340",
+      "sanitized": true
+    },
+    {
+      "path": "src/components/PromoPopup.tsx",
+      "sha256": "e9efebd45975e2e7d65d22fe3c2f15926d671098d758f4c283e3245e7aa9493a",
+      "sanitized": false
+    },
+    {
+      "path": "src/data.ts",
+      "sha256": "9ccc34479ebdba920faaf5228055c79e2bf625f1d77a2c4e332c996d32185464",
+      "sanitized": false
+    },
+    {
+      "path": "src/index.css",
+      "sha256": "6b41df1bae165025793c6bc451addbea481990dd139f9b1d41684019c2d6391b",
+      "sanitized": false
+    },
+    {
+      "path": "src/main.tsx",
+      "sha256": "edb0febb4f7d3ce8803025893041767072c4aa7a4f11d51afa7ddd6b62cbfcbb",
+      "sanitized": false
+    },
+    {
+      "path": "src/pages/AboutPage.tsx",
+      "sha256": "ebd4f8b4f590b1d6c4c47024a25439b238ba002252c2a17fae044a9b85c8a4f3",
+      "sanitized": false
+    },
+    {
+      "path": "src/pages/AccountPage.tsx",
+      "sha256": "6a5d91781c4ff830f21374b5d67f635940542e0ed4fd600d09fd6771c38f57e8",
+      "sanitized": true
+    },
+    {
+      "path": "src/pages/BlueprintPage.tsx",
+      "sha256": "8ac3111fb0686ad5bec456428f6b5881876097b465fadbb4b04927b583867f60",
+      "sanitized": false
+    },
+    {
+      "path": "src/pages/CheckoutPage.tsx",
+      "sha256": "aadfc7414735b7e70831e2ec80285cc18657cd20ff9f77431f92610810dbc5d1",
+      "sanitized": true
+    },
+    {
+      "path": "src/pages/ConfirmationPage.tsx",
+      "sha256": "5f166ed0f42f48008260af10a9318342aa4a83d8c7201e54e5c1ca3987b940e1",
+      "sanitized": true
+    },
+    {
+      "path": "src/pages/GiftCardPage.tsx",
+      "sha256": "36a8b578b3ea4b7002ed97dedcb955f042c2deefe683fb797229269cae2a62da",
+      "sanitized": false
+    },
+    {
+      "path": "src/pages/HandoffPage.tsx",
+      "sha256": "6ae0f13ab1e4ec58192d62f15f3a7c0ec9d1e816d8189abcb7792dbc73f770ce",
+      "sanitized": false
+    },
+    {
+      "path": "src/pages/HomePage.tsx",
+      "sha256": "a6c01d7285ba37f994e33026509033101c231e3528609ffd1aaca85f99d7c8b2",
+      "sanitized": false
+    },
+    {
+      "path": "src/pages/MealPlanLandingPage.tsx",
+      "sha256": "831afd93b75ea87f0b9783c55051225645ede3dd1a3e69702dfe74edabcf4405",
+      "sanitized": false
+    },
+    {
+      "path": "src/pages/MealPlanWizardPage.tsx",
+      "sha256": "dfb64472b45dd8068910043a77d8ab6747190d92fe81d3f1cc94b152345a6954",
+      "sanitized": true
+    },
+    {
+      "path": "src/pages/ReadySeriesPage.tsx",
+      "sha256": "5b827d24e63d3b417682d38346941ddfd62f865064d3b063241955f3b7ccac4b",
+      "sanitized": false
+    },
+    {
+      "path": "src/pages/ReadySeriesProductPage.tsx",
+      "sha256": "1d8a05e14bcdf61cc6d9bf32001e7f9a8ef2cb5ee25eefbe8d870e005d7b0706",
+      "sanitized": false
+    },
+    {
+      "path": "src/pages/RewardsPage.tsx",
+      "sha256": "ac1adaf0ea72abb81c35a96a866a13f9222a5b0d7bae3a63eab54933f22672de",
+      "sanitized": false
+    },
+    {
+      "path": "src/pages/ScreensExportPage.tsx",
+      "sha256": "f25c280b2999554f7e329a23466a21917dabea57c5704c2141e7088c5a01645b",
+      "sanitized": false
+    },
+    {
+      "path": "src/pages/WireframePage.tsx",
+      "sha256": "e8f623aa281da192b098c41038a9fcd19edf0875a26ea5559edafd14e8997587",
+      "sanitized": false
+    },
+    {
+      "path": "src/vite-env.d.ts",
+      "sha256": "65996936fbb042915f7b74a200fcdde7e410f32a669b1ab9597cfaa4b0faddb5",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/.catalog-validator.mjs",
+      "sha256": "ae05a4e6f04ac6ce239094e6c1c3ff99af048db259a3bf7f3a54bb0e7be9574a",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/README.md",
+      "sha256": "82ffcf665f5a8dd723c14f212960f60e5d084ebada1f734c50098523dccba0cd",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/approved-catalogue.mjs",
+      "sha256": "feb297b0e19f3813cc4d6be891aead697692f81cf57dc13834583c374404eb2c",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/audit-ready-series-plans.mjs",
+      "sha256": "fd3e3a5ad1f253eaea14ebf7892904aa6ae0d0485b6ac9e8630c6693158e5201",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/build-css.mjs",
+      "sha256": "9961f46e40da1dd6289742d251479c69e803c09de2979d142b82cde1ae493e8c",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/business-stream/README.md",
+      "sha256": "05ccc2aa310ca8db27616b094179fee775cc57e6c1723c734f026f9ee9c4aedd",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/business-stream/definition.graphql",
+      "sha256": "02f33cd71e10957c523fd515dc145a31bed535a0a279933f6436d3dce698b76b",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/business-stream/metaDefinitionUpdate.graphql",
+      "sha256": "18abf5ac6480521841846bb11c0391cc23f854961e4cc99054d78d8ce0df2085",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/business-stream/metaValues.graphql",
+      "sha256": "91c0a4d59b8a15869d1ee3ba044443137ff90ba0da8700158d9a643f859637a6",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/business-stream/read.graphql",
+      "sha256": "1bb7d42487364f77e67b0cf63d528cf97c697449ac9d7d618cd2a39b52072ad3",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/business-stream/subscription-read.graphql",
+      "sha256": "5b764aaac2a4732f974dfbe3512275902c411601a3fbc40f4ef9e7a2bf4f0d93",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/business-stream/values.graphql",
+      "sha256": "8d053269434436764ece1063e9684d12eacaf503b21fa3b6d2c77a3c1608e005",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/catalogue/audit.graphql",
+      "sha256": "da5e33f7f6b8f73537510264a3b4ce00b5a70c1329178c2b400fcfdbcead722d",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/catalogue/build-merchant-manifest.py",
+      "sha256": "59ab833905049ed59e3a5f9f73c49b8749a6ef5f7367cf958ffe82324cbe8fb1",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/catalogue/complete-existing.mjs",
+      "sha256": "677e49d817ecebc7ea1cfc8dec0eec86da35a609648bd2b8691aae2c59646c44",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/catalogue/fresher-audit.mjs",
+      "sha256": "627445ef2c389c682c59487c6f7ec7c60fda707255e823d11cb9ac75d47a7e9b",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/catalogue/menu.mjs",
+      "sha256": "3929529bfb4ba29c9dd7a3c9b22aa7abd5023bd596854ca4ea46d86e83df846b",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/catalogue/merchant-sheets.py",
+      "sha256": "f07134b6bc0fdc3ef80c9e25abf8769fecaa03ced7ac43a9f5c8363e59c552cc",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/catalogue/nutrition-evidence.py",
+      "sha256": "bcccebe2c1510879a8d065416e6f34c99d6830752fa4e4642d22a09b3d12de2a",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/catalogue/operations.graphql",
+      "sha256": "a243b15967c74f7c51d10fa0cdc84c1627093d76e286d4e76d140e9bbb1840f4",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/catalogue/order-existing.mjs",
+      "sha256": "c0fac3c63b4f57b94a23e915311f819a48f221af98336f7d22763a0ec9914f9c",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/catalogue/plan-draft-assembly.mjs",
+      "sha256": "3c0276ab3a13bf7fb913454bd66a9ac0dca46e87c8113c702ffcfc09224df015",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/catalogue/plan-individual-prices.mjs",
+      "sha256": "9486f41f280a4f1a0a5e92cf29f14cb1897d9639d1254b894319cd563e19a2b6",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/catalogue/review-merchant-cli.mjs",
+      "sha256": "91e8f89e0ddec927edff61a867658e2994f1359626ca4a1e605be430fd6d0397",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/catalogue/review-merchant.mjs",
+      "sha256": "32b17fd1bce5812e590205ea72b3b0ebaa3dc6860fb3b0ebeb749b05b5d6eda3",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/catalogue/subscription-source.mjs",
+      "sha256": "a22531b477d514f0b4512851cf25ccbea4d838193d0bf0c63560314b6c5744d8",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/catalogue/sync.mjs",
+      "sha256": "15ebf87241f784cf6943c488b0bd5feab6a8ad1eb0e3cb8aa922a317b0bbe4ef",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/check-theme.mjs",
+      "sha256": "df829f2023bf96676f3fd6eb5d39d44221d486cec82faed2176bbfd62d0f871a",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/commerce-qa/README.md",
+      "sha256": "4824e9a05ddc44c7b138ef21e6ee3a7376ee05140c67a949e2a7c890f8e5fa93",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/commerce-qa/audit.graphql",
+      "sha256": "75ca291123ae22fb5acf069e4f27630703d001f1f317a3aea5407c4990ea2ada",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/commerce-qa/connect.mjs",
+      "sha256": "d1776014bb16091d2238f2d7e95448421d4ffeb5d1e66a7d2e1213b3004ad8d4",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/commerce-qa/environment.graphql",
+      "sha256": "a5fa59240673ecebed344f1c88d2a2bd3c4b874e95cb09346ea98e4352eec8d0",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/commerce-qa/gift-availability.graphql",
+      "sha256": "cf7c08d146a5583f3235b45a3799781e390354e064b3d7fcce78489f5ff5d079",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/commerce-qa/gift-readback.graphql",
+      "sha256": "ef79fe5364f9aa1302242953420128cb5e459cda75c5e1112e0baf1cb3e079e4",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/commerce-qa/media-readback.graphql",
+      "sha256": "bdd342bccc833b071314a330cc4bce656a259fafc9fe8d1fce6ab8a370e01bc6",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/commerce-qa/media.mjs",
+      "sha256": "b2229b25f8c89f129c8152d0ef3dcd87d71cac2d30388047ee2d9386ab0eaa0c",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/commerce-qa/operations.json",
+      "sha256": "da1dcaca1cffcd58d11abd3c470da8c0494b52998deb886544dc44cfea538440",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/commerce-qa/order-stream-read.graphql",
+      "sha256": "3dc6ae092474886cfe5b0cf351866061e2a49684b4a9019f6ba79fac2528e23e",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/commerce-qa/readback.graphql",
+      "sha256": "ec692650b224912c1d07591c42f37f0dbf995a4ad1028ee94f347da4a9ba025c",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/commerce-qa/seed.mjs",
+      "sha256": "7330b8844fa6b64cd4fa54613e0308ab823391d835f1ad8ba4768a69a3317359",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/commerce-qa/sgd-read.graphql",
+      "sha256": "e2dce23056a4887c7d06cd2e62d3afc44eb6279f8a9d6012bfd3427ac326aa72",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/commerce-qa/test-order-read.graphql",
+      "sha256": "2aeeba933e71c10114f9660524e32a95f56e458056211505489714c790fcfa72",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/fixtures.mjs",
+      "sha256": "30dd62ae69d448f500a9489a9b884d8cfaa4b32dab381bcd840d3f0606572381",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/fonts.css",
+      "sha256": "9570db733a6dd1eac82eab6416cdef4aba80003839fc076a373b3176e437c66d",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/fresher-individual-prices-20261016.json",
+      "sha256": "97c7b48fb200678ab4ba7e869b79026665d0d4080f06edbd2529f381ef3d2a7d",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/fresher-product-photos-20261016.json",
+      "sha256": "8768b2fe54725290bf7a9018b087fb25c5a9dc8e97aa9c1c9c3a4301d97d5fe0",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/meal-plan-billing.mjs",
+      "sha256": "d006db11581d86630690dcdb51ef0df484e13d576fa3ff14e0d1ccb6bc35b3ee",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/merchant-catalogue-20261015.json",
+      "sha256": "e3e457b27922dc9aa1dc2b5ed2c6f56796ccd07e6175c210fef6ae2417a60b73",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/merchant-manifest.mjs",
+      "sha256": "f118416f43025328b07f928aa356a7b1e9e10a48a08a54bc287231583721fd9e",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/merchant-nutrition-evidence-20261015.json",
+      "sha256": "49b69d74a4b0f2d685fe28d0f85221b283c9c586eeea6e4318c755dcbae389b9",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/merchant-nutrition-transcription-20261016.json",
+      "sha256": "3cce7e9cad6392ac2516bd0ddd28d67490083f5cb8829216d7b9a4468d2228f5",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/package-lock.json",
+      "sha256": "18e8f1376c943693fe6bd159125a4da1b4bd9113615717f8d463b577dcbc9968",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/package-theme.mjs",
+      "sha256": "11e7f2c02678c94ea5cefa2b01be34a0c1bebbe4d43d0abf18d8edee0d0e43fd",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/package.json",
+      "sha256": "2cd9b174c13079296556d976228e02c5c03b3e4c1b6aad35c1719eba34ea6fb2",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/preview.mjs",
+      "sha256": "b4468392e7847c40c8fb668dac071466c0f29ccca6cd79e0f5dcfa1b48e42699",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/ready-series-billing.mjs",
+      "sha256": "5d884f5d3a71ab029a022b7b3ed3b49a6b1ea9ba69883533592cb6640c05b091",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/tests/bundle-savings.test.mjs",
+      "sha256": "87b06ca1f48ed078baacfe2b70e577272cbee7b167910d72cee2957caf550d2c",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/tests/business-stream.test.mjs",
+      "sha256": "7a9513cdb34ed8b2d7a2d174235fee6a169abcb5713e695767c18276183f0103",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/tests/currency-copy.test.mjs",
+      "sha256": "124afb4a413e3de13c854fa02c54989e7bd48a88a42210dcbea0da769a730d3a",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/tests/customer-sync.test.mjs",
+      "sha256": "7f6d0d0aefc69b3fa57b6ce3416fd0d16acbe3dd584db8197e586de1b0a91899",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/tests/delivery.test.mjs",
+      "sha256": "f7818dab4225788dd2ffc3a15dbfd5a2752058886790a9c0737213ebc4a9109c",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/tests/individual-prices.test.mjs",
+      "sha256": "78f79b4aa54d0e5d5ffa7b9c379e0dcf118eaf5c023094e16bc064c0aef9dd6a",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/tests/meal-plan-billing.test.mjs",
+      "sha256": "665b1afcb717eebd789372c4a2063d8f2ba50b195d4cd9f373b68681477d609e",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/tests/merchant-catalogue-review.test.mjs",
+      "sha256": "e3dd176a1029131bac5f62052ac800b029a7ff57000d4878da23b97ff7ec4558",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/tests/merchant-draft-assembly.test.mjs",
+      "sha256": "d5286696b37e79b6ca3e1abd2499035876a920ecf4f426b8bcb6eb60518eab4d",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/tests/merchant-manifest.test.mjs",
+      "sha256": "6911ab0c39fddb8981c94d479340ba62bb55967f3598575d9d139a7e3388d2d0",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/tests/nutrition-pending.test.mjs",
+      "sha256": "0d23ea68d9c223f1cf74a3b3e503f2375ec1f1e097c281d63f8574c50cc0f895",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/tests/nutrition-source-evidence.test.mjs",
+      "sha256": "a6bacb345a0733de20b1a258c419d9eaeff7e361839620606f6f6f1f417a79c9",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/tests/ready-series-billing.test.mjs",
+      "sha256": "24d462eff174b3dbf2766ee584a7174afbdc19ed84d6c21ae3e5bb6cf2294da5",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/tests/ready-series-policy.test.mjs",
+      "sha256": "8b66496441dcf2efb2f4c080ed1a27f8bab700e3ebb9685891fe468b2928a770",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/tests/runtime-schema.test.mjs",
+      "sha256": "eaa4ba539bb5735acafe78ec84937dd6f64f6bf760d30eb916b421b11bf04968",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/tests/theme.test.mjs",
+      "sha256": "f2f1d1066b7f922dbd9d97511373823cf62d2e27ee100974208e624b4ac27dc9",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/theme.css",
+      "sha256": "2e55911cdd8a7e2e5bdce18dfb0a5da8bdd12d51a24d96f79889cd55710ea6e4",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/validate-shopify.mjs",
+      "sha256": "ae05a4e6f04ac6ce239094e6c1c3ff99af048db259a3bf7f3a54bb0e7be9574a",
+      "sanitized": false
+    },
+    {
+      "path": "theme-tools/vendor-images.mjs",
+      "sha256": "8481f96ab115993333feaaa48e2462ae873effa192b7db4ab8f51bd862e86cc5",
       "sanitized": false
     },
     {

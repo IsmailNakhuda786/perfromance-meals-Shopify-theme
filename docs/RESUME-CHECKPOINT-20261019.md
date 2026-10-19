@@ -66,3 +66,31 @@ Source review also identified older privacy-redaction hook missing newer reminde
 menu/credit records; no deletion or code change performed. Review/fix with isolated
 fixtures next, retaining authenticated-webhook boundary and merchant retention
 requirements; do not execute real redaction during QA.
+
+
+## Resumed after allowance refresh — current progress
+
+Normal checkout coupon/GST acceptance now passes5additional cases:75minus1→10fee;
+125minus1→5fee; same125case with10.65includedGST;75ordinary+255.20prepaid minus1
+→10fee/339.20gross/28.01includedGST; removing code→5fee/335.20gross/27.67GST.
+Native machine receipts omit included-tax amounts; expanded checkout summary is
+the independent tax evidence. No payment/completion. No sellingplan selected.
+Same shippingQA3copies only; third copy never republished this run. Cleanup:code
+deactivated, GSTcollection removed, ruleoff/original allowlist, profile3original
+entries, copiesDRAFT/originalprices, temporary publications removed. Native
+original-product readback passes. Original cart2variants/quantities/line amounts
+and61.89total independently restored. Private receipts/controllers remainignored.
+
+User approved minimal payment-audit retention without contact details. Found old
+privacyhook deleted financial dedup records while missing newer customer tables.
+Replaced destructive automatic deletion with atomic authenticated intake marked
+PENDING_REVIEW; all26models classified and customer inventory scoped/counts-only.
+No real erasure or automatic compliance completion. Actual reviewed audit-preserving
+erasure/deadline execution is still a technical/retention gate.8new tests pass;
+full288Coretests pass. SeePRIVACY-REVIEW-GATE-20261019.md.
+
+User reconfirmed catalogue/nutrition placeholders are approved and remaineditable
+inShopifyAdmin; do not ask for names or serving details as Core blockers.
+Topups/generalRewards/automaticcancellation remainoff. No production/publication
+or provider setting changes. Continue independentCore lifecycle verification;
+retain earlier account-origin review boundary. Monitor5-hourpause5%/weekly1%.
