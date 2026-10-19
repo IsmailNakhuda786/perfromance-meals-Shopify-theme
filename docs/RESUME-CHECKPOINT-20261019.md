@@ -149,3 +149,10 @@ pass, with scoped test cleanup. Together with9reminder fixtures,31targeted
 PostgreSQL tests pass. These are controlled service fixtures, not new native
 fulfillment, order payment, real erasure or sending acceptance. Full isolated
 suite remains312passed; typecheck/lint/schema checks passed.
+
+Final changed-service database verification:13routing/cancellation-history fixtures
+also pass in development PostgreSQL. Total44targeted PostgreSQL tests pass across
+these lifecycle changes; fixture cleanup completed. Existing merchant/customer
+records, native orders, balances and sending settings were not changed.
+Next actionable work: native paid-term/contract/calendar integration and sender
+acceptance, without enabling top-ups or bypassing the existing platform gates.
