@@ -57,3 +57,22 @@ export function planReadyDeliveryReminders(occurrenceId:string,revision:number,d
  const delivery=instant(deliveryAt);
  return ([72,24] as const).flatMap(hours=>(['email','whatsapp'] as const).map(channel=>({occurrenceId,revision,channel,hoursBefore:hours,scheduledAt:new Date(delivery-hours*3600000).toISOString(),idempotencyKey:JSON.stringify(['ready-delivery',occurrenceId,revision,channel,hours])})));
 }
+
+// Prepare once after server verification of a purchase. Missed lead times
+// collapse to one immediate message per channel; later reminders keep their
+// normal times. This is planning only, not permission to send or a durable claim.
+export function planReadyDeliveryCatchUp(occurrenceId:string,revision:number,deliveryAt:string,confirmedAt:string){
+ const delivery=instant(deliveryAt),confirmed=instant(confirmedAt);
+ if(confirmed>=delivery)throw Error('Delivery must still be upcoming before preparing reminders');
+ const normal=planReadyDeliveryReminders(occurrenceId,revision,deliveryAt);
+ return (['email','whatsapp'] as const).flatMap(channel=>{
+  const messages=normal.filter(row=>row.channel===channel);
+  const missed=messages.filter(row=>instant(row.scheduledAt)<confirmed);
+  if(!missed.length)return messages.map(row=>({...row,kind:'SCHEDULED' as const,coversHoursBefore:[row.hoursBefore]}));
+  // A scheduled reminder due at this exact instant is covered by the immediate
+  // message too, rather than generating two messages simultaneously.
+  const covered=messages.filter(row=>instant(row.scheduledAt)<=confirmed).map(row=>row.hoursBefore);
+  return [{occurrenceId,revision,channel,hoursBefore:0,kind:'IMMEDIATE' as const,coversHoursBefore:covered,scheduledAt:new Date(confirmed).toISOString(),idempotencyKey:JSON.stringify(['ready-delivery',occurrenceId,revision,channel,'immediate'])},
+   ...messages.filter(row=>instant(row.scheduledAt)>confirmed).map(row=>({...row,kind:'SCHEDULED' as const,coversHoursBefore:[row.hoursBefore]}))];
+ });
+}

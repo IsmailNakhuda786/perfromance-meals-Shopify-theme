@@ -77,3 +77,21 @@ test('earliest Singapore slot, monthly anchor and reminder timing remain consist
  assert.equal(notices.filter(x=>x.scheduledAt==='2027-02-28T00:00:00.000Z').length,2);
  assert.equal(reviewDeliveryChangeNotice('2027-02-26T00:00:01Z',adjustedAt,'2027-03-05T00:00:00Z').supportRequired,true);
 });
+
+const {planReadyDeliveryCatchUp}=await import('../.shopify/ready-calendar-test/ready-series-calendar.js');
+test('late confirmation coalesces missed reminders per channel while preserving future reminders',()=>{
+ const plan=at=>planReadyDeliveryCatchUp('late-1',1,'2027-03-05T00:00:00Z',at);
+ assert.equal(plan('2027-03-01T00:00:00Z').length,4);
+ const late=plan('2027-03-03T00:00:00Z');
+ assert.equal(late.filter(x=>x.kind==='IMMEDIATE').length,2);
+ assert.equal(late.filter(x=>x.kind==='SCHEDULED').length,2);
+ assert.ok(late.filter(x=>x.kind==='SCHEDULED').every(x=>x.hoursBefore===24));
+ assert.equal(plan('2027-03-04T12:00:00Z').length,2);
+ assert.ok(plan('2027-03-04T12:00:00Z').every(x=>x.kind==='IMMEDIATE'));
+ assert.ok(plan('2027-03-02T00:00:00Z').every(x=>x.kind==='SCHEDULED'));
+ const boundary=plan('2027-03-04T00:00:00Z');
+ assert.equal(boundary.length,2);assert.ok(boundary.every(x=>JSON.stringify(x.coversHoursBefore)==='[72,24]'));
+ assert.deepEqual(boundary.map(x=>x.idempotencyKey),plan('2027-03-04T12:00:00Z').map(x=>x.idempotencyKey));
+ assert.notEqual(boundary[0].idempotencyKey,planReadyDeliveryCatchUp('late-1',2,'2027-03-05T00:00:00Z','2027-03-04T00:00:00Z')[0].idempotencyKey);
+ assert.throws(()=>plan('2027-03-05T00:00:00Z'));assert.throws(()=>plan('invalid'));
+});

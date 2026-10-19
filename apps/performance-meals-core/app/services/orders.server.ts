@@ -6,6 +6,7 @@ export const ORDER_QUERY=`#graphql
 query OperationalOrder($id:ID!){shop{myshopifyDomain}order(id:$id){id createdAt customer{id}lineItems(first:250){nodes{id quantity customAttributes{key value}product{id isGiftCard stream:metafield(namespace:"performance",key:"business_stream"){jsonValue}}variant{id}sellingPlan{sellingPlanId}}pageInfo{hasNextPage}}}}
 `;
 type NativeOrder={id:string;createdAt:string;customer?:{id:string};lineItems:{pageInfo:{hasNextPage:boolean};nodes:Array<{id:string;quantity:number;customAttributes:Array<{key:string;value:string}>;product?:{id:string;isGiftCard:boolean;stream?:{jsonValue:unknown}};variant?:{id:string};sellingPlan?:{sellingPlanId:string}}>}};
+const nativeReference=(type:string,value:unknown)=>typeof value==='string'&&new RegExp('^gid://shopify/'+type+'/\\d+$').test(value);
 export async function recordOrder(shop:string,orderGid:string,eventId:string,admin:AdminApiContext,topic='orders/create'){
  assertShop(shop);
  if(!/^gid:\/\/shopify\/Order\/\d+$/.test(orderGid)||typeof eventId!=='string'||!eventId.trim()||eventId.length>512)throw Error('Invalid order routing context');
@@ -14,20 +15,30 @@ export async function recordOrder(shop:string,orderGid:string,eventId:string,adm
  if(!response.ok||result.errors||result.data?.shop?.myshopifyDomain!==shop||!result.data?.order||result.data.order.lineItems.pageInfo.hasNextPage!==false) throw new Error('Order cannot be safely routed');
  const order=result.data.order;
  const created=new Date(order.createdAt);
- if(order.id!==orderGid||!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z$/.test(order.createdAt)||!Number.isFinite(created.getTime())||created.toISOString().slice(0,19)!==order.createdAt.slice(0,19)||!Array.isArray(order.lineItems.nodes)||new Set(order.lineItems.nodes.map(line=>line.id)).size!==order.lineItems.nodes.length)throw Error('Order identity or line evidence differs');
+ if(order.id!==orderGid||!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z$/.test(order.createdAt)||!Number.isFinite(created.getTime())||created.toISOString().slice(0,19)!==order.createdAt.slice(0,19)||!Array.isArray(order.lineItems.nodes)||order.lineItems.nodes.length>250||new Set(order.lineItems.nodes.map(line=>line?.id)).size!==order.lineItems.nodes.length||order.customer!=null&&!nativeReference('Customer',order.customer.id))throw Error('Order identity or line evidence differs');
  for(const line of order.lineItems.nodes){
-  if(!/^gid:\/\/shopify\/LineItem\/\d+$/.test(line.id)||!Number.isSafeInteger(line.quantity)||line.quantity<1||!Array.isArray(line.customAttributes)||line.customAttributes.some(attribute=>typeof attribute.key!=='string'||typeof attribute.value!=='string'))throw Error('Order line evidence unavailable');
+  if(!line||!nativeReference('LineItem',line.id)||!Number.isSafeInteger(line.quantity)||line.quantity<1||!Array.isArray(line.customAttributes)||line.customAttributes.some(attribute=>!attribute||typeof attribute.key!=='string'||typeof attribute.value!=='string')||line.product!=null&&(!nativeReference('Product',line.product.id)||typeof line.product.isGiftCard!=='boolean')||line.variant!=null&&!nativeReference('ProductVariant',line.variant.id)||line.sellingPlan!=null&&!nativeReference('SellingPlan',line.sellingPlan.sellingPlanId))throw Error('Order line evidence unavailable');
  }
  await db.$transaction(async tx=>{
   if(await tx.webhookReceipt.findUnique({where:{id:`${shop}:${eventId}`}})) return;
   for(const line of order.lineItems.nodes){
-   if(await tx.operationalLine.findUnique({where:{shop_orderLineGid:{shop,orderLineGid:line.id}}})) continue;
    const props=Object.fromEntries(line.customAttributes.map((p:{key:string;value:string})=>[p.key,p.value]));
    const stream=line.product?.stream?.jsonValue;
+   const duplicateProperties=new Set(line.customAttributes.map(attribute=>attribute.key)).size!==line.customAttributes.length;
+   const existing=await tx.operationalLine.findUnique({where:{shop_orderLineGid:{shop,orderLineGid:line.id}}});
+   if(existing){
+    if(existing.orderGid!==order.id)throw Error('Operational line belongs to another original order');
+    if(existing.customerGid!==(order.customer?.id??null)||existing.productGid!==(line.product?.id??null)||existing.variantGid!==(line.variant?.id??null)||existing.businessStream!==(typeof stream==='string'?stream:null)||props._pm_business_stream!==stream||props._pm_stream_schema_version!=='1'||duplicateProperties){
+     // Preserve the purchased identity and selection; do not silently reassign
+     // an existing programme after an admin edit or conflicting notification.
+     await tx.operationalLine.update({where:{id:existing.id},data:{validationStatus:'QUARANTINED',department:null,validationReason:'Native identity or stream metadata differs from the original operational snapshot'}});
+    }
+    continue;
+   }
    const valid=STREAMS.some(value=>value===stream)&&props._pm_business_stream===stream&&props._pm_stream_schema_version==='1';
    const workspace=department(typeof stream==='string'?stream:'',line.product?.isGiftCard||false);
-   const duplicateProperties=new Set(line.customAttributes.map(attribute=>attribute.key)).size!==line.customAttributes.length;
    let reason=valid&&workspace&&!duplicateProperties?null:'Missing or conflicting native stream metadata';
+   if(!line.product||!line.variant)reason='Native product or variant is unavailable; original routing requires review';
    let selectionId:string|null=null;
    if(!reason&&stream==='meal_plan'){
     const selection=typeof props._pm_selection_id==='string'?await tx.mealPlanSelection.findUnique({where:{id:props._pm_selection_id}}):null;

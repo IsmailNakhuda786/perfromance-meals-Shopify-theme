@@ -8,7 +8,7 @@ const db=new PrismaClient(),shop=`cancel-${randomUUID()}.myshopify.com`,customer
 process.env.ALLOWED_SHOP=shop;
 const order=id=>({id:`gid://shopify/Order/${id}`,customerGid:customer,createdAt:new Date(Date.now()-3600000).toISOString(),currency:'SGD',amountMinor:2290,paid:true,alreadyCancelled:false,hasEverDispatched:false,businessStreams:['ready_series'],contractGids:[],renewalsVerified:true});
 const api=id=>({readOrder:async()=>order(id),stopRenewals:async()=>{},cancelToWallet:async()=>({jobGid:`gid://shopify/Job/job-${id}`}),reconcile:async()=>true});
-test.after(async()=>{await db.orderCancellation.deleteMany({where:{shop}});await db.commercePolicy.deleteMany({where:{shop}});await db.$disconnect();});
+test.after(async()=>{await db.orderCancellation.deleteMany({where:{shop}});await db.commercePolicy.deleteMany({where:{shop}});await db.operationalLine.deleteMany({where:{shop}});await db.$disconnect();});
 test('stale activation cannot execute customer cancellation or any financial mutation',async()=>{
  await db.commercePolicy.create({data:{shop,orderCancellationsEnabled:true}});
  const gateway=api(902);
@@ -25,4 +25,13 @@ test('historical reconciliation remains read-only and preserves existing QA evid
  assert.equal((await reconcileCustomerCancellation(shop,customer,order(950).id,gateway)).state,'AWAITING_NATIVE_REFUND');
  gateway.reconcile=async()=>true;
  assert.equal((await reconcileCustomerCancellation(shop,customer,order(950).id,gateway)).state,'COMPLETED');
+});
+
+test('historical cancellation reconciliation cannot erase dispatched or uncertain dispatch history',async()=>{
+ const target=order(960),gateway=api(960);
+ await db.orderCancellation.create({data:{shop,customerGid:customer,orderGid:target.id,currency:'SGD',amountMinor:2290,contractGids:'[]',state:'AWAITING_NATIVE_REFUND'}});
+ for(const [index,state]of ['DISPATCHED','DISPATCH_REVIEW','UNASSIGNED'].entries())await db.operationalLine.create({data:{shop,customerGid:customer,orderGid:target.id,orderLineGid:`gid://shopify/LineItem/${960+index}`,validationStatus:'VALIDATED',fulfillmentState:state}});
+ await reconcileCustomerCancellation(shop,customer,target.id,gateway);
+ const states=(await db.operationalLine.findMany({where:{shop,orderGid:target.id},orderBy:{orderLineGid:'asc'}})).map(row=>row.fulfillmentState);
+ assert.deepEqual(states,['DISPATCHED','DISPATCH_REVIEW','CANCELLED']);
 });

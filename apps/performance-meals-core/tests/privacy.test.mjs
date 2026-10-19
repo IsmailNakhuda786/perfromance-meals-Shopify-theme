@@ -8,7 +8,7 @@ await buildServices({entryPoints:['app/services/privacy.server.ts','app/services
  b.onResolve({filter:/shopify\.server$/},args=>({path:args.path,namespace:'privacy-auth'}));
  b.onLoad({filter:/.*/,namespace:'privacy-auth'},()=>({loader:'js',contents:'export const authenticate={webhook:async()=>{const s=globalThis.privacyWebhookFixture;if(s.failAuth)throw new Response(null,{status:401});return {shop:s.shop,topic:s.topic,payload:s.payload};}};'}));
 }}]});
-const {queuePrivacyRequest,inspectCustomerPrivacyData,privacyCustomerModels,privacyShopOnlyModels,privacyIndirectModels}=await import('../.shopify/privacy-test/services/privacy.server.js');
+const {queuePrivacyRequest,inspectCustomerPrivacyData,readPrivacyReviewQueue,privacyCustomerModels,privacyShopOnlyModels,privacyIndirectModels}=await import('../.shopify/privacy-test/services/privacy.server.js');
 const {recordSettledWalletCredit}=await import('../.shopify/privacy-test/services/wallet.server.js');
 const {action}=await import('../.shopify/privacy-test/routes/webhooks.privacy.js');
 const db=new PrismaClient(),shop=`privacy-${randomUUID()}.myshopify.com`,otherShop=`other-${randomUUID()}.myshopify.com`;
@@ -102,4 +102,26 @@ test('webhook authentication failure prevents persistence; fallback delivery hea
  assert.equal((await action({request:request()})).status,200);assert.equal(await db.planOperation.count({where:{shop}}),before+1);
  state.shop=otherShop;await assert.rejects(action({request:request()}));state.shop=shop;
  assert.equal((await action({request:new Request('https://fixture.invalid/webhooks/privacy',{method:'POST'})})).status,400);
+});
+
+test('the bounded review backlog reports deadlines without customer details and duplicate delivery cannot move them',async()=>{
+ const first=await queuePrivacyRequest(shop,'CUSTOMERS_REDACT',payload,'deadline-event');
+ const received=new Date('2026-10-01T08:00:00Z');await db.planOperation.update({where:{id:first.id},data:{createdAt:received}});
+ const duplicate=await queuePrivacyRequest(shop,'CUSTOMERS_REDACT',payload,'deadline-event');assert.equal(duplicate.createdAt.toISOString(),received.toISOString());
+ const before=await readPrivacyReviewQueue(shop,{now:new Date('2026-10-31T07:59:59Z'),limit:1});
+ assert.equal(before.requests[0].requestId,first.id);assert.equal(before.requests[0].reviewDueAt,'2026-10-31T08:00:00.000Z');assert.equal(before.overdue,0);
+ const at=await readPrivacyReviewQueue(shop,{now:new Date('2026-10-31T08:00:00Z'),limit:1});assert.equal(at.overdue,1);assert.equal(at.requests[0].overdue,true);assert.equal(at.hasMore,true);
+ assert.ok(!JSON.stringify(at).includes('customer:901'));assert.ok(!JSON.stringify(at).includes('do-not-store'));
+ const second=await readPrivacyReviewQueue(shop,{now:new Date('2026-10-31T08:00:00Z'),limit:1,after:at.nextCursor});assert.notEqual(second.requests[0].requestId,first.id);assert.equal(second.pending,at.pending);
+});
+
+test('review pagination excludes non-privacy/finished work and rejects foreign cursors and unsafe bounds',async()=>{
+ const unrelated=await db.planOperation.create({data:{shop,selectionId:'fixture',kind:'NATIVE_DISPATCH_OBSERVED',state:'PENDING_REVIEW'}});
+ const done=await db.planOperation.create({data:{shop,selectionId:'fixture',kind:'PRIVACY_DATA_REQUEST',state:'COMPLETED'}});
+ const foreign=await db.planOperation.create({data:{shop:otherShop,selectionId:'fixture',kind:'PRIVACY_CUSTOMER_REDACTION',state:'PENDING_REVIEW'}});
+ const queue=await readPrivacyReviewQueue(shop,{limit:100});assert.ok(queue.requests.every(row=>![unrelated.id,done.id,foreign.id].includes(row.requestId)));
+ for(const after of [unrelated.id,done.id,foreign.id,'missing'])await assert.rejects(readPrivacyReviewQueue(shop,{after}),/cursor/);
+ for(const limit of [0,101,1.5])await assert.rejects(readPrivacyReviewQueue(shop,{limit}),/bounds/);
+ await assert.rejects(readPrivacyReviewQueue(shop,{now:new Date('invalid')}),/bounds/);
+ await assert.rejects(readPrivacyReviewQueue(otherShop));
 });

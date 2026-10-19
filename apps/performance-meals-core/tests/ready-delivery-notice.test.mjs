@@ -21,3 +21,9 @@ test('foreign or unsafe account links, invalid windows and unsupported reminder 
  for(const change of [{accountUrl:'https://evil.example/account'},{accountUrl:'https://shopify.com/999/account/pages/delivery'},{accountUrl:'https://shopify.com/71166492756/account/pages/delivery?token=secret'},{accountUrl:'https://user:qa@example.invalid/71166492756/account/pages/delivery'},{deliveryEndsAt:'2027-01-19T01:00:00Z'},{deliveryEndsAt:'2027-01-17T22:00:00Z'},{deliveryAt:'2027-02-30T00:00:00Z'},{hoursBefore:48},{occurrence:4},{noticeHours:0},{orderReference:'#QA\r\nBcc: other'},{whatsappNumber:'not-a-number'}])assert.throws(()=>readyDeliveryNotice({...fixture(),...change}));
  assert.match(readyDeliveryNotice({...fixture(),accountUrl:'https://performance-meals-development.myshopify.com/account'}).email.text,/View your delivery/);
 });
+
+test('immediate catch-up uses an upcoming delivery notice without a zero-hour claim',()=>{
+ const result=readyDeliveryNotice({...fixture(),hoursBefore:0});
+ assert.equal(result.hoursBefore,0);assert.match(result.email.subject,/upcoming/);
+ assert.doesNotMatch(result.email.text,/0 hours|72 hours before delivery/);
+});

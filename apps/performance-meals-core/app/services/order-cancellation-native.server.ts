@@ -56,7 +56,7 @@ export function nativeCancellationGateway(admin:Admin,shop:string):CancellationG
     alreadyCancelled:!!order.cancelledAt,
     commencementStartsOn,
     // A cancelled native fulfillment is unknown history and fails closed.
-    hasEverDispatched:nativeDispatchEvidence(order.fulfillments.map((f:{status:string})=>f.status),operational.some(line=>line.fulfillmentState==='DISPATCHED')?true:false,true),
+    hasEverDispatched:nativeDispatchEvidence(order.fulfillments.map((f:{status:string})=>f.status),operational.some(line=>line.fulfillmentState==='DISPATCHED')?true:operational.some(line=>line.fulfillmentState==='DISPATCH_REVIEW')?null:false,true),
     businessStreams:lines.map(line=>line.product?.isGiftCard?'shared':typeof line.product?.stream?.jsonValue==='string'?line.product.stream.jsonValue:'unknown'),
     contractGids:contracts.filter((id):id is string=>!!id),renewalsVerified:contracts.every(Boolean)};
   },

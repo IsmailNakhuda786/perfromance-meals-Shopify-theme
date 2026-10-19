@@ -94,3 +94,35 @@ inShopifyAdmin; do not ask for names or serving details as Core blockers.
 Topups/generalRewards/automaticcancellation remainoff. No production/publication
 or provider setting changes. Continue independentCore lifecycle verification;
 retain earlier account-origin review boundary. Monitor5-hourpause5%/weekly1%.
+
+
+## Verified lifecycle checkpoint — dispatch, privacy backlog, late reminders
+
+Full isolated Core suite:308 passed,0failed; typecheck, lint and production-schema
+alignment pass. No live database writes were used by these fixture tests.
+
+Order intake now rejects malformed identities and quarantines changed/ambiguous
+routing evidence without automatically clearing review. Authenticated create/update
+webhooks refresh native fulfillment coverage; incomplete history is DISPATCH_REVIEW,
+not proof of no dispatch. Confirmed dispatch remains monotonic across cancellation,
+missing history and replay, with one auditable observation. Three existing dev QA
+orders were read only; all had complete empty fulfillment history. One negative
+Core synchronization preserved its three existing operational lines and audit count.
+Positive native dispatch remains an unexecuted QA gate; fixture coverage is not a
+claim of live positive acceptance. No fulfillment or financial mutation occurred.
+
+Privacy review queue now exposes bounded, scoped request counts, received/deadline
+timestamps and stable pagination without customer details. Duplicate intake preserves
+the original30-day review deadline. This is review visibility, not an erasure worker,
+legal retention approval or completed privacy compliance.
+
+Latest user decision: if purchase confirmation misses a delivery-reminder lead time,
+prepare one immediate reminder per channel and preserve later scheduled reminders.
+Pure planning coalesces missed72/24-hour stages, including the exact24-hour boundary,
+using stable occurrence/revision keys. It rejects past deliveries. Immediate content
+uses the verified upcoming delivery window, without a misleading zero-hour claim.
+No durable catch-up worker or email/WhatsApp sending was enabled. Existing scheduled
+reminder persistence still requires an explicit guarded integration before activation.
+
+Top-ups remain disabled. No production, theme publication, payment provider or new
+store-setting changes in this checkpoint. Unrelated preexisting edits preserved.

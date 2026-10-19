@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "495d637a7554db10a9ac04436e6d1f221b72ca00",
+  "source_commit": "fb1e3ceffa894dc62e93d04a04822853265e1a70",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -251,7 +251,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/routes/webhooks.orders.create.tsx",
-      "sha256": "0b1cdff25d06ab3e2c3b2e3be37cef5a356c19bb08a370abed620be1b0a2c616",
+      "sha256": "fd7fc73d30196a79d932bb2d636e7e511571cf2a61ee7567c8575421a8045ea0",
       "sanitized": false
     },
     {
@@ -386,7 +386,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/order-cancellation-native.server.ts",
-      "sha256": "1e8c13d8e71a8eddfda227f54441bce47683a69c97940d168f0aa5d04e3b77b9",
+      "sha256": "58fcc1bb727c550cb341f4c7cb2a5e160a73a9094bb667ec55bc2f3628e36d4e",
       "sanitized": false
     },
     {
@@ -396,7 +396,12 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/order-cancellation.server.ts",
-      "sha256": "6c6ce97e941b6a70130937d52e486721c44190235f748d387eabfe24304bcaa0",
+      "sha256": "f6a9ea00e81073337a28243620d378c643408f0b445f7e4f4764f192d4d0b3a3",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/order-dispatch.server.ts",
+      "sha256": "4d8756049d8cfbbd506e5c34b347b0f310816c6a327b5462d8d467dbfe14a45a",
       "sanitized": false
     },
     {
@@ -416,7 +421,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/orders.server.ts",
-      "sha256": "b914a6f3e33cc75df5516abfb984be8d39d7bc11e477c1956663f4df7bf75f33",
+      "sha256": "bb76bdf9b254ba7530fe1cd5ca115b1ec330b7b85ca8e424df0ef0d4d9ed3f54",
       "sanitized": false
     },
     {
@@ -431,7 +436,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/privacy.server.ts",
-      "sha256": "80a42d60c0a614bb8451e0a6326ecc7924ebd8f14ac2d06c30832b7ad44e861a",
+      "sha256": "f192b092ced53bacc50418f50e9b09e3051e85bcd1f8755e32ccfc4e653e657e",
       "sanitized": false
     },
     {
@@ -451,12 +456,12 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/ready-delivery-notice.ts",
-      "sha256": "e2578c45eaefc5188d3d4d5c557406e25c6cfcf5b19946ce2c7fa5c46f1089ca",
+      "sha256": "31ba4986cf62f1492ce4b1358191e629b509f0682cadf7e9f7ca044a734db597",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/services/ready-series-calendar.ts",
-      "sha256": "4cd1f4534389f8b943204832556381808843e4e427f646680673f4f24ba06123",
+      "sha256": "cb6370aca2e830bac3d34bb28cbd7a66d254d55d9291cd176efe8079a3b90369",
       "sanitized": false
     },
     {
@@ -1126,7 +1131,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/order-cancellation-native.test.mjs",
-      "sha256": "896c92b2109537135bdd6d13840582f9ceed7c0fb5a3d4cbceeb8ca59abde39d",
+      "sha256": "d41172442fb2902643b350384150fa14e6250123caa779add4776741394bbcbc",
       "sanitized": false
     },
     {
@@ -1136,7 +1141,12 @@
     },
     {
       "path": "apps/performance-meals-core/tests/order-cancellation.test.mjs",
-      "sha256": "d842bb50c09080eb8c42c96fa19d9deb1ef628e29dd44e1f0c1278425b7392ec",
+      "sha256": "cc5a93f43bf43671fee968e2e331240a031249654eb5205a4e8d3e2355b817a5",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/order-dispatch.test.mjs",
+      "sha256": "43baaa865ab5fb4caa345875266623820ce89f47b9fdca57e886c6a0b0172862",
       "sanitized": false
     },
     {
@@ -1151,12 +1161,17 @@
     },
     {
       "path": "apps/performance-meals-core/tests/order-routing-evidence.test.mjs",
-      "sha256": "430b6fe70edc5698be265bd5e256b325f66826a031365d8c0f11abad334b05bc",
+      "sha256": "bb64ff58eedd2cc43ac8d9d8b4fff418d9e178547731293762895f71216483f4",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/tests/order-support.test.mjs",
       "sha256": "5f2ff0efef5efc8ea3b0e5f2f771366fc04d0cda42f337ae09dc0ff529b211c2",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/order-webhook.test.mjs",
+      "sha256": "9ca0bdf1711f75889bc42f453aad70e7cb9ac29708ee29cdc5c7e1ccc3ebfced",
       "sanitized": false
     },
     {
@@ -1176,7 +1191,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/privacy.test.mjs",
-      "sha256": "00906a210efb76ca0060229917bcb0ac40ff53b35250e1443f8dfecf64ca9754",
+      "sha256": "a6add04b70c490c708bbdfa3432f90128179f62a3b2f4c942ea10c93dbbbea0f",
       "sanitized": false
     },
     {
@@ -1201,12 +1216,12 @@
     },
     {
       "path": "apps/performance-meals-core/tests/ready-delivery-notice.test.mjs",
-      "sha256": "22c0389c178be03d96011076c6b81802127f55bd5a4ebbb9e45ff8bd8dcd4847",
+      "sha256": "60ba72f5fcf167a73d7c82bee739bf0c7ed0d7cf56afcb878d810aee1c761581",
       "sanitized": true
     },
     {
       "path": "apps/performance-meals-core/tests/ready-series-calendar.test.mjs",
-      "sha256": "50758ae8c1f2edcc3be6a6963be18bb14d32776d9240637629093120bc3e4cd9",
+      "sha256": "1afd81149f344fdc52e5ec27bd10b0325f1ae23185b78348ee37bf0d7ba526bb",
       "sanitized": false
     },
     {
@@ -2171,7 +2186,7 @@
     },
     {
       "path": "docs/RESUME-CHECKPOINT-20261019.md",
-      "sha256": "f0166bf33601e6312d773d728a62e425ea81860c7eefd6870f0a25d8aafc8bbb",
+      "sha256": "8d750b62469218385545088c0b5fa5f6aa33335b06cee9540efa28b20b2f0862",
       "sanitized": false
     },
     {

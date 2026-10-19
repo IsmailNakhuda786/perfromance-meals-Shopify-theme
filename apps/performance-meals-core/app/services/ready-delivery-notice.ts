@@ -1,12 +1,12 @@
 import {planReadyDeliveryReminders} from './ready-series-calendar';
 
-type Notice={orderReference:string;occurrence:number;deliveries:3|6;deliveryAt:string;deliveryEndsAt:string;hoursBefore:24|72;noticeHours:number;shopDomain:string;accountUrl:string;accountShopId:string;whatsappNumber:string};
+type Notice={orderReference:string;occurrence:number;deliveries:3|6;deliveryAt:string;deliveryEndsAt:string;hoursBefore:0|24|72;noticeHours:number;shopDomain:string;accountUrl:string;accountShopId:string;whatsappNumber:string};
 const escape=(text:string)=>text.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
 // Pure content preparation. No address resolution, email/WhatsApp send or worker
 // activation. Provider receipt/consent/template approval are separate gates.
 export function readyDeliveryNotice(input:Notice){
  const {orderReference,occurrence,deliveries,deliveryAt,deliveryEndsAt,hoursBefore,noticeHours,shopDomain,accountUrl,accountShopId,whatsappNumber}=input;
- if(typeof orderReference!=='string'||!orderReference.trim()||orderReference.length>100||/[\r\n]/.test(orderReference)||![3,6].includes(deliveries)||!Number.isSafeInteger(occurrence)||occurrence<1||occurrence>deliveries||![24,72].includes(hoursBefore)||!Number.isSafeInteger(noticeHours)||noticeHours<1||noticeHours>8760||!/^\d{8,15}$/.test(whatsappNumber)||!/^\d+$/.test(accountShopId)||!/^[a-z0-9][a-z0-9-]*\.myshopify\.com$/.test(shopDomain))throw Error('Verified delivery notice context required');
+ if(typeof orderReference!=='string'||!orderReference.trim()||orderReference.length>100||/[\r\n]/.test(orderReference)||![3,6].includes(deliveries)||!Number.isSafeInteger(occurrence)||occurrence<1||occurrence>deliveries||![0,24,72].includes(hoursBefore)||!Number.isSafeInteger(noticeHours)||noticeHours<1||noticeHours>8760||!/^\d{8,15}$/.test(whatsappNumber)||!/^\d+$/.test(accountShopId)||!/^[a-z0-9][a-z0-9-]*\.myshopify\.com$/.test(shopDomain))throw Error('Verified delivery notice context required');
  planReadyDeliveryReminders('content-validation',1,deliveryAt);planReadyDeliveryReminders('content-validation',1,deliveryEndsAt);
  const start=Date.parse(deliveryAt),end=Date.parse(deliveryEndsAt);
  const localDate=(time:number)=>new Date(time+8*3600000).toISOString().slice(0,10);

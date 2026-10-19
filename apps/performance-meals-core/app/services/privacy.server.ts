@@ -80,3 +80,23 @@ export async function inspectCustomerPrivacyData(shop:string,rawCustomerId:unkno
   return {counts,financialAuditRequired:true,executionReady:false as const};
  });
 }
+
+// Internal review backlog, not a customer endpoint or automatic erasure worker.
+// Shopify's documented 30-day completion window is an operational review target,
+// not a legal retention period. Duplicate deliveries never reset receivedAt.
+export async function readPrivacyReviewQueue(shop:string,options:{now?:Date;limit?:number;after?:string}={}){
+ assertShop(shop);
+ const now=options.now??new Date(),limit=options.limit??25;
+ if(!Number.isFinite(now.getTime())||!Number.isSafeInteger(limit)||limit<1||limit>100)throw new PrivacyRequestError('Invalid privacy review bounds');
+ const where={shop,state:'PENDING_REVIEW',kind:{in:Object.values(topics)}};
+ const cursor=options.after?await db.planOperation.findFirst({where:{...where,id:options.after},select:{id:true,createdAt:true}}):null;
+ if(options.after&&!cursor)throw new PrivacyRequestError('Invalid privacy review cursor');
+ const windowMs=30*24*60*60*1000;
+ const [records,pending,overdue]=await db.$transaction([
+  db.planOperation.findMany({where:{...where,...(cursor?{OR:[{createdAt:{gt:cursor.createdAt}},{createdAt:cursor.createdAt,id:{gt:cursor.id}}]}:{})},orderBy:[{createdAt:'asc'},{id:'asc'}],take:limit+1,select:{id:true,kind:true,state:true,createdAt:true}}),
+  db.planOperation.count({where}),
+  db.planOperation.count({where:{...where,createdAt:{lte:new Date(now.getTime()-windowMs)}}}),
+ ]);
+ const requests=records.slice(0,limit).map(record=>({requestId:record.id,kind:record.kind,state:record.state,receivedAt:record.createdAt.toISOString(),reviewDueAt:new Date(record.createdAt.getTime()+windowMs).toISOString(),overdue:record.createdAt.getTime()+windowMs<=now.getTime()}));
+ return {requests,pending,overdue,hasMore:records.length>limit,nextCursor:records.length>limit?requests.at(-1)?.requestId:null};
+}

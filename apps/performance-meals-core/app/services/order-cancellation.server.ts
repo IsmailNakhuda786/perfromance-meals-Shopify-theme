@@ -33,7 +33,7 @@ export async function reconcileCustomerCancellation(shop:string,customerGid:stri
  if(!await gateway.reconcile(orderGid,customerGid,operation.amountMinor,JSON.parse(operation.contractGids)))return operation;
  return db.$transaction(async tx=>{
   await tx.mealPlanSelection.updateMany({where:{shop,customerGid,orderGid},data:{status:'CANCELLED'}});
-  await tx.operationalLine.updateMany({where:{shop,customerGid,orderGid},data:{fulfillmentState:'CANCELLED'}});
+  await tx.operationalLine.updateMany({where:{shop,customerGid,orderGid,fulfillmentState:{notIn:['DISPATCHED','DISPATCH_REVIEW']}},data:{fulfillmentState:'CANCELLED'}});
   return tx.orderCancellation.update({where:{id:operation.id},data:{state:'COMPLETED'}});
  });
 }

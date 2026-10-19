@@ -46,3 +46,12 @@ test('Support dates come only from the bound customer selection, never current a
  await db.mealPlanSelection.update({where:{id:selection.id},data:{customerGid:'gid://shopify/Customer/999'}});
  assert.equal((await gateway.readOrder(id)).commencementStartsOn,null);
 });
+
+test('Support keeps an unresolved dispatch-history marker unknown even when native fulfillments disappear',async()=>{
+ const current=order();current.id='gid://shopify/Order/990';current.lineItems.nodes[0].id='gid://shopify/LineItem/991';
+ const line=await db.operationalLine.create({data:{shop,customerGid:customer,orderGid:current.id,orderLineGid:current.lineItems.nodes[0].id,businessStream:'ready_series',validationStatus:'VALIDATED',fulfillmentState:'DISPATCH_REVIEW'}});
+ const gateway=nativeCancellationGateway({graphql:async()=>response({shop:{myshopifyDomain:shop},order:current})},shop);
+ assert.equal((await gateway.readOrder(current.id)).hasEverDispatched,null);
+ await db.operationalLine.update({where:{id:line.id},data:{fulfillmentState:'DISPATCHED'}});
+ assert.equal((await gateway.readOrder(current.id)).hasEverDispatched,true);
+});
