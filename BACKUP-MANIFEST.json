@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "b02eeb0c7a2f95c214b2bf5b0b8c1d0a90c7c2c7",
+  "source_commit": "0da559639f2a4f8f8b4575b8bc00c8d14633d6d0",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -285,6 +285,16 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/app/services/bundle-reviews.server.ts",
+      "sha256": "2c07a7b42c796718720b64d31e2eff6a8e4c5c6f900f3a96fabd06d333d5277f",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/bundle-snapshot.ts",
+      "sha256": "de173946aaf61d9686d37ae553b8f85b7d1268dc79b8fbfd1d294348926f8389",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/app/services/catalog.server.ts",
       "sha256": "ee30db65f89a9611bee9e53f1d499f05ca44a65b5df0a21032d9e482f7c097f6",
       "sanitized": false
@@ -421,7 +431,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/orders.server.ts",
-      "sha256": "115d062fae093f21797e73b1d5f3b2b3ff2e0a4d6007350587543254057d302f",
+      "sha256": "d68cec15fff837de2a2311d5035d2cc9f8f8d0a0a0716cf96f445c7d778aa784",
       "sanitized": false
     },
     {
@@ -461,7 +471,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/privacy.server.ts",
-      "sha256": "f192b092ced53bacc50418f50e9b09e3051e85bcd1f8755e32ccfc4e653e657e",
+      "sha256": "115a545e8a9187f2d087ab9a9d4398637786d91e8afaa8f2755e0652ac298221",
       "sanitized": false
     },
     {
@@ -890,6 +900,11 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/prisma/migrations/20261020120000_bundle_purchase_reviews/migration.sql",
+      "sha256": "e5579c92b4ca4b1732aaa6b91b4b4940475d2e1ea73928499920ddeccef2be14",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/prisma/migrations/migration_lock.toml",
       "sha256": "3389dbaf2a3cf4b413275867ac6f550b27f79efe85ee9c12082cdd8c5b8239c4",
       "sanitized": false
@@ -1000,18 +1015,23 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/prisma/production/migrations/20261020120000_bundle_purchase_reviews/migration.sql",
+      "sha256": "7d635dcde3966eaa81807308082f265c48a4dae1225025f15a72d576d606d166",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/prisma/production/migrations/migration_lock.toml",
       "sha256": "1db17a8d051aa136110736752c5e1f8b7ed92b6ea8e803112fbbe2497047c210",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/prisma/production/schema.prisma",
-      "sha256": "a14247d5c14b7ad5be82f081d4c5a204ce9d6ee6576179ece0d9ef17815dfad6",
+      "sha256": "10687452fee11f9d5e79dea8b6e19f183a2301f40d361d07da4ee7da3d85ebb0",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/prisma/schema.prisma",
-      "sha256": "69fd5385080442033b45093881ddfbbca15e46d7744f45f4a0fa9887ed1b6764",
+      "sha256": "b4b5ee7ae101eddc34799bfbfa99f7e1a584512fa7070b09bd490000fd388315",
       "sanitized": false
     },
     {
@@ -1072,6 +1092,11 @@
     {
       "path": "apps/performance-meals-core/tests/account-subscriptions.test.mjs",
       "sha256": "b2c00592f3e09253ebcb8352b3b1c58adf97fa4db0122b7ea9b9299395ddc413",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/bundle-reviews.test.mjs",
+      "sha256": "ecea5e6a4ce1da6d7a154065eb5f865349c2f57e5516ef83b5bf498841bc2f7e",
       "sanitized": false
     },
     {
@@ -2057,6 +2082,11 @@
     {
       "path": "docs/CORE-BUNDLE-PURCHASE-QA-20261020.md",
       "sha256": "3179c57669aa953b241692fa762a946f7f8366765b2e95dfff5c8d8b0b26c05b",
+      "sanitized": false
+    },
+    {
+      "path": "docs/CORE-BUNDLE-REVIEW-SNAPSHOT-20261020.md",
+      "sha256": "4b84f8c81e9613380301f54a08e0da1706611e005e3a6f7101d70b61093b2d6a",
       "sanitized": false
     },
     {

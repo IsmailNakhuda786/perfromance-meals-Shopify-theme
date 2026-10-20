@@ -56,7 +56,7 @@ export const privacyCustomerModels=[
  'walletEntry','walletReservation','orderCancellation','rewardsAccount',
  'rewardsEntry','giftCardWalletClaim','walletTopUpSettlement','walletTopUpIntent',
  'mealPlanMenuRevision','rewardRedemption','orderSupportRequest','walletCreditExpiry',
- 'giftCardExpiryReminder','readyDeliveryDraft','readyDeliveryReminder',
+ 'giftCardExpiryReminder','readyDeliveryDraft','readyDeliveryReminder','bundlePurchaseReview',
 ] as const;
 export const privacyShopOnlyModels=[
  'session','webhookReceipt','commercePolicy','rewardRuleVersion','rewardRuleActivation',

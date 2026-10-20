@@ -77,6 +77,7 @@ model OperationalLine {
   validationReason String?
   selectionId String?
   contractGid String?
+  bundleReviewId String?
   fulfillmentState String @default("UNASSIGNED")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -442,4 +443,24 @@ model ReadyDeliveryReminder {
  updatedAt DateTime @updatedAt
  @@unique([shop, deliveryDraftId, deliveryRevision, channel, hoursBefore], map: "ReadyDeliveryReminder_occurrence_revision_channel_lead_key")
  @@index([shop, state, scheduledAt])
+}
+
+// Internal immutable checkout review; no public checkout activation yet.
+model BundlePurchaseReview {
+ id String @id @default(uuid())
+ shop String
+ customerGid String
+ productGid String
+ variantGid String
+ currency String
+ quantity Int
+ snapshot String
+ snapshotHash String
+ state String @default("REVIEWED")
+ reviewedAt DateTime @default(now())
+ orderGid String?
+ orderLineGid String?
+ createdAt DateTime @default(now())
+ @@unique([shop, orderLineGid])
+ @@index([shop, customerGid, state])
 }
