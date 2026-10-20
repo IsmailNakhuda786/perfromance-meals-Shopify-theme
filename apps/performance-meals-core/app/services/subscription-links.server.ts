@@ -1,7 +1,8 @@
 import db from '../db.server';
 import {assertShop} from './security.server';
+import {nativeSubscriptionOrderQuantity} from './subscription-quantity';
 export const SUBSCRIPTION_LINK_QUERY=`#graphql
-query SubscriptionOriginLink($id:ID!){shop{myshopifyDomain}currentAppInstallation{app{id}}subscriptionContract(id:$id){id app{id}customer{id}originOrder{id customer{id}lineItems(first:250){nodes{id quantity product{id}variant{id}sellingPlan{sellingPlanId}}pageInfo{hasNextPage}}}lines(first:100){nodes{id productId variantId sellingPlanId quantity}pageInfo{hasNextPage}}}}
+query SubscriptionOriginLink($id:ID!){shop{myshopifyDomain}currentAppInstallation{app{id}}subscriptionContract(id:$id){id billingPolicy{interval intervalCount}deliveryPolicy{interval intervalCount}app{id}customer{id}originOrder{id customer{id}lineItems(first:250){nodes{id quantity product{id}variant{id}sellingPlan{sellingPlanId}}pageInfo{hasNextPage}}}lines(first:100){nodes{id productId variantId sellingPlanId quantity}pageInfo{hasNextPage}}}}
 `;
 type Admin={graphql:(query:string,options:{variables:Record<string,unknown>})=>Promise<Response>};
 const valid=(type:string,value:unknown)=>typeof value==='string'&&new RegExp('^gid://shopify/'+type+'/\\d+$').test(value);
@@ -17,7 +18,7 @@ export async function linkSubscriptionOrigin(admin:Admin,shop:string,contractGid
  if(new Set(contractLines.map(line=>line.id)).size!==contractLines.length||new Set(orderLines.map(line=>line.id)).size!==orderLines.length)throw Error('Duplicate subscription origin evidence');
  const mappings=contractLines.map(line=>{
   if(!valid('SubscriptionLine',line.id)||!valid('Product',line.productId)||!valid('ProductVariant',line.variantId)||!valid('SellingPlan',line.sellingPlanId)||!Number.isSafeInteger(line.quantity)||line.quantity<1)throw Error('Contract line unavailable');
-  const candidates=orderLines.filter(original=>original.product?.id===line.productId&&original.variant?.id===line.variantId&&original.sellingPlan?.sellingPlanId===line.sellingPlanId&&original.quantity===line.quantity);
+  const candidates=orderLines.filter(original=>original.product?.id===line.productId&&original.variant?.id===line.variantId&&original.sellingPlan?.sellingPlanId===line.sellingPlanId&&original.quantity===nativeSubscriptionOrderQuantity(line.quantity,c.billingPolicy,c.deliveryPolicy));
   if(candidates.length!==1||!valid('LineItem',candidates[0].id))throw Error('Original subscription line is ambiguous');
   return {contract:line,original:candidates[0]};
  });

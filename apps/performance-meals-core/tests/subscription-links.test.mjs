@@ -5,7 +5,7 @@ await buildServices({entryPoints:['app/services/subscription-links.server.ts'],o
 const {linkSubscriptionOrigin}=await import('../.shopify/subscription-links-test/subscription-links.server.js');
 const db=new PrismaClient(),shop='contract-link-fixture.myshopify.com',customer='gid://shopify/Customer/1',contract='gid://shopify/SubscriptionContract/2';process.env.ALLOWED_SHOP=shop;
 const base={shop,customerGid:customer,orderGid:'gid://shopify/Order/3',orderLineGid:'gid://shopify/LineItem/4',productGid:'gid://shopify/Product/5',variantGid:'gid://shopify/ProductVariant/6',businessStream:'ready_series',department:'ready_series',validationStatus:'VALIDATED'};
-function fixture(){return {shop:{myshopifyDomain:shop},currentAppInstallation:{app:{id:'gid://shopify/App/7'}},subscriptionContract:{id:contract,app:{id:'gid://shopify/App/7'},customer:{id:customer},originOrder:{id:base.orderGid,customer:{id:customer},lineItems:{pageInfo:{hasNextPage:false},nodes:[{id:base.orderLineGid,quantity:1,product:{id:base.productGid},variant:{id:base.variantGid},sellingPlan:{sellingPlanId:'gid://shopify/SellingPlan/8'}}]}},lines:{pageInfo:{hasNextPage:false},nodes:[{id:'gid://shopify/SubscriptionLine/9',productId:base.productGid,variantId:base.variantGid,sellingPlanId:'gid://shopify/SellingPlan/8',quantity:1}]}}};}
+function fixture(){return {shop:{myshopifyDomain:shop},currentAppInstallation:{app:{id:'gid://shopify/App/7'}},subscriptionContract:{id:contract,billingPolicy:{interval:'MONTH',intervalCount:1},deliveryPolicy:{interval:'MONTH',intervalCount:1},app:{id:'gid://shopify/App/7'},customer:{id:customer},originOrder:{id:base.orderGid,customer:{id:customer},lineItems:{pageInfo:{hasNextPage:false},nodes:[{id:base.orderLineGid,quantity:1,product:{id:base.productGid},variant:{id:base.variantGid},sellingPlan:{sellingPlanId:'gid://shopify/SellingPlan/8'}}]}},lines:{pageInfo:{hasNextPage:false},nodes:[{id:'gid://shopify/SubscriptionLine/9',productId:base.productGid,variantId:base.variantGid,sellingPlanId:'gid://shopify/SellingPlan/8',quantity:1}]}}};}
 const gateway=(edit=()=>{},status=200)=>({graphql:async query=>{assert.doesNotMatch(query,/mutation/);const data=fixture();edit(data);return Response.json({data},{status});}});
 test('verified original subscription links once and replay preserves the original operational record',async()=>{
  await db.operationalLine.deleteMany({where:{shop}});const original=await db.operationalLine.create({data:base});
@@ -39,3 +39,13 @@ test('one unmapped component rolls back the entire contract link',async()=>{
  await assert.rejects(()=>linkSubscriptionOrigin(admin,shop,contract));assert.equal((await db.operationalLine.findUnique({where:{id:row.id}})).contractGid,null);
 });
 test.after(async()=>{await db.operationalLine.deleteMany({where:{shop}});await db.mealPlanSelection.deleteMany({where:{shop}});await db.$disconnect();});
+
+test('prepaid order-expanded quantity links to one contract unit using its exact native policy ratio',async()=>{
+ await db.operationalLine.deleteMany({where:{shop}});await db.operationalLine.create({data:base});
+ for(const term of [3,6]){
+  const native=gateway(d=>{d.subscriptionContract.billingPolicy.intervalCount=term;d.subscriptionContract.originOrder.lineItems.nodes[0].quantity=term;});
+  assert.equal((await linkSubscriptionOrigin(native,shop,contract)).linked,1);
+ }
+ await assert.rejects(linkSubscriptionOrigin(gateway(d=>{d.subscriptionContract.billingPolicy.intervalCount=3;}),shop,contract),/ambiguous/);
+ await assert.rejects(linkSubscriptionOrigin(gateway(d=>{d.subscriptionContract.billingPolicy.interval='WEEK';}),shop,contract),/policy/);
+});

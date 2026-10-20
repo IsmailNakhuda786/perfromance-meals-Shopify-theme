@@ -18,7 +18,7 @@ query ReadySeriesOriginalPayment($id:ID!){
  }
 }`;
 type Admin={graphql:(query:string,options:{variables:Record<string,unknown>})=>Promise<Response>};
-export type PrepaidPaymentExpectation={customerGid:string;orderGid:string;orderLineGid:string;productGid:string;variantGid:string;sellingPlanGid:string;upfrontMinor:number};
+export type PrepaidPaymentExpectation={months:3|6;customerGid:string;orderGid:string;orderLineGid:string;productGid:string;variantGid:string;sellingPlanGid:string;upfrontMinor:number};
 const reference=(kind:string,value:unknown)=>typeof value==='string'&&new RegExp('^gid://shopify/'+kind+'/\\d+$').test(value);
 type Money={shopMoney:{amount:string;currencyCode:string}};
 const money=(value:Money)=>{
@@ -35,11 +35,12 @@ export async function readPrepaidPayment(admin:Admin,shop:string,expected:Prepai
  for(const [key,kind]of [['customerGid','Customer'],['orderGid','Order'],['orderLineGid','LineItem'],['productGid','Product'],['variantGid','ProductVariant'],['sellingPlanGid','SellingPlan']] as const){
   if(!reference(kind,expected[key]))throw Error('Invalid prepaid payment reference');
  }
+ if(![3,6].includes(expected.months))throw Error('Approved prepaid delivery count required');
  if(!Number.isSafeInteger(expected.upfrontMinor)||expected.upfrontMinor<1||expected.upfrontMinor>2147483647)throw Error('Approved upfront amount required');
  const response=await admin.graphql(PREPAID_PAYMENT_QUERY,{variables:{id:expected.orderGid}}),body=await response.json(),data=body.data,order=data?.order;
  if(!response.ok||body.errors||data?.shop?.myshopifyDomain!==shop||data.shop.currencyCode!=='SGD'||order?.id!==expected.orderGid||order.customer?.id!==expected.customerGid||order.test!==true||order.currencyCode!=='SGD'||order.taxesIncluded!==true||order.cancelledAt!==null||order.displayFinancialStatus!=='PAID'||!Array.isArray(order.disputes)||order.disputes.length||order.lineItems?.pageInfo?.hasNextPage!==false||!Array.isArray(order.lineItems.nodes)||order.lineItems.nodes.length!==1||!Array.isArray(order.transactions)||!order.transactions.length||order.transactions.length>=100)throw Error('Original prepaid payment evidence unavailable');
  const line=order.lineItems.nodes[0];
- if(line?.id!==expected.orderLineGid||line.quantity!==1||line.currentQuantity!==1||line.isGiftCard!==false||line.product?.id!==expected.productGid||line.variant?.id!==expected.variantGid||line.sellingPlan?.sellingPlanId!==expected.sellingPlanGid)throw Error('Original prepaid package differs');
+ if(line?.id!==expected.orderLineGid||line.quantity!==expected.months||line.currentQuantity!==expected.months||line.isGiftCard!==false||line.product?.id!==expected.productGid||line.variant?.id!==expected.variantGid||line.sellingPlan?.sellingPlanId!==expected.sellingPlanGid)throw Error('Original prepaid package differs');
  if([order.totalPriceSet,order.currentTotalPriceSet,order.totalReceivedSet].some(value=>money(value)!==expected.upfrontMinor)||[order.totalRefundedSet,order.totalShippingPriceSet,order.totalDiscountsSet].some(value=>money(value)!==0))throw Error('Prepaid total, delivery or payment differs');
  const createdAt=rewardTimestamp(order.createdAt);
  const payments:Array<{id:string;gateway:string;amountMinor:number;processedAt:string}>=[];

@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "a0b8ed90e83cbf6c541d256f46b1c32203d42e8e",
+  "source_commit": "60b2207fddd7d8f86e3e6e18fc1eb941c068b456",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -426,7 +426,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/paid-ready-draft.server.ts",
-      "sha256": "c2c2b846a2b46f6931677b001cc6926fd51bf70fa6a514af93faa07f87e8acc3",
+      "sha256": "752afa325f6c3573f4a31ec5a54c5e243bbd135b25a0e6e27d94a332646a028d",
       "sanitized": false
     },
     {
@@ -436,12 +436,17 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/prepaid-payment.server.ts",
-      "sha256": "70001014c87619b9c82aa1f927f5a0c93f826cfb84656a1feb41d80e873a4ad8",
+      "sha256": "bc00c08f72f81aa58f9d4f812be2e37b5bbd20945e641ea829eea5c0d53f5a98",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/services/prepaid-purchase.server.ts",
-      "sha256": "1aaf87b3c8b7aea9b39d884cbbc3543de5639ece0c58dcc79649d2b2d410c836",
+      "sha256": "37f48984682b1d2fc3d80a95e24b97a13ae3a828b98f3c11274c4ecde109a692",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/prepaid-schedule.server.ts",
+      "sha256": "e813a34125c6016888475a5b037012ee8e522746a7f6ae4357c82214b156935f",
       "sanitized": false
     },
     {
@@ -521,7 +526,12 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/subscription-links.server.ts",
-      "sha256": "0c728a3a742548d3f8e8dd73cf91ed629ffb82e67853b8f803e9f11938a03ee9",
+      "sha256": "6f406253cd619f129c6dc60496d88030dc71c85862f9b84d0eaafe1119d6f368",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/subscription-quantity.ts",
+      "sha256": "ba901f2c558bb26499abc1e0ce1aef1ee0254c95a683b4c6f52490d7fcda2699",
       "sanitized": false
     },
     {
@@ -1031,7 +1041,7 @@
     },
     {
       "path": "apps/performance-meals-core/shopify.app.toml",
-      "sha256": "06f3b5ad9f4d516c2308d5b4b81f87c190b7ee7a1ce707d22dc2f74af1c2b084",
+      "sha256": "83914e9a3e632ebfbd01d0b53a83b07448b9c7509169257f2eae658b7367d9fa",
       "sanitized": false
     },
     {
@@ -1191,7 +1201,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/paid-ready-draft.test.mjs",
-      "sha256": "aa3d4adfe1ef59cad3f8facc9cf2864161fea08a0d0845e25f78d0413d8807e3",
+      "sha256": "25f0bd256c7b46c19ef6ffb2c1f9f5d0d2232bb33d869d80ee7f313b943f0d43",
       "sanitized": false
     },
     {
@@ -1206,12 +1216,17 @@
     },
     {
       "path": "apps/performance-meals-core/tests/prepaid-payment.test.mjs",
-      "sha256": "8448c58426269f194fb36798720637a875a28615b036c23072178367bcf2e1fe",
+      "sha256": "e97c7d2aebb14755c85316b75b7b1218d2f4f79546d84a26ea091a316a254c85",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/tests/prepaid-purchase.test.mjs",
-      "sha256": "2c7ed3fbbacac3cb5f47b942735f0d357f0d4183a19cdcbc7474b524ab668d9a",
+      "sha256": "c90e7e90686c65fe1a08b276cdc0d11bec34992faa270cb913aa1cd569e948ae",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/prepaid-schedule.test.mjs",
+      "sha256": "d6d4547524d5323132bcc309756898b8a144e3b921184a9fc9960169f5a29487",
       "sanitized": false
     },
     {
@@ -1281,7 +1296,12 @@
     },
     {
       "path": "apps/performance-meals-core/tests/subscription-links.test.mjs",
-      "sha256": "8706ea8d611c99c016e2c923608d6efc7a0ef6f5637054e09ed061ff5f9b3c98",
+      "sha256": "e2a16440afe6879b7883e82054c6183e434d659f9431315ef6b2c8da5b0f9215",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/subscription-quantity.test.mjs",
+      "sha256": "ce6d27c25f512066885965a9c587aa7bb2a5e751d782d5cc45affa336f137ef7",
       "sanitized": false
     },
     {
@@ -1296,7 +1316,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/support/prepaid-purchase.mjs",
-      "sha256": "5df704423e16a85210eda6162267a7fd2a6c5b34002764e52ee3aeb2fa62293e",
+      "sha256": "38787dd246fd254889e887742f308098013595a8425cfb0110e583feda08c57e",
       "sanitized": false
     },
     {
@@ -2226,7 +2246,7 @@
     },
     {
       "path": "docs/RESUME-CHECKPOINT-20261020.md",
-      "sha256": "a9aa5ce3d4b2f5850ce144a8971c7a9ecc23a78ec90588bba878f659d5cfcfea",
+      "sha256": "88a363274ed86ee821681ad56c1e4dcfde519bf4867022d24837ebaac38284c1",
       "sanitized": false
     },
     {

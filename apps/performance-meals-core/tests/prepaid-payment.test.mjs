@@ -4,10 +4,10 @@ import {buildServices} from './support/database.mjs';
 await buildServices({entryPoints:['app/services/prepaid-payment.server.ts'],outdir:'.shopify/prepaid-payment-test',bundle:true,packages:'external',format:'esm',platform:'node'});
 const {readPrepaidPayment,PREPAID_PAYMENT_QUERY}=await import('../.shopify/prepaid-payment-test/prepaid-payment.server.js');
 const shop='prepaid-payment-fixture.myshopify.com';process.env.ALLOWED_SHOP=shop;
-const expected={customerGid:'gid://shopify/Customer/2',orderGid:'gid://shopify/Order/3',orderLineGid:'gid://shopify/LineItem/9',productGid:'gid://shopify/Product/4',variantGid:'gid://shopify/ProductVariant/5',sellingPlanGid:'gid://shopify/SellingPlan/6',upfrontMinor:25520};
+const expected={months:3,customerGid:'gid://shopify/Customer/2',orderGid:'gid://shopify/Order/3',orderLineGid:'gid://shopify/LineItem/9',productGid:'gid://shopify/Product/4',variantGid:'gid://shopify/ProductVariant/5',sellingPlanGid:'gid://shopify/SellingPlan/6',upfrontMinor:25520};
 const money=amount=>({shopMoney:{amount,currencyCode:'SGD'}});
 const payment=(id,amount,kind='SALE')=>({id:`gid://shopify/OrderTransaction/${id}`,test:true,status:'SUCCESS',kind,gateway:'test-gateway',manualPaymentGateway:false,processedAt:'2026-10-20T01:01:00Z',amountSet:money(amount)});
-const fixture=()=>({shop:{myshopifyDomain:shop,currencyCode:'SGD'},order:{id:expected.orderGid,test:true,createdAt:'2026-10-20T01:00:00Z',cancelledAt:null,currencyCode:'SGD',taxesIncluded:true,displayFinancialStatus:'PAID',customer:{id:expected.customerGid},disputes:[],totalPriceSet:money('255.20'),currentTotalPriceSet:money('255.20'),totalReceivedSet:money('255.20'),totalRefundedSet:money('0'),totalShippingPriceSet:money('0'),totalDiscountsSet:money('0'),transactions:[payment(10,'255.20')],lineItems:{nodes:[{id:expected.orderLineGid,quantity:1,currentQuantity:1,isGiftCard:false,product:{id:expected.productGid},variant:{id:expected.variantGid},sellingPlan:{sellingPlanId:expected.sellingPlanGid}}],pageInfo:{hasNextPage:false}}}});
+const fixture=()=>({shop:{myshopifyDomain:shop,currencyCode:'SGD'},order:{id:expected.orderGid,test:true,createdAt:'2026-10-20T01:00:00Z',cancelledAt:null,currencyCode:'SGD',taxesIncluded:true,displayFinancialStatus:'PAID',customer:{id:expected.customerGid},disputes:[],totalPriceSet:money('255.20'),currentTotalPriceSet:money('255.20'),totalReceivedSet:money('255.20'),totalRefundedSet:money('0'),totalShippingPriceSet:money('0'),totalDiscountsSet:money('0'),transactions:[payment(10,'255.20')],lineItems:{nodes:[{id:expected.orderLineGid,quantity:3,currentQuantity:3,isGiftCard:false,product:{id:expected.productGid},variant:{id:expected.variantGid},sellingPlan:{sellingPlanId:expected.sellingPlanGid}}],pageInfo:{hasNextPage:false}}}});
 const admin=(data,status=200)=>({graphql:async(query,options)=>{assert.equal(query,PREPAID_PAYMENT_QUERY);assert.doesNotMatch(query,/\bmutation\b/);assert.equal(options.variables.id,expected.orderGid);return Response.json({data},{status});}});
 test('native prepaid-only capture proves full package value and payment time, never a charge or activation',async()=>{
  const proof=await readPrepaidPayment(admin(fixture()),shop,expected);
@@ -43,4 +43,11 @@ test('manually marked payments and missing gateway classification cannot prove c
   const data=fixture();data.order.transactions[0].manualPaymentGateway=flag;
   await assert.rejects(readPrepaidPayment(admin(data),shop,expected),/Manual or unverified/);
  }
+});
+
+test('prepaid order quantity represents all deliveries, never the single checkout quantity',async()=>{
+ const wrong=fixture();wrong.order.lineItems.nodes[0].quantity=1;wrong.order.lineItems.nodes[0].currentQuantity=1;
+ await assert.rejects(readPrepaidPayment(admin(wrong),shop,expected),/package differs/);
+ const six=fixture();six.order.lineItems.nodes[0].quantity=6;six.order.lineItems.nodes[0].currentQuantity=6;
+ assert.equal((await readPrepaidPayment(admin(six),shop,{...expected,months:6})).upfrontMinor,25520);
 });

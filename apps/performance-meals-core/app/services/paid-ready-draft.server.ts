@@ -3,6 +3,7 @@ import db from '../db.server';
 import {assertShop} from './security.server';
 import {inspectPrepaidPurchase,type PrepaidPurchaseExpectation} from './prepaid-purchase.server';
 import {readOrderDispatch} from './order-dispatch.server';
+import {readPrepaidSchedule} from './prepaid-schedule.server';
 import {planReadySeriesDeliveries,planReadyDeliveryReminders} from './ready-series-calendar';
 import {stageReadyDeliveryRemindersTx,stageReadyDeliveryCatchUpTx} from './ready-delivery-draft.server';
 
@@ -26,9 +27,11 @@ export async function preparePaidReadySeriesDraft(admin:Admin,input:Input,option
  if(plan.some((day,index)=>day.deliveryDate!==dates[index]))throw Error('Delivery dates differ from the approved monthly calendar');
  const proof=await inspectPrepaidPurchase(admin,shop,contractGid,expected);
  if(Date.parse(normalized[0])<=Date.parse(proof.payment.paidAt)||Date.parse(proof.payment.paidAt)>now.getTime())throw Error('Delivery or payment confirmation time differs');
+ const schedule=await readPrepaidSchedule(admin,shop,{...expected,deliveryDates:dates});
+ if(!schedule.scheduleMatches)throw Error('Native prepaid schedule differs from approved delivery dates');
  const dispatch=await readOrderDispatch(admin,shop,expected.orderGid);
  if(!dispatch.complete||dispatch.cancelled||dispatch.customerGid!==expected.customerGid||dispatch.byLine.size)throw Error('Current undispatched native order evidence required');
- const snapshot=JSON.stringify({version:1,contractGid,expected:[expected.months,expected.appGid,expected.customerGid,expected.orderGid,expected.orderLineGid,expected.productGid,expected.variantGid,expected.sellingPlanGid,expected.upfrontMinor],calendarVersion,availabilityHash:createHash('sha256').update(JSON.stringify([...availableDates].sort())).digest('hex'),deliveryAt:normalized,paidAt:proof.payment.paidAt,payments:[...proof.payment.payments].sort((a,b)=>a.id.localeCompare(b.id))});
+ const snapshot=JSON.stringify({version:1,contractGid,expected:[expected.months,expected.appGid,expected.customerGid,expected.orderGid,expected.orderLineGid,expected.productGid,expected.variantGid,expected.sellingPlanGid,expected.upfrontMinor],calendarVersion,availabilityHash:createHash('sha256').update(JSON.stringify([...availableDates].sort())).digest('hex'),deliveryAt:normalized,fulfillments:[...schedule.evidence].sort((a,b)=>a.id.localeCompare(b.id)).map(row=>({id:row.id,fulfillAt:row.fulfillAt,quantity:row.quantity})),paidAt:proof.payment.paidAt,payments:[...proof.payment.payments].sort((a,b)=>a.id.localeCompare(b.id))});
  const cycleReference=JSON.stringify([contractGid,expected.orderGid,expected.orderLineGid]);
  return db.$transaction(async tx=>{
   const where={shop,orderLineGid:expected.orderLineGid,orderGid:expected.orderGid,customerGid:expected.customerGid,productGid:expected.productGid,variantGid:expected.variantGid,contractGid,validationStatus:'VALIDATED',businessStream:'ready_series',selectionId:null,fulfillmentState:'UNASSIGNED'};
@@ -50,7 +53,7 @@ export async function preparePaidReadySeriesDraft(admin:Admin,input:Input,option
     await stageReadyDeliveryCatchUpTx(tx,{shop,customerGid:expected.customerGid,draftId:draft.id,expectedRevision:1,confirmedAt:existing.deliveryAt.toISOString()});
    }
    // Never replace later approved draft revisions with the original schedule.
-   return {operationId:existing.id,state:'DRAFT' as const,created:false,drafts,nativeScheduleVerified:false as const};
+   return {operationId:existing.id,state:'DRAFT' as const,created:false,drafts,nativeScheduleVerified:true as const,deliveryTimeSlotVerified:false as const};
   }
   if(Date.parse(normalized[0])<=now.getTime())throw Error('First delivery must still be upcoming');
   const drafts=[];
@@ -60,6 +63,6 @@ export async function preparePaidReadySeriesDraft(admin:Admin,input:Input,option
    drafts.push(staged.draft);
   }
   const operation=await tx.planOperation.create({data:{shop,selectionId:'customer:'+expected.customerGid.split('/').at(-1),kind:'READY_SERIES_PAID_DRAFT',state:'DRAFT',cycleReference,deliveryAt:now,productionReference:snapshot}});
-  return {operationId:operation.id,state:'DRAFT' as const,created:true,drafts,nativeScheduleVerified:false as const};
+  return {operationId:operation.id,state:'DRAFT' as const,created:true,drafts,nativeScheduleVerified:true as const,deliveryTimeSlotVerified:false as const};
  },{timeout:30000});
 }

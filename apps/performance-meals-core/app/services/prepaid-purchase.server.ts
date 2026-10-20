@@ -13,8 +13,8 @@ export async function inspectPrepaidPurchase(admin:Admin,shop:string,contractGid
  const contract=contractProof.contract;
  if(!contractProof.billingConfigurationMatches||!contractProof.deliveryPolicyMatches||contract.status!=='ACTIVE'||contract.lines.nodes.length!==1)throw Error('Prepaid contract requires review before draft preparation');
  const line=contract.lines.nodes[0];
- if(!/^gid:\/\/shopify\/SubscriptionLine\/\d+$/.test(line.id)||typeof line.currentPrice.amount!=='string'||minorAmount(line.currentPrice.amount)!==expected.upfrontMinor)throw Error('Approved prepaid contract price differs');
+ if(!/^gid:\/\/shopify\/SubscriptionLine\/\d+$/.test(line.id)||typeof line.currentPrice.amount!=='string'||minorAmount(line.currentPrice.amount)<1)throw Error('Native per-delivery contract price unavailable');
  const payment=await readPrepaidPayment(admin,shop,expected);
- return {contractGid,contractLineGid:line.id,months:expected.months,payment,draftPreparationOnly:true as const,nativeScheduleVerified:false as const,
+ return {contractGid,contractLineGid:line.id,months:expected.months,perDeliveryContractPriceMinor:minorAmount(line.currentPrice.amount),renewalPriceVerified:false as const,payment,draftPreparationOnly:true as const,nativeScheduleVerified:false as const,
   pendingEvidence:['Current merchant slot availability and capacity','Actual native fulfillment schedule','Automatic term renewal and management','Approved sender activation']};
 }

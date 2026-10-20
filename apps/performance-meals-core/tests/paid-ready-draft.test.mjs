@@ -19,7 +19,7 @@ test.after(async()=>{for(const table of ['readyDeliveryReminder','readyDeliveryD
 test('verified 3/6 paid terms atomically prepare inactive monthly drafts and catch-up reminders',async()=>{
  for(const months of [3,6]){
   const f=await seed(months),result=await run(f);
-  assert.equal(result.state,'DRAFT');assert.equal(result.created,true);assert.equal(result.nativeScheduleVerified,false);assert.equal(result.drafts.length,months);
+  assert.equal(result.state,'DRAFT');assert.equal(result.created,true);assert.equal(result.nativeScheduleVerified,true);assert.equal(result.deliveryTimeSlotVerified,false);assert.equal(result.drafts.length,months);
   assert.deepEqual(result.drafts.map(x=>x.deliveryAt.toISOString()),f.input.deliveryAt.map(x=>new Date(x).toISOString()));
   const active=await db.readyDeliveryReminder.findMany({where:{shop,deliveryDraftId:{in:result.drafts.map(x=>x.id)},state:'DRAFT'}});
   assert.equal(active.length,months*4-2);assert.equal(active.filter(x=>x.hoursBefore===0).length,2);
@@ -70,4 +70,10 @@ test('purchase replay holds changed reminder evidence or a later delivery revisi
  await db.readyDeliveryDraft.update({where:{id:draft.id},data:{revision:2,deliveryAt:new Date('2026-11-23T00:00:00Z')}});
  await assert.rejects(run(f),/rescheduling workflow/);
  const saved=await db.readyDeliveryDraft.findUnique({where:{id:draft.id}});assert.equal(saved.revision,2);assert.equal(saved.deliveryAt.toISOString(),'2026-11-23T00:00:00.000Z');
+});
+
+test('missing native delivery work or changed schedule prevents all term drafts',async()=>{
+ for(const edit of [f=>f.data.order.fulfillmentOrders.nodes.pop(),f=>f.data.order.fulfillmentOrders.nodes[0].fulfillAt='2026-10-22T00:00:00Z',f=>f.data.order.fulfillmentOrders.nodes[0].lineItems.nodes[0].remainingQuantity=0]){
+  const f=await seed();edit(f);await assert.rejects(run(f));assert.equal(await count(f),0);
+ }
 });

@@ -38,7 +38,7 @@ The audit is customer-key scoped, using the existing privacy inventory path.
 
 ## Verification
 
--329isolated Core tests pass; typecheck/lint/production-schema alignment pass.
+-339isolated Core tests pass; typecheck/lint/production-schema alignment pass.
 -6new term-orchestration tests passed against development PostgreSQL, with scoped
  fixture cleanup. Three updated replay/concurrency/corruption cases also pass
  against PostgreSQL after final hardening; these are controlled service fixtures.
@@ -59,3 +59,34 @@ advice remains pending. Do not recommend a paid plan or invent identity/bank val
 
 Next: finish supported native paid-term/slot/schedule acceptance and sender activation
 checks. Continue independent remaining requirements while provider guidance is pending.
+
+
+## Native prepaid schedule follow-up
+
+Approved development-only merchant-managed and third-party fulfillment read scopes
+are granted and verified by native readback. The read-only schedule reader requires
+complete visible pages, matching app/customer/order/line identity, uncancelled test
+orders and intact quantities. It refuses processed, ambiguous or hidden work.
+Shopify expands a prepaid contract unit into 3/6 original-order units; each delivery
+contains one unit. Contract linking now uses the exact native policy ratio rather
+than equating contract and order quantities. Cross-interval approximations are held.
+The contract price is per delivery: full upfront payment is independently proven by
+original order totals and successful non-manual receipts. Renewal price acceptance
+remains unverified. Native fulfillAt is work-start evidence, not proof of the selected
+customer time slot. Paid draft preparation now requires matching native scheduled
+work, remains inactive/DRAFT, and explicitly reports time-slot verification false.
+
+Final checks:339 isolated Core tests pass, typecheck/lint pass;13 focused orchestration
+and contract-link tests pass against development PostgreSQL with scoped cleanup.
+The schedule query validates against2026-10 and executes on one existing one-time
+order with complete visible coverage. That is query/read-access proof only; no actual
+positive native prepaid checkout or renewal acceptance is claimed. No financial
+mutation, delivery dispatch or customer message occurred.
+
+The existing development preview is resumed. Only the two approved read scopes were
+added. Private receipts and connection helpers remain excluded from Git. Top-ups and
+paid-draft activation remain off. Shopify advisor Neeraj is consulting Developer
+Support for the Singapore-specific test onboarding path; no provider setup approved.
+
+All four current development callbacks were independently read back once each at
+the refreshed preview URL, including subscription creation; no duplicate callbacks.
