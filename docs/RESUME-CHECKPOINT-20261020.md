@@ -90,3 +90,24 @@ Support for the Singapore-specific test onboarding path; no provider setup appro
 
 All four current development callbacks were independently read back once each at
 the refreshed preview URL, including subscription creation; no duplicate callbacks.
+
+
+## Sender preparation and positive dispatch readback
+
+Development-only Ready Series email adapter now prepares the approved72-hour,
+24-hour and immediate messages using the validated delivery window/account/support
+content. It is recipient/customer/store scoped, refuses past or invalid windows,
+rechecks disabled production scope at send time and requires a stable provider
+idempotency key plus confirmed provider receipt. No caller consumes DRAFT rows;
+no environment activation, email, WhatsApp or real provider request occurred.
+Three provider-mocked tests cover these boundaries. Full342Core tests/typecheck/lint
+pass. Native slot/booking proof, durable send/recovery and actual sender QA remain.
+
+Read-only native dispatch QA examined7existing routed development orders: all7
+histories complete, one has SUCCESS dispatch evidence. No native or Core record
+was changed. This verifies a positive native reader case, not mutation/lifecycle
+or recurrence acceptance. Private evidence is excluded from the public backup.
+
+Shopify transferred the Singapore test setup question to specialist Logan after
+Neeraj consulted Developer Support. Written Singapore-specific guidance remains
+pending; no onboarding or provider activation authorized.
