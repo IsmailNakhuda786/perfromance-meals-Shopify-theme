@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "b92dab4eb542127b2e55fafc70ed857578ea4186",
+  "source_commit": "1678ae4a070c6e4d935e8c6818cded64b1f8aeb9",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -690,6 +690,56 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/extensions/core-bundle-signin-qa/.gitignore",
+      "sha256": "e0b5caefce1de3fecfdb9582d15175aaba3fadf192241ad2ba4038216a9336dc",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/extensions/core-bundle-signin-qa/Cargo.lock",
+      "sha256": "e660e37c313ff3d3551a14548536028816774d621a562bc4a40162f91ca342f0",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/extensions/core-bundle-signin-qa/Cargo.toml",
+      "sha256": "23bbfeb519b3e6dfe045c370c4bb630b41fb6cd7779a35e63d194ef2456409e5",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/extensions/core-bundle-signin-qa/README.md",
+      "sha256": "e530bcd8fb88ef3e04a65a0643672da0aec22fd5e296903dcdc841e3d584dfe5",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/extensions/core-bundle-signin-qa/locales/en.default.json",
+      "sha256": "869a40116c0ba64b2cc84c824f04b79a11bf332811cb3953801e70b63481219c",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/extensions/core-bundle-signin-qa/schema.graphql",
+      "sha256": "a61f3c81e8529d48272eec407fdd776deb8a6cd887596ea600688c5b4e670787",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/extensions/core-bundle-signin-qa/shopify.extension.toml",
+      "sha256": "5fbe2b6bb5ff4b536c2a238ef1a11a33b18cdfc826d069f2559d0a085dc233d0",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/extensions/core-bundle-signin-qa/src/cart_validations_generate_run.graphql",
+      "sha256": "96cf632b6f4c38346471d34390111c892947d439f5156d47f8a6fc7de52bccf4",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/extensions/core-bundle-signin-qa/src/cart_validations_generate_run.rs",
+      "sha256": "82e9e5f81f0c1e7f2189c18df1aa1f305bbed6fd0e421635650dba70419f1b68",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/extensions/core-bundle-signin-qa/src/main.rs",
+      "sha256": "9b65336a34f7976ed96cd418158b51f05fbf97e52db90d9daf625e73bdc55977",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/extensions/core-delivery-qa/.gitignore",
       "sha256": "d6f9c6a2e3244e2844efb6da07e77a0a11c1a819449d91865e997987f367ad44",
       "sanitized": false
@@ -1086,7 +1136,7 @@
     },
     {
       "path": "apps/performance-meals-core/shopify.app.toml",
-      "sha256": "83914e9a3e632ebfbd01d0b53a83b07448b9c7509169257f2eae658b7367d9fa",
+      "sha256": "963e50d7e4aa6e6c71bbb4df2123167fa6fabf26df68e91f3b7b07ce75dae7ea",
       "sanitized": false
     },
     {
@@ -2107,6 +2157,11 @@
     {
       "path": "docs/CORE-BUNDLE-SIGNIN-AND-DELIVERY-AUDIT-20261020.md",
       "sha256": "c376964cbff4ba68ecc3cb92dfd301db3c718c3ba020b493948274a1301051c4",
+      "sanitized": false
+    },
+    {
+      "path": "docs/CORE-BUNDLE-SIGNIN-NATIVE-QA-20261020.md",
+      "sha256": "7fb4db28e03c4b9e5eaaea6c379f68f885976e086928c4ca543d787bc91b2aa2",
       "sanitized": false
     },
     {

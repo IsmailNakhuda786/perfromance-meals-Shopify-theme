@@ -1,0 +1,18 @@
+api_version = "2026-07"
+
+[[extensions]]
+name = "t:name"
+handle = "core-bundle-signin-qa"
+uid = "e7cab9fd-163c-005a-00de-18afa11c38a304aca4a2"
+type = "function"
+description = "t:description"
+
+  [[extensions.targeting]]
+  target = "cart.validations.generate.run"
+  input_query = "src/cart_validations_generate_run.graphql"
+  export = "cart_validations_generate_run"
+
+  [extensions.build]
+  command = "cargo build --locked --target=wasm32-unknown-unknown --release"
+  path = "target/wasm32-unknown-unknown/release/core-bundle-signin-lab.wasm"
+  watch = ["src/**/*.rs"]
