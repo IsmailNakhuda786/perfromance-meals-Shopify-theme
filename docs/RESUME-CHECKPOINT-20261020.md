@@ -1,0 +1,61 @@
+# Performance Meals checkpoint — 20 October 2026
+
+Resumed existing branch from5a0be61. Preexisting unrelated edits remain untouched.
+No import/restart of the project, publication, provider activation or production
+change. Wallet top-ups/general Rewards/automatic cancellation remain disabled.
+
+## Paid Ready Series delivery-draft integration
+
+New read-only payment proof binds original test order/customer/line/product/variant/
+selling plan to an approved server-held upfront value. Native captured SALE/CAPTURE
+receipts must sum exactly, with duplicate receipts excluded by rejection; successful
+authorizations and failed attempts are not counted as money received. Missing,
+pending, manual-gateway, reversed, edited, disputed, cancelled, truncated, refunded,
+non-SGD or non-test evidence holds. Payment timestamps require an explicit timezone.
+Current development coverage is prepaid-only, one package, no discount/delivery
+surcharge. Mixed/discounted package acceptance remains unverified, not forbidden
+by a new business policy. No amount is taken from browser fields.
+
+Contract verification now includes the currently installed app and strict complete
+line pagination. The combined read boundary also requires ACTIVE status, one exact
+contract line, approved price, monthly delivery and3-/6-calendar-month automatic
+billing with no fixed cap. It does not prove a future renewal or native schedule.
+
+A default-off internal orchestration joins this proof to complete fresh dispatch
+history and the existing exact linked operational line. It prepares all3or6monthly
+DRAFT deliveries, their inactive reminders, late-confirmation catch-up and one audit
+record in a single transaction. Partial preexisting drafts cause rollback. Original
+line locking serializes retries. Replays retain the initial reminder time; changed
+snapshot/reminder evidence or later schedule revisions hold without resetting them.
+No native fulfillment, entitlement, contract, charge, booking, email or WhatsApp is
+created. Server-supplied explicit merchant dates/times remain mandatory. Slot
+capacity, automatic earliest-slot selection, final native scheduling and sending
+remain separate gates. No customer-facing endpoint or scheduler was activated.
+
+The new READY_SERIES_PAID_DRAFTS_ENABLED flag remains unset/off in the running app;
+production execution is also refused. No schema/client/migration change required.
+The audit is customer-key scoped, using the existing privacy inventory path.
+
+## Verification
+
+-329isolated Core tests pass; typecheck/lint/production-schema alignment pass.
+-6new term-orchestration tests passed against development PostgreSQL, with scoped
+ fixture cleanup. Three updated replay/concurrency/corruption cases also pass
+ against PostgreSQL after final hardening; these are controlled service fixtures.
+-Official2026-10 payment query rev2 and contract query rev2 validate.
+-One existing development order was read with the new payment query: native fields
+ include manual gateway classification, complete line evidence and zero subscription
+ lines. This proves query execution only, not a successful native prepaid purchase.
+-No native mutation or balance change. Private native readback stays in.shopify.
+
+## Shopify Support
+
+User approved asking Singapore-specific development subscription setup guidance.
+Question submitted through Help Center and advisor queue on20October. No credentials
+or customer details shared, and no provider setup/terms/payment change authorized.
+The Help Center assistant confirms the test-gateway incompatibility but does not
+confirm Singapore placeholder onboarding or a no-charge alternative. Human technical
+advice remains pending. Do not recommend a paid plan or invent identity/bank values.
+
+Next: finish supported native paid-term/slot/schedule acceptance and sender activation
+checks. Continue independent remaining requirements while provider guidance is pending.

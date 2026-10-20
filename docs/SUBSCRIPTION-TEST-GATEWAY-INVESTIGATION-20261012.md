@@ -1,10 +1,18 @@
 # Native subscription testing: current development-store limitation
 
+**20October authority note:** early finite/non-renewing statements below are
+historical and superseded. Current approved Ready Series billing is3/6calendar
+months with automatic renewal; delivery uses the approved monthly calendar,
+short-month/availability adjustments and an independent billing schedule.
+See RESUME-CHECKPOINT-20261020.md for current payment/draft integration.
+The Singapore setup question has now been submitted to Shopify Support with
+user approval; human technical guidance is pending. No provider settings changed.
+
 ## Verified state
 
 ### Latest update: owner-operated development store, Singapore address
 
-The user clarified this is Development store owner's personal development environment; Jerome will separately purchase/onboard his production store. Work will be deployed/migrated later, rather than converting this test store into Jerome's live business. Development test orders, identities and payment settings are not production migration data.
+The user clarified this is Movies Khan's personal development environment; Jerome will separately purchase/onboard his production store. Work will be deployed/migrated later, rather than converting this test store into Jerome's live business. Development test orders, identities and payment settings are not production migration data.
 
 The user changed the business entity/address to Singapore. Independent read-only native API now confirms shop-address country SG, currency SGD and partnerDevelopment true. User reports Shopify Payments now appears with **Complete setup**, but has not been configured/activated; Test Payment Gateway remains active. The earlier PK/no-visible-option finding below is historical and superseded.
 

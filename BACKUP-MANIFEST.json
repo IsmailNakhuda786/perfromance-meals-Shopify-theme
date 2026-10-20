@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "5a0be6162e43ca7e46f2c10865525c55cd2d910b",
+  "source_commit": "a0b8ed90e83cbf6c541d256f46b1c32203d42e8e",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -425,13 +425,28 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/app/services/paid-ready-draft.server.ts",
+      "sha256": "c2c2b846a2b46f6931677b001cc6926fd51bf70fa6a514af93faa07f87e8acc3",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/app/services/prepaid-fulfillment.ts",
       "sha256": "c27abd6af41e952d691c4edfdd945e7b5d0b3d185a9e7dc6f991536a726c1293",
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/app/services/prepaid-payment.server.ts",
+      "sha256": "70001014c87619b9c82aa1f927f5a0c93f826cfb84656a1feb41d80e873a4ad8",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/prepaid-purchase.server.ts",
+      "sha256": "1aaf87b3c8b7aea9b39d884cbbc3543de5639ece0c58dcc79649d2b2d410c836",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/app/services/prepaid-verification.server.ts",
-      "sha256": "4f4130bb660ac3167eabf5dacce1443b1f4729cbeebc97cd1f95e5586fb48da7",
+      "sha256": "876aa053d3802c2bd21f19f6ca9c1f478235aafebbb11d793ef07754af2c218f",
       "sanitized": false
     },
     {
@@ -451,7 +466,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/ready-delivery-draft.server.ts",
-      "sha256": "39b23e2917e52399bc46c06cfc2d88bc601f29971482a833a8e9c70bf1f42c6b",
+      "sha256": "ada140dcf0232af8502e8dbdb95bf870b72dc258e42998cee7eda8cfbe569ff3",
       "sanitized": false
     },
     {
@@ -1175,6 +1190,11 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/tests/paid-ready-draft.test.mjs",
+      "sha256": "aa3d4adfe1ef59cad3f8facc9cf2864161fea08a0d0845e25f78d0413d8807e3",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/tests/paid-webhook.test.mjs",
       "sha256": "e8941cf87e20f2fed3c92db2a33c475ddebe136c773f861b18f622419246bf86",
       "sanitized": false
@@ -1185,8 +1205,18 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/tests/prepaid-payment.test.mjs",
+      "sha256": "8448c58426269f194fb36798720637a875a28615b036c23072178367bcf2e1fe",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/prepaid-purchase.test.mjs",
+      "sha256": "2c7ed3fbbacac3cb5f47b942735f0d357f0d4183a19cdcbc7474b524ab668d9a",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/tests/prepaid-verification.test.mjs",
-      "sha256": "3c07b172821ff67802e970e8fec227974ec4f59ce83511a774e0303ae5246681",
+      "sha256": "78ea613176835c393ab207254f924b16aa1cfec06fcc5157b3a5c2583bd891d4",
       "sanitized": false
     },
     {
@@ -1262,6 +1292,11 @@
     {
       "path": "apps/performance-meals-core/tests/support/database.mjs",
       "sha256": "c9727aa4819c25eb3f214c9787e5416f7ebeffa37903d46bba13983999674b19",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/support/prepaid-purchase.mjs",
+      "sha256": "5df704423e16a85210eda6162267a7fd2a6c5b34002764e52ee3aeb2fa62293e",
       "sanitized": false
     },
     {
@@ -2190,6 +2225,11 @@
       "sanitized": false
     },
     {
+      "path": "docs/RESUME-CHECKPOINT-20261020.md",
+      "sha256": "a9aa5ce3d4b2f5850ce144a8971c7a9ecc23a78ec90588bba878f659d5cfcfea",
+      "sanitized": false
+    },
+    {
       "path": "docs/REWARDS-FUNDING-VALIDATION-20261014.md",
       "sha256": "3708fd6d37ba9d1c492daf6374e41c6564d2b98deecac27ef7f5dac81cae714b",
       "sanitized": false
@@ -2236,8 +2276,8 @@
     },
     {
       "path": "docs/SUBSCRIPTION-TEST-GATEWAY-INVESTIGATION-20261012.md",
-      "sha256": "fc0ec9bd0a5dc9907e1e8431872531f6879f40660e4b21cb4e984b58d8b7c1f9",
-      "sanitized": true
+      "sha256": "36f731ffeda3ea5fd9bc8f0d2d4983cb09ffdeb58c223c0529c8d789100abbf1",
+      "sanitized": false
     },
     {
       "path": "docs/VERIFICATION.md",

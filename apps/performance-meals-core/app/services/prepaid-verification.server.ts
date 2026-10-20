@@ -3,6 +3,7 @@ import {assertShop} from './security.server';
 export const PREPAID_CONTRACT_QUERY = `#graphql
 query ReadySeriesPrepaidContract($id: ID!) {
  shop { myshopifyDomain currencyCode }
+ currentAppInstallation { app { id } }
  subscriptionContract(id: $id) {
   id status currencyCode app { id } customer { id }
   billingPolicy { interval intervalCount minCycles maxCycles }
@@ -31,13 +32,14 @@ export async function inspectPrepaidContract(admin: Admin, shop: string, contrac
   if (!new RegExp('^gid://shopify/' + type + '/\\d+$').test(expected[key])) throw new Error('Invalid expected native reference');
  }
  const response = await admin.graphql(PREPAID_CONTRACT_QUERY, {variables: {id: contractGid}});
- const body = await response.json() as {errors?: unknown; data?: {shop: {myshopifyDomain: string; currencyCode: string}; subscriptionContract: Contract | null}};
+ const body = await response.json() as {errors?: unknown; data?: {shop: {myshopifyDomain: string; currencyCode: string}; currentAppInstallation:{app:{id:string}}; subscriptionContract: Contract | null}};
  if (!response.ok || body.errors || !body.data?.subscriptionContract) throw new Error('Native contract verification unavailable');
  if (body.data.shop.myshopifyDomain !== shop) throw new Error('Wrong native store');
  const contract = body.data.subscriptionContract;
- if (contract.lines.pageInfo.hasNextPage) throw new Error('Contract lines require pagination');
+ if (contract.lines?.pageInfo?.hasNextPage!==false||!Array.isArray(contract.lines.nodes)||!contract.lines.nodes.length||contract.lines.nodes.length>100) throw new Error('Contract lines require complete pagination evidence');
+ if(new Set(contract.lines.nodes.map(line=>line?.id)).size!==contract.lines.nodes.length)throw Error('Duplicate contract lines');
  const issues: string[] = [];
- if (contract.id !== contractGid || contract.app?.id !== expected.appGid) issues.push('Contract is not owned by the expected app');
+ if (body.data.currentAppInstallation?.app?.id!==expected.appGid || contract.id !== contractGid || contract.app?.id !== expected.appGid) issues.push('Contract is not owned by the expected app');
  if (contract.customer?.id !== expected.customerGid || contract.originOrder?.customer?.id !== expected.customerGid) issues.push('Customer identity differs from the original order');
  if (contract.originOrder?.id !== expected.orderGid || contract.originOrder?.test !== true) issues.push('Expected original test order is missing');
  if ([body.data.shop.currencyCode, contract.currencyCode, contract.originOrder?.currencyCode].some(currency => currency !== 'SGD')) issues.push('Currency is not SGD');

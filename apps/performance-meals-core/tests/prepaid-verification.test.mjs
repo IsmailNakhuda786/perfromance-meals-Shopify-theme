@@ -7,7 +7,7 @@ const {inspectPrepaidContract}=await import('../.shopify/prepaid-verification-te
 const shop='prepaid-fixture.myshopify.com';
 const expected={months:3,appGid:'gid://shopify/App/1',customerGid:'gid://shopify/Customer/2',orderGid:'gid://shopify/Order/3',productGid:'gid://shopify/Product/4',variantGid:'gid://shopify/ProductVariant/5',sellingPlanGid:'gid://shopify/SellingPlan/6'};
 const contractGid='gid://shopify/SubscriptionContract/7';
-const fixture=(months=3)=>({shop:{myshopifyDomain:shop,currencyCode:'SGD'},subscriptionContract:{id:contractGid,status:'ACTIVE',currencyCode:'SGD',app:{id:expected.appGid},customer:{id:expected.customerGid},billingPolicy:{interval:'MONTH',intervalCount:months,minCycles:1,maxCycles:null},deliveryPolicy:{interval:'MONTH',intervalCount:1},originOrder:{id:expected.orderGid,name:'#fixture',test:true,currencyCode:'SGD',customer:{id:expected.customerGid}},lines:{nodes:[{id:'gid://shopify/SubscriptionLine/8',productId:expected.productGid,variantId:expected.variantGid,sellingPlanId:expected.sellingPlanGid,quantity:1,currentPrice:{amount:'252.90',currencyCode:'SGD'}}],pageInfo:{hasNextPage:false}}}});
+const fixture=(months=3)=>({shop:{myshopifyDomain:shop,currencyCode:'SGD'},currentAppInstallation:{app:{id:expected.appGid}},subscriptionContract:{id:contractGid,status:'ACTIVE',currencyCode:'SGD',app:{id:expected.appGid},customer:{id:expected.customerGid},billingPolicy:{interval:'MONTH',intervalCount:months,minCycles:1,maxCycles:null},deliveryPolicy:{interval:'MONTH',intervalCount:1},originOrder:{id:expected.orderGid,name:'#fixture',test:true,currencyCode:'SGD',customer:{id:expected.customerGid}},lines:{nodes:[{id:'gid://shopify/SubscriptionLine/8',productId:expected.productGid,variantId:expected.variantGid,sellingPlanId:expected.sellingPlanGid,quantity:1,currentPrice:{amount:'252.90',currencyCode:'SGD'}}],pageInfo:{hasNextPage:false}}}});
 const admin=data=>({graphql:async(query,options)=>{assert.ok(!/\bmutation\b/.test(query));assert.equal(options.variables.id,contractGid);return Response.json({data});}});
 
 test('3/6-month readback checks native identity and automatic term renewal without claiming payment acceptance',async()=>{
@@ -49,4 +49,14 @@ test('missing/truncated contracts, wrong stores and invalid references cannot be
   assert.equal(result.deliveryPolicyMatches,policy.interval==='MONTH');
   assert.deepEqual(result.contract.deliveryPolicy,policy,'preserve observed evidence');
  }
+});
+
+test('missing pagination precision and foreign installed-app identity cannot prove a paid term',async()=>{
+ process.env.ALLOWED_SHOP=shop;
+ const missing=fixture();delete missing.subscriptionContract.lines.pageInfo.hasNextPage;
+ await assert.rejects(inspectPrepaidContract(admin(missing),shop,contractGid,expected),/pagination/);
+ const foreign=fixture();foreign.currentAppInstallation.app.id='gid://shopify/App/99';
+ assert.equal((await inspectPrepaidContract(admin(foreign),shop,contractGid,expected)).billingConfigurationMatches,false);
+ const duplicate=fixture();duplicate.subscriptionContract.lines.nodes.push(duplicate.subscriptionContract.lines.nodes[0]);
+ await assert.rejects(inspectPrepaidContract(admin(duplicate),shop,contractGid,expected),/Duplicate/);
 });

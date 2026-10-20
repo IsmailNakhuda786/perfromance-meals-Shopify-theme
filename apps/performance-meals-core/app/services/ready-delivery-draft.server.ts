@@ -1,3 +1,4 @@
+import type {Prisma} from '@prisma/client';
 import db from '../db.server';
 import {assertShop} from './security.server';
 import {planReadyDeliveryReminders,planReadyDeliveryCatchUp} from './ready-series-calendar';
@@ -6,14 +7,16 @@ import {planReadyDeliveryReminders,planReadyDeliveryCatchUp} from './ready-serie
 // No endpoint, sender or worker consumes these DRAFT records. Native paid-term,
 // selected slot/capacity and current fulfilment evidence are activation gates.
 export async function stageReadyDeliveryReminders(input:{shop:string;customerGid:string;operationalLineId:string;occurrence:number;deliveryAt:string;expectedRevision:number}){
+ return db.$transaction(tx=>stageReadyDeliveryRemindersTx(tx,input));
+}
+export async function stageReadyDeliveryRemindersTx(tx:Prisma.TransactionClient,input:{shop:string;customerGid:string;operationalLineId:string;occurrence:number;deliveryAt:string;expectedRevision:number}){
  const {shop,customerGid,operationalLineId,occurrence,deliveryAt,expectedRevision}=input;
  assertShop(shop);
  if(!/^gid:\/\/shopify\/Customer\/\d+$/.test(customerGid)||!operationalLineId||!Number.isSafeInteger(occurrence)||occurrence<1||occurrence>6||!Number.isSafeInteger(expectedRevision)||expectedRevision<0)throw Error('Invalid delivery draft context');
- // Validate the timestamp before opening the transaction. Revision zero means
+ // Validate the timestamp before writing any draft. Revision zero means
  // creation only; repeated creation cannot silently overwrite a newer plan.
  planReadyDeliveryReminders('validation',1,deliveryAt);
  const delivery=new Date(deliveryAt);
- return db.$transaction(async tx=>{
   const line=await tx.operationalLine.findFirst({where:{id:operationalLineId,shop,customerGid,validationStatus:'VALIDATED',businessStream:'ready_series'}});
   if(!line?.contractGid||line.fulfillmentState!=='UNASSIGNED')throw Error('Validated undispatched linked Ready Series line required');
   const key={shop_operationalLineId_occurrence:{shop,operationalLineId,occurrence}};
@@ -36,17 +39,18 @@ export async function stageReadyDeliveryReminders(input:{shop:string;customerGid
   const plans=planReadyDeliveryReminders(draft.id,draft.revision,delivery.toISOString());
   for(const plan of plans)await tx.readyDeliveryReminder.create({data:{shop,customerGid,deliveryDraftId:draft.id,deliveryRevision:draft.revision,channel:plan.channel,hoursBefore:plan.hoursBefore,scheduledAt:new Date(plan.scheduledAt),deliveryAt:delivery,deliveryKey:JSON.stringify([shop,plan.idempotencyKey])}});
   return {draft,reminders:await tx.readyDeliveryReminder.findMany({where:{shop,deliveryDraftId:draft.id,deliveryRevision:draft.revision},orderBy:[{hoursBefore:'desc'},{channel:'asc'}]})};
- });
 }
 
 
 // Internal inactive preparation only. confirmedAt must come from verified purchase
 // evidence at the eventual caller, never a customer-controlled timestamp.
 export async function stageReadyDeliveryCatchUp(input:{shop:string;customerGid:string;draftId:string;expectedRevision:number;confirmedAt:string}){
+ return db.$transaction(tx=>stageReadyDeliveryCatchUpTx(tx,input));
+}
+export async function stageReadyDeliveryCatchUpTx(tx:Prisma.TransactionClient,input:{shop:string;customerGid:string;draftId:string;expectedRevision:number;confirmedAt:string}){
  const {shop,customerGid,draftId,expectedRevision,confirmedAt}=input;
  assertShop(shop);
  if(!/^gid:\/\/shopify\/Customer\/\d+$/.test(customerGid)||!draftId||!Number.isSafeInteger(expectedRevision)||expectedRevision<1)throw Error('Invalid catch-up context');
- return db.$transaction(async tx=>{
   const draft=await tx.readyDeliveryDraft.findFirst({where:{id:draftId,shop,customerGid,state:'DRAFT',revision:expectedRevision}});
   if(!draft)throw Error('Delivery draft changed; reload');
   // Serialize catch-up against rescheduling on the parent draft in PostgreSQL.
@@ -76,5 +80,4 @@ export async function stageReadyDeliveryCatchUp(input:{shop:string;customerGid:s
    if(active.length!==planned.length||active.some(row=>!planned.some(plan=>matches(row,plan)))||rows.length!==planned.length+old.length||rows.filter(row=>row.state!=='DRAFT').some(row=>row.state!=='SUPERSEDED'||!old.some(plan=>matches(row,plan))))throw Error('Existing catch-up reminders require reconciliation');
   }
   return {draft,reminders:await tx.readyDeliveryReminder.findMany({where:{shop,deliveryDraftId:draft.id,deliveryRevision:draft.revision,state:'DRAFT'},orderBy:[{scheduledAt:'asc'},{channel:'asc'}]})};
- });
 }
