@@ -15,7 +15,7 @@
   "prepaidTermVerified":{% if product.metafields.performance.prepaid_term_verified.value == true %}true{% else %}false{% endif %},
   "requiresSellingPlan":{{ product.requires_selling_plan | json }},
   "hasContents":{% if product.metafields.performance.bundle_contents != blank %}true{% else %}false{% endif %},
-  "requireAccount":{% if require_account %}true{% else %}false{% endif %},
+  "requireAccount":{% if require_account or purchase_mode == 'bundles' and product.metafields.performance.business_stream.value == 'ready_series' %}true{% else %}false{% endif %},
   "loggedIn":{% if customer %}true{% else %}false{% endif %},
   "loginUrl":{{ routes.account_login_url | json | replace: '<', '\u003c' }},
   "productUrl":{{ product.url | json | replace: '<', '\u003c' }},

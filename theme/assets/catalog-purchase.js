@@ -12,6 +12,6 @@ export function resolvePurchase(model, variant, selectedPlanId) {
   const price = subscription ? plan?.price || model.unavailablePrice : variant?.price || '';
   const comparePrice = subscription ? plan?.comparePrice || '' : variant?.comparePrice || '';
   const perMealPrice = subscription ? plan?.perMealPrice || null : variant?.perMealPrice || null;
-  const accountBlocked = Boolean(subscription && model.requireAccount && !model.loggedIn);
+  const accountBlocked = Boolean((subscription || mode === 'bundles') && model.requireAccount && !model.loggedIn);
   return { mode, subscription, plan, available, accountBlocked, canSubmit: available && !accountBlocked, price, comparePrice, perMealPrice };
 }

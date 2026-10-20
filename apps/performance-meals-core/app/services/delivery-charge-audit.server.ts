@@ -1,6 +1,7 @@
 import {assertShop} from './security.server';
 import {minorAmount} from './gift-card-native.server';
 import {calculateSingaporeDelivery,type DeliveryLine} from './delivery-policy';
+import {calculateAllocatedDeliveries,type VerifiedDeliveryAllocation} from './delivery-allocation';
 
 export const DELIVERY_CHARGE_QUERY=`#graphql
 query DeliveryChargeAudit($id:ID!){shop{myshopifyDomain currencyCode}order(id:$id){
@@ -23,7 +24,7 @@ type Shipping={id:string;isRemoved:boolean;discountedPriceSet:Money;taxLines:Tax
 // Read-only detection, not checkout enforcement, a fee adjustment or acceptance.
 // Use all-discounts native totals, never browser labels or discountedTotalSet
 // (which omits order-level discounts). Do not guess unknown shared products.
-export async function inspectNativeDeliveryCharge(admin:Admin,shop:string,orderGid:string,topUpProductGid?:string,context:{singleOrdinaryDeliveryVerified?:boolean}={}){
+export async function inspectNativeDeliveryCharge(admin:Admin,shop:string,orderGid:string,topUpProductGid?:string,context:{singleOrdinaryDeliveryVerified?:boolean;verifiedDeliveries?:VerifiedDeliveryAllocation[]}={}){
  assertShop(shop);
  if(!valid('Order',orderGid)||topUpProductGid!==undefined&&!valid('Product',topUpProductGid))throw Error('Invalid delivery audit reference');
  const response=await admin.graphql(DELIVERY_CHARGE_QUERY,{variables:{id:orderGid}}),body=await response.json(),data=body.data,order=data?.order;
@@ -51,6 +52,8 @@ export async function inspectNativeDeliveryCharge(admin:Admin,shop:string,orderG
  // Native shipping-line count is not a count of physical deliveries. Without
  // verified scheduling context, a whole-order tier cannot prove the new
  // per-delivery policy, even when its aggregate amount happens to match.
- const deliveryAllocationVerified=!expected.hasOrdinaryFood||context.singleOrdinaryDeliveryVerified===true;
- return {currency:'SGD',eligibleSubtotalMinor:expected.eligibleSubtotalMinor,expectedFeeMinor:deliveryAllocationVerified?expected.feeMinor:null,singleDeliveryEstimateMinor:expected.feeMinor,observedFeeMinor,chargeMatches:deliveryAllocationVerified?expected.feeMinor===observedFeeMinor:null,deliveryAllocationVerified,checkoutEnforcementVerified:false};
+ const allocated=context.verifiedDeliveries===undefined?null:calculateAllocatedDeliveries(lines,context.verifiedDeliveries);
+ const expectedFee=allocated?.expectedFeeMinor??expected.feeMinor;
+ const deliveryAllocationVerified=!expected.hasOrdinaryFood||allocated!==null||context.singleOrdinaryDeliveryVerified===true;
+ return {currency:'SGD',eligibleSubtotalMinor:expected.eligibleSubtotalMinor,expectedFeeMinor:deliveryAllocationVerified?expectedFee:null,singleDeliveryEstimateMinor:expected.feeMinor,observedFeeMinor,chargeMatches:deliveryAllocationVerified?expectedFee===observedFeeMinor:null,deliveryAllocationVerified,checkoutEnforcementVerified:false};
 }

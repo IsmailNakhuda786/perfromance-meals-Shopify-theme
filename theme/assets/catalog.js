@@ -1,4 +1,4 @@
-import { recurringPlans, resolvePurchase } from './catalog-purchase.js?v=8807ca567342';
+import { recurringPlans, resolvePurchase } from './catalog-purchase.js?v=3cf3e096c2d9';
 
 (() => {
   if (window.pmCatalogInitialized) return;
@@ -192,6 +192,7 @@ import { recurringPlans, resolvePurchase } from './catalog-purchase.js?v=8807ca5
     if (!(form instanceof Element) || !form.matches('[data-product-form]')) return;
     if (form.dataset.purchaseMode !== 'subscription') {
       form.querySelectorAll('[name="selling_plan"]').forEach((element) => element.remove());
+      if (form.dataset.accountBlocked === 'true') { event.preventDefault(); event.stopImmediatePropagation(); form.querySelector('[data-subscription-login]')?.focus(); }
       return;
     }
     const container = form.closest('[data-product-purchase]');

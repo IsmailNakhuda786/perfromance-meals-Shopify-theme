@@ -52,3 +52,15 @@ test('an aggregate shipping match cannot prove per-delivery fees without verifie
  const included=await inspectNativeDeliveryCharge(admin(fixture([prepaid],0)),shop,orderGid);
  assert.equal(included.chargeMatches,true);assert.equal(included.deliveryAllocationVerified,true);
 });
+
+test('verified physical deliveries audit separate fees and reconcile split native line values',async()=>{
+ const data=fixture([food(1,8000),food(2,30000,{sellingPlan:{sellingPlanId:'gid://shopify/SellingPlan/2'}})],2000);
+ const verifiedDeliveries=[{deliveryReference:'monday',lines:[{lineId:'gid://shopify/LineItem/1',netMinor:4000}]},{deliveryReference:'thursday',lines:[{lineId:'gid://shopify/LineItem/1',netMinor:4000}]}];
+ const result=await inspectNativeDeliveryCharge(admin(data),shop,orderGid,undefined,{verifiedDeliveries});assert.equal(result.expectedFeeMinor,2000);assert.equal(result.chargeMatches,true);assert.equal(result.checkoutEnforcementVerified,false);
+ data.order.shippingLines.nodes[0].discountedPriceSet=money(500);data.order.totalPriceSet=money(38500);
+ assert.equal((await inspectNativeDeliveryCharge(admin(data),shop,orderGid,undefined,{verifiedDeliveries})).chargeMatches,false);
+});
+test('incomplete, duplicated, foreign and overallocated delivery schedules cannot prove fees',async()=>{
+ const data=fixture([food(1,8000)],2000),lineId='gid://shopify/LineItem/1';
+ for(const verifiedDeliveries of [[],[{deliveryReference:'a',lines:[{lineId,netMinor:7000}]}],[{deliveryReference:'a',lines:[{lineId,netMinor:9000}]}],[{deliveryReference:'a',lines:[{lineId:'gid://shopify/LineItem/2',netMinor:8000}]}],[{deliveryReference:'a',lines:[{lineId,netMinor:4000}]},{deliveryReference:'a',lines:[{lineId,netMinor:4000}]}],[{deliveryReference:'a',lines:[{lineId,netMinor:4000},{lineId,netMinor:4000}]}]])await assert.rejects(inspectNativeDeliveryCharge(admin(data),shop,orderGid,undefined,{verifiedDeliveries}));
+});

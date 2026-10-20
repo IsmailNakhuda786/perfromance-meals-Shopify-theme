@@ -11,6 +11,10 @@
 {% enddoc %}
 {% liquid
   assign purchase_mode = purchase_mode | default: 'single'
+  assign bundle_guest = 'false'
+  if purchase_mode == 'bundles' and product.metafields.performance.business_stream.value == 'ready_series' and customer == blank
+    assign bundle_guest = 'true'
+  endif
   assign variant = card_variant | default: product.selected_or_first_available_variant
   assign card_id = instance_id | append: '-' | append: product.id | append: '-' | append: variant.id
   assign form_id = 'CardForm-' | append: card_id
@@ -79,11 +83,12 @@
 
       {% capture card_actions %}
         {% if product.has_only_default_variant or card_variant %}
-          {% form 'product', product, id: form_id, class: 'flex-1', data-product-form: '', data-purchase-mode: purchase_mode %}
+          {% form 'product', product, id: form_id, class: 'flex-1', data-product-form: '', data-purchase-mode: purchase_mode, data-account-blocked: bundle_guest %}
             {% render 'business-stream-properties', product: product %}
             <input type="hidden" name="id" value="{{ variant.id }}">
             <input type="hidden" name="quantity" value="{{ variant.quantity_rule.min | default: 1 }}">
-            <button type="submit" class="bg-[#F5B300] text-[#111] hover:bg-white {% if purchase_mode == 'single' %}px-4 py-2 text-[10px]{% else %}w-full py-3 text-[11px]{% endif %} font-extrabold tracking-[0.15em] uppercase transition-colors"{% unless can_purchase %} disabled{% endunless %}>{% if can_purchase %}{% if purchase_mode == 'bundles' %}{{ 'catalog.add_to_cart' | t }} →{% else %}{{ 'catalog.add_meal' | t }}{% endif %}{% else %}{{ 'catalog.sold_out' | t }}{% endif %}</button>
+            {% if bundle_guest == 'true' %}<a href="{{ routes.account_login_url }}" data-subscription-login class="block text-center bg-[#F5B300] text-[#111] w-full py-3 text-[11px] font-extrabold tracking-widest uppercase">{{ 'catalog.sign_in_bundle' | t }} →</a>{% endif %}
+            <button type="submit" data-add-button{% if bundle_guest == 'true' %} hidden disabled{% endif %} class="bg-[#F5B300] text-[#111] hover:bg-white {% if purchase_mode == 'single' %}px-4 py-2 text-[10px]{% else %}w-full py-3 text-[11px]{% endif %} font-extrabold tracking-[0.15em] uppercase transition-colors"{% unless can_purchase %} disabled{% endunless %}>{% if can_purchase %}{% if purchase_mode == 'bundles' %}{{ 'catalog.add_to_cart' | t }} →{% else %}{{ 'catalog.add_meal' | t }}{% endif %}{% else %}{{ 'catalog.sold_out' | t }}{% endif %}</button>
             <p data-form-error role="alert" class="text-red-300 text-[12px] mt-2" hidden></p>
           {% endform %}
         {% elsif show_quick_view %}<a href="{{ card_url }}" data-quick-view="{{ dialog_id }}" class="text-center flex-1 bg-white/8 hover:bg-[#F5B300] hover:text-[#111] py-3 text-[11px] font-extrabold tracking-[0.15em] uppercase">{{ 'catalog.choose_options' | t }}</a>

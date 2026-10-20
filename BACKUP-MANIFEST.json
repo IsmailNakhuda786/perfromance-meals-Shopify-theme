@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "1e85b50f99fe60b8feb44604f6a5ec6ad49a3f0d",
+  "source_commit": "514b8de5027ef793d1e87a32a3dff538607dc22e",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -320,8 +320,13 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/app/services/delivery-allocation.ts",
+      "sha256": "6907c75ce238cc66569315a14b562bbc2bc840fa9228cbe0096079c6011926f7",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/app/services/delivery-charge-audit.server.ts",
-      "sha256": "6181f1c07d868d59ceaf1eaef3dd860db71457f243f2e37b3c82190adad13f1e",
+      "sha256": "c13cf41269e30e476dbf1446f31c71c8f3bbca364e8743056ea04f32df53e97f",
       "sanitized": false
     },
     {
@@ -1136,7 +1141,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/delivery-charge-audit.test.mjs",
-      "sha256": "b41cebf79fa4bddaaac12ae5a03ac0dd45e8b4eeddcb4ceca5d130bb9f2af820",
+      "sha256": "0af266df300d7aec9d0b8be79cba127f599b4155d912025ff5503a0b0495f336",
       "sanitized": false
     },
     {
@@ -2100,6 +2105,11 @@
       "sanitized": false
     },
     {
+      "path": "docs/CORE-BUNDLE-SIGNIN-AND-DELIVERY-AUDIT-20261020.md",
+      "sha256": "dbce8020b0b147c53a2e9f03ff1e575944ddfac5249b71b8fe169e4e44ff77ec",
+      "sanitized": false
+    },
+    {
       "path": "docs/CORE-DELIVERY-PER-DELIVERY-20261020.md",
       "sha256": "cf12a083adfeffa02e6350a72417586f85c950918023554a452e92949467b72d",
       "sanitized": false
@@ -2322,6 +2332,11 @@
     {
       "path": "docs/RESUME-CHECKPOINT-20261019.md",
       "sha256": "468ebab8a4be42eed2661f81f9c6dce5d3bde287e46eeb1c2db093ecf598ffbe",
+      "sanitized": false
+    },
+    {
+      "path": "docs/RESUME-CHECKPOINT-20261020-BUNDLE-REVIEWS.md",
+      "sha256": "babd10da6a740d7a3f3bac4c0260a1b761601fd7f632bbbd0fa7c32cc052f34e",
       "sanitized": false
     },
     {
@@ -3200,6 +3215,11 @@
       "sanitized": false
     },
     {
+      "path": "theme-tools/tests/bundle-account.test.mjs",
+      "sha256": "0b02622c9f3b0b6135b7d7ff174c0c2abf27c67ac7c3db7cb65d9afb15d07612",
+      "sanitized": false
+    },
+    {
       "path": "theme-tools/tests/bundle-savings.test.mjs",
       "sha256": "87b06ca1f48ed078baacfe2b70e577272cbee7b167910d72cee2957caf550d2c",
       "sanitized": false
@@ -3381,12 +3401,12 @@
     },
     {
       "path": "theme/assets/catalog-purchase.js",
-      "sha256": "8807ca567342aac7a2a26fbc5432f94e6748e0f1a292821cf16d4f20f24072db",
+      "sha256": "3cf3e096c2d9f355bb705f1a817f01b61fec04774a54c23f8f0237e4d147f2b5",
       "sanitized": false
     },
     {
       "path": "theme/assets/catalog.js",
-      "sha256": "9fc6e4ec143dfdecfd421ecb17f4685434ec5793fc3a0871ef1a0ff10e937e1c",
+      "sha256": "9e63df1770072bbeb6e816c87858901f86d9dd07f11caf01292109513b8081c6",
       "sanitized": false
     },
     {
@@ -3746,7 +3766,7 @@
     },
     {
       "path": "theme/locales/en.default.json",
-      "sha256": "036f4c2104c822e1fac7c8cd44eabea85b60c0551525bbbc1a1784425cff2675",
+      "sha256": "2a6e3fbcfd8e62cb1ad6ce4a2847ce2b028a7b051b9dbb40e767a1fcad8843f5",
       "sanitized": false
     },
     {
@@ -3976,17 +3996,17 @@
     },
     {
       "path": "theme/snippets/product-card.liquid",
-      "sha256": "27b4cd6864e76fed5d3bf8c0e6a7b7cb8396fc59cf0c92b5a6ffa55fc960cc23",
+      "sha256": "ac282015018a9613ec350a0911470caa926327745adae24195508edec5e5cd98",
       "sanitized": false
     },
     {
       "path": "theme/snippets/product-purchase-form.liquid",
-      "sha256": "04b828f41cab0c97d234f6319fa0abe77dad0fa7d4048343a55afa7e28effd3b",
+      "sha256": "056e7757fa3b7a7874017e5cb6001d7ad5aea0caafc6fdca4cdf3a81369e6c80",
       "sanitized": false
     },
     {
       "path": "theme/snippets/purchase-data.liquid",
-      "sha256": "aee5c7929a4f844551989d21040f68e25665d5f04da02df6c04f1110349cb2aa",
+      "sha256": "d3aa2d47d4705da718af2749a43998a1ad35fc6c0f183e13f7ab9b8176023698",
       "sanitized": false
     },
     {
