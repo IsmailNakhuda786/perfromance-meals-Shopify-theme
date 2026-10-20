@@ -65,3 +65,29 @@ No 3- or 6-month native subscription transaction, new subscription order, contra
 - [Shopify Payments supported countries](https://help.shopify.com/en/manual/payments/shopify-payments/supported-countries)
 - [Merchant Shopify Payments test requirements](https://help.shopify.com/en/manual/payments/shopify-payments/testing-shopify-payments)
 - [Generated selling-plan data and order-generation limitations](https://shopify.dev/docs/apps/build/stores/generated-test-data)
+
+
+##20October specialist and calculation-API follow-up
+
+Specialist Logan confirms Singapore also requires initial Shopify Payments setup
+before test mode is available. Exact Singapore verification/test values and whether
+setup activates live processing or accepts payment terms remain unanswered; asked
+explicitly, with no authorization to activate or submit identity/bank information.
+
+Official contract-building guide currently describes a calculation/commit API with
+paymentMethod none. However, its subscriptionContractCreateCalculate and calculation
+result types fail the pinned2026-10 Toolkit schema validation as unavailable. No
+calculation, contract commit or billing attempt was executed; the experimental
+operation was removed. Do not silently switch API versions or treat this as a proven
+native alternative. Confirm native schema availability before further implementation.
+Source:https://shopify.dev/docs/apps/build/purchase-options/subscriptions/contracts/build-a-subscription-contract
+
+
+Independent native read-only capability check then confirms both calculation
+operation names DO exist on the development app's API. Thus the Toolkit schema
+and current native schema differ: do not describe the API as unsupported based
+only on the Toolkit failure. The SDK response did not expose an API-version header;
+the client remains pinned2026-10. No calculation mutation was executed. Next:
+validate a calculation-only candidate against native introspection and confirm all
+inputs/projected totals before any development execution. Never commit or bill as
+part of that isolated calculation check. This cannot replace actual paid checkout QA.

@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "b3c7d77957f3728f760a45d9bedbd83545d42433",
+  "source_commit": "aa6c3ede8fdd7362b451c7f83f15b2b196f427ca",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -2256,7 +2256,7 @@
     },
     {
       "path": "docs/RESUME-CHECKPOINT-20261020.md",
-      "sha256": "4c7af3431e159256216e38ba4303800fd20e077cbc1c84d5d5590ee70839a680",
+      "sha256": "65b0142c82cd6b2d1a54bb68bed239c25c3f87eeb3eb82b7d1f0fc898579316d",
       "sanitized": false
     },
     {
@@ -2306,7 +2306,7 @@
     },
     {
       "path": "docs/SUBSCRIPTION-TEST-GATEWAY-INVESTIGATION-20261012.md",
-      "sha256": "36f731ffeda3ea5fd9bc8f0d2d4983cb09ffdeb58c223c0529c8d789100abbf1",
+      "sha256": "8a63d0765475da44c9f657a18c3bab8d1440a4a0346c04ca04f778b575cb117b",
       "sanitized": false
     },
     {

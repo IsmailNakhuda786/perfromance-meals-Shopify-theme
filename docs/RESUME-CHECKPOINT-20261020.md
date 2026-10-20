@@ -139,3 +139,25 @@ native replay behavior, not a new dispatch creation or renewal lifecycle.
 Latest sanitized backup before this note:5bbc4062c6bf22cf54ac5171e6891e2bae46a13d,
 817files/814manifest hashes verified with zero mismatches, including168Theme files.
 Support specialist Logan remains reviewing; requested written case/follow-up route.
+
+
+## Final support/capability checkpoint
+
+Logan confirms Singapore requires initial Payments setup before test mode. Exact
+Singapore placeholder/verification steps and terms/live-activation consequences
+are still being reviewed; no provider setup authorized or executed. Live chat kept
+open and written case/follow-up requested.
+
+Independent contract-calculation investigation: official guide describes a separate
+calculate/review/commit flow with no-payment-method input. Candidate operation fails
+Toolkit2026-10 validation (missing calculation fields/types), but a separately
+validated READ-ONLY native introspection check confirms create/read calculation
+operations exist. Treat this as a schema/tooling mismatch, not platform rejection.
+No calculation, contract, order or billing mutation executed. Next actionable safe
+step: native schema validation of a calculation-only candidate, then isolated
+projected-term-price comparison with no commit/billing. Actual checkout/renewal QA
+still requires a supported test gateway. See subscription gateway investigation.
+
+Current source before this note:b3c7d77; sanitized GitHub backup3e7e8b619dc56f830a6290e302627b23cd676128
+verified817files/814hashes with zero mismatches (270Core,168Theme). All342Core tests,
+typecheck/lint and Core build pass. No unfinished unrelated local work staged.
