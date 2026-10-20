@@ -103,3 +103,29 @@ test('catch-up racing a reschedule cannot leave active reminders on a stale revi
  assert.ok(active.every(x=>x.deliveryRevision===draft.revision));
  assert.equal(active.length,draft.revision===1?2:4);
 });
+
+
+test('late-purchase reminder history survives a later reschedule without duplicate active messages',async()=>{
+ for(const confirmedAt of ['2027-02-27T00:00:00Z','2027-02-28T12:00:00Z']){
+  const input=await seed(),first=await stageReadyDeliveryReminders(input);
+  const late=await stageReadyDeliveryCatchUp({shop,customerGid,draftId:first.draft.id,expectedRevision:1,confirmedAt});
+  const replay=await stageReadyDeliveryReminders({...input,expectedRevision:1});
+  assert.deepEqual(replay.reminders.map(r=>r.id).sort(),late.reminders.map(r=>r.id).sort());
+  const moved=await stageReadyDeliveryReminders({...input,expectedRevision:1,deliveryAt:'2027-03-04T00:00:00Z'});
+  assert.equal(moved.draft.revision,2);assert.equal(moved.reminders.length,4);
+  const history=await db.readyDeliveryReminder.findMany({where:{shop,deliveryDraftId:first.draft.id,deliveryRevision:1}});
+  assert.equal(history.length,6);assert.ok(history.every(r=>r.state==='SUPERSEDED'));
+  assert.equal(await db.readyDeliveryReminder.count({where:{shop,deliveryDraftId:first.draft.id,state:'DRAFT'}}),4);
+  await assert.rejects(stageReadyDeliveryCatchUp({shop,customerGid,draftId:first.draft.id,expectedRevision:1,confirmedAt}),/changed/);
+ }
+});
+
+test('damaged or processed catch-up history cannot be replaced by rescheduling',async()=>{
+ for(const alter of [async rows=>db.readyDeliveryReminder.delete({where:{id:rows[0].id}}),async rows=>db.readyDeliveryReminder.update({where:{id:rows[0].id},data:{state:'SENT'}}),async rows=>db.readyDeliveryReminder.update({where:{id:rows.find(r=>r.hoursBefore===0).id},data:{scheduledAt:new Date('2027-02-27T01:00:00Z')}})]){
+  const input=await seed(),first=await stageReadyDeliveryReminders(input);
+  const late=await stageReadyDeliveryCatchUp({shop,customerGid,draftId:first.draft.id,expectedRevision:1,confirmedAt:'2027-02-27T00:00:00Z'});
+  await alter(late.reminders);
+  await assert.rejects(stageReadyDeliveryReminders({...input,expectedRevision:1,deliveryAt:'2027-03-04T00:00:00Z'}),/reconciliation/);
+  assert.equal((await db.readyDeliveryDraft.findUnique({where:{id:first.draft.id}})).revision,1);
+ }
+});

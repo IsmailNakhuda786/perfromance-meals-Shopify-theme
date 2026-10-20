@@ -26,8 +26,20 @@ export async function stageReadyDeliveryRemindersTx(tx:Prisma.TransactionClient,
    if(draft.revision!==expectedRevision)throw Error('Delivery draft changed; reload');
    const current=await tx.readyDeliveryReminder.findMany({where:{shop,deliveryDraftId:draft.id,deliveryRevision:draft.revision}});
    const expected=planReadyDeliveryReminders(draft.id,draft.revision,draft.deliveryAt.toISOString());
-   if(current.length!==4||current.some(row=>row.state!=='DRAFT'||row.customerGid!==customerGid||row.deliveryAt.getTime()!==draft!.deliveryAt.getTime()||!expected.some(plan=>plan.channel===row.channel&&plan.hoursBefore===row.hoursBefore&&Date.parse(plan.scheduledAt)===row.scheduledAt.getTime()&&row.deliveryKey===JSON.stringify([shop,plan.idempotencyKey]))))throw Error('Existing delivery reminders require reconciliation');
-   if(draft.deliveryAt.getTime()===delivery.getTime())return {draft,reminders:current};
+   const matches=(row:typeof current[number],plan:typeof expected[number]|ReturnType<typeof planReadyDeliveryCatchUp>[number])=>row.customerGid===customerGid&&row.deliveryAt.getTime()===draft!.deliveryAt.getTime()&&plan.channel===row.channel&&plan.hoursBefore===row.hoursBefore&&Date.parse(plan.scheduledAt)===row.scheduledAt.getTime()&&row.deliveryKey===JSON.stringify([shop,plan.idempotencyKey]);
+   let complete=current.length===expected.length&&current.every(row=>row.state==='DRAFT'&&expected.some(plan=>matches(row,plan)));
+   // A verified late-purchase plan also contains superseded missed stages and
+   // exactly one immediate draft per channel. Preserve that history on a move.
+   const immediate=current.filter(row=>row.hoursBefore===0);
+   if(!complete&&immediate.length===2&&immediate.every(row=>row.state==='DRAFT'&&row.scheduledAt.getTime()===immediate[0].scheduledAt.getTime())){
+    const catchUp=planReadyDeliveryCatchUp(draft.id,draft.revision,draft.deliveryAt.toISOString(),immediate[0].scheduledAt.toISOString());
+    const retained=new Set(catchUp.map(plan=>JSON.stringify([shop,plan.idempotencyKey])));
+    const superseded=expected.filter(plan=>!retained.has(JSON.stringify([shop,plan.idempotencyKey])));
+    const desired=[...catchUp.map(plan=>({plan,state:'DRAFT'})),...superseded.map(plan=>({plan,state:'SUPERSEDED'}))];
+    complete=current.length===desired.length&&new Set(current.map(row=>row.deliveryKey)).size===current.length&&desired.every(({plan,state})=>current.some(row=>row.state===state&&matches(row,plan)));
+   }
+   if(!complete)throw Error('Existing delivery reminders require reconciliation');
+   if(draft.deliveryAt.getTime()===delivery.getTime())return {draft,reminders:current.filter(row=>row.state==='DRAFT')};
    const changed=await tx.readyDeliveryDraft.updateMany({where:{id:draft.id,shop,customerGid,state:'DRAFT',revision:expectedRevision},data:{deliveryAt:delivery,revision:{increment:1}}});
    if(changed.count!==1)throw Error('Delivery draft changed; reload');
    await tx.readyDeliveryReminder.updateMany({where:{shop,deliveryDraftId:draft.id,deliveryRevision:expectedRevision,state:'DRAFT'},data:{state:'SUPERSEDED'}});

@@ -41,3 +41,17 @@ paid subscription checkout and renewals still need a supported payment setup.
 A successful calculation does not authorize committing a contract or billing.
 Production senders, WhatsApp setup and scheduler activation remain explicit gates.
 Save sanitized source checkpoints; never include .env/.shopify secrets/customer data.
+
+## Follow-up after user requested continued work
+
+Fixed late-purchase catch-up rescheduling: validate the complete original plus
+catch-up history before moving a draft, preserve superseded rows, return only
+active reminders on same-date replay and reject damaged/processed history.
+355Core tests and typecheck/lint pass. Database concurrency proof is recorded
+separately after the focused PostgreSQL run. No sender/scheduler/route activation.
+Fresh read-only final-verifier check passes all16existing native calculations;
+no new calculation, contract, order, payment or message was created.
+
+Focused PostgreSQL verification: all11reminder draft/catch-up/concurrency tests
+pass in the existing development database with scoped fixture cleanup. No customer
+records, bookings, messages or balances were changed by these fixtures.
