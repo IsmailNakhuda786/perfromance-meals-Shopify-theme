@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "0da559639f2a4f8f8b4575b8bc00c8d14633d6d0",
+  "source_commit": "1e85b50f99fe60b8feb44604f6a5ec6ad49a3f0d",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -227,6 +227,11 @@
     {
       "path": "apps/performance-meals-core/app/routes/health.tsx",
       "sha256": "49e82d917361966f733d955f5fdd69fc0b4ebc494cd583f5914fe931b70ef976",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/routes/proxy.bundle-review.tsx",
+      "sha256": "89d6aba5c36d4afa8e590906e9ee35990d773f4064b2790c757717dfee2d8114",
       "sanitized": false
     },
     {
@@ -1095,8 +1100,13 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/tests/bundle-review-route.test.mjs",
+      "sha256": "36f42a28b4c5a5ea7884beac2e1dd2176e1a4f0c8e8861ddc5c184f278eb8e1d",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/tests/bundle-reviews.test.mjs",
-      "sha256": "ecea5e6a4ce1da6d7a154065eb5f865349c2f57e5516ef83b5bf498841bc2f7e",
+      "sha256": "e5339c83c61932ed08f76303d0b179dc302c4d5148ba8fdf5ceb9d4a2d169120",
       "sanitized": false
     },
     {
@@ -2086,7 +2096,7 @@
     },
     {
       "path": "docs/CORE-BUNDLE-REVIEW-SNAPSHOT-20261020.md",
-      "sha256": "4b84f8c81e9613380301f54a08e0da1706611e005e3a6f7101d70b61093b2d6a",
+      "sha256": "c8ac528203fc17980c1b8af95d870d37c430c1993f0fd2dc9053094d9f366e8f",
       "sanitized": false
     },
     {

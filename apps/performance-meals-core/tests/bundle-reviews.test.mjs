@@ -39,3 +39,11 @@ test('order routing binds an opt-in review and later catalogue edits preserve pu
  const otherAdmin={graphql:async query=>query.includes('query OperationalOrder')?Response.json({data:{shop:{myshopifyDomain:shop},order:other}}):admin.graphql()};
  await recordOrder(shop,other.id,'bundle-reused',otherAdmin);const held=await db.operationalLine.findUnique({where:{shop_orderLineGid:{shop,orderLineGid:gid('LineItem',203)}}});assert.equal(held.validationStatus,'QUARANTINED');assert.equal(held.bundleReviewId,null);
 });
+
+test('competing checkouts cannot consume one bundle review twice',async()=>{
+ const row=await review(),inputs=[300,302].map(id=>binding(row,{orderGid:gid('Order',id),orderLineGid:gid('LineItem',id+1)}));
+ const results=await Promise.allSettled(inputs.map(input=>db.$transaction(tx=>bindBundleReview(tx,input))));
+ for(const [i,result] of results.entries())if(result.status==='rejected')await assert.rejects(db.$transaction(tx=>bindBundleReview(tx,inputs[i])));
+ assert.equal(results.filter(result=>result.status==='fulfilled').length,1);
+ const saved=await db.bundlePurchaseReview.findUnique({where:{id:row.id}});assert.equal(saved.state,'ORDERED');assert.ok(inputs.some(input=>input.orderGid===saved.orderGid&&input.orderLineGid===saved.orderLineGid));
+});
