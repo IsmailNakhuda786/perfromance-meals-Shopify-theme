@@ -1,0 +1,20 @@
+query Input {
+ validation { configuration: metafield(namespace: "$app:core", key: "bundle_signin_configuration") { value } }
+ cart {
+  buyerIdentity { isAuthenticated }
+  lines {
+   merchandise {
+    __typename
+    ... on ProductVariant {
+     contents: metafield(namespace: "performance", key: "bundle_contents") { value }
+     product {
+      id
+      isGiftCard
+      stream: metafield(namespace: "performance", key: "business_stream") { value }
+      contents: metafield(namespace: "performance", key: "bundle_contents") { value }
+     }
+    }
+   }
+  }
+ }
+}

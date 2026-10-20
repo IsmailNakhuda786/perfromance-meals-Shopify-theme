@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "514b8de5027ef793d1e87a32a3dff538607dc22e",
+  "source_commit": "a1e3d94a57f21f65c12696302db47a6dd9ae2f64",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -296,7 +296,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/bundle-snapshot.ts",
-      "sha256": "de173946aaf61d9686d37ae553b8f85b7d1268dc79b8fbfd1d294348926f8389",
+      "sha256": "e88a9ebe7cddd21bb0bfdb8de838337618f0c87592e03866f1762b1f5cce1a30",
       "sanitized": false
     },
     {
@@ -1111,7 +1111,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/bundle-reviews.test.mjs",
-      "sha256": "e5339c83c61932ed08f76303d0b179dc302c4d5148ba8fdf5ceb9d4a2d169120",
+      "sha256": "1a48bf706956f6524512811cc4921415f8a12672411f1cd2874696782365b3b6",
       "sanitized": false
     },
     {
@@ -2482,6 +2482,131 @@
     {
       "path": "index.html",
       "sha256": "768eac67e6271681de61c23f1c94a6bf688607bbad2d0bccafd8f4bfe789a079",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/Cargo.lock",
+      "sha256": "e660e37c313ff3d3551a14548536028816774d621a562bc4a40162f91ca342f0",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/Cargo.toml",
+      "sha256": "23bbfeb519b3e6dfe045c370c4bb630b41fb6cd7779a35e63d194ef2456409e5",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/README.md",
+      "sha256": "20b09a05bb5a375e2d85abb605a6bfaa3fa5a3c08723e72d8865a3d26d9e5f87",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/locales/en.default.json",
+      "sha256": "869a40116c0ba64b2cc84c824f04b79a11bf332811cb3953801e70b63481219c",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/package.json",
+      "sha256": "70e386b7c38c63a72cfd926eebe5797555ab799aef87b9baa57184128bca268f",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/schema.graphql",
+      "sha256": "a61f3c81e8529d48272eec407fdd776deb8a6cd887596ea600688c5b4e670787",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/shopify.extension.toml",
+      "sha256": "4add5d655935268028df4a96ba0abcd313ad61bb9b307c15eadac0a2eb21dc9d",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/src/cart_validations_generate_run.graphql",
+      "sha256": "96cf632b6f4c38346471d34390111c892947d439f5156d47f8a6fc7de52bccf4",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/src/cart_validations_generate_run.rs",
+      "sha256": "82e9e5f81f0c1e7f2189c18df1aa1f305bbed6fd0e421635650dba70419f1b68",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/src/main.rs",
+      "sha256": "9b65336a34f7976ed96cd418158b51f05fbf97e52db90d9daf625e73bdc55977",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/default.test.js",
+      "sha256": "8c84683cab3faf68bb6c4f7393610106b93f655820108fb2109e64a63b3145a3",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/disabled.json",
+      "sha256": "2360c62368e1ddc3677c7936d280f29088838b7e2894670e62bae09335454f09",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/empty-both.json",
+      "sha256": "9b43cf947241765ff4bbc087eb4ba7356587ebf4288b297c668fe00969089465",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/empty-variant-fallback.json",
+      "sha256": "5770557c4e60a365d4a1172824ecfd5ba13a73e72adf3747c83769814f93191d",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/foreign-product.json",
+      "sha256": "8657f553b0c1c7189a94700baaa500bacb9bad201afe72a6de2d0597659ab9c2",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/guest-bundle.json",
+      "sha256": "3bf735880d11542610d4f4a297f65cfc1f0ba24063c9d1a7c7f7290267bcf043",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/guest-gift-card.json",
+      "sha256": "03b4f4b6f27121938e903a3c4fc14eb373f2b533fdce99fb71b8d3d9a6cb267c",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/guest-individual.json",
+      "sha256": "283cd5a00b5f52ff5e2015dcff7ed5ad813e5b5e6475f1e4d95735738c05fd60",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/guest-meal-plan.json",
+      "sha256": "4e892f59cbde19ea41e4cc35d44f50b4e938b1ed1c99fe11e7e5296ec9275352",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/missing-config.json",
+      "sha256": "6b0c1825a495bb3beb020743d507a302acb41db2340be342ebea24eca74ef283",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/missing-identity.json",
+      "sha256": "0859fe10d6200ffad6c2e49c9852f1fddd53cb212d641ff6591f74905022ce65",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/mixed-guest.json",
+      "sha256": "cb6f379ced1b058242e6a45970e78b576ba6a0f6732611ef407a329f70a7632f",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/signed-in-bundle.json",
+      "sha256": "2c45bf98b80a8561d46181c4739d56070081b27f490406116583c3e40b9a8b6d",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/variant-bundle.json",
+      "sha256": "d04c38ac56c176ca4b320b9c0b160b5fe99d56e833fbb06842fe9e42f033d0e8",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/wrong-version.json",
+      "sha256": "5566b6265e485a44e78a4bff0f0faeec1a07a13c6428f30c83d88cad63814a17",
       "sanitized": false
     },
     {

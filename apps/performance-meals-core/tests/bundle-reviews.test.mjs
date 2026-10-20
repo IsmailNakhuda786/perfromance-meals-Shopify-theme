@@ -47,3 +47,5 @@ test('competing checkouts cannot consume one bundle review twice',async()=>{
  assert.equal(results.filter(result=>result.status==='fulfilled').length,1);
  const saved=await db.bundlePurchaseReview.findUnique({where:{id:row.id}});assert.equal(saved.state,'ORDERED');assert.ok(inputs.some(input=>input.orderGid===saved.orderGid&&input.orderLineGid===saved.orderLineGid));
 });
+
+test('empty variant reference list uses the product default exactly like the Theme',async()=>{native=fixture();native.contents={type:'list.metaobject_reference',value:'[ ]',references:{nodes:[],pageInfo:{hasNextPage:false}}};const row=await prepareBundleReview(admin,context);assert.equal(JSON.parse(row.snapshot).itemsPerBundle,14);});

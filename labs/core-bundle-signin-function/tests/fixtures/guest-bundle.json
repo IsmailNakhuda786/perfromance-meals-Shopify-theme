@@ -1,0 +1,50 @@
+{
+  "payload": {
+    "export": "cart_validations_generate_run",
+    "target": "cart.validations.generate.run",
+    "input": {
+      "cart": {
+        "buyerIdentity": {
+          "isAuthenticated": false
+        },
+        "lines": [
+          {
+            "merchandise": {
+              "__typename": "ProductVariant",
+              "contents": null,
+              "product": {
+                "isGiftCard": false,
+                "stream": {
+                  "value": "ready_series"
+                },
+                "contents": {
+                  "value": "[\"gid://shopify/Metaobject/1\"]"
+                },
+                "id": "gid://shopify/Product/1"
+              }
+            }
+          }
+        ]
+      },
+      "validation": {
+        "configuration": {
+          "value": "{\"enabled\": true, \"policyVersion\": \"bundle-signin-20261020\", \"productGids\": [\"gid://shopify/Product/1\"]}"
+        }
+      }
+    },
+    "output": {
+      "operations": [
+        {
+          "validationAdd": {
+            "errors": [
+              {
+                "message": "Sign in to purchase Ready Series bundles.",
+                "target": "$.cart"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

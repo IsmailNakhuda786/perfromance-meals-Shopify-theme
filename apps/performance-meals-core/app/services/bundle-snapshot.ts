@@ -20,7 +20,10 @@ export function bundleUnitPrice(value:string){
 export function snapshotNativeBundle(variant:NativeBundleVariant,expected:{productGid:string;variantGid:string;currency:string;draftAllowed?:boolean}):BundleSnapshot{
  if(expected.currency!=='SGD'||!nativeRef('Product',expected.productGid)||!nativeRef('ProductVariant',expected.variantGid)||variant?.id!==expected.variantGid||variant.product?.id!==expected.productGid||!food(variant.product,expected.draftAllowed===true))throw Error('Native bundle identity differs');
  if(variant.product.mealCount?.type!=='number_integer')throw Error('Bundle meal count unavailable');
- const count=positive(variant.product.mealCount.value),contents=variant.contents??variant.product.contents;
+ const count=positive(variant.product.mealCount.value);
+ let contents=variant.contents??variant.product.contents;
+ // Liquid's default filter falls back for an empty native reference list.
+ if(variant.contents?.type==='list.metaobject_reference'){let refs:unknown;try{refs=JSON.parse(variant.contents.value);}catch{throw Error('Bundle references unavailable');}if(Array.isArray(refs)&&refs.length===0)contents=variant.product.contents;}
  if(contents?.type!=='list.metaobject_reference'||contents.references?.pageInfo?.hasNextPage!==false||!Array.isArray(contents.references.nodes)||!contents.references.nodes.length||contents.references.nodes.length>100)throw Error('Complete native bundle contents required');
  let ids:unknown;try{ids=JSON.parse(contents.value);}catch{throw Error('Bundle references unavailable');}
  if(!Array.isArray(ids)||ids.length!==contents.references.nodes.length||new Set(ids).size!==ids.length||ids.some(id=>!nativeRef('Metaobject',id))||new Set(contents.references.nodes.map(node=>node?.id)).size!==ids.length)throw Error('Bundle references differ');
