@@ -6,7 +6,7 @@ type BooleanField={type:string;value:string}|null;
 type CartLine={id:string;quantity:number;cost:{subtotalAmount:Money;totalAmount:Money};discountAllocations:{discountedAmount:Money}[];sellingPlanAllocation:null|{sellingPlan:{id:string}};merchandise:{__typename:string;id?:string;product?:{id:string;isGiftCard:boolean;stream:Field;deliveryIncluded:BooleanField}}};
 type Group={id:string;cartLines:{id:string}[];deliveryAddress:{countryCode:string}|null;deliveryOptions:{handle:string;cost:Money}[]};
 export type CoreDeliveryInput={cart:{lines:CartLine[];deliveryGroups:Group[]}};
-export type CoreDeliveryConfiguration={pricesIncludeTaxVerified:boolean;topUpProductGid?:string};
+export type CoreDeliveryConfiguration={pricesIncludeTaxVerified:boolean;topUpProductGid?:string;verifiedDeliveryAssignments?:{groupId:string;deliveryReference:string}[]};
 const gid=(kind:string,value:unknown)=>typeof value==='string'&&new RegExp('^gid://shopify/'+kind+'/\\d+$').test(value);
 const reference=(value:unknown)=>typeof value==='string'&&value.length>0&&value.length<=512&&!Array.from(value).some(character=>character.charCodeAt(0)<32||/\s/.test(character));
 const sum=(values:number[])=>{const total=values.reduce((a,b)=>a+b,0);if(!Number.isSafeInteger(total)||total>2147483647)throw Error('Amount outside supported range');return total;};
@@ -67,13 +67,35 @@ export function planCoreDeliveryOptions(input:CoreDeliveryInput,configuration:Co
    return {group,members,ordinary:members.some(line=>line.kind==='ordinary_food')};
   });
   if(lines.some(line=>(line.kind==='ordinary_food'||line.kind==='delivery_included')&&!seen.has(line.id)))throw Error('Food delivery group missing');
-  if(groups.filter(group=>group.ordinary).length>1)throw Error('Multiple ordinary-food delivery groups require verified fee allocation');
-  const decisions=groups.map(({group,ordinary})=>{
-   const feeMinor=ordinary?expected.feeMinor:0;
+  const ordinaryGroups=groups.filter(group=>group.ordinary);
+  const assignments=configuration.verifiedDeliveryAssignments;
+  // Shopify groups are not proof of separate physical deliveries. A trusted
+  // caller must bind each ordinary group to its verified scheduled delivery.
+  // The current checkout Function does not supply these assignments and keeps
+  // ambiguous multi-group checkouts held until native binding is established.
+  if(assignments!==undefined&&(!Array.isArray(assignments)||assignments.length!==ordinaryGroups.length||new Set(assignments.map(row=>row?.groupId)).size!==assignments.length||assignments.some(row=>!row||!reference(row.groupId)||!reference(row.deliveryReference)||!ordinaryGroups.some(({group})=>group.id===row.groupId))))throw Error('Complete verified delivery assignments required');
+  if(ordinaryGroups.length>1&&assignments===undefined)throw Error('Multiple ordinary-food delivery groups require verified delivery assignments');
+  const buckets=new Map<string,typeof ordinaryGroups>();
+  for(const item of ordinaryGroups){
+   const key=assignments?.find(row=>row.groupId===item.group.id)?.deliveryReference??item.group.id;
+   const bucket=buckets.get(key)??[];bucket.push(item);buckets.set(key,bucket);
+  }
+  const fees=new Map<string,number>();
+  const deliveryFees=[...buckets].sort(([a],[b])=>a.localeCompare(b)).map(([deliveryReference,items])=>{
+   const groupIds=items.map(({group})=>group.id).sort();
+   const price=calculateSingaporeDelivery(items.flatMap(item=>item.members));
+   // One fee per physical delivery even if Shopify uses several groups.
+   // Rate availability for every group is checked below before any decisions.
+   for(const groupId of groupIds)fees.set(groupId,groupId===groupIds[0]?price.feeMinor:0);
+   return {deliveryReference,groupIds,eligibleSubtotalMinor:price.eligibleSubtotalMinor,feeMinor:price.feeMinor};
+  });
+  const expectedFeeMinor=sum(deliveryFees.map(item=>item.feeMinor));
+  const decisions=groups.map(({group})=>{
+   const feeMinor=fees.get(group.id)??0;
    const keep=group.deliveryOptions.filter(option=>amount(option.cost)===feeMinor);
    if(!keep.length)throw Error('Required configured delivery rate unavailable');
    return {groupId:group.id,feeMinor,keepHandles:keep.map(option=>option.handle),hideHandles:group.deliveryOptions.filter(option=>amount(option.cost)!==feeMinor).map(option=>option.handle)};
   });
-  return {state:'PLANNED' as const,currency:'SGD',eligibleSubtotalMinor:expected.eligibleSubtotalMinor,expectedFeeMinor:expected.feeMinor,decisions,checkoutEnforcementVerified:false};
+  return {state:'PLANNED' as const,currency:'SGD',eligibleSubtotalMinor:expected.eligibleSubtotalMinor,expectedFeeMinor,deliveryFees,decisions,checkoutEnforcementVerified:false};
  }catch(error){return {state:'HELD' as const,reason:error instanceof Error?error.message:'Delivery evidence unavailable',decisions:[],checkoutEnforcementVerified:false};}
 }

@@ -55,3 +55,14 @@ no new calculation, contract, order, payment or message was created.
 Focused PostgreSQL verification: all11reminder draft/catch-up/concurrency tests
 pass in the existing development database with scoped fixture cleanup. No customer
 records, bookings, messages or balances were changed by these fixtures.
+
+## Per-delivery business decision and implementation
+
+User confirmed fees per physical delivery for ordinary food; prepaid stays included.
+Core supports explicit trusted group-to-delivery mappings with per-delivery tiers,
+stable one-fee handling for multiple groups of the same delivery and fail-closed
+missing mappings/rates. Checkout wrapper does not expose the mappings and ambiguous
+groups remain HELD. Native audit requires verified single-delivery context for a
+fee match rather than inferring physical deliveries from native shipping lines.
+360Core tests/typecheck/lint and25official WASM fixtures pass. Production schema
+consistency passes; no deployment/settings/order/payment changes. See new fee report.

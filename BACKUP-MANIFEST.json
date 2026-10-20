@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "31495c24aeef201b172813ecaad55694de34c788",
+  "source_commit": "cdf06e377ca69bd1a247981abb2f74f8ee6e1f3d",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -296,7 +296,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/core-delivery-options.ts",
-      "sha256": "007b68bb4a703b47ba9a5274d4f10ff2a91dab157a2d5763873bc6497669e9c7",
+      "sha256": "ff02610842114b47d7e1e9fdc6abb68ee96a59cb09cec3bcd870734e1b440360",
       "sanitized": false
     },
     {
@@ -306,7 +306,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/delivery-charge-audit.server.ts",
-      "sha256": "ac73f54be0c429ba4d6fc5da858772148b216aeb117ddd204bda6db9ce2f34d4",
+      "sha256": "6181f1c07d868d59ceaf1eaef3dd860db71457f243f2e37b3c82190adad13f1e",
       "sanitized": false
     },
     {
@@ -711,7 +711,7 @@
     },
     {
       "path": "apps/performance-meals-core/extensions/core-delivery-qa/src/core-delivery-options.ts",
-      "sha256": "007b68bb4a703b47ba9a5274d4f10ff2a91dab157a2d5763873bc6497669e9c7",
+      "sha256": "ff02610842114b47d7e1e9fdc6abb68ee96a59cb09cec3bcd870734e1b440360",
       "sanitized": false
     },
     {
@@ -1081,7 +1081,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/core-delivery-options.test.mjs",
-      "sha256": "eaf124c9180d2cad9d8524c9431e8560484900aaba5dafe1ec3765f130ff5949",
+      "sha256": "a7b335b4dfcbcf07a06daeb9992905ebc995bd20a8f401e47081a66195142b6f",
       "sanitized": false
     },
     {
@@ -1101,7 +1101,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/delivery-charge-audit.test.mjs",
-      "sha256": "2fb4d4af2aca69e32306457f75080402d16f8ace1b9b0e292ebd6e92aefedafb",
+      "sha256": "b41cebf79fa4bddaaac12ae5a03ac0dd45e8b4eeddcb4ceca5d130bb9f2af820",
       "sanitized": false
     },
     {
@@ -2055,6 +2055,11 @@
       "sanitized": false
     },
     {
+      "path": "docs/CORE-DELIVERY-PER-DELIVERY-20261020.md",
+      "sha256": "cf12a083adfeffa02e6350a72417586f85c950918023554a452e92949467b72d",
+      "sanitized": false
+    },
+    {
       "path": "docs/CORE-DEPLOYMENT.md",
       "sha256": "207d38c65b7917f2522eb0b4715ab63d128f592bbe014d7b6dc4e7c7b47c6107",
       "sanitized": false
@@ -2276,7 +2281,7 @@
     },
     {
       "path": "docs/RESUME-CHECKPOINT-20261020-SECOND-RUN.md",
-      "sha256": "c0fb5d1d38ea8544c0b94d1f9481e420fbbb187ac638c8df5535bc9e8f5ee66b",
+      "sha256": "ecc34eb8f4646ba838f674dab6dbaef155f53a7939aca8cf0e468607f61afcc8",
       "sanitized": false
     },
     {
@@ -2431,7 +2436,7 @@
     },
     {
       "path": "labs/core-delivery-function/core-source-hashes.json",
-      "sha256": "47ec28156992c57d9e6d990cfca2e7c10c241d3906433ea1a91ff82fec5c6e09",
+      "sha256": "7184a5abd4df6639b02c287c908ad356912f31f4f200ac28798bd4b495d48b54",
       "sanitized": false
     },
     {
@@ -2466,7 +2471,7 @@
     },
     {
       "path": "labs/core-delivery-function/src/core-delivery-options.ts",
-      "sha256": "007b68bb4a703b47ba9a5274d4f10ff2a91dab157a2d5763873bc6497669e9c7",
+      "sha256": "ff02610842114b47d7e1e9fdc6abb68ee96a59cb09cec3bcd870734e1b440360",
       "sanitized": false
     },
     {

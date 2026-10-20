@@ -23,7 +23,7 @@ type Shipping={id:string;isRemoved:boolean;discountedPriceSet:Money;taxLines:Tax
 // Read-only detection, not checkout enforcement, a fee adjustment or acceptance.
 // Use all-discounts native totals, never browser labels or discountedTotalSet
 // (which omits order-level discounts). Do not guess unknown shared products.
-export async function inspectNativeDeliveryCharge(admin:Admin,shop:string,orderGid:string,topUpProductGid?:string){
+export async function inspectNativeDeliveryCharge(admin:Admin,shop:string,orderGid:string,topUpProductGid?:string,context:{singleOrdinaryDeliveryVerified?:boolean}={}){
  assertShop(shop);
  if(!valid('Order',orderGid)||topUpProductGid!==undefined&&!valid('Product',topUpProductGid))throw Error('Invalid delivery audit reference');
  const response=await admin.graphql(DELIVERY_CHARGE_QUERY,{variables:{id:orderGid}}),body=await response.json(),data=body.data,order=data?.order;
@@ -48,5 +48,9 @@ export async function inspectNativeDeliveryCharge(admin:Admin,shop:string,orderG
  const observedFeeMinor=sum(shipping.map(line=>sum([money(line.discountedPriceSet),order.taxesIncluded?0:taxes(line.taxLines)])));
  if(sum([sum(items.map(line=>taxes(line.taxLines))),shippingTax])!==money(order.totalTaxSet)||sum([sum(lines.map(line=>line.netMinor)),observedFeeMinor])!==money(order.totalPriceSet))throw Error('Delivery audit totals require reconciliation');
  const expected=calculateSingaporeDelivery(lines);
- return {currency:'SGD',eligibleSubtotalMinor:expected.eligibleSubtotalMinor,expectedFeeMinor:expected.feeMinor,observedFeeMinor,chargeMatches:expected.feeMinor===observedFeeMinor,checkoutEnforcementVerified:false};
+ // Native shipping-line count is not a count of physical deliveries. Without
+ // verified scheduling context, a whole-order tier cannot prove the new
+ // per-delivery policy, even when its aggregate amount happens to match.
+ const deliveryAllocationVerified=!expected.hasOrdinaryFood||context.singleOrdinaryDeliveryVerified===true;
+ return {currency:'SGD',eligibleSubtotalMinor:expected.eligibleSubtotalMinor,expectedFeeMinor:deliveryAllocationVerified?expected.feeMinor:null,singleDeliveryEstimateMinor:expected.feeMinor,observedFeeMinor,chargeMatches:deliveryAllocationVerified?expected.feeMinor===observedFeeMinor:null,deliveryAllocationVerified,checkoutEnforcementVerified:false};
 }
