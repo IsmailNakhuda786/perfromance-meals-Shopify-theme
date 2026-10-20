@@ -70,7 +70,7 @@ orders and intact quantities. It refuses processed, ambiguous or hidden work.
 Shopify expands a prepaid contract unit into 3/6 original-order units; each delivery
 contains one unit. Contract linking now uses the exact native policy ratio rather
 than equating contract and order quantities. Cross-interval approximations are held.
-The contract price is per delivery: full upfront payment is independently proven by
+Price interpretation correction in the resumed run: native currentPrice is a unit-price observation, not an assumed per-delivery price. Full upfront payment is independently proven by
 original order totals and successful non-manual receipts. Renewal price acceptance
 remains unverified. Native fulfillAt is work-start evidence, not proof of the selected
 customer time slot. Paid draft preparation now requires matching native scheduled

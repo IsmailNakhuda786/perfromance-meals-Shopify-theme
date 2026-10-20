@@ -1,10 +1,11 @@
 import {assertShop} from './security.server';
+import {validSubscriptionLineGid} from './subscription-reference';
 export const ACCOUNT_CONTRACT_QUERY=`#graphql
 query AccountLinkedContract($id:ID!){shop{myshopifyDomain currencyCode}currentAppInstallation{app{id}}subscriptionContract(id:$id){id status currencyCode app{id}customer{id}originOrder{id customer{id}}lines(first:100){nodes{id title quantity productId variantId}pageInfo{hasNextPage}}}}
 `;
 type Admin={graphql:(query:string,options:{variables:Record<string,unknown>})=>Promise<Response>};
 export type AccountContractBinding={contractGid:string;orderGid:string;businessStream:string;productGid:string;variantGid:string};
-const valid=(kind:string,id:string)=>new RegExp('^gid://shopify/'+kind+'/\\d+$').test(id);
+const valid=(kind:string,id:string)=>kind==='SubscriptionLine'?validSubscriptionLineGid(id):new RegExp('^gid://shopify/'+kind+'/\\d+$').test(id);
 // Read only: linked records are not proof of current ownership or active status.
 // Verify every contract freshly; no mutation, inferred calendar or customer URL.
 export async function readAccountSubscriptions(admin:Admin,shop:string,customerGid:string,bindings:AccountContractBinding[]){

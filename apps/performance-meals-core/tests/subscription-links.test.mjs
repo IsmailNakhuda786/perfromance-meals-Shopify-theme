@@ -49,3 +49,11 @@ test('prepaid order-expanded quantity links to one contract unit using its exact
  await assert.rejects(linkSubscriptionOrigin(gateway(d=>{d.subscriptionContract.billingPolicy.intervalCount=3;}),shop,contract),/ambiguous/);
  await assert.rejects(linkSubscriptionOrigin(gateway(d=>{d.subscriptionContract.billingPolicy.interval='WEEK';}),shop,contract),/policy/);
 });
+
+test('native UUID subscription-line identity links without loosening original customer/order ownership',async()=>{
+ await db.operationalLine.deleteMany({where:{shop}});const row=await db.operationalLine.create({data:base});
+ const edit=d=>{d.subscriptionContract.lines.nodes[0].id='gid://shopify/SubscriptionLine/11111111-1111-4111-8111-111111111111';};
+ assert.equal((await linkSubscriptionOrigin(gateway(edit),shop,contract)).linked,1);
+ await assert.rejects(linkSubscriptionOrigin(gateway(d=>{edit(d);d.subscriptionContract.customer.id='gid://shopify/Customer/99';}),shop,contract));
+ assert.equal((await db.operationalLine.findUnique({where:{id:row.id}})).orderGid,base.orderGid);
+});

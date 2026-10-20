@@ -8,6 +8,23 @@ See RESUME-CHECKPOINT-20261020.md for current payment/draft integration.
 The Singapore setup question has now been submitted to Shopify Support with
 user approval; human technical guidance is pending. No provider settings changed.
 
+## Final Support correction —20October2026
+
+After the prior checkpoint, the user supplied Logan's corrected final answer:
+placeholder onboarding may be attempted ONLY for a development store that will
+never process real payments. Shopify cannot supply values or guarantee Singapore
+format/verification acceptance. The earlier blanket assertion that placeholders
+are unsupported was withdrawn. Setup still accepts Payments terms; no setup,
+identity/bank submission or provider activation is approved by this clarification.
+The user ended the chat. Ticket/transcript reference has not yet been supplied.
+Do not re-open the settled business question or invent verification details.
+
+Native calculation-only work can continue separately: this does not require a
+payment method, contract commit or billing.20October resumed native probes verify
+exact3-/6-term projections for the first approved draft configuration, with no
+warnings and the original product/contract set unchanged. See the second-run
+checkpoint for wider calculation coverage. This does not prove paid checkout.
+
 ## Verified state
 
 ### Latest update: owner-operated development store, Singapore address

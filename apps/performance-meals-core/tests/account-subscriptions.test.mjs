@@ -18,3 +18,10 @@ test('other customer/app/order, incomplete or changed lines and failed native re
  await assert.rejects(()=>readAccountSubscriptions(gateway(()=>{},503),shop,customer,[binding]));
  await assert.rejects(()=>readAccountSubscriptions(gateway(),shop,'invalid',[binding]));
 });
+
+test('native UUID subscription-line references remain readable while foreign resource IDs are rejected',async()=>{
+ const uuid='11111111-1111-4111-8111-111111111111';
+ const result=await readAccountSubscriptions(gateway(d=>{d.subscriptionContract.lines.nodes[0].id='gid://shopify/SubscriptionLine/'+uuid;}),shop,customer,[binding]);
+ assert.equal(result[0].lines[0].id,'gid://shopify/SubscriptionLine/'+uuid);
+ for(const id of ['gid://shopify/Order/'+uuid,'gid://shopify/SubscriptionLine/'+uuid+'?x=1','gid://shopify/SubscriptionLine/not-a-uuid'])await assert.rejects(readAccountSubscriptions(gateway(d=>{d.subscriptionContract.lines.nodes[0].id=id;}),shop,customer,[binding]));
+});

@@ -1,11 +1,12 @@
 import db from '../db.server';
 import {assertShop} from './security.server';
 import {nativeSubscriptionOrderQuantity} from './subscription-quantity';
+import {validSubscriptionLineGid} from './subscription-reference';
 export const SUBSCRIPTION_LINK_QUERY=`#graphql
 query SubscriptionOriginLink($id:ID!){shop{myshopifyDomain}currentAppInstallation{app{id}}subscriptionContract(id:$id){id billingPolicy{interval intervalCount}deliveryPolicy{interval intervalCount}app{id}customer{id}originOrder{id customer{id}lineItems(first:250){nodes{id quantity product{id}variant{id}sellingPlan{sellingPlanId}}pageInfo{hasNextPage}}}lines(first:100){nodes{id productId variantId sellingPlanId quantity}pageInfo{hasNextPage}}}}
 `;
 type Admin={graphql:(query:string,options:{variables:Record<string,unknown>})=>Promise<Response>};
-const valid=(type:string,value:unknown)=>typeof value==='string'&&new RegExp('^gid://shopify/'+type+'/\\d+$').test(value);
+const valid=(type:string,value:unknown)=>type==='SubscriptionLine'?validSubscriptionLineGid(value):typeof value==='string'&&new RegExp('^gid://shopify/'+type+'/\\d+$').test(value);
 type ContractLine={id:string;productId:string;variantId:string;sellingPlanId:string;quantity:number};
 type OrderLine={id:string;quantity:number;product:{id:string}|null;variant:{id:string}|null;sellingPlan:{sellingPlanId:string}|null};
 // A notification is only a trigger. Bind native app/customer/original-line

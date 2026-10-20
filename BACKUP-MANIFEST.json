@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "aa6c3ede8fdd7362b451c7f83f15b2b196f427ca",
+  "source_commit": "6747eab5b22898f68c134b840d8b1983ec9e5bd2",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -281,7 +281,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/account-subscriptions.server.ts",
-      "sha256": "9182579267b50618a7356db2dc446401d9893a8769f0ef28ba71b46591f7f384",
+      "sha256": "4572e3a8c93df07cccba5320f962a7fd6d3e2f5c09ab99893db40b20945f86c4",
       "sanitized": false
     },
     {
@@ -430,6 +430,11 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/app/services/prepaid-calculation.server.ts",
+      "sha256": "f46e0c14ef7af038b5cc0314be64df6e94e905961f00a963263ce47a1b85eed1",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/app/services/prepaid-fulfillment.ts",
       "sha256": "c27abd6af41e952d691c4edfdd945e7b5d0b3d185a9e7dc6f991536a726c1293",
       "sanitized": false
@@ -441,7 +446,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/prepaid-purchase.server.ts",
-      "sha256": "37f48984682b1d2fc3d80a95e24b97a13ae3a828b98f3c11274c4ecde109a692",
+      "sha256": "645459cad20a34f29a70934a67bd92d4c708d9f9d8d05a36a207ec5195acd485",
       "sanitized": false
     },
     {
@@ -531,12 +536,17 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/subscription-links.server.ts",
-      "sha256": "6f406253cd619f129c6dc60496d88030dc71c85862f9b84d0eaafe1119d6f368",
+      "sha256": "7051ab9e3b5f9fedd428322d9d02f845c0f45239d98f6d524df6d792dd28eb87",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/services/subscription-quantity.ts",
       "sha256": "ba901f2c558bb26499abc1e0ce1aef1ee0254c95a683b4c6f52490d7fcda2699",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/subscription-reference.ts",
+      "sha256": "6e615da27a2e1a880b24b0d352ef75bf4f09227b4c7451d8eb207555b640f5c7",
       "sanitized": false
     },
     {
@@ -1061,7 +1071,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/account-subscriptions.test.mjs",
-      "sha256": "e9fb3245209b570e80dbec8787d9f83605834c588e41c0ec02f2b963ad844b89",
+      "sha256": "b2c00592f3e09253ebcb8352b3b1c58adf97fa4db0122b7ea9b9299395ddc413",
       "sanitized": false
     },
     {
@@ -1215,6 +1225,11 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/tests/prepaid-calculation.test.mjs",
+      "sha256": "811a1740413ddb7f745fbb2d0686d73750301eb20bd3fc866e248323c8738d45",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/tests/prepaid-fulfillment.test.mjs",
       "sha256": "e51f517b05b34414359f93f423ba7e5d5a4abbdddec25e992b27388bd82a6ef6",
       "sanitized": false
@@ -1226,7 +1241,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/prepaid-purchase.test.mjs",
-      "sha256": "c90e7e90686c65fe1a08b276cdc0d11bec34992faa270cb913aa1cd569e948ae",
+      "sha256": "3784356e1a0ea5db8e7758cb9797fe1318c2b0bf8115cb98f2cb07c205aa2f8b",
       "sanitized": false
     },
     {
@@ -1306,7 +1321,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/subscription-links.test.mjs",
-      "sha256": "e2a16440afe6879b7883e82054c6183e434d659f9431315ef6b2c8da5b0f9215",
+      "sha256": "96820317013fa91d22b5332bda8da01e415995e1b94cd960655fe262277eaf45",
       "sanitized": false
     },
     {
@@ -2055,6 +2070,11 @@
       "sanitized": true
     },
     {
+      "path": "docs/CORE-PREPAID-CALCULATION-QA-20261020.md",
+      "sha256": "4467be89422085858b34895d43feee727ca1968aaa265e7e13b75d29bce5a953",
+      "sanitized": false
+    },
+    {
       "path": "docs/CORE-SHIPPING-FUNCTION-QA-20261018.md",
       "sha256": "1f52e3119cbf8da4fe094ce724efeaa90418141029f11a873b76674c01998a2c",
       "sanitized": false
@@ -2255,8 +2275,13 @@
       "sanitized": false
     },
     {
+      "path": "docs/RESUME-CHECKPOINT-20261020-SECOND-RUN.md",
+      "sha256": "db08afe197701754a3532bf28c9920307bd8b0b92158d5d713c62f8bf8051513",
+      "sanitized": false
+    },
+    {
       "path": "docs/RESUME-CHECKPOINT-20261020.md",
-      "sha256": "65b0142c82cd6b2d1a54bb68bed239c25c3f87eeb3eb82b7d1f0fc898579316d",
+      "sha256": "2b244a1ad9ce6b81a9fa9b8fb8b5a92ef2336f23817470b66f0f3e2016234e05",
       "sanitized": false
     },
     {
@@ -2306,7 +2331,7 @@
     },
     {
       "path": "docs/SUBSCRIPTION-TEST-GATEWAY-INVESTIGATION-20261012.md",
-      "sha256": "8a63d0765475da44c9f657a18c3bab8d1440a4a0346c04ca04f778b575cb117b",
+      "sha256": "2ed99804e8b8fa6c2660797da4c3ffdd9e6e7aa3bcbc26b04eedc00c2dda1ecd",
       "sanitized": false
     },
     {

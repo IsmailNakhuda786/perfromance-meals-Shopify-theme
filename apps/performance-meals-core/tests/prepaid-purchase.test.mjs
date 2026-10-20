@@ -11,7 +11,7 @@ const fixture=()=>({shop:{myshopifyDomain:shop,currencyCode:'SGD'},currentAppIns
 const admin=data=>({graphql:async(query,{variables})=>{assert.doesNotMatch(query,/\bmutation\b/);assert.equal(variables.id,query.includes('ReadySeriesOriginalPayment')?expected.orderGid:contractGid);return Response.json({data});}});
 test('contract and original payment must agree before internal delivery preparation; native schedule remains unverified',async()=>{
  const result=await inspectPrepaidPurchase(admin(fixture()),shop,contractGid,expected);
- assert.equal(result.draftPreparationOnly,true);assert.equal(result.nativeScheduleVerified,false);assert.equal(result.payment.upfrontMinor,25520);assert.equal(result.months,3);assert.equal(result.perDeliveryContractPriceMinor,8507);assert.equal(result.renewalPriceVerified,false);
+ assert.equal(result.draftPreparationOnly,true);assert.equal(result.nativeScheduleVerified,false);assert.equal(result.payment.upfrontMinor,25520);assert.equal(result.months,3);assert.equal(result.nativeContractUnitPriceMinor,8507);assert.equal(result.renewalPriceVerified,false);
  assert.ok(result.pendingEvidence.includes('Actual native fulfillment schedule'));
 });
 test('wrong contract price, billing, status, identity or extra lines cannot authorize draft preparation',async()=>{
@@ -23,4 +23,19 @@ test('matching contract alone cannot replace actual payment and original line ev
  for(const change of [d=>d.order.totalReceivedSet=money('0'),d=>d.order.lineItems.nodes[0].sellingPlan.sellingPlanId='gid://shopify/SellingPlan/99',d=>d.order.displayFinancialStatus='PENDING',d=>d.order.transactions[0].status='PENDING']){
   const data=fixture();change(data);await assert.rejects(inspectPrepaidPurchase(admin(data),shop,contractGid,expected));
  }
+});
+test('a native unit-price observation is never multiplied into an asserted term or renewal charge',async()=>{
+ for(const price of ['85.07','255.20']){
+  const data=fixture();data.subscriptionContract.lines.nodes[0].currentPrice.amount=price;
+  const result=await inspectPrepaidPurchase(admin(data),shop,contractGid,expected);
+  assert.equal(result.nativeContractUnitPriceMinor,Math.round(Number(price)*100));
+  assert.equal(result.payment.upfrontMinor,25520);assert.equal(result.renewalPriceVerified,false);
+  assert.equal('perDeliveryContractPriceMinor' in result,false);
+ }
+});
+
+test('native UUID line references retain independent original payment verification',async()=>{
+ const data=fixture();data.subscriptionContract.lines.nodes[0].id='gid://shopify/SubscriptionLine/11111111-1111-4111-8111-111111111111';
+ assert.equal((await inspectPrepaidPurchase(admin(data),shop,contractGid,expected)).payment.upfrontMinor,25520);
+ data.order.totalReceivedSet=money('0');await assert.rejects(inspectPrepaidPurchase(admin(data),shop,contractGid,expected));
 });
