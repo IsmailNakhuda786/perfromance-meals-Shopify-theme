@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "a1e3d94a57f21f65c12696302db47a6dd9ae2f64",
+  "source_commit": "b92dab4eb542127b2e55fafc70ed857578ea4186",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -2106,7 +2106,7 @@
     },
     {
       "path": "docs/CORE-BUNDLE-SIGNIN-AND-DELIVERY-AUDIT-20261020.md",
-      "sha256": "dbce8020b0b147c53a2e9f03ff1e575944ddfac5249b71b8fe169e4e44ff77ec",
+      "sha256": "c376964cbff4ba68ecc3cb92dfd301db3c718c3ba020b493948274a1301051c4",
       "sanitized": false
     },
     {
@@ -3531,7 +3531,7 @@
     },
     {
       "path": "theme/assets/catalog.js",
-      "sha256": "9e63df1770072bbeb6e816c87858901f86d9dd07f11caf01292109513b8081c6",
+      "sha256": "4ca4c0bba8d1e0a79fac973844f9a2df06d3a9b3eab11ef8fdb1e6d962aa09c7",
       "sanitized": false
     },
     {
@@ -4121,17 +4121,17 @@
     },
     {
       "path": "theme/snippets/product-card.liquid",
-      "sha256": "ac282015018a9613ec350a0911470caa926327745adae24195508edec5e5cd98",
+      "sha256": "8ef7b6cee748b70b5560a6ff534de7ef6cabe289fc077c41eb2da72c2f408426",
       "sanitized": false
     },
     {
       "path": "theme/snippets/product-purchase-form.liquid",
-      "sha256": "056e7757fa3b7a7874017e5cb6001d7ad5aea0caafc6fdca4cdf3a81369e6c80",
+      "sha256": "8583c9f528433e60fc287aadec40081a31fc2c6cb94f38081d4cc986114f6836",
       "sanitized": false
     },
     {
       "path": "theme/snippets/purchase-data.liquid",
-      "sha256": "d3aa2d47d4705da718af2749a43998a1ad35fc6c0f183e13f7ab9b8176023698",
+      "sha256": "c8be414a875ab98fda7356eab404ee3fc965f3ceb7ad9a2e36c18aa82878e044",
       "sanitized": false
     },
     {
@@ -4331,7 +4331,7 @@
     "docs/CUSTOMER-CORE-CHECKPOINT-20261012.md"
   ],
   "excluded": [],
-  "backup_updated_at": "2026-10-19",
+  "backup_updated_at": "2026-10-20",
   "excluded_private_qa_documents": [
     "docs/CANCELLATION-WALLET-QA-20261013.md",
     "docs/CUSTOMER-CORE-CHECKPOINT-20261012.md",

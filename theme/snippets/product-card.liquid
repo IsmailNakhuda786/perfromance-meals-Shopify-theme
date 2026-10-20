@@ -87,7 +87,7 @@
             {% render 'business-stream-properties', product: product %}
             <input type="hidden" name="id" value="{{ variant.id }}">
             <input type="hidden" name="quantity" value="{{ variant.quantity_rule.min | default: 1 }}">
-            {% if bundle_guest == 'true' %}<a href="{{ routes.account_login_url }}" data-subscription-login class="block text-center bg-[#F5B300] text-[#111] w-full py-3 text-[11px] font-extrabold tracking-widest uppercase">{{ 'catalog.sign_in_bundle' | t }} →</a>{% endif %}
+            {% if bundle_guest == 'true' %}<a href="{{ routes.storefront_login_url }}" data-subscription-login class="block text-center bg-[#F5B300] text-[#111] w-full py-3 text-[11px] font-extrabold tracking-widest uppercase">{{ 'catalog.sign_in_bundle' | t }} →</a>{% endif %}
             <button type="submit" data-add-button{% if bundle_guest == 'true' %} hidden disabled{% endif %} class="bg-[#F5B300] text-[#111] hover:bg-white {% if purchase_mode == 'single' %}px-4 py-2 text-[10px]{% else %}w-full py-3 text-[11px]{% endif %} font-extrabold tracking-[0.15em] uppercase transition-colors"{% unless can_purchase %} disabled{% endunless %}>{% if can_purchase %}{% if purchase_mode == 'bundles' %}{{ 'catalog.add_to_cart' | t }} →{% else %}{{ 'catalog.add_meal' | t }}{% endif %}{% else %}{{ 'catalog.sold_out' | t }}{% endif %}</button>
             <p data-form-error role="alert" class="text-red-300 text-[12px] mt-2" hidden></p>
           {% endform %}

@@ -8,4 +8,6 @@ Local browser evidence: guest sign-in CTA displayed; signed-in Add to cart opene
 
 Independent read-only shipping audit now accepts trusted physical-delivery allocations. It conserves each native discounted food line total exactly, computes a separate tier per delivery and excludes prepaid value. Missing, duplicated, foreign or overallocated mappings are rejected. No mapping is inferred from shipping-line count. This does not modify the checkout Function or activate shipping enforcement.
 
-Verification: 373 isolated Core tests; TypeScript/lint; 52 Theme tests; local Theme Check: 98 files checked, zero findings. Shopify Toolkit Liquid validator could not launch because its bundled theme-check dependency is missing; the existing project Theme Check ran successfully instead. Seven PostgreSQL bundle tests from the preceding checkpoint remain valid; no subsequent schema changes.
+Verification: 374 isolated Core tests; TypeScript/lint; 52 Theme tests; local Theme Check: 98 files checked, zero findings. Shopify Toolkit Liquid validator could not launch because its bundled theme-check dependency is missing; the existing project Theme Check ran successfully instead. Seven PostgreSQL bundle tests from the preceding checkpoint remain valid; no subsequent schema changes.
+
+Bundle login uses Shopify routes.storefront_login_url to retain the storefront return flow. Local-only server validation candidate passes14official WASM fixtures; it remains outside app extensions and requires separate native-test approval. No rule was activated.

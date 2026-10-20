@@ -85,8 +85,8 @@ import { recurringPlans, resolvePurchase } from './catalog-purchase.js?v=3cf3e09
         destination.searchParams.set('variant', String(variant.id));
         if (plan) destination.searchParams.set('selling_plan', String(plan.id));
         const url = new URL(model.loginUrl, window.location.origin);
-        url.searchParams.set('return_url', destination.pathname + destination.search);
-        login.href = url.pathname + url.search;
+        if (model.purchaseMode === 'bundles') { login.href = model.loginUrl; }
+        else { url.searchParams.set('return_url', destination.pathname + destination.search); login.href = url.pathname + url.search; }
       } else login.removeAttribute('href');
     }
     const quantity = form.querySelector('[name="quantity"]');

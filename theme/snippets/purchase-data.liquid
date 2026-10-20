@@ -17,7 +17,7 @@
   "hasContents":{% if product.metafields.performance.bundle_contents != blank %}true{% else %}false{% endif %},
   "requireAccount":{% if require_account or purchase_mode == 'bundles' and product.metafields.performance.business_stream.value == 'ready_series' %}true{% else %}false{% endif %},
   "loggedIn":{% if customer %}true{% else %}false{% endif %},
-  "loginUrl":{{ routes.account_login_url | json | replace: '<', '\u003c' }},
+  "loginUrl":{% if purchase_mode == 'bundles' %}{{ routes.storefront_login_url | json | replace: '<', '\u003c' }}{% else %}{{ routes.account_login_url | json | replace: '<', '\u003c' }}{% endif %},
   "productUrl":{{ product.url | json | replace: '<', '\u003c' }},
   "unavailablePrice":{{ 'catalog.subscription_unavailable' | t | json | replace: '<', '\u003c' }},
   "variants":[
