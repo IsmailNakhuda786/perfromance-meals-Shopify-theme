@@ -74,3 +74,18 @@ test('two checkouts cannot bind the same reviewed Meal Plan selection to two ord
  assert.equal(bound.orderGid,winner.orderGid);assert.equal(bound.orderLineGid,winner.orderLineGid);assert.equal(winner.selectionId,selection.id);
  assert.equal(rows.find(row=>row.validationStatus==='QUARANTINED').selectionId,null);
 });
+
+
+test('simultaneous created, paid and updated events reconcile the same native line and persist each receipt once',async()=>{
+ for(const [index,sameEvent]of [false,true].entries()){
+  const order=fixture();order.id=`gid://shopify/Order/${1100+index}`;order.lineItems.nodes[0].id=`gid://shopify/LineItem/${1100+index}`;
+  const topics=sameEvent?Array(4).fill('ORDERS_PAID'):['ORDERS_CREATE','ORDERS_PAID','ORDERS_UPDATED','ORDERS_UPDATED'];
+  const events=topics.map((_,i)=>`parallel-${index}-${sameEvent?0:i}`);
+  await Promise.all(topics.map((topic,i)=>recordOrder(shop,order.id,events[i],admin(order),topic)));
+  const rows=await db.operationalLine.findMany({where:{shop,orderGid:order.id}});
+  assert.equal(rows.length,1);assert.equal(rows[0].validationStatus,'VALIDATED');
+  assert.equal(await db.webhookReceipt.count({where:{shop,id:{in:[...new Set(events)].map(e=>`${shop}:${e}`)}}}),new Set(events).size);
+  const before=rows[0];await recordOrder(shop,order.id,events[0],admin(order));
+  assert.deepEqual(await db.operationalLine.findUnique({where:{id:before.id}}),before);
+ }
+});

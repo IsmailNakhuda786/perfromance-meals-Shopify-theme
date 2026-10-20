@@ -66,3 +66,27 @@ groups remain HELD. Native audit requires verified single-delivery context for a
 fee match rather than inferring physical deliveries from native shipping lines.
 360Core tests/typecheck/lint and25official WASM fixtures pass. Production schema
 consistency passes; no deployment/settings/order/payment changes. See new fee report.
+
+## Approved unpublished bundle purchase
+
+One14-item Low Carb + Just Protein Mixed Bundle test completed by user at
+SGD114.80(109.80food+5prepared shipping), fully paid through dummy gateway. Native
+read confirms test PAID, one successful full-valueSALE, unchanged unpublished
+product/components; Core has one VALIDATED ready_series line. Private receipts
+remain under.shopify. Draft shipping was manually prepared, not Function evidence.
+
+Fixed actual created/paid callback P2002 race using one bounded fresh persistence
+transaction on OperationalLine/WebhookReceipt unique conflict, preserving winner
+identity and transactional selection checks.361Core tests/typecheck/lint and6
+PostgreSQL routing fixtures pass. No migrations/production/provider changes.
+The dev tunnel was restored and native callbacks re-registered before payment.
+
+## Account preview follow-up — not yet accepted
+
+After restarting the tunnel, reconnecting through Shopify CLI's actual devUUID
+restores the extension shell. The Core account API still shows its loading failure
+banner on this fresh session. Do not call this a successful new account readback.
+Earlier successful account evidence remains historical; saved data is not altered.
+Investigate the account request boundary/timeout and preview bootstrap next, without
+relaxing authentication or repeating any payment. Native order readback already
+proves the bundle test. CLI dev process is intentionally running for continuation.

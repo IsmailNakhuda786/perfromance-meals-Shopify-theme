@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "cdf06e377ca69bd1a247981abb2f74f8ee6e1f3d",
+  "source_commit": "b02eeb0c7a2f95c214b2bf5b0b8c1d0a90c7c2c7",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -421,7 +421,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/orders.server.ts",
-      "sha256": "bb76bdf9b254ba7530fe1cd5ca115b1ec330b7b85ca8e424df0ef0d4d9ed3f54",
+      "sha256": "115d062fae093f21797e73b1d5f3b2b3ff2e0a4d6007350587543254057d302f",
       "sanitized": false
     },
     {
@@ -1201,7 +1201,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/order-routing-evidence.test.mjs",
-      "sha256": "bb64ff58eedd2cc43ac8d9d8b4fff418d9e178547731293762895f71216483f4",
+      "sha256": "6b9203ba3ab65ef8b1d6c15132bd47b13b96ea064f8528c6e9d739bc9bba0b6d",
       "sanitized": false
     },
     {
@@ -2055,6 +2055,11 @@
       "sanitized": false
     },
     {
+      "path": "docs/CORE-BUNDLE-PURCHASE-QA-20261020.md",
+      "sha256": "3179c57669aa953b241692fa762a946f7f8366765b2e95dfff5c8d8b0b26c05b",
+      "sanitized": false
+    },
+    {
       "path": "docs/CORE-DELIVERY-PER-DELIVERY-20261020.md",
       "sha256": "cf12a083adfeffa02e6350a72417586f85c950918023554a452e92949467b72d",
       "sanitized": false
@@ -2281,7 +2286,7 @@
     },
     {
       "path": "docs/RESUME-CHECKPOINT-20261020-SECOND-RUN.md",
-      "sha256": "ecc34eb8f4646ba838f674dab6dbaef155f53a7939aca8cf0e468607f61afcc8",
+      "sha256": "e5e115a182aded37a27d2d19ca6a27c1d8fbe27fa1875879051234c41292182b",
       "sanitized": false
     },
     {

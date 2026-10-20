@@ -19,7 +19,7 @@ export async function recordOrder(shop:string,orderGid:string,eventId:string,adm
  for(const line of order.lineItems.nodes){
   if(!line||!nativeReference('LineItem',line.id)||!Number.isSafeInteger(line.quantity)||line.quantity<1||!Array.isArray(line.customAttributes)||line.customAttributes.some(attribute=>!attribute||typeof attribute.key!=='string'||typeof attribute.value!=='string')||line.product!=null&&(!nativeReference('Product',line.product.id)||typeof line.product.isGiftCard!=='boolean')||line.variant!=null&&!nativeReference('ProductVariant',line.variant.id)||line.sellingPlan!=null&&!nativeReference('SellingPlan',line.sellingPlan.sellingPlanId))throw Error('Order line evidence unavailable');
  }
- await db.$transaction(async tx=>{
+ const persist=()=>db.$transaction(async tx=>{
   if(await tx.webhookReceipt.findUnique({where:{id:`${shop}:${eventId}`}})) return;
   for(const line of order.lineItems.nodes){
    const props=Object.fromEntries(line.customAttributes.map((p:{key:string;value:string})=>[p.key,p.value]));
@@ -56,4 +56,12 @@ export async function recordOrder(shop:string,orderGid:string,eventId:string,adm
   }
   await tx.webhookReceipt.create({data:{id:`${shop}:${eventId}`,shop,topic}});
  });
+ try{await persist();}catch(error){
+  // Created/paid/updated notifications can race for the same original line.
+  // A unique-insert loser has rolled back. Re-read and verify the winner in
+  // one new transaction; never repeat a payment, credit or Shopify mutation.
+  const conflict=error as {code?:string;meta?:{modelName?:string}};
+  if(conflict?.code!=='P2002'||!['OperationalLine','WebhookReceipt'].includes(conflict.meta?.modelName??''))throw error;
+  await persist();
+ }
 }
