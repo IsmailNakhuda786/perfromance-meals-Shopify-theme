@@ -111,3 +111,31 @@ or recurrence acceptance. Private evidence is excluded from the public backup.
 Shopify transferred the Singapore test setup question to specialist Logan after
 Neeraj consulted Developer Support. Written Singapore-specific guidance remains
 pending; no onboarding or provider activation authorized.
+
+
+## Customer account regression and dispatch replay
+
+Fresh approved customer-account development preview loads all seven sections.
+My Plan shows both saved60-day programmes and all three menu blocks, including
+prior customer edits; no edit/save action performed. Wallet shows its expected
+SGD0balance and preserved history. Rewards shows222current/232lifetime points and
+prior earning/redemption history with general activation unavailable. Order history
+shows Support review actions and the historical confirmed cancellation. Gift Card
+claim activation remains unavailable. Settings points to the native profile.
+No purchase, redemption, claim, Support submission or account change performed.
+
+Corrected obsolete Gift Card account instructions to describe named-recipient full
+Wallet claiming with retained original card expiry; served copy independently
+verified in the preview. This wording is not proof of native checkout recipient
+restriction or automated issuance acceptance. Extension Toolkit validation remains
+unavailable due to its missing bundled TypeScript dependency, not counted as passed.
+Existing development extension compilation/served rendering and Core build pass.
+
+A second native read of the already-dispatched routed order plus two Core dispatch
+sync calls preserves DISPATCHED with zero new audit rows and zero duplicate audit
+rows; it was already recorded. No native/financial mutation. This verifies actual
+native replay behavior, not a new dispatch creation or renewal lifecycle.
+
+Latest sanitized backup before this note:5bbc4062c6bf22cf54ac5171e6891e2bae46a13d,
+817files/814manifest hashes verified with zero mismatches, including168Theme files.
+Support specialist Logan remains reviewing; requested written case/follow-up route.

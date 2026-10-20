@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "c1d52531760088b5d70e943411b0fc5bc1dc37a4",
+  "source_commit": "b3c7d77957f3728f760a45d9bedbd83545d42433",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -736,7 +736,7 @@
     },
     {
       "path": "apps/performance-meals-core/extensions/performance-meals-account/src/OrderStatusBlock.jsx",
-      "sha256": "28e5c9f4e574349fde4a6dc0033450aa85f38725f8c5d02d53c907b24c48fd8c",
+      "sha256": "96a7167228815d3ea9d58b06f74148bdc7c541cf2502561b5c0ec90674726c42",
       "sanitized": false
     },
     {
@@ -2256,7 +2256,7 @@
     },
     {
       "path": "docs/RESUME-CHECKPOINT-20261020.md",
-      "sha256": "72ef8bf3768d0f315462b9f9f059a137a316bb96065d62a90ed4373c61bf8ed9",
+      "sha256": "4c7af3431e159256216e38ba4303800fd20e077cbc1c84d5d5590ee70839a680",
       "sanitized": false
     },
     {
