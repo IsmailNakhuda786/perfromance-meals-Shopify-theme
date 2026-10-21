@@ -9,7 +9,7 @@ try {
  let quantity=1, mode='success', adds=[],changes=[],posts=[];
  const review=q=>({id:'89c93404-412e-4c81-851e-943100135808',hash:'a'.repeat(64),quantity:q,snapshot:{version:'native-bundle-v1',currency:'SGD',productGid:context.productGid,...context.variants[0],unitPriceMinor:mode==='changed'?10000:10980}});
  const line=()=>({key:'2010:key',variant_id:2010,quantity,properties:{'Delivery date':'2026-11-02',_other:'preserve'}});
- const cartHTML=()=>`<div data-cart-content><form id="PageCartForm" data-cart-form><div data-cart-line><script type="application/json" data-bundle-review-data>${JSON.stringify(context)}</script><input id="quantity" data-cart-quantity data-key="2010:key" type="number" min="0" step="1" value="${quantity}" name="updates[]"></div><p data-cart-error hidden></p><button name="checkout" type="submit">Checkout</button></form></div>`;
+ const cartHTML=()=>`<div data-cart-content><form id="PageCartForm" data-cart-form><div data-cart-line data-bundle-review-id="${mode==='missingproof'?'':'89c93404-412e-4c81-851e-943100135808'}" data-bundle-review-hash="${'a'.repeat(64)}"><script type="application/json" data-bundle-review-data>${JSON.stringify(context)}</script><input id="quantity" data-cart-quantity data-key="2010:key" type="number" min="0" step="1" value="${quantity}" name="updates[]"></div><p data-cart-error hidden></p><button name="checkout" type="submit">Checkout</button></form></div>`;
  const routes={bundleReviewEnabled:true,bundleReviewPath:'/apps/core/bundle-review',bundleReviewAsset:'/bundle-review.js',cart:'/cart',add:'/cart/add.js',change:'/cart/change.js',error:'Cart failed',bundleReviewUnavailable:'Review unavailable',bundleReviewChanged:'Bundle changed'};
  const html=()=>`<script id="ThemeRoutes" type="application/json">${JSON.stringify(routes)}</script><div id="shopify-section-main">${cartHTML()}</div><form data-product-form><input name="id" value="2010"><input name="quantity" value="1"><script type="application/json" data-bundle-review-data>${JSON.stringify(context)}</script><p data-form-error hidden></p><button id="add" type="submit">Add</button></form><script src="/theme.js"></script>`;
  await page.route('https://example.test/**',async route=>{const req=route.request(),url=new URL(req.url());let data;
@@ -40,5 +40,6 @@ try {
  await page.locator('#quantity').fill('4');await page.locator('#quantity').press('Enter');
  await page.waitForFunction(()=>document.querySelector('[data-cart-error]').textContent==='Review unavailable');
  assert.equal(posts.length,2);assert.equal(quantity,3);
+ mode='missingproof';await page.goto('https://example.test/');await page.click('[name="checkout"]');await page.waitForFunction(()=>document.querySelector('[data-cart-error]').textContent==='Review unavailable');assert.equal(posts.length,2);
  console.log('PASS: add proof; changed catalogue blocked; sign-in failure blocked; quantity proof preserves properties; checkout omits stale updates. No external traffic.');
 } finally {await browser.close();}

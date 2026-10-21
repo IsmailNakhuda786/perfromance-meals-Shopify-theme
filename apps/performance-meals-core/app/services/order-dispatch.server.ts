@@ -27,7 +27,7 @@ export async function readOrderDispatch(admin:Admin,shop:string,orderGid:string)
  if(!response.ok||body.errors||body.data?.shop?.myshopifyDomain!==shop||order?.id!==orderGid||!Array.isArray(order.fulfillments)||order.fulfillments.length>250||order.customer!=null&&!reference('Customer',order.customer.id)||order.cancelledAt!==null&&(typeof order.cancelledAt!=='string'||!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z$/.test(order.cancelledAt)||!Number.isFinite(Date.parse(order.cancelledAt))||new Date(order.cancelledAt).toISOString().slice(0,19)!==order.cancelledAt.slice(0,19)))throw Error('Native dispatch evidence unavailable');
  if(new Set(order.fulfillments.map(row=>row?.id)).size!==order.fulfillments.length)throw Error('Duplicate native fulfillment evidence');
  let complete=order.fulfillmentsCount?.precision==='EXACT'&&Number.isSafeInteger(order.fulfillmentsCount.count)&&order.fulfillmentsCount.count===order.fulfillments.length;
- const byLine=new Map<string,Array<{status:string;fulfillmentGid:string}>>();
+ const byLine=new Map<string,Array<{status:string;fulfillmentGid:string;fulfilledQuantity:number}>>();
  for(const fulfillment of order.fulfillments){
   if(!fulfillment||!reference('Fulfillment',fulfillment.id)||typeof fulfillment.status!=='string'||!Array.isArray(fulfillment.fulfillmentLineItems?.nodes)||fulfillment.fulfillmentLineItems.nodes.length>250)throw Error('Invalid native fulfillment evidence');
   if(fulfillment.fulfillmentLineItems.pageInfo?.hasNextPage!==false)complete=false;
@@ -37,7 +37,7 @@ export async function readOrderDispatch(admin:Admin,shop:string,orderGid:string)
   for(const item of items){
    if(!item||!reference('FulfillmentLineItem',item.id)||!reference('LineItem',item.lineItem?.id)||!Number.isSafeInteger(item.quantity)||item.quantity<1)throw Error('Invalid native fulfilled quantity');
    const evidence=byLine.get(item.lineItem.id)||[];
-   evidence.push({status:fulfillment.status,fulfillmentGid:fulfillment.id});byLine.set(item.lineItem.id,evidence);
+   evidence.push({status:fulfillment.status,fulfillmentGid:fulfillment.id,fulfilledQuantity:item.quantity});byLine.set(item.lineItem.id,evidence);
   }
  }
  return {orderGid,customerGid:order.customer?.id??null,cancelled:order.cancelledAt!==null,complete,byLine};

@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "8fafd82b5ca411f364a1c173fb1a9aa5d01b8fd3",
+  "source_commit": "ac4d8ede054917ffc86e030a08a1ba087a1a7ab1",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -290,6 +290,11 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/app/services/bundle-fulfillment.server.ts",
+      "sha256": "f8843e632432c54b2b53f4c1705558a8ae224a448ad19d7e5cf2073df003cf99",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/app/services/bundle-reviews.server.ts",
       "sha256": "2c07a7b42c796718720b64d31e2eff6a8e4c5c6f900f3a96fabd06d333d5277f",
       "sanitized": false
@@ -421,7 +426,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/order-dispatch.server.ts",
-      "sha256": "4d8756049d8cfbbd506e5c34b347b0f310816c6a327b5462d8d467dbfe14a45a",
+      "sha256": "d6becf2c37574fd77f7b7ec88e8d370a67ca5c07572b9266458fc41dcf3ed103",
       "sanitized": false
     },
     {
@@ -1152,6 +1157,11 @@
     {
       "path": "apps/performance-meals-core/tests/account-subscriptions.test.mjs",
       "sha256": "b2c00592f3e09253ebcb8352b3b1c58adf97fa4db0122b7ea9b9299395ddc413",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/bundle-fulfillment.test.mjs",
+      "sha256": "d6fba2a7ca8d8ab772ebb13f5450d0009f3c21d16de97dea40024fd7f3c9328c",
       "sanitized": false
     },
     {
@@ -2146,7 +2156,12 @@
     },
     {
       "path": "docs/CORE-BUNDLE-CART-20261021.md",
-      "sha256": "96b3d4c92e32453e3797ffc401f19978d361b95ae9f403a7ba067fd291d9207b",
+      "sha256": "5669bd736963a134c16ed9c25bcb8a1a1c45f5b82d12d5391a520c50f8356e1f",
+      "sanitized": false
+    },
+    {
+      "path": "docs/CORE-BUNDLE-FULFILLMENT-AUDIT-20261021.md",
+      "sha256": "5c1e69be651680688b41600f7fdd84735fcac893cbc89680848496d08ef88c4a",
       "sanitized": false
     },
     {
@@ -3146,7 +3161,7 @@
     },
     {
       "path": "theme-tools/bundle-review.browser.mjs",
-      "sha256": "58242ae554500aeb8529cd69e23562e08ed7ec4d32124faad47332e3715b9788",
+      "sha256": "cd118937b944884ebcb37e68b6e9a6d84ebb5f6eeda977715c64e5d76e438199",
       "sanitized": false
     },
     {
@@ -3946,7 +3961,7 @@
     },
     {
       "path": "theme/assets/theme.js",
-      "sha256": "00834a75a50c9e93868b9724a04c217f5ed28967722a2d7cb896ea733337ae10",
+      "sha256": "2bd4cf81d8493f24b62996ff7ca8a71d9f329df0c0cea365b624290d41fd80e0",
       "sanitized": false
     },
     {
@@ -4156,7 +4171,7 @@
     },
     {
       "path": "theme/snippets/cart-content.liquid",
-      "sha256": "70d5289956ac015e6e0fa91fa323ce618bedf81d034826cf675db29dcf6101de",
+      "sha256": "081ae903086baec82fffd22d51f0a5b712abd05fcbba3dec8016bc09d4075a59",
       "sanitized": false
     },
     {

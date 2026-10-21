@@ -171,6 +171,10 @@
       const current = document.getElementById(formId) || form;
       try {
         if (cartChangeFailed) throw new Error(routes.bundleReviewUnavailable);
+        for (const line of current.querySelectorAll('[data-cart-line]')) {
+          if (!reviewData(line)) continue;
+          if (!/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/.test(line.dataset.bundleReviewId || '') || !/^[a-f0-9]{64}$/.test(line.dataset.bundleReviewHash || '')) throw new Error(routes.bundleReviewUnavailable);
+        }
         // Only submit the note/action. Quantities were already saved atomically
         // with their reviews; a native updates[] POST could detach that proof.
         const post = document.createElement('form');

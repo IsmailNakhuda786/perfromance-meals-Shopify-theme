@@ -1,0 +1,9 @@
+# Read-only bundle fulfilment audit — 21 October2026
+
+Core now preserves fulfilled quantities alongside the existing native dispatch evidence. A new internal auditor reconciles successful native fulfilment units with an ORDERED immutable bundle review and the original validated operational line. A bundle unit expands into the exact purchased meal quantities; current catalogue edits do not substitute different meals.
+
+The auditor reports partial or complete visible dispatch quantities and remaining bundle units. Over-delivery, incomplete history, changed/non-successful shipment states and disappearance of a previously observed dispatch require review. No remaining entitlement is asserted in those cases. Missing legacy snapshots, unbound reviews, quarantined lines, corrupted snapshots and mismatched customer/order/product identities cannot be reconstructed from today's catalogue. This report is not permission to dispatch, cancel or refund.
+
+Five new focused database-backed tests cover split shipments, zero history, monotonic dispatch observations, over-delivery, pagination, cancelled/unknown states, unrelated lines, changed ownership and missing/corrupted historical proof. All379Core tests, typecheck, lint and schema-mirror checks pass. Read-only native verification covers8complete development-order histories including1successful dispatch; all returned quantities are positive safe integers. Zero native/Core mutations. Positive native reconciliation of an ORDERED bundle review still needs a separately approved paid/fulfilment lifecycle test. Today's approved unpaid reviews remain REVIEWED and do not qualify.
+
+This adds an internal verification service only. No endpoint, Admin UI, scheduler, delivery date, frozen-meal allocation, subscription action or financial operation was activated. The60-day88weekday/32frozen entitlement and merchant-arranged frozen deliveries remain unchanged.
