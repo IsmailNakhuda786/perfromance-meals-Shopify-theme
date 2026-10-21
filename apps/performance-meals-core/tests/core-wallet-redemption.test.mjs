@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {buildServices} from './support/database.mjs';
 await buildServices({entryPoints:['app/services/core-wallet-redemption.ts'],outdir:'.shopify/core-wallet-redemption-test',bundle:true,format:'esm',platform:'node'});
-const {prepareCoreWalletRedemption:prepare,transitionCoreWalletRedemption:transition}=await import('../.shopify/core-wallet-redemption-test/core-wallet-redemption.js');
+const {prepareCoreWalletRedemption:prepare,transitionCoreWalletRedemption:transition,assertCoreWalletRedemption:validate}=await import('../.shopify/core-wallet-redemption-test/core-wallet-redemption.js');
 const scope={shop:'wallet-fixture.myshopify.com',customerGid:'gid://shopify/Customer/1',currency:'SGD'};
 const now='2026-10-17T00:00:00Z',deadline='2026-10-17T00:10:00Z';
 const quote=()=>({...scope,cartReference:'native-cart-1',cartRevision:'v1',ledgerRevision:1,lines:[{id:'food',kind:'food',amountMinor:10000},{id:'delivery',kind:'delivery',amountMinor:1000}]});
@@ -58,4 +58,9 @@ test('receipt chronology, allocation mutation and ambiguous prior outcomes requi
  assert.throws(()=>transition(sent,1,{type:'CONFIRMED',at:'2026-10-17T00:02:00Z',receipt:receipt(sent,{occurredAt:'2026-10-16T23:59:59Z'})}),/identity/);
  const held=transition(sent,1,{type:'CONFIRMED',at:'2026-10-17T00:02:00Z',receipt:receipt(sent,{amountMinor:1})});assert.equal(held.receipt.amountMinor,1);
  assert.throws(()=>transition(held,2,{type:'REJECTED_FINAL',at:'2026-10-17T00:03:00Z',receipt:receipt(sent,{amountMinor:0})}),/audited reconciliation/);
+});
+
+test('reloaded drafts cannot invent submission or terminal evidence from corrupted state fields',()=>{
+ const d=draft(),sent=submit(d);validate(d);validate(sent);
+ for(const value of [{...d,state:'SUBMITTING'},{...d,state:'RELEASED'},{...d,submittedAt:now},{...sent,state:'SETTLED'},{...sent,state:'RELEASED'},{...sent,state:'UNKNOWN',receipt:receipt(sent)},{...sent,lastEventAt:'2026-10-16T00:00:00Z'}])assert.throws(()=>validate(value));
 });

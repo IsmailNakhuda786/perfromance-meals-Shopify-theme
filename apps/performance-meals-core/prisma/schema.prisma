@@ -464,3 +464,19 @@ model BundlePurchaseReview {
  @@unique([shop, orderLineGid])
  @@index([shop, customerGid, state])
 }
+
+// Provider-neutral saved drafts only: not credit lots, reservations or settlement.
+model CoreWalletRedemptionDraft {
+ id String @id @default(uuid())
+ shop String
+ customerGid String
+ currency String
+ attemptId String
+ state String
+ revision Int
+ payload String
+ createdAt DateTime @default(now())
+ updatedAt DateTime @updatedAt
+ @@unique([shop, attemptId])
+ @@index([shop, customerGid, state])
+}

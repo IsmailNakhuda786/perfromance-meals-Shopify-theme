@@ -55,3 +55,12 @@ test('Support keeps an unresolved dispatch-history marker unknown even when nati
  await db.operationalLine.update({where:{id:line.id},data:{fulfillmentState:'DISPATCHED'}});
  assert.equal((await gateway.readOrder(current.id)).hasEverDispatched,true);
 });
+
+test('viewing an already-dispatched order preserves timestamps and unrelated original purchase fields',async()=>{
+ const current=order();current.id='gid://shopify/Order/1020';current.lineItems.nodes[0].id='gid://shopify/LineItem/1021';current.fulfillments=[{id:'gid://shopify/Fulfillment/1022',status:'SUCCESS'}];
+ const known=await db.operationalLine.create({data:{shop,customerGid:customer,orderGid:current.id,orderLineGid:current.lineItems.nodes[0].id,businessStream:'ready_series',validationStatus:'VALIDATED',fulfillmentState:'DISPATCHED',updatedAt:new Date('2000-01-01T00:00:00Z')}});
+ const gateway=nativeCancellationGateway({graphql:async query=>{assert.equal(query,CANCELLATION_ORDER_QUERY);return response({shop:{myshopifyDomain:shop},order:current});}},shop);
+ assert.equal((await gateway.readOrder(current.id)).hasEverDispatched,true);assert.deepEqual(await db.operationalLine.findUnique({where:{id:known.id}}),known);
+ await db.operationalLine.update({where:{id:known.id},data:{fulfillmentState:'UNASSIGNED'}});
+ assert.equal((await gateway.readOrder(current.id)).hasEverDispatched,true);assert.equal((await db.operationalLine.findUnique({where:{id:known.id}})).fulfillmentState,'DISPATCHED');
+});

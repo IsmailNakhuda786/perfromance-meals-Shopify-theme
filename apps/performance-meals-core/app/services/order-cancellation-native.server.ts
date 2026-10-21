@@ -45,7 +45,9 @@ export function nativeCancellationGateway(admin:Admin,shop:string):CancellationG
    });
    // Unknown or mixed dates must not inherit today's merchant availability.
    const commencementStartsOn=dates.length&&dates.every(date=>date&&date===dates[0])?dates[0]:null;
-   if(order.fulfillments.some((f:{status:string})=>f.status==='SUCCESS'))await db.operationalLine.updateMany({where:{shop,orderGid:id},data:{fulfillmentState:'DISPATCHED'}});
+   // Persist a newly observed fact only. Account views must not rewrite an
+   // already-known dispatch timestamp or invalidate optimistic edit checks.
+   if(order.fulfillments.some((f:{status:string})=>f.status==='SUCCESS'))await db.operationalLine.updateMany({where:{shop,orderGid:id,fulfillmentState:{not:'DISPATCHED'}},data:{fulfillmentState:'DISPATCHED'}});
    const recurring=lines.filter(line=>line.sellingPlan);
    const contracts=recurring.map(line=>operational.find(record=>record.orderLineGid===line.id&&record.customerGid===order.customer?.id&&record.validationStatus==='VALIDATED')?.contractGid);
    const money=[order.totalPriceSet,order.totalReceivedSet,order.totalRefundedSet].map(value=>value.shopMoney);

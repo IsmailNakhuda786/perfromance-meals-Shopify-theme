@@ -13,5 +13,6 @@ export function productionConfigIssues(env:Record<string,string|undefined>){
  if(env.GIFT_CARD_EXPIRY_WRITES_ENABLED==='true')problems.push('Gift Card expiry writes are development-only until native issuance and expiry QA are verified');
  if(env.GIFT_CARD_EXPIRY_REMINDERS_ENABLED==='true')problems.push('Gift Card reminders are development-only until recipient delivery and durable scheduling are verified');
  if(env.WALLET_LEGACY_TOP_UP_QA_ENABLED==='true')problems.push('Legacy Wallet top-up QA cannot be activated in production');
+ if(env.CORE_WALLET_DRAFTS_ENABLED==='true')problems.push('Core Wallet draft persistence is development-only and is not payment authorization');
  return [...new Set(problems)];
 }

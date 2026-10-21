@@ -56,11 +56,30 @@ export function prepareCoreWalletRedemption(input:{id:string;quote:Quote;credits
 // Return a new revision for transactional persistence. Never call a provider on
 // the basis of this pure return value until the database CAS/lot lock succeeds.
 // Provider receipts must be authenticated by the approved adapter, not a browser.
-export function transitionCoreWalletRedemption(current:CoreWalletRedemption,expectedRevision:number,event:RedemptionEvent):CoreWalletRedemption{
- if(current.version!=='core-wallet-redemption-draft-v1'||!reference(current.id)||!sameScope(current.scope,current.quote)||current.digest!==digest(current.quote)||!Number.isSafeInteger(current.revision)||current.revision<0||expectedRevision!==current.revision)throw Error('Redemption changed or context requires reconciliation');
+export function assertCoreWalletRedemption(current:CoreWalletRedemption){
+ if(!current||typeof current!=='object')throw Error('Stored Wallet draft required');
+ if(current.version!=='core-wallet-redemption-draft-v1'||!reference(current.id)||!sameScope(current.scope,current.quote)||current.digest!==digest(current.quote)||!Number.isSafeInteger(current.revision)||current.revision<0)throw Error('Redemption changed or context requires reconciliation');
  if(!['PREPARED','SUBMITTING','UNKNOWN','HELD','SETTLED','RELEASED'].includes(current.state)||!Array.isArray(current.allocations)||!current.allocations.length||!Number.isSafeInteger(current.amountMinor)||current.amountMinor<1)throw Error('Invalid stored redemption');
+ if(current.state!=='PREPARED'&&current.revision<1)throw Error('Stored transition revision missing');
  if(current.allocations.some(part=>!reference(part.creditId)||!Number.isSafeInteger(part.amountMinor)||part.amountMinor<1||!Number.isSafeInteger(part.foodMinor)||part.foodMinor<0||!Number.isSafeInteger(part.otherMinor)||part.otherMinor<0||part.foodMinor+part.otherMinor!==part.amountMinor||!WALLET_SPEND_ORDER.includes(part.sourceKind)||part.sourceKind==='bonus'&&part.otherMinor!==0)||new Set(current.allocations.map(part=>part.creditId)).size!==current.allocations.length||current.allocations.reduce((sum,part)=>sum+part.amountMinor,0)!==current.amountMinor)throw Error('Stored allocations require reconciliation');
  if(current.planDigest!==planDigest(current))throw Error('Stored redemption allocation binding differs');
+ const prepared=timestamp(current.preparedAt),deadline=timestamp(current.deadline),last=timestamp(current.lastEventAt);
+ if(prepared>=deadline||last<prepared||current.submittedAt!==null&&(timestamp(current.submittedAt)<prepared||timestamp(current.submittedAt)>last))throw Error('Stored redemption chronology differs');
+ if(current.state==='PREPARED'&&(current.revision!==0||current.submittedAt!==null||current.receipt!==null))throw Error('Stored prepared draft differs');
+ if(['SUBMITTING','UNKNOWN','HELD','SETTLED'].includes(current.state)&&current.submittedAt===null)throw Error('Stored submission evidence missing');
+ if(['SUBMITTING','UNKNOWN'].includes(current.state)&&current.receipt!==null)throw Error('Stored pending outcome differs');
+ if(['HELD','SETTLED'].includes(current.state)&&current.receipt===null)throw Error('Stored outcome evidence missing');
+ if(current.receipt!==null){
+  const r=current.receipt;
+  if(!reference(r.id)||!sameScope(r,current.scope)||r.attemptId!==current.id||r.cartDigest!==current.digest||!Number.isSafeInteger(r.amountMinor)||r.amountMinor<0||current.submittedAt===null||timestamp(r.occurredAt)<timestamp(current.submittedAt)||timestamp(r.occurredAt)>last)throw Error('Stored receipt identity differs');
+  if(current.state==='SETTLED'&&(r.amountMinor!==current.amountMinor||timestamp(r.occurredAt)>=deadline)||current.state==='RELEASED'&&r.amountMinor!==0)throw Error('Stored terminal amount differs');
+ }
+ if(current.state==='RELEASED'&&current.submittedAt!==null&&current.receipt===null)throw Error('Stored rejection evidence missing');
+}
+
+export function transitionCoreWalletRedemption(current:CoreWalletRedemption,expectedRevision:number,event:RedemptionEvent):CoreWalletRedemption{
+ assertCoreWalletRedemption(current);
+ if(expectedRevision!==current.revision)throw Error('Redemption changed or context requires reconciliation');
  const now=timestamp(event.at),deadline=timestamp(current.deadline),next=clone(current);
  if(now<timestamp(current.lastEventAt)||timestamp(current.preparedAt)>=deadline||timestamp(current.lastEventAt)<timestamp(current.preparedAt)||current.submittedAt!==null&&timestamp(current.submittedAt)<timestamp(current.preparedAt))throw Error('Redemption event chronology differs');
  next.lastEventAt=new Date(now).toISOString();

@@ -4,4 +4,4 @@ webhooks_path = "/webhooks/app/uninstalled"
 
 [commands]
 predev = "node scripts/configure-account-endpoint.mjs && node scripts/setup-database.mjs generate"
-dev = "node scripts/setup-database.mjs migrate && npm exec react-router dev"
+dev = "node scripts/setup-database.mjs migrate && node scripts/configure-account-endpoint.mjs --notify-preview && npm exec react-router dev"

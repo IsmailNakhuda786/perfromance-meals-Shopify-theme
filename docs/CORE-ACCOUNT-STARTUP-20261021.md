@@ -1,0 +1,13 @@
+# Development account startup repair — 21 October 2026
+
+Native account QA found a reproducible preview build race: the configured generated endpoint had the current tunnel, but the compiled account extension still contained the previous tunnel. The stale extension could not load account data. This was not loss of saved plans or Wallet history.
+
+The ignored endpoint module is still generated before development setup. After database setup, the development command now regenerates it and explicitly notifies the watched account entry once. The entry's contents are preserved; only its filesystem modification time changes. This causes Shopify CLI to rebuild even when it ignores the generated dependency or its first extension build finishes before the predev command. Repeating generation without the preview flag does not rewrite an identical module. Production rejects the development-only notification flag.
+
+Two isolated configuration tests verify the current CLI origin, configured production origin, preserved entry contents, preview rebuild notification even when the generated file already matches, and no production notification. Native watched rebuild updates the compiled origin to the current tunnel. Customer account then loads its real Wallet/history and both saved6by60programmes again, with no save/payment/redemption action.
+
+No runtime endpoint is inferred from browser input or extension metadata, no authentication rule is weakened, and no development URL is committed. A fresh CLI startup independently verifies compiled/configured-origin equality without a manual touch/rebuild. All seven native account sections load, and both saved programmes remain visible. This does not publish an app/theme or establish permanent-host acceptance.
+
+The final preservation check exposed an existing account-read side effect: re-reading a successful shipment rewrote an already-DISPATCHED operational row’s updatedAt. A field-level native comparison proved updatedAt was the sole changed field, with11routing rows unchanged in identity/count. The legacy reader now writes only newly observed dispatch facts; fixtures cover preserving known timestamps and recording a first dispatch. A new real account read preserves all16protected model hashes exactly, with0Wallet draft rows. This does not erase or rewrite earlier audit timestamps.
+
+Full Core395tests/typecheck/lint and CLI config validation pass. The28Wallet/state/privacy PostgreSQL cases passed; focused PostgreSQL Support/dispatch checks are recorded separately. Four current development callbacks are reconnected exactly once. No payment, refund, credit, menu edit, theme publication or production change.

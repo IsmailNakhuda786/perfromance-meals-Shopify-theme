@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "6c277f32177e3a27149890e7f839dc9e9c9d6dce",
+  "source_commit": "67e7e7b43fd1e7524abbb00c3e932c670157091c",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -325,8 +325,13 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/app/services/core-wallet-draft.server.ts",
+      "sha256": "adb82f6535219760b6cc2d20478ffaabf5bb369a46eefeb22ba456ce2f98133a",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/app/services/core-wallet-redemption.ts",
-      "sha256": "432769a8ffe48b642e5d7922f6e965fa6f980ca98178cf9032c50d3ba467581d",
+      "sha256": "cde9d8dcee5092b94698249498ed28556e6b74bd2654de59b456ba3f6dd8ebb6",
       "sanitized": false
     },
     {
@@ -416,7 +421,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/order-cancellation-native.server.ts",
-      "sha256": "58fcc1bb727c550cb341f4c7cb2a5e160a73a9094bb667ec55bc2f3628e36d4e",
+      "sha256": "93312e959d9592c03356bfc5c16a5f58ad2174543ec3f27db023f9a5949e8cba",
       "sanitized": false
     },
     {
@@ -491,7 +496,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/privacy.server.ts",
-      "sha256": "115a545e8a9187f2d087ab9a9d4398637786d91e8afaa8f2755e0652ac298221",
+      "sha256": "16c12e489f47d6675975e77444e1591d20f2206e6e11d3e8eb9f6aa39b555abf",
       "sanitized": false
     },
     {
@@ -551,7 +556,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/runtime-config.server.ts",
-      "sha256": "470bc71a04321aefd8a9aa8c7626396be53d2ea36cdb3d3a9b1810748e79a7d8",
+      "sha256": "85dbc95d81070f3d0626ae1d816046f54e7e2e3fd9cd1b44ff4bb57f02674e7d",
       "sanitized": false
     },
     {
@@ -975,6 +980,11 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/prisma/migrations/20261021170000_core_wallet_redemption_draft/migration.sql",
+      "sha256": "03ad8c477ff5e41c722842a4319c0898fb25826a119741401607fec9860df68a",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/prisma/migrations/migration_lock.toml",
       "sha256": "3389dbaf2a3cf4b413275867ac6f550b27f79efe85ee9c12082cdd8c5b8239c4",
       "sanitized": false
@@ -1090,18 +1100,23 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/prisma/production/migrations/20261021170000_core_wallet_redemption_draft/migration.sql",
+      "sha256": "b74ff2446963717f253f43ec72bb1297ff88f3a9c69c3c93018acacecba2c3f6",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/prisma/production/migrations/migration_lock.toml",
       "sha256": "1db17a8d051aa136110736752c5e1f8b7ed92b6ea8e803112fbbe2497047c210",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/prisma/production/schema.prisma",
-      "sha256": "10687452fee11f9d5e79dea8b6e19f183a2301f40d361d07da4ee7da3d85ebb0",
+      "sha256": "2965fbc0b9f2ce965f84c7b4285d1b7d1f88a45ac2bb896acbbd6151f5dc26ad",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/prisma/schema.prisma",
-      "sha256": "b4b5ee7ae101eddc34799bfbfa99f7e1a584512fa7070b09bd490000fd388315",
+      "sha256": "3dd2a46559343259a43d0b348636f914850650ea4dd4b3bcb66462348aa66458",
       "sanitized": false
     },
     {
@@ -1116,7 +1131,7 @@
     },
     {
       "path": "apps/performance-meals-core/scripts/configure-account-endpoint.mjs",
-      "sha256": "909ea7fcb3f1bbd6700e9f773ecbecae4a3e19d16fd15c87f75e56b841febdf1",
+      "sha256": "4f0cc1d92790b184d5fd3f9e4c1c79b94a8a94a02d0e9cbd95449bd4945c9e32",
       "sanitized": false
     },
     {
@@ -1151,7 +1166,7 @@
     },
     {
       "path": "apps/performance-meals-core/shopify.web.toml",
-      "sha256": "41837cd7b89a8b7e4470e4ec174fb458cde9d38d94abf8b50d888be1d549384c",
+      "sha256": "250a092ddc50820e45fb78c9ae170d87630d07200f6861255e5cec242b4c90c3",
       "sanitized": false
     },
     {
@@ -1200,8 +1215,13 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/tests/core-wallet-draft.test.mjs",
+      "sha256": "530d3031d9476499d66185a689fa1a2fa3736d0c7d27a92d6a94aa2eee92a305",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/tests/core-wallet-redemption.test.mjs",
-      "sha256": "2d0e93a8bc54fb3abe438dd6ac3b1b09d303924561b0e8912890ed3f6254890d",
+      "sha256": "a0f0477578d08d1449b2eed1be6921d2b2537c67bdcfa5667987586c076b2cac",
       "sanitized": false
     },
     {
@@ -1221,7 +1241,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/dev-config.test.mjs",
-      "sha256": "35d93fbaacbf434da495e5c71276a5d648dd82e8a22c13ab2f75adeb190bda0f",
+      "sha256": "6bd17f0931952643cd1fdfdfaae4f1c93d436dd7f5bbe48187f528fde6c3db8f",
       "sanitized": false
     },
     {
@@ -1281,7 +1301,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/order-cancellation-native.test.mjs",
-      "sha256": "d41172442fb2902643b350384150fa14e6250123caa779add4776741394bbcbc",
+      "sha256": "dd6d3ccd82f2e7c7f35989e0062e3975a47cbbebd0fae5bbe01c25b7dc89ab03",
       "sanitized": false
     },
     {
@@ -2165,6 +2185,11 @@
       "sanitized": false
     },
     {
+      "path": "docs/CORE-ACCOUNT-STARTUP-20261021.md",
+      "sha256": "e4ba4b4819d5848f97b99d32fc4766e1e2bf5db394b597daf93a4db3b3d52b12",
+      "sanitized": false
+    },
+    {
       "path": "docs/CORE-BUNDLE-APPROVAL-CANDIDATE-20261021.md",
       "sha256": "1befa694faf2e52171267fbfbb22d754c2b4afa5cdf3ede0a6d334be7d816364",
       "sanitized": false
@@ -2227,6 +2252,11 @@
     {
       "path": "docs/CORE-SHIPPING-FUNCTION-QA-20261018.md",
       "sha256": "1f52e3119cbf8da4fe094ce724efeaa90418141029f11a873b76674c01998a2c",
+      "sanitized": false
+    },
+    {
+      "path": "docs/CORE-WALLET-DRAFT-RECOVERY-20261021.md",
+      "sha256": "d552c71817c28b68a8c6db4d8968fb6533e9fc7c9dac30f96791042beda57db1",
       "sanitized": false
     },
     {
