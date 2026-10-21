@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "ae7104c0df5daad12f4d4220d00fa44d5ea7e52c",
+  "source_commit": "6c277f32177e3a27149890e7f839dc9e9c9d6dce",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -290,6 +290,11 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/app/services/bundle-checkout-approvals.ts",
+      "sha256": "11b365fbfb80729e7dc10cd8d13209d57b03587d92f399f5cff6ca10e94b5436",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/app/services/bundle-fulfillment.server.ts",
       "sha256": "f8843e632432c54b2b53f4c1705558a8ae224a448ad19d7e5cf2073df003cf99",
       "sanitized": false
@@ -446,7 +451,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/orders.server.ts",
-      "sha256": "d68cec15fff837de2a2311d5035d2cc9f8f8d0a0a0716cf96f445c7d778aa784",
+      "sha256": "d3954c9679db55e86b192a6f085dfcc4e6880d17470b71335934c7636d3cf794",
       "sanitized": false
     },
     {
@@ -731,12 +736,12 @@
     },
     {
       "path": "apps/performance-meals-core/extensions/core-bundle-signin-qa/src/cart_validations_generate_run.graphql",
-      "sha256": "96cf632b6f4c38346471d34390111c892947d439f5156d47f8a6fc7de52bccf4",
+      "sha256": "abbc97cdfba659c5604453183515f7b375b0a68b2e07ce70646194fc9c25b744",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/extensions/core-bundle-signin-qa/src/cart_validations_generate_run.rs",
-      "sha256": "82e9e5f81f0c1e7f2189c18df1aa1f305bbed6fd0e421635650dba70419f1b68",
+      "sha256": "8e7e403e76aacd7e42ac3817bf9aaf7ad8945f4eb29c5be4473b804a8780ce8f",
       "sanitized": false
     },
     {
@@ -1141,7 +1146,7 @@
     },
     {
       "path": "apps/performance-meals-core/shopify.app.toml",
-      "sha256": "963e50d7e4aa6e6c71bbb4df2123167fa6fabf26df68e91f3b7b07ce75dae7ea",
+      "sha256": "7485924420975c6f7bc7054a82f8600436430b775323beeacaa7ddcf1e2d4288",
       "sanitized": false
     },
     {
@@ -1160,6 +1165,11 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/tests/bundle-checkout-approvals.test.mjs",
+      "sha256": "68bfa17ae756abe6067c1db4de6ea152a3da627a17be3a80b504c810aa8215b3",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/tests/bundle-fulfillment.test.mjs",
       "sha256": "d6fba2a7ca8d8ab772ebb13f5450d0009f3c21d16de97dea40024fd7f3c9328c",
       "sanitized": false
@@ -1171,7 +1181,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/bundle-reviews.test.mjs",
-      "sha256": "1a48bf706956f6524512811cc4921415f8a12672411f1cd2874696782365b3b6",
+      "sha256": "40fc9d776b48ef563ad1298a89b272fee4c634fe8b7c0d671bd405274bf80958",
       "sanitized": false
     },
     {
@@ -2155,6 +2165,11 @@
       "sanitized": false
     },
     {
+      "path": "docs/CORE-BUNDLE-APPROVAL-CANDIDATE-20261021.md",
+      "sha256": "1befa694faf2e52171267fbfbb22d754c2b4afa5cdf3ede0a6d334be7d816364",
+      "sanitized": false
+    },
+    {
       "path": "docs/CORE-BUNDLE-CART-20261021.md",
       "sha256": "5669bd736963a134c16ed9c25bcb8a1a1c45f5b82d12d5391a520c50f8356e1f",
       "sanitized": false
@@ -2571,7 +2586,7 @@
     },
     {
       "path": "labs/core-bundle-signin-function/README.md",
-      "sha256": "20b09a05bb5a375e2d85abb605a6bfaa3fa5a3c08723e72d8865a3d26d9e5f87",
+      "sha256": "935a936503ec2d736cba72d28cce06bad1a66abd9d211be04d8dde35ae500742",
       "sanitized": false
     },
     {
@@ -2596,12 +2611,12 @@
     },
     {
       "path": "labs/core-bundle-signin-function/src/cart_validations_generate_run.graphql",
-      "sha256": "96cf632b6f4c38346471d34390111c892947d439f5156d47f8a6fc7de52bccf4",
+      "sha256": "abbc97cdfba659c5604453183515f7b375b0a68b2e07ce70646194fc9c25b744",
       "sanitized": false
     },
     {
       "path": "labs/core-bundle-signin-function/src/cart_validations_generate_run.rs",
-      "sha256": "82e9e5f81f0c1e7f2189c18df1aa1f305bbed6fd0e421635650dba70419f1b68",
+      "sha256": "8e7e403e76aacd7e42ac3817bf9aaf7ad8945f4eb29c5be4473b804a8780ce8f",
       "sanitized": false
     },
     {
@@ -2616,72 +2631,167 @@
     },
     {
       "path": "labs/core-bundle-signin-function/tests/fixtures/disabled.json",
-      "sha256": "2360c62368e1ddc3677c7936d280f29088838b7e2894670e62bae09335454f09",
+      "sha256": "278c9e71c113bdb9caf27edd7e25c74b65b93536b5c4343ea08db039f43cd745",
       "sanitized": false
     },
     {
       "path": "labs/core-bundle-signin-function/tests/fixtures/empty-both.json",
-      "sha256": "9b43cf947241765ff4bbc087eb4ba7356587ebf4288b297c668fe00969089465",
+      "sha256": "a11cd372ff66d48e18b1232b9998905b766fce3026da88ac87482e0e80e5e051",
       "sanitized": false
     },
     {
       "path": "labs/core-bundle-signin-function/tests/fixtures/empty-variant-fallback.json",
-      "sha256": "5770557c4e60a365d4a1172824ecfd5ba13a73e72adf3747c83769814f93191d",
+      "sha256": "8be272ecee94229cab7a24a16d9c976662e5ddd2a0c2a4fc82989e4d6f0eeb73",
       "sanitized": false
     },
     {
       "path": "labs/core-bundle-signin-function/tests/fixtures/foreign-product.json",
-      "sha256": "8657f553b0c1c7189a94700baaa500bacb9bad201afe72a6de2d0597659ab9c2",
+      "sha256": "d09de35ee08eab556cc24f9da670db009b38c2e525e657d4ec1c1a0a0e7969bd",
       "sanitized": false
     },
     {
       "path": "labs/core-bundle-signin-function/tests/fixtures/guest-bundle.json",
-      "sha256": "3bf735880d11542610d4f4a297f65cfc1f0ba24063c9d1a7c7f7290267bcf043",
+      "sha256": "6b332559e473957fa81edeaddd103c9409d5ac5b25c172560c8cb28672daeeb1",
       "sanitized": false
     },
     {
       "path": "labs/core-bundle-signin-function/tests/fixtures/guest-gift-card.json",
-      "sha256": "03b4f4b6f27121938e903a3c4fc14eb373f2b533fdce99fb71b8d3d9a6cb267c",
+      "sha256": "3ba299cb7438241950c604241b45a3faf34b9e20822085be12ad97cb1facf9ac",
       "sanitized": false
     },
     {
       "path": "labs/core-bundle-signin-function/tests/fixtures/guest-individual.json",
-      "sha256": "283cd5a00b5f52ff5e2015dcff7ed5ad813e5b5e6475f1e4d95735738c05fd60",
+      "sha256": "2f68f99b5bdea4879ddb63992fe4fffd48745fcab0ee1e22d1f9c7691261e140",
       "sanitized": false
     },
     {
       "path": "labs/core-bundle-signin-function/tests/fixtures/guest-meal-plan.json",
-      "sha256": "4e892f59cbde19ea41e4cc35d44f50b4e938b1ed1c99fe11e7e5296ec9275352",
+      "sha256": "a4d0512481fd89ce83f5028c9b3add221d2f76c78e113b281aae2ea90b855351",
       "sanitized": false
     },
     {
       "path": "labs/core-bundle-signin-function/tests/fixtures/missing-config.json",
-      "sha256": "6b0c1825a495bb3beb020743d507a302acb41db2340be342ebea24eca74ef283",
+      "sha256": "77c3de100bfe1f4e1e6fd961a287f782cfd7bdd57e62cc9e784f001c546bccf4",
       "sanitized": false
     },
     {
       "path": "labs/core-bundle-signin-function/tests/fixtures/missing-identity.json",
-      "sha256": "0859fe10d6200ffad6c2e49c9852f1fddd53cb212d641ff6591f74905022ce65",
+      "sha256": "e24a7837698c78e9a49cddbebe31461d3d1ca85bd0b4fc0b685c49006714aa61",
       "sanitized": false
     },
     {
       "path": "labs/core-bundle-signin-function/tests/fixtures/mixed-guest.json",
-      "sha256": "cb6f379ced1b058242e6a45970e78b576ba6a0f6732611ef407a329f70a7632f",
+      "sha256": "1884e8188b78e88983d6953bae63bf89ded553c19475ed92b300ca566e5e3f0d",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/review-approved.json",
+      "sha256": "c6e1c87d10f6727c6dbbec152cafc6e1e5eaa180557f3f110ea42e2f63c1f42a",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/review-changed-giftcard.json",
+      "sha256": "f3f1eb8637064b2995503f5d49eae33141c68319cd99fc41ccd5178db6967d3b",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/review-changed-stream.json",
+      "sha256": "66e8acdbfc986edd70285153b3c9119735794fe0c8400bb4fdf721aef7c1d18d",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/review-duplicate-approval.json",
+      "sha256": "b55a2a3326bfc4da7af7115a9f05a7b54e1e367aa56911a0a54dcb419a1973f7",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/review-duplicate-line.json",
+      "sha256": "027ee8f4f128a7c1170f9b8eec6847ef3810f7e226ff6132f78c0f1c21164895",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/review-empty-catalogue.json",
+      "sha256": "3f9bd58eb661dbab68b738435a175710d27404fb6ffa032d44e514ee8e8abdf3",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/review-forged-hash.json",
+      "sha256": "c7b8929840b82378a09be5e5f035f749d64db3ac9ec7ab2c5a052ed1887cf284",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/review-forged-id.json",
+      "sha256": "4509e1ea8f55fafe79fc9b40082c1ecd414aba148f335ddcdb67fcbbf0b7f705",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/review-malformed-approval.json",
+      "sha256": "3626bfbece165cb90e6c1e919623935d6f016fceeb58927b901c59bc6f21ceea",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/review-missing-approval.json",
+      "sha256": "dd680390a697321244c6cdc6b2d5d57ee5e80a41b5cedd0df81f98c21f83c132",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/review-missing-cart-proof.json",
+      "sha256": "99822a20651e28ff8cbfe77ca9a3b2f764092df52f70b187f2c2307276efbe9b",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/review-missing-customer.json",
+      "sha256": "a17c2fe2cfbf807983f5ad4276efc424f69a08f5fc65fa7c5cc848ceca6ce59a",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/review-other-customer.json",
+      "sha256": "d88fba8f8fb86ac0dee64a38e0a403656e0c3022faf0b55307dc4e811ff29913",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/review-other-variant.json",
+      "sha256": "bb1f64f5848944cfd4b9c0bee86e6854c31b7b697218a08449c2bbc41bb48ad9",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/review-oversized.json",
+      "sha256": "25ffb652a40f2119b8526f28fafe4629f4e07d686c960772987daa79524ee5fd",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/review-quantity.json",
+      "sha256": "17e4ed1f3e8ce146bbb140690fba71efaf38e60f2e8a032fe0eb89228aeb1a21",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/review-too-many.json",
+      "sha256": "9e68e25b7f938f65240290871b50ee15e7053affc5dfc35aac5b6f151fb56f5d",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/review-unknown-version.json",
+      "sha256": "6fa4a9c90e3acfe2eb411badd8fcecefbdc4106490dad62aa5278a1d6757b43f",
+      "sanitized": false
+    },
+    {
+      "path": "labs/core-bundle-signin-function/tests/fixtures/review-withdrawn.json",
+      "sha256": "3e488d9943f850a4306af4c7e7d94169879e2835227281946be2879a2f58a3c4",
       "sanitized": false
     },
     {
       "path": "labs/core-bundle-signin-function/tests/fixtures/signed-in-bundle.json",
-      "sha256": "2c45bf98b80a8561d46181c4739d56070081b27f490406116583c3e40b9a8b6d",
+      "sha256": "30c69b67600176b462b98badd956d721561f2c1144671fd3d779ab08b44a056d",
       "sanitized": false
     },
     {
       "path": "labs/core-bundle-signin-function/tests/fixtures/variant-bundle.json",
-      "sha256": "d04c38ac56c176ca4b320b9c0b160b5fe99d56e833fbb06842fe9e42f033d0e8",
+      "sha256": "7b8e6b7aafa6ce68808c67d02ab79a9f868bafeafcfc152b9d08bd30ec674f48",
       "sanitized": false
     },
     {
       "path": "labs/core-bundle-signin-function/tests/fixtures/wrong-version.json",
-      "sha256": "5566b6265e485a44e78a4bff0f0faeec1a07a13c6428f30c83d88cad63814a17",
+      "sha256": "6c52d622f74b952acefdf50342fc0878a406959e3fadf340d43c2fdfd0cb29e2",
       "sanitized": false
     },
     {

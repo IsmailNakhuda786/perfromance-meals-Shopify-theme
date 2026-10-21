@@ -1,11 +1,15 @@
 query Input {
  validation { configuration: metafield(namespace: "$app:core", key: "bundle_signin_configuration") { value } }
  cart {
-  buyerIdentity { isAuthenticated }
+  buyerIdentity { isAuthenticated customer { id approvals: metafield(namespace: "$app", key: "bundle_review_approvals") { value } } }
   lines {
+   quantity
+   reviewId: attribute(key: "_pm_bundle_review_id") { value }
+   reviewHash: attribute(key: "_pm_bundle_review_hash") { value }
    merchandise {
     __typename
     ... on ProductVariant {
+     id
      contents: metafield(namespace: "performance", key: "bundle_contents") { value }
      product {
       id

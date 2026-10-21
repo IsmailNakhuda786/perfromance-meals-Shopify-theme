@@ -49,3 +49,23 @@ test('competing checkouts cannot consume one bundle review twice',async()=>{
 });
 
 test('empty variant reference list uses the product default exactly like the Theme',async()=>{native=fixture();native.contents={type:'list.metaobject_reference',value:'[ ]',references:{nodes:[],pageInfo:{hasNextPage:false}}};const row=await prepareBundleReview(admin,context);assert.equal(JSON.parse(row.snapshot).itemsPerBundle,14);});
+
+test('later order notifications hold changed original bundle price, currency or stored purchase evidence',async()=>{
+ let number=400;
+ for(const scenario of ['price','currency','missing-price','corrupted-snapshot','unbound-state','unchanged']){
+  const row=await review(),orderGid=gid('Order',number++),orderLineGid=gid('LineItem',number++);
+  const order={id:orderGid,createdAt:new Date(Date.now()+1000).toISOString(),customer:{id:context.customerGid},lineItems:{pageInfo:{hasNextPage:false},nodes:[{id:orderLineGid,quantity:2,originalUnitPriceSet:{shopMoney:{amount:'109.80',currencyCode:'SGD'}},product:{id:context.productGid,isGiftCard:false,stream:{jsonValue:'ready_series'}},variant:{id:context.variantGid},customAttributes:[{key:'_pm_business_stream',value:'ready_series'},{key:'_pm_stream_schema_version',value:'1'},{key:'_pm_bundle_review_id',value:row.id},{key:'_pm_bundle_review_hash',value:row.snapshotHash}]}]}};
+  const reader={graphql:async query=>query.includes('query OperationalOrder')?Response.json({data:{shop:{myshopifyDomain:shop},order}}):admin.graphql()};
+  await recordOrder(shop,orderGid,`${scenario}-created`,reader);
+  if(scenario==='price')order.lineItems.nodes[0].originalUnitPriceSet.shopMoney.amount='99.80';
+  if(scenario==='currency')order.lineItems.nodes[0].originalUnitPriceSet.shopMoney.currencyCode='USD';
+  if(scenario==='missing-price')delete order.lineItems.nodes[0].originalUnitPriceSet;
+  if(scenario==='corrupted-snapshot')await db.bundlePurchaseReview.update({where:{id:row.id},data:{snapshot:row.snapshot.replace('Approved meal','Changed meal')}});
+  if(scenario==='unbound-state')await db.bundlePurchaseReview.update({where:{id:row.id},data:{state:'REVIEWED'}});
+  await recordOrder(shop,orderGid,`${scenario}-updated`,reader,'ORDERS_UPDATED');
+  const saved=await db.operationalLine.findUnique({where:{shop_orderLineGid:{shop,orderLineGid}}});
+  assert.equal(saved.validationStatus,scenario==='unchanged'?'VALIDATED':'QUARANTINED',scenario);
+  assert.equal(saved.bundleReviewId,row.id); // Original identity is retained for support.
+  if(scenario!=='unchanged')assert.equal(saved.department,null);
+ }
+});

@@ -5,7 +5,8 @@
     "input": {
       "cart": {
         "buyerIdentity": {
-          "isAuthenticated": false
+          "isAuthenticated": false,
+          "customer": null
         },
         "lines": [
           {
@@ -23,8 +24,12 @@
                   "value": "[]"
                 },
                 "id": "gid://shopify/Product/1"
-              }
-            }
+              },
+              "id": "gid://shopify/ProductVariant/10"
+            },
+            "quantity": 1,
+            "reviewId": null,
+            "reviewHash": null
           }
         ]
       },

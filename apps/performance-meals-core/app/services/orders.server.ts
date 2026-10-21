@@ -1,6 +1,6 @@
 import db from '../db.server';
 import {bindBundleReview,BundleBindingError,readNativeBundleSnapshot} from './bundle-reviews.server';
-import {bundleUnitPrice,type BundleSnapshot} from './bundle-snapshot';
+import {bundleUnitPrice,bundleReviewHash,type BundleSnapshot} from './bundle-snapshot';
 import {department,STREAMS} from './menu-validation';
 import type { AdminApiContext } from '@shopify/shopify-app-react-router/server';
 import {assertShop} from './security.server';
@@ -9,6 +9,14 @@ query OperationalOrder($id:ID!){shop{myshopifyDomain}order(id:$id){id createdAt 
 `;
 type NativeOrder={id:string;createdAt:string;customer?:{id:string};lineItems:{pageInfo:{hasNextPage:boolean};nodes:Array<{id:string;quantity:number;originalUnitPriceSet?:{shopMoney:{amount:string;currencyCode:string}};customAttributes:Array<{key:string;value:string}>;product?:{id:string;isGiftCard:boolean;stream?:{jsonValue:unknown}};variant?:{id:string};sellingPlan?:{sellingPlanId:string}}>}};
 const nativeReference=(type:string,value:unknown)=>typeof value==='string'&&new RegExp('^gid://shopify/'+type+'/\\d+$').test(value);
+// Subsequent notifications must still describe the original purchase. Discounts
+// do not change originalUnitPriceSet; an admin price edit requires review.
+function originalBundlePriceMatches(review:{id:string;shop:string;customerGid:string;quantity:number;snapshot:string;snapshotHash:string},line:NativeOrder['lineItems']['nodes'][number]){
+ try{
+  const snapshot=JSON.parse(review.snapshot) as BundleSnapshot;
+  return snapshot.productGid===line.product?.id&&snapshot.variantGid===line.variant?.id&&snapshot.currency==='SGD'&&line.originalUnitPriceSet?.shopMoney.currencyCode==='SGD'&&bundleUnitPrice(line.originalUnitPriceSet.shopMoney.amount)===snapshot.unitPriceMinor&&bundleReviewHash({...review,snapshot})===review.snapshotHash;
+ }catch{return false;}
+}
 export async function recordOrder(shop:string,orderGid:string,eventId:string,admin:AdminApiContext,topic='orders/create'){
  assertShop(shop);
  if(!/^gid:\/\/shopify\/Order\/\d+$/.test(orderGid)||typeof eventId!=='string'||!eventId.trim()||eventId.length>512)throw Error('Invalid order routing context');
@@ -38,7 +46,7 @@ export async function recordOrder(shop:string,orderGid:string,eventId:string,adm
    const existing=await tx.operationalLine.findUnique({where:{shop_orderLineGid:{shop,orderLineGid:line.id}}});
    if(existing){
     const purchasedBundle=existing.bundleReviewId?await tx.bundlePurchaseReview.findUnique({where:{id:existing.bundleReviewId}}):null;
-    const bundleChanged=existing.bundleReviewId!==null&&(!purchasedBundle||purchasedBundle.shop!==shop||purchasedBundle.customerGid!==order.customer?.id||purchasedBundle.orderGid!==order.id||purchasedBundle.orderLineGid!==line.id||purchasedBundle.snapshotHash!==props._pm_bundle_review_hash||purchasedBundle.quantity!==line.quantity);
+    const bundleChanged=existing.bundleReviewId!==null&&(!purchasedBundle||purchasedBundle.state!=='ORDERED'||purchasedBundle.shop!==shop||purchasedBundle.customerGid!==order.customer?.id||purchasedBundle.orderGid!==order.id||purchasedBundle.orderLineGid!==line.id||purchasedBundle.snapshotHash!==props._pm_bundle_review_hash||purchasedBundle.quantity!==line.quantity||!originalBundlePriceMatches(purchasedBundle,line));
     if(existing.orderGid!==order.id)throw Error('Operational line belongs to another original order');
     if(existing.customerGid!==(order.customer?.id??null)||existing.productGid!==(line.product?.id??null)||existing.variantGid!==(line.variant?.id??null)||existing.businessStream!==(typeof stream==='string'?stream:null)||props._pm_business_stream!==stream||props._pm_stream_schema_version!=='1'||duplicateProperties||bundleChanged||existing.bundleReviewId!==null&&existing.bundleReviewId!==props._pm_bundle_review_id){
      // Preserve the purchased identity and selection; do not silently reassign
