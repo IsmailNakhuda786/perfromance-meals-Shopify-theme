@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "ac4d8ede054917ffc86e030a08a1ba087a1a7ab1",
+  "source_commit": "ae7104c0df5daad12f4d4220d00fa44d5ea7e52c",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -2161,7 +2161,7 @@
     },
     {
       "path": "docs/CORE-BUNDLE-FULFILLMENT-AUDIT-20261021.md",
-      "sha256": "5c1e69be651680688b41600f7fdd84735fcac893cbc89680848496d08ef88c4a",
+      "sha256": "37c8c3d5e498f100f6fa124df0e1785836a0a6d2cb33ef761be4c2e6e58cb08f",
       "sanitized": false
     },
     {
