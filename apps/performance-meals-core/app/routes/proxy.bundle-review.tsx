@@ -7,6 +7,7 @@ async function context(request:Request){
  const verified=await authenticate.public.appProxy(request);
  if(!verified.admin||!verified.session)throw new Response('App unavailable',{status:503,headers:privateHeaders});
  const shop=verified.session.shop,customerGid=proxyCustomer(request,shop);
+ if(process.env.BUNDLE_REVIEW_QA_CUSTOMER_GID&&customerGid!==process.env.BUNDLE_REVIEW_QA_CUSTOMER_GID)throw new Response('Bundle review is unavailable',{status:403,headers:privateHeaders});
  if(!process.env.SHOPIFY_API_SECRET)throw new Response('App unavailable',{status:503,headers:privateHeaders});
  return {shop,customerGid,admin:verified.admin};
 }
@@ -21,6 +22,7 @@ export async function action({request}:ActionFunctionArgs){
  let body;try{body=JSON.parse(text);}catch{throw new Response('Invalid JSON',{status:400,headers:privateHeaders});}
  if(!body||typeof body!=='object'||!validateNonce(body.nonce,shop,customerGid,process.env.SHOPIFY_API_SECRET!))throw new Response('Reload your review session',{status:403,headers:privateHeaders});
  if(typeof body.productGid!=='string'||typeof body.variantGid!=='string'||!Number.isSafeInteger(body.quantity)||body.quantity<1)throw new Response('Invalid bundle review',{status:400,headers:privateHeaders});
+ if(process.env.BUNDLE_REVIEW_QA_PRODUCT_GID&&body.productGid!==process.env.BUNDLE_REVIEW_QA_PRODUCT_GID)throw new Response('Bundle review is unavailable',{status:403,headers:privateHeaders});
  try{
   const review=await prepareBundleReview(admin,{shop,customerGid,productGid:body.productGid,variantGid:body.variantGid,quantity:body.quantity});
   return Response.json({id:review.id,hash:review.snapshotHash,quantity:review.quantity,snapshot:JSON.parse(review.snapshot)},{headers:privateHeaders});

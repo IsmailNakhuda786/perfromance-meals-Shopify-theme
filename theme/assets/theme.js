@@ -13,6 +13,19 @@
   }
   let previousFocus;
   let queue = Promise.resolve();
+  let bundleModule;
+  let cartChangeFailed = false;
+  const reviewData = scope => scope?.querySelector('[data-bundle-review-data]');
+  async function reviewBundle(node, variantId, quantity) {
+    bundleModule ||= import(routes.bundleReviewAsset);
+    const {prepareBundleCartReview} = await bundleModule;
+    let context;
+    try { context = JSON.parse(node.textContent); }
+    catch { throw new Error(routes.bundleReviewUnavailable); }
+    return prepareBundleCartReview({context, variantId, quantity,
+      endpoint: routes.bundleReviewPath, origin: window.location.origin,
+      unavailableMessage: routes.bundleReviewUnavailable, changedMessage: routes.bundleReviewChanged});
+  }
   const drawer = () => document.getElementById('CartDrawer');
   function announce() {
     const region = document.getElementById('CartLiveRegion');
@@ -95,6 +108,11 @@
     if (button) button.disabled = true;
     enqueue(async () => {
       try {
+        const node = reviewData(form);
+        if (routes.bundleReviewEnabled && node) {
+          const review = await reviewBundle(node, body.get('id'), Number(body.get('quantity') || 1));
+          for (const [key, value] of Object.entries(review.properties)) body.set(`properties[${key}]`, value);
+        }
         await fetchJSON(routes.add, { method: 'POST', body, headers: { Accept: 'application/json' } });
         try { await refreshCart(); }
         catch { window.location.assign(routes.cart); return; }
@@ -114,18 +132,61 @@
     setError(form);
     input.disabled = true;
     try {
-      await fetchJSON(routes.change, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ id: key, quantity }) });
+      const payload = {id: key, quantity};
+      const node = reviewData(input.closest('[data-cart-line]'));
+      if (routes.bundleReviewEnabled && node && quantity > 0) {
+        const cart = await fetchJSON(`${routes.cart}.js`);
+        const line = cart.items.find(item => item.key === key);
+        if (!line || line.selling_plan_allocation) throw new Error(routes.bundleReviewUnavailable);
+        const review = await reviewBundle(node, line.variant_id, quantity);
+        // Shopify replaces the entire properties object on change.js.
+        payload.properties = {...line.properties, ...review.properties};
+      }
+      await fetchJSON(routes.change, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(payload) });
+      cartChangeFailed = false;
       try { await refreshCart(); }
       catch { window.location.assign(routes.cart); return; }
       if (focusId) document.getElementById(focusId)?.focus();
     } catch (error) {
+      cartChangeFailed = true;
       input.disabled = false;
       setError(form, error.message || routes.error);
     }
   }
+  document.addEventListener('submit', event => {
+    const form = event.target;
+    if (!routes.bundleReviewEnabled || !(form instanceof HTMLFormElement) || !form.matches('[data-cart-form]')) return;
+    event.preventDefault();
+    for (const input of form.querySelectorAll('[data-cart-quantity]')) {
+      if (input.disabled || input.value === input.defaultValue) continue;
+      const quantity = Number(input.value);
+      if (!input.checkValidity() || !Number.isSafeInteger(quantity) || quantity < 0) { input.reportValidity(); return; }
+      input.disabled = true;
+      enqueue(() => changeLine(input, quantity));
+    }
+    const checkout = event.submitter?.name === 'checkout';
+    const formId = form.id;
+    const note = form.querySelector('[name="note"]')?.value;
+    enqueue(async () => {
+      const current = document.getElementById(formId) || form;
+      try {
+        if (cartChangeFailed) throw new Error(routes.bundleReviewUnavailable);
+        // Only submit the note/action. Quantities were already saved atomically
+        // with their reviews; a native updates[] POST could detach that proof.
+        const post = document.createElement('form');
+        post.method = 'post'; post.action = routes.cart;
+        for (const [name, value] of [['note', note], [checkout ? 'checkout' : 'update', '']]) {
+          if (value === undefined) continue;
+          const field = document.createElement('input'); field.type = 'hidden'; field.name = name; field.value = value; post.append(field);
+        }
+        document.body.append(post);
+        HTMLFormElement.prototype.submit.call(post);
+      } catch (error) { setError(current, error.message || routes.error); }
+    });
+  });
   document.addEventListener('change', event => {
     const input = event.target;
-    if (!(input instanceof HTMLInputElement) || !input.matches('[data-cart-quantity]')) return;
+    if (!(input instanceof HTMLInputElement) || input.disabled || !input.matches('[data-cart-quantity]')) return;
     if (!input.checkValidity()) { input.reportValidity(); return; }
     const quantity = Number(input.value);
     if (!Number.isInteger(quantity) || quantity < 0) return;

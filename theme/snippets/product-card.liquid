@@ -85,6 +85,7 @@
         {% if product.has_only_default_variant or card_variant %}
           {% form 'product', product, id: form_id, class: 'flex-1', data-product-form: '', data-purchase-mode: purchase_mode, data-account-blocked: bundle_guest %}
             {% render 'business-stream-properties', product: product %}
+            {% if purchase_mode == 'bundles' and product.metafields.performance.business_stream.value == 'ready_series' %}{% render 'bundle-review-data', product: product %}{% endif %}
             <input type="hidden" name="id" value="{{ variant.id }}">
             <input type="hidden" name="quantity" value="{{ variant.quantity_rule.min | default: 1 }}">
             {% if bundle_guest == 'true' %}<a href="{{ routes.storefront_login_url }}" data-subscription-login class="block text-center bg-[#F5B300] text-[#111] w-full py-3 text-[11px] font-extrabold tracking-widest uppercase">{{ 'catalog.sign_in_bundle' | t }} →</a>{% endif %}

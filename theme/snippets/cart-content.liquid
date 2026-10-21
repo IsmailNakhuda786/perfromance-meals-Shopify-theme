@@ -12,9 +12,10 @@ Renders the Shopify session cart in a drawer or full page.
         {% for item in cart.items %}
           {% assign bundle_contents = item.variant.metafields.performance.bundle_contents.value | default: item.product.metafields.performance.bundle_contents.value %}
           {% if drawer and bundle_contents != blank %}
-            <div class="pm-cart-bundle" data-cart-line data-line-key="{{ item.key | escape }}">{% render 'cart-bundle', item: item, contents: bundle_contents %}</div>
+            <div class="pm-cart-bundle" data-cart-line data-line-key="{{ item.key | escape }}">{% render 'cart-bundle', item: item, contents: bundle_contents %}{% if item.product.metafields.performance.business_stream.value == 'ready_series' and item.selling_plan_allocation == blank %}{% render 'bundle-review-data', product: item.product, cart_item: item %}{% endif %}</div>
           {% else %}
           <div class="flex gap-4 py-5 border-b border-white/10" data-cart-line data-line-key="{{ item.key | escape }}">
+            {% if bundle_contents != blank and item.product.metafields.performance.business_stream.value == 'ready_series' and item.selling_plan_allocation == blank %}{% render 'bundle-review-data', product: item.product, cart_item: item %}{% endif %}
             <a href="{{ item.url }}" class="w-20 h-20 shrink-0 bg-white/5">{% if item.image %}{{ item.image | image_url: width: 180 | image_tag: loading: 'lazy', width: 90, height: 90, class: 'w-full h-full object-cover' }}{% endif %}</a>
             <div class="flex-1 min-w-0">
               <a href="{{ item.url }}" class="text-[13px] font-bold leading-snug block">{{ item.product.title | escape }}</a>

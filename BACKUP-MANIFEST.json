@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "1678ae4a070c6e4d935e8c6818cded64b1f8aeb9",
+  "source_commit": "8fafd82b5ca411f364a1c173fb1a9aa5d01b8fd3",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -231,7 +231,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/routes/proxy.bundle-review.tsx",
-      "sha256": "89d6aba5c36d4afa8e590906e9ee35990d773f4064b2790c757717dfee2d8114",
+      "sha256": "467e8c855fc65b52f8408e309f6449bd98683a7c239676e252048dbb2fe8f245",
       "sanitized": false
     },
     {
@@ -2145,6 +2145,11 @@
       "sanitized": false
     },
     {
+      "path": "docs/CORE-BUNDLE-CART-20261021.md",
+      "sha256": "96b3d4c92e32453e3797ffc401f19978d361b95ae9f403a7ba067fd291d9207b",
+      "sanitized": false
+    },
+    {
       "path": "docs/CORE-BUNDLE-PURCHASE-QA-20261020.md",
       "sha256": "3179c57669aa953b241692fa762a946f7f8366765b2e95dfff5c8d8b0b26c05b",
       "sanitized": false
@@ -3140,6 +3145,11 @@
       "sanitized": false
     },
     {
+      "path": "theme-tools/bundle-review.browser.mjs",
+      "sha256": "58242ae554500aeb8529cd69e23562e08ed7ec4d32124faad47332e3715b9788",
+      "sanitized": false
+    },
+    {
       "path": "theme-tools/business-stream/README.md",
       "sha256": "05ccc2aa310ca8db27616b094179fee775cc57e6c1723c734f026f9ee9c4aedd",
       "sanitized": false
@@ -3400,6 +3410,11 @@
       "sanitized": false
     },
     {
+      "path": "theme-tools/tests/bundle-review.test.mjs",
+      "sha256": "0ac09d0db7a57e3e68b9b77aff898af48a7aa8240f7394bd3f6df83c8efea9c4",
+      "sanitized": false
+    },
+    {
       "path": "theme-tools/tests/bundle-savings.test.mjs",
       "sha256": "87b06ca1f48ed078baacfe2b70e577272cbee7b167910d72cee2957caf550d2c",
       "sanitized": false
@@ -3577,6 +3592,11 @@
     {
       "path": "theme/assets/brand-navigation.css",
       "sha256": "b5410d4eb51ffaa64c83f26d7b636e8b00d430fb8ec2c874f8aaaf335df977ed",
+      "sanitized": false
+    },
+    {
+      "path": "theme/assets/bundle-review.js",
+      "sha256": "8f78c809c72033f2637a283597e1f1d8ff9eeaffc2f4cd5509638c422a79bc96",
       "sanitized": false
     },
     {
@@ -3926,7 +3946,7 @@
     },
     {
       "path": "theme/assets/theme.js",
-      "sha256": "d4ff41a7855952e67cacb553de0a6a4950810c90f98400def6c0b9561e015281",
+      "sha256": "00834a75a50c9e93868b9724a04c217f5ed28967722a2d7cb896ea733337ae10",
       "sanitized": false
     },
     {
@@ -3936,17 +3956,17 @@
     },
     {
       "path": "theme/config/settings_schema.json",
-      "sha256": "dc7945ac1a0519d3afe31ca9cfdaa9a92214ee4285ab326fb7f832695271bdc7",
+      "sha256": "fdd99e2e4e244020bd2e22fb10ed6954c9182feb324635d76d41d2f4c16dd40a",
       "sanitized": false
     },
     {
       "path": "theme/layout/theme.liquid",
-      "sha256": "79f85903b71a7fdd78d519449c25ae3d502f5d6cd06b84b116b71ad252e823e1",
+      "sha256": "2e7c8d459f85e97b6ed02760b518d6165034319e903fedd1cb63a849898d437d",
       "sanitized": false
     },
     {
       "path": "theme/locales/en.default.json",
-      "sha256": "2a6e3fbcfd8e62cb1ad6ce4a2847ce2b028a7b051b9dbb40e767a1fcad8843f5",
+      "sha256": "c4dffd66fa930f9558bd514cdc1a88b3e4e393572742026141a307ac39f3956c",
       "sanitized": false
     },
     {
@@ -4016,7 +4036,7 @@
     },
     {
       "path": "theme/sections/home-hero.liquid",
-      "sha256": "e928cbe057af3f1d1077ab1689175baa1ac1db4f5be362d3463e98bc78b245ba",
+      "sha256": "b3f21a8cc42afb8fd6fbc4448ca9a8d54c4f1723180e6895d8dcd5d8444ee5b0",
       "sanitized": false
     },
     {
@@ -4115,6 +4135,11 @@
       "sanitized": false
     },
     {
+      "path": "theme/snippets/bundle-review-data.liquid",
+      "sha256": "95cd9455f7a30cd27df225df985e4688efad0a90bc4eb3f10b1667901ecc0735",
+      "sanitized": false
+    },
+    {
       "path": "theme/snippets/bundle-savings.liquid",
       "sha256": "212736c679e6ea41fa3d32e1d2baf9917c94978dbaa6ce0d51c9ad533d4743e3",
       "sanitized": false
@@ -4131,7 +4156,7 @@
     },
     {
       "path": "theme/snippets/cart-content.liquid",
-      "sha256": "cc35beab9f3324f8e3221fa829589eebe3157e391db9c241e59095dfa52fa074",
+      "sha256": "70d5289956ac015e6e0fa91fa323ce618bedf81d034826cf675db29dcf6101de",
       "sanitized": false
     },
     {
@@ -4176,12 +4201,12 @@
     },
     {
       "path": "theme/snippets/product-card.liquid",
-      "sha256": "8ef7b6cee748b70b5560a6ff534de7ef6cabe289fc077c41eb2da72c2f408426",
+      "sha256": "7b75a6652e79a0813420fe2e522402a4f5dfd34905306745c13f2b9bd8f63f99",
       "sanitized": false
     },
     {
       "path": "theme/snippets/product-purchase-form.liquid",
-      "sha256": "8583c9f528433e60fc287aadec40081a31fc2c6cb94f38081d4cc986114f6836",
+      "sha256": "805e366e62d529c0f079b6452fb1adb20ebd2e3c1ac3d0d995e93b0dd4269827",
       "sanitized": false
     },
     {
@@ -4386,7 +4411,7 @@
     "docs/CUSTOMER-CORE-CHECKPOINT-20261012.md"
   ],
   "excluded": [],
-  "backup_updated_at": "2026-10-20",
+  "backup_updated_at": "2026-10-21",
   "excluded_private_qa_documents": [
     "docs/CANCELLATION-WALLET-QA-20261013.md",
     "docs/CUSTOMER-CORE-CHECKPOINT-20261012.md",

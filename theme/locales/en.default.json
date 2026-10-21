@@ -179,7 +179,9 @@
     "view": "View",
     "meal_unit": "meal",
     "shop_ready_series": "Shop all Ready-Series",
-    "bundle_savings": "Save {{ amount }} compared with buying these items individually"
+    "bundle_savings": "Save {{ amount }} compared with buying these items individually",
+    "bundle_review_unavailable": "We could not confirm this bundle. Please try again.",
+    "bundle_review_changed": "This bundle changed. Refresh the page to review its current meals and price."
   },
   "nutrition": {
     "protein_g": "Protein",

@@ -31,6 +31,6 @@
   {% section 'cart-drawer' %}
   {% render 'support' %}
   <p class="sr-only" id="CartLiveRegion" role="status" aria-live="polite" aria-atomic="true"></p>
-  <script type="application/json" id="ThemeRoutes">{"root":{{ routes.root_url | json }},"cart":{{ routes.cart_url | json }},"add":{{ routes.cart_add_url | append: '.js' | json }},"change":{{ routes.cart_change_url | append: '.js' | json }},"error":{{ 'general.error' | t | json }},"cartUpdated":{{ 'cart.updated' | t | json }}}</script>
+  <script type="application/json" id="ThemeRoutes">{"bundleReviewEnabled":{{ settings.bundle_review_enabled | default: false | json }},"bundleReviewPath":{{ settings.bundle_review_proxy_path | default: "/apps/performance-meals/bundle-review" | json }},"bundleReviewAsset":{{ 'bundle-review.js' | asset_url | json }},"bundleReviewUnavailable":{{ 'catalog.bundle_review_unavailable' | t | json }},"bundleReviewChanged":{{ 'catalog.bundle_review_changed' | t | json }},"root":{{ routes.root_url | json }},"cart":{{ routes.cart_url | json }},"add":{{ routes.cart_add_url | append: '.js' | json }},"change":{{ routes.cart_change_url | append: '.js' | json }},"error":{{ 'general.error' | t | json }},"cartUpdated":{{ 'cart.updated' | t | json }}}</script>
 </body>
 </html>

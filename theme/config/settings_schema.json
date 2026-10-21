@@ -107,5 +107,23 @@
         "info": "Enable delivery progress promises only after native mixed-cart and boundary checks pass."
       }
     ]
+  },
+  {
+    "name": "Bundle reviews",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "bundle_review_enabled",
+        "label": "Enable Core bundle reviews",
+        "default": false,
+        "info": "Enable only after Core review and checkout safeguards are verified for this store."
+      },
+      {
+        "type": "text",
+        "id": "bundle_review_proxy_path",
+        "label": "Core bundle review path",
+        "default": "/apps/performance-meals/bundle-review"
+      }
+    ]
   }
 ]

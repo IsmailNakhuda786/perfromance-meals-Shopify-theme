@@ -56,6 +56,7 @@
 %}
 {% form 'product', product, id: form_id, data-product-form: '', data-purchase-mode: purchase_mode, data-account-blocked: account_blocked %}
   {% render 'business-stream-properties', product: product %}
+  {% if bundle_account_required %}{% render 'bundle-review-data', product: product %}{% endif %}
   <label for="{{ form_id }}-variant" class="{% if product.has_only_default_variant %}sr-only{% else %}block text-[10px] font-mono uppercase tracking-widest text-white/45 mb-2{% endif %}">{{ 'catalog.options' | t }}</label>
   <select id="{{ form_id }}-variant" name="id" data-variant-select class="{% if product.has_only_default_variant %}sr-only{% else %}w-full bg-[#111] border border-white/20 px-4 py-3 text-[13px] mb-4{% endif %}">
     {% for item in product.variants %}<option value="{{ item.id }}"{% if item.id == variant.id %} selected{% endif %}>{{ item.title | escape }}{% unless purchase_mode == 'subscription' %} — {{ item.price | money_with_currency }}{% endunless %}{% unless item.available %} — {{ 'catalog.sold_out' | t }}{% endunless %}</option>{% endfor %}
@@ -76,5 +77,5 @@
   <button type="submit" data-add-button data-add-label="{{ add_label | escape }}" data-unavailable-label="{{ 'catalog.sold_out' | t }}" class="w-full py-4 bg-[#F5B300] text-[#111] hover:bg-white font-extrabold text-[11px] tracking-[0.15em] uppercase"{% unless can_purchase %} disabled{% endunless %}{% if account_required and customer == blank %} hidden disabled{% endif %}>{% if can_purchase %}{{ add_label }}{% else %}{{ 'catalog.sold_out' | t }}{% endif %}</button>
   {% if keep_shopping_url %}<a href="{{ keep_shopping_url }}" class="shrink-0 text-center px-6 py-4 border border-white/15 text-white/50 hover:border-white/40 hover:text-white text-[11px] font-bold tracking-[0.15em] uppercase">{{ 'catalog.keep_shopping' | t }}</a></div>{% endif %}
   <p data-form-error role="alert" class="text-red-300 text-[12px] mt-3" hidden></p>
-  {% if show_dynamic_checkout and purchase_mode != 'subscription' and can_purchase %}{% unless account_required and customer == blank %}<div class="mt-4">{{ form | payment_button }}</div>{% endunless %}{% endif %}
+  {% if show_dynamic_checkout and purchase_mode != 'subscription' and can_purchase %}{% unless bundle_account_required and settings.bundle_review_enabled %}{% unless account_required and customer == blank %}<div class="mt-4">{{ form | payment_button }}</div>{% endunless %}{% endunless %}{% endif %}
 {% endform %}

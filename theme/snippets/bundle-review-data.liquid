@@ -1,0 +1,8 @@
+{% doc %}
+  Emits native catalogue identities used to compare a signed Core bundle review.
+  @param {product} product - Bundle product.
+  @param {line_item} [cart_item] - Native cart item, when changing its quantity.
+{% enddoc %}
+<script type="application/json" data-bundle-review-data>
+{"currency":{{ cart.currency.iso_code | default: shop.currency | json }},"productGid":{{ product.id | prepend: 'gid://shopify/Product/' | json }},"variants":[{% for candidate in product.variants %}{% assign parts = candidate.metafields.performance.bundle_contents.value | default: product.metafields.performance.bundle_contents.value %}{"variantGid":{{ candidate.id | prepend: 'gid://shopify/ProductVariant/' | json }},"unitPriceMinor":{% if cart_item and cart_item.variant.id == candidate.id %}{{ cart_item.original_price | json }}{% else %}{{ candidate.price | json }}{% endif %},"itemsPerBundle":{{ candidate.metafields.performance.meal_count.value | default: product.metafields.performance.meal_count.value | default: nil | json }},"components":[{% for part in parts %}{"componentGid":{{ part.system.id | prepend: 'gid://shopify/Metaobject/' | json }},"productGid":{{ part.product.value.id | prepend: 'gid://shopify/Product/' | json }},"variantGid":{{ part.variant.value.id | prepend: 'gid://shopify/ProductVariant/' | json }},"quantity":{{ part.quantity.value | json }}}{% unless forloop.last %},{% endunless %}{% endfor %}]}{% unless forloop.last %},{% endunless %}{% endfor %}]}
+</script>
