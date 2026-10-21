@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "67e7e7b43fd1e7524abbb00c3e932c670157091c",
+  "source_commit": "2a336e1d0534268d7add8040e99cc8ad99cb2e84",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -2186,7 +2186,7 @@
     },
     {
       "path": "docs/CORE-ACCOUNT-STARTUP-20261021.md",
-      "sha256": "e4ba4b4819d5848f97b99d32fc4766e1e2bf5db394b597daf93a4db3b3d52b12",
+      "sha256": "9709f8f27f247493c657ef158b50fbe45a7a515a158fc188d3edca94d7a78aa9",
       "sanitized": false
     },
     {
@@ -2467,6 +2467,11 @@
     {
       "path": "docs/RESUME-CHECKPOINT-20261020.md",
       "sha256": "2b244a1ad9ce6b81a9fa9b8fb8b5a92ef2336f23817470b66f0f3e2016234e05",
+      "sanitized": false
+    },
+    {
+      "path": "docs/RESUME-CHECKPOINT-20261021.md",
+      "sha256": "4e813c9e7f76313b8a107f8877dc0393c2271ca86750afbb2c95bed6775b4245",
       "sanitized": false
     },
     {
