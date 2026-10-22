@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "2a336e1d0534268d7add8040e99cc8ad99cb2e84",
+  "source_commit": "c0752a209205b5fccf4acbe407613a81eef7e4b7",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -487,6 +487,11 @@
     {
       "path": "apps/performance-meals-core/app/services/prepaid-schedule.server.ts",
       "sha256": "e813a34125c6016888475a5b037012ee8e522746a7f6ae4357c82214b156935f",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/prepaid-selling-plan.ts",
+      "sha256": "a0135b07f988d7bb17a7a2077d76c1d1a895e748b30709bb35c1a4675a03e42b",
       "sanitized": false
     },
     {
@@ -1377,6 +1382,11 @@
     {
       "path": "apps/performance-meals-core/tests/prepaid-schedule.test.mjs",
       "sha256": "d6d4547524d5323132bcc309756898b8a144e3b921184a9fc9960169f5a29487",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/prepaid-selling-plan.test.mjs",
+      "sha256": "89ca4655b6b84ed474e13939a8c602fe86d2fc76900779a7dd17b8faa1dd1887",
       "sanitized": false
     },
     {
@@ -2517,6 +2527,11 @@
     {
       "path": "docs/STOREFRONT-SHIPPING-QA-20261019.md",
       "sha256": "8f31f3b6990b3cd4f72a1b83e8882bfcac2ebefe3522dc7ab360c43674fcd6ca",
+      "sanitized": false
+    },
+    {
+      "path": "docs/SUBSCRIPTION-NATIVE-QA-20261022.md",
+      "sha256": "efbe8322e86083d9fd39ff89d2dcdea2c69c773971008a59f9e6bf5e4eebcc2e",
       "sanitized": false
     },
     {
