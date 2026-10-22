@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "cfd109349e32a82a83fe9e59a8f7a240150c0e4c",
+  "source_commit": "b64062550f20e52fd94bdb2f6c681fd4d22f107d",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -2541,7 +2541,7 @@
     },
     {
       "path": "docs/SUBSCRIPTION-NATIVE-QA-20261022.md",
-      "sha256": "1382c383b29752fed98db66855de412f2c76f36bd25d23fb0286cedce7107ad5",
+      "sha256": "d9a03e8a595453332646b1ecb47d9238f0ab5e07a9d776072c93c6bf00f2892f",
       "sanitized": false
     },
     {

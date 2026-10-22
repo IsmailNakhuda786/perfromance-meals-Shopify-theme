@@ -57,3 +57,15 @@ Cleanup readback confirms DRAFT status, original variant prices and original PRI
 Next investigation: a narrowly scoped automatic cent correction may be possible through subscription discounts, but initial checkout, recurring calculation, quantity behaviour and discount combinations must all be proven before adoption. No correction discount has been created. Shopify's Cart Transform documentation explicitly rejects line updates when a selling plan is present, so that is not a supported price-repair route.
 
 References: [subscription discounts](https://help.shopify.com/en/manual/products/purchase-options/subscriptions/manage-subscriptions/subscription-discounts), [Cart Transform restrictions](https://shopify.dev/docs/api/functions/latest/cart-transform).
+
+## Approved unpaid cent-correction comparison — 23 October
+
+The user approved a further isolated unpaid comparison and development-only `write_discounts` access. Shopify's CLI configuration validation passed and the development preview auto-granted that scope. The existing Rust runtime was restored to the preview command's PATH; no compiler or dependency was replaced. A transient Cloudflare timeout and Shopify preview error were resolved by reconnecting; no production deployment occurred.
+
+Two automatic discounts were created, restricted to the existing QA customer and their respective QA subscription variants, with one-time purchases excluded and recurringCycleLimit set to zero. Other discounts cannot combine. Temporary full-term PRICE inputs were SGD 255.21 / 493.62; the correction amounts were SGD 0.01 / 0.02. Catalogue variant prices remained SGD 255.20 / 493.60.
+
+Both fresh carts and unpaid checkout merchandise subtotals reached exactly **255.20 / 493.60**. However, the same checkout's recurring subtotal displayed **255.21 every three months / 493.62 every six months**. This establishes an exact initial merchandise subtotal, not a verified recurring payment. No contract was created or edited, no card was entered and no payment/renewal was submitted. Shipping remained on the general profile; it is not part of this pricing acceptance.
+
+The recurring-summary discrepancy remains a release hold. Do not describe this workaround as verified, change merchant prices or enable general subscriptions. A supported calculation/contract readback or separately approved new test contract and renewal would be needed to establish actual recurring discount behaviour; the old cancelled contracts do not prove it.
+
+Both temporary discounts were deactivated and independently read back as EXPIRED. Both original PRICE policies were restored. The QA product was returned to draft and its temporary publication removed; the cart was emptied. Exact-file theme cleanup was repeated. Focused prepaid pricing/renewal tests: **11 passed**. The broader previously verified baseline remains 406 Core tests; it was not rerun for this documentation/access-only checkpoint.
