@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "c0752a209205b5fccf4acbe407613a81eef7e4b7",
+  "source_commit": "b9f09d2ecd8f6a194f80959b8fee241f82ccaa31",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -482,6 +482,11 @@
     {
       "path": "apps/performance-meals-core/app/services/prepaid-purchase.server.ts",
       "sha256": "645459cad20a34f29a70934a67bd92d4c708d9f9d8d05a36a207ec5195acd485",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/prepaid-renewal.server.ts",
+      "sha256": "562e17ce832a697ef4c6f6a3f062c2f2fc5c31d4ef4419644e826472019ff8b1",
       "sanitized": false
     },
     {
@@ -1377,6 +1382,11 @@
     {
       "path": "apps/performance-meals-core/tests/prepaid-purchase.test.mjs",
       "sha256": "3784356e1a0ea5db8e7758cb9797fe1318c2b0bf8115cb98f2cb07c205aa2f8b",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/prepaid-renewal.test.mjs",
+      "sha256": "0b7a43083d3f0a7571a6c1f26b5602fa82bed78d8814654796f65201c7191224",
       "sanitized": false
     },
     {
@@ -2531,7 +2541,7 @@
     },
     {
       "path": "docs/SUBSCRIPTION-NATIVE-QA-20261022.md",
-      "sha256": "efbe8322e86083d9fd39ff89d2dcdea2c69c773971008a59f9e6bf5e4eebcc2e",
+      "sha256": "351cf5d401741c75bd92ee8d7d5dcd61b261b094fec08931abe3a4890fc81d31",
       "sanitized": false
     },
     {

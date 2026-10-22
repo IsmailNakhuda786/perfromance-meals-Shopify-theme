@@ -20,8 +20,19 @@ The manually isolated QA shipping profile is not production shipping acceptance.
 
 Private receipts and mutation journals are in Core's ignored `.shopify` folder. They include exact native references and are excluded from public GitHub. No credentials or personal data belong in this report.
 
-Cleanup: the QA product is restored to DRAFT, and the two QA variants were removed from the isolated shipping profile, restoring its original three entries and unchanged rates. Removing the remaining Online Store publication was interrupted by a browser timeout; its saved outcome is unknown. Two QA-only files remain on the unpublished theme. Verify the publication and remove those two files on resume. The draft product and cancelled contracts prevent new normal purchases/renewals. Keep existing rates/products/theme files unchanged. Test payment mode remains enabled. Total successful simulated charges: SGD 1,497.48, below the approved SGD 1,497.60 cap. No further charge is authorized by this QA scope.
+Cleanup: the QA product is restored to DRAFT, and the two QA variants were removed from the isolated shipping profile, restoring its original three entries and unchanged rates. Resumed cleanup verified the saved publication was still present, removed it and saved the unpublished product. The two temporary QA-only theme files were then removed through the CLI with exact filename filters; an independent pull of those names returned no files. No other files or rates were selected. The draft product and cancelled contracts prevent new normal purchases/renewals. Keep existing rates/products/theme files unchanged. Test payment mode remains enabled. Total successful simulated charges: SGD 1,497.48, below the approved SGD 1,497.60 cap. No further charge is authorized by this QA scope.
 
 Shopify advisor confirmed Wallet specialist escalation and promised ticket details/written email follow-up. The Help Center subsequently failed to load before the ticket number/reply route was supplied; do not claim receipt of the technical answer.
 
 Validation: 399 Core tests, TypeScript and lint passed this run. Regression tests use a disposable migrated SQLite database and its separate fixture client; preserve the running development preview's PostgreSQL client. API operations were validated against the configured 2026-10 schema.
+
+
+## Resumed verification
+
+- The user explicitly requires the exact merchant prices; lower totals are not approved.
+- Core now has a read-only renewal verifier using the current typed billing-attempt state. It binds the saved idempotency key, attempt, contract owner/customer, distinct renewal order/line and full captured payment. Historical verification after cancellation cannot authorize a future charge. Native readback of both existing QA renewals correctly holds the missing cents against the approved totals.
+- 406 Core tests, TypeScript and lint pass, including seven renewal evidence tests.
+- Read-only PostgreSQL verification found all four QA order lines quarantined. The temporary QA form omitted the required stream/schema properties; production purchase forms already render those properties. Do not silently edit historical orders, unquarantine records or claim Core routing acceptance. The private QA form is corrected for the next approved comparison; no upload or new order has occurred.
+- Native contract pause/resume tests verify API behaviour only. Merchant-approved delivery pausing preserves the billing timeline; do not implement a delivery pause by blindly pausing the billing contract.
+- Shopify's written follow-up confirms Backend Developer Support escalation under ticket 71332405. The technical Wallet architecture decision is still pending; the acknowledgement is not approval of a payment implementation.
+- Another unpaid comparison of native pricing-policy settings has been requested and remains pending approval. No additional charge is authorized.
