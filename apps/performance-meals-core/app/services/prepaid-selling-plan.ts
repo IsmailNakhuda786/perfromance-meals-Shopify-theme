@@ -16,8 +16,8 @@ export function prepaidSellingPlanCandidate(spec:PrepaidPlanSpec){
     options:[`${spec.months} months`],category:'SUBSCRIPTION',
     billingPolicy:{recurring:{interval:'MONTH',intervalCount:spec.months,minCycles:1}},
     deliveryPolicy:{recurring:{interval:'MONTH',intervalCount:1}},
-    // An explicit full-term price avoids deriving a rounded monthly amount.
-    // Native allocation AND checkout totals still have to match this amount.
+    // Request the approved full-term price explicitly. Shopify can still
+    // round its delivery allocation; native checkout must prove exact cents.
     pricingPolicies:[{fixed:{adjustmentType:'PRICE',adjustmentValue:{fixedValue}}}],
    }],
   },

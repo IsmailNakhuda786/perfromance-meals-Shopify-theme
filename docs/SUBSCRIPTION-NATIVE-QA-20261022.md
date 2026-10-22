@@ -35,4 +35,25 @@ Validation: 399 Core tests, TypeScript and lint passed this run. Regression test
 - Read-only PostgreSQL verification found all four QA order lines quarantined. The temporary QA form omitted the required stream/schema properties; production purchase forms already render those properties. Do not silently edit historical orders, unquarantine records or claim Core routing acceptance. The private QA form is corrected for the next approved comparison; no upload or new order has occurred.
 - Native contract pause/resume tests verify API behaviour only. Merchant-approved delivery pausing preserves the billing timeline; do not implement a delivery pause by blindly pausing the billing contract.
 - Shopify's written follow-up confirms Backend Developer Support escalation under ticket 71332405. The technical Wallet architecture decision is still pending; the acknowledgement is not approval of a payment implementation.
-- Another unpaid comparison of native pricing-policy settings has been requested and remains pending approval. No additional charge is authorized.
+- The user approved the isolated unpaid pricing-policy comparison. No additional charge is authorized.
+
+## Unpaid pricing-policy comparison
+
+The same isolated QA variants retained their catalogue prices of SGD 255.20 and SGD 493.60 throughout. Fresh cart lines were used for the percentage comparisons because an existing cart retained its earlier price snapshot after the policy changed.
+
+| Policy | Three deliveries | Six deliveries | Evidence |
+| --- | --- | --- | --- |
+| Original full-term PRICE | 255.18 | 493.56 | Previous captured initial payments and renewals |
+| Zero-percent adjustment | 765.60 | Not independently checked | Fresh three-delivery allocation/cart |
+| Zero fixed-amount adjustment | Not independently established | Not independently established | Admin accepted settings; existing cart was stale, so no fresh-price conclusion |
+| Term-normalizing percentage | 255.15 | 493.68 | Fresh native allocations, cart lines and unpaid Singapore checkouts |
+
+Shopify stored the term-normalizing percentages as 66.67% and 83.33%. Neither preserves the approved cents. These observations rule out the tested simple policy substitutions, not every supported architecture.
+
+The percentage checkout comparisons used the unchanged general shipping profile, adding SGD 15 / SGD 30 respectively. Their merchandise subtotals above are pricing evidence only; this run does not establish delivery-included acceptance. No payment details were entered and no payment or renewal was submitted.
+
+Cleanup readback confirms DRAFT status, original variant prices and original PRICE policies. The temporary Online Store publication was removed and saved; the test cart is empty. The two temporary QA theme files were removed with exact filename filters, and an independent pull returned neither file. No other theme files or shipping rates were selected.
+
+Next investigation: a narrowly scoped automatic cent correction may be possible through subscription discounts, but initial checkout, recurring calculation, quantity behaviour and discount combinations must all be proven before adoption. No correction discount has been created. Shopify's Cart Transform documentation explicitly rejects line updates when a selling plan is present, so that is not a supported price-repair route.
+
+References: [subscription discounts](https://help.shopify.com/en/manual/products/purchase-options/subscriptions/manage-subscriptions/subscription-discounts), [Cart Transform restrictions](https://shopify.dev/docs/api/functions/latest/cart-transform).

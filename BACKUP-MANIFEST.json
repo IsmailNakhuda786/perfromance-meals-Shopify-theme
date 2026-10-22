@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "b9f09d2ecd8f6a194f80959b8fee241f82ccaa31",
+  "source_commit": "cfd109349e32a82a83fe9e59a8f7a240150c0e4c",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -496,7 +496,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/prepaid-selling-plan.ts",
-      "sha256": "a0135b07f988d7bb17a7a2077d76c1d1a895e748b30709bb35c1a4675a03e42b",
+      "sha256": "a6c5a3616a73330b10b9fdc34aed8f84bc18d46d66408fca26435cba843bbae2",
       "sanitized": false
     },
     {
@@ -1171,7 +1171,7 @@
     },
     {
       "path": "apps/performance-meals-core/shopify.app.toml",
-      "sha256": "7485924420975c6f7bc7054a82f8600436430b775323beeacaa7ddcf1e2d4288",
+      "sha256": "bb5b8b3104addd01fa30650535eba4b13f136dd2bd4fc9ad392b13cc3a4f5d29",
       "sanitized": false
     },
     {
@@ -2541,7 +2541,7 @@
     },
     {
       "path": "docs/SUBSCRIPTION-NATIVE-QA-20261022.md",
-      "sha256": "351cf5d401741c75bd92ee8d7d5dcd61b261b094fec08931abe3a4890fc81d31",
+      "sha256": "1382c383b29752fed98db66855de412f2c76f36bd25d23fb0286cedce7107ad5",
       "sanitized": false
     },
     {
