@@ -30,3 +30,17 @@ Full 432-test suite, TypeScript, lint, production-schema mirror and local accoun
 ## Fresh native preservation check
 
 A read-only comparison against both saved original paid QA-order snapshots confirms that the cancelled 3-/6-delivery contracts leave their original paid orders uncancelled. All nine fulfillment records retain the same IDs, dates, statuses, total/remaining quantities and original line references. No native mutation was submitted. This proves preservation for those existing isolated lifecycle tests, not acceptance of the new customer endpoint or merchant delivery calendar.
+
+
+## Authenticated native customer acceptance
+
+The separately approved new three-delivery test purchase reached Shopify and Core with the production business-stream/schema markers. A fresh native read confirmed a successful simulated Shopify Payments sale, one Core-owned active contract, three prepaid fulfillment records and one validated operational line linked to the correct original order/customer/contract. No historical quarantined purchase was rewritten.
+
+With activation restricted to that single QA customer and contract, the customer used My Plan, selected the explicit confirmation and submitted the renewal-stop action. The account then displayed “Future renewals stopped.” Independent native/database readback confirmed:
+
+- Native contract CANCELLED; exactly one durable COMPLETED operation with confirmation timestamp.
+- Original paid order, payment, original line, all three fulfillment IDs, dates, statuses and total/remaining quantities unchanged.
+- Nine protected customer Wallet, reservations, settlement, Gift Card, Rewards and refund-related model snapshots unchanged; no refund or new Wallet credit.
+- Service replays using both the original request key and a new key returned the same completed result, with zero attempted native mutations, zero audit writes and one audit row. A read-only mutation-denying adapter made any attempted repeated cancellation fail the test.
+
+The replay check exercises the actual service against fresh native reads, not a second browser submission. Browser authentication, initial customer submission, native cancellation and persistent audit completion were verified separately. This is scoped Ready Series development acceptance, not Meal Plan management, delivery rescheduling or general production activation. Exact initial/renewal pricing and merchant calendar/slot acceptance remain release holds. The temporary activation flags were restored after the test.

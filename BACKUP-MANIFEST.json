@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "b10fd284477e69ec625e0cfbc7dee8c5e963e122",
+  "source_commit": "480a0b724946757df578da9df4441367106fc66d",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -2601,7 +2601,7 @@
     },
     {
       "path": "docs/SUBSCRIPTION-RENEWAL-STOP-20261023.md",
-      "sha256": "28b20a55001499de1f08c1a8b92beafc0906925d48d8745c1a479544da3f7b31",
+      "sha256": "3d75e8721318b9d7b03d9410af51afdc6a4231bae544ba196441a06bc0ff1108",
       "sanitized": false
     },
     {
