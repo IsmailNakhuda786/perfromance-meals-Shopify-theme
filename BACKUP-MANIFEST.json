@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "b8165badac9f0bdfef17c12389f5052a1dd509a9",
+  "source_commit": "e066401dd735ec28d95bc44eea8c80ff0ba4abee",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -481,7 +481,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/prepaid-payment.server.ts",
-      "sha256": "c526220366df6f79a798781cf0f7b2bfdd287a8a227198527cb76d66f6bbf9cb",
+      "sha256": "fea6d0958cba0d083d93f4b9800e1cdc31fc74540f7ec156d7d9414ee7786c7e",
       "sanitized": false
     },
     {
@@ -1271,7 +1271,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/delivery-charge-audit.test.mjs",
-      "sha256": "0af266df300d7aec9d0b8be79cba127f599b4155d912025ff5503a0b0495f336",
+      "sha256": "8927b11162c4a673a0a1fc009e0329f955ba1a01d5269e5ce4906d8e8d3de0f6",
       "sanitized": false
     },
     {
@@ -1406,7 +1406,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/prepaid-payment.test.mjs",
-      "sha256": "0669e6e7e1d3972cb77b81ed31b521d49b05036a6c1670eb4bab9bbc1f85c50d",
+      "sha256": "72e39d227dc353cd954dac3098fb0e678b3c632e1f01fbc8c96cb0bb2feceb58",
       "sanitized": false
     },
     {
@@ -2491,12 +2491,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "4afc3fda7312633d2bbf2d3c2793a52b98b0916681ee581d5eed4c75e4fed8a3",
+      "sha256": "c1e01213b124e4273c42e302aabf9cc0530f50de056a29f05ed3e7d6af6d283d",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "a5d4572c0fa0243428bb16904455bd0323d66c3aeb58c9919525a7b19706d760",
+      "sha256": "7f14d22d28a3b30ef90c9f7d204c94f29a23b66ad035330fee3e3705a0025d87",
       "sanitized": false
     },
     {
@@ -2621,7 +2621,7 @@
     },
     {
       "path": "docs/SUBSCRIPTION-PRICING-ACCEPTANCE-20261023.md",
-      "sha256": "e40145a6561720aabc41b3385b34d2857b6a71ae6a2f2ef1cce13dfb13bae7e4",
+      "sha256": "02044666e03f917ac5b9e6af9eb05bb526ad1c71868b9489646d29f364c5327a",
       "sanitized": false
     },
     {

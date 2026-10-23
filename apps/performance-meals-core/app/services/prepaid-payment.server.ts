@@ -64,7 +64,9 @@ async function readPayment(admin:Admin,shop:string,expected:PrepaidPaymentExpect
   const type=correction.applicationKind==='AUTOMATIC'?'AutomaticDiscountApplication':'ManualDiscountApplication';
   if(money(line.originalTotalSet)!==correction.baseMinor||!Array.isArray(allocations)||allocations.length!==1||money(allocation.allocatedAmountSet)!==correction.discountMinor||application?.__typename!==type||application.title!==correction.title||money(order.totalTaxSet)!==correction.taxMinor||money(order.currentTotalTaxSet)!==correction.taxMinor)throw Error('Native prepaid correction allocation or GST differs');
  }
- const createdAt=rewardTimestamp(order.createdAt);
+ // Shopify can capture payment before it creates the order. Association is
+ // established by this order's native transaction list, not timestamp ordering.
+ rewardTimestamp(order.createdAt);
  const payments:Array<{id:string;gateway:string;amountMinor:number;processedAt:string}>=[];
  const ids=new Set<string>();
  for(const payment of order.transactions){
@@ -77,7 +79,7 @@ async function readPayment(admin:Admin,shop:string,expected:PrepaidPaymentExpect
   if(payment.kind==='AUTHORIZATION')continue;
   if(!['SALE','CAPTURE'].includes(payment.kind))throw Error('Prepaid receipt requires reconciliation');
   const amountMinor=money(payment.amountSet),time=rewardTimestamp(payment.processedAt);
-  if(amountMinor<1||time<createdAt)throw Error('Prepaid receipt amount or time differs');
+  if(amountMinor<1)throw Error('Prepaid receipt amount or time differs');
   payments.push({id:payment.id,gateway:payment.gateway,amountMinor,processedAt:new Date(time).toISOString()});
  }
  const total=payments.reduce((sum,payment)=>sum+payment.amountMinor,0);

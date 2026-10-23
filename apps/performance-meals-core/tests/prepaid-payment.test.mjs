@@ -30,7 +30,7 @@ test('incorrect totals, extra delivery, discounts, edited orders and aggregate-o
  }
 });
 test('invalid receipt references, times, money and expected snapshots cannot become successful proof',async()=>{
- for(const change of [d=>d.order.createdAt='2026-02-30T00:00:00Z',d=>d.order.transactions[0].processedAt=null,d=>d.order.transactions[0].processedAt='2026-10-19T01:00:00Z',d=>d.order.transactions[0].id='10',d=>d.order.transactions[0].gateway='',d=>d.order.transactions[0].amountSet=money('255.200'),d=>d.order.transactions[0].amountSet=money('-255.20')]){
+ for(const change of [d=>d.order.createdAt='2026-02-30T00:00:00Z',d=>d.order.transactions[0].processedAt=null,d=>d.order.transactions[0].processedAt='2026-02-30T01:00:00Z',d=>d.order.transactions[0].id='10',d=>d.order.transactions[0].gateway='',d=>d.order.transactions[0].amountSet=money('255.200'),d=>d.order.transactions[0].amountSet=money('-255.20')]){
   const data=fixture();change(data);await assert.rejects(readPrepaidPayment(admin(data),shop,expected));
  }
  for(const change of [{upfrontMinor:0},{upfrontMinor:25520.5},{customerGid:2},{orderLineGid:'gid://shopify/Order/9'}])await assert.rejects(readPrepaidPayment(admin(fixture()),shop,{...expected,...change}));
@@ -77,4 +77,11 @@ test('approved cent correction does not permit delivery fees, short payments, fo
 test('missing or broadened correction authority is refused before a native request',async()=>{
  const api={graphql:async()=>assert.fail('No request authorized')};
  for(const c of[null,{...correction(),discountMinor:0},{...correction(),discountMinor:3,baseMinor:25523},{...correction(),baseMinor:25522},{...correction(),title:''},{...correction(),applicationKind:'CODE'},{...correction(),taxMinor:undefined},{...correction(),taxMinor:-1},{...correction(),taxMinor:25521}])await assert.rejects(readCorrected(api,shop,expected,c));
+});
+
+test('native capture may precede order creation; both receipt paths retain actual payment time',async()=>{
+ const d=fixture();d.order.transactions[0].processedAt='2026-10-20T00:59:57Z';
+ assert.equal((await readPrepaidPayment(admin(d),shop,expected)).paidAt,'2026-10-20T00:59:57.000Z');
+ const c=corrected();c.order.transactions[0].processedAt='2026-10-20T00:59:57Z';
+ assert.equal((await readCorrected(correctedAdmin(c),shop,expected,correction())).paidAt,'2026-10-20T00:59:57.000Z');
 });

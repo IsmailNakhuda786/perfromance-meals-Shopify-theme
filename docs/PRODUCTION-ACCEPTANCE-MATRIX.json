@@ -10,11 +10,11 @@
     "BLOCKED": "A required platform capability, authorization or external dependency prevents completion."
   },
   "baseline": {
-    "coreTests": 455,
+    "coreTests": 456,
     "nativeReadback": "Fresh read-only cleanup/preservation rechecked 23 October; five cancelled QA contracts, three paid deliveries unchanged and nine financial model snapshots unchanged.",
-    "checkoutPricing": "Fresh approved unpaid cart/final checkouts matched 255.20 and 493.60 with free delivery; recurring disclosure still 255.21/493.62. No new payment; scoped exact-price purchase/renewal QA now approved.",
+    "checkoutPricing": "Exact initial and first simulated renewal captures passed for both terms (255.20/493.60); both test contracts cancelled and all 18 paid fulfilment records preserved. Native recurring disclosure still wrong; nonzero GST and production correction lifecycle unaccepted.",
     "topUpsEnabled": false,
-    "newEngineering": "Explicit corrected-payment and corrected-renewal read-only inspectors; seven new tests; existing undiscounted verifier remains strict."
+    "newEngineering": "Explicit corrected-payment and corrected-renewal read-only inspectors; seven new tests; existing undiscounted verifier remains strict. Fixed native receipt chronology assumption with regression coverage; fixed delivery-audit ESM dependency packaging."
   },
   "counts": {
     "PARTIAL": 9,
@@ -72,13 +72,14 @@
           "apps/performance-meals-core/tests/prepaid-renewal.test.mjs"
         ]
       },
-      "shopifyIntegration": "Both initial purchases and historical test renewals observed; exact initial correction checkout comparisons and no-charge committed correction records observed. Last fresh cleanup: five QA contracts cancelled. Fresh four-order historical readback reconfirms initial/renewal shortfalls for both terms; new query cost61 and explicit rejection of the underpaid historical order verified. Fresh approved unpaid comparisons on 23 October reconfirm exact cart/final totals, one-/two-cent corrections and free first/recurring delivery; native recurring disclosure remains higher.",
+      "shopifyIntegration": "Both initial purchases and historical test renewals observed; exact initial correction checkout comparisons and no-charge committed correction records observed. Last fresh cleanup: five QA contracts cancelled. Fresh four-order historical readback reconfirms initial/renewal shortfalls for both terms; new query cost61 and explicit rejection of the underpaid historical order verified. Fresh approved unpaid comparisons on 23 October reconfirm exact cart/final totals, one-/two-cent corrections and free first/recurring delivery; native recurring disclosure remains higher. Fresh user-completed exact initial captures and one simulated renewal per term passed strict native payment, allocation and attempt linkage. Both contracts cancelled; all 18 paid fulfilment records unchanged.",
       "customerJourney": "Partial only: purchase and renewal-stop tested; corrected exact-price purchase-through-renewal and merchant delivery lifecycle not verified.",
       "outstandingIssues": [
-        "Uncorrected checkout/renewals charged 255.18/493.56 instead of 255.20/493.60. Corrected unpaid first checkout matched, but recurring display showed 255.21/493.62. Saved manual corrections do not prove checkout transfer or charged renewal."
+        "Historical uncorrected charges were short; fresh corrected first/renewal charges now match. Native recurring disclosure still shows 255.21/493.62. Nonzero GST and production correction lifecycle remain unverified.",
+        "Fresh four QA orders have no Core operational rows; native payment evidence does not prove webhook routing."
       ],
       "dependencies": [
-        "Approved isolated exact-price test purchases and renewals must complete with user payment handoff; compatible test provider; merchant slot mapping."
+        "Production correction/disclosure approach; nonzero GST configuration/acceptance; merchant slot mapping."
       ],
       "evidence": [
         "docs/SUBSCRIPTION-NATIVE-QA-20261022.md",
@@ -87,7 +88,7 @@
         "docs/SUBSCRIPTION-PRICING-ACCEPTANCE-20261023.md"
       ],
       "remainingEngineering": [
-        "Verify a supported exact-price checkout-to-contract path; test exact renewal, discounts, GST and delivery; complete native calendar/slot lifecycle."
+        "Resolve native recurring disclosure, implement the verified correction lifecycle behind release gates, verify nonzero GST and complete native delivery/calendar lifecycle."
       ]
     },
     {
@@ -476,7 +477,8 @@
       "shopifyIntegration": "Correctly marked new prepaid paid order linked successfully; earlier malformed QA orders remain quarantined; native callback registration and read-only dispatch history recorded.",
       "customerJourney": "New initial purchase through future-renewal stop verified; actual validated renewal and wider mixed-stream lifecycle incomplete.",
       "outstandingIssues": [
-        "Corrected-price renewal routing, retry/out-of-order recovery and complete reconciliation still need native acceptance."
+        "Corrected-price renewal routing, retry/out-of-order recovery and complete reconciliation still need native acceptance.",
+        "Read-only database check: the four fresh exact-price QA orders have no operational rows; development callback/reconciliation must be verified."
       ],
       "dependencies": [
         "Exact pricing tests, fulfilment acceptance and permanent webhook/worker host."

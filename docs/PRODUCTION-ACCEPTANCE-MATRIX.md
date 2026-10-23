@@ -1,6 +1,6 @@
 # Performance Meals — full production acceptance
 
-Updated 23 October 2026. Evidence baseline: `ecbfb31`; 455 Core tests. No production acceptance or reduced-scope release is authorized. Tests and historical development observations are evidence, not blanket PASS decisions.
+Updated 23 October 2026. Evidence baseline: `ecbfb31`; 456 Core tests. No production acceptance or reduced-scope release is authorized. Tests and historical development observations are evidence, not blanket PASS decisions.
 
 Current classification: 1 PASS / 9 PARTIAL / 1 FAIL / 4 BLOCKED. The PASS is the merchant-approved absence of referral rewards, not a completed payment or subscription flow.
 
@@ -50,11 +50,11 @@ The machine-readable companion is [PRODUCTION-ACCEPTANCE-MATRIX.json](PRODUCTION
 
 **Actual Shopify tests:** Both initial purchases and historical test renewals observed; exact initial correction checkout comparisons and no-charge committed correction records observed. Last fresh cleanup: five QA contracts cancelled. Fresh unpaid comparisons reconfirm exact 255.20/493.60 first totals and free first/recurring delivery; recurring disclosure remains 255.21/493.62.
 
-**Customer journey:** Partial only: purchase and renewal-stop tested; corrected exact-price purchase-through-renewal and merchant delivery lifecycle not verified.
+**Customer journey:** Corrected exact initial purchase and first renewal verified for both terms; both test subscriptions cancelled with 18 paid fulfilment records unchanged. Native disclosure and full merchant delivery lifecycle remain unaccepted.
 
-**Outstanding issues:** Uncorrected checkout/renewals charged 255.18/493.56 instead of 255.20/493.60. Corrected unpaid first checkout matched, but recurring display showed 255.21/493.62. Saved manual corrections do not prove checkout transfer or charged renewal.
+**Outstanding issues:** Fresh corrected initial payments and first renewals now captured exactly 255.20/493.60. Native recurring display still shows 255.21/493.62; nonzero GST and production correction lifecycle remain unaccepted.
 
-**Dependencies/approvals:** Fresh unpaid setup completed and restored. Scoped exact-price purchase/renewal test approved, with user payment handoff; compatible test provider; merchant slot mapping.
+**Dependencies/approvals:** Production correction/disclosure approach, nonzero GST acceptance and merchant slot mapping.
 
 **Exact evidence:** [SUBSCRIPTION-NATIVE-QA-20261022.md](SUBSCRIPTION-NATIVE-QA-20261022.md), [SUBSCRIPTION-PRICING-SUPPORT-20261023.md](SUBSCRIPTION-PRICING-SUPPORT-20261023.md), [PREPAID-SCHEDULE-PAGINATION-20261023.md](PREPAID-SCHEDULE-PAGINATION-20261023.md). Private raw provider/native receipts remain local and are excluded from the public backup.
 

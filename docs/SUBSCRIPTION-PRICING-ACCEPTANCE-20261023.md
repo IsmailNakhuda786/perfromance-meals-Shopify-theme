@@ -1,6 +1,6 @@
 # Subscription pricing acceptance — 23 October 2026
 
-**Result: FAIL / release held.** Approved unpaid checkout comparisons were completed for both terms. No payment, capture, billing attempt, refund, new subscription or Wallet change was performed. The separately approved exact-price purchase/renewal test is the next gate.
+**Result: FAIL / release held.** Approved exact-price test purchases and one simulated renewal per term are now verified. Four Shopify Payments test charges totalled SGD 1,497.60. No real charge, refund or Wallet mutation occurred. Both newly tested subscriptions were cancelled with their paid deliveries preserved. Pricing release remains held for incorrect native recurring disclosure, nonzero GST acceptance and production integration.
 
 ## Fresh native observations
 
@@ -25,7 +25,7 @@ The original paid-package verifier rejects every discount. A separate explicit-c
 
 The corrected renewal reader additionally requires the actual saved successful attempt, exact contract, distinct renewal order and payment. Neither reader charges, changes records or enables sales. A historical matching total cannot prove a future renewal.
 
-Seven new automated tests cover both terms, automatic/manual allocations, nonzero/changed GST, wrong or extra discount attribution, short payment, delivery, refunded quantity, ownership, real-payment rejection and saved-attempt identity. The full455Core tests, TypeScript and lint pass. The added read query validates with the Shopify Toolkit at Admin2026-10. A fresh native query succeeds with requested cost61; the real255.18historical order is correctly refused against expected255.20.
+Seven new automated tests cover both terms, automatic/manual allocations, nonzero/changed GST, wrong or extra discount attribution, short payment, delivery, refunded quantity, ownership, real-payment rejection and saved-attempt identity. The full456Core tests, TypeScript and lint pass. The added read query validates with the Shopify Toolkit at Admin2026-10. A fresh native query succeeds with requested cost61; the real255.18historical order is correctly refused against expected255.20.
 
 Allocation amounts are used because Shopify describes `discountedTotalSet` as excluding order-level discounts: [LineItem](https://shopify.dev/docs/api/admin-graphql/2026-10/objects/LineItem), [DiscountAllocation](https://shopify.dev/docs/api/admin-graphql/2026-10/objects/DiscountAllocation).
 
@@ -50,3 +50,22 @@ On 23 October the signed-in QA customer added each term separately from an empty
 The three-term total was also confirmed in Shop Pay before leaving that flow without payment. Both standard checkouts were checked using the existing Singapore QA address, with empty card fields. No GST line was presented; this is not acceptance of nonzero GST. Native recurring-price disclosure still differs from the approved net. General subscription sales remain disabled.
 
 Cleanup: removed the QA cart line; restored product to draft/unpublished, restored the isolated shipping profile to its original three entries, deactivated both QA discounts, restored original selling-plan prices, and removed only the two temporary QA theme files. Fresh read-only preservation confirmed five cancelled QA contracts, no new payment methods/orders on the two prior no-charge records, and nine unchanged protected financial models. Raw screenshots and receipts are private and excluded from the public backup.
+
+## Approved exact-price captured-payment and renewal result
+
+| Term | Expected first / renewal SGD | Captured first SGD | Captured renewal SGD | Renewal correction SGD | Delivery / GST SGD |
+| --- | --- | --- | --- | --- | --- |
+| Three deliveries | 255.20 / 255.20 | 255.20 | 255.20 | 0.01 | 0 / 0 |
+| Six deliveries | 493.60 / 493.60 | 493.60 | 493.60 | 0.02 | 0 / 0 |
+
+Each initial payment was completed by the user using Shopify's test card. Fresh contract reads verified the expected app, QA customer, original test order, exact gross price, one unlimited recurring automatic discount, test payment method and zero delivery price before the single first-cycle attempt. Each attempt was journalled before submission with its own stable idempotency key; existing journals prevent another creation. Successful native attempt identity and linked order were checked through Core's corrected-renewal inspector. The original checkout uses AutomaticDiscountApplication; Shopify represents the inherited renewal allocation as ManualDiscountApplication with the same exact title and amount. Those two expectations were checked explicitly, without accepting arbitrary discounts.
+
+Both fresh subscriptions were cancelled after verification. Before/after native order snapshots prove both original and renewal orders remain uncancelled, with all 18 paid fulfilment records unchanged (six for the three-delivery test, twelve for the six-delivery test). Earlier five QA contracts and nine protected financial model snapshots also remain unchanged. Original catalogue/selling-plan prices, draft/unpublished availability and the three-entry isolated shipping profile were restored; both temporary corrections expired and the two preview files were removed.
+
+The first real test receipt exposed an incorrect chronology assumption: native payment processedAt was three seconds earlier than order createdAt. Core now validates both timestamps independently and trusts the exact native order-to-transaction association, identity and captured totals instead of inventing timestamp ordering. A regression test covers both ordinary and corrected payment readers. Payment time remains the native captured timestamp. A full-run fixture packaging error was also repaired by keeping installed dependencies external in the delivery-audit ESM test build.
+
+**Not accepted:** native checkout and thank-you recurring summaries still display 255.21/493.62 even though actual renewals captured the correct lower net. Zero GST in this environment does not prove inclusive nonzero GST. QA-only scripts do not supply a production correction/monitoring lifecycle, complete calendar acceptance or Wallet-funded renewal support. General sales and top-ups remain disabled.
+
+A separate read-only Core database check found no operational rows for these four fresh QA orders. Native payment acceptance therefore does not prove webhook delivery or Core lifecycle routing; reconnecting the development callback and safely reconciling these exact orders remains required. No manual replay or financial settlement was performed to conceal that gap.
+
+Final regression: 456 Core tests passed with development database network access; TypeScript and lint passed. The earlier restricted-network attempt failed to reach the database and is not counted as functional acceptance.

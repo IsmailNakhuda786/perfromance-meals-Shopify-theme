@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {buildServices} from './support/database.mjs';
-await buildServices({entryPoints:['app/services/delivery-charge-audit.server.ts'],outdir:'.shopify/delivery-charge-audit-test',bundle:true,format:'esm',platform:'node'});
+await buildServices({entryPoints:['app/services/delivery-charge-audit.server.ts'],outdir:'.shopify/delivery-charge-audit-test',bundle:true,packages:'external',format:'esm',platform:'node'});
 const {inspectNativeDeliveryCharge}=await import('../.shopify/delivery-charge-audit-test/delivery-charge-audit.server.js');
 const shop='delivery-audit.myshopify.com',orderGid='gid://shopify/Order/1';process.env.ALLOWED_SHOP=shop;
 const money=value=>({shopMoney:{amount:(value/100).toFixed(2),currencyCode:'SGD'}});
