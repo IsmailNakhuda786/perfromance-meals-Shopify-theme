@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "b9f93c9ef537bd789dd3194db70c1823fcf7fec4",
+  "source_commit": "d2a172d5340d4e299fae54925eb7f756752aad59",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -2311,7 +2311,7 @@
     },
     {
       "path": "docs/CORE-CONNECTIVITY-RECOVERY-20261024.md",
-      "sha256": "978fc17748b3c0543d6d959e526ca556e8638cfdcce389c95bda8d9f2b23ee76",
+      "sha256": "a545ac5e67cd4aaf98fd7e82b2db5a1ba0d6fdf86dd9811d2c09397fbfb2fcc0",
       "sanitized": false
     },
     {
@@ -2511,12 +2511,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "1cf5f6a2f155dc9794f85cd1abf1134605375c5a9a0fe08bf711d2bc7d701b5f",
+      "sha256": "9cc9c0ba75f44a4b7f45a5491cf6e75b49d2d855d9474d3796948f71d41b5c4b",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "287386b9db3693ee24f3218c3ffc29e3ae8dd6b8cd0ab40ce7a117d7e19a2aae",
+      "sha256": "390f42fc6f6197f6b2c080a226f73bdaa94b7e07e70b613905ddc2a9a0759be3",
       "sanitized": false
     },
     {
@@ -2591,7 +2591,7 @@
     },
     {
       "path": "docs/RESUME-CHECKPOINT-20261024-CONNECTIVITY.md",
-      "sha256": "65cad33966b096ce7fb353af5bf4699fe36805fdb21b2cbaf65920e19a7ef664",
+      "sha256": "d781a40a44c98d53d437c3bf3be2a68a2662c9c256f420be36ac4da2e39872bc",
       "sanitized": false
     },
     {

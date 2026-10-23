@@ -4,7 +4,7 @@ Updated 2026-10-24. Evidence baseline: `e066401`. Full agreed scope remains requ
 
 Current classification: **1 PASS / 10 PARTIAL / 0 FAIL / 4 BLOCKED**. The PASS is the approved absence of referral benefits, not a completed payment feature.
 
-Regression: 463/463 disposable SQLite tests; seven new recovery tests pass on PostgreSQL. Full PostgreSQL regression is not clean: connection/transaction timeouts remain an infrastructure issue.
+Regression: 463/463 disposable SQLite tests; seven new recovery tests pass on PostgreSQL. Targeted PostgreSQL reruns passed 60/60, including all previously failing cases; the full concurrent PostgreSQL regression is not clean and remains an infrastructure concern. Theme 71/71, TypeScript, lint and schema consistency passed.
 
 | # | Requirement | Status |
 | --- | --- | --- |

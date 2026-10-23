@@ -52,6 +52,7 @@ Cleanup was independently observed: Singapore **Not collecting**, inclusive pric
 
 - Added `subscription-renewal-links.server.ts` and seven focused PostgreSQL recovery tests, all passed.
 - Disposable SQLite regression: **463 passed / 0 failed / 0 skipped**. New `npm run test:isolated` generates a separate client, deploys fixture migrations and deletes its temporary database; it never targets the application database.
+- Targeted PostgreSQL reruns with bounded concurrency: **60/60 passed** (42 recovery/bundle/renewal-stop/Core-expiry checks plus 18 delivery-draft/native-expiry checks), including all four previously failing cases. Theme regression: **71/71 passed**. TypeScript, lint and production-schema consistency check passed.
 - Full remote PostgreSQL runs were not clean: the first had 461/463 pass (a connection failure and dependent fixture failure); a bounded-concurrency run had 459/463 pass (one connection failure and three interactive-transaction timeouts). Isolated rerun of the first failed suite passed 2/2. This remains infrastructure evidence, not a claim of a fully passing PostgreSQL regression.
 
 ## Permanent callback recommendation
