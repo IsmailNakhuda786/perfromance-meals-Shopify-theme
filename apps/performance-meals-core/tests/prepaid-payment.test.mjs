@@ -51,3 +51,30 @@ test('prepaid order quantity represents all deliveries, never the single checkou
  const six=fixture();six.order.lineItems.nodes[0].quantity=6;six.order.lineItems.nodes[0].currentQuantity=6;
  assert.equal((await readPrepaidPayment(admin(six),shop,{...expected,months:6})).upfrontMinor,25520);
 });
+
+const {readCorrectedPrepaidPayment:readCorrected,PREPAID_CORRECTED_PAYMENT_QUERY}=await import('../.shopify/prepaid-payment-test/prepaid-payment.server.js');
+const correction=(months=3,kind='AUTOMATIC',taxMinor=0)=>({baseMinor:months===3?25521:49362,discountMinor:months===3?1:2,applicationKind:kind,title:'Approved exact-price correction',taxMinor});
+function corrected(months=3,kind='AUTOMATIC',taxMinor=0){
+ const d=fixture(),c=correction(months,kind,taxMinor),total=months===3?'255.20':'493.60',line=d.order.lineItems.nodes[0];
+ for(const key of ['totalPriceSet','currentTotalPriceSet','totalReceivedSet'])d.order[key]=money(total);d.order.transactions[0].amountSet=money(total);
+ d.order.totalDiscountsSet=money((c.discountMinor/100).toFixed(2));d.order.totalTaxSet=money((taxMinor/100).toFixed(2));d.order.currentTotalTaxSet=money((taxMinor/100).toFixed(2));
+ line.quantity=months;line.currentQuantity=months;line.originalTotalSet=money((c.baseMinor/100).toFixed(2));line.discountAllocations=[{allocatedAmountSet:money((c.discountMinor/100).toFixed(2)),discountApplication:{__typename:kind==='AUTOMATIC'?'AutomaticDiscountApplication':'ManualDiscountApplication',title:c.title}}];return d;
+}
+const correctedAdmin=d=>({graphql:async(q,{variables})=>{assert.equal(q,PREPAID_CORRECTED_PAYMENT_QUERY);assert.doesNotMatch(q,/\bmutation\b/);assert.equal(variables.id,expected.orderGid);return Response.json({data:d});}});
+test('explicit approved corrections prove exact three/six-term net paid amounts while retaining release holds',async()=>{
+ for(const months of[3,6])for(const kind of['AUTOMATIC','MANUAL']){const e={...expected,months,upfrontMinor:months===3?25520:49360},p=await readCorrected(correctedAdmin(corrected(months,kind)),shop,e,correction(months,kind));assert.equal(p.upfrontMinor,e.upfrontMinor);assert.equal(p.correction.discountMinor,months===3?1:2);assert.equal(p.checkoutPropagationVerified,false);assert.equal(p.futureRenewalVerified,false);await assert.rejects(readPrepaidPayment(admin(corrected(months,kind)),shop,e));}
+});
+test('explicit GST must match both original and current native tax evidence',async()=>{
+ const c=correction(3,'AUTOMATIC',2107),d=corrected(3,'AUTOMATIC',2107);assert.equal((await readCorrected(correctedAdmin(d),shop,expected,c)).correction.taxMinor,2107);
+ for(const edit of[d=>d.order.totalTaxSet=money('21.08'),d=>d.order.currentTotalTaxSet=money('0'),d=>delete d.order.totalTaxSet,d=>d.order.totalTaxSet.shopMoney.currencyCode='USD']){const d=corrected(3,'AUTOMATIC',2107);edit(d);await assert.rejects(readCorrected(correctedAdmin(d),shop,expected,c));}
+});
+test('correct total alone cannot hide missing, extra, foreign or differently titled native correction allocations',async()=>{
+ for(const edit of[d=>delete d.order.lineItems.nodes[0].discountAllocations,d=>d.order.lineItems.nodes[0].discountAllocations=[],d=>d.order.lineItems.nodes[0].discountAllocations.push(structuredClone(d.order.lineItems.nodes[0].discountAllocations[0])),d=>d.order.lineItems.nodes[0].discountAllocations[0].discountApplication.__typename='DiscountCodeApplication',d=>d.order.lineItems.nodes[0].discountAllocations[0].discountApplication.title='Other promotion',d=>d.order.lineItems.nodes[0].originalTotalSet=money('255.22'),d=>d.order.lineItems.nodes[0].discountAllocations[0].allocatedAmountSet=money('0.02'),d=>d.order.totalDiscountsSet=money('0.02')]){const d=corrected();edit(d);await assert.rejects(readCorrected(correctedAdmin(d),shop,expected,correction()));}
+});
+test('approved cent correction does not permit delivery fees, short payments, foreign ownership or real charges',async()=>{
+ for(const edit of[d=>d.order.totalShippingPriceSet=money('5'),d=>d.order.transactions[0].amountSet=money('255.18'),d=>d.order.customer.id='gid://shopify/Customer/99',d=>d.order.test=false,d=>d.order.transactions[0].test=false,d=>d.order.totalRefundedSet=money('0.01'),d=>d.order.lineItems.nodes[0].currentQuantity=0]){const d=corrected();edit(d);await assert.rejects(readCorrected(correctedAdmin(d),shop,expected,correction()));}
+});
+test('missing or broadened correction authority is refused before a native request',async()=>{
+ const api={graphql:async()=>assert.fail('No request authorized')};
+ for(const c of[null,{...correction(),discountMinor:0},{...correction(),discountMinor:3,baseMinor:25523},{...correction(),baseMinor:25522},{...correction(),title:''},{...correction(),applicationKind:'CODE'},{...correction(),taxMinor:undefined},{...correction(),taxMinor:-1},{...correction(),taxMinor:25521}])await assert.rejects(readCorrected(api,shop,expected,c));
+});

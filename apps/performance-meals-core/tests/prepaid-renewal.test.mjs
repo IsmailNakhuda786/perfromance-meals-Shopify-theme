@@ -11,7 +11,7 @@ const fixture=()=>({shop:{myshopifyDomain:shop,currencyCode:'SGD'},currentAppIns
 
 const renewalExpected={...expected,attemptGid:'gid://shopify/SubscriptionBillingAttempt/20',idempotencyKey:'saved-renewal-key',renewalOrderGid:'gid://shopify/Order/21',renewalOrderLineGid:'gid://shopify/LineItem/22'};
 function data(){const d=fixture();d.order.id=renewalExpected.renewalOrderGid;d.order.lineItems.nodes[0].id=renewalExpected.renewalOrderLineGid;d.subscriptionBillingAttempt={id:renewalExpected.attemptGid,idempotencyKey:renewalExpected.idempotencyKey,subscriptionContract:{id:contractGid},state:{__typename:'SubscriptionBillingAttemptSuccessState',order:{id:renewalExpected.renewalOrderGid}}};return d;}
-const admin=d=>({graphql:async(q,{variables})=>{assert.doesNotMatch(q,/\bmutation\b/);assert.equal(variables.id,q.includes('ReadySeriesRenewalAttempt')?renewalExpected.attemptGid:q.includes('ReadySeriesOriginalPayment')?renewalExpected.renewalOrderGid:contractGid);return Response.json({data:d});}});
+const admin=d=>({graphql:async(q,{variables})=>{assert.doesNotMatch(q,/\bmutation\b/);assert.equal(variables.id,q.includes('ReadySeriesRenewalAttempt')?renewalExpected.attemptGid:/ReadySeries(?:Original|Corrected)Payment/.test(q)?renewalExpected.renewalOrderGid:contractGid);return Response.json({data:d});}});
 test('a renewal needs its own exact attempt, contract and captured test payment; old success never enables another charge',async()=>{
  for(const status of ['ACTIVE','PAUSED','CANCELLED']){const d=data();d.subscriptionContract.status=status;const r=await inspectPrepaidRenewal(admin(d),shop,contractGid,renewalExpected);assert.equal(r.payment.upfrontMinor,25520);assert.equal(r.observedRenewalVerified,true);assert.equal(r.activationAllowed,false);assert.equal(r.futureRenewalsVerified,false);}
 });
@@ -37,4 +37,20 @@ test('six-delivery renewal requires six original quantities and every approved c
  assert.equal((await inspectPrepaidRenewal(admin(d),shop,contractGid,e)).payment.upfrontMinor,49360);
  d.order.lineItems.nodes[0].quantity=3;await assert.rejects(inspectPrepaidRenewal(admin(d),shop,contractGid,e));d.order.lineItems.nodes[0].quantity=6;
  for(const k of ['totalPriceSet','currentTotalPriceSet','totalReceivedSet'])d.order[k]=money('493.56');d.order.transactions[0].amountSet=money('493.56');await assert.rejects(inspectPrepaidRenewal(admin(d),shop,contractGid,e));
+});
+
+
+const {inspectCorrectedPrepaidRenewal}=await import('../.shopify/prepaid-renewal-test/prepaid-renewal.server.js');
+function correctedRenewal(months=3){
+ const d=data(),amount=months===3?'255.20':'493.60',base=months===3?'255.21':'493.62',discount=months===3?'0.01':'0.02';
+ d.subscriptionContract.billingPolicy.intervalCount=months;d.order.lineItems.nodes[0].quantity=months;d.order.lineItems.nodes[0].currentQuantity=months;
+ for(const key of['totalPriceSet','currentTotalPriceSet','totalReceivedSet'])d.order[key]=money(amount);d.order.transactions[0].amountSet=money(amount);d.order.totalDiscountsSet=money(discount);d.order.totalTaxSet=money('0');d.order.currentTotalTaxSet=money('0');
+ d.order.lineItems.nodes[0].originalTotalSet=money(base);d.order.lineItems.nodes[0].discountAllocations=[{allocatedAmountSet:money(discount),discountApplication:{__typename:'ManualDiscountApplication',title:'Approved recurring correction'}}];
+ return{d,e:{...renewalExpected,months,upfrontMinor:months===3?25520:49360},c:{baseMinor:months===3?25521:49362,discountMinor:months===3?1:2,applicationKind:'MANUAL',title:'Approved recurring correction',taxMinor:0}};
+}
+test('explicit corrected renewal requires the real saved attempt and exact independently captured three/six-term net',async()=>{
+ for(const months of[3,6]){const{d,e,c}=correctedRenewal(months),proof=await inspectCorrectedPrepaidRenewal(admin(d),shop,contractGid,e,c);assert.equal(proof.payment.upfrontMinor,e.upfrontMinor);assert.equal(proof.payment.correction.discountMinor,c.discountMinor);assert.equal(proof.observedRenewalVerified,true);assert.equal(proof.futureRenewalsVerified,false);assert.equal(proof.activationAllowed,false);await assert.rejects(inspectPrepaidRenewal(admin(d),shop,contractGid,e));}
+});
+test('matching corrected net never replaces attempt identity, allocation, tax or test-payment evidence',async()=>{
+ for(const edit of[d=>d.subscriptionBillingAttempt.idempotencyKey='other',d=>d.subscriptionBillingAttempt.state.order.id=expected.orderGid,d=>d.order.transactions[0].test=false,d=>d.order.lineItems.nodes[0].discountAllocations[0].discountApplication.title='Other promotion',d=>d.order.currentTotalTaxSet=money('0.01'),d=>d.order.totalReceivedSet=money('255.18')]){const{d,e,c}=correctedRenewal();edit(d);await assert.rejects(inspectCorrectedPrepaidRenewal(admin(d),shop,contractGid,e,c));}
 });

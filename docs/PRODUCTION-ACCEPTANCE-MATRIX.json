@@ -1,0 +1,494 @@
+{
+  "updated": "2026-10-23",
+  "sourceCheckpoint": "ecbfb31559c53cc128f317abf04e2de82d9cf307",
+  "scope": "Full agreed production acceptance; no reduced-scope launch",
+  "productionAccepted": false,
+  "statusDefinitions": {
+    "PASS": "Full currently approved requirement demonstrated; no implementation inferred from unit tests alone. Intentional merchant-disabled functionality can pass only that disabled-policy requirement.",
+    "PARTIAL": "Implemented and some evidence exists, but required production/customer/lifecycle evidence remains.",
+    "FAIL": "A required observable result demonstrably differs from the agreed rule.",
+    "BLOCKED": "A required platform capability, authorization or external dependency prevents completion."
+  },
+  "baseline": {
+    "coreTests": 455,
+    "nativeReadback": "Fresh read-only cleanup/preservation rechecked 23 October; five cancelled QA contracts, three paid deliveries unchanged and nine financial model snapshots unchanged.",
+    "checkoutPricing": "New unpaid setup awaiting separate approval. No new payment authorization implied.",
+    "topUpsEnabled": false,
+    "newEngineering": "Explicit corrected-payment and corrected-renewal read-only inspectors; seven new tests; existing undiscounted verifier remains strict."
+  },
+  "counts": {
+    "PARTIAL": 9,
+    "FAIL": 1,
+    "BLOCKED": 4,
+    "PASS": 1
+  },
+  "requirements": [
+    {
+      "id": 1,
+      "requirement": "Authenticated Meal Plan persistence",
+      "status": "PARTIAL",
+      "implemented": "Authenticated saved menus, paid-menu edits, revision checks and database persistence.",
+      "automatedTests": {
+        "state": "PASSED_BASELINE",
+        "files": [
+          "apps/performance-meals-core/tests/account-programmes.test.mjs",
+          "apps/performance-meals-core/tests/programme-menus.test.mjs",
+          "apps/performance-meals-core/tests/programme-period.test.mjs"
+        ]
+      },
+      "shopifyIntegration": "Development account save/reload plus independent PostgreSQL readback; preserved historical operational records.",
+      "customerJourney": "Development journey verified; permanent-host, recovery and final production environment not accepted.",
+      "outstandingIssues": [
+        "No permanent-environment acceptance or restored-backup customer replay."
+      ],
+      "dependencies": [
+        "Permanent infrastructure and production credentials/approval."
+      ],
+      "evidence": [
+        "docs/CORE-ACCOUNT-STARTUP-20261021.md",
+        "docs/CUSTOMER-CORE-COMPLETION-TRACKER.md"
+      ],
+      "remainingEngineering": [
+        "Repeat complete signed-in edit/save/reload on permanent staging; prove restore and isolation."
+      ]
+    },
+    {
+      "id": 2,
+      "requirement": "Ready Series prepaid subscriptions",
+      "status": "FAIL",
+      "implemented": "Three-/six-delivery products, independent billing/delivery cadence, paid-order checks, draft calendar/reminders, schedule pagination and explicit correction inspector. Separate explicit-cent-correction payment/renewal proof now checks native allocation identity, exact gross/net, current/original GST and captured test receipts.",
+      "automatedTests": {
+        "state": "PASSED_BASELINE",
+        "files": [
+          "apps/performance-meals-core/tests/prepaid-selling-plan.test.mjs",
+          "apps/performance-meals-core/tests/prepaid-verification.test.mjs",
+          "apps/performance-meals-core/tests/prepaid-calculation.test.mjs",
+          "apps/performance-meals-core/tests/prepaid-payment.test.mjs",
+          "apps/performance-meals-core/tests/prepaid-purchase.test.mjs",
+          "apps/performance-meals-core/tests/prepaid-renewal.test.mjs",
+          "apps/performance-meals-core/tests/prepaid-schedule.test.mjs",
+          "apps/performance-meals-core/tests/paid-ready-draft.test.mjs",
+          "apps/performance-meals-core/tests/prepaid-payment.test.mjs",
+          "apps/performance-meals-core/tests/prepaid-renewal.test.mjs"
+        ]
+      },
+      "shopifyIntegration": "Both initial purchases and historical test renewals observed; exact initial correction checkout comparisons and no-charge committed correction records observed. Last fresh cleanup: five QA contracts cancelled. Fresh four-order historical readback reconfirms initial/renewal shortfalls for both terms; new query cost61 and explicit rejection of the underpaid historical order verified.",
+      "customerJourney": "Partial only: purchase and renewal-stop tested; corrected exact-price purchase-through-renewal and merchant delivery lifecycle not verified.",
+      "outstandingIssues": [
+        "Uncorrected checkout/renewals charged 255.18/493.56 instead of 255.20/493.60. Corrected unpaid first checkout matched, but recurring display showed 255.21/493.62. Saved manual corrections do not prove checkout transfer or charged renewal."
+      ],
+      "dependencies": [
+        "Approval for fresh unpaid setup and later separately scoped test charges; compatible test provider; merchant slot mapping."
+      ],
+      "evidence": [
+        "docs/SUBSCRIPTION-NATIVE-QA-20261022.md",
+        "docs/SUBSCRIPTION-PRICING-SUPPORT-20261023.md",
+        "docs/PREPAID-SCHEDULE-PAGINATION-20261023.md",
+        "docs/SUBSCRIPTION-PRICING-ACCEPTANCE-20261023.md"
+      ],
+      "remainingEngineering": [
+        "Verify a supported exact-price checkout-to-contract path; test exact renewal, discounts, GST and delivery; complete native calendar/slot lifecycle."
+      ]
+    },
+    {
+      "id": 3,
+      "requirement": "6 by 60 and Plus programmes",
+      "status": "PARTIAL",
+      "implemented": "One-off programme semantics and immutable 88-weekday/32-frozen/120-total entitlement snapshots for new purchases.",
+      "automatedTests": {
+        "state": "PASSED_BASELINE",
+        "files": [
+          "apps/performance-meals-core/tests/programme-period.test.mjs",
+          "apps/performance-meals-core/tests/programme-menus.test.mjs",
+          "apps/performance-meals-core/tests/account-programmes.test.mjs",
+          "apps/performance-meals-core/tests/subscription-quantity.test.mjs"
+        ]
+      },
+      "shopifyIntegration": "Native one-off test orders and saved sixty-day menus recorded.",
+      "customerJourney": "Purchase/menu persistence partially verified; full frozen allocation, dispatch and Support lifecycle incomplete.",
+      "outstandingIssues": [
+        "Frozen-meal fulfilment allocation and complete native lifecycle remain unverified."
+      ],
+      "dependencies": [
+        "Merchant stock/fulfilment configuration and isolated QA approval where new records are needed."
+      ],
+      "evidence": [
+        "docs/MEAL-PLAN-60-DAY-BILLING-DECISION-20261009.md",
+        "docs/CUSTOMER-CORE-COMPLETION-TRACKER.md"
+      ],
+      "remainingEngineering": [
+        "Bind every frozen/weekday entitlement to actual fulfilment quantities and prove no loss or duplicate delivery."
+      ]
+    },
+    {
+      "id": 4,
+      "requirement": "Product, bundle quantities and contents",
+      "status": "PARTIAL",
+      "implemented": "Admin-editable dish/catalogue records, bundle component references, immutable review and signed-in bundle checks.",
+      "automatedTests": {
+        "state": "PASSED_BASELINE",
+        "files": [
+          "apps/performance-meals-core/tests/bundle-reviews.test.mjs",
+          "apps/performance-meals-core/tests/bundle-review-route.test.mjs",
+          "apps/performance-meals-core/tests/bundle-checkout-approvals.test.mjs",
+          "apps/performance-meals-core/tests/bundle-fulfillment.test.mjs"
+        ]
+      },
+      "shopifyIntegration": "Draft catalogue: 28 dishes, 13 bundles, eight prepaid configurations. Fourteen-item bundle payment/routing and scoped unpaid review/cart/sign-in comparisons recorded.",
+      "customerJourney": "Review and cart quantity journey verified in isolated preview; final-submission concurrent replay and bound fulfilment acceptance incomplete.",
+      "outstandingIssues": [
+        "Freshness and two concurrent checkouts reusing the same review not fully proven at final submission."
+      ],
+      "dependencies": [
+        "Supported final checkout enforcement and isolated complete fulfilment test."
+      ],
+      "evidence": [
+        "docs/CORE-BUNDLE-CART-20261021.md",
+        "docs/CORE-BUNDLE-APPROVAL-CANDIDATE-20261021.md",
+        "docs/CORE-BUNDLE-FULFILLMENT-AUDIT-20261021.md"
+      ],
+      "remainingEngineering": [
+        "Close final-submission replay/freshness gap and verify actual review-bound fulfilment."
+      ]
+    },
+    {
+      "id": 5,
+      "requirement": "GST, pricing and delivery charging",
+      "status": "PARTIAL",
+      "implemented": "Core shipping policy: eligible ordinary food after discounts, 75/125 boundaries, prepaid exclusion and per-physical-delivery allocation.",
+      "automatedTests": {
+        "state": "PASSED_BASELINE",
+        "files": [
+          "apps/performance-meals-core/tests/delivery-policy.test.mjs",
+          "apps/performance-meals-core/tests/core-delivery-options.test.mjs",
+          "apps/performance-meals-core/tests/core-delivery-qa.test.mjs",
+          "apps/performance-meals-core/tests/delivery-charge-audit.test.mjs"
+        ]
+      },
+      "shopifyIntegration": "Official Function fixtures and eleven isolated unpaid shipping comparisons; temporary nonzero-GST, mixed, coupon and normal-storefront checks recorded. Core Function tests restored inactive.",
+      "customerJourney": "Ordinary-food and selected mixed-cart unpaid journeys verified; production profiles, subscription groups and all multi-delivery assignments incomplete.",
+      "outstandingIssues": [
+        "Exact subscription pricing failure tracked in requirement 2. Third-party Collection Total rule failed order-level discounts and is not an accepted production dependency."
+      ],
+      "dependencies": [
+        "Production plan/distribution eligibility, verified physical-delivery grouping and shipping-profile approval."
+      ],
+      "evidence": [
+        "docs/CORE-SHIPPING-FUNCTION-QA-20261018.md",
+        "docs/GST-CHECKOUT-QA-20261019.md",
+        "docs/STOREFRONT-SHIPPING-QA-20261019.md"
+      ],
+      "remainingEngineering": [
+        "Complete subscription and multi-delivery native cases; install supported Core enforcement on approved production profiles."
+      ]
+    },
+    {
+      "id": 6,
+      "requirement": "Wallet source ledger, priority and expiry",
+      "status": "BLOCKED",
+      "implemented": "Source-aware ledger, exact source priority, FIFO within source, guarded expiry, draft recovery and protected attribution.",
+      "automatedTests": {
+        "state": "PASSED_BASELINE",
+        "files": [
+          "apps/performance-meals-core/tests/wallet-ledger.test.mjs",
+          "apps/performance-meals-core/tests/wallet-fifo.test.mjs",
+          "apps/performance-meals-core/tests/wallet-credit-policy.test.mjs",
+          "apps/performance-meals-core/tests/wallet-core-expiry.test.mjs",
+          "apps/performance-meals-core/tests/core-wallet-draft.test.mjs",
+          "apps/performance-meals-core/tests/core-wallet-redemption.test.mjs"
+        ]
+      },
+      "shopifyIntegration": "Historical native spending, reconciliation and isolated expiry debit recorded. Developer Support did not identify an Advanced architecture meeting all rules.",
+      "customerJourney": "Approved full priority/food-only/expiry/card-preserving checkout journey not supported or verified.",
+      "outstandingIssues": [
+        "Native Store Credit spends earliest expiry; cannot select required lots or restrict only bonus to food. Scheduler-only expiry cannot prove resumed-checkout safety."
+      ],
+      "dependencies": [
+        "Shopify eligibility/architecture review; Plus plus closed-beta invitation is not guaranteed by buying Plus."
+      ],
+      "evidence": [
+        "docs/WALLET-PLATFORM-REVIEW-20261023.md",
+        "docs/CORE-FIRST-WALLET-INVESTIGATION-20261017.md",
+        "docs/WALLET-CORE-EXPIRY-QA-20261015.md"
+      ],
+      "remainingEngineering": [
+        "Obtain supported payment architecture, then implement transactional reservation, expiry, reconciliation and card-preserving recovery. Do not relax approved rules."
+      ]
+    },
+    {
+      "id": 7,
+      "requirement": "Wallet top-up and native settlement",
+      "status": "BLOCKED",
+      "implemented": "Default-off guarded settlement, verified-payment evidence, duplicate protection, amount/package rules and reversal/reconciliation guards.",
+      "automatedTests": {
+        "state": "PASSED_BASELINE",
+        "files": [
+          "apps/performance-meals-core/tests/wallet-top-up-settlement.test.mjs",
+          "apps/performance-meals-core/tests/wallet-top-up-reconciliation.test.mjs",
+          "apps/performance-meals-core/tests/wallet-top-up-native.test.mjs",
+          "apps/performance-meals-core/tests/wallet-top-up-lifecycle.test.mjs",
+          "apps/performance-meals-core/tests/wallet-top-up-policy.test.mjs",
+          "apps/performance-meals-core/tests/wallet-approved-package.test.mjs"
+        ]
+      },
+      "shopifyIntegration": "Scoped payment restriction, credit spending/return and temporary credit expiry tests recorded; no approved general end-to-end top-up activation.",
+      "customerJourney": "Full paid top-up to spend, expiry and exceptional reversal not accepted.",
+      "outstandingIssues": [
+        "Complete supported bonus/source/expiry architecture absent; top-ups remain disabled."
+      ],
+      "dependencies": [
+        "Requirement 6 architecture and approved final safeguard matrix."
+      ],
+      "evidence": [
+        "docs/WALLET-TOP-UP-IMPLEMENTATION.md",
+        "docs/WALLET-TOP-UP-SAFEGUARD-QA-20261013.md"
+      ],
+      "remainingEngineering": [
+        "Prove exact once credit after paid proof, exclusions, no circular funding, failed/lost payment recovery and reconciled exceptional reversals."
+      ]
+    },
+    {
+      "id": 8,
+      "requirement": "Gift Card claim, conversion and expiry",
+      "status": "PARTIAL",
+      "implemented": "Named-recipient full conversion, original Gift Card expiry retention, concurrency/recovery guards and inactive reminder outbox.",
+      "automatedTests": {
+        "state": "PASSED_BASELINE",
+        "files": [
+          "apps/performance-meals-core/tests/gift-card-claim.test.mjs",
+          "apps/performance-meals-core/tests/gift-card-request.test.mjs",
+          "apps/performance-meals-core/tests/gift-card-expiry-policy.test.mjs",
+          "apps/performance-meals-core/tests/gift-card-reminder.test.mjs",
+          "apps/performance-meals-core/tests/gift-card-reminder-development.test.mjs"
+        ]
+      },
+      "shopifyIntegration": "Recipient full conversion and one matching native credit verified; separate expiry QA card cancelled/deactivated. Reminder adapter/provider integration partly mocked.",
+      "customerJourney": "Scoped claim verified; automated issuance, full reminder/recovery and expired/replayed live journeys incomplete.",
+      "outstandingIssues": [
+        "No full permanent sender/scheduler acceptance; overall funding consumption depends on Wallet architecture."
+      ],
+      "dependencies": [
+        "Production sender, scheduler and requirement 6."
+      ],
+      "evidence": [
+        "docs/GIFT-CARD-WALLET-QA.md",
+        "docs/GIFT-CARD-EXPIRY-READINESS-20261015.md",
+        "docs/GIFT-CARD-REMINDER-DEVELOPMENT-20261018.md"
+      ],
+      "remainingEngineering": [
+        "Verify issuance-to-claim-to-spend-to-expiry including named recipient, original expiry and interruption recovery."
+      ]
+    },
+    {
+      "id": 9,
+      "requirement": "Wallet-funded subscription renewals",
+      "status": "BLOCKED",
+      "implemented": "Feasibility gate prevents claiming native Store Credit can pay recurring bills.",
+      "automatedTests": {
+        "state": "PASSED_BASELINE",
+        "files": [
+          "apps/performance-meals-core/tests/readiness.test.mjs",
+          "apps/performance-meals-core/tests/native-wallet-credit-ready.test.mjs",
+          "apps/performance-meals-core/tests/prepaid-renewal.test.mjs"
+        ]
+      },
+      "shopifyIntegration": "Written Shopify clarification: native Store Credit/Gift Cards may fund initial purchase, not recurring subscription bills.",
+      "customerJourney": "Required recurring Wallet payment journey not implemented or accepted.",
+      "outstandingIssues": [
+        "No supported production Wallet recurring-payment route confirmed."
+      ],
+      "dependencies": [
+        "Shopify-approved payment architecture/eligibility distinct from initial checkout funding."
+      ],
+      "evidence": [
+        "docs/WALLET-PLATFORM-REVIEW-20261023.md"
+      ],
+      "remainingEngineering": [
+        "Establish supported recurring authorization and atomic debit/charge recovery; test mixed/failed/expired funding without duplicate bills."
+      ]
+    },
+    {
+      "id": 10,
+      "requirement": "Rewards earning and redemption",
+      "status": "PARTIAL",
+      "implemented": "Payment-time rates, non-stacking promotions, cents floored per rate, qualifying food GST, exact funding exclusions and fixed redemption.",
+      "automatedTests": {
+        "state": "PASSED_BASELINE",
+        "files": [
+          "apps/performance-meals-core/tests/rewards-policy.test.mjs",
+          "apps/performance-meals-core/tests/rewards-rate-history.test.mjs",
+          "apps/performance-meals-core/tests/rewards-ledger.test.mjs",
+          "apps/performance-meals-core/tests/rewards-native.test.mjs",
+          "apps/performance-meals-core/tests/rewards-redemption.test.mjs",
+          "apps/performance-meals-core/tests/order-funding.test.mjs"
+        ]
+      },
+      "shopifyIntegration": "Scoped native earning/redemption and mixed-payment exclusion recorded; 500 cross-engine attribution samples recorded.",
+      "customerJourney": "Scoped customer earning/redemption verified; general source-controlled checkout, bonus/GST/reversal and recovery journey incomplete.",
+      "outstandingIssues": [
+        "Full original-money attribution at checkout depends on supported Wallet consumption; activation remains guarded."
+      ],
+      "dependencies": [
+        "Requirement 6 and final native funding/reversal acceptance."
+      ],
+      "evidence": [
+        "docs/REWARDS-FUNDING-VALIDATION-20261014.md",
+        "docs/REWARDS-NATIVE-QA-20261013.md"
+      ],
+      "remainingEngineering": [
+        "Verify full earning-to-redemption-to-spend with real native funding, GST, promotions and exceptional reversals; activate only after acceptance."
+      ]
+    },
+    {
+      "id": 11,
+      "requirement": "Referral and unapproved benefits remain inactive",
+      "status": "PASS",
+      "implemented": "Referral bonuses and unconfirmed tiers/benefits deliberately inactive according to merchant decision.",
+      "automatedTests": {
+        "state": "PASSED_BASELINE",
+        "files": [
+          "apps/performance-meals-core/tests/rewards-policy.test.mjs",
+          "apps/performance-meals-core/tests/readiness.test.mjs"
+        ]
+      },
+      "shopifyIntegration": "No referral earning or paid referral journey is enabled; merchant explicitly deferred formal referral rewards.",
+      "customerJourney": "Not applicable by approved policy: no referral programme should exist at launch under current requirements.",
+      "outstandingIssues": [],
+      "dependencies": [
+        "Any future referral economics require a new merchant decision."
+      ],
+      "evidence": [
+        "docs/CUSTOMER-CORE-COMPLETION-TRACKER.md",
+        "docs/WALLET-MERCHANT-RULES-20261015.md"
+      ],
+      "remainingEngineering": [
+        "Retain disabled state; final configuration acceptance must confirm no accidental referral claims."
+      ]
+    },
+    {
+      "id": 12,
+      "requirement": "Customer account journeys",
+      "status": "PARTIAL",
+      "implemented": "Seven account sections, Wallet/history, saved programmes and freshly bound subscription status; startup race repair.",
+      "automatedTests": {
+        "state": "PASSED_BASELINE",
+        "files": [
+          "apps/performance-meals-core/tests/account-programmes.test.mjs",
+          "apps/performance-meals-core/tests/account-subscriptions.test.mjs",
+          "apps/performance-meals-core/tests/subscription-renewal-stop-client.test.mjs",
+          "apps/performance-meals-core/tests/subscription-renewal-stop-route.test.mjs"
+        ]
+      },
+      "shopifyIntegration": "Native seven-section rendering and saved menus recorded; authenticated Ready Series future-renewal stop now passed with independent preservation proof.",
+      "customerJourney": "Several isolated journeys verified; all sections with full final Wallet/subscription state and permanent host not accepted.",
+      "outstandingIssues": [
+        "General management/branding and recovery acceptance incomplete; blocked payment features must not be represented as ready."
+      ],
+      "dependencies": [
+        "Requirements 2, 6-10, 13 and permanent hosting."
+      ],
+      "evidence": [
+        "docs/CORE-ACCOUNT-STARTUP-20261021.md",
+        "docs/SUBSCRIPTION-RENEWAL-STOP-20261023.md"
+      ],
+      "remainingEngineering": [
+        "Complete final seven-section end-to-end matrix, expired sessions, access isolation, mobile and interrupted-operation recovery."
+      ]
+    },
+    {
+      "id": 13,
+      "requirement": "Fulfilment, pause, reschedule and future-renewal management",
+      "status": "PARTIAL",
+      "implemented": "Authenticated future-renewal stop with durable intent/replay guards; pure delivery-change notice/slot planner and inactive reminder persistence.",
+      "automatedTests": {
+        "state": "PASSED_BASELINE",
+        "files": [
+          "apps/performance-meals-core/tests/subscription-renewal-stop.test.mjs",
+          "apps/performance-meals-core/tests/subscription-renewal-stop-route.test.mjs",
+          "apps/performance-meals-core/tests/subscription-renewal-stop-client.test.mjs",
+          "apps/performance-meals-core/tests/ready-series-change.test.mjs",
+          "apps/performance-meals-core/tests/ready-delivery-draft.test.mjs",
+          "apps/performance-meals-core/tests/order-dispatch.test.mjs"
+        ]
+      },
+      "shopifyIntegration": "Ready Series customer stop verified: native contract cancelled, one completed audit, three paid fulfilments/order unchanged and nine financial models unchanged. Same/new-key service replays attempted no second mutation.",
+      "customerJourney": "Future-renewal stop passed in isolated Ready Series journey. Customer delivery pause/reschedule and Meal Plan management incomplete.",
+      "outstandingIssues": [
+        "Slot capacity, authenticated reschedule persistence, native work-start/delivery mapping and complete paid entitlement lifecycle are not proven."
+      ],
+      "dependencies": [
+        "Merchant slot source, native write access/test approval and provider/scheduler for reminders."
+      ],
+      "evidence": [
+        "docs/SUBSCRIPTION-RENEWAL-STOP-20261023.md",
+        "docs/READY-SERIES-DELIVERY-CHANGE-20261023.md",
+        "docs/PREPAID-SCHEDULE-PAGINATION-20261023.md"
+      ],
+      "remainingEngineering": [
+        "Implement authoritative capacity/reschedule executor and native preservation proof; verify Meal Plan management without pausing billing inadvertently."
+      ]
+    },
+    {
+      "id": 14,
+      "requirement": "Permanent infrastructure, recovery and operations",
+      "status": "BLOCKED",
+      "implemented": "Development PostgreSQL, production-schema migration mirror, deployment safety preflight and local checkpoint/backups.",
+      "automatedTests": {
+        "state": "PASSED_BASELINE",
+        "files": [
+          "apps/performance-meals-core/tests/dev-config.test.mjs",
+          "apps/performance-meals-core/tests/readiness.test.mjs",
+          "apps/performance-meals-core/tests/privacy.test.mjs"
+        ]
+      },
+      "shopifyIntegration": "Development migrations and preserved-data checks recorded; no commercial production deployment approved.",
+      "customerJourney": "Permanent customer journey, restore/failover, scheduler and production incidents not accepted.",
+      "outstandingIssues": [
+        "Temporary local/tunnel environment is not a permanent operational platform."
+      ],
+      "dependencies": [
+        "Merchant hosting/plan/budget, production credentials and explicit deployment approval."
+      ],
+      "evidence": [
+        "docs/CORE-DEPLOYMENT.md",
+        "docs/PRIVACY-REVIEW-GATE-20261019.md"
+      ],
+      "remainingEngineering": [
+        "Provision approved hosting/database/secrets/workers, perform restore/replay drills, monitoring, retention and operational ownership acceptance."
+      ]
+    },
+    {
+      "id": 15,
+      "requirement": "Original ownership, webhook routing and cross-stream reconciliation",
+      "status": "PARTIAL",
+      "implemented": "Native order/contract listeners, immutable stream markers, validated original linking, quarantine and monotonic dispatch guards.",
+      "automatedTests": {
+        "state": "PASSED_BASELINE",
+        "files": [
+          "apps/performance-meals-core/tests/order-webhook.test.mjs",
+          "apps/performance-meals-core/tests/order-routing-evidence.test.mjs",
+          "apps/performance-meals-core/tests/subscription-webhook.test.mjs",
+          "apps/performance-meals-core/tests/subscription-links.test.mjs",
+          "apps/performance-meals-core/tests/order-dispatch.test.mjs",
+          "apps/performance-meals-core/tests/privacy.test.mjs"
+        ]
+      },
+      "shopifyIntegration": "Correctly marked new prepaid paid order linked successfully; earlier malformed QA orders remain quarantined; native callback registration and read-only dispatch history recorded.",
+      "customerJourney": "New initial purchase through future-renewal stop verified; actual validated renewal and wider mixed-stream lifecycle incomplete.",
+      "outstandingIssues": [
+        "Corrected-price renewal routing, retry/out-of-order recovery and complete reconciliation still need native acceptance."
+      ],
+      "dependencies": [
+        "Exact pricing tests, fulfilment acceptance and permanent webhook/worker host."
+      ],
+      "evidence": [
+        "docs/SUBSCRIPTION-RENEWAL-STOP-20261023.md",
+        "docs/SUBSCRIPTION-NATIVE-QA-20261022.md",
+        "docs/CORE-BUNDLE-FULFILLMENT-AUDIT-20261021.md"
+      ],
+      "remainingEngineering": [
+        "Verify a paid renewal routes to the same correct customer/contract with no fabricated historical mappings; prove retry/recovery and mixed-stream isolation."
+      ]
+    }
+  ]
+}

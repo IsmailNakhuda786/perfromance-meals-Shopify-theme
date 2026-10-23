@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "ecbfb31559c53cc128f317abf04e2de82d9cf307",
+  "source_commit": "356e0b2d41afc704b87eea78bb546f6eb57fb1c2",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -481,7 +481,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/prepaid-payment.server.ts",
-      "sha256": "bc00c08f72f81aa58f9d4f812be2e37b5bbd20945e641ea829eea5c0d53f5a98",
+      "sha256": "c526220366df6f79a798781cf0f7b2bfdd287a8a227198527cb76d66f6bbf9cb",
       "sanitized": false
     },
     {
@@ -491,7 +491,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/prepaid-renewal.server.ts",
-      "sha256": "562e17ce832a697ef4c6f6a3f062c2f2fc5c31d4ef4419644e826472019ff8b1",
+      "sha256": "397f8cbb4609d9424d262910a3af5631f50caf697283d289396162795396c72b",
       "sanitized": false
     },
     {
@@ -1406,7 +1406,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/prepaid-payment.test.mjs",
-      "sha256": "e97c7d2aebb14755c85316b75b7b1218d2f4f79546d84a26ea091a316a254c85",
+      "sha256": "0669e6e7e1d3972cb77b81ed31b521d49b05036a6c1670eb4bab9bbc1f85c50d",
       "sanitized": false
     },
     {
@@ -1416,7 +1416,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/prepaid-renewal.test.mjs",
-      "sha256": "0b7a43083d3f0a7571a6c1f26b5602fa82bed78d8814654796f65201c7191224",
+      "sha256": "380a3ebb607e24c16b725d343570edcfd6655b1a9b90cef6a272cb7d328938bb",
       "sanitized": false
     },
     {
@@ -2490,6 +2490,16 @@
       "sanitized": false
     },
     {
+      "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
+      "sha256": "76ac814dea80ad1f7831979f39ff6d1edb531bccaf0d53d425aa1bc8b5a4e459",
+      "sanitized": false
+    },
+    {
+      "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
+      "sha256": "494d08c4f6cfd8e8ef3a13300865f89d03c55f2aa27e0f5d7edc4860334b4103",
+      "sanitized": false
+    },
+    {
       "path": "docs/PUBLISHED-PROTOTYPE-REVIEW.md",
       "sha256": "7b0d60f7f4e163ac118be9eae4875f919f2b16764342859207c7a217d6d79248",
       "sanitized": false
@@ -2607,6 +2617,11 @@
     {
       "path": "docs/SUBSCRIPTION-NATIVE-QA-20261022.md",
       "sha256": "a1c9305db9df8c289107f58cde4a12ad9c7ee0b6342b7ac76c15dc774b50ecde",
+      "sanitized": false
+    },
+    {
+      "path": "docs/SUBSCRIPTION-PRICING-ACCEPTANCE-20261023.md",
+      "sha256": "b9b018eeb9cce9b4107d6754ad2ddf3ff31e68817141bc07f5d6788eb7579c07",
       "sanitized": false
     },
     {
