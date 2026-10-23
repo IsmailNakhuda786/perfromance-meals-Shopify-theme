@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "208ee503ae0cdc1bf1adb6517bf95d86acd846ec",
+  "source_commit": "ecbfb31559c53cc128f317abf04e2de82d9cf307",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -2611,7 +2611,7 @@
     },
     {
       "path": "docs/SUBSCRIPTION-PRICING-SUPPORT-20261023.md",
-      "sha256": "26d945317acc790d23bc846258b0d7e9b7bbb38a7912e9fe76e386a7decd5c12",
+      "sha256": "19595fbd9c7e57bbf0749449ff0f1f54ac391342c6e3d08d80f3227485681413",
       "sanitized": false
     },
     {
