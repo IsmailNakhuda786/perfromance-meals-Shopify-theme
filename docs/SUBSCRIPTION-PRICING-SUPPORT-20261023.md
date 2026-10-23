@@ -20,3 +20,7 @@ The user separately approved committing two temporary development subscription r
 Both calculations were committed and independently read back. Their single line retained the expected base price (255.21 / 493.62), manual line-scoped correction (0.01 / 0.02), unlimited recurring duration, correct customer/app/product/variant, zero delivery charge, three-/six-month billing and monthly delivery. Both records had no payment method and no original order. Both were immediately cancelled and freshly verified CANCELLED. No billing-attempt/order mutation was called, no checkout was submitted and no existing subscription was modified.
 
 This verifies persistence of the exact-price correction only. It does not prove automatic checkout propagation, exact first checkout price, a real test renewal charge, or the checkout recurring-price display. These remain explicit release holds. The approved catalogue prices remain unchanged.
+
+## 24 October evidence update
+
+The native recurring subtotal tooltip explicitly excludes applicable discounts. The gross recurring subtotal is not evidence that the final corrected bill is wrong. Preserve the historical support discussion above, but use the actual exact-payment proofs and `CORE-CONNECTIVITY-RECOVERY-20261024.md` for current acceptance. Production correction automation and clear customer-facing net-price explanation remain separate work.

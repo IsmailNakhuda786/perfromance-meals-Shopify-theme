@@ -22,7 +22,8 @@
     "configure:account": "node scripts/configure-account-endpoint.mjs",
     "schema:production": "node scripts/sync-production-schema.mjs --check",
     "setup:production": "npm run schema:production && prisma generate --schema prisma/production/schema.prisma && prisma migrate deploy --schema prisma/production/schema.prisma",
-    "build:production": "node --experimental-strip-types scripts/production-preflight.mjs && npm run setup:production && npm run build"
+    "build:production": "node --experimental-strip-types scripts/production-preflight.mjs && npm run setup:production && npm run build",
+    "test:isolated": "node scripts/test-isolated.mjs"
   },
   "type": "module",
   "engines": {

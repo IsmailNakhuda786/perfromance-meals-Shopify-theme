@@ -69,3 +69,7 @@ The first real test receipt exposed an incorrect chronology assumption: native p
 A separate read-only Core database check found no operational rows for these four fresh QA orders. Native payment acceptance therefore does not prove webhook delivery or Core lifecycle routing; reconnecting the development callback and safely reconciling these exact orders remains required. No manual replay or financial settlement was performed to conceal that gap.
 
 Final regression: 456 Core tests passed with development database network access; TypeScript and lint passed. The earlier restricted-network attempt failed to reach the database and is not counted as functional acceptance.
+
+## 24 October correction: gross recurring subtotal is not a final charge
+
+Fresh inspection of Shopify's native tooltip states that “Recurring subtotal” excludes applicable discounts (and shipping, tax and duties). The displayed 255.21/493.62 amounts are therefore gross subtotals before the persisted one-/two-cent correction. Earlier wording calling those figures an inaccurate final renewal price is superseded. Actual initial and renewal payments remain verified at exactly 255.20/493.60. No catalogue change is approved or required by this finding. Full production correction lifecycle and native nonzero-GST subscription checkout remain unaccepted. See `CORE-CONNECTIVITY-RECOVERY-20261024.md` and the updated matrix.
