@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "94175b3a25e7512fbb0519fead52a0d70077603b",
+  "source_commit": "208ee503ae0cdc1bf1adb6517bf95d86acd846ec",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -1456,7 +1456,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/ready-delivery-draft.test.mjs",
-      "sha256": "bad14a1f920b31ea69472a4f66c97af5cdf420859b5b2a5cbf655514c3464d5b",
+      "sha256": "babcfbfec4b700c44010b39924f4ee5e28a43f7e52d9e6f7bf7dc277a1873c80",
       "sanitized": false
     },
     {
@@ -2496,7 +2496,7 @@
     },
     {
       "path": "docs/READY-SERIES-DELIVERY-CHANGE-20261023.md",
-      "sha256": "b7e97c454373299c838f9f26a8173c67ca6df6875a8fb1fffda82de803e6a05b",
+      "sha256": "ad707b6b4be6d51d4289219493cb622425aa475829588253e185b04d847cdc15",
       "sanitized": false
     },
     {

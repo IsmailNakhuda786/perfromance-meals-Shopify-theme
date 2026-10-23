@@ -2,8 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
 import {PrismaClient,buildServices} from './support/database.mjs';
-await buildServices({entryPoints:['app/services/ready-delivery-draft.server.ts'],outdir:'.shopify/ready-delivery-draft-test',bundle:true,packages:'external',format:'esm',platform:'node'});
+await buildServices({entryPoints:['app/services/ready-delivery-draft.server.ts','app/services/ready-series-change.ts'],outdir:'.shopify/ready-delivery-draft-test',bundle:true,packages:'external',format:'esm',platform:'node'});
 const {stageReadyDeliveryReminders,stageReadyDeliveryCatchUp}=await import('../.shopify/ready-delivery-draft-test/ready-delivery-draft.server.js');
+const {planReadySeriesDeliveryChange}=await import('../.shopify/ready-delivery-draft-test/ready-series-change.js');
 const db=new PrismaClient(),shop=`delivery-${randomUUID()}.myshopify.com`,customerGid='gid://shopify/Customer/771';
 process.env.ALLOWED_SHOP=shop;
 let sequence=0;
@@ -128,4 +129,23 @@ test('damaged or processed catch-up history cannot be replaced by rescheduling',
   await assert.rejects(stageReadyDeliveryReminders({...input,expectedRevision:1,deliveryAt:'2027-03-04T00:00:00Z'}),/reconciliation/);
   assert.equal((await db.readyDeliveryDraft.findUnique({where:{id:first.draft.id}})).revision,1);
  }
+});
+
+
+test('verified change plan composes with inactive persistence without replacing other paid occurrences',async()=>{
+ const base=await seed(),drafts=[];
+ for(const [index,day]of ['2027-03-01','2027-04-01','2027-05-01'].entries())drafts.push(await stageReadyDeliveryReminders({...base,occurrence:index+1,deliveryAt:day+'T01:00:00Z'}));
+ const before=await db.readyDeliveryDraft.findMany({where:{shop,operationalLineId:base.operationalLineId},orderBy:{occurrence:'asc'}});
+ const current=before.map(row=>({id:row.id,occurrence:row.occurrence,revision:row.revision,slotId:'slot-'+row.occurrence,deliveryAt:row.deliveryAt.toISOString(),deliveryEndsAt:new Date(row.deliveryAt.getTime()+3*3600000).toISOString(),dispatchState:'UNDISPATCHED'}));
+ const planned=planReadySeriesDeliveryChange({deliveries:3,occurrence:2,expectedRevision:1,requestedAt:'2027-02-01T01:00:00Z',replacementSlotId:'replacement',noticeHours:72,current,slots:[{id:'replacement',deliveryAt:'2027-04-02T01:00:00Z',deliveryEndsAt:'2027-04-02T04:00:00Z',available:true}]});
+ assert.equal(planned.state,'READY_FOR_REVALIDATION');
+ const c=planned.change,changed=await stageReadyDeliveryReminders({...base,occurrence:c.occurrence,expectedRevision:c.expectedRevision,deliveryAt:c.replacement.deliveryAt});
+ assert.equal(changed.draft.id,c.previous.id);assert.equal(changed.draft.revision,c.replacement.revision);
+ assert.deepEqual(changed.reminders.map(row=>row.deliveryKey).sort(),c.reminders.map(row=>JSON.stringify([shop,row.idempotencyKey])).sort());
+ const after=await db.readyDeliveryDraft.findMany({where:{shop,operationalLineId:base.operationalLineId},orderBy:{occurrence:'asc'}});
+ assert.deepEqual([after[0],after[2]],[before[0],before[2]]);
+ const old=await db.readyDeliveryReminder.findMany({where:{shop,deliveryDraftId:changed.draft.id,deliveryRevision:1}});
+ assert.equal(old.length,4);assert.ok(old.every(row=>row.state==='SUPERSEDED'));
+ await assert.rejects(stageReadyDeliveryReminders({...base,occurrence:2,expectedRevision:c.expectedRevision,deliveryAt:c.replacement.deliveryAt}),/changed/);
+ assert.equal(await db.readyDeliveryReminder.count({where:{shop,deliveryDraftId:changed.draft.id,state:'DRAFT'}}),4);
 });
