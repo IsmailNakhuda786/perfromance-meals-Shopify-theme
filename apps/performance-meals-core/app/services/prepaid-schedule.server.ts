@@ -2,17 +2,22 @@ import {assertShop} from './security.server';
 import {verifyReadySeriesFulfillments} from './prepaid-fulfillment';
 
 export const PREPAID_SCHEDULE_QUERY=`#graphql
-query ReadySeriesNativeSchedule($id:ID!){
+query ReadySeriesNativeSchedule($id:ID!,$after:String){
  shop{myshopifyDomain}
  currentAppInstallation{app{id}accessScopes{handle}}
  order(id:$id){
   id test cancelledAt customer{id}
   lineItems(first:250){nodes{id quantity currentQuantity}pageInfo{hasNextPage}}
-  fulfillmentOrders(first:100){nodes{
+  fulfillmentOrders(first:5,after:$after){nodes{
    id status fulfillAt order{id}
-   lineItems(first:250){nodes{id totalQuantity remainingQuantity lineItem{id}}pageInfo{hasNextPage}}
-  }pageInfo{hasNextPage}}
+   lineItems(first:20){nodes{id totalQuantity remainingQuantity lineItem{id}}pageInfo{hasNextPage endCursor}}
+  }pageInfo{hasNextPage endCursor}}
  }
+}`;
+export const PREPAID_SCHEDULE_ITEMS_QUERY=`#graphql
+query ReadySeriesNativeScheduleItems($id:ID!,$after:String!){
+ shop{myshopifyDomain}currentAppInstallation{app{id}}
+ fulfillmentOrder(id:$id){id order{id}lineItems(first:100,after:$after){nodes{id totalQuantity remainingQuantity lineItem{id}}pageInfo{hasNextPage endCursor}}}
 }`;
 type Admin={graphql:(query:string,options:{variables:Record<string,unknown>})=>Promise<Response>};
 type Expected={appGid:string;customerGid:string;orderGid:string;orderLineGid:string;months:3|6;deliveryDates:string[]};
@@ -27,15 +32,45 @@ export async function readPrepaidSchedule(admin:Admin,shop:string,expected:Expec
  for(const [key,kind]of [['appGid','App'],['customerGid','Customer'],['orderGid','Order'],['orderLineGid','LineItem']] as const)if(!ref(kind,expected[key]))throw Error('Invalid native schedule reference');
  // Reuse the approved calendar validator before any native request.
  verifyReadySeriesFulfillments([],{deliveries:expected.months,deliveryDates:expected.deliveryDates,orderGid:expected.orderGid,lineGid:expected.orderLineGid,quantityPerDelivery:1});
- const response=await admin.graphql(PREPAID_SCHEDULE_QUERY,{variables:{id:expected.orderGid}}),body=await response.json(),data=body.data,order=data?.order,installation=data?.currentAppInstallation;
- if(!response.ok||body.errors||data?.shop?.myshopifyDomain!==shop||installation?.app?.id!==expected.appGid||!Array.isArray(installation.accessScopes)||order?.id!==expected.orderGid||order.test!==true||order.cancelledAt!==null||order.customer?.id!==expected.customerGid||order.lineItems?.pageInfo?.hasNextPage!==false||!Array.isArray(order.lineItems.nodes)||order.lineItems.nodes.length>250||order.fulfillmentOrders?.pageInfo?.hasNextPage!==false||!Array.isArray(order.fulfillmentOrders.nodes)||order.fulfillmentOrders.nodes.length>100)throw Error('Complete native schedule evidence unavailable');
+ const fetchPage=async(after:string|null)=>{
+ const response=await admin.graphql(PREPAID_SCHEDULE_QUERY,{variables:{id:expected.orderGid,after}}),body=await response.json(),data=body.data,order=data?.order,installation=data?.currentAppInstallation;
+ if(!response.ok||body.errors||data?.shop?.myshopifyDomain!==shop||installation?.app?.id!==expected.appGid||!Array.isArray(installation.accessScopes)||order?.id!==expected.orderGid||order.test!==true||order.cancelledAt!==null||order.customer?.id!==expected.customerGid||order.lineItems?.pageInfo?.hasNextPage!==false||!Array.isArray(order.lineItems.nodes)||order.lineItems.nodes.length>250||typeof order.fulfillmentOrders?.pageInfo?.hasNextPage!=='boolean'||!Array.isArray(order.fulfillmentOrders.nodes)||order.fulfillmentOrders.nodes.length>100)throw Error('Complete native schedule evidence unavailable');
  const scopes=new Set(installation.accessScopes.map((scope:{handle:string})=>scope?.handle));
  for(const scope of ['merchant_managed_fulfillment_orders','third_party_fulfillment_orders'])if(!scopes.has('read_'+scope)&&!scopes.has('write_'+scope))throw Error('Native schedule visibility requires additional read access');
+ return order;
+ };
+ const order=await fetchPage(null),fingerprint=JSON.stringify(order.lineItems),parentCursors=new Set<string>();
+ let page=order.fulfillmentOrders;const collected=[...page.nodes];
+ // Cost-bounded pages preserve the existing 100-parent/250-item coverage caps.
+ // A missing/repeated cursor or a changing order is a hold, not partial proof.
+ const cursor=(info:{hasNextPage:boolean;endCursor?:unknown},seen:Set<string>)=>{
+  if(typeof info.endCursor!=='string'||!info.endCursor||info.endCursor.length>2048||seen.has(info.endCursor))throw Error('Native fulfillment coverage incomplete: invalid page cursor');
+  seen.add(info.endCursor);return info.endCursor;
+ };
+ while(page.pageInfo.hasNextPage){
+  if(collected.length>=100||parentCursors.size>=20||!page.nodes.length)throw Error('Native fulfillment coverage incomplete');
+  const next=await fetchPage(cursor(page.pageInfo,parentCursors));
+  if(JSON.stringify(next.lineItems)!==fingerprint)throw Error('Native original order changed during schedule read');
+  page=next.fulfillmentOrders;collected.push(...page.nodes);
+ }
+ if(collected.length>100)throw Error('Native fulfillment coverage incomplete');
+ for(const parent of collected){
+  if(!ref('FulfillmentOrder',parent?.id)||parent.order?.id!==expected.orderGid||typeof parent.lineItems?.pageInfo?.hasNextPage!=='boolean'||!Array.isArray(parent.lineItems.nodes))throw Error('Native fulfillment coverage incomplete');
+  let items=parent.lineItems;const itemCursors=new Set<string>(),allItems=[...items.nodes];
+  while(items.pageInfo.hasNextPage){
+   if(allItems.length>=250||itemCursors.size>=13||!items.nodes.length)throw Error('Native fulfillment coverage incomplete');
+   const response=await admin.graphql(PREPAID_SCHEDULE_ITEMS_QUERY,{variables:{id:parent.id,after:cursor(items.pageInfo,itemCursors)}}),body=await response.json(),data=body.data,native=data?.fulfillmentOrder;
+   if(!response.ok||body.errors||data?.shop?.myshopifyDomain!==shop||data.currentAppInstallation?.app?.id!==expected.appGid||native?.id!==parent.id||native.order?.id!==expected.orderGid||typeof native.lineItems?.pageInfo?.hasNextPage!=='boolean'||!Array.isArray(native.lineItems.nodes))throw Error('Native fulfillment coverage incomplete');
+   items=native.lineItems;allItems.push(...items.nodes);
+  }
+  if(allItems.length>250)throw Error('Native fulfillment coverage incomplete');
+  parent.lineItems={nodes:allItems,pageInfo:{hasNextPage:false}};
+ }
  const lines=order.lineItems.nodes as Array<{id:string;quantity:number;currentQuantity:number}>;
  if(lines.some(line=>!ref('LineItem',line?.id))||new Set(lines.map(line=>line.id)).size!==lines.length)throw Error('Ambiguous native schedule lines');
  const original=lines.filter(line=>line.id===expected.orderLineGid);
  if(original.length!==1||original[0].quantity!==expected.months||original[0].currentQuantity!==expected.months)throw Error('Native prepaid delivery quantity differs');
- const fulfillments=order.fulfillmentOrders.nodes as Array<{id:string;status:string;fulfillAt:string|null;order:{id:string};lineItems:{nodes:Array<{id:string;totalQuantity:number;remainingQuantity:number;lineItem:{id:string}}>;pageInfo:{hasNextPage:boolean}}}>;
+ const fulfillments=collected as Array<{id:string;status:string;fulfillAt:string|null;order:{id:string};lineItems:{nodes:Array<{id:string;totalQuantity:number;remainingQuantity:number;lineItem:{id:string}}>;pageInfo:{hasNextPage:boolean}}}>;
  if(new Set(fulfillments.map(row=>row?.id)).size!==fulfillments.length)throw Error('Duplicate native fulfillment orders');
  const evidence:Array<{id:string;orderGid:string;lineGid:string;fulfillAt:string|null;status:string;quantity:number}>=[];
  for(const fulfillment of fulfillments){

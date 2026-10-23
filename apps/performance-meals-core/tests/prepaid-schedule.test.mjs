@@ -38,3 +38,57 @@ test('unrelated mixed-cart work is omitted but its incomplete page cannot hide t
  f.data.order.fulfillmentOrders.nodes.push(unrelated);assert.equal((await run(f)).scheduleMatches,true);
  unrelated.lineItems.pageInfo.hasNextPage=true;await assert.rejects(run(f),/incomplete/);
 });
+
+test('cost-bounded parent pages retain every prepaid delivery, including the sixth occurrence',async()=>{
+ const f=fixture(6),parents=structuredClone(f.data.order.fulfillmentOrders.nodes),calls=[];
+ const result=await readPrepaidSchedule({graphql:async(q,{variables})=>{
+  assert.equal(q,PREPAID_SCHEDULE_QUERY);assert.doesNotMatch(q,/\bmutation\b/);calls.push(variables.after);
+  const data=structuredClone(f.data);data.order.fulfillmentOrders={nodes:variables.after?parents.slice(5):parents.slice(0,5),pageInfo:variables.after?{hasNextPage:false}:{hasNextPage:true,endCursor:'sixth-delivery'}};
+  return Response.json({data});
+ }},shop,f.expected);
+ assert.deepEqual(calls,[null,'sixth-delivery']);assert.equal(result.deliveryCount,6);assert.equal(result.scheduleMatches,true);
+});
+test('a target line beyond the first child page is read rather than silently omitted',async()=>{
+ const{PREPAID_SCHEDULE_ITEMS_QUERY}=await import('../.shopify/prepaid-schedule-test/prepaid-schedule.server.js');
+ const f=fixture(),parent=f.data.order.fulfillmentOrders.nodes[0],target=structuredClone(parent.lineItems.nodes[0]);let childReads=0;
+ parent.lineItems={nodes:[{...target,id:'gid://shopify/FulfillmentOrderLineItem/999',lineItem:{id:'gid://shopify/LineItem/999'}}],pageInfo:{hasNextPage:true,endCursor:'target-line'}};
+ const result=await readPrepaidSchedule({graphql:async(q,{variables})=>{
+  assert.doesNotMatch(q,/\bmutation\b/);if(q===PREPAID_SCHEDULE_QUERY)return Response.json({data:structuredClone(f.data)});
+  assert.equal(q,PREPAID_SCHEDULE_ITEMS_QUERY);assert.deepEqual(variables,{id:parent.id,after:'target-line'});childReads++;
+  return Response.json({data:{shop:f.data.shop,currentAppInstallation:f.data.currentAppInstallation,fulfillmentOrder:{id:parent.id,order:{id:f.expected.orderGid},lineItems:{nodes:[target],pageInfo:{hasNextPage:false}}}}});
+ }},shop,f.expected);
+ assert.equal(result.scheduleMatches,true);assert.equal(result.deliveryCount,3);assert.equal(childReads,1);
+});
+test('repeated parent cursors and a changed original order cannot prove complete coverage',async()=>{
+ for(const change of ['repeated','changed']){
+  const f=fixture();let calls=0;
+  await assert.rejects(readPrepaidSchedule({graphql:async()=>{
+   const data=structuredClone(f.data);calls++;
+   data.order.fulfillmentOrders={nodes:[data.order.fulfillmentOrders.nodes[0]],pageInfo:{hasNextPage:true,endCursor:'repeat'}};
+   if(change==='changed'&&calls===2)data.order.lineItems.nodes[0].currentQuantity=1;
+   return Response.json({data});
+  }},shop,f.expected),/incomplete|changed/);assert.equal(calls,2);
+ }
+});
+test('foreign child pages, duplicate items and looping child cursors remain held',async()=>{
+ for(const change of ['foreign-app','foreign-order','foreign-parent','duplicate','loop','error']){
+  const f=fixture(),p=f.data.order.fulfillmentOrders.nodes[0],item=structuredClone(p.lineItems.nodes[0]);p.lineItems.pageInfo={hasNextPage:true,endCursor:'child'};let reads=0;
+  await assert.rejects(readPrepaidSchedule({graphql:async(q)=>{
+   if(q===PREPAID_SCHEDULE_QUERY)return Response.json({data:structuredClone(f.data)});reads++;
+   if(change==='error')return Response.json({errors:[{message:'Unavailable'}]});
+   const data={shop:f.data.shop,currentAppInstallation:structuredClone(f.data.currentAppInstallation),fulfillmentOrder:{id:p.id,order:{id:f.expected.orderGid},lineItems:{nodes:[item],pageInfo:change==='loop'?{hasNextPage:true,endCursor:'child'}:{hasNextPage:false}}}};
+   if(change==='foreign-app')data.currentAppInstallation.app.id='gid://shopify/App/999';
+   if(change==='foreign-order')data.fulfillmentOrder.order.id='gid://shopify/Order/999';
+   if(change==='foreign-parent')data.fulfillmentOrder.id='gid://shopify/FulfillmentOrder/999';
+   return Response.json({data});
+  }},shop,f.expected));assert.equal(reads,1);
+ }
+});
+test('parent pagination has a hard coverage bound and cannot run without limit',async()=>{
+ const f=fixture();let reads=0;
+ await assert.rejects(readPrepaidSchedule({graphql:async()=>{
+  const data=structuredClone(f.data),template=data.order.fulfillmentOrders.nodes[0];reads++;
+  data.order.fulfillmentOrders={nodes:Array.from({length:5},(_,i)=>({...template,id:`gid://shopify/FulfillmentOrder/${reads*10+i}`})),pageInfo:{hasNextPage:true,endCursor:'page-'+reads}};
+  return Response.json({data});
+ }},shop,f.expected),/incomplete/);assert.equal(reads,20);
+});
