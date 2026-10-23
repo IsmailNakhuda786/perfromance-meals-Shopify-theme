@@ -1,6 +1,6 @@
 # Subscription pricing acceptance — 23 October 2026
 
-**Result: FAIL / release held.** No new checkout, payment, capture, billing attempt, refund, contract update or Wallet change was performed in this acceptance run. Fresh unpaid checkout setup requires the pending specific approval. A new simulated renewal also needs its own scoped authorization before execution.
+**Result: FAIL / release held.** Approved unpaid checkout comparisons were completed for both terms. No payment, capture, billing attempt, refund, new subscription or Wallet change was performed. The separately approved exact-price purchase/renewal test is the next gate.
 
 ## Fresh native observations
 
@@ -37,3 +37,16 @@ Allocation amounts are used because Shopify describes `discountedTotalSet` as ex
 4. Verify exact paid initial/renewal totals, full native paid-delivery preservation, duplicate-request recovery and actual Core routing before acceptance.
 
 Private raw evidence is retained in ignored local QA receipts and is not included in the public backup. No catalogue price reduction or launch activation is authorized.
+
+## Fresh approved unpaid checkout comparison
+
+On 23 October the signed-in QA customer added each term separately from an empty cart through the unpublished QA preview. Native cart and final checkout both applied the exact variant/customer-scoped automatic correction:
+
+| Term | Native base SGD | Correction SGD | Cart / final checkout SGD | Displayed recurring subtotal SGD | First / recurring delivery |
+| --- | --- | --- | --- | --- | --- |
+| Three deliveries | 255.21 | 0.01 | 255.20 | 255.21 every 3 months | Free / free |
+| Six deliveries | 493.62 | 0.02 | 493.60 | 493.62 every 6 months | Free / free |
+
+The three-term total was also confirmed in Shop Pay before leaving that flow without payment. Both standard checkouts were checked using the existing Singapore QA address, with empty card fields. No GST line was presented; this is not acceptance of nonzero GST. Native recurring-price disclosure still differs from the approved net. General subscription sales remain disabled.
+
+Cleanup: removed the QA cart line; restored product to draft/unpublished, restored the isolated shipping profile to its original three entries, deactivated both QA discounts, restored original selling-plan prices, and removed only the two temporary QA theme files. Fresh read-only preservation confirmed five cancelled QA contracts, no new payment methods/orders on the two prior no-charge records, and nine unchanged protected financial models. Raw screenshots and receipts are private and excluded from the public backup.

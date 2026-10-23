@@ -48,13 +48,13 @@ The machine-readable companion is [PRODUCTION-ACCEPTANCE-MATRIX.json](PRODUCTION
 
 **Automated evidence:** `prepaid-selling-plan.test.mjs`, `prepaid-verification.test.mjs`, `prepaid-calculation.test.mjs`, `prepaid-payment.test.mjs`, `prepaid-purchase.test.mjs`, `prepaid-renewal.test.mjs`, `prepaid-schedule.test.mjs`, `paid-ready-draft.test.mjs`. These belong to the passing baseline; they do not alone satisfy acceptance.
 
-**Actual Shopify tests:** Both initial purchases and historical test renewals observed; exact initial correction checkout comparisons and no-charge committed correction records observed. Last fresh cleanup: five QA contracts cancelled.
+**Actual Shopify tests:** Both initial purchases and historical test renewals observed; exact initial correction checkout comparisons and no-charge committed correction records observed. Last fresh cleanup: five QA contracts cancelled. Fresh unpaid comparisons reconfirm exact 255.20/493.60 first totals and free first/recurring delivery; recurring disclosure remains 255.21/493.62.
 
 **Customer journey:** Partial only: purchase and renewal-stop tested; corrected exact-price purchase-through-renewal and merchant delivery lifecycle not verified.
 
 **Outstanding issues:** Uncorrected checkout/renewals charged 255.18/493.56 instead of 255.20/493.60. Corrected unpaid first checkout matched, but recurring display showed 255.21/493.62. Saved manual corrections do not prove checkout transfer or charged renewal.
 
-**Dependencies/approvals:** Approval for fresh unpaid setup and later separately scoped test charges; compatible test provider; merchant slot mapping.
+**Dependencies/approvals:** Fresh unpaid setup completed and restored. Scoped exact-price purchase/renewal test approved, with user payment handoff; compatible test provider; merchant slot mapping.
 
 **Exact evidence:** [SUBSCRIPTION-NATIVE-QA-20261022.md](SUBSCRIPTION-NATIVE-QA-20261022.md), [SUBSCRIPTION-PRICING-SUPPORT-20261023.md](SUBSCRIPTION-PRICING-SUPPORT-20261023.md), [PREPAID-SCHEDULE-PAGINATION-20261023.md](PREPAID-SCHEDULE-PAGINATION-20261023.md). Private raw provider/native receipts remain local and are excluded from the public backup.
 

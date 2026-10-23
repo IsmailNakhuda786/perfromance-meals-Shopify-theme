@@ -12,7 +12,7 @@
   "baseline": {
     "coreTests": 455,
     "nativeReadback": "Fresh read-only cleanup/preservation rechecked 23 October; five cancelled QA contracts, three paid deliveries unchanged and nine financial model snapshots unchanged.",
-    "checkoutPricing": "New unpaid setup awaiting separate approval. No new payment authorization implied.",
+    "checkoutPricing": "Fresh approved unpaid cart/final checkouts matched 255.20 and 493.60 with free delivery; recurring disclosure still 255.21/493.62. No new payment; scoped exact-price purchase/renewal QA now approved.",
     "topUpsEnabled": false,
     "newEngineering": "Explicit corrected-payment and corrected-renewal read-only inspectors; seven new tests; existing undiscounted verifier remains strict."
   },
@@ -72,13 +72,13 @@
           "apps/performance-meals-core/tests/prepaid-renewal.test.mjs"
         ]
       },
-      "shopifyIntegration": "Both initial purchases and historical test renewals observed; exact initial correction checkout comparisons and no-charge committed correction records observed. Last fresh cleanup: five QA contracts cancelled. Fresh four-order historical readback reconfirms initial/renewal shortfalls for both terms; new query cost61 and explicit rejection of the underpaid historical order verified.",
+      "shopifyIntegration": "Both initial purchases and historical test renewals observed; exact initial correction checkout comparisons and no-charge committed correction records observed. Last fresh cleanup: five QA contracts cancelled. Fresh four-order historical readback reconfirms initial/renewal shortfalls for both terms; new query cost61 and explicit rejection of the underpaid historical order verified. Fresh approved unpaid comparisons on 23 October reconfirm exact cart/final totals, one-/two-cent corrections and free first/recurring delivery; native recurring disclosure remains higher.",
       "customerJourney": "Partial only: purchase and renewal-stop tested; corrected exact-price purchase-through-renewal and merchant delivery lifecycle not verified.",
       "outstandingIssues": [
         "Uncorrected checkout/renewals charged 255.18/493.56 instead of 255.20/493.60. Corrected unpaid first checkout matched, but recurring display showed 255.21/493.62. Saved manual corrections do not prove checkout transfer or charged renewal."
       ],
       "dependencies": [
-        "Approval for fresh unpaid setup and later separately scoped test charges; compatible test provider; merchant slot mapping."
+        "Approved isolated exact-price test purchases and renewals must complete with user payment handoff; compatible test provider; merchant slot mapping."
       ],
       "evidence": [
         "docs/SUBSCRIPTION-NATIVE-QA-20261022.md",

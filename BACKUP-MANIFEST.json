@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "356e0b2d41afc704b87eea78bb546f6eb57fb1c2",
+  "source_commit": "b8165badac9f0bdfef17c12389f5052a1dd509a9",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -2491,12 +2491,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "76ac814dea80ad1f7831979f39ff6d1edb531bccaf0d53d425aa1bc8b5a4e459",
+      "sha256": "4afc3fda7312633d2bbf2d3c2793a52b98b0916681ee581d5eed4c75e4fed8a3",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "494d08c4f6cfd8e8ef3a13300865f89d03c55f2aa27e0f5d7edc4860334b4103",
+      "sha256": "a5d4572c0fa0243428bb16904455bd0323d66c3aeb58c9919525a7b19706d760",
       "sanitized": false
     },
     {
@@ -2621,7 +2621,7 @@
     },
     {
       "path": "docs/SUBSCRIPTION-PRICING-ACCEPTANCE-20261023.md",
-      "sha256": "b9b018eeb9cce9b4107d6754ad2ddf3ff31e68817141bc07f5d6788eb7579c07",
+      "sha256": "e40145a6561720aabc41b3385b34d2857b6a71ae6a2f2ef1cce13dfb13bae7e4",
       "sanitized": false
     },
     {
