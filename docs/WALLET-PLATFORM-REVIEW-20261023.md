@@ -27,3 +27,7 @@ A native Gift Card-backed redemption mechanism, if investigated, is a separate p
 - [Redeemables availability](https://shopify.dev/docs/apps/build/payments/redeemables/build-a-redeemables-payment-extension)
 - [Payments extension restrictions](https://shopify.dev/docs/apps/build/payments/requirements#prohibited-actions)
 - [Functions distribution and plan availability](https://shopify.dev/docs/apps/build/functions)
+
+## Approved eligibility follow-up
+
+The user authorized an eligibility-only enquiry. A reply was sent and visibly confirmed in case71332405 asking whether a reusable Core-related integration can qualify for Redeemables, who assesses eligibility before any Plus purchase, which required controls are supported, and how payment-app restrictions affect the permissible architecture. No application, purchase, access grant or payment/store change was made. A response is pending.

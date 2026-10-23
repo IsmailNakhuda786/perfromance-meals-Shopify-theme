@@ -15,14 +15,18 @@ A development-only backend and authenticated customer-account endpoint now imple
 
 432 isolated Core tests pass, including customer authentication/payload boundaries, concurrency, response loss, original-paid-plan preservation, cross-customer/app/order rejection, production/default-off guards and privacy classification. TypeScript, lint, production-schema mirror and Admin 2026-10 operation validation pass.
 
-SQLite migrations were applied only to a disposable regression database. PostgreSQL migration structure was independently exercised in a uniquely named temporary schema: 11 columns and three indexes verified, then that schema removed. Hashes of 14 protected development models are unchanged. The actual development public-schema migration has **not** been applied. No production database or real customer record was changed.
+SQLite migrations were applied only to a disposable regression database. PostgreSQL migration structure was independently exercised in a uniquely named temporary schema: 11 columns and three indexes verified, then that schema removed. Hashes of 14 protected development models are unchanged. The additive migration was then applied to the development public schema after confirming it was the only pending migration. All 14 protected-model hashes remain unchanged, the new audit table contains zero customer-operation rows and customer activation remains off. No production database or real customer record was changed.
 
 A native read-only harness verifies both existing QA contract statuses are CANCELLED through the actual account-status reader. It does not create or repair persistent mappings. The new action guard also rejects those old unvalidated QA purchase anchors before any native mutation or audit write, as intended. No native cancellation was performed in this run.
 
-Remaining: apply the additive development migration under a scoped QA plan; obtain a correctly routed subscription purchase; verify the actual authenticated customer action and recovery path; preserve remaining paid delivery entitlements in the full native flow. Exact checkout/renewal pricing remains a separate release hold. No general subscription sales or customer management control is enabled.
+Remaining: obtain a correctly routed subscription purchase; verify the actual authenticated customer action and recovery path; preserve remaining paid delivery entitlements in the full native flow. Exact checkout/renewal pricing remains a separate release hold. No general subscription sales or customer management control is enabled.
 
 ## Hidden customer control
 
 The account reader now exposes a read-only capability only after the same fresh ownership/mapping checks. Pending or changed operations require Support; default-off activation performs no audit-table access. The customer control requires explicit confirmation, sends one token-bound request and never automatically retries. Timeout, interrupted authentication, late responses and mismatched contract responses remain unconfirmed. The new client adds no refund or paid-delivery action.
 
 Full 432-test suite, TypeScript, lint, production-schema mirror and local account-extension bundle pass. Shopify component validation was attempted but its bundled dependencies/type index are missing; this is not reported as a validator pass. The control remains hidden in native accounts and has not received native customer-action acceptance.
+
+## Fresh native preservation check
+
+A read-only comparison against both saved original paid QA-order snapshots confirms that the cancelled 3-/6-delivery contracts leave their original paid orders uncancelled. All nine fulfillment records retain the same IDs, dates, statuses, total/remaining quantities and original line references. No native mutation was submitted. This proves preservation for those existing isolated lifecycle tests, not acceptance of the new customer endpoint or merchant delivery calendar.

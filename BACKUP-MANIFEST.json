@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "398a03f0059d65d27cb27946dbb6c0cef37efffc",
+  "source_commit": "c573297b0f903990a4281609be0a80137b275fcf",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -841,7 +841,7 @@
     },
     {
       "path": "apps/performance-meals-core/extensions/performance-meals-account/shopify.d.ts",
-      "sha256": "66ba69487da536399dd7c802657fcad489f41d911e4dd30118d382092352b2c2",
+      "sha256": "6ad2b17b35ccc1d3535d1d137c3a0a4810c74930c14196dc96053e57ad8fd18a",
       "sanitized": false
     },
     {
@@ -2535,6 +2535,11 @@
       "sanitized": false
     },
     {
+      "path": "docs/RESUME-CHECKPOINT-20261023.md",
+      "sha256": "c18616ea07b9200419cb8f2cd7ecb4e49ef35d9c84cafc12aa5bb97a3d0c8303",
+      "sanitized": false
+    },
+    {
       "path": "docs/REWARDS-FUNDING-VALIDATION-20261014.md",
       "sha256": "3708fd6d37ba9d1c492daf6374e41c6564d2b98deecac27ef7f5dac81cae714b",
       "sanitized": false
@@ -2585,8 +2590,13 @@
       "sanitized": false
     },
     {
+      "path": "docs/SUBSCRIPTION-PRICING-SUPPORT-20261023.md",
+      "sha256": "26d945317acc790d23bc846258b0d7e9b7bbb38a7912e9fe76e386a7decd5c12",
+      "sanitized": false
+    },
+    {
       "path": "docs/SUBSCRIPTION-RENEWAL-STOP-20261023.md",
-      "sha256": "cdbcde9482c1523c1d997140a53c592e25eeb0d8ef9723a93240a2619e7be0db",
+      "sha256": "28b20a55001499de1f08c1a8b92beafc0906925d48d8745c1a479544da3f7b31",
       "sanitized": false
     },
     {
@@ -2641,7 +2651,7 @@
     },
     {
       "path": "docs/WALLET-PLATFORM-REVIEW-20261023.md",
-      "sha256": "d5a9b7598a6da503cf93439955089921aa3836293b41f0b82d43d18d64aa6fd1",
+      "sha256": "2ca4765b3d81dfd15769c74a8ad2cf10bfee0a59e835ca82cb0a5b7e59ee8206",
       "sanitized": false
     },
     {
