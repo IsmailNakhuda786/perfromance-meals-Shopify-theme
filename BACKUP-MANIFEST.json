@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "d2a172d5340d4e299fae54925eb7f756752aad59",
+  "source_commit": "1933ae8e6f5fb460e034ef55feaace486dabf950",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -2495,6 +2495,11 @@
       "sanitized": false
     },
     {
+      "path": "docs/NATIVE-WEBHOOK-GST-QA-20261024.md",
+      "sha256": "f62c6baa639bb4d0bc721b11552016049fefde6fc23858b241e374d75e6b1fbd",
+      "sanitized": false
+    },
+    {
       "path": "docs/POSTGRES-PERSISTENCE-QA-20261012.md",
       "sha256": "0346b38a1ee340928901b41ff7bbda5174b42c152649b698b94edd274dfbf342",
       "sanitized": false
@@ -2511,12 +2516,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "9cc9c0ba75f44a4b7f45a5491cf6e75b49d2d855d9474d3796948f71d41b5c4b",
+      "sha256": "9d65ec5d8acf4663929ea82bc1c40526bcf80830f4c0defd5b14ca3c69516a68",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "390f42fc6f6197f6b2c080a226f73bdaa94b7e07e70b613905ddc2a9a0759be3",
+      "sha256": "7e9f861d4e2f90dbff8314da43bef51df9e45353538d48b7fbd94cd9e297949b",
       "sanitized": false
     },
     {

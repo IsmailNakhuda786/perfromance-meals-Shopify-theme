@@ -21,7 +21,8 @@
       "scope": "Targeted reruns, including all four previously failing parallel cases; not a clean full PostgreSQL regression"
     },
     "themeTests": 71,
-    "staticChecks": "TypeScript, lint and production-schema consistency passed"
+    "staticChecks": "TypeScript, lint and production-schema consistency passed",
+    "nativeFollowup": "24 October: real Shopify ORDERS_UPDATED receipt observed after approved temporary QA note; note restored and all four paid orders/18 fulfilments/Core rows unchanged. Both unpaid native GST checkouts passed exact 255.20/493.60 totals, included GST21.07/40.76 and free isolated delivery. All temporary settings restored."
   },
   "counts": {
     "PASS": 1,
@@ -80,11 +81,11 @@
           "apps/performance-meals-core/tests/subscription-renewal-links.test.mjs"
         ]
       },
-      "shopifyIntegration": "Both terms passed exact initial and first simulated renewal charges. Four previously missed paid orders now have validated Core rows and verified initial/renewal contract associations; replay leaves them unchanged. All 18 paid native fulfilments preserved. Native recurring subtotal tooltip explicitly excludes applicable discounts, explaining gross 255.21/493.62 versus net charged 255.20/493.60.",
+      "shopifyIntegration": "Both terms passed exact initial and first simulated renewal charges. Four previously missed paid orders now have validated Core rows and verified initial/renewal contract associations; replay leaves them unchanged. All 18 paid native fulfilments preserved. Native recurring subtotal tooltip explicitly excludes applicable discounts, explaining gross 255.21/493.62 versus net charged 255.20/493.60. 24 October approved follow-up: native unpaid GST checkout totals and restored settings verified; real Shopify-generated order-update delivery observed. See dated follow-up for scope limits.",
       "customerJourney": "Initial/renewal test payments and future-renewal stop verified. Recovered account renders three linked stopped-renewal subscriptions, without duplicate renewal cards. Full merchant delivery lifecycle and permanent callback acceptance incomplete.",
       "outstandingIssues": [
         "Production cent-correction creation, persistence and recovery lifecycle is not implemented/accepted generally.",
-        "Nonzero-GST calculation projections pass but are not a completed subscription checkout or charged GST payment.",
+        "Nonzero-GST unpaid native checkout passes for both terms; actual charged GST renewal and production correction lifecycle remain unverified.",
         "Complete delivery/calendar and automatic renewal-to-Core routing remain unaccepted."
       ],
       "dependencies": [
@@ -95,7 +96,8 @@
         "docs/SUBSCRIPTION-PRICING-SUPPORT-20261023.md",
         "docs/PREPAID-SCHEDULE-PAGINATION-20261023.md",
         "docs/SUBSCRIPTION-PRICING-ACCEPTANCE-20261023.md",
-        "docs/CORE-CONNECTIVITY-RECOVERY-20261024.md"
+        "docs/CORE-CONNECTIVITY-RECOVERY-20261024.md",
+        "docs/NATIVE-WEBHOOK-GST-QA-20261024.md"
       ],
       "remainingEngineering": [
         "Implement gated production correction lifecycle and clear net-price explanation without mislabelling native gross subtotal; complete nonzero-GST native subscription journey and delivery lifecycle."
@@ -176,7 +178,7 @@
           "apps/performance-meals-core/tests/delivery-charge-audit.test.mjs"
         ]
       },
-      "shopifyIntegration": "Official Function fixtures and eleven isolated unpaid shipping comparisons; temporary nonzero-GST, mixed, coupon and normal-storefront checks recorded. Core Function tests restored inactive. Recovery session independently verified included-GST calculation projections: 255.20 includes 21.07 GST; 493.60 includes 40.76 GST, free delivery and matching cent corrections. Calculation only; temporary development Singapore collection restored to Not collecting.",
+      "shopifyIntegration": "Official Function fixtures and eleven isolated unpaid shipping comparisons; temporary nonzero-GST, mixed, coupon and normal-storefront checks recorded. Core Function tests restored inactive. Recovery session independently verified included-GST calculation projections: 255.20 includes 21.07 GST; 493.60 includes 40.76 GST, free delivery and matching cent corrections. Calculation only; temporary development Singapore collection restored to Not collecting. 24 October approved follow-up: native unpaid GST checkout totals and restored settings verified; real Shopify-generated order-update delivery observed. See dated follow-up for scope limits.",
       "customerJourney": "Ordinary-food and selected mixed-cart unpaid journeys verified; production profiles, subscription groups and all multi-delivery assignments incomplete.",
       "outstandingIssues": [
         "Third-party Collection Total failed order-level discounts and is not accepted for production.",
@@ -189,7 +191,8 @@
         "docs/CORE-SHIPPING-FUNCTION-QA-20261018.md",
         "docs/GST-CHECKOUT-QA-20261019.md",
         "docs/STOREFRONT-SHIPPING-QA-20261019.md",
-        "docs/CORE-CONNECTIVITY-RECOVERY-20261024.md"
+        "docs/CORE-CONNECTIVITY-RECOVERY-20261024.md",
+        "docs/NATIVE-WEBHOOK-GST-QA-20261024.md"
       ],
       "remainingEngineering": [
         "Complete subscription and multi-delivery native cases; install supported Core enforcement on approved production profiles."
@@ -491,10 +494,10 @@
           "apps/performance-meals-core/tests/subscription-renewal-links.test.mjs"
         ]
       },
-      "shopifyIntegration": "Restored four callback topics, exactly one each. Existing orders #1020\u2013#1023 recovered from native paid proof with correct ownership, stream and contract association. Two complete processing passes leave four Core rows unchanged; all 18 paid native fulfilments unchanged. Invalid-HMAC HTTP returns 401; correctly signed synthetic existing-order replay returns 200 twice with no operational-row change. This is not a newly Shopify-generated webhook delivery.",
+      "shopifyIntegration": "Restored four callback topics, exactly one each. Existing orders #1020\u2013#1023 recovered from native paid proof with correct ownership, stream and contract association. Two complete processing passes leave four Core rows unchanged; all 18 paid native fulfilments unchanged. Invalid-HMAC HTTP returns 401; correctly signed synthetic existing-order replay returns 200 twice with no operational-row change. This is not a newly Shopify-generated webhook delivery. 24 October approved follow-up: native unpaid GST checkout totals and restored settings verified; real Shopify-generated order-update delivery observed. See dated follow-up for scope limits.",
       "customerJourney": "New initial purchase through future-renewal stop verified; actual validated renewal and wider mixed-stream lifecycle incomplete.",
       "outstandingIssues": [
-        "Fresh Shopify-initiated delivery through the restored callback remains unverified.",
+        "Fresh Shopify-initiated ORDERS_UPDATED delivery passed. Fresh create/paid/subscription event journeys and durable permanent ingress remain unverified.",
         "Development recovery linker is not an automatic production renewal processor. Permanent durable ingress, queued retries and periodic reconciliation remain required."
       ],
       "dependencies": [
@@ -504,7 +507,8 @@
         "docs/SUBSCRIPTION-RENEWAL-STOP-20261023.md",
         "docs/SUBSCRIPTION-NATIVE-QA-20261022.md",
         "docs/CORE-BUNDLE-FULFILLMENT-AUDIT-20261021.md",
-        "docs/CORE-CONNECTIVITY-RECOVERY-20261024.md"
+        "docs/CORE-CONNECTIVITY-RECOVERY-20261024.md",
+        "docs/NATIVE-WEBHOOK-GST-QA-20261024.md"
       ],
       "remainingEngineering": [
         "Implement automatic, native-proof-bound renewal routing and durable ingest/replay on permanent staging; prove provider-originated delivery and mixed-stream isolation."

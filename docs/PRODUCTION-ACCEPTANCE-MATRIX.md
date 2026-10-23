@@ -295,3 +295,7 @@ Machine-readable full evidence: [PRODUCTION-ACCEPTANCE-MATRIX.json](PRODUCTION-A
 **Evidence:** [SUBSCRIPTION-RENEWAL-STOP-20261023.md](SUBSCRIPTION-RENEWAL-STOP-20261023.md), [SUBSCRIPTION-NATIVE-QA-20261022.md](SUBSCRIPTION-NATIVE-QA-20261022.md), [CORE-BUNDLE-FULFILLMENT-AUDIT-20261021.md](CORE-BUNDLE-FULFILLMENT-AUDIT-20261021.md), [CORE-CONNECTIVITY-RECOVERY-20261024.md](CORE-CONNECTIVITY-RECOVERY-20261024.md)
 
 **Remaining engineering:** Implement automatic, native-proof-bound renewal routing and durable ingest/replay on permanent staging; prove provider-originated delivery and mixed-stream isolation.
+
+## 24 October approved native follow-up
+
+Real Shopify order-update delivery passed with original note, four Core rows and all 18 paid fulfilments preserved. Both unpaid subscription GST checkouts passed: SGD 255.20 including 21.07 GST and SGD 493.60 including 40.76 GST, free isolated delivery. Temporary product, discounts, profile membership, tax settings and QA preview files restored. Counts remain 1 PASS / 10 PARTIAL / 0 FAIL / 4 BLOCKED; see [NATIVE-WEBHOOK-GST-QA-20261024.md](NATIVE-WEBHOOK-GST-QA-20261024.md). This follow-up supersedes earlier statements that these two specific native checks were pending; wider production acceptance remains incomplete.
