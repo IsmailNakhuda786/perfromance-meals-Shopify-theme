@@ -34,3 +34,42 @@ test('invalid references and production execution cannot reach the native API',a
  await assert.rejects(inspect(api,'foreign.myshopify.com',id,expected));await assert.rejects(inspect(api,shop,'bad',expected));
  const previous=process.env.NODE_ENV;process.env.NODE_ENV='production';try{await assert.rejects(inspect(api,shop,id,expected));}finally{if(previous===undefined)delete process.env.NODE_ENV;else process.env.NODE_ENV=previous;}assert.equal(calls,0);
 });
+
+const {inspectPrepaidCorrectionCalculation:inspectCorrection}=await import('../.shopify/prepaid-calculation-test/prepaid-calculation.server.js');
+const correction=months=>({baseMinor:months===3?25521:49362,discountMinor:months===3?1:2,title:'QA approved cent correction'});
+function correctedFixture(months=3){
+ const data=fixture(months),r=data.subscriptionContractCalculation,c=correction(months),line=r.calculatedContract.lines.nodes[0];
+ line.currentPrice=money((c.baseMinor/100).toFixed(2));r.projectedOrderTotals.totalMerchandiseDiscounts=money((c.discountMinor/100).toFixed(2));
+ r.calculatedContract.discounts={pageInfo:{hasNextPage:false},nodes:[{id:'gid://shopify/SubscriptionManualDiscount/11111111-1111-4111-8111-111111111111',title:c.title,recurringCycleLimit:null,rejectionReason:null,targetType:'LINE_ITEM',type:'MANUAL',usageCount:0,value:{__typename:'SubscriptionDiscountFixedAmountValue',amount:money((c.discountMinor/100).toFixed(2)),appliesOnEachItem:false},entitledLines:{all:false,lines:{nodes:[{id:line.id}],pageInfo:{hasNextPage:false}}}}]};
+ return data;
+}
+test('explicit cent-correction projections preserve every approved cent without claiming checkout or renewal acceptance',async()=>{
+ for(const months of [3,6]){
+  const data=correctedFixture(months),context={...expected,months,upfrontMinor:months===3?25520:49360},proof=await inspectCorrection(admin(data),shop,id,context,correction(months));
+  assert.equal(proof.calculationMatches,true);assert.equal(proof.projectedTotalMinor,context.upfrontMinor);assert.equal(proof.nativeUnitPriceMinor,correction(months).baseMinor);assert.equal(proof.explicitCorrection,true);
+  for(const flag of ['paymentVerified','renewalVerified','checkoutPropagationVerified','deliveryCalendarVerified'])assert.equal(proof[flag],false);
+  assert.equal((await inspect(admin(data),shop,id,context)).calculationMatches,false,'the original strict inspector must not silently accept a discount');
+ }
+});
+test('a matching total cannot conceal a missing, extra, capped, rejected, foreign or differently scoped correction',async()=>{
+ for(const edit of [r=>delete r.calculatedContract.discounts,r=>r.calculatedContract.discounts.pageInfo.hasNextPage=true,r=>r.calculatedContract.discounts.nodes.push(r.calculatedContract.discounts.nodes[0]),r=>r.calculatedContract.discounts.nodes[0].recurringCycleLimit=1,r=>r.calculatedContract.discounts.nodes[0].rejectionReason='CUSTOMER_NOT_ELIGIBLE',r=>r.calculatedContract.discounts.nodes[0].id='gid://shopify/Order/1',r=>r.calculatedContract.discounts.nodes[0].title='Different discount',r=>r.calculatedContract.discounts.nodes[0].type='CODE',r=>r.calculatedContract.discounts.nodes[0].targetType='SHIPPING_LINE',r=>r.calculatedContract.discounts.nodes[0].usageCount=1,r=>r.calculatedContract.discounts.nodes[0].value.__typename='SubscriptionDiscountPercentageValue',r=>r.calculatedContract.discounts.nodes[0].value.appliesOnEachItem=true,r=>r.calculatedContract.discounts.nodes[0].entitledLines.all=true,r=>r.calculatedContract.discounts.nodes[0].entitledLines.lines.pageInfo.hasNextPage=true,r=>r.calculatedContract.discounts.nodes[0].entitledLines.lines.nodes[0].id='gid://shopify/SubscriptionLine/99']){
+  const data=correctedFixture();edit(data.subscriptionContractCalculation);await assert.rejects(inspectCorrection(admin(data),shop,id,expected,correction(3)));
+ }
+});
+test('cent corrections require matching native discount, base, net amount and zero delivery',async()=>{
+ for(const edit of [r=>r.projectedOrderTotals.total=money('255.21'),r=>r.calculatedContract.lines.nodes[0].currentPrice=money('255.22'),r=>r.projectedOrderTotals.totalMerchandiseDiscounts=money('0.02'),r=>r.calculatedContract.discounts.nodes[0].value.amount=money('0.02'),r=>r.projectedOrderTotals.totalDelivery=money('0.01')]){
+  const data=correctedFixture();edit(data.subscriptionContractCalculation);assert.equal((await inspectCorrection(admin(data),shop,id,expected,correction(3))).calculationMatches,false);
+ }
+});
+test('invalid correction configuration and production use cannot reach the native API',async()=>{
+ let reads=0;const api={graphql:async()=>{reads++;throw Error('No read authorized');}};
+ for(const c of [null,{...correction(3),discountMinor:0},{...correction(3),discountMinor:1.5},{...correction(3),baseMinor:25522},{...correction(3),title:''},{...correction(3),title:'x'.repeat(256)}])await assert.rejects(inspectCorrection(api,shop,id,expected,c));
+ const previous=process.env.NODE_ENV;process.env.NODE_ENV='production';try{await assert.rejects(inspectCorrection(api,shop,id,expected,correction(3)));}finally{if(previous===undefined)delete process.env.NODE_ENV;else process.env.NODE_ENV=previous;}
+ assert.equal(reads,0);
+});
+test('pending and failed correction calculations explicitly preserve every acceptance hold',async()=>{
+ for(const __typename of ['SubscriptionContractCalculationPending','SubscriptionContractCalculationFailure']){
+  const data=fixture();data.subscriptionContractCalculation={id,__typename,errors:[]};const proof=await inspectCorrection(admin(data),shop,id,expected,correction(3));
+  assert.equal(proof.explicitCorrection,true);assert.equal(proof.calculationMatches,false);for(const flag of ['paymentVerified','renewalVerified','checkoutPropagationVerified','deliveryCalendarVerified'])assert.equal(proof[flag],false);
+ }
+});

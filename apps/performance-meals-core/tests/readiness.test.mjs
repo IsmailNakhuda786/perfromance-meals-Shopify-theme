@@ -88,3 +88,7 @@ test('food-only bonus cannot be recorded through unrestricted native Store Credi
 test('production preflight rejects unaccepted Gift Card expiry activation',()=>{
  assert.ok(productionConfigIssues({GIFT_CARD_EXPIRY_WRITES_ENABLED:'true'}).some(issue=>issue.includes('Gift Card expiry writes')));
 });
+
+test('production cannot activate unverified customer future-renewal execution',()=>{
+ assert.ok(productionConfigIssues({CORE_SUBSCRIPTION_RENEWAL_STOPS_ENABLED:'true'}).some(issue=>issue.includes('future-renewal stops')));
+});

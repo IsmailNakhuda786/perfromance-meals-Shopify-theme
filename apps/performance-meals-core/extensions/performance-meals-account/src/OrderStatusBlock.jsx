@@ -1,6 +1,7 @@
 import '@shopify/ui-extensions/preact';
 import {render} from 'preact';
-import {useEffect, useState} from 'preact/hooks';
+import {useEffect, useState, useRef} from 'preact/hooks';
+import {createRenewalStopClient} from './renewal-stop-client';
 import {APP_URL} from './app-endpoint.generated';
 
 const SECTIONS = ['Dashboard', 'My Plan', 'Order History', 'Wallet', 'Rewards', 'Gift Cards', 'Settings'];
@@ -56,8 +57,8 @@ function Account() {
         </s-grid>
       </s-section>}
       {section === 'My Plan' && <s-section heading="My Plan">
-        <s-section heading="Ready Series">{renderSubscriptions(account,'ready_series')}</s-section>
-        <s-section heading="Meal Plan">{renderSubscriptions(account,'meal_plan')}{renderPlans(account)}</s-section>
+        <s-section heading="Ready Series">{renderSubscriptions(account,'ready_series',()=>setRefresh(value=>value+1))}</s-section>
+        <s-section heading="Meal Plan">{renderSubscriptions(account,'meal_plan',()=>setRefresh(value=>value+1))}{renderPlans(account)}</s-section>
       </s-section>}
       {section === 'Order History' && <s-section heading="Order History"><s-paragraph>Your Ready Series, Meal Plan and Gift Card purchases remain together in your Shopify order history.</s-paragraph><s-link href="shopify:customer-account/orders">View all orders</s-link><OrderCancellations data={account?.cancellations} onUpdated={() => setRefresh(value => value + 1)}/></s-section>}
       {section === 'Wallet' && <s-section heading="Wallet">{renderWallet(account)}</s-section>}
@@ -210,11 +211,40 @@ function Rewards({data,onUpdated}) {
   </s-section>;
 }
 
-function renderSubscriptions(account,stream){
+function renderSubscriptions(account,stream,onUpdated){
   if(!account)return null;
   if(account.subscriptionHistoryPending)return <s-paragraph>Linked subscription details could not be verified. Please use Shopify’s Subscriptions menu or contact Support.</s-paragraph>;
   const records=(account.subscriptions||[]).filter(record=>!stream||record.streams.includes(stream));
   if(!records.length)return <s-paragraph>No linked subscription details are available here. Other subscriptions remain in Shopify’s Subscriptions menu.</s-paragraph>;
-  const labels={ACTIVE:'Active',PAUSED:'Paused',CANCELLED:'Cancelled',EXPIRED:'Expired',FAILED:'Payment issue'};
-  return <s-stack direction="block" gap="small">{records.map(record=><s-section key={record.id} heading="Linked subscription"><s-paragraph>Status: {labels[record.status]||'Unavailable'}</s-paragraph>{record.lines.map(line=><s-paragraph key={line.id}>{line.title} × {line.quantity}</s-paragraph>)}<s-paragraph>Use Shopify’s Subscriptions menu or contact Support for available management options.</s-paragraph></s-section>)}</s-stack>;
+  const labels={ACTIVE:'Active',PAUSED:'Paused',CANCELLED:'Future renewals stopped',EXPIRED:'Expired',FAILED:'Payment issue'};
+  return <s-stack direction="block" gap="small">{records.map(record=><s-section key={record.id} heading="Linked subscription"><s-paragraph>Status: {labels[record.status]||'Unavailable'}</s-paragraph>{record.lines.map(line=><s-paragraph key={line.id}>{line.title} × {line.quantity}</s-paragraph>)}<s-paragraph>Use Shopify’s Subscriptions menu or contact Support for available management options.</s-paragraph>{onUpdated&&<StopFutureRenewals record={record} onUpdated={onUpdated}/>}</s-section>)}</s-stack>;
+}
+
+
+function StopFutureRenewals({record,onUpdated}){
+ const [opened,setOpened]=useState(false),[confirmed,setConfirmed]=useState(false),[pending,setPending]=useState(false),[message,setMessage]=useState(''),[finished,setFinished]=useState(false);
+ const client=useRef(null),attempted=useRef(false);
+ async function submit(){
+  if(!confirmed||finished||attempted.current)return;attempted.current=true;
+  try{
+   if(!client.current)client.current=createRenewalStopClient({origin:APP_URL,contractGid:record.id,getToken:()=>shopify.sessionToken.get()});
+   setPending(true);setMessage('');
+   const result=await client.current.submit(true);setFinished(true);
+   setMessage(result.futureRenewalsStopped?'Future renewals are stopped. Your paid deliveries remain in place. No refund or Wallet credit was issued.':'The renewal change could not be confirmed. Check your account or contact Support before trying again.');
+   if(result.futureRenewalsStopped)onUpdated();
+  }catch{setFinished(true);setMessage('The renewal change could not be confirmed. Contact Support before trying again.');}
+  finally{setPending(false);}
+ }
+ if(record.renewalStop?.reviewRequired)return <s-paragraph>Your renewal change needs Support review. No additional cancellation request will be sent.</s-paragraph>;
+ if(record.renewalStop?.canStop!==true||!['ACTIVE','PAUSED'].includes(record.status))return null;
+ return <s-stack gap="small" direction="block">
+  {!opened&&<s-button onClick={()=>setOpened(true)}>Stop future renewals</s-button>}
+  {opened&&<>
+   <s-paragraph>This stops the next automatic package purchase. It does not cancel deliveries already paid for, pause those deliveries or give a refund or Wallet credit.</s-paragraph>
+   <s-checkbox label="I want to stop future automatic renewals and keep my paid deliveries." checked={confirmed} disabled={pending||finished} onChange={event=>setConfirmed(event.currentTarget.checked)}/>
+   <s-button disabled={!confirmed||pending||finished} onClick={submit}>Confirm stop future renewals</s-button>
+  </>}
+  {pending&&<s-spinner accessibilityLabel="Confirming renewal change"/>}
+  {message&&<s-paragraph>{message}</s-paragraph>}
+ </s-stack>;
 }

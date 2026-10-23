@@ -480,3 +480,20 @@ model CoreWalletRedemptionDraft {
  @@unique([shop, attemptId])
  @@index([shop, customerGid, state])
 }
+
+// Audited future-billing stop only. Paid-order/delivery/Wallet state is separate.
+model SubscriptionRenewalStop {
+ id String @id @default(uuid())
+ shop String
+ customerGid String
+ contractGid String
+ originOrderGid String
+ bindingHash String
+ requestKey String
+ state String @default("REQUESTING")
+ requestedAt DateTime @default(now())
+ confirmedAt DateTime?
+ updatedAt DateTime @updatedAt
+ @@unique([shop, contractGid])
+ @@index([shop, customerGid, state])
+}

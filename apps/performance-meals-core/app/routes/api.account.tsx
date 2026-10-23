@@ -12,6 +12,7 @@ import {auditWalletTopUps} from '../services/wallet-top-up-reconciliation.server
 import {hasPendingNativeWalletCredit} from '../services/native-wallet-credit-ready.server';
 import {syncCoreManagedWalletCredits} from '../services/wallet-core-expiry.server';
 import {readRewardsLedger} from '../services/rewards-ledger.server';
+import {readRenewalStopAvailability} from '../services/subscription-renewal-stop.server';
 import {readAccountSubscriptions} from '../services/account-subscriptions.server';
 import {readAccountCancellations} from '../services/account-cancellations.server';
 export async function loader({request}:LoaderFunctionArgs){
@@ -58,6 +59,7 @@ export async function loader({request}:LoaderFunctionArgs){
   const linked=await db.operationalLine.findMany({where:{shop,customerGid,validationStatus:'VALIDATED',contractGid:{not:null}},take:101,select:{contractGid:true,orderGid:true,businessStream:true,productGid:true,variantGid:true}});
   if(linked.length>100||linked.some(row=>!row.contractGid||!row.businessStream||!row.productGid||!row.variantGid))throw Error('Subscription mapping incomplete');
   subscriptions=await readAccountSubscriptions(admin,shop,customerGid,linked.map(row=>({contractGid:row.contractGid!,orderGid:row.orderGid,businessStream:row.businessStream!,productGid:row.productGid!,variantGid:row.variantGid!})));
+  subscriptions=await Promise.all(subscriptions.map(async record=>({...record,renewalStop:await readRenewalStopAvailability(admin!,shop,customerGid,record.id)})));
  }catch{subscriptionHistoryPending=true;}}
  const revisions=await db.mealPlanMenuRevision.findMany({where:{shop,customerGid,selectionId:{in:plans.map(p=>p.id)},state:'SAVED'},orderBy:{revision:'desc'}});
  let mealNames=new Map<string,string>();
