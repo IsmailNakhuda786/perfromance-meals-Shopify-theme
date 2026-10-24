@@ -10,7 +10,7 @@
     "BLOCKED": "A required platform capability, authorization or external dependency prevents completion."
   },
   "baseline": {
-    "coreTests": 501,
+    "coreTests": 503,
     "nativeReadback": "Four exact-price orders recovered and replayed unchanged; all 18 native paid fulfilments preserved. Five historical QA contracts remain cancelled; nine financial-model snapshots unchanged.",
     "checkoutPricing": "Exact initial and simulated renewal charges verified for both terms, 255.20/493.60. The higher native recurring subtotal explicitly excludes discounts; it is not the final renewal charge. Nonzero included-GST projections match exact prices; full native subscription GST checkout remains unaccepted.",
     "topUpsEnabled": false,
@@ -39,7 +39,8 @@
       "passed": 10,
       "failed": 0,
       "scope": "Focused PostgreSQL rerun includes rejection of the actual stale one-cent correction; full disposable suite501/501."
-    }
+    },
+    "multiplePackageCalculation": "Read-only aggregate quantity/correction projection verifier extended;14 focused calculation tests and503 full disposable tests pass. Invalid counts and stale aggregate prices fail; no new native calculation, charge or renewal claimed."
   },
   "counts": {
     "PASS": 1,

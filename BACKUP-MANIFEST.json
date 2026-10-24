@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "02f851b1217988a3635438fa15a791dc61a12a10",
+  "source_commit": "3eea61761363ced94d9c0b18e0203e3f03dfc041",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -476,7 +476,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/prepaid-calculation.server.ts",
-      "sha256": "6cef8977271e877789143b8c570f0c658e0d5f73b785913f92fadfdbf07c520b",
+      "sha256": "ebf7c815e92d26eca1fe54e4a58d04d47435a7b3e41a12489d40ecdeff53f81c",
       "sanitized": false
     },
     {
@@ -1456,7 +1456,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/prepaid-calculation.test.mjs",
-      "sha256": "b861e0caf3bb7045521acdc786d4ac9c22652ea46b60b8be34a849cc41be30f9",
+      "sha256": "41c581cb02f50f36d36d68e40a4cef4674ef503e3e3177d776e97c35b396015c",
       "sanitized": false
     },
     {
@@ -2576,7 +2576,7 @@
     },
     {
       "path": "docs/PREPAID-MULTIPLE-PACKAGE-CHECKOUT-20261024.md",
-      "sha256": "af14061ab5f3e7b9f14bc09bc92635771fb80643b33228e03b1abcc6b3868c79",
+      "sha256": "6f294254c727db4b1ca9f843be790f50dac5c7068d7e646db31668c9e5c93d29",
       "sanitized": false
     },
     {
@@ -2596,7 +2596,7 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "da8112a7d9d6ca134146f12d11a25306664bd37d5a64d08dedd51940c38fe554",
+      "sha256": "034499cd91584283165b7b71c3b27b3e39092d9587fb5a587bd14ab10325a27c",
       "sanitized": false
     },
     {

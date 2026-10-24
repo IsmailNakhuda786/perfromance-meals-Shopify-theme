@@ -24,3 +24,11 @@ User approved multiple prepaid packages per checkout and two isolated unpaid dev
 - Identities, checkout URLs, native receipts and screenshot evidence remain private and excluded from GitHub.
 
 No new full requirement is accepted: matrix remains1 PASS /10 PARTIAL /0 FAIL /4 BLOCKED. The updated disposable regression passed501/501; the focused PostgreSQL multiple-package rerun passed10/10, including a regression rejecting the observed stale one-cent correction. Prior33-check payment/schedule database evidence remains separate. Native observations above are additional acceptance evidence.
+
+## Approved payment-test readiness follow-up
+
+The user approved both initial simulated purchases and one renewal per resulting subscription, capped at SGD2,518.40 total test money. Initial payment clicks remain with the user; stop on any saved-price mismatch. No payment was started in this follow-up.
+
+The expired development preview was restored and its four existing callbacks reconciled without duplicates. HTTPS returned200; invalid webhook signature returned401, and two signed historical replays returned200 with existing operational rows unchanged. This is a synthetic replay, not fresh provider-originated billing evidence.
+
+The read-only calculation verifier now supports an explicit package count and proves the aggregate unit price/correction rather than assuming one package. Fourteen focused calculation tests and503 full disposable Core tests pass; TypeScript and lint pass. Multiple contract lines, real payment acceptance and multi-package native renewals remain separate gates. No new native calculation or financial record was created. All previous QA cleanup remains in place.

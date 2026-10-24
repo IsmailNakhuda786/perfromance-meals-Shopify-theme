@@ -73,3 +73,16 @@ test('pending and failed correction calculations explicitly preserve every accep
   assert.equal(proof.explicitCorrection,true);assert.equal(proof.calculationMatches,false);for(const flag of ['paymentVerified','renewalVerified','checkoutPropagationVerified','deliveryCalendarVerified'])assert.equal(proof[flag],false);
  }
 });
+
+test('two-package projections require the exact aggregate correction and retain unverified payment flags',async()=>{
+ const data=correctedFixture(),r=data.subscriptionContractCalculation,c={...correction(3),baseMinor:51042,discountMinor:2},e={...expected,packageQuantity:2,upfrontMinor:51040};
+ r.calculatedContract.lines.nodes[0].quantity=2;r.calculatedContract.discounts.nodes[0].value.amount=money('0.02');r.projectedOrderTotals.total=money('510.40');r.projectedOrderTotals.subtotal=money('510.40');r.projectedOrderTotals.totalTax=money('0');r.projectedOrderTotals.totalMerchandiseDiscounts=money('0.02');
+ const proof=await inspectCorrection(admin(data),shop,id,e,c);assert.equal(proof.calculationMatches,true);assert.equal(proof.packageQuantity,2);assert.equal(proof.projectedTotalMinor,51040);assert.equal(proof.paymentVerified,false);assert.equal(proof.renewalVerified,false);
+ await assert.rejects(inspectCorrection(admin(data),shop,id,{...e,packageQuantity:1},c));
+ r.projectedOrderTotals.total=money('510.41');assert.equal((await inspectCorrection(admin(data),shop,id,e,c)).calculationMatches,false);
+});
+test('invalid package counts cannot reach native calculation reads',async()=>{
+ let reads=0;const api={graphql:async()=>{reads++;throw Error('Unexpected native read');}};
+ for(const packageQuantity of[0,-1,1.5,NaN,Infinity,'2',2147483647])await assert.rejects(inspect(api,shop,id,{...expected,packageQuantity}));
+ assert.equal(reads,0);
+});
