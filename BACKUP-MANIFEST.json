@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "6c24e9d7617f60027f8cb4e3f34bba5f3213cf71",
+  "source_commit": "02f851b1217988a3635438fa15a791dc61a12a10",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -1466,7 +1466,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/prepaid-multiple-packages.test.mjs",
-      "sha256": "93f9e5e997ba57958d5965cac4ac63fde4feb71f2f5eead568d2966093e4cb8c",
+      "sha256": "28276e0e260de2bdeab137e0167f6cbd0b3ac03d9733358cdec77c6d2f1a6ca8",
       "sanitized": false
     },
     {
@@ -2575,8 +2575,13 @@
       "sanitized": false
     },
     {
+      "path": "docs/PREPAID-MULTIPLE-PACKAGE-CHECKOUT-20261024.md",
+      "sha256": "af14061ab5f3e7b9f14bc09bc92635771fb80643b33228e03b1abcc6b3868c79",
+      "sanitized": false
+    },
+    {
       "path": "docs/PREPAID-RENEWAL-PIPELINE-20261024.md",
-      "sha256": "3dd69eabde1e5b4743e86c61ac702c577f888fb0f1ab69949c9497454f0876f8",
+      "sha256": "966890a74c9f2d8a0eb90a36e23d8a086d12f2c8ad545accb120ad34f7837f6e",
       "sanitized": false
     },
     {
@@ -2591,12 +2596,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "00f021ba0d52e7f4bf24a0578e17f4930638ce9acddf9994433c3391efcf8f12",
+      "sha256": "da8112a7d9d6ca134146f12d11a25306664bd37d5a64d08dedd51940c38fe554",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "140a726fa7b867044dafe6ea07f080fb1f255b2956d2a9795149ef1b762b503a",
+      "sha256": "534e67b1ef83ff3c756885b582ae269331d1a1fd83f0c7fa688f56981d2afe55",
       "sanitized": false
     },
     {

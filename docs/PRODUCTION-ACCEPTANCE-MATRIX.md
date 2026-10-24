@@ -307,3 +307,7 @@ Real Shopify order-update delivery passed with original note, four Core rows and
 ### Multiple-package decision and verification — 24 October
 
 Customer approved multiple prepaid packages per checkout. Core now validates package counts, separate registered contract lines, whole-order capture/allocation and quantity-preserving delivery proof. 500 Core tests and 33 focused PostgreSQL tests passed; TypeScript/lint passed. Historical single-package native replay preserved all 18 paid fulfilments and nine financial models. Native multiple-package checkout/correction propagation is pending isolated-test approval; no additional requirement is PASS. Counts remain **1 PASS / 10 PARTIAL / 0 FAIL / 4 BLOCKED**.
+
+### Unpaid multiple-package native checkout evidence
+
+Both approved comparisons passed exact checkout food totals with free isolated delivery: two3-delivery packagesSGD510.40 and3+6 packagesSGD748.80. The former exposed and corrected a fixed-discount quantity error in the temporary QA setup; general production provisioning remains incomplete. All six discounts inactive, original policies restored, QA product draft/unpublished, profile membership and cart restored. Multi-package payment/renewal and nonzero GST remain open. See [PREPAID-MULTIPLE-PACKAGE-CHECKOUT-20261024.md](PREPAID-MULTIPLE-PACKAGE-CHECKOUT-20261024.md). Acceptance counts unchanged.

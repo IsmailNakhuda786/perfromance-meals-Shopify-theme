@@ -51,3 +51,12 @@ test('two identical packages retain their count through purchase registration an
  const p=await evidence.registerPrepaidPurchaseEvidence(native,shop,contract,e,c);assert.equal(JSON.parse(p.snapshot).expected.packageQuantity,2);const received=await inbox.receivePrepaidRenewalTrigger(shop,event,'two-identical-packages');assert.equal((await inbox.processPrepaidRenewalTrigger(native,shop,received.inboxId)).linkedLines,1);
  const saved=JSON.parse((await db.prepaidRenewalEvidence.findFirst({where:{shop}})).snapshot);assert.equal(saved.expected.packageQuantity,2);assert.equal(saved.expected.upfrontMinor,51040);assert.equal(saved.correction.discountMinor,2);assert.equal(await db.operationalLine.count({where:{shop,contractGid:contract}}),2);
 });
+
+// Regression from the unpaid native two-package comparison: a fixed one-cent
+// discount applies once to the line, not once per purchased package.
+test('a stale single-package correction cannot verify the observed two-package overcharge',async()=>{
+ const e={...first,paymentScope:'ORDER',packageQuantity:2,upfrontMinor:51040},c={...discount,baseMinor:51042,discountMinor:2};
+ const stale=api(d=>{d.order.lineItems.nodes.splice(1);const line=d.order.lineItems.nodes[0];line.quantity=6;line.currentQuantity=6;line.originalTotalSet=cash('510.42');line.discountAllocations[0].allocatedAmountSet=cash('0.01');for(const k of['totalPriceSet','currentTotalPriceSet','totalReceivedSet'])d.order[k]=cash('510.41');d.order.totalDiscountsSet=cash('0.01');d.order.transactions[0].amountSet=cash('510.41');d.subscriptionContract.lines.nodes.splice(1);d.subscriptionContract.lines.nodes[0].quantity=2;});
+ await assert.rejects(payment.readCorrectedPrepaidPayment(stale,shop,e,c));
+ await assert.rejects(payment.readCorrectedPrepaidPayment(stale,shop,e,{...c,discountMinor:1}));
+});
