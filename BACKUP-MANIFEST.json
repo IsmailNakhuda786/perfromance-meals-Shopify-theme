@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "1933ae8e6f5fb460e034ef55feaace486dabf950",
+  "source_commit": "29af51fac71d304c05f1075bc369c5230311486e",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -275,6 +275,11 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/app/routes/webhooks.subscriptions.billing-success.tsx",
+      "sha256": "4e17d9c246c3551a0fac4f26c4297dd5c57eb35d4a897dd2e04242ab368ffe8a",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/app/routes/webhooks.subscriptions.create.tsx",
       "sha256": "752130bb730620f85897f9814d933c844899caaf089abec9f2d89d471fd11ee7",
       "sanitized": false
@@ -490,6 +495,16 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/app/services/prepaid-renewal-evidence.server.ts",
+      "sha256": "be15279b2f4b6e5bf2a9a5bac7fe1ce56fe4fe361efe012ad37f4792a2443a53",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/prepaid-renewal-inbox.server.ts",
+      "sha256": "50e817a41eacc2696e35749e4f4fdc830f908980939abafe2d68eda9456b9600",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/app/services/prepaid-renewal.server.ts",
       "sha256": "397f8cbb4609d9424d262910a3af5631f50caf697283d289396162795396c72b",
       "sanitized": false
@@ -511,7 +526,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/privacy.server.ts",
-      "sha256": "d1725ce7579132ac6ed6c356d50b274d4bd149a37fb7e106c7c1e864575075db",
+      "sha256": "ff477559c93e4046a3af7cbbfddf0f4782c90013b4c1f281b85faab14528db0e",
       "sanitized": false
     },
     {
@@ -576,7 +591,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/runtime-config.server.ts",
-      "sha256": "5790e982d1104ab4291811f7efa1f27f938501a47bbb210d4b7ae5fe75894adf",
+      "sha256": "22956af071564c39d61ee885a300658748daad4d3b0519ca9d439cf2ab0e43fd",
       "sanitized": false
     },
     {
@@ -721,7 +736,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/shopify.server.ts",
-      "sha256": "607971299cc34c712406e8dbc00e16248dc7be68a3b24700d4fdd2bf160f1497",
+      "sha256": "e16283ac1434be7138dcadced5ade187852592caa1437bf2f13e89b8262515bb",
       "sanitized": false
     },
     {
@@ -1025,6 +1040,16 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/prisma/migrations/20261024120000_prepaid_renewal_evidence/migration.sql",
+      "sha256": "e5ad3942d6d96ac5463f2b15ac155c9bb61efd09df7228074126bef1310c2084",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/prisma/migrations/20261024130000_prepaid_renewal_inbox/migration.sql",
+      "sha256": "ddfc245ef7a97b82a3a12a92ffb5565d855b3e865f9c6d41d4d83e785f4e1089",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/prisma/migrations/migration_lock.toml",
       "sha256": "3389dbaf2a3cf4b413275867ac6f550b27f79efe85ee9c12082cdd8c5b8239c4",
       "sanitized": false
@@ -1150,18 +1175,28 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/prisma/production/migrations/20261024120000_prepaid_renewal_evidence/migration.sql",
+      "sha256": "51b8c04e85e9bd141a8d5b2ab77ba653045222de41dae0e888738a0cb73907aa",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/prisma/production/migrations/20261024130000_prepaid_renewal_inbox/migration.sql",
+      "sha256": "30127c822037d8ef8b43ce943f33754132ea669aaec87b16618e6174574b7cbf",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/prisma/production/migrations/migration_lock.toml",
       "sha256": "1db17a8d051aa136110736752c5e1f8b7ed92b6ea8e803112fbbe2497047c210",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/prisma/production/schema.prisma",
-      "sha256": "122946535bde7a967945491eeea0efd76bc710dd7606428b5106edcb411468ae",
+      "sha256": "c79ccded44eb1be5cd3033c6b5de2a6dd470dcc3eff16aa231f0cfff3d6342a4",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/prisma/schema.prisma",
-      "sha256": "2cfb148b21c2c55044ec63a8d1d5d97c5ce3602c5e9fc0c09f4136b911cfee28",
+      "sha256": "94992d43883a4868608eeac74b7b3469a87e0ecb142862918eef59c4886c26ea",
       "sanitized": false
     },
     {
@@ -1425,6 +1460,16 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/tests/prepaid-renewal-evidence.test.mjs",
+      "sha256": "4a34b416d8bef760b92fe91d78757198f8d17b1003e07ccdcb3cd4e5095daac8",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/prepaid-renewal-inbox.test.mjs",
+      "sha256": "d460be1b87f43372dd49fc79333a88b4a76dd69f671fc045466650282c50a7d0",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/tests/prepaid-renewal.test.mjs",
       "sha256": "380a3ebb607e24c16b725d343570edcfd6655b1a9b90cef6a272cb7d328938bb",
       "sanitized": false
@@ -1461,7 +1506,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/readiness.test.mjs",
-      "sha256": "a1a286a186a0e9e234713bf2edcc74522085c31dea214f2aece43aca9b844e7a",
+      "sha256": "4c326f7e8a5fdb0910edbbafed07ec1cc50b522079522e57d89a8ef07fabbdbe",
       "sanitized": false
     },
     {
@@ -1557,6 +1602,11 @@
     {
       "path": "apps/performance-meals-core/tests/support/prepaid-purchase.mjs",
       "sha256": "38787dd246fd254889e887742f308098013595a8425cfb0110e583feda08c57e",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/support/renewal-evidence.mjs",
+      "sha256": "fc2f54c0ebf594628c426c309d3eaab4b537d327fc4709ad980e55813d1dea53",
       "sanitized": false
     },
     {
@@ -2505,6 +2555,11 @@
       "sanitized": false
     },
     {
+      "path": "docs/PREPAID-RENEWAL-PIPELINE-20261024.md",
+      "sha256": "8a352009d4e39381a19a1b76310200e7ddc961df9c2dbf8bb5fa1dcf65b1c200",
+      "sanitized": false
+    },
+    {
       "path": "docs/PREPAID-SCHEDULE-PAGINATION-20261023.md",
       "sha256": "9402156ea6db2e4ad526e91b3568449247e5906765cd71c9e83a412589398cb7",
       "sanitized": false
@@ -2516,12 +2571,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "9d65ec5d8acf4663929ea82bc1c40526bcf80830f4c0defd5b14ca3c69516a68",
+      "sha256": "83fecd14d114fa474477bcd7b705cbc8b8150d91f50a072d20a7024d0780aa23",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "7e9f861d4e2f90dbff8314da43bef51df9e45353538d48b7fbd94cd9e297949b",
+      "sha256": "913abc3d3d97e81d3c406a31971bf2456cbfdf5821f2d300025dd9ba8302a9d8",
       "sanitized": false
     },
     {

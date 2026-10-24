@@ -497,3 +497,57 @@ model SubscriptionRenewalStop {
  @@unique([shop, contractGid])
  @@index([shop, customerGid, state])
 }
+
+// Immutable paid-purchase proof. Development-only until native lifecycle acceptance.
+model PrepaidPurchaseEvidence {
+ id String @id @default(cuid())
+ shop String
+ customerGid String
+ contractGid String
+ originalOrderGid String
+ originalLineGid String
+ snapshot String
+ snapshotHash String
+ createdAt DateTime @default(now())
+ @@unique([shop, contractGid])
+ @@unique([shop, originalLineGid])
+ @@index([shop, customerGid])
+}
+
+// A verified successful native attempt, never authorization to create a charge.
+model PrepaidRenewalEvidence {
+ id String @id @default(cuid())
+ shop String
+ customerGid String
+ contractGid String
+ purchaseEvidenceId String
+ attemptGid String
+ renewalOrderGid String
+ snapshot String
+ snapshotHash String
+ state String @default("PENDING_LINK")
+ createdAt DateTime @default(now())
+ completedAt DateTime?
+ @@unique([shop, attemptGid])
+ @@unique([shop, renewalOrderGid])
+ @@index([shop, customerGid])
+ @@index([shop, state, createdAt, id])
+}
+
+// Minimal authenticated trigger; no payment/entitlement is inferred at intake.
+model PrepaidRenewalInbox {
+ id String @id @default(cuid())
+ shop String
+ customerGid String
+ purchaseEvidenceId String
+ contractGid String
+ attemptGid String
+ idempotencyKey String
+ renewalOrderGid String
+ state String @default("PENDING_VERIFY")
+ createdAt DateTime @default(now())
+ completedAt DateTime?
+ @@unique([shop, attemptGid])
+ @@index([shop, customerGid])
+ @@index([shop, state, createdAt, id])
+}

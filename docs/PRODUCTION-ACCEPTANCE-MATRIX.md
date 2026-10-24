@@ -299,3 +299,7 @@ Machine-readable full evidence: [PRODUCTION-ACCEPTANCE-MATRIX.json](PRODUCTION-A
 ## 24 October approved native follow-up
 
 Real Shopify order-update delivery passed with original note, four Core rows and all 18 paid fulfilments preserved. Both unpaid subscription GST checkouts passed: SGD 255.20 including 21.07 GST and SGD 493.60 including 40.76 GST, free isolated delivery. Temporary product, discounts, profile membership, tax settings and QA preview files restored. Counts remain 1 PASS / 10 PARTIAL / 0 FAIL / 4 BLOCKED; see [NATIVE-WEBHOOK-GST-QA-20261024.md](NATIVE-WEBHOOK-GST-QA-20261024.md). This follow-up supersedes earlier statements that these two specific native checks were pending; wider production acceptance remains incomplete.
+
+## Registered-renewal engineering checkpoint
+
+489 Core tests and 25 focused PostgreSQL tests pass. The new default-off pipeline stores immutable purchase proof, authenticates and persists billing triggers, and links successful renewals from fresh native evidence. Both existing paid QA renewals replay unchanged; all 18 native paid fulfilments and nine financial models preserved. Real SDK local HTTP signed replays pass, not a fresh provider billing event. See [PREPAID-RENEWAL-PIPELINE-20261024.md](PREPAID-RENEWAL-PIPELINE-20261024.md). Production counts remain unchanged; purchase-flow integration, durable scheduling, general correction lifecycle and full native acceptance are still required.

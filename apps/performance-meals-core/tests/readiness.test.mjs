@@ -92,3 +92,7 @@ test('production preflight rejects unaccepted Gift Card expiry activation',()=>{
 test('production cannot activate unverified customer future-renewal execution',()=>{
  assert.ok(productionConfigIssues({CORE_SUBSCRIPTION_RENEWAL_STOPS_ENABLED:'true'}).some(issue=>issue.includes('future-renewal stops')));
 });
+
+test('production cannot enable unaccepted automatic prepaid renewal linking',()=>{
+ assert.ok(productionConfigIssues({CORE_PREPAID_RENEWAL_LINKS_ENABLED:'true'}).some(issue=>issue.includes('Automatic prepaid renewal linking')));
+});

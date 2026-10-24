@@ -19,6 +19,7 @@ const shopify = shopifyApp({
   sessionStorage: new PrismaSessionStorage(prisma),
   distribution: AppDistribution.SingleMerchant,
   webhooks: {
+    ...(process.env.NODE_ENV!=="production"&&process.env.CORE_PREPAID_RENEWAL_LINKS_ENABLED==="true"?{SUBSCRIPTION_BILLING_ATTEMPTS_SUCCESS:{deliveryMethod:DeliveryMethod.Http,callbackUrl:"/webhooks/subscriptions/billing-success"}}:{}),
     ORDERS_CREATE:{deliveryMethod:DeliveryMethod.Http,callbackUrl:"/webhooks/orders/create"},
     ORDERS_UPDATED:{deliveryMethod:DeliveryMethod.Http,callbackUrl:"/webhooks/orders/create"},
     ORDERS_PAID:{deliveryMethod:DeliveryMethod.Http,callbackUrl:"/webhooks/orders/paid"},
