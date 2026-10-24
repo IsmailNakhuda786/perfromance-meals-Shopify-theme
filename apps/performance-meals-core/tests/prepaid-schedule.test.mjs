@@ -92,3 +92,12 @@ test('parent pagination has a hard coverage bound and cannot run without limit',
   return Response.json({data});
  }},shop,f.expected),/incomplete/);assert.equal(reads,20);
 });
+
+test('two packages retain twice the paid quantity on every scheduled delivery',async()=>{
+ for(const months of[3,6]){
+  const f=fixture(months);f.expected.packageQuantity=2;f.data.order.lineItems.nodes[0].quantity=months*2;f.data.order.lineItems.nodes[0].currentQuantity=months*2;
+  for(const fo of f.data.order.fulfillmentOrders.nodes){fo.lineItems.nodes[0].totalQuantity=2;fo.lineItems.nodes[0].remainingQuantity=2;}
+  const result=await run(f);assert.equal(result.scheduleMatches,true);assert.equal(result.evidence.reduce((sum,x)=>sum+x.quantity,0),months*2);
+  f.data.order.fulfillmentOrders.nodes[0].lineItems.nodes[0].totalQuantity=1;f.data.order.fulfillmentOrders.nodes[0].lineItems.nodes[0].remainingQuantity=1;assert.equal((await run(f)).scheduleMatches,false);
+ }
+});

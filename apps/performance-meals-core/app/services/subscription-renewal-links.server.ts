@@ -11,10 +11,12 @@ export async function linkVerifiedPrepaidRenewal(admin:Admin,shop:string,contrac
  assertShop(shop);
  if(process.env.NODE_ENV==='production')throw Error('Development renewal reconciliation only');
  const proof=correction?await inspectCorrectedPrepaidRenewal(admin,shop,contractGid,expected,correction):await inspectPrepaidRenewal(admin,shop,contractGid,expected);
- const receiptId=`${shop}:verified-renewal-link:${proof.attemptGid}`;
+ const receiptId=`${shop}:verified-renewal-link:${proof.attemptGid}${expected.paymentScope==='PREPAID_LINE'?':'+expected.renewalOrderLineGid:''}`;
  const persist=()=>db.$transaction(async tx=>{
-  const original=await tx.operationalLine.findMany({where:{shop,orderGid:expected.orderGid}});
-  const renewal=await tx.operationalLine.findMany({where:{shop,orderGid:expected.renewalOrderGid}});
+  const originalRows=await tx.operationalLine.findMany({where:{shop,orderGid:expected.orderGid}});
+  const renewalRows=await tx.operationalLine.findMany({where:{shop,orderGid:expected.renewalOrderGid}});
+  const original=expected.paymentScope==='PREPAID_LINE'?originalRows.filter(row=>row.orderLineGid===expected.orderLineGid):originalRows;
+  const renewal=expected.paymentScope==='PREPAID_LINE'?renewalRows.filter(row=>row.orderLineGid===expected.renewalOrderLineGid):renewalRows;
   const matches=(row:typeof original[number])=>row.validationStatus==='VALIDATED'&&row.businessStream==='ready_series'&&row.customerGid===expected.customerGid&&row.productGid===expected.productGid&&row.variantGid===expected.variantGid&&row.selectionId===null&&row.bundleReviewId===null;
   if(original.length!==1||renewal.length!==1||!matches(original[0])||!matches(renewal[0])||original[0].contractGid!==contractGid||renewal[0].orderLineGid!==expected.renewalOrderLineGid||renewal[0].contractGid!==null&&renewal[0].contractGid!==contractGid)throw Error('Validated matching original and renewal routing required');
   const existing=await tx.webhookReceipt.findUnique({where:{id:receiptId}});

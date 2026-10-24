@@ -303,3 +303,7 @@ Real Shopify order-update delivery passed with original note, four Core rows and
 ## Registered-renewal engineering checkpoint
 
 489 Core tests and 25 focused PostgreSQL tests pass. The new default-off pipeline stores immutable purchase proof, authenticates and persists billing triggers, and links successful renewals from fresh native evidence. Both existing paid QA renewals replay unchanged; all 18 native paid fulfilments and nine financial models preserved. Real SDK local HTTP signed replays pass, not a fresh provider billing event. See [PREPAID-RENEWAL-PIPELINE-20261024.md](PREPAID-RENEWAL-PIPELINE-20261024.md). Production counts remain unchanged; purchase-flow integration, durable scheduling, general correction lifecycle and full native acceptance are still required.
+
+### Multiple-package decision and verification — 24 October
+
+Customer approved multiple prepaid packages per checkout. Core now validates package counts, separate registered contract lines, whole-order capture/allocation and quantity-preserving delivery proof. 500 Core tests and 33 focused PostgreSQL tests passed; TypeScript/lint passed. Historical single-package native replay preserved all 18 paid fulfilments and nine financial models. Native multiple-package checkout/correction propagation is pending isolated-test approval; no additional requirement is PASS. Counts remain **1 PASS / 10 PARTIAL / 0 FAIL / 4 BLOCKED**.

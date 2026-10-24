@@ -27,3 +27,11 @@ test('captured native prepaid truncation is a release hold, never an accepted pr
  }
  assert.equal(buildPlan({...spec,upfrontMinor:28665}).fractionalDeliveryCents,false);
 });
+
+test('exact-price planning preserves every package price without claiming native discount propagation',async()=>{
+ const {prepaidExactPriceCorrectionCandidate:plan}=await import('../.shopify/prepaid-selling-plan-test/prepaid-selling-plan.js');
+ const spec={productGid:'gid://shopify/Product/1',variantGid:'gid://shopify/ProductVariant/2',months:3,upfrontMinor:25520};
+ const two=plan(spec,2);assert.equal(two.expectedTotalMinor,51040);assert.equal(two.grossTotalMinor,51042);assert.equal(two.totalCorrectionMinor,2);assert.equal(two.discountPerPackageMinor,1);assert.equal(two.nativeCheckoutVerified,false);
+ const six=plan({...spec,months:6,upfrontMinor:49360},3);assert.equal(six.expectedTotalMinor,148080);assert.equal(six.totalCorrectionMinor,6);assert.equal(six.futureRenewalVerified,false);
+ assert.equal(plan({...spec,upfrontMinor:30000},2).totalCorrectionMinor,0);for(const count of[0,-1,1.5,NaN,'2',2147483647])assert.throws(()=>plan(spec,count));
+});

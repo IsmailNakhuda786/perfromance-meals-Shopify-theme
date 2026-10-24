@@ -510,7 +510,8 @@ model PrepaidPurchaseEvidence {
  snapshot String
  snapshotHash String
  createdAt DateTime @default(now())
- @@unique([shop, contractGid])
+ @@unique([shop, contractGid, originalLineGid], map: "PrepaidPurchaseEvidence_contract_line_key")
+ @@index([shop, contractGid])
  @@unique([shop, originalLineGid])
  @@index([shop, customerGid])
 }
@@ -529,8 +530,8 @@ model PrepaidRenewalEvidence {
  state String @default("PENDING_LINK")
  createdAt DateTime @default(now())
  completedAt DateTime?
- @@unique([shop, attemptGid])
- @@unique([shop, renewalOrderGid])
+ @@unique([shop, attemptGid, purchaseEvidenceId], map: "PrepaidRenewalEvidence_attempt_purchase_key")
+ @@unique([shop, renewalOrderGid, purchaseEvidenceId], map: "PrepaidRenewalEvidence_order_purchase_key")
  @@index([shop, customerGid])
  @@index([shop, state, createdAt, id])
 }

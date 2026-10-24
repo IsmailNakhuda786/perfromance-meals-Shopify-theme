@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "29af51fac71d304c05f1075bc369c5230311486e",
+  "source_commit": "6c24e9d7617f60027f8cb4e3f34bba5f3213cf71",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -485,8 +485,13 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/app/services/prepaid-package-quantity.ts",
+      "sha256": "0f6294693d84091c42484482ec8cda1fe40d7dccd6d75e30e6336e2f6da2a3ef",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/app/services/prepaid-payment.server.ts",
-      "sha256": "fea6d0958cba0d083d93f4b9800e1cdc31fc74540f7ec156d7d9414ee7786c7e",
+      "sha256": "2cc6c0986fd27793a6294f01a2f8d431d6df35532d09e375179fc0ceaf8610f6",
       "sanitized": false
     },
     {
@@ -496,32 +501,32 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/prepaid-renewal-evidence.server.ts",
-      "sha256": "be15279b2f4b6e5bf2a9a5bac7fe1ce56fe4fe361efe012ad37f4792a2443a53",
+      "sha256": "0d88ac49b219204fd4fc5d67107b6caa67bc1a2d87591a01beb4f320a74ce838",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/services/prepaid-renewal-inbox.server.ts",
-      "sha256": "50e817a41eacc2696e35749e4f4fdc830f908980939abafe2d68eda9456b9600",
+      "sha256": "f1c9c60e90d5d3c0b7abfc1e675914aef2316d00cefad02da51d86f2ea921eb6",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/services/prepaid-renewal.server.ts",
-      "sha256": "397f8cbb4609d9424d262910a3af5631f50caf697283d289396162795396c72b",
+      "sha256": "68f57ce6a655670588fdf2025dd92713070b9e072711b14d40107fba87094725",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/services/prepaid-schedule.server.ts",
-      "sha256": "6040b80f01b830c6e280b06ff125e800f3f37d2c885aaa11b5cf80a2c12f83fa",
+      "sha256": "a21b26d3df46f804261756defd79874e797c3e9b73975a4750c54b0cca16059d",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/services/prepaid-selling-plan.ts",
-      "sha256": "a6c5a3616a73330b10b9fdc34aed8f84bc18d46d66408fca26435cba843bbae2",
+      "sha256": "fe21985b9f8bf5153241923b215ee221ab886d81fc9d0faaf9ef4b3971c1c5ca",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/services/prepaid-verification.server.ts",
-      "sha256": "876aa053d3802c2bd21f19f6ca9c1f478235aafebbb11d793ef07754af2c218f",
+      "sha256": "7643654e307aaab178e2d1c19428f87d492f5f990f797e30e681d3fd10c4e799",
       "sanitized": false
     },
     {
@@ -621,7 +626,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/subscription-renewal-links.server.ts",
-      "sha256": "1ad24b579a1845c774c337e09b30de9ecaaf4f1ad101504fac34425c82531bd0",
+      "sha256": "2fbbd778eb21394fd0a03410ce4909582d721da942427f92b123a042b2af5933",
       "sanitized": false
     },
     {
@@ -1050,6 +1055,11 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/prisma/migrations/20261024140000_prepaid_multiple_packages/migration.sql",
+      "sha256": "9a4a2f5334b7eb3c03eb47bd6de92985b57e639dd46bc7f92db7a0bcd80b23da",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/prisma/migrations/migration_lock.toml",
       "sha256": "3389dbaf2a3cf4b413275867ac6f550b27f79efe85ee9c12082cdd8c5b8239c4",
       "sanitized": false
@@ -1185,18 +1195,23 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/prisma/production/migrations/20261024140000_prepaid_multiple_packages/migration.sql",
+      "sha256": "9a4a2f5334b7eb3c03eb47bd6de92985b57e639dd46bc7f92db7a0bcd80b23da",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/prisma/production/migrations/migration_lock.toml",
       "sha256": "1db17a8d051aa136110736752c5e1f8b7ed92b6ea8e803112fbbe2497047c210",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/prisma/production/schema.prisma",
-      "sha256": "c79ccded44eb1be5cd3033c6b5de2a6dd470dcc3eff16aa231f0cfff3d6342a4",
+      "sha256": "5a8afbba70fc9c313f663f0f251ddfd49231762f9cdcf4830c7c6b8cc26b74a1",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/prisma/schema.prisma",
-      "sha256": "94992d43883a4868608eeac74b7b3469a87e0ecb142862918eef59c4886c26ea",
+      "sha256": "4b5334bfac86c53340e0d14f5ef477e738bf27eb98610dbcff479a2183bce47d",
       "sanitized": false
     },
     {
@@ -1450,6 +1465,11 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/tests/prepaid-multiple-packages.test.mjs",
+      "sha256": "93f9e5e997ba57958d5965cac4ac63fde4feb71f2f5eead568d2966093e4cb8c",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/tests/prepaid-payment.test.mjs",
       "sha256": "72e39d227dc353cd954dac3098fb0e678b3c632e1f01fbc8c96cb0bb2feceb58",
       "sanitized": false
@@ -1476,12 +1496,12 @@
     },
     {
       "path": "apps/performance-meals-core/tests/prepaid-schedule.test.mjs",
-      "sha256": "a6243a773aedb93aac0d5e1c1f7e6dec1b4f2510b7510edc92ff64af84d07fb2",
+      "sha256": "70fe2eed7da196d9c84ac9c113691d321a5db15d9755b95b94ad7057bbb47c5c",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/tests/prepaid-selling-plan.test.mjs",
-      "sha256": "89ca4655b6b84ed474e13939a8c602fe86d2fc76900779a7dd17b8faa1dd1887",
+      "sha256": "5781ff9baf31977ad51948cc7601ba0211f9707905a014dbe599fa03076bb2bf",
       "sanitized": false
     },
     {
@@ -2556,7 +2576,7 @@
     },
     {
       "path": "docs/PREPAID-RENEWAL-PIPELINE-20261024.md",
-      "sha256": "8a352009d4e39381a19a1b76310200e7ddc961df9c2dbf8bb5fa1dcf65b1c200",
+      "sha256": "3dd69eabde1e5b4743e86c61ac702c577f888fb0f1ab69949c9497454f0876f8",
       "sanitized": false
     },
     {
@@ -2571,12 +2591,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "83fecd14d114fa474477bcd7b705cbc8b8150d91f50a072d20a7024d0780aa23",
+      "sha256": "00f021ba0d52e7f4bf24a0578e17f4930638ce9acddf9994433c3391efcf8f12",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "913abc3d3d97e81d3c406a31971bf2456cbfdf5821f2d300025dd9ba8302a9d8",
+      "sha256": "140a726fa7b867044dafe6ea07f080fb1f255b2956d2a9795149ef1b762b503a",
       "sanitized": false
     },
     {

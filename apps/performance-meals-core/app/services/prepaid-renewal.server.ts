@@ -12,7 +12,7 @@ query ReadySeriesRenewalAttempt($id:ID!){
 }`;
 type Admin=Parameters<typeof readPrepaidPayment>[0];
 export type PrepaidRenewalExpectation=PrepaidExpectation&{
- attemptGid:string;idempotencyKey:string;renewalOrderGid:string;renewalOrderLineGid:string;upfrontMinor:number;
+ orderLineGid?:string;packageQuantity?:number;paymentScope?:'ORDER'|'PREPAID_LINE';attemptGid:string;idempotencyKey:string;renewalOrderGid:string;renewalOrderLineGid:string;upfrontMinor:number;
 };
 const ref=(kind:string,value:unknown)=>typeof value==='string'&&new RegExp('^gid://shopify/'+kind+'/\\d+$').test(value);
 
@@ -31,7 +31,7 @@ async function inspectRenewal(admin:Admin,shop:string,contractGid:string,expecte
  const contract=await inspectPrepaidContract(admin,shop,contractGid,expected);
  // A historical payment remains auditable after pause/cancellation, but its
  // evidence must never become authorization for another charge.
- if(!contract.billingConfigurationMatches||!contract.deliveryPolicyMatches||contract.contract.lines.nodes.length!==1||!['ACTIVE','PAUSED','CANCELLED'].includes(contract.contract.status))throw Error('Renewal contract requires review');
+ if(!contract.billingConfigurationMatches||!contract.deliveryPolicyMatches||!['ACTIVE','PAUSED','CANCELLED'].includes(contract.contract.status))throw Error('Renewal contract requires review');
  const response=await admin.graphql(PREPAID_RENEWAL_QUERY,{variables:{id:expected.attemptGid}}),body=await response.json(),attempt=body.data?.subscriptionBillingAttempt;
  if(!response.ok||body.errors||body.data?.shop?.myshopifyDomain!==shop||attempt?.id!==expected.attemptGid||attempt.idempotencyKey!==expected.idempotencyKey||attempt.subscriptionContract?.id!==contractGid||attempt.state?.__typename!=='SubscriptionBillingAttemptSuccessState'||attempt.state.order?.id!==expected.renewalOrderGid)throw Error('Confirmed renewal attempt unavailable');
  const paymentContext={...expected,orderGid:expected.renewalOrderGid,orderLineGid:expected.renewalOrderLineGid};

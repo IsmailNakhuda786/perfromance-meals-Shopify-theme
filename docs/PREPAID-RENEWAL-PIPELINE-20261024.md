@@ -14,7 +14,7 @@ Development evidence starting from `1933ae8`. Full agreed scope remains required
 
 ## Evidence
 
-- **489/489** disposable-database Core tests passed, zero skipped.
+- **500/500** disposable-database Core tests passed, zero skipped.
 - **25/25** focused PostgreSQL tests passed for the new evidence/inbox lifecycle.
 - TypeScript, lint and canonical/production schema consistency passed.
 - Existing three-/six-delivery test renewals were processed using new local evidence rows and fresh read-only Shopify proof. Replaying both leaves completed inbox records and all four operational rows unchanged.
@@ -29,10 +29,18 @@ Private native receipts, identities and signatures remain excluded from GitHub.
 1. The original purchase-registration function still needs integration with an accepted server-side purchase configuration flow. Today it records only explicitly supplied, native-verified development snapshots. Unknown purchase context is retried, not durably resolved automatically.
 2. A real provider-originated billing-success event must be observed through permanent staging, including event ordering and callback outages. The optional fifth callback has not been activated generally.
 3. The batch processors require approved durable scheduling, monitoring and reconciliation; no in-process timer or temporary tunnel is accepted as production infrastructure.
-4. Native proof is currently restricted to test payments and a single prepaid-only order line. Real payments, mixed/multiple packages, general discount provisioning and ongoing tax/price changes remain gated.
-5. The exact-cent correction works for the verified single-package QA cases, but general production correction creation/propagation and customer-facing pricing acceptance remain incomplete. Whether multiple identical packages may be bought together is awaiting the user's business choice.
+4. Native proof is restricted to test payments. Multiple-package quantities and separately registered prepaid lines now have local/database coverage; their actual multi-package Shopify checkout and renewal pricing remain unverified. Ordinary-food mixed carts, real payments, general discount provisioning and ongoing tax/price changes remain gated.
+5. The exact-cent correction works for the verified single-package QA cases, but general production correction creation/propagation and customer-facing pricing acceptance remain incomplete. The user approved multiple identical or different prepaid packages in one checkout. Quantity-scaled corrections are calculation candidates only until native checkout and renewal proof passes.
 6. Full delivery calendar/capacity, reschedule and dispatch lifecycle, Wallet-funded renewals and supported Wallet architecture remain incomplete or blocked.
 
 Shopify documents the billing-success trigger and that billing attempts are separate from contract creation: [Subscription contracts](https://shopify.dev/docs/apps/build/purchase-options/subscriptions/contracts). Native payment is re-read as proof, never inferred merely from that trigger.
 
 The production matrix remains **1 PASS / 10 PARTIAL / 0 FAIL / 4 BLOCKED**. New integration evidence strengthens requirements 2, 14 and 15 without satisfying their remaining gates.
+
+## Multiple-package development checkpoint
+
+- Explicit package counts preserve the complete purchased quantity on every scheduled delivery. Multiple registered lines can share a billing attempt without overwriting evidence or duplicating links.
+- Line-scoped proof still requires the entire prepaid-only order to be captured, all discount allocations reconciled, and every contract line registered. Missing or ambiguous coverage remains held.
+- **500/500** disposable Core tests and **33/33** focused PostgreSQL tests passed; TypeScript and lint passed. The latter includes payment, quantity/group routing and scheduled fulfilment checks.
+- The additive composite-index migration preserved all 14 protected development models. Historical single-package renewal processing remained compatible: two registered purchases, two completed renewals, repeated processing unchanged, four operational rows and 18 native paid fulfilments preserved; nine financial models unchanged.
+- Native unpaid multiple-package checkout checks require the pending isolated-test approval. No multiple-package native acceptance is claimed.

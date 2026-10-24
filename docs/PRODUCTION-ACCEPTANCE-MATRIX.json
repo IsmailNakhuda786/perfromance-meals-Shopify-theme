@@ -10,11 +10,11 @@
     "BLOCKED": "A required platform capability, authorization or external dependency prevents completion."
   },
   "baseline": {
-    "coreTests": 489,
+    "coreTests": 500,
     "nativeReadback": "Four exact-price orders recovered and replayed unchanged; all 18 native paid fulfilments preserved. Five historical QA contracts remain cancelled; nine financial-model snapshots unchanged.",
     "checkoutPricing": "Exact initial and simulated renewal charges verified for both terms, 255.20/493.60. The higher native recurring subtotal explicitly excludes discounts; it is not the final renewal charge. Nonzero included-GST projections match exact prices; full native subscription GST checkout remains unaccepted.",
     "topUpsEnabled": false,
-    "newEngineering": "Development-only verified renewal linker and seven focused PostgreSQL tests; four missed orders reconciled twice with no duplicate rows and 18 native paid fulfilments preserved. Disposable local regression command passes 463/463; full remote PostgreSQL runs encountered infrastructure errors.",
+    "newEngineering": "Default-off durable registered renewal pipeline and multiple-package proof. 500 disposable Core tests pass; historical native replay preserves operational records and all 18 paid fulfilments. Purchase-flow integration and permanent workers remain incomplete.",
     "focusedPostgresRegression": {
       "passed": 60,
       "failed": 0,
@@ -28,7 +28,12 @@
       "postgresFailed": 0,
       "scope": "New immutable purchase evidence, registered renewal and authenticated inbox lifecycle"
     },
-    "renewalPipelineNative": "Both existing paid native test renewals completed from database evidence; repeat unchanged; all 18 paid fulfilments and nine financial models unchanged. Real SDK local signed replay 200 twice and invalid signature 401. No fresh billing event or production activation."
+    "renewalPipelineNative": "Both existing paid native test renewals completed from database evidence; repeat unchanged; all 18 paid fulfilments and nine financial models unchanged. Real SDK local signed replay 200 twice and invalid signature 401. No fresh billing event or production activation.",
+    "multiplePackageTests": {
+      "postgresPassed": 33,
+      "failed": 0,
+      "scope": "Payment, multiple package/line routing and fulfilment quantities; native multiple-package checkout remains pending"
+    }
   },
   "counts": {
     "PASS": 1,

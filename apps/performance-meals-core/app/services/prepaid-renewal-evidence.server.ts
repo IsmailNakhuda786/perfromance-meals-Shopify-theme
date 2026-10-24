@@ -23,7 +23,7 @@ export function assertPrepaidRenewalEvidenceScope(shop:string,customerGid?:strin
  if(!/^gid:\/\/shopify\/Customer\/\d+$/.test(customer??'')||customerGid!==undefined&&customerGid!==customer)throw Error('Isolated prepaid QA customer required');
  return customer!;
 }
-const initial=(e:Initial):Initial=>({months:e.months,appGid:e.appGid,customerGid:e.customerGid,orderGid:e.orderGid,orderLineGid:e.orderLineGid,productGid:e.productGid,variantGid:e.variantGid,sellingPlanGid:e.sellingPlanGid,upfrontMinor:e.upfrontMinor});
+const initial=(e:Initial):Initial=>({months:e.months,appGid:e.appGid,customerGid:e.customerGid,orderGid:e.orderGid,orderLineGid:e.orderLineGid,productGid:e.productGid,variantGid:e.variantGid,sellingPlanGid:e.sellingPlanGid,upfrontMinor:e.upfrontMinor,...(e.packageQuantity!==undefined?{packageQuantity:e.packageQuantity}:{}),...(e.paymentScope!==undefined?{paymentScope:e.paymentScope}:{})});
 const correction=(c?:PrepaidPriceCorrection|null):PrepaidPriceCorrection|null=>c?{baseMinor:c.baseMinor,discountMinor:c.discountMinor,applicationKind:c.applicationKind,title:c.title,taxMinor:c.taxMinor}:null;
 function readPurchase(row:Purchase):PurchaseSnapshot{
  if(hash(row.snapshot)!==row.snapshotHash)throw Error('Purchased evidence checksum differs');
@@ -41,7 +41,7 @@ function readRenewal(row:Renewal,purchase:Purchase):RenewalSnapshot{
 async function createOrVerifyPurchase(data:Omit<Purchase,'id'|'createdAt'>){
  try{return await db.prepaidPurchaseEvidence.create({data});}catch(error){
   if((error as {code?:string}).code!=='P2002')throw error;
-  const previous=await db.prepaidPurchaseEvidence.findUnique({where:{shop_contractGid:{shop:data.shop,contractGid:data.contractGid}}});
+  const previous=await db.prepaidPurchaseEvidence.findUnique({where:{shop_contractGid_originalLineGid:{shop:data.shop,contractGid:data.contractGid,originalLineGid:data.originalLineGid}}});
   if(!previous||previous.snapshot!==data.snapshot||previous.snapshotHash!==data.snapshotHash||previous.customerGid!==data.customerGid||previous.originalLineGid!==data.originalLineGid||previous.originalOrderGid!==data.originalOrderGid)throw Error('A different purchased snapshot is already registered');
   readPurchase(previous);return previous;
  }
@@ -54,9 +54,10 @@ export async function registerPrepaidPurchaseEvidence(admin:Admin,shop:string,co
  const e=initial(expected),c=correction(priceCorrection);
  if(c)await readCorrectedPrepaidPayment(admin,shop,e,c);else await readPrepaidPayment(admin,shop,e);
  const native=await inspectPrepaidContract(admin,shop,contractGid,e);
- if(!native.billingConfigurationMatches||!native.deliveryPolicyMatches||native.contract.lines.nodes.length!==1||minorAmount(native.contract.lines.nodes[0].currentPrice.amount)!==(c?.baseMinor??e.upfrontMinor))throw Error('Purchased contract or price requires review');
- const rows=await db.operationalLine.findMany({where:{shop,orderGid:e.orderGid}}),row=rows[0];
- if(rows.length!==1||row.validationStatus!=='VALIDATED'||row.businessStream!=='ready_series'||row.customerGid!==e.customerGid||row.contractGid!==contractGid||row.orderLineGid!==e.orderLineGid||row.productGid!==e.productGid||row.variantGid!==e.variantGid||row.selectionId!==null||row.bundleReviewId!==null)throw Error('Validated original purchase binding required');
+ const target=native.contract.lines.nodes.filter(line=>line.productId===e.productGid&&line.variantId===e.variantGid&&line.sellingPlanId===e.sellingPlanGid);
+ if(!native.billingConfigurationMatches||!native.deliveryPolicyMatches||target.length!==1||minorAmount(target[0].currentPrice.amount)*(e.packageQuantity??1)!==(c?.baseMinor??e.upfrontMinor))throw Error('Purchased contract or price requires review');
+ const rows=await db.operationalLine.findMany({where:{shop,orderGid:e.orderGid}}),matches=rows.filter(row=>row.orderLineGid===e.orderLineGid),row=matches[0];
+ if(matches.length!==1||e.paymentScope!=='PREPAID_LINE'&&rows.length!==1||row.validationStatus!=='VALIDATED'||row.businessStream!=='ready_series'||row.customerGid!==e.customerGid||row.contractGid!==contractGid||row.orderLineGid!==e.orderLineGid||row.productGid!==e.productGid||row.variantGid!==e.variantGid||row.selectionId!==null||row.bundleReviewId!==null)throw Error('Validated original purchase binding required');
  const snapshot=JSON.stringify({version:1,contractGid,expected:e,correction:c} satisfies PurchaseSnapshot);
  return createOrVerifyPurchase({shop,customerGid:e.customerGid,contractGid,originalOrderGid:e.orderGid,originalLineGid:e.orderLineGid,snapshot,snapshotHash:hash(snapshot)});
 }
@@ -75,7 +76,7 @@ export async function registerPrepaidRenewalEvidence(admin:Admin,shop:string,pur
  const data={shop,customerGid:customer,contractGid:purchase.contractGid,purchaseEvidenceId:purchase.id,attemptGid:expected.attemptGid,renewalOrderGid:expected.renewalOrderGid,snapshot,snapshotHash};
  try{return await db.prepaidRenewalEvidence.create({data});}catch(error){
   if((error as {code?:string}).code!=='P2002')throw error;
-  const previous=await db.prepaidRenewalEvidence.findUnique({where:{shop_attemptGid:{shop,attemptGid:expected.attemptGid}}});
+  const previous=await db.prepaidRenewalEvidence.findUnique({where:{shop_attemptGid_purchaseEvidenceId:{shop,attemptGid:expected.attemptGid,purchaseEvidenceId:purchase.id}}});
   if(!previous||previous.snapshot!==snapshot||previous.snapshotHash!==snapshotHash)throw Error('Renewal attempt or order is already bound differently');
   readRenewal(previous,purchase);return previous;
  }
@@ -114,3 +115,5 @@ export async function processPrepaidRenewalEvidenceBatch(admin:Admin,shop:string
  }
  return {results,hasMore:rows.length>limit,nextCursor:rows.length>limit?results.at(-1)?.evidenceId:null};
 }
+
+export {readPurchase as readRegisteredPrepaidPurchase};

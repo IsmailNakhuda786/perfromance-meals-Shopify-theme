@@ -1,4 +1,5 @@
 import {assertShop} from './security.server';
+import {prepaidPackageQuantity} from './prepaid-package-quantity';
 
 export const PREPAID_CONTRACT_QUERY = `#graphql
 query ReadySeriesPrepaidContract($id: ID!) {
@@ -21,13 +22,14 @@ type Contract = {
  originOrder: {id: string; name: string; test: boolean; currencyCode: string; customer: {id: string} | null} | null;
  lines: {nodes: Array<{id: string; productId: string | null; variantId: string | null; sellingPlanId: string | null; quantity: number; currentPrice: {amount: string; currencyCode: string}}>; pageInfo: {hasNextPage: boolean}};
 };
-export type PrepaidExpectation = {months: 3 | 6; appGid: string; customerGid: string; orderGid: string; productGid: string; variantGid: string; sellingPlanGid: string};
+export type PrepaidExpectation = {packageQuantity?:number;months: 3 | 6; appGid: string; customerGid: string; orderGid: string; productGid: string; variantGid: string; sellingPlanGid: string};
 
 // Read-only configuration evidence. Never creates a contract, charge, or acceptance flag.
 export async function inspectPrepaidContract(admin: Admin, shop: string, contractGid: string, expected: PrepaidExpectation) {
  assertShop(shop);
  if (!/^gid:\/\/shopify\/SubscriptionContract\/\d+$/.test(contractGid)) throw new Error('Invalid contract reference');
  if (expected.months !== 3 && expected.months !== 6) throw new Error('Invalid prepaid term');
+ const {packages}=prepaidPackageQuantity(expected.months,expected.packageQuantity);
  for (const [key, type] of [['appGid', 'App'], ['customerGid', 'Customer'], ['orderGid', 'Order'], ['productGid', 'Product'], ['variantGid', 'ProductVariant'], ['sellingPlanGid', 'SellingPlan']] as const) {
   if (!new RegExp('^gid://shopify/' + type + '/\\d+$').test(expected[key])) throw new Error('Invalid expected native reference');
  }
@@ -46,7 +48,7 @@ export async function inspectPrepaidContract(admin: Admin, shop: string, contrac
  const billing = contract.billingPolicy;
  if (billing.interval !== 'MONTH' || billing.intervalCount !== expected.months || billing.minCycles !== 1 || billing.maxCycles !== null) issues.push('Billing must charge the full prepaid term and renew without a fixed cycle cap');
  const lines = contract.lines.nodes.filter(line => line.productId === expected.productGid && line.variantId === expected.variantGid && line.sellingPlanId === expected.sellingPlanGid);
- if (lines.length !== 1 || lines[0].quantity !== 1 || lines[0].currentPrice.currencyCode !== 'SGD') issues.push('Approved product, variant, plan or quantity does not match');
+ if (lines.length !== 1 || lines[0].quantity !== packages || lines[0].currentPrice.currencyCode !== 'SGD') issues.push('Approved product, variant, plan or quantity does not match');
  const delivery=contract.deliveryPolicy;
  const deliveryPolicyMatches=delivery?.interval==='MONTH'&&delivery.intervalCount===1;
  const deliveryIssues=deliveryPolicyMatches?[]:['Delivery policy must repeat monthly independently of calendar-month billing'];

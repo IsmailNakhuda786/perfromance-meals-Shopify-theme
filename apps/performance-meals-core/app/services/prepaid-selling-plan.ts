@@ -36,3 +36,14 @@ export function assertPrepaidAllocation(spec:PrepaidPlanSpec,allocation:{variant
  if(!allocation||allocation.variantGid!==spec.variantGid||!/^gid:\/\/shopify\/SellingPlan\/\d+$/.test(allocation.sellingPlanGid)||allocation.priceMinor!==spec.upfrontMinor||allocation.currency!=='SGD'||allocation.recurring!==true)throw Error('Native prepaid allocation differs from approved term');
  return {variantGid:spec.variantGid,sellingPlanGid:allocation.sellingPlanGid,months:spec.months,upfrontMinor:spec.upfrontMinor,currency:'SGD' as const,paymentVerified:false as const};
 }
+
+// Arithmetic plan only: quote exact approved package totals and the correction
+// that a native multi-package checkout must prove. This is not a discount writer.
+export function prepaidExactPriceCorrectionCandidate(spec:PrepaidPlanSpec,packageQuantity=1){
+ prepaidSellingPlanCandidate(spec);
+ if(!Number.isSafeInteger(packageQuantity)||packageQuantity<1||packageQuantity*spec.months>2147483647)throw Error('Valid prepaid package count required');
+ const grossPerPackageMinor=Math.ceil(spec.upfrontMinor/spec.months)*spec.months;
+ const expectedTotalMinor=spec.upfrontMinor*packageQuantity,grossTotalMinor=grossPerPackageMinor*packageQuantity;
+ if(!Number.isSafeInteger(grossTotalMinor)||grossTotalMinor>2147483647)throw Error('Prepaid aggregate exceeds supported money range');
+ return {packageQuantity,perPackageMinor:spec.upfrontMinor,expectedTotalMinor,grossPerPackageMinor,grossTotalMinor,discountPerPackageMinor:grossPerPackageMinor-spec.upfrontMinor,totalCorrectionMinor:grossTotalMinor-expectedTotalMinor,currency:'SGD' as const,nativeCheckoutVerified:false as const,futureRenewalVerified:false as const};
+}

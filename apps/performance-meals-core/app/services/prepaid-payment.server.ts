@@ -1,4 +1,5 @@
 import {assertShop} from './security.server';
+import {prepaidPackageQuantity} from './prepaid-package-quantity';
 import {minorAmount} from './gift-card-native.server';
 import {rewardTimestamp} from './rewards-policy';
 
@@ -23,7 +24,7 @@ export const PREPAID_CORRECTED_PAYMENT_QUERY=PREPAID_PAYMENT_QUERY
  .replace('nodes{id quantity currentQuantity isGiftCard','nodes{originalTotalSet{shopMoney{amount currencyCode}} discountAllocations{allocatedAmountSet{shopMoney{amount currencyCode}}discountApplication{__typename ...on AutomaticDiscountApplication{title} ...on ManualDiscountApplication{title}}} id quantity currentQuantity isGiftCard');
 export type PrepaidPriceCorrection={baseMinor:number;discountMinor:number;applicationKind:'AUTOMATIC'|'MANUAL';title:string;taxMinor:number};
 type Admin={graphql:(query:string,options:{variables:Record<string,unknown>})=>Promise<Response>};
-export type PrepaidPaymentExpectation={months:3|6;customerGid:string;orderGid:string;orderLineGid:string;productGid:string;variantGid:string;sellingPlanGid:string;upfrontMinor:number};
+export type PrepaidPaymentExpectation={packageQuantity?:number;paymentScope?:'ORDER'|'PREPAID_LINE';months:3|6;customerGid:string;orderGid:string;orderLineGid:string;productGid:string;variantGid:string;sellingPlanGid:string;upfrontMinor:number};
 const reference=(kind:string,value:unknown)=>typeof value==='string'&&new RegExp('^gid://shopify/'+kind+'/\\d+$').test(value);
 type Money={shopMoney:{amount:string;currencyCode:string}};
 const money=(value:Money)=>{
@@ -44,7 +45,7 @@ export async function readPrepaidPayment(admin:Admin,shop:string,expected:Prepai
 // discountedTotalSet (which omits order discounts), prove the actual food net.
 // No purchase, price update, charge or activation occurs here.
 export async function readCorrectedPrepaidPayment(admin:Admin,shop:string,expected:PrepaidPaymentExpectation,correction:PrepaidPriceCorrection){
- if(!correction||!Number.isSafeInteger(correction.baseMinor)||correction.baseMinor>2147483647||!Number.isSafeInteger(correction.discountMinor)||correction.discountMinor<1||correction.discountMinor>=expected.months||correction.baseMinor!==expected.upfrontMinor+correction.discountMinor||!['AUTOMATIC','MANUAL'].includes(correction.applicationKind)||typeof correction.title!=='string'||!correction.title.trim()||correction.title.length>255||!Number.isSafeInteger(correction.taxMinor)||correction.taxMinor<0||correction.taxMinor>expected.upfrontMinor)throw Error('Explicit approved prepaid correction required');
+ if(!correction||!Number.isSafeInteger(correction.baseMinor)||correction.baseMinor>2147483647||!Number.isSafeInteger(correction.discountMinor)||correction.discountMinor<1||correction.discountMinor>=prepaidPackageQuantity(expected.months,expected.packageQuantity).nativeOrderQuantity||correction.baseMinor!==expected.upfrontMinor+correction.discountMinor||!['AUTOMATIC','MANUAL'].includes(correction.applicationKind)||typeof correction.title!=='string'||!correction.title.trim()||correction.title.length>255||!Number.isSafeInteger(correction.taxMinor)||correction.taxMinor<0||correction.taxMinor>(expected.paymentScope==='PREPAID_LINE'?2147483647:expected.upfrontMinor))throw Error('Explicit approved prepaid correction required');
  return readPayment(admin,shop,expected,correction);
 }
 async function readPayment(admin:Admin,shop:string,expected:PrepaidPaymentExpectation,correction:PrepaidPriceCorrection|null){
@@ -53,12 +54,31 @@ async function readPayment(admin:Admin,shop:string,expected:PrepaidPaymentExpect
   if(!reference(kind,expected[key]))throw Error('Invalid prepaid payment reference');
  }
  if(![3,6].includes(expected.months))throw Error('Approved prepaid delivery count required');
+ const {nativeOrderQuantity}=prepaidPackageQuantity(expected.months,expected.packageQuantity);
+ if(expected.paymentScope!==undefined&&!['ORDER','PREPAID_LINE'].includes(expected.paymentScope))throw Error('Invalid prepaid payment scope');
+ const lineScoped=expected.paymentScope==='PREPAID_LINE';
  if(!Number.isSafeInteger(expected.upfrontMinor)||expected.upfrontMinor<1||expected.upfrontMinor>2147483647)throw Error('Approved upfront amount required');
- const response=await admin.graphql(correction?PREPAID_CORRECTED_PAYMENT_QUERY:PREPAID_PAYMENT_QUERY,{variables:{id:expected.orderGid}}),body=await response.json(),data=body.data,order=data?.order;
- if(!response.ok||body.errors||data?.shop?.myshopifyDomain!==shop||data.shop.currencyCode!=='SGD'||order?.id!==expected.orderGid||order.customer?.id!==expected.customerGid||order.test!==true||order.currencyCode!=='SGD'||order.taxesIncluded!==true||order.cancelledAt!==null||order.displayFinancialStatus!=='PAID'||!Array.isArray(order.disputes)||order.disputes.length||order.lineItems?.pageInfo?.hasNextPage!==false||!Array.isArray(order.lineItems.nodes)||order.lineItems.nodes.length!==1||!Array.isArray(order.transactions)||!order.transactions.length||order.transactions.length>=100)throw Error('Original prepaid payment evidence unavailable');
- const line=order.lineItems.nodes[0];
- if(line?.id!==expected.orderLineGid||line.quantity!==expected.months||line.currentQuantity!==expected.months||line.isGiftCard!==false||line.product?.id!==expected.productGid||line.variant?.id!==expected.variantGid||line.sellingPlan?.sellingPlanId!==expected.sellingPlanGid)throw Error('Original prepaid package differs');
- if([order.totalPriceSet,order.currentTotalPriceSet,order.totalReceivedSet].some(value=>money(value)!==expected.upfrontMinor)||[order.totalRefundedSet,order.totalShippingPriceSet].some(value=>money(value)!==0)||money(order.totalDiscountsSet)!==(correction?.discountMinor??0))throw Error('Prepaid total, delivery or payment differs');
+ const response=await admin.graphql(correction||lineScoped?PREPAID_CORRECTED_PAYMENT_QUERY:PREPAID_PAYMENT_QUERY,{variables:{id:expected.orderGid}}),body=await response.json(),data=body.data,order=data?.order;
+ if(!response.ok||body.errors||data?.shop?.myshopifyDomain!==shop||data.shop.currencyCode!=='SGD'||order?.id!==expected.orderGid||order.customer?.id!==expected.customerGid||order.test!==true||order.currencyCode!=='SGD'||order.taxesIncluded!==true||order.cancelledAt!==null||order.displayFinancialStatus!=='PAID'||!Array.isArray(order.disputes)||order.disputes.length||order.lineItems?.pageInfo?.hasNextPage!==false||!Array.isArray(order.lineItems.nodes)||(!lineScoped&&order.lineItems.nodes.length!==1)||lineScoped&&(!order.lineItems.nodes.length||order.lineItems.nodes.length>100)||!Array.isArray(order.transactions)||!order.transactions.length||order.transactions.length>=100)throw Error('Original prepaid payment evidence unavailable');
+ const targets=order.lineItems.nodes.filter((row:{id:string})=>row.id===expected.orderLineGid);
+ if(targets.length!==1)throw Error('Unique purchased prepaid line required');
+ const line=targets[0];
+ if(line?.id!==expected.orderLineGid||line.quantity!==nativeOrderQuantity||line.currentQuantity!==nativeOrderQuantity||line.isGiftCard!==false||line.product?.id!==expected.productGid||line.variant?.id!==expected.variantGid||line.sellingPlan?.sellingPlanId!==expected.sellingPlanGid)throw Error('Original prepaid package differs');
+ let capturedOrderMinor=expected.upfrontMinor;
+ if(lineScoped){
+  capturedOrderMinor=money(order.totalPriceSet);
+  const lineIds=new Set<string>();let net=0,discounted=0;
+  for(const item of order.lineItems.nodes){
+   if(!reference('LineItem',item.id)||lineIds.has(item.id)||item.isGiftCard!==false||!Number.isSafeInteger(item.quantity)||item.quantity<1||item.currentQuantity!==item.quantity||!reference('Product',item.product?.id)||!reference('ProductVariant',item.variant?.id)||!reference('SellingPlan',item.sellingPlan?.sellingPlanId)||!Array.isArray(item.discountAllocations))throw Error('Complete prepaid-only line allocations required');
+   lineIds.add(item.id);const gross=money(item.originalTotalSet);let reduction=0;
+   for(const allocation of item.discountAllocations){const amount=money(allocation.allocatedAmountSet);if(amount<1)throw Error('Invalid prepaid line reduction');reduction+=amount;}
+   if(!Number.isSafeInteger(reduction)||reduction>gross)throw Error('Prepaid line allocation exceeds food');
+   net+=gross-reduction;discounted+=reduction;
+  }
+  const targetNet=money(line.originalTotalSet)-line.discountAllocations.reduce((sum:number,a:{allocatedAmountSet:Money})=>sum+money(a.allocatedAmountSet),0);
+  if(!Number.isSafeInteger(net)||net!==capturedOrderMinor||discounted!==money(order.totalDiscountsSet)||targetNet!==expected.upfrontMinor||!correction&&line.discountAllocations.length)throw Error('Purchased line net or complete order allocation differs');
+ }
+ if([order.totalPriceSet,order.currentTotalPriceSet,order.totalReceivedSet].some(value=>money(value)!==capturedOrderMinor)||[order.totalRefundedSet,order.totalShippingPriceSet].some(value=>money(value)!==0)||!lineScoped&&money(order.totalDiscountsSet)!==(correction?.discountMinor??0))throw Error('Prepaid total, delivery or payment differs');
  if(correction){
   const allocations=line.discountAllocations,allocation=allocations?.[0],application=allocation?.discountApplication;
   const type=correction.applicationKind==='AUTOMATIC'?'AutomaticDiscountApplication':'ManualDiscountApplication';
@@ -83,6 +103,6 @@ async function readPayment(admin:Admin,shop:string,expected:PrepaidPaymentExpect
   payments.push({id:payment.id,gateway:payment.gateway,amountMinor,processedAt:new Date(time).toISOString()});
  }
  const total=payments.reduce((sum,payment)=>sum+payment.amountMinor,0);
- if(!payments.length||!Number.isSafeInteger(total)||total!==expected.upfrontMinor)throw Error('Prepaid captured funding differs');
- return {orderGid:expected.orderGid,orderLineGid:expected.orderLineGid,customerGid:expected.customerGid,currency:'SGD' as const,upfrontMinor:total,paidAt:new Date(Math.max(...payments.map(payment=>Date.parse(payment.processedAt)))).toISOString(),payments,...(correction?{correction:{baseMinor:correction.baseMinor,discountMinor:correction.discountMinor,applicationKind:correction.applicationKind,title:correction.title,taxMinor:correction.taxMinor},checkoutPropagationVerified:false as const,futureRenewalVerified:false as const}:{} )};
+ if(!payments.length||!Number.isSafeInteger(total)||total!==capturedOrderMinor)throw Error('Prepaid captured funding differs');
+ return {orderGid:expected.orderGid,orderLineGid:expected.orderLineGid,customerGid:expected.customerGid,currency:'SGD' as const,upfrontMinor:expected.upfrontMinor,...(lineScoped?{capturedOrderMinor,paymentScope:'PREPAID_LINE' as const}:{}),paidAt:new Date(Math.max(...payments.map(payment=>Date.parse(payment.processedAt)))).toISOString(),payments,...(correction?{correction:{baseMinor:correction.baseMinor,discountMinor:correction.discountMinor,applicationKind:correction.applicationKind,title:correction.title,taxMinor:correction.taxMinor},checkoutPropagationVerified:false as const,futureRenewalVerified:false as const}:{} )};
 }

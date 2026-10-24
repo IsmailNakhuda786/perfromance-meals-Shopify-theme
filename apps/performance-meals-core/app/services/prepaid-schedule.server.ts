@@ -1,4 +1,5 @@
 import {assertShop} from './security.server';
+import {prepaidPackageQuantity} from './prepaid-package-quantity';
 import {verifyReadySeriesFulfillments} from './prepaid-fulfillment';
 
 export const PREPAID_SCHEDULE_QUERY=`#graphql
@@ -20,7 +21,7 @@ query ReadySeriesNativeScheduleItems($id:ID!,$after:String!){
  fulfillmentOrder(id:$id){id order{id}lineItems(first:100,after:$after){nodes{id totalQuantity remainingQuantity lineItem{id}}pageInfo{hasNextPage endCursor}}}
 }`;
 type Admin={graphql:(query:string,options:{variables:Record<string,unknown>})=>Promise<Response>};
-type Expected={appGid:string;customerGid:string;orderGid:string;orderLineGid:string;months:3|6;deliveryDates:string[]};
+type Expected={packageQuantity?:number;appGid:string;customerGid:string;orderGid:string;orderLineGid:string;months:3|6;deliveryDates:string[]};
 const ref=(kind:string,value:unknown)=>typeof value==='string'&&new RegExp('^gid://shopify/'+kind+'/\\d+$').test(value);
 
 // Read-only scheduled work, not actual shipment evidence. Native fulfillAt means
@@ -30,8 +31,9 @@ const ref=(kind:string,value:unknown)=>typeof value==='string'&&new RegExp('^gid
 export async function readPrepaidSchedule(admin:Admin,shop:string,expected:Expected){
  assertShop(shop);
  for(const [key,kind]of [['appGid','App'],['customerGid','Customer'],['orderGid','Order'],['orderLineGid','LineItem']] as const)if(!ref(kind,expected[key]))throw Error('Invalid native schedule reference');
+ const quantity=prepaidPackageQuantity(expected.months,expected.packageQuantity);
  // Reuse the approved calendar validator before any native request.
- verifyReadySeriesFulfillments([],{deliveries:expected.months,deliveryDates:expected.deliveryDates,orderGid:expected.orderGid,lineGid:expected.orderLineGid,quantityPerDelivery:1});
+ verifyReadySeriesFulfillments([],{deliveries:expected.months,deliveryDates:expected.deliveryDates,orderGid:expected.orderGid,lineGid:expected.orderLineGid,quantityPerDelivery:quantity.packages});
  const fetchPage=async(after:string|null)=>{
  const response=await admin.graphql(PREPAID_SCHEDULE_QUERY,{variables:{id:expected.orderGid,after}}),body=await response.json(),data=body.data,order=data?.order,installation=data?.currentAppInstallation;
  if(!response.ok||body.errors||data?.shop?.myshopifyDomain!==shop||installation?.app?.id!==expected.appGid||!Array.isArray(installation.accessScopes)||order?.id!==expected.orderGid||order.test!==true||order.cancelledAt!==null||order.customer?.id!==expected.customerGid||order.lineItems?.pageInfo?.hasNextPage!==false||!Array.isArray(order.lineItems.nodes)||order.lineItems.nodes.length>250||typeof order.fulfillmentOrders?.pageInfo?.hasNextPage!=='boolean'||!Array.isArray(order.fulfillmentOrders.nodes)||order.fulfillmentOrders.nodes.length>100)throw Error('Complete native schedule evidence unavailable');
@@ -69,7 +71,7 @@ export async function readPrepaidSchedule(admin:Admin,shop:string,expected:Expec
  const lines=order.lineItems.nodes as Array<{id:string;quantity:number;currentQuantity:number}>;
  if(lines.some(line=>!ref('LineItem',line?.id))||new Set(lines.map(line=>line.id)).size!==lines.length)throw Error('Ambiguous native schedule lines');
  const original=lines.filter(line=>line.id===expected.orderLineGid);
- if(original.length!==1||original[0].quantity!==expected.months||original[0].currentQuantity!==expected.months)throw Error('Native prepaid delivery quantity differs');
+ if(original.length!==1||original[0].quantity!==quantity.nativeOrderQuantity||original[0].currentQuantity!==quantity.nativeOrderQuantity)throw Error('Native prepaid delivery quantity differs');
  const fulfillments=collected as Array<{id:string;status:string;fulfillAt:string|null;order:{id:string};lineItems:{nodes:Array<{id:string;totalQuantity:number;remainingQuantity:number;lineItem:{id:string}}>;pageInfo:{hasNextPage:boolean}}}>;
  if(new Set(fulfillments.map(row=>row?.id)).size!==fulfillments.length)throw Error('Duplicate native fulfillment orders');
  const evidence:Array<{id:string;orderGid:string;lineGid:string;fulfillAt:string|null;status:string;quantity:number}>=[];
@@ -84,6 +86,6 @@ export async function readPrepaidSchedule(admin:Admin,shop:string,expected:Expec
    evidence.push({id:fulfillment.id,orderGid:fulfillment.order.id,lineGid:item.lineItem.id,fulfillAt:fulfillment.fulfillAt,status:fulfillment.status,quantity:item.totalQuantity});
   }
  }
- const result=verifyReadySeriesFulfillments(evidence,{deliveries:expected.months,deliveryDates:expected.deliveryDates,orderGid:expected.orderGid,lineGid:expected.orderLineGid,quantityPerDelivery:1});
+ const result=verifyReadySeriesFulfillments(evidence,{deliveries:expected.months,deliveryDates:expected.deliveryDates,orderGid:expected.orderGid,lineGid:expected.orderLineGid,quantityPerDelivery:quantity.packages});
  return {...result,orderGid:expected.orderGid,orderLineGid:expected.orderLineGid,visibleScheduleComplete:true as const,evidence,deliveryTimeSlotVerified:false as const};
 }
