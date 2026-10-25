@@ -44,3 +44,7 @@ The production matrix remains **1 PASS / 10 PARTIAL / 0 FAIL / 4 BLOCKED**. New 
 - **500/500** disposable Core tests and **33/33** focused PostgreSQL tests passed; TypeScript and lint passed. The latter includes payment, quantity/group routing and scheduled fulfilment checks.
 - The additive composite-index migration preserved all 14 protected development models. Historical single-package renewal processing remained compatible: two registered purchases, two completed renewals, repeated processing unchanged, four operational rows and 18 native paid fulfilments preserved; nine financial models unchanged.
 - Both approved native unpaid multi-package checkout checks now pass exact totals with isolated free delivery; see PREPAID-MULTIPLE-PACKAGE-CHECKOUT-20261024.md. Multi-package payment, saved contracts and simulated renewal remain unverified.
+
+## Fresh provider evidence — 25 October
+
+The two-identical-package test now has an actual Shopify billing-success intake and explicit bounded-worker/replay proof. The new initial and renewal orders each paid SGD 510.40; exact quantity 2 entitlements and protected records were preserved through cancellation and cleanup. This closes the fresh-event evidence gap for this isolated scenario, while automatic purchase registration, permanent scheduling and general production acceptance remain open. See PREPAID-TWO-PACKAGE-NATIVE-QA-20261025.md.

@@ -1,10 +1,10 @@
 # Performance Meals — full production acceptance
 
-Updated 2026-10-24. Evidence baseline: `e066401`. Full agreed scope remains required; no production acceptance or reduced-scope release.
+Updated 2026-10-25. Latest engineering baseline: `3eea617`; fresh two-package native evidence is recorded below. Full agreed scope remains required; no production acceptance or reduced-scope release.
 
 Current classification: **1 PASS / 10 PARTIAL / 0 FAIL / 4 BLOCKED**. The PASS is the approved absence of referral benefits, not a completed payment feature.
 
-Regression: 463/463 disposable SQLite tests; seven new recovery tests pass on PostgreSQL. Targeted PostgreSQL reruns passed 60/60, including all previously failing cases; the full concurrent PostgreSQL regression is not clean and remains an infrastructure concern. Theme 71/71, TypeScript, lint and schema consistency passed.
+Regression: **503/503** disposable Core tests and **73/73** focused PostgreSQL checks pass; TypeScript, lint and schema consistency pass. Historical Theme baseline remains 71/71. These focused database checks do not certify the full concurrent production PostgreSQL suite.
 
 | # | Requirement | Status |
 | --- | --- | --- |
@@ -54,7 +54,7 @@ Machine-readable full evidence: [PRODUCTION-ACCEPTANCE-MATRIX.json](PRODUCTION-A
 
 **Customer journey:** Initial/renewal test payments and future-renewal stop verified. Recovered account renders three linked stopped-renewal subscriptions, without duplicate renewal cards. Full merchant delivery lifecycle and permanent callback acceptance incomplete.
 
-**Outstanding:** Production cent-correction creation, persistence and recovery lifecycle is not implemented/accepted generally. Nonzero-GST calculation projections pass but are not a completed subscription checkout or charged GST payment. Complete delivery/calendar and automatic renewal-to-Core routing remain unaccepted.
+**Outstanding:** Production cent-correction creation, persistence and recovery lifecycle is not implemented/accepted generally. Nonzero-GST calculation projections pass but are not a completed subscription checkout or charged GST payment. Complete delivery/calendar, automatic original-purchase registration and permanent renewal scheduling remain unaccepted. A fresh scoped billing-success callback and explicit worker/replay are now verified.
 
 **Dependencies:** Production correction/disclosure approach; nonzero GST configuration/acceptance; merchant slot mapping.
 
@@ -108,7 +108,7 @@ Machine-readable full evidence: [PRODUCTION-ACCEPTANCE-MATRIX.json](PRODUCTION-A
 
 **Customer journey:** Ordinary-food and selected mixed-cart unpaid journeys verified; production profiles, subscription groups and all multi-delivery assignments incomplete.
 
-**Outstanding:** Third-party Collection Total failed order-level discounts and is not accepted for production. Historical nonzero-GST mixed/cart cases passed; native subscription GST checkout and all physical-delivery groups remain unaccepted.
+**Outstanding:** Third-party Collection Total failed order-level discounts and is not accepted for production. Native unpaid nonzero-GST single-package checkouts passed for both terms. Charged nonzero-GST renewals, multi-package GST and all physical-delivery groups remain unaccepted.
 
 **Dependencies:** Production plan/distribution eligibility, verified physical-delivery grouping and shipping-profile approval.
 
@@ -310,4 +310,8 @@ Customer approved multiple prepaid packages per checkout. Core now validates pac
 
 ### Unpaid multiple-package native checkout evidence
 
-Both approved comparisons passed exact checkout food totals with free isolated delivery: two3-delivery packagesSGD510.40 and3+6 packagesSGD748.80. The former exposed and corrected a fixed-discount quantity error in the temporary QA setup; general production provisioning remains incomplete. All six discounts inactive, original policies restored, QA product draft/unpublished, profile membership and cart restored. Multi-package payment/renewal and nonzero GST remain open. See [PREPAID-MULTIPLE-PACKAGE-CHECKOUT-20261024.md](PREPAID-MULTIPLE-PACKAGE-CHECKOUT-20261024.md). Acceptance counts unchanged.
+Both approved comparisons passed exact checkout food totals with free isolated delivery: two3-delivery packagesSGD 510.40 and3+6 packagesSGD748.80. The former exposed and corrected a fixed-discount quantity error in the temporary QA setup; general production provisioning remains incomplete. All six discounts inactive, original policies restored, QA product draft/unpublished, profile membership and cart restored. Multi-package payment/renewal and nonzero GST remain open. See [PREPAID-MULTIPLE-PACKAGE-CHECKOUT-20261024.md](PREPAID-MULTIPLE-PACKAGE-CHECKOUT-20261024.md). Acceptance counts unchanged.
+
+### Two-identical-package native lifecycle — 25 October
+
+Initial test order #1024 and one simulated renewal #1025 each captured exactly **SGD 510.40**. Shopify has exactly those two orders and one billing attempt on the QA contract. A real billing-success notification reached the durable Core inbox; the explicit worker and replay left two validated linked rows without duplicates. Each order has three deliveries of quantity 2. Future renewals were stopped while preserving all 24 protected native fulfilments and nine financial models. Temporary QA settings and callback gates were restored. GST was 0 in this scenario; general correction, mixed terms, paid nonzero GST and permanent infrastructure remain open. See [PREPAID-TWO-PACKAGE-NATIVE-QA-20261025.md](PREPAID-TWO-PACKAGE-NATIVE-QA-20261025.md). Counts remain **1 PASS / 10 PARTIAL / 0 FAIL / 4 BLOCKED**.

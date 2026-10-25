@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "3eea61761363ced94d9c0b18e0203e3f03dfc041",
+  "source_commit": "d026aa44b5357e091d54ee0d89a0fd3e3c1e1187",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -2581,12 +2581,17 @@
     },
     {
       "path": "docs/PREPAID-RENEWAL-PIPELINE-20261024.md",
-      "sha256": "966890a74c9f2d8a0eb90a36e23d8a086d12f2c8ad545accb120ad34f7837f6e",
+      "sha256": "7f1f2cb431c10fb7b2750f6e12e90ec744d93bebcf26f9036164f80e054cf4d7",
       "sanitized": false
     },
     {
       "path": "docs/PREPAID-SCHEDULE-PAGINATION-20261023.md",
       "sha256": "9402156ea6db2e4ad526e91b3568449247e5906765cd71c9e83a412589398cb7",
+      "sanitized": false
+    },
+    {
+      "path": "docs/PREPAID-TWO-PACKAGE-NATIVE-QA-20261025.md",
+      "sha256": "b96c749c5719450b89a0ccc7e76d46054b777c2d59119f9bd51eebe626a4e772",
       "sanitized": false
     },
     {
@@ -2596,12 +2601,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "034499cd91584283165b7b71c3b27b3e39092d9587fb5a587bd14ab10325a27c",
+      "sha256": "c84bbedfc7720e7845a164415144f0bf761704164989d58e6e2eadba6861301d",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "534e67b1ef83ff3c756885b582ae269331d1a1fd83f0c7fa688f56981d2afe55",
+      "sha256": "83a27bf7f9c4aaf83d50b82ded6dcf0942888cb70992583a793f3df155107888",
       "sanitized": false
     },
     {
