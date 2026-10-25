@@ -1,6 +1,6 @@
 {
   "updated": "2026-10-25",
-  "sourceCheckpoint": "1d187f5",
+  "sourceCheckpoint": "b2adeb4",
   "scope": "Full agreed production acceptance; no reduced-scope launch",
   "productionAccepted": false,
   "statusDefinitions": {
@@ -10,7 +10,7 @@
     "BLOCKED": "A required platform capability, authorization or external dependency prevents completion."
   },
   "baseline": {
-    "coreTests": 520,
+    "coreTests": 522,
     "nativeReadback": "Four exact-price orders recovered and replayed unchanged; all 18 native paid fulfilments preserved. Five historical QA contracts remain cancelled; nine financial-model snapshots unchanged.",
     "checkoutPricing": "Both single terms previously passed exact initial/renewal charges and unpaid nonzero-GST checkouts. Two identical three-delivery packages now passed exact 510.40 initial and simulated renewal charges; tax0 in this test. General correction and nonzero-GST charged-renewal acceptance remain incomplete.",
     "topUpsEnabled": false,
@@ -86,6 +86,31 @@
       "signedHistoricalSdkReplayPassed": true,
       "actualProviderCreateEvent": false,
       "permanentWorker": false
+    },
+    "quantityAwareCorrection": {
+      "unpaidCheckoutTotalsMinor": [
+        25520,
+        51040,
+        74880
+      ],
+      "samePerPackageCorrection": true,
+      "paidPropagationVerified": false,
+      "renewalVerified": false,
+      "focusedPostgresPassed": 23,
+      "separateQaPricingVersionsPrepared": true
+    },
+    "perPackageGstChargedNative": {
+      "evidence": "docs/PREPAID-PER-PACKAGE-GST-PAID-QA-20261025.md",
+      "initialMinor": 51040,
+      "renewalMinor": 51040,
+      "includedTaxEachMinor": 4214,
+      "quantity": 2,
+      "deliveryMinor": 0,
+      "providerEventsObserved": true,
+      "explicitWorkerReplayUnchanged": true,
+      "financialModelsUnchanged": true,
+      "futureTestRenewalsStopped": true,
+      "mixedNewPerItemGstScenario": "APPROVED_NOT_STARTED"
     }
   },
   "counts": {
@@ -166,7 +191,8 @@
         "docs/PREPAID-RENEWAL-PIPELINE-20261024.md",
         "docs/PREPAID-TWO-PACKAGE-NATIVE-QA-20261025.md",
         "docs/PREPAID-MIXED-PACKAGE-NATIVE-QA-20261025.md",
-        "docs/PREPAID-PURCHASE-INTAKE-20261025.md"
+        "docs/PREPAID-PURCHASE-INTAKE-20261025.md",
+        "docs/PREPAID-PER-ITEM-UNPAID-QA-20261025.md"
       ],
       "remainingEngineering": [
         "Implement gated production correction lifecycle and clear net-price explanation without mislabelling native gross subtotal; complete nonzero-GST native subscription journey and delivery lifecycle."

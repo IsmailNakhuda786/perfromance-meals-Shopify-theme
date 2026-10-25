@@ -47,3 +47,12 @@ export function prepaidExactPriceCorrectionCandidate(spec:PrepaidPlanSpec,packag
  if(!Number.isSafeInteger(grossTotalMinor)||grossTotalMinor>2147483647)throw Error('Prepaid aggregate exceeds supported money range');
  return {packageQuantity,perPackageMinor:spec.upfrontMinor,expectedTotalMinor,grossPerPackageMinor,grossTotalMinor,discountPerPackageMinor:grossPerPackageMinor-spec.upfrontMinor,totalCorrectionMinor:grossTotalMinor-expectedTotalMinor,currency:'SGD' as const,nativeCheckoutVerified:false as const,futureRenewalVerified:false as const};
 }
+
+// Native per-package correction candidate. Unpaid native QA proved that the
+// per-item discount scales with package count; paid renewal proof is separate.
+// This function is pure: it creates no native plan, discount, approval or sale.
+export function prepaidPerPackagePricingCandidate(spec:PrepaidPlanSpec){
+ const candidate=prepaidSellingPlanCandidate(spec),exact=prepaidExactPriceCorrectionCandidate(spec);
+ candidate.input.sellingPlansToCreate[0].pricingPolicies=[{fixed:{adjustmentType:'PRICE',adjustmentValue:{fixedValue:(exact.grossPerPackageMinor/100).toFixed(2)}}}];
+ return {...candidate,exact,correction:exact.discountPerPackageMinor?{amount:(exact.discountPerPackageMinor/100).toFixed(2),appliesOnEachItem:true as const,recurringCycleLimit:0}:null,nativeCheckoutVerified:false as const,futureRenewalVerified:false as const};
+}

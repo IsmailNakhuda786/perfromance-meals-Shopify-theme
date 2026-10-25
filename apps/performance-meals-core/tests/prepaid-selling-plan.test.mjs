@@ -35,3 +35,8 @@ test('exact-price planning preserves every package price without claiming native
  const six=plan({...spec,months:6,upfrontMinor:49360},3);assert.equal(six.expectedTotalMinor,148080);assert.equal(six.totalCorrectionMinor,6);assert.equal(six.futureRenewalVerified,false);
  assert.equal(plan({...spec,upfrontMinor:30000},2).totalCorrectionMinor,0);for(const count of[0,-1,1.5,NaN,'2',2147483647])assert.throws(()=>plan(spec,count));
 });
+test('per-package pricing candidate scales the native correction rather than baking in a checkout quantity',async()=>{
+ const{prepaidPerPackagePricingCandidate:make}=await import('../.shopify/prepaid-selling-plan-test/prepaid-selling-plan.js');
+ for(const[months,upfrontMinor,gross,amount]of[[3,25520,'255.21','0.01'],[6,49360,'493.62','0.02']]){const p=make({...spec,months,upfrontMinor});assert.equal(p.input.sellingPlansToCreate[0].pricingPolicies[0].fixed.adjustmentValue.fixedValue,gross);assert.deepEqual(p.correction,{amount,appliesOnEachItem:true,recurringCycleLimit:0});assert.equal(p.expected.upfrontMinor,upfrontMinor);assert.equal(p.futureRenewalVerified,false);}
+ assert.equal(make({...spec,upfrontMinor:30000}).correction,null);
+});

@@ -323,3 +323,11 @@ Initial #1026 SGD748.80 and separate renewals #1027 SGD255.20 / #1028 SGD493.60 
 ## Original-purchase intake — 25 October
 
 Immutable pricing approvals, durable authenticated intake and bounded recovery now replace the missing server-side original-purchase registration step in development. 520 full disposable tests pass;98 focused PostgreSQL checks pass sequentially. Historical native proofs and signed SDK replays preserve nine paid orders and nine financial models. The real provider create-event/permanent worker and general pricing provisioning remain unaccepted. Counts remain1 PASS/10 PARTIAL/0 FAIL/4 BLOCKED. See [purchase intake evidence](PREPAID-PURCHASE-INTAKE-20261025.md).
+
+## Quantity-aware corrections — 25 October
+
+One per-package automatic correction produced exact native unpaid totals255.20,510.40 and748.80 without quantity-specific resizing. Full suite522/522 and23 focused PostgreSQL checks pass. Separate QA pricing versions and immutable per-package approvals are prepared under the customer's new simulated-test authorization. No payment/renewal for those versions is claimed yet. See [unpaid evidence](PREPAID-PER-ITEM-UNPAID-QA-20261025.md). Counts unchanged.
+
+### 25 October: per-package charged GST evidence
+
+Two identical packages passed exact SGD 510.40 initial and renewal charges, including SGD 42.14 GST each and free delivery. Real provider events reached the durable intake; explicit worker processing and replay retained correct links and quantities. Future test renewals stopped, paid deliveries and financial snapshots preserved. Temporary settings restored. New quantity-scaled mixed paid GST scenario remains approved and unstarted. Status counts unchanged. See [detailed evidence](PREPAID-PER-PACKAGE-GST-PAID-QA-20261025.md).

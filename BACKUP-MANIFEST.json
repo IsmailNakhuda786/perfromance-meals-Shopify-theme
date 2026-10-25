@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "41eb4de621e8ce28896be46e69108080f63b0fab",
+  "source_commit": "ec8f9dfd8ac7581e815a2b5ab860c7e9dfa83bf4",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -496,7 +496,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/prepaid-purchase-intake.server.ts",
-      "sha256": "2335a9063a22615d8abba9f5fa044d6b9d21666d2b05334b6e8294bf0cfbfd1b",
+      "sha256": "62645b13bcbbfa8f3aec826932953b4f293b76adbde5f53af9b852303e0c9c80",
       "sanitized": false
     },
     {
@@ -526,7 +526,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/prepaid-selling-plan.ts",
-      "sha256": "fe21985b9f8bf5153241923b215ee221ab886d81fc9d0faaf9ef4b3971c1c5ca",
+      "sha256": "921854dd1ca96205b6784e84a8f78c1fdf54627875da41ebb83f41808ddff922",
       "sanitized": false
     },
     {
@@ -1491,7 +1491,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/prepaid-purchase-intake.test.mjs",
-      "sha256": "c61b4af9c190765742bf189f9252292f2b0d7f7f8d8a6abfdf9786bcc2c454e7",
+      "sha256": "cc75eb6d5378a10de4b1747cb9ba02ef6210fdc71b640156dac8c804c944de23",
       "sanitized": false
     },
     {
@@ -1521,7 +1521,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/prepaid-selling-plan.test.mjs",
-      "sha256": "5781ff9baf31977ad51948cc7601ba0211f9707905a014dbe599fa03076bb2bf",
+      "sha256": "9aa2daf29c64e756345fd1ed8cb0e6604325d289599afd2205b6faa700b97b12",
       "sanitized": false
     },
     {
@@ -2605,6 +2605,16 @@
       "sanitized": false
     },
     {
+      "path": "docs/PREPAID-PER-ITEM-UNPAID-QA-20261025.md",
+      "sha256": "a88e05a32049e843623c2062e9be3ea328cb35b8150a5e32d270d8273bc43cc0",
+      "sanitized": false
+    },
+    {
+      "path": "docs/PREPAID-PER-PACKAGE-GST-PAID-QA-20261025.md",
+      "sha256": "45ba01d30fbe36418d3322fac331aa29b059bc3cc948d533d926ea4d2781e5cc",
+      "sanitized": false
+    },
+    {
       "path": "docs/PREPAID-PURCHASE-INTAKE-20261025.md",
       "sha256": "7312598b288c056494d67c4dd785f3ddca12b9bc258c4755784ea05a87808e01",
       "sanitized": false
@@ -2631,12 +2641,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "59f6ba75b8ee726b96b5e28315c357853385e2a2ec3f15ae69aec679868c2d0a",
+      "sha256": "e577fe846ffab3a97edae87e843b4a67148e0cf38b84e357404fc8ad6bd47c6f",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "fe449c8c0f5dc884585690831a055dcc0c6b3dfea255705e78360cb41db9564c",
+      "sha256": "e622f74cb424125778dc7329f7b5b7e6880793812af6e9e4e280ae190df204f5",
       "sanitized": false
     },
     {

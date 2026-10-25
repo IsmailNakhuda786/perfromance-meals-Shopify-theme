@@ -10,7 +10,7 @@ import {recordOrder} from './orders.server';
 import {inspectPrepaidContract} from './prepaid-verification.server';
 
 type Admin=Parameters<typeof registerPrepaidPurchaseEvidence>[0];
-type Approval=PrepaidPlanSpec&{appGid:string;sellingPlanGid:string;correctionTitle:string|null};
+type Approval=PrepaidPlanSpec&{appGid:string;sellingPlanGid:string;correctionTitle:string|null;correctionApplication?:'PER_PACKAGE'};
 type SavedApproval={version:1;customerGid:string;spec:Approval};
 type ApprovalRow=NonNullable<Awaited<ReturnType<typeof db.prepaidPricingApproval.findUnique>>>;
 const digest=(v:string)=>createHash('sha256').update(v).digest('hex');
@@ -22,8 +22,8 @@ export function assertPrepaidPurchaseIntakeScope(shop:string){
 }
 function canonical(spec:Approval):Approval{
  const c=prepaidExactPriceCorrectionCandidate(spec);
- if(!ref('App',spec.appGid)||!ref('SellingPlan',spec.sellingPlanGid)||c.discountPerPackageMinor>0&&(typeof spec.correctionTitle!=='string'||!spec.correctionTitle.trim()||spec.correctionTitle.length>255)||c.discountPerPackageMinor===0&&spec.correctionTitle!==null)throw Error('Explicit approved price correction required');
- return {productGid:spec.productGid,variantGid:spec.variantGid,months:spec.months,upfrontMinor:spec.upfrontMinor,appGid:spec.appGid,sellingPlanGid:spec.sellingPlanGid,correctionTitle:spec.correctionTitle};
+ if(!ref('App',spec.appGid)||!ref('SellingPlan',spec.sellingPlanGid)||spec.correctionApplication!==undefined&&spec.correctionApplication!=='PER_PACKAGE'||c.discountPerPackageMinor>0&&(typeof spec.correctionTitle!=='string'||!spec.correctionTitle.trim()||spec.correctionTitle.length>255)||c.discountPerPackageMinor===0&&(spec.correctionTitle!==null||spec.correctionApplication!==undefined))throw Error('Explicit approved price correction required');
+ return {productGid:spec.productGid,variantGid:spec.variantGid,months:spec.months,upfrontMinor:spec.upfrontMinor,appGid:spec.appGid,sellingPlanGid:spec.sellingPlanGid,correctionTitle:spec.correctionTitle,...(spec.correctionApplication?{correctionApplication:spec.correctionApplication}:{})};
 }
 function approval(row:ApprovalRow):SavedApproval{
  if(digest(row.snapshot)!==row.snapshotHash)throw Error('Pricing approval checksum differs');
@@ -106,7 +106,8 @@ export async function processPrepaidPurchaseTrigger(admin:Admin,shop:string,inbo
   if(candidate.totalCorrectionMinor){
    const matches=discounts.filter(discount=>discount.title===spec.correctionTitle);
    const discount=matches[0],targets=discount?.entitledLines;
-   if(matches.length!==1||consumed.has(discount)||discount.type!=='AUTOMATIC_DISCOUNT'||discount.targetType!=='LINE_ITEM'||discount.recurringCycleLimit!==null||discount.rejectionReason!==null||discount.value?.__typename!=='SubscriptionDiscountFixedAmountValue'||discount.value.appliesOnEachItem!==false||discount.value.amount?.currencyCode!=='SGD'||minorAmount(discount.value.amount.amount)!==candidate.totalCorrectionMinor||!targets||(targets.all?lines.length!==1:targets.lines?.pageInfo?.hasNextPage!==false||targets.lines.nodes.length!==1||targets.lines.nodes[0].id!==line.id))throw Error('Persistent recurring correction differs');
+   const perPackage=spec.correctionApplication==='PER_PACKAGE';
+   if(matches.length!==1||consumed.has(discount)||discount.type!=='AUTOMATIC_DISCOUNT'||discount.targetType!=='LINE_ITEM'||discount.recurringCycleLimit!==null||discount.rejectionReason!==null||discount.value?.__typename!=='SubscriptionDiscountFixedAmountValue'||discount.value.appliesOnEachItem!==perPackage||discount.value.amount?.currencyCode!=='SGD'||minorAmount(discount.value.amount.amount)!==(perPackage?candidate.discountPerPackageMinor:candidate.totalCorrectionMinor)||!targets||(targets.all?lines.length!==1:targets.lines?.pageInfo?.hasNextPage!==false||targets.lines.nodes.length!==1||targets.lines.nodes[0].id!==line.id))throw Error('Persistent recurring correction differs');
    consumed.add(discount);
    if(o.totalTaxSet?.shopMoney?.currencyCode!=='SGD')throw Error('Original GST evidence unavailable');
    correction={baseMinor:candidate.grossTotalMinor,discountMinor:candidate.totalCorrectionMinor,applicationKind:'AUTOMATIC',title:spec.correctionTitle!,taxMinor:minorAmount(o.totalTaxSet.shopMoney.amount)};
