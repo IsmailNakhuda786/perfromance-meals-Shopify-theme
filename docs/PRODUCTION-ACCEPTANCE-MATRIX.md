@@ -54,7 +54,7 @@ Machine-readable full evidence: [PRODUCTION-ACCEPTANCE-MATRIX.json](PRODUCTION-A
 
 **Customer journey:** Initial/renewal test payments and future-renewal stop verified. Recovered account renders three linked stopped-renewal subscriptions, without duplicate renewal cards. Full merchant delivery lifecycle and permanent callback acceptance incomplete.
 
-**Outstanding:** Production cent-correction creation, persistence and recovery lifecycle is not implemented/accepted generally. Nonzero-GST calculation projections pass but are not a completed subscription checkout or charged GST payment. Complete delivery/calendar, automatic original-purchase registration and permanent renewal scheduling remain unaccepted. A fresh scoped billing-success callback and explicit worker/replay are now verified.
+**Outstanding:** Production cent-correction creation, persistence and recovery lifecycle is not implemented/accepted generally. Charged nonzero-GST two-identical-package initial/renewal now pass. New quantity-scaled mixed-term charged GST, corrected-payment delivery/calendar integration and permanent worker scheduling remain unaccepted. Actual provider purchase and renewal events plus explicit worker/replay are verified.
 
 **Dependencies:** Production correction/disclosure approach; nonzero GST configuration/acceptance; merchant slot mapping.
 
@@ -108,7 +108,7 @@ Machine-readable full evidence: [PRODUCTION-ACCEPTANCE-MATRIX.json](PRODUCTION-A
 
 **Customer journey:** Ordinary-food and selected mixed-cart unpaid journeys verified; production profiles, subscription groups and all multi-delivery assignments incomplete.
 
-**Outstanding:** Third-party Collection Total failed order-level discounts and is not accepted for production. Native unpaid nonzero-GST single-package checkouts passed for both terms. Charged nonzero-GST renewals, multi-package GST and all physical-delivery groups remain unaccepted.
+**Outstanding:** Third-party Collection Total failed order-level discounts and is not accepted for production. Native unpaid nonzero-GST single-package checkouts passed for both terms. Charged nonzero-GST two-identical-package initial/renewal now pass; new per-package mixed-term GST and all physical-delivery groups remain incomplete.
 
 **Dependencies:** Production plan/distribution eligibility, verified physical-delivery grouping and shipping-profile approval.
 

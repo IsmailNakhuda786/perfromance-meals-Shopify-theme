@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "ec8f9dfd8ac7581e815a2b5ab860c7e9dfa83bf4",
+  "source_commit": "e76c426990b50a5b3587b3a745e9723aec58f684",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -2641,12 +2641,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "e577fe846ffab3a97edae87e843b4a67148e0cf38b84e357404fc8ad6bd47c6f",
+      "sha256": "9ad260186397b8e1ba010bfe6d4aa8ae573e3476e7941536d6d83cce057e29d6",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "e622f74cb424125778dc7329f7b5b7e6880793812af6e9e4e280ae190df204f5",
+      "sha256": "5fcfb030f195bfec1471297a1032af9d9d52659e9492087c51e22cc4b465aeb7",
       "sanitized": false
     },
     {
