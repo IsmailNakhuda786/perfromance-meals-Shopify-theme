@@ -319,3 +319,7 @@ Initial test order #1024 and one simulated renewal #1025 each captured exactly *
 ## Mixed-term native QA — 25 October
 
 Initial #1026 SGD748.80 and separate renewals #1027 SGD255.20 / #1028 SGD493.60 passed. Two correct contracts, four linked Core rows, one billing attempt each, actual provider notifications and explicit worker/replay verified. Paid delivery quantities and six earlier orders preserved. Nine financial models unchanged. Future test renewals stopped and temporary configuration restored. GST was zero: nonzero-tax charged renewal acceptance remains open. See PREPAID-MIXED-PACKAGE-NATIVE-QA-20261025.md. Classification unchanged.
+
+## Original-purchase intake — 25 October
+
+Immutable pricing approvals, durable authenticated intake and bounded recovery now replace the missing server-side original-purchase registration step in development. 520 full disposable tests pass;98 focused PostgreSQL checks pass sequentially. Historical native proofs and signed SDK replays preserve nine paid orders and nine financial models. The real provider create-event/permanent worker and general pricing provisioning remain unaccepted. Counts remain1 PASS/10 PARTIAL/0 FAIL/4 BLOCKED. See [purchase intake evidence](PREPAID-PURCHASE-INTAKE-20261025.md).

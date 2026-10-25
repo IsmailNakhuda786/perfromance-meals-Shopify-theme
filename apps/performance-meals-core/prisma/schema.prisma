@@ -552,3 +552,33 @@ model PrepaidRenewalInbox {
  @@index([shop, customerGid])
  @@index([shop, state, createdAt, id])
 }
+
+// Immutable server-approved economics for one native plan/variant revision.
+// No browser-supplied price can create or replace this record.
+model PrepaidPricingApproval {
+ id String @id @default(cuid())
+ shop String
+ customerGid String
+ variantGid String
+ sellingPlanGid String
+ snapshot String
+ snapshotHash String
+ createdAt DateTime @default(now())
+ @@unique([shop, variantGid, sellingPlanGid], map: "PrepaidPricingApproval_variant_plan_key")
+ @@index([shop, customerGid])
+}
+
+// Durable contract-create trigger. Native payment verification happens later;
+// accepting a notification never creates a paid delivery or a charge.
+model PrepaidPurchaseInbox {
+ id String @id @default(cuid())
+ shop String
+ customerGid String
+ contractGid String
+ state String @default("PENDING_VERIFY")
+ createdAt DateTime @default(now())
+ completedAt DateTime?
+ @@unique([shop, contractGid])
+ @@index([shop, customerGid])
+ @@index([shop, state, createdAt, id])
+}

@@ -16,5 +16,6 @@ export function productionConfigIssues(env:Record<string,string|undefined>){
  if(env.CORE_WALLET_DRAFTS_ENABLED==='true')problems.push('Core Wallet draft persistence is development-only and is not payment authorization');
  if(env.CORE_SUBSCRIPTION_RENEWAL_STOPS_ENABLED==='true')problems.push('Customer future-renewal stops are development-only until native authenticated management QA passes');
  if(env.CORE_PREPAID_RENEWAL_LINKS_ENABLED==='true')problems.push('Automatic prepaid renewal linking is development-only until full native lifecycle and durable worker acceptance');
+ if(env.CORE_PREPAID_PURCHASE_INTAKE_ENABLED==='true')problems.push('Automatic prepaid purchase intake is development-only until pricing provisioning and durable worker acceptance');
  return [...new Set(problems)];
 }

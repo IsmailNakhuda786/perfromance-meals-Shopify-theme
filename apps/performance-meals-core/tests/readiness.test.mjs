@@ -96,3 +96,6 @@ test('production cannot activate unverified customer future-renewal execution',(
 test('production cannot enable unaccepted automatic prepaid renewal linking',()=>{
  assert.ok(productionConfigIssues({CORE_PREPAID_RENEWAL_LINKS_ENABLED:'true'}).some(issue=>issue.includes('Automatic prepaid renewal linking')));
 });
+test('automatic purchase intake cannot be enabled by production configuration',()=>{
+ assert.ok(productionConfigIssues({CORE_PREPAID_PURCHASE_INTAKE_ENABLED:'true'}).some(issue=>issue.includes('Automatic prepaid purchase intake')));
+});

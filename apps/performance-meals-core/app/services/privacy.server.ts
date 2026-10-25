@@ -56,7 +56,7 @@ export const privacyCustomerModels=[
  'walletEntry','walletReservation','orderCancellation','rewardsAccount',
  'rewardsEntry','giftCardWalletClaim','walletTopUpSettlement','walletTopUpIntent',
  'mealPlanMenuRevision','rewardRedemption','orderSupportRequest','walletCreditExpiry',
- 'giftCardExpiryReminder','readyDeliveryDraft','readyDeliveryReminder','bundlePurchaseReview','coreWalletRedemptionDraft','subscriptionRenewalStop','prepaidPurchaseEvidence','prepaidRenewalEvidence','prepaidRenewalInbox',
+ 'giftCardExpiryReminder','readyDeliveryDraft','readyDeliveryReminder','bundlePurchaseReview','coreWalletRedemptionDraft','subscriptionRenewalStop','prepaidPurchaseEvidence','prepaidRenewalEvidence','prepaidRenewalInbox','prepaidPricingApproval','prepaidPurchaseInbox',
 ] as const;
 export const privacyShopOnlyModels=[
  'session','webhookReceipt','commercePolicy','rewardRuleVersion','rewardRuleActivation',
@@ -78,7 +78,10 @@ export async function inspectCustomerPrivacyData(shop:string,rawCustomerId:unkno
   counts.planOperation=await tx.planOperation.count({where:{shop,OR:[{selectionId:{in:selections.map(row=>row.id)}},{selectionId:`customer:${id}`} ]}});
   counts.migrationMapping=await tx.migrationMapping.count({where:{shop,sourceCustomerId:id}});
   return {counts,financialAuditRequired:true,executionReady:false as const};
- });
+ // This read-only inventory spans every customer model. Remote PostgreSQL
+ // exceeded Prisma's five-second default while counting, without any faulty
+ // record. Keep a bounded review window rather than failing a valid request.
+ },{maxWait:5000,timeout:30000});
 }
 
 // Internal review backlog, not a customer endpoint or automatic erasure worker.
