@@ -315,3 +315,7 @@ Both approved comparisons passed exact checkout food totals with free isolated d
 ### Two-identical-package native lifecycle — 25 October
 
 Initial test order #1024 and one simulated renewal #1025 each captured exactly **SGD 510.40**. Shopify has exactly those two orders and one billing attempt on the QA contract. A real billing-success notification reached the durable Core inbox; the explicit worker and replay left two validated linked rows without duplicates. Each order has three deliveries of quantity 2. Future renewals were stopped while preserving all 24 protected native fulfilments and nine financial models. Temporary QA settings and callback gates were restored. GST was 0 in this scenario; general correction, mixed terms, paid nonzero GST and permanent infrastructure remain open. See [PREPAID-TWO-PACKAGE-NATIVE-QA-20261025.md](PREPAID-TWO-PACKAGE-NATIVE-QA-20261025.md). Counts remain **1 PASS / 10 PARTIAL / 0 FAIL / 4 BLOCKED**.
+
+## Mixed-term native QA — 25 October
+
+Initial #1026 SGD748.80 and separate renewals #1027 SGD255.20 / #1028 SGD493.60 passed. Two correct contracts, four linked Core rows, one billing attempt each, actual provider notifications and explicit worker/replay verified. Paid delivery quantities and six earlier orders preserved. Nine financial models unchanged. Future test renewals stopped and temporary configuration restored. GST was zero: nonzero-tax charged renewal acceptance remains open. See PREPAID-MIXED-PACKAGE-NATIVE-QA-20261025.md. Classification unchanged.

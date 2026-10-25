@@ -1,6 +1,6 @@
 {
   "updated": "2026-10-25",
-  "sourceCheckpoint": "3eea61761363ced94d9c0b18e0203e3f03dfc041",
+  "sourceCheckpoint": "d026aa4",
   "scope": "Full agreed production acceptance; no reduced-scope launch",
   "productionAccepted": false,
   "statusDefinitions": {
@@ -34,7 +34,7 @@
       "failed": 0,
       "scope": "Payment, multiple package/line routing and fulfilment quantities; native multiple-package checkout remains pending"
     },
-    "multiplePackageCheckout": "Two unpaid native comparisons passed510.40 and748.80 with isolated free delivery. The two-identical-package510.40 purchase and renewal now also passed; mixed three-/six-term paid contracts/renewals and multi-package nonzero GST remain unverified.",
+    "multiplePackageCheckout": "Both identical and mixed term initial payments/renewals passed exact prices; mixed order #1026 SGD748.80 and renewals #1027 SGD255.20/#1028 SGD493.60. Nonzero GST charged renewals remain unverified.",
     "multiplePackageObservedErrorRegression": {
       "passed": 10,
       "failed": 0,
@@ -53,6 +53,23 @@
       "replayUnchanged": true,
       "protectedNativeFulfilmentsUnchanged": 24,
       "financialModelsUnchanged": 9,
+      "futureTestRenewalsStopped": true,
+      "taxMinor": 0,
+      "cleanupRestored": true
+    },
+    "mixedPackagePaidNative": {
+      "initialMinor": 74880,
+      "renewalMinor": [
+        25520,
+        49360
+      ],
+      "nativeOrders": 3,
+      "nativeBillingAttempts": 2,
+      "correctCoreRows": 4,
+      "actualProviderEvents": 2,
+      "replayUnchanged": true,
+      "financialModelsUnchanged": 9,
+      "earlierNativeOrdersUnchanged": 6,
       "futureTestRenewalsStopped": true,
       "taxMinor": 0,
       "cleanupRestored": true
@@ -133,7 +150,8 @@
         "docs/CORE-CONNECTIVITY-RECOVERY-20261024.md",
         "docs/NATIVE-WEBHOOK-GST-QA-20261024.md",
         "docs/PREPAID-RENEWAL-PIPELINE-20261024.md",
-        "docs/PREPAID-TWO-PACKAGE-NATIVE-QA-20261025.md"
+        "docs/PREPAID-TWO-PACKAGE-NATIVE-QA-20261025.md",
+        "docs/PREPAID-MIXED-PACKAGE-NATIVE-QA-20261025.md"
       ],
       "remainingEngineering": [
         "Implement gated production correction lifecycle and clear net-price explanation without mislabelling native gross subtotal; complete nonzero-GST native subscription journey and delivery lifecycle."
