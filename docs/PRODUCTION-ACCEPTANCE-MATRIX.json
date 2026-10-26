@@ -10,7 +10,7 @@
     "BLOCKED": "A required platform capability, authorization or external dependency prevents completion."
   },
   "baseline": {
-    "coreTests": 542,
+    "coreTests": 544,
     "nativeReadback": "Four exact-price orders recovered and replayed unchanged; all 18 native paid fulfilments preserved. Five historical QA contracts remain cancelled; nine financial-model snapshots unchanged.",
     "checkoutPricing": "Both single terms previously passed exact initial/renewal charges and unpaid nonzero-GST checkouts. Two identical three-delivery packages now passed exact 510.40 initial and simulated renewal charges; tax0 in this test. General correction and nonzero-GST charged-renewal acceptance remain incomplete.",
     "topUpsEnabled": false,
@@ -148,7 +148,7 @@
     },
     "deliveryCapacity": {
       "businessDecision": "Administrator-defined maximum deliveries per slot",
-      "isolatedTests": 542,
+      "isolatedTests": 544,
       "focusedPostgresTests": 38,
       "actualEmbeddedAdminCreateEditCloseVerified": true,
       "qaSlotRemoved": true,

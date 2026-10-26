@@ -29,3 +29,9 @@ The official Polaris component validator could not run: its installed bundle lac
 ## Remaining work
 
 This does not confirm a Shopify delivery booking, change paid meals or billing, dispatch fulfilments, send messages or activate customer slot selection. Bind authoritative native fulfilment/physical-delivery grouping to these internal reservations and implement the authenticated customer change executor with the approved notice window. Verify reschedule/recovery and holiday availability end to end before activation. Requirement13 remains PARTIAL.
+
+## Reservation protection after disabling the feature
+
+A regression test demonstrated that turning the capacity flag off previously allowed an internally reserved draft to move while its original slot remained occupied. The draft now checks existing reservations regardless of the activation flag and locks its revision before checking reminders and reservations. A competing move/reserve test verifies that only one operation can commit. These checks do not activate customer booking or modify Shopify deliveries.
+
+The complete disposable regression suite passes 544/544. TypeScript and lint pass. All 24 focused PostgreSQL capacity/draft checks pass, including the disabled-feature regression and competing move/reserve test.

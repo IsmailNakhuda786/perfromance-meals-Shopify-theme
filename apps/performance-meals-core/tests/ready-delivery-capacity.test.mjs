@@ -68,3 +68,24 @@ test('default-off, production and foreign-store gates prevent capacity writes',a
  process.env.READY_DELIVERY_CAPACITY_ENABLED='false';try{await assert.rejects(configure(spec()),/not activated/);}finally{process.env.READY_DELIVERY_CAPACITY_ENABLED='true';}
  await assert.rejects(configure({...spec(),shop:'other.myshopify.com'}));const old=process.env.NODE_ENV;process.env.NODE_ENV='production';try{await assert.rejects(configure(spec()),/not activated/);}finally{if(old===undefined)delete process.env.NODE_ENV;else process.env.NODE_ENV=old;}
 });
+test('turning capacity off never allows a reserved draft to move',async()=>{
+ const s=await configure(spec()),d=await draft();await reserve(input(s,d),{now});
+ process.env.READY_DELIVERY_CAPACITY_ENABLED='false';
+ try{
+  await assert.rejects(stage({shop,customerGid,operationalLineId:d.operationalLineId,occurrence:1,deliveryAt:'2026-11-03T01:00:00Z',expectedRevision:1}),/Release/);
+  assert.equal((await db.readyDeliveryDraft.findUnique({where:{id:d.id}})).revision,1);
+  assert.equal((await db.readyDeliverySlot.findUnique({where:{id:s.id}})).reserved,1);
+ }finally{process.env.READY_DELIVERY_CAPACITY_ENABLED='true';}
+});
+test('a simultaneous draft move and capacity reservation cannot both commit',async()=>{
+ const s=await configure(spec()),d=await draft();
+ const outcomes=await Promise.allSettled([
+  reserve(input(s,d),{now}),
+  stage({shop,customerGid,operationalLineId:d.operationalLineId,occurrence:1,deliveryAt:'2026-11-03T01:00:00Z',expectedRevision:1}),
+ ]);
+ assert.equal(outcomes.filter(x=>x.status==='fulfilled').length,1);
+ const current=await db.readyDeliveryDraft.findUnique({where:{id:d.id}}),slot=await db.readyDeliverySlot.findUnique({where:{id:s.id}});
+ const reservations=await db.readyDeliverySlotReservation.findMany({where:{shop,deliveryDraftId:d.id,state:'RESERVED'}});
+ if(current.revision===1){assert.equal(reservations.length,1);assert.equal(slot.reserved,1);assert.equal(current.deliveryAt.getTime(),slot.deliveryAt.getTime());}
+ else{assert.equal(current.revision,2);assert.equal(reservations.length,0);assert.equal(slot.reserved,0);}
+});

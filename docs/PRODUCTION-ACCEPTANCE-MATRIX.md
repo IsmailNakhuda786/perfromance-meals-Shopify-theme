@@ -4,7 +4,7 @@ Updated 2026-10-26. Latest engineering baseline: `3eea617`; fresh two-package na
 
 Current classification: **1 PASS / 10 PARTIAL / 0 FAIL / 4 BLOCKED**. The PASS is the approved absence of referral benefits, not a completed payment feature.
 
-Regression: **542/542** disposable Core tests pass; historical **73/73** focused PostgreSQL checks and the new **11/11** corrected-draft PostgreSQL group pass; TypeScript, lint and schema consistency pass. Historical Theme baseline remains 71/71. These focused database checks do not certify the full concurrent production PostgreSQL suite.
+Regression: **544/544** disposable Core tests pass; historical **73/73** focused PostgreSQL checks and the new **11/11** corrected-draft PostgreSQL group pass; TypeScript, lint and schema consistency pass. Historical Theme baseline remains 71/71. These focused database checks do not certify the full concurrent production PostgreSQL suite.
 
 | # | Requirement | Status |
 | --- | --- | --- |
@@ -341,3 +341,5 @@ Mixed-package initial #1031 and renewals #1032/#1033 passed exact prices and non
 The merchant confirmed administrator-set delivery limits per slot. Core now has atomic internal reservations/releases, editable Singapore-time slot controls, privacy inventory and revision/ownership guards. All542 disposable tests and38 focused PostgreSQL checks pass. Actual embedded-admin create/edit/close passed and was independently read back; the disposable slot was removed and all15 protected business-model snapshots remain unchanged. Native booking/customer reschedule integration remains open. See [capacity evidence](READY-DELIVERY-CAPACITY-QA-20261026.md).
 
 Shopify eligibility feedback now identifies the general Payments Partner application as the assessment route, while its compatibility attestation remains unconfirmed. No application, agreement or plan purchase was submitted. See [application preparation](PAYMENTS-PARTNER-ASSESSMENT-PREPARATION-20261026.md). Acceptance counts are unchanged.
+
+Reservation follow-up: the default-off switch now preserves existing internal reservations, with a concurrent move/reserve regression. Full disposable suite: 544/544. Native customer booking remains unaccepted.
