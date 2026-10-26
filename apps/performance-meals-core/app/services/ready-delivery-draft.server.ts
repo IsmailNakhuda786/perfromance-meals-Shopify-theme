@@ -40,6 +40,7 @@ export async function stageReadyDeliveryRemindersTx(tx:Prisma.TransactionClient,
    }
    if(!complete)throw Error('Existing delivery reminders require reconciliation');
    if(draft.deliveryAt.getTime()===delivery.getTime())return {draft,reminders:current.filter(row=>row.state==='DRAFT')};
+   if(process.env.READY_DELIVERY_CAPACITY_ENABLED==='true'&&await tx.readyDeliverySlotReservation.count({where:{shop,deliveryDraftId:draft.id,deliveryRevision:draft.revision,state:'RESERVED'}}))throw Error('Release the existing delivery capacity through the scheduling workflow before moving this draft');
    const changed=await tx.readyDeliveryDraft.updateMany({where:{id:draft.id,shop,customerGid,state:'DRAFT',revision:expectedRevision},data:{deliveryAt:delivery,revision:{increment:1}}});
    if(changed.count!==1)throw Error('Delivery draft changed; reload');
    await tx.readyDeliveryReminder.updateMany({where:{shop,deliveryDraftId:draft.id,deliveryRevision:expectedRevision,state:'DRAFT'},data:{state:'SUPERSEDED'}});

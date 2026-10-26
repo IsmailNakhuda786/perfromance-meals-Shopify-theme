@@ -10,7 +10,7 @@
     "BLOCKED": "A required platform capability, authorization or external dependency prevents completion."
   },
   "baseline": {
-    "coreTests": 526,
+    "coreTests": 542,
     "nativeReadback": "Four exact-price orders recovered and replayed unchanged; all 18 native paid fulfilments preserved. Five historical QA contracts remain cancelled; nine financial-model snapshots unchanged.",
     "checkoutPricing": "Both single terms previously passed exact initial/renewal charges and unpaid nonzero-GST checkouts. Two identical three-delivery packages now passed exact 510.40 initial and simulated renewal charges; tax0 in this test. General correction and nonzero-GST charged-renewal acceptance remain incomplete.",
     "topUpsEnabled": false,
@@ -145,6 +145,16 @@
       "isolatedFullPassed": 526,
       "focusedPostgresPassed": 12,
       "scope": "Eleven focused PostgreSQL cases plus the evidence-change race case; inactive corrected-purchase delivery drafts, no native booking acceptance"
+    },
+    "deliveryCapacity": {
+      "businessDecision": "Administrator-defined maximum deliveries per slot",
+      "isolatedTests": 542,
+      "focusedPostgresTests": 38,
+      "actualEmbeddedAdminCreateEditCloseVerified": true,
+      "qaSlotRemoved": true,
+      "protectedBusinessModelsUnchanged": 15,
+      "nativeBookingConfirmed": false,
+      "customerActivation": false
     }
   },
   "counts": {
@@ -354,12 +364,14 @@
         "Native Store Credit spends earliest expiry; cannot select required lots or restrict only bonus to food. Scheduler-only expiry cannot prove resumed-checkout safety."
       ],
       "dependencies": [
-        "Shopify eligibility/architecture review; Plus plus closed-beta invitation is not guaranteed by buying Plus."
+        "Shopify eligibility/architecture review; Plus plus closed-beta invitation is not guaranteed by buying Plus.",
+        "Payments Partnerships eligibility assessment; the official form requests a documentation-compatibility attestation that is not established. Process-only clarification requested; no application submitted."
       ],
       "evidence": [
         "docs/WALLET-PLATFORM-REVIEW-20261023.md",
         "docs/CORE-FIRST-WALLET-INVESTIGATION-20261017.md",
-        "docs/WALLET-CORE-EXPIRY-QA-20261015.md"
+        "docs/WALLET-CORE-EXPIRY-QA-20261015.md",
+        "docs/PAYMENTS-PARTNER-ASSESSMENT-PREPARATION-20261026.md"
       ],
       "remainingEngineering": [
         "Obtain supported payment architecture, then implement transactional reservation, expiry, reconciliation and card-preserving recovery. Do not relax approved rules."
@@ -448,10 +460,12 @@
         "No supported production Wallet recurring-payment route confirmed."
       ],
       "dependencies": [
-        "Shopify-approved payment architecture/eligibility distinct from initial checkout funding."
+        "Shopify-approved payment architecture/eligibility distinct from initial checkout funding.",
+        "Payments Partnerships eligibility assessment; the official form requests a documentation-compatibility attestation that is not established. Process-only clarification requested; no application submitted."
       ],
       "evidence": [
-        "docs/WALLET-PLATFORM-REVIEW-20261023.md"
+        "docs/WALLET-PLATFORM-REVIEW-20261023.md",
+        "docs/PAYMENTS-PARTNER-ASSESSMENT-PREPARATION-20261026.md"
       ],
       "remainingEngineering": [
         "Establish supported recurring authorization and atomic debit/charge recovery; test mixed/failed/expired funding without duplicate bills."
@@ -550,7 +564,7 @@
       "id": 13,
       "requirement": "Fulfilment, pause, reschedule and future-renewal management",
       "status": "PARTIAL",
-      "implemented": "Authenticated future-renewal stop with durable intent/replay guards; pure delivery-change notice/slot planner and inactive reminder persistence. Registered immutable corrected purchases now prepare inactive quantity-aware delivery drafts with native payment/schedule rechecks and transactional checksum binding; legacy replay remains compatible.",
+      "implemented": "Authenticated future-renewal stop with durable intent/replay guards; pure delivery-change notice/slot planner and inactive reminder persistence. Registered immutable corrected purchases now prepare inactive quantity-aware delivery drafts with native payment/schedule rechecks and transactional checksum binding; legacy replay remains compatible. Merchant-configured per-slot delivery limits, atomic internal capacity reservations/releases, revision protection and authenticated Core slot-management forms are implemented default-off.",
       "automatedTests": {
         "state": "PASSED_BASELINE",
         "files": [
@@ -559,13 +573,16 @@
           "apps/performance-meals-core/tests/subscription-renewal-stop-client.test.mjs",
           "apps/performance-meals-core/tests/ready-series-change.test.mjs",
           "apps/performance-meals-core/tests/ready-delivery-draft.test.mjs",
-          "apps/performance-meals-core/tests/order-dispatch.test.mjs"
+          "apps/performance-meals-core/tests/order-dispatch.test.mjs",
+          "apps/performance-meals-core/tests/ready-delivery-capacity.test.mjs",
+          "apps/performance-meals-core/tests/ready-delivery-slots-route.test.mjs"
         ]
       },
-      "shopifyIntegration": "Ready Series customer stop verified: native contract cancelled, one completed audit, three paid fulfilments/order unchanged and nine financial models unchanged. Same/new-key service replays attempted no second mutation. Two-package test contract cancellation preserved initial and renewal delivery allocations: six records quantity 2 each; all 18 earlier records also unchanged. 26 October: mixed per-package initial #1031 SGD748.80 incl GST61.83 and renewals #1032 SGD255.20/GST21.07 and #1033 SGD493.60/GST40.76 passed. Actual provider intake and explicit worker replay passed; both future billing agreements stopped, eleven earlier paid orders/45 fulfilments and nine financial models preserved; QA configuration restored.",
+      "shopifyIntegration": "Ready Series customer stop verified: native contract cancelled, one completed audit, three paid fulfilments/order unchanged and nine financial models unchanged. Same/new-key service replays attempted no second mutation. Two-package test contract cancellation preserved initial and renewal delivery allocations: six records quantity 2 each; all 18 earlier records also unchanged. 26 October: mixed per-package initial #1031 SGD748.80 incl GST61.83 and renewals #1032 SGD255.20/GST21.07 and #1033 SGD493.60/GST40.76 passed. Actual provider intake and explicit worker replay passed; both future billing agreements stopped, eleven earlier paid orders/45 fulfilments and nine financial models preserved; QA configuration restored. Actual embedded development admin create/edit/close of a disposable slot passed, with independent Singapore-time/limit database readback; record removed and flags restored off.",
       "customerJourney": "Future-renewal stop passed in isolated Ready Series journey. Customer delivery pause/reschedule and Meal Plan management incomplete.",
       "outstandingIssues": [
-        "Slot capacity, authenticated reschedule persistence, native work-start/delivery mapping and complete paid entitlement lifecycle are not proven."
+        "Internal capacity storage and merchant admin forms are verified; authoritative mapping to native physical deliveries and authenticated customer reschedule execution remain incomplete.",
+        "Full native booking, notice-window, holiday, dispatch and recovery journey is not accepted."
       ],
       "dependencies": [
         "Merchant slot source, native write access/test approval and provider/scheduler for reminders."
@@ -575,7 +592,8 @@
         "docs/READY-SERIES-DELIVERY-CHANGE-20261023.md",
         "docs/PREPAID-SCHEDULE-PAGINATION-20261023.md",
         "docs/PREPAID-TWO-PACKAGE-NATIVE-QA-20261025.md",
-        "docs/PREPAID-MIXED-PER-PACKAGE-GST-QA-20261026.md"
+        "docs/PREPAID-MIXED-PER-PACKAGE-GST-QA-20261026.md",
+        "docs/READY-DELIVERY-CAPACITY-QA-20261026.md"
       ],
       "remainingEngineering": [
         "Implement authoritative capacity/reschedule executor and native preservation proof; verify Meal Plan management without pausing billing inadvertently."

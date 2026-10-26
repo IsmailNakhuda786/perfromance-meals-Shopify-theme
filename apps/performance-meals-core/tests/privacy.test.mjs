@@ -72,12 +72,15 @@ test('invalid or foreign contexts cannot create requests or receipts',async()=>{
 
 test('inventory includes newer menu, reminder and credit records without exposing their contents or other owners',async()=>{
  for(const [owner,cust]of [[shop,customerGid],[shop,otherCustomer],[otherShop,customerGid]]){
-  await db.readyDeliveryDraft.create({data:{shop:owner,customerGid:cust,operationalLineId:randomUUID(),occurrence:1,deliveryAt:new Date('2027-01-04T01:00:00Z')}});
+  const draft=await db.readyDeliveryDraft.create({data:{shop:owner,customerGid:cust,operationalLineId:randomUUID(),occurrence:1,deliveryAt:new Date('2027-01-04T01:00:00Z')}});
+  const slot=await db.readyDeliverySlot.create({data:{shop:owner,slotKey:randomUUID(),deliveryAt:draft.deliveryAt,deliveryEndsAt:new Date('2027-01-04T04:00:00Z'),capacity:10,reserved:1}});
+  await db.readyDeliverySlotReservation.create({data:{shop:owner,customerGid:cust,slotId:slot.id,deliveryDraftId:draft.id,deliveryRevision:1}});
   await db.giftCardExpiryReminder.create({data:{shop:owner,customerGid:cust,giftCardGid:`gid://shopify/GiftCard/${cust.endsWith('/901')?'901':'902'}`,expiresOn:'2027-01-04',reminderAt:new Date('2026-12-04T00:00:00Z'),remainingMinor:100}});
   await db.mealPlanMenuRevision.create({data:{shop:owner,customerGid:cust,selectionId:randomUUID(),block:1,revision:1,state:'SAVED',inputSelections:'private-menu',selections:'private-menu',cutoffAt:new Date('2027-01-01T00:00:00Z')}});
  }
  const inventory=await inspectCustomerPrivacyData(shop,901);
  assert.equal(inventory.counts.readyDeliveryDraft,1);assert.equal(inventory.counts.giftCardExpiryReminder,1);assert.equal(inventory.counts.mealPlanMenuRevision,1);
+ assert.equal(inventory.counts.readyDeliverySlotReservation,1);assert.equal(inventory.counts.readyDeliverySlot,undefined);
  assert.equal(inventory.counts.walletEntry,1);assert.equal(inventory.financialAuditRequired,true);assert.equal(inventory.executionReady,false);
  assert.ok(!JSON.stringify(inventory).includes('private-menu'));
  await assert.rejects(inspectCustomerPrivacyData(otherShop,901));

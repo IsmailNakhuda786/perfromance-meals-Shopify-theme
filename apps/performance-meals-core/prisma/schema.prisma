@@ -445,6 +445,36 @@ model ReadyDeliveryReminder {
  @@index([shop, state, scheduledAt])
 }
 
+// Merchant-configured capacity. Internal reservations do not book native work.
+model ReadyDeliverySlot {
+ id String @id @default(cuid())
+ shop String
+ slotKey String
+ deliveryAt DateTime
+ deliveryEndsAt DateTime
+ capacity Int
+ reserved Int @default(0)
+ available Boolean @default(true)
+ revision Int @default(1)
+ createdAt DateTime @default(now())
+ updatedAt DateTime @updatedAt
+ @@unique([shop, slotKey])
+ @@index([shop, available, deliveryAt])
+}
+model ReadyDeliverySlotReservation {
+ id String @id @default(cuid())
+ shop String
+ customerGid String
+ slotId String
+ deliveryDraftId String
+ deliveryRevision Int
+ state String @default("RESERVED")
+ releasedAt DateTime?
+ createdAt DateTime @default(now())
+ @@unique([shop, deliveryDraftId, deliveryRevision], map:"ReadySlotReservation_draft_revision_key")
+ @@index([shop, slotId, state])
+}
+
 // Internal immutable checkout review; no public checkout activation yet.
 model BundlePurchaseReview {
  id String @id @default(uuid())

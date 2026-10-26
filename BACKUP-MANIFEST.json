@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "8ee7a6cd895e22d70888ae258469b89f76b6cdce",
+  "source_commit": "3b7b31a403c56b96e4bedc4142570bafbfbcc817",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -216,7 +216,12 @@
     },
     {
       "path": "apps/performance-meals-core/app/routes/app._index.tsx",
-      "sha256": "49d067339e34b9cb2c26c750dbcb60364a2e323b52c2dbff8f2ffbd39bf5717c",
+      "sha256": "34c02e54af2533445addfb4a4feca1ab292ce961ee91d36bda9b2813221cb7c2",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/routes/app.ready-delivery-slots.tsx",
+      "sha256": "2be41979c0a21fbc808e560073241297858b3eb112b9e2bc82d0ed3c75db8dd7",
       "sanitized": false
     },
     {
@@ -536,7 +541,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/privacy.server.ts",
-      "sha256": "c4c9468d63aec716f628d0b8549e7335005a57bc1d6ac1a40750e27edc17866d",
+      "sha256": "1336b3f6b7b4303f2a90204d0cb45c6d2d76b406770d3421b49b4def301cb9f5",
       "sanitized": false
     },
     {
@@ -550,8 +555,13 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/app/services/ready-delivery-capacity.server.ts",
+      "sha256": "3cbad75fbad2df8bb649225f1481ecb8d4e27bb3f3b672c6035d79cc4db18171",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/app/services/ready-delivery-draft.server.ts",
-      "sha256": "db3d26c3690215aa6df860647771ce42132e3984ca65159d923b574b3f418bc1",
+      "sha256": "47a8798e6501de160dca989c943bd4b54b46a9a5094277395b0815de9d3d27a1",
       "sanitized": false
     },
     {
@@ -562,6 +572,11 @@
     {
       "path": "apps/performance-meals-core/app/services/ready-delivery-notice.ts",
       "sha256": "31ba4986cf62f1492ce4b1358191e629b509f0682cadf7e9f7ca044a734db597",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/ready-delivery-slot-form.ts",
+      "sha256": "979cd8d3115368709927a6db792b7417b724147624a3368c1a001a4fd68eefcd",
       "sanitized": false
     },
     {
@@ -1075,6 +1090,11 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/prisma/migrations/20261026120000_ready_delivery_capacity/migration.sql",
+      "sha256": "7f5da7e1c705bcc103d48de62b2b55689aeab1359c483264f0ca048e89d1ec9d",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/prisma/migrations/migration_lock.toml",
       "sha256": "3389dbaf2a3cf4b413275867ac6f550b27f79efe85ee9c12082cdd8c5b8239c4",
       "sanitized": false
@@ -1220,18 +1240,23 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/prisma/production/migrations/20261026120000_ready_delivery_capacity/migration.sql",
+      "sha256": "56840626f5210d46f6f2dfaeb77af1244c005f42ad4198dec59fbea4166c2303",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/prisma/production/migrations/migration_lock.toml",
       "sha256": "1db17a8d051aa136110736752c5e1f8b7ed92b6ea8e803112fbbe2497047c210",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/prisma/production/schema.prisma",
-      "sha256": "092a4bbc90acdfa57a899359a05f44ffb9f5375b49ad2413d4947b89fb6a6307",
+      "sha256": "626c3c04ce925f575c115931c105c1f208fb2ad2731585964d23d3899dffe8d8",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/prisma/schema.prisma",
-      "sha256": "5a6148cda780a7bb97b6c8db20d0167337755680a1a03ead8d489ab8e2030e8a",
+      "sha256": "e84cb781351939792b9845e60fa8d57cb01093cf4c194482ecb43dfe01f92257",
       "sanitized": false
     },
     {
@@ -1536,7 +1561,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/privacy.test.mjs",
-      "sha256": "a6add04b70c490c708bbdfa3432f90128179f62a3b2f4c942ea10c93dbbbea0f",
+      "sha256": "31f9ec5bb9d55c369180d9e8957fe7eb7b2bd0610f6d17cc1527e46f42bac28f",
       "sanitized": false
     },
     {
@@ -1555,6 +1580,11 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/tests/ready-delivery-capacity.test.mjs",
+      "sha256": "56750fe3307c60a87e055ea0d7237312cd20ab9190fa899b99af168646742dbc",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/tests/ready-delivery-draft.test.mjs",
       "sha256": "babcfbfec4b700c44010b39924f4ee5e28a43f7e52d9e6f7bf7dc277a1873c80",
       "sanitized": false
@@ -1568,6 +1598,11 @@
       "path": "apps/performance-meals-core/tests/ready-delivery-notice.test.mjs",
       "sha256": "60ba72f5fcf167a73d7c82bee739bf0c7ed0d7cf56afcb878d810aee1c761581",
       "sanitized": true
+    },
+    {
+      "path": "apps/performance-meals-core/tests/ready-delivery-slots-route.test.mjs",
+      "sha256": "8522f9341b93c9c4ed8d595c3fea48a7666fbcb8cc88d5b324ae0b99f4cd0e45",
+      "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/tests/ready-series-calendar.test.mjs",
@@ -2595,6 +2630,11 @@
       "sanitized": false
     },
     {
+      "path": "docs/PAYMENTS-PARTNER-ASSESSMENT-PREPARATION-20261026.md",
+      "sha256": "77da6970961f4db01f7443cfe2fb7a72ce7b7259342c5f34a1eb31ee4d5a08a9",
+      "sanitized": false
+    },
+    {
       "path": "docs/POSTGRES-PERSISTENCE-QA-20261012.md",
       "sha256": "0346b38a1ee340928901b41ff7bbda5174b42c152649b698b94edd274dfbf342",
       "sanitized": false
@@ -2651,17 +2691,22 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "b06f717e9661ce373e0a17c6215c47eb2c674487664075b3f29d699d6f62fa7b",
+      "sha256": "f70fe656c52336446f8a3f074316bdc4c78ac7b4650463ac06503a80f982b170",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "5a57ae69a03ae4a26fb73eaf12016983798c1a7e7cec39961c54c015aa662d20",
+      "sha256": "16bfe84f742d4c1e8467051cf2b50a6ca8f79fd91d9e3cf0d801395d96e6f03e",
       "sanitized": false
     },
     {
       "path": "docs/PUBLISHED-PROTOTYPE-REVIEW.md",
       "sha256": "7b0d60f7f4e163ac118be9eae4875f919f2b16764342859207c7a217d6d79248",
+      "sanitized": false
+    },
+    {
+      "path": "docs/READY-DELIVERY-CAPACITY-QA-20261026.md",
+      "sha256": "055a27e41bda87c3ce89e92c86d6feb7c8e21080f1a58dd8ffd65a10ddbe4a24",
       "sanitized": false
     },
     {
@@ -2851,7 +2896,7 @@
     },
     {
       "path": "docs/WALLET-PLATFORM-REVIEW-20261023.md",
-      "sha256": "2ca4765b3d81dfd15769c74a8ad2cf10bfee0a59e835ca82cb0a5b7e59ee8206",
+      "sha256": "92efb6d6f2e2cf2f2e382a430fce789f5ecb53e4ae0810ab3e0373644a0eeb3f",
       "sanitized": false
     },
     {

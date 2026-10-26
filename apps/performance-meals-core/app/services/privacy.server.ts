@@ -56,10 +56,10 @@ export const privacyCustomerModels=[
  'walletEntry','walletReservation','orderCancellation','rewardsAccount',
  'rewardsEntry','giftCardWalletClaim','walletTopUpSettlement','walletTopUpIntent',
  'mealPlanMenuRevision','rewardRedemption','orderSupportRequest','walletCreditExpiry',
- 'giftCardExpiryReminder','readyDeliveryDraft','readyDeliveryReminder','bundlePurchaseReview','coreWalletRedemptionDraft','subscriptionRenewalStop','prepaidPurchaseEvidence','prepaidRenewalEvidence','prepaidRenewalInbox','prepaidPricingApproval','prepaidPurchaseInbox',
+ 'giftCardExpiryReminder','readyDeliveryDraft','readyDeliveryReminder','readyDeliverySlotReservation','bundlePurchaseReview','coreWalletRedemptionDraft','subscriptionRenewalStop','prepaidPurchaseEvidence','prepaidRenewalEvidence','prepaidRenewalInbox','prepaidPricingApproval','prepaidPurchaseInbox',
 ] as const;
 export const privacyShopOnlyModels=[
- 'session','webhookReceipt','commercePolicy','rewardRuleVersion','rewardRuleActivation',
+ 'session','webhookReceipt','commercePolicy','rewardRuleVersion','rewardRuleActivation','readyDeliverySlot',
 ] as const;
 export const privacyIndirectModels=['planOperation','migrationMapping'] as const;
 
