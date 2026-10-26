@@ -63,7 +63,7 @@ function Account() {
       {section === 'Order History' && <s-section heading="Order History"><s-paragraph>Your Ready Series, Meal Plan and Gift Card purchases remain together in your Shopify order history.</s-paragraph><s-link href="shopify:customer-account/orders">View all orders</s-link><OrderCancellations data={account?.cancellations} onUpdated={() => setRefresh(value => value + 1)}/></s-section>}
       {section === 'Wallet' && <s-section heading="Wallet">{renderWallet(account)}</s-section>}
       {section === 'Rewards' && <Rewards data={account} onUpdated={() => setRefresh(value => value + 1)}/>}
-      {section === 'Gift Cards' && <s-section heading="Gift Cards"><s-paragraph>Your Gift Card purchases appear in your Shopify order history. Only the named recipient may claim the full remaining Gift Card value into Wallet. The Wallet credit keeps the original Gift Card expiry date.</s-paragraph><GiftCardClaim enabled={account?.giftCardClaimsEnabled} blocked={!account?.nativeWallet||account?.walletHistoryPending||account?.walletCreditPending} onClaimed={() => setRefresh(value => value + 1)}/></s-section>}
+      {section === 'Gift Cards' && <s-section heading="Gift Cards"><s-paragraph>Your Gift Card purchases appear in your Shopify order history. Only the named recipient may claim the full remaining Gift Card value into Wallet. The Wallet credit keeps the original Gift Card expiry date.</s-paragraph><GiftCardClaim accountLoaded={!!account} accountError={!!error} enabled={account?.giftCardClaimsEnabled} blocked={!account?.nativeWallet||account?.walletHistoryPending||account?.walletCreditPending} onClaimed={() => setRefresh(value => value + 1)}/></s-section>}
       {section === 'Settings' && <s-section heading="Account Settings"><s-paragraph>Manage your personal details and saved addresses in your Shopify profile.</s-paragraph><s-link href="shopify:customer-account/profile">View profile</s-link></s-section>}
     </s-stack>
   </s-page>;
@@ -131,7 +131,7 @@ function renderWallet(account) {
   </s-stack>;
 }
 
-function GiftCardClaim({enabled, blocked, onClaimed}) {
+function GiftCardClaim({accountLoaded, accountError, enabled, blocked, onClaimed}) {
   const [code, setCode] = useState('');
   const [pending, setPending] = useState(false);
   const [message, setMessage] = useState('');
@@ -158,7 +158,8 @@ function GiftCardClaim({enabled, blocked, onClaimed}) {
     }
   }
   return <s-section heading="Redeem a Gift Card">
-    {!enabled ? <s-paragraph>Gift Card to Wallet conversion is not available here yet.</s-paragraph> : <s-stack gap="base">
+    {message && <s-paragraph>{message}</s-paragraph>}
+    {!accountLoaded ? <s-paragraph>{accountError ? 'Your account could not be loaded. Use Retry loading account above before redeeming.' : 'Checking your account before Gift Card redemption…'}</s-paragraph> : !enabled ? <s-paragraph>Gift Card to Wallet conversion is not available here yet.</s-paragraph> : <s-stack gap="base">
       {blocked && <s-paragraph>Your Wallet needs checking before another transfer. Please contact Support.</s-paragraph>}
       <s-password-field label="Gift Card Code" autocomplete="off" value={code} disabled={pending || blocked} onInput={event => {
         const field = event.currentTarget;
@@ -166,7 +167,6 @@ function GiftCardClaim({enabled, blocked, onClaimed}) {
       }}/>
       <s-button variant="primary" disabled={pending || blocked || !code.trim()} onClick={redeem}>Redeem</s-button>
       {pending && <s-spinner accessibilityLabel="Confirming Gift Card transfer"/>}
-      {message && <s-paragraph>{message}</s-paragraph>}
     </s-stack>}
   </s-section>;
 }

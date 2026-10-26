@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "2508ed397d8970b753dc836d931a3d7ae264c097",
+  "source_commit": "e1e1b3fa5dd088c1bdf2bd729753227145437fb4",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -911,7 +911,7 @@
     },
     {
       "path": "apps/performance-meals-core/extensions/performance-meals-account/src/OrderStatusBlock.jsx",
-      "sha256": "e2e6cf14da39ce653486287eabd02ace35f4201350a691961ad806bc8c3eda44",
+      "sha256": "ab10de52f1d32d6643b5089a502c49c8b68f82275ea54dbdd3e76a7ba5afa4b5",
       "sanitized": false
     },
     {
@@ -1397,6 +1397,11 @@
     {
       "path": "apps/performance-meals-core/tests/dev-config.test.mjs",
       "sha256": "6bd17f0931952643cd1fdfdfaae4f1c93d436dd7f5bbe48187f528fde6c3db8f",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/gift-card-claim-view.test.mjs",
+      "sha256": "38c0a525691c1034c6c4ec65403c42d0c8d5e6db107ffdd69fa028c53024f4c8",
       "sanitized": false
     },
     {
@@ -2565,6 +2570,11 @@
       "sanitized": false
     },
     {
+      "path": "docs/GIFT-CARD-CLAIM-ACCEPTANCE-20261026.md",
+      "sha256": "fd09958ab481cb4119d8b53023bb3235eb2dacf5cf0405097f0f1606bbb91491",
+      "sanitized": false
+    },
+    {
       "path": "docs/GIFT-CARD-EXPIRY-READINESS-20261015.md",
       "sha256": "d2d7d4cb33b4651ef0e2060f07a50f73d7ad76788874834850afb1b78c91b52e",
       "sanitized": false
@@ -2716,12 +2726,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "e10cb11ab1d07641c97797c3724965631c529795c2a98f364a97169e3ea64540",
+      "sha256": "ddf4cc11e482c723382ec018f1e46afd022b14cf8ebb022df2983e68c2f9195e",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "90001eebc0b7d50e382664dc884ae78b756745e973549d8c059d0228260d3c21",
+      "sha256": "05b89e6e7afeb4e72673dc55e250f825d27f67318707cb590454a88f5b3d9527",
       "sanitized": false
     },
     {
