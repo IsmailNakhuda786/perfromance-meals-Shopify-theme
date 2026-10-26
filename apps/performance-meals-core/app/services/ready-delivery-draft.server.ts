@@ -24,6 +24,10 @@ export async function stageReadyDeliveryRemindersTx(tx:Prisma.TransactionClient,
   if(draft){
    if(draft.customerGid!==customerGid||draft.state!=='DRAFT')throw Error('Delivery draft is unavailable');
    if(draft.revision!==expectedRevision)throw Error('Delivery draft changed; reload');
+   // Serialize against a capacity reservation taking this same revision. A
+   // feature switch controls new writes, never the integrity of existing ones.
+   const locked=await tx.readyDeliveryDraft.updateMany({where:{id:draft.id,shop,customerGid,state:'DRAFT',revision:expectedRevision},data:{updatedAt:new Date()}});
+   if(locked.count!==1)throw Error('Delivery draft changed; reload');
    const current=await tx.readyDeliveryReminder.findMany({where:{shop,deliveryDraftId:draft.id,deliveryRevision:draft.revision}});
    const expected=planReadyDeliveryReminders(draft.id,draft.revision,draft.deliveryAt.toISOString());
    const matches=(row:typeof current[number],plan:typeof expected[number]|ReturnType<typeof planReadyDeliveryCatchUp>[number])=>row.customerGid===customerGid&&row.deliveryAt.getTime()===draft!.deliveryAt.getTime()&&plan.channel===row.channel&&plan.hoursBefore===row.hoursBefore&&Date.parse(plan.scheduledAt)===row.scheduledAt.getTime()&&row.deliveryKey===JSON.stringify([shop,plan.idempotencyKey]);
@@ -40,7 +44,7 @@ export async function stageReadyDeliveryRemindersTx(tx:Prisma.TransactionClient,
    }
    if(!complete)throw Error('Existing delivery reminders require reconciliation');
    if(draft.deliveryAt.getTime()===delivery.getTime())return {draft,reminders:current.filter(row=>row.state==='DRAFT')};
-   if(process.env.READY_DELIVERY_CAPACITY_ENABLED==='true'&&await tx.readyDeliverySlotReservation.count({where:{shop,deliveryDraftId:draft.id,deliveryRevision:draft.revision,state:'RESERVED'}}))throw Error('Release the existing delivery capacity through the scheduling workflow before moving this draft');
+   if(await tx.readyDeliverySlotReservation.count({where:{shop,deliveryDraftId:draft.id,deliveryRevision:draft.revision,state:'RESERVED'}}))throw Error('Release the existing delivery capacity through the scheduling workflow before moving this draft');
    const changed=await tx.readyDeliveryDraft.updateMany({where:{id:draft.id,shop,customerGid,state:'DRAFT',revision:expectedRevision},data:{deliveryAt:delivery,revision:{increment:1}}});
    if(changed.count!==1)throw Error('Delivery draft changed; reload');
    await tx.readyDeliveryReminder.updateMany({where:{shop,deliveryDraftId:draft.id,deliveryRevision:expectedRevision,state:'DRAFT'},data:{state:'SUPERSEDED'}});
