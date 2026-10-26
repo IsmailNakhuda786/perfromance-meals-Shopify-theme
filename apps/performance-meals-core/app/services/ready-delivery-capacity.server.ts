@@ -34,6 +34,9 @@ export async function configureReadyDeliverySlot(input:SlotSpec){
  scope(input.shop);
  const {shop,slotKey,capacity,available,expectedRevision}=input,w=window(input.deliveryAt,input.deliveryEndsAt);
  if(!identity(slotKey)||!Number.isSafeInteger(capacity)||capacity<1||capacity>2147483647||typeof available!=='boolean'||!Number.isSafeInteger(expectedRevision)||expectedRevision<0||expectedRevision>=2147483647)throw Error('Explicit merchant slot and capacity required');
+ // Jerome excludes Saturdays. Keep closure available for any legacy slot,
+ // while refusing to create or reopen Saturday availability.
+ if(available&&new Date(w.deliveryAt.getTime()+8*3600000).getUTCDay()===6)throw Error('Saturday deliveries are unavailable');
  return db.$transaction(async tx=>{
   let slot=await tx.readyDeliverySlot.findUnique({where:{shop_slotKey:{shop,slotKey}}});
   if(!slot){
@@ -80,7 +83,7 @@ export async function reserveReadyDeliveryCapacity(input:Reserve,options:{now?:D
    if(old.slotId!==slotId||old.customerGid!==customerGid||old.state!=='RESERVED'||old.releasedAt)throw Error('Delivery reservation requires review');
    return {reservation:old,created:false,bookingConfirmed:false as const};
   }
-  if(slot.revision!==slotRevision||!slot.available||slot.deliveryAt<=now||slot.reserved>=slot.capacity)throw Error('Delivery slot changed, closed or full');
+  if(slot.revision!==slotRevision||!slot.available||slot.deliveryAt<=now||new Date(slot.deliveryAt.getTime()+8*3600000).getUTCDay()===6||slot.reserved>=slot.capacity)throw Error('Delivery slot changed, closed or full');
   const claimed=await tx.readyDeliverySlot.updateMany({where:{id:slot.id,shop,revision:slotRevision,reserved:slot.reserved,capacity:slot.capacity,available:true},data:{reserved:{increment:1}}});
   if(claimed.count!==1)throw Error('Delivery slot changed; reload');
   const reservation=await tx.readyDeliverySlotReservation.create({data:{shop,customerGid,slotId,deliveryDraftId,deliveryRevision}});

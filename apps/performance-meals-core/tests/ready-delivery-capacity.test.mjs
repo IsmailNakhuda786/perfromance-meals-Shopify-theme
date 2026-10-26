@@ -15,7 +15,7 @@ test('merchant capacity and windows are explicit, revisioned and replay safe',as
  const s=spec(),first=await configure(s),again=await configure(s);assert.equal(first.id,again.id);assert.equal(first.revision,1);assert.equal(first.reserved,0);
  const changed=await configure({...s,capacity:3,expectedRevision:1});assert.equal(changed.revision,2);assert.equal(changed.capacity,3);
  await assert.rejects(configure({...s,capacity:4,expectedRevision:1}),/changed/);
- for(const edit of[{capacity:0},{capacity:1.5},{capacity:2147483648},{deliveryEndsAt:'2026-11-01T04:00:00Z'},{deliveryEndsAt:'2026-11-03T04:00:00Z'},{deliveryAt:'2026-02-30T01:00:00Z'},{slotKey:''}])await assert.rejects(configure({...spec(),...edit}));
+ for(const edit of[{capacity:0},{capacity:1.5},{capacity:2147483648},{deliveryEndsAt:'2026-11-01T04:00:00Z'},{deliveryEndsAt:'2026-11-03T04:00:00Z'},{deliveryAt:'2026-02-30T01:00:00Z'},{slotKey:''},{deliveryAt:'2026-11-07T01:00:00Z',deliveryEndsAt:'2026-11-07T04:00:00Z'}])await assert.rejects(configure({...spec(),...edit}));
 });
 test('one reservation uses one delivery place; replay never consumes another',async()=>{
  const s=await configure(spec()),d=await draft(),first=await reserve(input(s,d),{now});assert.equal(first.created,true);assert.equal(first.bookingConfirmed,false);
@@ -88,4 +88,14 @@ test('a simultaneous draft move and capacity reservation cannot both commit',asy
  const reservations=await db.readyDeliverySlotReservation.findMany({where:{shop,deliveryDraftId:d.id,state:'RESERVED'}});
  if(current.revision===1){assert.equal(reservations.length,1);assert.equal(slot.reserved,1);assert.equal(current.deliveryAt.getTime(),slot.deliveryAt.getTime());}
  else{assert.equal(current.revision,2);assert.equal(reservations.length,0);assert.equal(slot.reserved,0);}
+});
+test('Saturday availability cannot reopen or take a new reservation, but can close safely',async()=>{
+ const base={...spec(),deliveryAt:'2026-11-07T01:00:00Z',deliveryEndsAt:'2026-11-07T04:00:00Z',available:false};
+ const slot=await configure(base);await assert.rejects(configure({...base,available:true,expectedRevision:1}),/Saturday/);
+ // Simulate legacy configuration without inventing an actual customer booking.
+ await db.readyDeliverySlot.update({where:{id:slot.id},data:{available:true}});
+ const d=await draft();await stage({shop,customerGid,operationalLineId:d.operationalLineId,occurrence:1,deliveryAt:base.deliveryAt,expectedRevision:1});
+ await assert.rejects(reserve({...input(slot,d),deliveryRevision:2},{now}),/closed/);
+ assert.equal((await configure({...base,expectedRevision:1})).available,false);
+ assert.equal((await db.readyDeliverySlot.findUnique({where:{id:slot.id}})).reserved,0);
 });

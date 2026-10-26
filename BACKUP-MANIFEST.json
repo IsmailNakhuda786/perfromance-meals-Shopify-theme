@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "3f4e0e6fc314d002abd61e6395bfc6d2fcdadd21",
+  "source_commit": "2508ed397d8970b753dc836d931a3d7ae264c097",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -556,7 +556,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/ready-delivery-capacity.server.ts",
-      "sha256": "3cbad75fbad2df8bb649225f1481ecb8d4e27bb3f3b672c6035d79cc4db18171",
+      "sha256": "1f52dd1bd2e2ab6f848ee86e924fa59b44e12e3782f9491dca40ea7e501031ad",
       "sanitized": false
     },
     {
@@ -1280,6 +1280,11 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/scripts/operational-snapshot.mjs",
+      "sha256": "2e867077d8f345fa93f5f68adc8760385d360cc34226006447ec7d90975e3927",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/scripts/production-preflight.mjs",
       "sha256": "7addfde82188d08cb046212fa646c109be6dbca33533751d8b869aa4f4fa95ea",
       "sanitized": false
@@ -1306,7 +1311,7 @@
     },
     {
       "path": "apps/performance-meals-core/scripts/transfer-operational-state.mjs",
-      "sha256": "478718046d23d07828a83c7fc54c3b6ef1882147cb9d3430c6ca43cf2f68293d",
+      "sha256": "9389f5bd20991629d9d916496732aea330054da2d3d3f40e4ee047adc3a54627",
       "sanitized": false
     },
     {
@@ -1450,6 +1455,11 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/tests/operational-snapshot.test.mjs",
+      "sha256": "b24811551d9fce4eeecd49cf3d084d98f5f1d43e48150309ed855ea83c8eb7bc",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/tests/order-cancellation-native.test.mjs",
       "sha256": "dd6d3ccd82f2e7c7f35989e0062e3975a47cbbebd0fae5bbe01c25b7dc89ab03",
       "sanitized": false
@@ -1586,7 +1596,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/ready-delivery-capacity.test.mjs",
-      "sha256": "98358363991aa8fd790dc3bfce3246eef0f09a1d7ff17f004f62dd28e15adae1",
+      "sha256": "577bf131fb1e51e7a542aeadf089c3d74da2d8f53a6fd9b50684e335985b895a",
       "sanitized": false
     },
     {
@@ -2480,6 +2490,11 @@
       "sanitized": false
     },
     {
+      "path": "docs/CORE-RECOVERY-COVERAGE-QA-20261026.md",
+      "sha256": "4c1e6fcbc01b64c8edd10f15be1354f507c186ca0ad094b7f92862afd8c64fa6",
+      "sanitized": false
+    },
+    {
       "path": "docs/CORE-SHIPPING-FUNCTION-QA-20261018.md",
       "sha256": "1f52e3119cbf8da4fe094ce724efeaa90418141029f11a873b76674c01998a2c",
       "sanitized": false
@@ -2701,12 +2716,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "a7795927795022413f0b6dc462d96afda7e4b37e956fb533b78784fae9f8892c",
+      "sha256": "e10cb11ab1d07641c97797c3724965631c529795c2a98f364a97169e3ea64540",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "27d4c27ef40a968e305f628c7b46e3e14abc6a7f379e6fa0027384ff3ad321bc",
+      "sha256": "90001eebc0b7d50e382664dc884ae78b756745e973549d8c059d0228260d3c21",
       "sanitized": false
     },
     {
@@ -2716,7 +2731,7 @@
     },
     {
       "path": "docs/READY-DELIVERY-CAPACITY-QA-20261026.md",
-      "sha256": "da9d43f3dfc747b7dc045fdeb3e951dae5631ee481ae9669713630e5f97d6f68",
+      "sha256": "6a56c8a98187aa499aa1f7769ed09d49c350fa7613ee9af35d4bc302aafda421",
       "sanitized": false
     },
     {
