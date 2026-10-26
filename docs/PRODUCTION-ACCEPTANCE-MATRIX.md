@@ -1,10 +1,10 @@
 # Performance Meals — full production acceptance
 
-Updated 2026-10-25. Latest engineering baseline: `3eea617`; fresh two-package native evidence is recorded below. Full agreed scope remains required; no production acceptance or reduced-scope release.
+Updated 2026-10-26. Latest engineering baseline: `3eea617`; fresh two-package native evidence is recorded below. Full agreed scope remains required; no production acceptance or reduced-scope release.
 
 Current classification: **1 PASS / 10 PARTIAL / 0 FAIL / 4 BLOCKED**. The PASS is the approved absence of referral benefits, not a completed payment feature.
 
-Regression: **503/503** disposable Core tests and **73/73** focused PostgreSQL checks pass; TypeScript, lint and schema consistency pass. Historical Theme baseline remains 71/71. These focused database checks do not certify the full concurrent production PostgreSQL suite.
+Regression: **526/526** disposable Core tests pass; historical **73/73** focused PostgreSQL checks and the new **11/11** corrected-draft PostgreSQL group pass; TypeScript, lint and schema consistency pass. Historical Theme baseline remains 71/71. These focused database checks do not certify the full concurrent production PostgreSQL suite.
 
 | # | Requirement | Status |
 | --- | --- | --- |
@@ -54,7 +54,7 @@ Machine-readable full evidence: [PRODUCTION-ACCEPTANCE-MATRIX.json](PRODUCTION-A
 
 **Customer journey:** Initial/renewal test payments and future-renewal stop verified. Recovered account renders three linked stopped-renewal subscriptions, without duplicate renewal cards. Full merchant delivery lifecycle and permanent callback acceptance incomplete.
 
-**Outstanding:** Production cent-correction creation, persistence and recovery lifecycle is not implemented/accepted generally. Charged nonzero-GST two-identical-package initial/renewal now pass. New quantity-scaled mixed-term charged GST, corrected-payment delivery/calendar integration and permanent worker scheduling remain unaccepted. Actual provider purchase and renewal events plus explicit worker/replay are verified.
+**Outstanding:** Production cent-correction creation, persistence and recovery lifecycle is not implemented/accepted generally. Charged nonzero-GST two-identical-package initial/renewal now pass. Mixed-term charged GST now passes. Corrected-payment inactive drafts pass automated/PostgreSQL checks; native delivery/calendar integration and permanent worker scheduling remain unaccepted. Actual provider purchase and renewal events plus explicit worker/replay are verified.
 
 **Dependencies:** Production correction/disclosure approach; nonzero GST configuration/acceptance; merchant slot mapping.
 
@@ -108,7 +108,7 @@ Machine-readable full evidence: [PRODUCTION-ACCEPTANCE-MATRIX.json](PRODUCTION-A
 
 **Customer journey:** Ordinary-food and selected mixed-cart unpaid journeys verified; production profiles, subscription groups and all multi-delivery assignments incomplete.
 
-**Outstanding:** Third-party Collection Total failed order-level discounts and is not accepted for production. Native unpaid nonzero-GST single-package checkouts passed for both terms. Charged nonzero-GST two-identical-package initial/renewal now pass; new per-package mixed-term GST and all physical-delivery groups remain incomplete.
+**Outstanding:** Third-party Collection Total failed order-level discounts and is not accepted for production. Native unpaid nonzero-GST single-package checkouts passed for both terms. Charged nonzero-GST two-identical-package initial/renewal now pass; mixed-term per-package GST now passes; all physical-delivery group cases remain incomplete.
 
 **Dependencies:** Production plan/distribution eligibility, verified physical-delivery grouping and shipping-profile approval.
 
@@ -331,3 +331,7 @@ One per-package automatic correction produced exact native unpaid totals255.20,5
 ### 25 October: per-package charged GST evidence
 
 Two identical packages passed exact SGD 510.40 initial and renewal charges, including SGD 42.14 GST each and free delivery. Real provider events reached the durable intake; explicit worker processing and replay retained correct links and quantities. Future test renewals stopped, paid deliveries and financial snapshots preserved. Temporary settings restored. New quantity-scaled mixed paid GST scenario remains approved and unstarted. Status counts unchanged. See [detailed evidence](PREPAID-PER-PACKAGE-GST-PAID-QA-20261025.md).
+
+## 26 October acceptance evidence
+
+Mixed-package initial #1031 and renewals #1032/#1033 passed exact prices and nonzero included GST. Native provider events, Core processing and replay passed; both future test renewals stopped without changing paid deliveries. All temporary QA settings were restored. Registered corrected-purchase inactive draft support now passes regression and focused PostgreSQL checks. Full acceptance remains **1 PASS / 10 PARTIAL / 0 FAIL / 4 BLOCKED**. See [dated evidence](PREPAID-MIXED-PER-PACKAGE-GST-QA-20261026.md) for amounts, cleanup, test limits and remaining work.

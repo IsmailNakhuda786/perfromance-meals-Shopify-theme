@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "e76c426990b50a5b3587b3a745e9723aec58f684",
+  "source_commit": "8ee7a6cd895e22d70888ae258469b89f76b6cdce",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -471,7 +471,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/paid-ready-draft.server.ts",
-      "sha256": "752afa325f6c3573f4a31ec5a54c5e243bbd135b25a0e6e27d94a332646a028d",
+      "sha256": "9de6f49a2dace9fc994da7741fc2712a615509a8e57d625c58a1d907176855b0",
       "sanitized": false
     },
     {
@@ -577,6 +577,11 @@
     {
       "path": "apps/performance-meals-core/app/services/reconciliation.server.ts",
       "sha256": "ea34fd8366e150972733fa662d58945fb5319b6a4ca4d91ddf0608fc433c263e",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/registered-prepaid-purchase.server.ts",
+      "sha256": "c4cf4fe44b4ddccacd9aca6bd7cecc35331d08f1e25c1719827b1868ff4fbf79",
       "sanitized": false
     },
     {
@@ -1461,7 +1466,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/paid-ready-draft.test.mjs",
-      "sha256": "25f0bd256c7b46c19ef6ffb2c1f9f5d0d2232bb33d869d80ee7f313b943f0d43",
+      "sha256": "036b31f150b953bfb6b5ed0798c0f0bd51f388d84b280fdb63591e1fd67511fa",
       "sanitized": false
     },
     {
@@ -2600,6 +2605,11 @@
       "sanitized": false
     },
     {
+      "path": "docs/PREPAID-MIXED-PER-PACKAGE-GST-QA-20261026.md",
+      "sha256": "0159d48a6fc50558bc65ffc4a7446e6877b57d364a6af535dd72cdf9dd76c79a",
+      "sanitized": false
+    },
+    {
       "path": "docs/PREPAID-MULTIPLE-PACKAGE-CHECKOUT-20261024.md",
       "sha256": "6f294254c727db4b1ca9f843be790f50dac5c7068d7e646db31668c9e5c93d29",
       "sanitized": false
@@ -2641,12 +2651,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "9ad260186397b8e1ba010bfe6d4aa8ae573e3476e7941536d6d83cce057e29d6",
+      "sha256": "b06f717e9661ce373e0a17c6215c47eb2c674487664075b3f29d699d6f62fa7b",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "5fcfb030f195bfec1471297a1032af9d9d52659e9492087c51e22cc4b465aeb7",
+      "sha256": "5a57ae69a03ae4a26fb73eaf12016983798c1a7e7cec39961c54c015aa662d20",
       "sanitized": false
     },
     {
@@ -4846,7 +4856,7 @@
     "docs/CUSTOMER-CORE-CHECKPOINT-20261012.md"
   ],
   "excluded": [],
-  "backup_updated_at": "2026-10-24",
+  "backup_updated_at": "2026-10-26",
   "excluded_private_qa_documents": [
     "docs/CANCELLATION-WALLET-QA-20261013.md",
     "docs/CUSTOMER-CORE-CHECKPOINT-20261012.md",

@@ -6,6 +6,7 @@ import {readOrderDispatch} from './order-dispatch.server';
 import {readPrepaidSchedule} from './prepaid-schedule.server';
 import {planReadySeriesDeliveries,planReadyDeliveryReminders} from './ready-series-calendar';
 import {stageReadyDeliveryRemindersTx,stageReadyDeliveryCatchUpTx} from './ready-delivery-draft.server';
+import {inspectRegisteredPrepaidPurchase} from './registered-prepaid-purchase.server';
 
 type Admin=Parameters<typeof inspectPrepaidPurchase>[0];
 type Input={shop:string;contractGid:string;expected:PrepaidPurchaseExpectation;calendarVersion:string;availableDates:string[];deliveryAt:string[]};
@@ -13,6 +14,19 @@ type Input={shop:string;contractGid:string;expected:PrepaidPurchaseExpectation;c
 // immutable price and explicit merchant calendar/times. No public route accepts
 // these fields. Draft preparation is not capacity reservation or native booking.
 export async function preparePaidReadySeriesDraft(admin:Admin,input:Input,options:{now?:Date}={}){
+ return prepareDraft(admin,input,options);
+}
+
+// The corrected-price path accepts only an internal saved purchase identity.
+// Price, quantity and funding scope come from immutable verified evidence.
+export async function prepareRegisteredPaidReadySeriesDraft(admin:Admin,input:Omit<Input,'contractGid'|'expected'>&{purchaseEvidenceId:string},options:{now?:Date}={}){
+ assertShop(input.shop);
+ if(process.env.NODE_ENV==='production'||process.env.READY_SERIES_PAID_DRAFTS_ENABLED!=='true')throw Error('Paid Ready Series draft preparation is not activated');
+ const proof=await inspectRegisteredPrepaidPurchase(admin,input.shop,input.purchaseEvidenceId);
+ return prepareDraft(admin,{...input,contractGid:proof.contractGid,expected:proof.expected},options,proof);
+}
+
+async function prepareDraft(admin:Admin,input:Input,options:{now?:Date},registered?:Awaited<ReturnType<typeof inspectRegisteredPrepaidPurchase>>){
  const {shop,contractGid,expected,calendarVersion,availableDates,deliveryAt}=input;
  assertShop(shop);
  if(process.env.NODE_ENV==='production'||process.env.READY_SERIES_PAID_DRAFTS_ENABLED!=='true')throw Error('Paid Ready Series draft preparation is not activated');
@@ -25,15 +39,19 @@ export async function preparePaidReadySeriesDraft(admin:Admin,input:Input,option
  const dates=normalized.map(at=>new Date(Date.parse(at)+8*3600000).toISOString().slice(0,10));
  const plan=planReadySeriesDeliveries(dates[0],expected.months,availableDates);
  if(plan.some((day,index)=>day.deliveryDate!==dates[index]))throw Error('Delivery dates differ from the approved monthly calendar');
- const proof=await inspectPrepaidPurchase(admin,shop,contractGid,expected);
+ const proof=registered??await inspectPrepaidPurchase(admin,shop,contractGid,expected);
  if(Date.parse(normalized[0])<=Date.parse(proof.payment.paidAt)||Date.parse(proof.payment.paidAt)>now.getTime())throw Error('Delivery or payment confirmation time differs');
  const schedule=await readPrepaidSchedule(admin,shop,{...expected,deliveryDates:dates});
  if(!schedule.scheduleMatches)throw Error('Native prepaid schedule differs from approved delivery dates');
  const dispatch=await readOrderDispatch(admin,shop,expected.orderGid);
  if(!dispatch.complete||dispatch.cancelled||dispatch.customerGid!==expected.customerGid||dispatch.byLine.size)throw Error('Current undispatched native order evidence required');
- const snapshot=JSON.stringify({version:1,contractGid,expected:[expected.months,expected.appGid,expected.customerGid,expected.orderGid,expected.orderLineGid,expected.productGid,expected.variantGid,expected.sellingPlanGid,expected.upfrontMinor],calendarVersion,availabilityHash:createHash('sha256').update(JSON.stringify([...availableDates].sort())).digest('hex'),deliveryAt:normalized,fulfillments:[...schedule.evidence].sort((a,b)=>a.id.localeCompare(b.id)).map(row=>({id:row.id,fulfillAt:row.fulfillAt,quantity:row.quantity})),paidAt:proof.payment.paidAt,payments:[...proof.payment.payments].sort((a,b)=>a.id.localeCompare(b.id))});
+ const snapshot=JSON.stringify({version:registered?2:1,contractGid,expected:[expected.months,expected.appGid,expected.customerGid,expected.orderGid,expected.orderLineGid,expected.productGid,expected.variantGid,expected.sellingPlanGid,expected.upfrontMinor],...(registered?{purchaseEvidenceId:registered.purchaseEvidenceId,purchaseHash:registered.purchaseHash,packageQuantity:expected.packageQuantity??1,paymentScope:expected.paymentScope??'ORDER',correction:registered.correction}:{}),calendarVersion,availabilityHash:createHash('sha256').update(JSON.stringify([...availableDates].sort())).digest('hex'),deliveryAt:normalized,fulfillments:[...schedule.evidence].sort((a,b)=>a.id.localeCompare(b.id)).map(row=>({id:row.id,fulfillAt:row.fulfillAt,quantity:row.quantity})),paidAt:proof.payment.paidAt,payments:[...proof.payment.payments].sort((a,b)=>a.id.localeCompare(b.id))});
  const cycleReference=JSON.stringify([contractGid,expected.orderGid,expected.orderLineGid]);
  return db.$transaction(async tx=>{
+  if(registered){
+   const saved=await tx.prepaidPurchaseEvidence.findFirst({where:{id:registered.purchaseEvidenceId,shop,customerGid:expected.customerGid,contractGid,snapshotHash:registered.purchaseHash}});
+   if(!saved||createHash('sha256').update(saved.snapshot).digest('hex')!==registered.purchaseHash)throw Error('Registered purchase changed before draft preparation');
+  }
   const where={shop,orderLineGid:expected.orderLineGid,orderGid:expected.orderGid,customerGid:expected.customerGid,productGid:expected.productGid,variantGid:expected.variantGid,contractGid,validationStatus:'VALIDATED',businessStream:'ready_series',selectionId:null,fulfillmentState:'UNASSIGNED'};
   // The existing original row serializes same-term preparation and dispatch
   // updates. No operational line or subscription is manufactured here.

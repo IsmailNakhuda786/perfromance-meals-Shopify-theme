@@ -4,7 +4,7 @@ import {randomUUID} from 'node:crypto';
 import {PrismaClient,buildServices} from './support/database.mjs';
 import {prepaidFixture} from './support/prepaid-purchase.mjs';
 await buildServices({entryPoints:['app/services/paid-ready-draft.server.ts'],outdir:'.shopify/paid-ready-draft-test',bundle:true,packages:'external',format:'esm',platform:'node'});
-const {preparePaidReadySeriesDraft}=await import('../.shopify/paid-ready-draft-test/paid-ready-draft.server.js');
+const {preparePaidReadySeriesDraft,prepareRegisteredPaidReadySeriesDraft}=await import('../.shopify/paid-ready-draft-test/paid-ready-draft.server.js');
 const db=new PrismaClient(),shop=`paid-ready-${randomUUID()}.myshopify.com`;process.env.ALLOWED_SHOP=shop;process.env.READY_SERIES_PAID_DRAFTS_ENABLED='true';
 const now=new Date('2026-10-20T02:00:00Z');let sequence=0;
 async function seed(months=3){
@@ -15,7 +15,7 @@ async function seed(months=3){
 const admin=data=>({graphql:async query=>{assert.doesNotMatch(query,/\bmutation\b/);return Response.json({data});}});
 const run=(f,options={now})=>preparePaidReadySeriesDraft(admin(f.data),f.input,options);
 const count=f=>db.readyDeliveryDraft.count({where:{shop,operationalLineId:f.line.id}});
-test.after(async()=>{for(const table of ['readyDeliveryReminder','readyDeliveryDraft','planOperation','operationalLine'])await db[table].deleteMany({where:{shop}});await db.$disconnect();});
+test.after(async()=>{for(const table of ['readyDeliveryReminder','readyDeliveryDraft','planOperation','prepaidPurchaseEvidence','operationalLine'])await db[table].deleteMany({where:{shop}});await db.$disconnect();});
 test('verified 3/6 paid terms atomically prepare inactive monthly drafts and catch-up reminders',async()=>{
  for(const months of [3,6]){
   const f=await seed(months),result=await run(f);
@@ -76,4 +76,55 @@ test('missing native delivery work or changed schedule prevents all term drafts'
  for(const edit of [f=>f.data.order.fulfillmentOrders.nodes.pop(),f=>f.data.order.fulfillmentOrders.nodes[0].fulfillAt='2026-10-22T00:00:00Z',f=>f.data.order.fulfillmentOrders.nodes[0].lineItems.nodes[0].remainingQuantity=0]){
   const f=await seed();edit(f);await assert.rejects(run(f));assert.equal(await count(f),0);
  }
+});
+
+async function registered(months=3,packages=1,mixed=false){
+ const f=await seed(months),e=f.input.expected,net=e.upfrontMinor*packages,gross=Math.ceil(e.upfrontMinor/months)*months*packages,reduction=gross-net;
+ e.packageQuantity=packages;e.upfrontMinor=net;if(mixed)e.paymentScope='PREPAID_LINE';
+ const money=n=>({shopMoney:{amount:(n/100).toFixed(2),currencyCode:'SGD'}}),o=f.data.order,c=f.data.subscriptionContract;
+ c.lines.nodes[0].quantity=packages;c.lines.nodes[0].currentPrice.amount=(gross/packages/100).toFixed(2);
+ for(const key of ['totalPriceSet','currentTotalPriceSet','totalReceivedSet'])o[key]=money(net+(mixed?10000:0));
+ o.transactions[0].amountSet=money(net+(mixed?10000:0));o.totalDiscountsSet=money(reduction);o.totalTaxSet=money(0);o.currentTotalTaxSet=money(0);
+ const l=o.lineItems.nodes[0];l.quantity=months*packages;l.currentQuantity=l.quantity;l.originalTotalSet=money(gross);l.discountAllocations=[{allocatedAmountSet:money(reduction),discountApplication:{__typename:'AutomaticDiscountApplication',title:'Approved cent correction'}}];
+ if(mixed)o.lineItems.nodes.push({...structuredClone(l),id:'gid://shopify/LineItem/999999',quantity:1,currentQuantity:1,variant:{id:'gid://shopify/ProductVariant/99'},sellingPlan:{sellingPlanId:'gid://shopify/SellingPlan/99'},originalTotalSet:money(10000),discountAllocations:[]});
+ for(const group of o.fulfillmentOrders.nodes){group.lineItems.nodes[0].totalQuantity=packages;group.lineItems.nodes[0].remainingQuantity=packages;}
+ const correction={baseMinor:gross,discountMinor:reduction,applicationKind:'AUTOMATIC',title:'Approved cent correction',taxMinor:0};
+ const snapshot=JSON.stringify({version:1,contractGid:f.input.contractGid,expected:e,correction}),{createHash}=await import('node:crypto');
+ const saved=await db.prepaidPurchaseEvidence.create({data:{shop,customerGid:e.customerGid,contractGid:f.input.contractGid,originalOrderGid:e.orderGid,originalLineGid:e.orderLineGid,snapshot,snapshotHash:createHash('sha256').update(snapshot).digest('hex')}});
+ process.env.CORE_PREPAID_RENEWAL_LINKS_ENABLED='true';process.env.CORE_PREPAID_RENEWAL_LINKS_QA_CUSTOMER=e.customerGid;
+ const {contractGid,expected,...calendar}=f.input;
+ return {...f,saved,registeredInput:{...calendar,purchaseEvidenceId:saved.id}};
+}
+const runRegistered=f=>prepareRegisteredPaidReadySeriesDraft(admin(f.data),f.registeredInput,{now});
+test('registered corrected 3/6 terms, multiple packages and mixed-order lines prepare replay-safe inactive drafts',async()=>{
+ for(const [months,packages,mixed]of[[3,1,false],[6,1,false],[3,2,false],[3,1,true]]){
+  const f=await registered(months,packages,mixed),first=await runRegistered(f),again=await runRegistered(f);
+  assert.equal(first.created,true);assert.equal(first.drafts.length,months);assert.equal(again.created,false);assert.deepEqual(again.drafts.map(d=>d.id),first.drafts.map(d=>d.id));
+  const snapshot=JSON.parse((await db.planOperation.findUnique({where:{id:first.operationId}})).productionReference);
+  assert.equal(snapshot.version,2);assert.equal(snapshot.purchaseHash,f.saved.snapshotHash);assert.equal(snapshot.packageQuantity,packages);assert.equal(snapshot.paymentScope,mixed?'PREPAID_LINE':'ORDER');assert.equal(snapshot.correction.discountMinor,months===3?packages:2*packages);
+  assert.equal(await db.prepaidPurchaseEvidence.count({where:{shop,id:f.saved.id}}),1);
+ }
+});
+test('registered draft preparation rejects changed payment, gross price, saved checksum and foreign ownership',async()=>{
+ for(const edit of[f=>f.data.order.totalRefundedSet.shopMoney.amount='1',f=>f.data.subscriptionContract.lines.nodes[0].currentPrice.amount='255.22',f=>f.data.subscriptionContract.status='CANCELLED']){
+  const f=await registered();edit(f);await assert.rejects(runRegistered(f));assert.equal(await count(f),0);
+ }
+ const f=await registered();await db.prepaidPurchaseEvidence.update({where:{id:f.saved.id},data:{snapshotHash:'broken'}});await assert.rejects(runRegistered(f),/checksum/);assert.equal(await count(f),0);
+ const other=await registered();await db.prepaidPurchaseEvidence.update({where:{id:other.saved.id},data:{customerGid:'gid://shopify/Customer/99'}});await assert.rejects(runRegistered(other),/unavailable/);assert.equal(await count(other),0);
+});
+test('registered preparation gates invalid identities and activation before native requests',async()=>{
+ const f=await registered(),api={graphql:async()=>assert.fail('Unexpected native read')};
+ for(const id of[undefined,'','../other'])await assert.rejects(prepareRegisteredPaidReadySeriesDraft(api,{...f.registeredInput,purchaseEvidenceId:id},{now}));
+ process.env.READY_SERIES_PAID_DRAFTS_ENABLED='false';try{await assert.rejects(prepareRegisteredPaidReadySeriesDraft(api,f.registeredInput,{now}),/not activated/);}finally{process.env.READY_SERIES_PAID_DRAFTS_ENABLED='true';}
+ assert.equal(await count(f),0);
+});
+test('purchase evidence changed during native checks cannot create delivery drafts',async()=>{
+ const f=await registered();
+ const api={graphql:async query=>{
+  assert.doesNotMatch(query,/\bmutation\b/);
+  if(query.includes('fulfillmentsCount'))await db.prepaidPurchaseEvidence.update({where:{id:f.saved.id},data:{snapshotHash:'changed-during-native-read'}});
+  return Response.json({data:f.data});
+ }};
+ await assert.rejects(prepareRegisteredPaidReadySeriesDraft(api,f.registeredInput,{now}),/changed before draft/);
+ assert.equal(await count(f),0);assert.equal(await db.planOperation.count({where:{shop,cycleReference:JSON.stringify([f.input.contractGid,f.input.expected.orderGid,f.input.expected.orderLineGid])}}),0);
 });
