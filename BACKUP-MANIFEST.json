@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "f7366d6906d074a088b5b46fd9603bce59f510a6",
+  "source_commit": "3f4e0e6fc314d002abd61e6395bfc6d2fcdadd21",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -577,6 +577,11 @@
     {
       "path": "apps/performance-meals-core/app/services/ready-delivery-slot-form.ts",
       "sha256": "979cd8d3115368709927a6db792b7417b724147624a3368c1a001a4fd68eefcd",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/ready-delivery-visit.ts",
+      "sha256": "ca5dd2728fab01973565e232a9b30acf2bd8b1b9b8d4da37a8d4785a451eccad",
       "sanitized": false
     },
     {
@@ -1602,6 +1607,11 @@
     {
       "path": "apps/performance-meals-core/tests/ready-delivery-slots-route.test.mjs",
       "sha256": "8522f9341b93c9c4ed8d595c3fea48a7666fbcb8cc88d5b324ae0b99f4cd0e45",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/ready-delivery-visit.test.mjs",
+      "sha256": "30a3834fc36ba675d0ef0f3dd47e5631511774146989d52dcd6bae80911acf00",
       "sanitized": false
     },
     {
@@ -2691,12 +2701,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "547294a14cb0ebf8526b781e321d21ae8138315b3e39dbaba04fd024f449e9d4",
+      "sha256": "a7795927795022413f0b6dc462d96afda7e4b37e956fb533b78784fae9f8892c",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "d5681dee90643f6ed9ca7a4ef2a383301d7e8640b0a97e3bd9a0ce7cdfd557b0",
+      "sha256": "27d4c27ef40a968e305f628c7b46e3e14abc6a7f379e6fa0027384ff3ad321bc",
       "sanitized": false
     },
     {
@@ -2706,7 +2716,7 @@
     },
     {
       "path": "docs/READY-DELIVERY-CAPACITY-QA-20261026.md",
-      "sha256": "0badbf170d81fc26c7d3e9ad4409e8474282d78e26ed03c057639bb555c60f85",
+      "sha256": "da9d43f3dfc747b7dc045fdeb3e951dae5631ee481ae9669713630e5f97d6f68",
       "sanitized": false
     },
     {

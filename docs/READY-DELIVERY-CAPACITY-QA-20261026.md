@@ -35,3 +35,9 @@ This does not confirm a Shopify delivery booking, change paid meals or billing, 
 A regression test demonstrated that turning the capacity flag off previously allowed an internally reserved draft to move while its original slot remained occupied. The draft now checks existing reservations regardless of the activation flag and locks its revision before checking reminders and reservations. A competing move/reserve test verifies that only one operation can commit. These checks do not activate customer booking or modify Shopify deliveries.
 
 The complete disposable regression suite passes 544/544. TypeScript and lint pass. All 24 focused PostgreSQL capacity/draft checks pass, including the disabled-feature regression and competing move/reserve test.
+
+## Confirmed combined-delivery capacity rule
+
+The user confirmed that two boxes delivered together to one customer/address/time slot consume one delivery visit (a limit of 30 leaves 29). Package quantities and meal entitlements remain separate and intact. `planReadyDeliveryVisit` prepares an internal, order-scoped visit from server-verified member/destination identities, rejects duplicate entitlements and invalid windows/quantities, and counts one capacity place. It neither reserves capacity nor changes Shopify fulfilment. Cross-order consolidation is not implemented. Native physical-delivery mapping and persistent group reservations remain outstanding.
+
+All 549 disposable tests pass, including five combined-visit planning checks; TypeScript and lint pass. No customer booking activation or paid delivery change occurred.
