@@ -78,6 +78,7 @@ export async function reserveReadyDeliveryCapacity(input:Reserve,options:{now?:D
   if(!draft||draft.deliveryAt.getTime()!==slot.deliveryAt.getTime())throw Error('Delivery draft or slot changed; reload');
   const line=await tx.operationalLine.findFirst({where:{id:draft.operationalLineId,shop,customerGid,businessStream:'ready_series',validationStatus:'VALIDATED',fulfillmentState:'UNASSIGNED'}});
   if(!line?.contractGid)throw Error('Validated undispatched paid delivery binding required');
+  if(await tx.readyDeliveryVisitMember.count({where:{shop,deliveryDraftId,deliveryRevision}}))throw Error('Delivery belongs to a combined visit; manage the whole visit');
   const key={shop_deliveryDraftId_deliveryRevision:{shop,deliveryDraftId,deliveryRevision}},old=await tx.readyDeliverySlotReservation.findUnique({where:key});
   if(old){
    if(old.slotId!==slotId||old.customerGid!==customerGid||old.state!=='RESERVED'||old.releasedAt)throw Error('Delivery reservation requires review');
@@ -99,8 +100,19 @@ export async function releaseReadyDeliveryCapacity(input:{shop:string;customerGi
   const old=await tx.readyDeliverySlotReservation.findFirst({where:{id:reservationId,shop,customerGid}});
   if(!old)throw Error('Owned delivery reservation unavailable');
   const slot=await lockSlot(tx,shop,old.slotId),current=await tx.readyDeliverySlotReservation.findUniqueOrThrow({where:{id:old.id}});
-  if(current.state==='RELEASED'&&current.releasedAt)return {released:true,replayed:true};
+  if(current.state==='RELEASED'&&current.releasedAt){
+   const visit=await tx.readyDeliveryVisit.findUnique({where:{reservationId:old.id}});
+   if(visit&&(visit.shop!==shop||visit.customerGid!==customerGid||visit.state!=='RELEASED'||await tx.readyDeliveryVisitMember.count({where:{shop,visitId:visit.id,state:{not:'RELEASED'}}})))throw Error('Combined visit requires reconciliation');
+   return {released:true,replayed:true};
+  }
   if(current.state!=='RESERVED'||current.releasedAt||slot.reserved<1)throw Error('Delivery reservation requires reconciliation');
+  const visit=await tx.readyDeliveryVisit.findUnique({where:{reservationId:old.id}});
+  if(visit){
+   const plan=JSON.parse(visit.plan),members=await tx.readyDeliveryVisitMember.findMany({where:{shop,visitId:visit.id}});
+   if(visit.shop!==shop||visit.customerGid!==customerGid||visit.slotId!==slot.id||visit.state!=='RESERVED'||!Array.isArray(plan.members)||!plan.members.length||members.length!==plan.members.length||members.some(m=>m.customerGid!==customerGid||m.state!=='RESERVED'||!plan.members.some((p:{draftId:string;revision:number})=>p.draftId===m.deliveryDraftId&&p.revision===m.deliveryRevision)))throw Error('Combined visit requires reconciliation');
+   await tx.readyDeliveryVisit.update({where:{id:visit.id},data:{state:'RELEASED'}});
+   await tx.readyDeliveryVisitMember.updateMany({where:{shop,visitId:visit.id,state:'RESERVED'},data:{state:'RELEASED'}});
+  }
   const changed=await tx.readyDeliverySlotReservation.updateMany({where:{id:old.id,shop,customerGid,state:'RESERVED',releasedAt:null},data:{state:'RELEASED',releasedAt:new Date()}});
   if(changed.count!==1)throw Error('Delivery reservation changed; reload');
   await tx.readyDeliverySlot.update({where:{id:slot.id},data:{reserved:{decrement:1}}});

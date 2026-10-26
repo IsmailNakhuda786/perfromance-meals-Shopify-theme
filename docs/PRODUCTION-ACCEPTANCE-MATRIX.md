@@ -4,7 +4,7 @@ Updated 2026-10-26. Latest engineering baseline: `3eea617`; fresh two-package na
 
 Current classification: **1 PASS / 10 PARTIAL / 0 FAIL / 4 BLOCKED**. The PASS is the approved absence of referral benefits, not a completed payment feature.
 
-Regression: **558/558** disposable Core tests pass; historical **73/73** focused PostgreSQL checks and the new **11/11** corrected-draft PostgreSQL group pass; TypeScript, lint and schema consistency pass. Historical Theme baseline remains 71/71. These focused database checks do not certify the full concurrent production PostgreSQL suite.
+Regression: **567/567** disposable Core tests pass; historical **73/73** focused PostgreSQL checks and the new **11/11** corrected-draft PostgreSQL group pass; TypeScript, lint and schema consistency pass. Historical Theme baseline remains 71/71. These focused database checks do not certify the full concurrent production PostgreSQL suite.
 
 | # | Requirement | Status |
 | --- | --- | --- |
@@ -347,3 +347,7 @@ Reservation follow-up: the default-off switch now preserves existing internal re
 Recovery follow-up: fixed the legacy 11-table export omission. Format v3 covers all 35 operational models; 554 disposable Core tests and five focused PostgreSQL recovery cases pass. Hosted recovery remains BLOCKED. See [recovery evidence](CORE-RECOVERY-COVERAGE-QA-20261026.md).
 
 Gift Card acceptance follow-up: [26 October native claim and cleanup](GIFT-CARD-CLAIM-ACCEPTANCE-20261026.md). Full disposable regression 558/558; TypeScript/lint pass. Requirement 8 remains PARTIAL; expiry enforcement and permanent reminders are not claimed.
+
+## 27 October combined-visit evidence
+
+Durable internal grouping now preserves all paid package counts while consuming one place per visit. Replay, standalone/group overlap, non-leader protection, atomic release and recovery passed 27 PostgreSQL checks; full disposable regression567/567, TypeScript/lint/schema checks passed. All35 existing business-model hashes are unchanged. Customer booking/native rescheduling remain incomplete, so status counts remain1PASS/10PARTIAL/4BLOCKED. See [combined visit evidence](READY-DELIVERY-COMBINED-VISIT-QA-20261027.md).

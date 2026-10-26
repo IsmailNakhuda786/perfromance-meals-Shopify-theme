@@ -1,6 +1,6 @@
 {
-  "updated": "2026-10-26",
-  "sourceCheckpoint": "2508ed3",
+  "updated": "2026-10-27",
+  "sourceCheckpoint": "e1e1b3f",
   "scope": "Full agreed production acceptance; no reduced-scope launch",
   "productionAccepted": false,
   "statusDefinitions": {
@@ -10,7 +10,7 @@
     "BLOCKED": "A required platform capability, authorization or external dependency prevents completion."
   },
   "baseline": {
-    "coreTests": 558,
+    "coreTests": 567,
     "nativeReadback": "Latest mixed QA verified #1031/#1032/#1033 with provider inbox intake and explicit Core replay; future renewals stopped. Eleven earlier paid orders/45 fulfilments and nine financial-model snapshots preserved. QA product, discounts, shipping profile, GST and temporary callback settings restored.",
     "checkoutPricing": "Exact charged initial and simulated renewal GST-inclusive pricing passed for single terms, two identical 3-delivery packages (SGD510.40/GST42.14) and mixed 3-/6-delivery packages (initial SGD748.80/GST61.83; renewals SGD255.20/GST21.07 and SGD493.60/GST40.76). Delivery was included. General production correction provisioning and permanent lifecycle acceptance remain incomplete.",
     "topUpsEnabled": false,
@@ -156,7 +156,14 @@
       "nativeBookingConfirmed": false,
       "customerActivation": false
     },
-    "giftCardClaimNative": "26 October: named-recipient SGD1 customer claim completed; original expiry retained; replay zero financial calls; approved cleanup restored native/Core zero and deactivated test card. Expiry worker remains disabled. See GIFT-CARD-CLAIM-ACCEPTANCE-20261026.md."
+    "giftCardClaimNative": "26 October: named-recipient SGD1 customer claim completed; original expiry retained; replay zero financial calls; approved cleanup restored native/Core zero and deactivated test card. Expiry worker remains disabled. See GIFT-CARD-CLAIM-ACCEPTANCE-20261026.md.",
+    "combinedDeliveryVisits": {
+      "postgresPassed": 27,
+      "automatedPassed": 567,
+      "protectedModelsUnchanged": 35,
+      "customerActivated": false,
+      "evidence": "READY-DELIVERY-COMBINED-VISIT-QA-20261027.md"
+    }
   },
   "counts": {
     "PASS": 1,

@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "e1e1b3fa5dd088c1bdf2bd729753227145437fb4",
+  "source_commit": "546dadae759a60fefedaa979a361b840bc52e5d5",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -541,7 +541,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/privacy.server.ts",
-      "sha256": "1336b3f6b7b4303f2a90204d0cb45c6d2d76b406770d3421b49b4def301cb9f5",
+      "sha256": "ffa0a5514c56153e8e5892deeb8d19a373fc23713735e77212f5e601dbbeadd3",
       "sanitized": false
     },
     {
@@ -556,12 +556,12 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/ready-delivery-capacity.server.ts",
-      "sha256": "1f52dd1bd2e2ab6f848ee86e924fa59b44e12e3782f9491dca40ea7e501031ad",
+      "sha256": "d91e5f0c062bc61ca9389fe21cafe89319dde1bddf487123eb764eee39d07f97",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/services/ready-delivery-draft.server.ts",
-      "sha256": "876c4aba1415a595af9948fc2283f97c0972a083e861964905dae589e3cf0b8e",
+      "sha256": "cdf257f8b22b21023f9bc7dc218e8abe42b9d6f944c4e5cf62cd797f19fc6efc",
       "sanitized": false
     },
     {
@@ -577,6 +577,11 @@
     {
       "path": "apps/performance-meals-core/app/services/ready-delivery-slot-form.ts",
       "sha256": "979cd8d3115368709927a6db792b7417b724147624a3368c1a001a4fd68eefcd",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/ready-delivery-visit.server.ts",
+      "sha256": "a211df01726585d10567283208b8abe01f44db3d6229e80e5c20d086c5e6e44b",
       "sanitized": false
     },
     {
@@ -1100,6 +1105,11 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/prisma/migrations/20261026180000_ready_delivery_visits/migration.sql",
+      "sha256": "b5500bb75c9726e9cf84701466ca2b4206af866da6c112711da93e8af1b8ed8d",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/prisma/migrations/migration_lock.toml",
       "sha256": "3389dbaf2a3cf4b413275867ac6f550b27f79efe85ee9c12082cdd8c5b8239c4",
       "sanitized": false
@@ -1250,18 +1260,23 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/prisma/production/migrations/20261026180000_ready_delivery_visits/migration.sql",
+      "sha256": "6af1443aaf1a8353bb8c38f14c9257b3abd73699d536219280b9944794ee5a39",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/prisma/production/migrations/migration_lock.toml",
       "sha256": "1db17a8d051aa136110736752c5e1f8b7ed92b6ea8e803112fbbe2497047c210",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/prisma/production/schema.prisma",
-      "sha256": "626c3c04ce925f575c115931c105c1f208fb2ad2731585964d23d3899dffe8d8",
+      "sha256": "9c7f76b912b495cf5348dc0c8ef50a772aecfc2fce6290f9ab51e7f99cb8b687",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/prisma/schema.prisma",
-      "sha256": "e84cb781351939792b9845e60fa8d57cb01093cf4c194482ecb43dfe01f92257",
+      "sha256": "64f077843a40cf0484435bae3bb09a9dcdcf7a6deb1a5cb274ddb20013ca6e9f",
       "sanitized": false
     },
     {
@@ -1281,7 +1296,7 @@
     },
     {
       "path": "apps/performance-meals-core/scripts/operational-snapshot.mjs",
-      "sha256": "2e867077d8f345fa93f5f68adc8760385d360cc34226006447ec7d90975e3927",
+      "sha256": "1333a298e5d8e1ddd3cc5145acbe616cc9b896a0420152a21c5ca5475219c080",
       "sanitized": false
     },
     {
@@ -1461,7 +1476,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/operational-snapshot.test.mjs",
-      "sha256": "b24811551d9fce4eeecd49cf3d084d98f5f1d43e48150309ed855ea83c8eb7bc",
+      "sha256": "f0ebca78f5c65b32052882315731f8245e99a362d3c9a231b62c86f8a856ed02",
       "sanitized": false
     },
     {
@@ -1622,6 +1637,11 @@
     {
       "path": "apps/performance-meals-core/tests/ready-delivery-slots-route.test.mjs",
       "sha256": "8522f9341b93c9c4ed8d595c3fea48a7666fbcb8cc88d5b324ae0b99f4cd0e45",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/ready-delivery-visit-reservation.test.mjs",
+      "sha256": "1a9b4e80921e36c14f54afdf38b87835d996d86abd2c39485c9ca6d24a62613a",
       "sanitized": false
     },
     {
@@ -2726,12 +2746,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "ddf4cc11e482c723382ec018f1e46afd022b14cf8ebb022df2983e68c2f9195e",
+      "sha256": "7fe4cd1e439c489410b58b280988dac994bc2a1ff6e47834e8cd02b5621eb862",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "05b89e6e7afeb4e72673dc55e250f825d27f67318707cb590454a88f5b3d9527",
+      "sha256": "098f18b523384ccdd22a719b317b0d664c82b2a9570035df0fa4f4bc2bc2adef",
       "sanitized": false
     },
     {
@@ -2742,6 +2762,11 @@
     {
       "path": "docs/READY-DELIVERY-CAPACITY-QA-20261026.md",
       "sha256": "6a56c8a98187aa499aa1f7769ed09d49c350fa7613ee9af35d4bc302aafda421",
+      "sanitized": false
+    },
+    {
+      "path": "docs/READY-DELIVERY-COMBINED-VISIT-QA-20261027.md",
+      "sha256": "1bd05f90d7475341a8f1d26a2f018af07c5fd629d0e0aff4fc5c38d05c03d8c7",
       "sanitized": false
     },
     {

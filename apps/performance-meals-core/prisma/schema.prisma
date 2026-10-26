@@ -475,6 +475,34 @@ model ReadyDeliverySlotReservation {
  @@index([shop, slotId, state])
 }
 
+// Internal combined visit; no native booking or customer activation.
+model ReadyDeliveryVisit {
+ id String @id @default(cuid())
+ shop String
+ customerGid String
+ orderGid String
+ destinationKey String
+ slotId String
+ reservationId String @unique
+ plan String
+ packageCount Int
+ state String @default("RESERVED")
+ createdAt DateTime @default(now())
+ updatedAt DateTime @updatedAt
+ @@index([shop, customerGid, state])
+}
+model ReadyDeliveryVisitMember {
+ id String @id @default(cuid())
+ customerGid String
+ shop String
+ visitId String
+ deliveryDraftId String
+ deliveryRevision Int
+ state String @default("RESERVED")
+ @@unique([shop, deliveryDraftId, deliveryRevision], map:"ReadyVisitMember_draft_revision_key")
+ @@index([shop, visitId, state])
+}
+
 // Internal immutable checkout review; no public checkout activation yet.
 model BundlePurchaseReview {
  id String @id @default(uuid())
