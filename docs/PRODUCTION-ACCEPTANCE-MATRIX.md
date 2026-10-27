@@ -353,3 +353,13 @@ Gift Card acceptance follow-up: [26 October native claim and cleanup](GIFT-CARD-
 Durable internal grouping now preserves all paid package counts while consuming one place per visit. Replay, standalone/group overlap, non-leader protection, atomic release and recovery passed 27 PostgreSQL checks; full disposable regression567/567, TypeScript/lint/schema checks passed. All35 existing business-model hashes are unchanged. Customer booking/native rescheduling remain incomplete, so status counts remain1PASS/10PARTIAL/4BLOCKED. See [combined visit evidence](READY-DELIVERY-COMBINED-VISIT-QA-20261027.md).
 
 Paid renewal delivery follow-up: immutable original/renewal entitlement checks passed12 focused PostgreSQL cases and51 focused disposable tests; full serial regression570/570. All37 protected model snapshots unchanged. Native customer booking remains inactive; acceptance counts unchanged.
+
+## 27 October stopped-renewal entitlement fix
+
+Confirmed future-renewal stops no longer incorrectly block preparation of still-paid registered deliveries. Fresh native identity/binding, full payment and dispatch checks remain mandatory. 574 full disposable tests and 27 focused PostgreSQL checks pass; all37 protected business models unchanged. Existing native stop binding readback passed without financial mutations. This is internal preparation evidence, not customer booking acceptance. Counts remain **1 PASS / 10 PARTIAL / 0 FAIL / 4 BLOCKED**. See [verification](STOPPED-RENEWAL-PAID-DELIVERIES-QA-20261027.md).
+
+The owner chose to retain temporary development hosting on27 October. No permanent host, upgrade or deployment was authorized; hosted ingress, scheduling, monitoring and restore acceptance remain BLOCKED. The final support response directs formal Wallet eligibility review to the Payments Partner application; it does not approve the proposed Wallet integration. See [support outcome](WALLET-PARTNER-ROUTING-20261027.md).
+
+## 27 October native destination proof
+
+Read-only server-side destination/ownership/dispatch proof passed for nine native fulfilment orders across#1029/#1031, without new permissions or mutations. All11 protected business models stayed unchanged. Eight focused tests and582 full disposable Core tests pass; TypeScript/lint and pinned API query validation pass. This is not customer booking or paid-line/time-slot authorization. See [native destination evidence](READY-DELIVERY-DESTINATION-QA-20261027.md). Counts remain **1 PASS /10 PARTIAL /0 FAIL /4 BLOCKED**.

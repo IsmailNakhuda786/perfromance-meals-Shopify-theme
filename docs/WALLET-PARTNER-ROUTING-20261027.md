@@ -6,4 +6,10 @@ Mateo confirmed that his store-context chat could not authenticate the Partner o
 
 Clicking the new Partner Dashboard’s own Help Center link successfully opened Partner-context Help (Switch organization / Partner dashboard). A new chat with Christian was opened there. The request asks him to confirm organization authentication and obtain a written determination about automatic custom-Wallet renewals, Wallet plus saved-card split payments, required plan/invitation/API approvals, and a pre-application assessment route. No technical approval or escalation completion is claimed yet.
 
-Partner identity, private chat links and receipts remain outside the public backup. No Plus purchase, payment application, app transfer, production change or Wallet activation occurred. Top-ups remain disabled.
+## Final response from Christian
+
+Christian initially stated Partner authentication was in place, then explained that he was a merchant-designated advisor and Partner support is separate. The owner completed store verification himself. The final specialist response directs formal eligibility review to the Payments Partner application process and technical implementation questions to the developer community and Payments Apps documentation. The chat ended. No written approval, invitation, recurring-Wallet capability determination or confirmed formal escalation resulted. Do not treat the initial routing assurance as platform approval.
+
+The next useful action is a truthful, owner-reviewed application draft. The required documentation-compatibility attestation remains unproven; it must not be checked merely to advance the form. Another merchant-context verification loop does not resolve this technical gate. A transcript was promised by email/Support Inbox; no new ticket number was visible in the ended chat.
+
+Partner identity, private chat links, verification information and receipts remain outside the public backup. No Plus purchase, payment application, app transfer, production change or Wallet activation occurred. Top-ups remain disabled.

@@ -15,7 +15,7 @@ async function seed(months=3){
 const admin=data=>({graphql:async query=>{assert.doesNotMatch(query,/\bmutation\b/);return Response.json({data});}});
 const run=(f,options={now})=>preparePaidReadySeriesDraft(admin(f.data),f.input,options);
 const count=f=>db.readyDeliveryDraft.count({where:{shop,operationalLineId:f.line.id}});
-test.after(async()=>{for(const table of ['readyDeliveryReminder','readyDeliveryDraft','planOperation','prepaidPurchaseEvidence','operationalLine'])await db[table].deleteMany({where:{shop}});await db.$disconnect();});
+test.after(async()=>{for(const table of ['readyDeliveryReminder','readyDeliveryDraft','planOperation','prepaidPurchaseEvidence','subscriptionRenewalStop','operationalLine'])await db[table].deleteMany({where:{shop}});await db.$disconnect();});
 test('verified 3/6 paid terms atomically prepare inactive monthly drafts and catch-up reminders',async()=>{
  for(const months of [3,6]){
   const f=await seed(months),result=await run(f);
@@ -127,4 +127,38 @@ test('purchase evidence changed during native checks cannot create delivery draf
  }};
  await assert.rejects(prepareRegisteredPaidReadySeriesDraft(api,f.registeredInput,{now}),/changed before draft/);
  assert.equal(await count(f),0);assert.equal(await db.planOperation.count({where:{shop,cycleReference:JSON.stringify([f.input.contractGid,f.input.expected.orderGid,f.input.expected.orderLineGid])}}),0);
+});
+async function confirmedStop(f){
+ const {createHash}=await import('node:crypto'),e=f.input.expected,c=f.data.subscriptionContract;
+ c.status='CANCELLED';
+ const bindingHash=createHash('sha256').update(JSON.stringify({shop,customerGid:e.customerGid,id:c.id,app:c.app.id,origin:c.originOrder.id,lines:c.lines.nodes.map(l=>[l.id,l.productId,l.variantId,l.sellingPlanId,l.quantity]).sort((a,b)=>String(a[0]).localeCompare(String(b[0])))})).digest('hex');
+ return db.subscriptionRenewalStop.create({data:{shop,customerGid:e.customerGid,contractGid:c.id,originOrderGid:e.orderGid,bindingHash,requestKey:randomUUID(),state:'COMPLETED',confirmedAt:now}});
+}
+test('confirmed future-renewal stop preserves preparation and replay of still-paid deliveries',async()=>{
+ const f=await registered();await confirmedStop(f);
+ const before=JSON.stringify({order:f.data.order,contract:f.data.subscriptionContract,purchase:await db.prepaidPurchaseEvidence.findUnique({where:{id:f.saved.id}})});
+ const first=await runRegistered(f),again=await runRegistered(f);
+ assert.equal(first.drafts.length,3);assert.equal(again.created,false);assert.deepEqual(again.drafts.map(d=>d.id),first.drafts.map(d=>d.id));
+ assert.equal(JSON.stringify({order:f.data.order,contract:f.data.subscriptionContract,purchase:await db.prepaidPurchaseEvidence.findUnique({where:{id:f.saved.id}})}),before);
+});
+test('unknown, incomplete or altered stop evidence cannot restore delivery access',async()=>{
+ for(const mode of ['pending','unconfirmed','hash','owner','line']){
+  const f=await registered(),stop=await confirmedStop(f);
+  if(mode==='pending')await db.subscriptionRenewalStop.update({where:{id:stop.id},data:{state:'UNKNOWN'}});
+  if(mode==='unconfirmed')await db.subscriptionRenewalStop.update({where:{id:stop.id},data:{confirmedAt:null}});
+  if(mode==='hash')await db.subscriptionRenewalStop.update({where:{id:stop.id},data:{bindingHash:'stale'}});
+  if(mode==='owner')await db.subscriptionRenewalStop.update({where:{id:stop.id},data:{customerGid:'gid://shopify/Customer/99'}});
+  if(mode==='line')f.data.subscriptionContract.lines.nodes[0].id='gid://shopify/SubscriptionLine/9999';
+  await assert.rejects(runRegistered(f));assert.equal(await count(f),0);
+ }
+});
+test('stopping renewals does not bypass refunded, cancelled or dispatched paid-order guards',async()=>{
+ for(const edit of[f=>f.data.order.totalRefundedSet.shopMoney.amount='1',f=>f.data.order.cancelledAt='2026-10-20T01:30:00Z',f=>f.data.order.fulfillmentsCount.count=1]){
+  const f=await registered();await confirmedStop(f);edit(f);await assert.rejects(runRegistered(f));assert.equal(await count(f),0);
+ }
+});
+test('disabling new renewal-stop writes never withdraws a confirmed paid delivery entitlement',async()=>{
+ const f=await registered();await confirmedStop(f);const before=process.env.CORE_SUBSCRIPTION_RENEWAL_STOPS_ENABLED;
+ process.env.CORE_SUBSCRIPTION_RENEWAL_STOPS_ENABLED='false';
+ try{assert.equal((await runRegistered(f)).drafts.length,3);}finally{if(before===undefined)delete process.env.CORE_SUBSCRIPTION_RENEWAL_STOPS_ENABLED;else process.env.CORE_SUBSCRIPTION_RENEWAL_STOPS_ENABLED=before;}
 });

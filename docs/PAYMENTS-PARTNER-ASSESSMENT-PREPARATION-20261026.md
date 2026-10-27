@@ -8,7 +8,7 @@ Shopify Developer Support states that Payments Partnerships decides eligibility/
 
 Support cannot approve the architecture or invitation in its ticket. Plus alone does not unlock the Redeemables beta. Native Store Credit cannot enforce the required combined Wallet controls, and initial subscription funding must be distinguished from recurring billing.
 
-The form requires confirmation that the developer documentation works for the proposed payment solution. That is not yet established for Core, so this confirmation must not be checked as though feasibility were proven. An authorized technical follow-up was sent asking for an assessment route before making this attestation and whether the general payment-partner form is appropriate for an early-stage closed-loop Wallet software developer. Response pending.
+The form requires confirmation that the developer documentation works for the proposed payment solution. That is not yet established for Core, so this confirmation must not be checked as though feasibility were proven. An authorized technical follow-up asked for an assessment route before making this attestation and whether the general payment-partner form is appropriate for an early-stage closed-loop Wallet software developer. On 27 October, the final specialist response again directed formal review to the application process, without answering the capability/attestation boundary or approving this architecture. See [routing evidence](WALLET-PARTNER-ROUTING-20261027.md). Application preparation can continue; submission remains unapproved and the attestation remains unconfirmed.
 
 ## Proposed technical description for review
 

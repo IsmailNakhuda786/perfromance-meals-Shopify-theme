@@ -1,6 +1,6 @@
 {
   "updated": "2026-10-27",
-  "sourceCheckpoint": "546dada",
+  "sourceCheckpoint": "b80aa8b",
   "scope": "Full agreed production acceptance; no reduced-scope launch",
   "productionAccepted": false,
   "statusDefinitions": {
@@ -10,7 +10,7 @@
     "BLOCKED": "A required platform capability, authorization or external dependency prevents completion."
   },
   "baseline": {
-    "coreTests": 570,
+    "coreTests": 582,
     "nativeReadback": "Latest mixed QA verified #1031/#1032/#1033 with provider inbox intake and explicit Core replay; future renewals stopped. Eleven earlier paid orders/45 fulfilments and nine financial-model snapshots preserved. QA product, discounts, shipping profile, GST and temporary callback settings restored.",
     "checkoutPricing": "Exact charged initial and simulated renewal GST-inclusive pricing passed for single terms, two identical 3-delivery packages (SGD510.40/GST42.14) and mixed 3-/6-delivery packages (initial SGD748.80/GST61.83; renewals SGD255.20/GST21.07 and SGD493.60/GST40.76). Delivery was included. General production correction provisioning and permanent lifecycle acceptance remain incomplete.",
     "topUpsEnabled": false,
@@ -32,9 +32,9 @@
     "multiplePackageTests": {
       "postgresPassed": 33,
       "failed": 0,
-      "scope": "Payment, multiple package/line routing and fulfilment quantities; native multiple-package checkout remains pending"
+      "scope": "Focused payment, multiple-package routing and fulfilment quantities; subsequent native initial/renewal evidence recorded below."
     },
-    "multiplePackageCheckout": "Both identical and mixed term initial payments/renewals passed exact prices; mixed order #1026 SGD748.80 and renewals #1027 SGD255.20/#1028 SGD493.60. Nonzero GST charged renewals remain unverified.",
+    "multiplePackageCheckout": "Identical and mixed-term initial payments and renewals passed exact prices with nonzero GST in subsequent scoped QA. General provisioning and permanent lifecycle acceptance remain open.",
     "multiplePackageObservedErrorRegression": {
       "passed": 10,
       "failed": 0,
@@ -94,8 +94,8 @@
         74880
       ],
       "samePerPackageCorrection": true,
-      "paidPropagationVerified": false,
-      "renewalVerified": false,
+      "paidPropagationVerified": true,
+      "renewalVerified": true,
       "focusedPostgresPassed": 23,
       "separateQaPricingVersionsPrepared": true
     },
@@ -110,7 +110,7 @@
       "explicitWorkerReplayUnchanged": true,
       "financialModelsUnchanged": true,
       "futureTestRenewalsStopped": true,
-      "mixedNewPerItemGstScenario": "APPROVED_NOT_STARTED"
+      "mixedNewPerItemGstScenario": "PASSED_SEE_mixedPerPackageGstNative"
     },
     "mixedPerPackageGstNative": {
       "initialOrder": "#1031",
@@ -169,6 +169,26 @@
       "focusedPassed": 51,
       "protectedModelsUnchanged": 37,
       "customerActivated": false
+    },
+    "stoppedRenewalPaidDeliveries": {
+      "fullPassed": 574,
+      "focusedPostgresPassed": 27,
+      "protectedModelsUnchanged": 37,
+      "existingNativeStopBindingConfirmed": true,
+      "nativeFinancialMutations": 0,
+      "customerBookingActivated": false,
+      "evidence": "STOPPED-RENEWAL-PAID-DELIVERIES-QA-20261027.md"
+    },
+    "deliveryDestination": {
+      "focusedPassed": 8,
+      "fullPassed": 582,
+      "nativeOrders": 2,
+      "nativeFulfillmentOrders": 9,
+      "nativeReads": 5,
+      "nativeMutations": 0,
+      "protectedModelsUnchanged": 11,
+      "customerBookingActivated": false,
+      "evidence": "READY-DELIVERY-DESTINATION-QA-20261027.md"
     }
   },
   "counts": {
@@ -373,7 +393,8 @@
       "shopifyIntegration": "Historical native spending, reconciliation and isolated expiry debit recorded. Developer Support did not identify an Advanced architecture meeting all rules.",
       "customerJourney": "Approved full priority/food-only/expiry/card-preserving checkout journey not supported or verified.",
       "outstandingIssues": [
-        "Native Store Credit spends earliest expiry; cannot select required lots or restrict only bonus to food. Scheduler-only expiry cannot prove resumed-checkout safety."
+        "Native Store Credit spends earliest expiry; cannot select required lots or restrict only bonus to food. Scheduler-only expiry cannot prove resumed-checkout safety.",
+        "27 October support again directs formal review to Payments Partner application; no architecture approval or invitation issued."
       ],
       "dependencies": [
         "Shopify eligibility/architecture review; Plus plus closed-beta invitation is not guaranteed by buying Plus.",
@@ -469,7 +490,8 @@
       "shopifyIntegration": "Written Shopify clarification: native Store Credit/Gift Cards may fund initial purchase, not recurring subscription bills.",
       "customerJourney": "Required recurring Wallet payment journey not implemented or accepted.",
       "outstandingIssues": [
-        "No supported production Wallet recurring-payment route confirmed."
+        "No supported production Wallet recurring-payment route confirmed.",
+        "27 October support again directs formal review to Payments Partner application; no architecture approval or invitation issued."
       ],
       "dependencies": [
         "Shopify-approved payment architecture/eligibility distinct from initial checkout funding.",
@@ -576,7 +598,7 @@
       "id": 13,
       "requirement": "Fulfilment, pause, reschedule and future-renewal management",
       "status": "PARTIAL",
-      "implemented": "Authenticated future-renewal stop with durable intent/replay guards; pure delivery-change notice/slot planner and inactive reminder persistence. Registered immutable corrected purchases now prepare inactive quantity-aware delivery drafts with native payment/schedule rechecks and transactional checksum binding; legacy replay remains compatible. Merchant-configured per-slot delivery limits, atomic internal capacity reservations/releases, revision protection and authenticated Core slot-management forms are implemented default-off.",
+      "implemented": "Authenticated future-renewal stop with durable intent/replay guards; pure delivery-change notice/slot planner and inactive reminder persistence. Registered immutable corrected purchases now prepare inactive quantity-aware delivery drafts with native payment/schedule rechecks and transactional checksum binding; legacy replay remains compatible. Merchant-configured per-slot delivery limits, atomic internal capacity reservations/releases, revision protection and authenticated Core slot-management forms are implemented default-off. Read-only exact native destination proof and completed-stop paid-term preparation; neither activates booking.",
       "automatedTests": {
         "state": "PASSED_BASELINE",
         "files": [
@@ -590,7 +612,7 @@
           "apps/performance-meals-core/tests/ready-delivery-slots-route.test.mjs"
         ]
       },
-      "shopifyIntegration": "Ready Series customer stop verified: native contract cancelled, one completed audit, three paid fulfilments/order unchanged and nine financial models unchanged. Same/new-key service replays attempted no second mutation. Two-package test contract cancellation preserved initial and renewal delivery allocations: six records quantity 2 each; all 18 earlier records also unchanged. 26 October: mixed per-package initial #1031 SGD748.80 incl GST61.83 and renewals #1032 SGD255.20/GST21.07 and #1033 SGD493.60/GST40.76 passed. Actual provider intake and explicit worker replay passed; both future billing agreements stopped, eleven earlier paid orders/45 fulfilments and nine financial models preserved; QA configuration restored. Actual embedded development admin create/edit/close of a disposable slot passed, with independent Singapore-time/limit database readback; record removed and flags restored off.",
+      "shopifyIntegration": "Ready Series customer stop verified: native contract cancelled, one completed audit, three paid fulfilments/order unchanged and nine financial models unchanged. Same/new-key service replays attempted no second mutation. Two-package test contract cancellation preserved initial and renewal delivery allocations: six records quantity 2 each; all 18 earlier records also unchanged. 26 October: mixed per-package initial #1031 SGD748.80 incl GST61.83 and renewals #1032 SGD255.20/GST21.07 and #1033 SGD493.60/GST40.76 passed. Actual provider intake and explicit worker replay passed; both future billing agreements stopped, eleven earlier paid orders/45 fulfilments and nine financial models preserved; QA configuration restored. Actual embedded development admin create/edit/close of a disposable slot passed, with independent Singapore-time/limit database readback; record removed and flags restored off. 27 October read-only destination checks: nine fulfilment records across existing orders#1029/#1031; no native mutations and11 protected data groups unchanged.",
       "customerJourney": "Future-renewal stop passed in isolated Ready Series journey. Customer delivery pause/reschedule and Meal Plan management incomplete.",
       "outstandingIssues": [
         "Internal capacity storage and merchant admin forms are verified; authoritative mapping to native physical deliveries and authenticated customer reschedule execution remain incomplete.",
@@ -605,7 +627,9 @@
         "docs/PREPAID-SCHEDULE-PAGINATION-20261023.md",
         "docs/PREPAID-TWO-PACKAGE-NATIVE-QA-20261025.md",
         "docs/PREPAID-MIXED-PER-PACKAGE-GST-QA-20261026.md",
-        "docs/READY-DELIVERY-CAPACITY-QA-20261026.md"
+        "docs/READY-DELIVERY-CAPACITY-QA-20261026.md",
+        "STOPPED-RENEWAL-PAID-DELIVERIES-QA-20261027.md",
+        "READY-DELIVERY-DESTINATION-QA-20261027.md"
       ],
       "remainingEngineering": [
         "Implement authoritative capacity/reschedule executor and native preservation proof; verify Meal Plan management without pausing billing inadvertently."
@@ -630,7 +654,8 @@
       "outstandingIssues": [
         "Temporary local/tunnel environment is not a permanent operational platform.",
         "Quick-tunnel origin became unavailable; exact process termination cause unknown. Restored development connection remains temporary.",
-        "Full PostgreSQL regression runs hit connection/interactive-transaction timeouts; disposable SQLite regression passes but does not certify production PostgreSQL."
+        "Full PostgreSQL regression runs hit connection/interactive-transaction timeouts; disposable SQLite regression passes but does not certify production PostgreSQL.",
+        "Owner chose temporary development hosting on27 October; no paid permanent-hosting setup or deployment authorized."
       ],
       "dependencies": [
         "Merchant hosting/plan/budget, production credentials and explicit deployment approval."

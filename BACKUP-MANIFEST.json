@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "2a4cecc953b43e4c7105daa2ebec132692cedb3d",
+  "source_commit": "188a4e0d509c950cf0de14e5153c3fbd2729232d",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -560,6 +560,11 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/app/services/ready-delivery-destination.server.ts",
+      "sha256": "7f33e12b1bf78a4f39102c9342185a25bcedd29859f0c4abdb1b21f0346e1406",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/app/services/ready-delivery-draft.server.ts",
       "sha256": "cdf257f8b22b21023f9bc7dc218e8abe42b9d6f944c4e5cf62cd797f19fc6efc",
       "sanitized": false
@@ -611,7 +616,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/registered-prepaid-purchase.server.ts",
-      "sha256": "c4cf4fe44b4ddccacd9aca6bd7cecc35331d08f1e25c1719827b1868ff4fbf79",
+      "sha256": "e0833198102d43e0778778bf6e6c385a418e6aea4db4fe68321945af385906c4",
       "sanitized": false
     },
     {
@@ -671,7 +676,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/subscription-renewal-stop.server.ts",
-      "sha256": "d026d63bf238212b129276e9beba601306a39bfae213221d392e1b1f3a2017fb",
+      "sha256": "a678ad142ccf27cbeb11c05060a3ec688606e4601020979f2cb625075f7622c2",
       "sanitized": false
     },
     {
@@ -1531,7 +1536,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/paid-ready-draft.test.mjs",
-      "sha256": "036b31f150b953bfb6b5ed0798c0f0bd51f388d84b280fdb63591e1fd67511fa",
+      "sha256": "7597d7b18bbca872d162953c2b8f6afcb4e55b5b7cc0936159d81ee94f1fcafa",
       "sanitized": false
     },
     {
@@ -1622,6 +1627,11 @@
     {
       "path": "apps/performance-meals-core/tests/ready-delivery-capacity.test.mjs",
       "sha256": "577bf131fb1e51e7a542aeadf089c3d74da2d8f53a6fd9b50684e335985b895a",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/ready-delivery-destination.test.mjs",
+      "sha256": "17756aa93a5f17927d10257cd8e38e6edda7d6a241eaafcf5160b4b73f647779",
       "sanitized": false
     },
     {
@@ -2691,7 +2701,7 @@
     },
     {
       "path": "docs/PAYMENTS-PARTNER-ASSESSMENT-PREPARATION-20261026.md",
-      "sha256": "77da6970961f4db01f7443cfe2fb7a72ce7b7259342c5f34a1eb31ee4d5a08a9",
+      "sha256": "c3311c9e902523b9f63ef4c2a8cc55560d92ba8c316e80c4236ef17097d709b0",
       "sanitized": false
     },
     {
@@ -2751,12 +2761,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "630700ec6cb9f405a8540315d2cd72ab4aa0301b0d31f3d15bf39183899210d8",
+      "sha256": "636b57d8c13229ab5f7494420a9cf45358748fb742ae265dc5bb98b0a869d574",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "f39bcdbdcfd16c897fc7a01f7711987ba0bf0b7b4875982deda9dc1703098077",
+      "sha256": "2aae38d8436c6c394820e5f066e1339e6e45b33b2081f8d7c7af837526c87f12",
       "sanitized": false
     },
     {
@@ -2772,6 +2782,11 @@
     {
       "path": "docs/READY-DELIVERY-COMBINED-VISIT-QA-20261027.md",
       "sha256": "1f82cf5090bd85f383d8031d29ed87f6e44faf2434bdff39b5e632caa0d97732",
+      "sanitized": false
+    },
+    {
+      "path": "docs/READY-DELIVERY-DESTINATION-QA-20261027.md",
+      "sha256": "e35e85575a71fac33c753ad562dfa5f32c944f8293d7873f6c9797bc56e2a2bd",
       "sanitized": false
     },
     {
@@ -2875,6 +2890,11 @@
       "sanitized": false
     },
     {
+      "path": "docs/STOPPED-RENEWAL-PAID-DELIVERIES-QA-20261027.md",
+      "sha256": "b30a47d43adfce0ecb7fbc559dc3f493cc5604a6e9ae2453d217f2f2307ea8f8",
+      "sanitized": false
+    },
+    {
       "path": "docs/STOREFRONT-QA-NEXT-PHASE.md",
       "sha256": "e920d28e82e2c1d1b1a981ad3160b1d5999ca73ad1d554475dd934e68618d2e2",
       "sanitized": false
@@ -2961,7 +2981,7 @@
     },
     {
       "path": "docs/WALLET-PARTNER-ROUTING-20261027.md",
-      "sha256": "29821ec6e19f664a0ef2ee016514270a105ae56aee3463ea39d1e6836183cc58",
+      "sha256": "1a89283950bd214e93a4ca06acf13f3a6a2599e6341e4abf099448eb867e7a02",
       "sanitized": false
     },
     {

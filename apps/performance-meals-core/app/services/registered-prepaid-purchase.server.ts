@@ -4,6 +4,7 @@ import {inspectPrepaidContract} from './prepaid-verification.server';
 import {readCorrectedPrepaidPayment,readPrepaidPayment} from './prepaid-payment.server';
 import {minorAmount} from './gift-card-native.server';
 import {validSubscriptionLineGid} from './subscription-reference';
+import {readConfirmedRenewalStop} from './subscription-renewal-stop.server';
 
 type Admin=Parameters<typeof inspectPrepaidContract>[0];
 
@@ -16,7 +17,8 @@ export async function inspectRegisteredPrepaidPurchase(admin:Admin,shop:string,p
  const saved=readRegisteredPrepaidPurchase(row),expected=saved.expected;
  const native=await inspectPrepaidContract(admin,shop,row.contractGid,expected);
  const matches=native.contract.lines.nodes.filter(line=>line.productId===expected.productGid&&line.variantId===expected.variantGid&&line.sellingPlanId===expected.sellingPlanGid);
- if(!native.billingConfigurationMatches||!native.deliveryPolicyMatches||native.contract.status!=='ACTIVE'||matches.length!==1)throw Error('Registered prepaid contract requires review before draft preparation');
+ const paidTermAvailable=native.contract.status==='ACTIVE'||native.contract.status==='CANCELLED'&&await readConfirmedRenewalStop(admin,shop,customer,row.contractGid,expected.orderGid);
+ if(!native.billingConfigurationMatches||!native.deliveryPolicyMatches||!paidTermAvailable||matches.length!==1)throw Error('Registered prepaid contract requires review before draft preparation');
  const line=matches[0],gross=minorAmount(line.currentPrice.amount);
  if(!validSubscriptionLineGid(line.id)||gross<1||gross*(expected.packageQuantity??1)!==(saved.correction?.baseMinor??expected.upfrontMinor))throw Error('Registered native contract price differs');
  const payment=saved.correction?await readCorrectedPrepaidPayment(admin,shop,expected,saved.correction):await readPrepaidPayment(admin,shop,expected);

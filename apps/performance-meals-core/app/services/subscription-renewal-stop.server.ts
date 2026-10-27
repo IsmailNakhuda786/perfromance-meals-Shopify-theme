@@ -35,6 +35,17 @@ async function readBinding(admin:Admin,shop:string,customerGid:string,id:string)
  const bindingHash=createHash('sha256').update(JSON.stringify({shop,customerGid,id,app:c.app.id,origin:c.originOrder.id,lines:lines.map(l=>[l.id,l.productId,l.variantId,l.sellingPlanId,l.quantity]).sort((a,b)=>String(a[0]).localeCompare(String(b[0])))})).digest('hex');
  return {status:c.status as 'ACTIVE'|'PAUSED'|'CANCELLED',originOrderGid:c.originOrder.id as string,bindingHash};
 }
+// A stopped billing contract does not erase paid deliveries. This read-only
+// proof is independent of write activation flags and never creates a stop audit.
+export async function readConfirmedRenewalStop(admin:Admin,shop:string,customerGid:string,contractGid:string,originOrderGid:string){
+ assertShop(shop);
+ if(!ref('Customer',customerGid)||!ref('SubscriptionContract',contractGid)||!ref('Order',originOrderGid))throw new RenewalStopError('Invalid paid-term stop context');
+ const operation=await db.subscriptionRenewalStop.findUnique({where:{shop_contractGid:{shop,contractGid}}});
+ if(!operation||operation.customerGid!==customerGid||operation.originOrderGid!==originOrderGid||operation.state!=='COMPLETED'||!operation.confirmedAt)return false;
+ const binding=await readBinding(admin,shop,customerGid,contractGid);
+ return binding.status==='CANCELLED'&&binding.originOrderGid===originOrderGid&&binding.bindingHash===operation.bindingHash;
+}
+
 // Read-only account capability: unavailable/uncertain evidence hides the action.
 // Default-off means an unapplied audit-table migration cannot break account reads.
 export async function readRenewalStopAvailability(admin:Admin,shop:string,customerGid:string,contractGid:string){
