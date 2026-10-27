@@ -363,3 +363,7 @@ The owner chose to retain temporary development hosting on27 October. No permane
 ## 27 October native destination proof
 
 Read-only server-side destination/ownership/dispatch proof passed for nine native fulfilment orders across#1029/#1031, without new permissions or mutations. All11 protected business models stayed unchanged. Eight focused tests and582 full disposable Core tests pass; TypeScript/lint and pinned API query validation pass. This is not customer booking or paid-line/time-slot authorization. See [native destination evidence](READY-DELIVERY-DESTINATION-QA-20261027.md). Counts remain **1 PASS /10 PARTIAL /0 FAIL /4 BLOCKED**.
+
+## 27 October paid-allocation and diagnostic follow-up
+
+Fresh read-only Shopify verification preserved12 paid line-level delivery allocations for#1029/#1031, including the two-package quantities. Eight protected Core data groups stayed unchanged; no native mutation occurred. The callback diagnostic also reproduced and fixed a false healthy result when a current callback coexisted with an expired-tunnel duplicate for the same topic. This is a configuration check, not network-reachability proof. Full disposable regression583/583; TypeScript/lint pass. Acceptance counts unchanged.

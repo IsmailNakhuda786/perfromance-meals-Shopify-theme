@@ -14,3 +14,7 @@ Only an opaque shop/customer/order-scoped fingerprint and native fulfilment refe
 [Destination reference](https://shopify.dev/docs/api/admin-graphql/2026-10/objects/FulfillmentOrderDestination) and [delivery-method types](https://shopify.dev/docs/api/admin-graphql/2026-10/enums/DeliveryMethodType).
 
 Native booking, fresh per-line quantity/fulfilment binding, dispatch races, capacity/reschedule execution and customer journey acceptance remain open. Existing paid deliveries were not changed; Wallet top-ups remain disabled. Private order/address receipts are ignored outside the public backup.
+
+## Existing paid-quantity preservation check
+
+A further read-only run compared fresh Shopify fulfilment schedules to the saved accepted QA allocations. Order#1029 retains three deliveries of two packages. Order#1031 retains its six-delivery and three-delivery entitlements, one package per occurrence. Twelve line-level delivery allocations remain intact across the two orders; five native reads, zero mutations and all eight protected Core data groups unchanged. This verifies preservation, not permission to move or dispatch those deliveries.

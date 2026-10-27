@@ -6,6 +6,9 @@ export function reviewOrderEventConnections(appUrl:string|undefined,subscription
  let base:URL;
  try{base=new URL(appUrl??'');}catch{return {connected:false,missing:Object.keys(ORDER_EVENT_PATHS)};}
  if(base.protocol!=='https:'||base.username||base.password||base.search||base.hash||!Array.isArray(subscriptions)||complete!==true)return {connected:false,missing:Object.keys(ORDER_EVENT_PATHS)};
- const missing=Object.entries(ORDER_EVENT_PATHS).filter(([topic,path])=>subscriptions.filter(s=>s.topic===topic&&s.uri===new URL(path,base).href).length!==1).map(([topic])=>topic);
+ const missing=Object.entries(ORDER_EVENT_PATHS).filter(([topic,path])=>{
+  const matches=subscriptions.filter(s=>s.topic===topic);
+  return matches.length!==1||matches[0].uri!==new URL(path,base).href;
+ }).map(([topic])=>topic);
  return {connected:missing.length===0,missing};
 }

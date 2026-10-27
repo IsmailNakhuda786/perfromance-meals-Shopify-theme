@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "188a4e0d509c950cf0de14e5153c3fbd2729232d",
+  "source_commit": "322444f106c72ef737863699eea12bd70b42ccac",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -456,7 +456,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/order-event-connections.ts",
-      "sha256": "3d66937d025158e05c9c902476677758f37be4efe74f0e0ac24e508fb9dc65c0",
+      "sha256": "96abd2ecb22cad1fc82c8ff201eefe56933a69ab8621e1d6b95643f9eaa8b698",
       "sanitized": false
     },
     {
@@ -1511,7 +1511,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/order-event-connections.test.mjs",
-      "sha256": "50fcb83305ae0a29ca2f616ac94f63b7d4037b725f9437629f5ea4349d64b3c4",
+      "sha256": "702b5177da24ed8e0b34679c0f6a63fb00fca5b71abe58de08df64ea78c574c7",
       "sanitized": true
     },
     {
@@ -2761,12 +2761,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "636b57d8c13229ab5f7494420a9cf45358748fb742ae265dc5bb98b0a869d574",
+      "sha256": "2c81ec07c84647b857dcf5c058b66c3da425a749d98926829751e76de37c6689",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "2aae38d8436c6c394820e5f066e1339e6e45b33b2081f8d7c7af837526c87f12",
+      "sha256": "428b1f3ff695c26bd0397f862493e16cd97008134fd2c249e904ec595944a24c",
       "sanitized": false
     },
     {
@@ -2786,7 +2786,7 @@
     },
     {
       "path": "docs/READY-DELIVERY-DESTINATION-QA-20261027.md",
-      "sha256": "e35e85575a71fac33c753ad562dfa5f32c944f8293d7873f6c9797bc56e2a2bd",
+      "sha256": "9ef130dc2626864a919f8d16e8d6614c31cd5811311d549551914b9e406568e4",
       "sanitized": false
     },
     {
