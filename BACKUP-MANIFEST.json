@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "d827a33f90f1285ba8b6324a47a5512f41ea4a7f",
+  "source_commit": "6ab27c17ce227e43468b05ba411c8e8b80b0725a",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -266,12 +266,12 @@
     },
     {
       "path": "apps/performance-meals-core/app/routes/webhooks.orders.create.tsx",
-      "sha256": "fd7fc73d30196a79d932bb2d636e7e511571cf2a61ee7567c8575421a8045ea0",
+      "sha256": "6b9b2f5ef13b39b093c8ae47b6d73043e1091c0f4ae7d172ee661f1de5a46216",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/routes/webhooks.orders.paid.tsx",
-      "sha256": "a4f16abf5ace53c07f98cb134c467505f9905454796d035d66d97be03ba5f922",
+      "sha256": "3da44001b223cd9987013e39eb276d526f8fa3ac1d3fc6ef1522f17bfe80b256",
       "sanitized": false
     },
     {
@@ -641,7 +641,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/runtime-config.server.ts",
-      "sha256": "aa2a4588cf2dc9d581a7889b4ba91a0e44622cb6f8fc0762f27bf23f28690a4f",
+      "sha256": "8037d4f053000439d6a70f7303ec060b4d4fd15a3488ab3ffd026662619d90e9",
       "sanitized": false
     },
     {
@@ -717,6 +717,11 @@
     {
       "path": "apps/performance-meals-core/app/services/wallet-ledger.server.ts",
       "sha256": "a2aa910504ec272af3fb20e81f73970fe05dc8ce20ef91337b2fe0ee8f5314ba",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/wallet-package-pipeline.server.ts",
+      "sha256": "7845036a508f028bdbfb050b7c3a0bbe405a9cf6100ba70a6c0c0fb94103009b",
       "sanitized": false
     },
     {
@@ -1541,7 +1546,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/paid-webhook.test.mjs",
-      "sha256": "e8941cf87e20f2fed3c92db2a33c475ddebe136c773f861b18f622419246bf86",
+      "sha256": "2a8e892c1d46b4716b8d1f2782e03dfa0f644cb65de5ab6519346fa414e26683",
       "sanitized": false
     },
     {
@@ -1777,6 +1782,11 @@
     {
       "path": "apps/performance-meals-core/tests/wallet-ledger.test.mjs",
       "sha256": "9ffcdf98a2c02e89f8c8139a31cf5b69e333ab4c6e1f8735124eb9f07c239a95",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/wallet-package-pipeline.test.mjs",
+      "sha256": "b3b598690f218af1f12bfd4b6eda794829ae679e514737dee08c55ed5b838df0",
       "sanitized": false
     },
     {
@@ -2761,12 +2771,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "32542bb244cb9d8f4439ec6612f913eb5db9ef70e8b4afa46c4c99c1624b4b72",
+      "sha256": "358aac1e5440fe40a70d2c26ca010d59065a3f8ad989146ce046db67e1558032",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "4c95bb4e8c4a080cfe06e0cf685657015b4d8a1fb1fc535833c728f07f8e70a9",
+      "sha256": "44b6bd1527a1d698d577c23769128310e0ec927dab218ffacdc3edc5bfe48e00",
       "sanitized": false
     },
     {
@@ -2982,6 +2992,11 @@
     {
       "path": "docs/WALLET-ONE-TIME-ACCEPTANCE-20261027.md",
       "sha256": "559cfce938e2a0fa9e6fa51dc0e667175e32164dc41e71db058a7e5d41f63bbc",
+      "sanitized": false
+    },
+    {
+      "path": "docs/WALLET-PACKAGE-SETTLEMENT-20261027.md",
+      "sha256": "080f0f0cbd069c33b782410a5651c3636e83aec611b5a3a63a27e6dfe28f95d8",
       "sanitized": false
     },
     {

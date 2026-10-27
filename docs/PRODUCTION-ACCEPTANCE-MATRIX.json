@@ -1,6 +1,6 @@
 {
   "updated": "2026-10-27",
-  "sourceCheckpoint": "322444f",
+  "sourceCheckpoint": "d827a33",
   "scope": "Full agreed production acceptance; no reduced-scope launch",
   "productionAccepted": false,
   "statusDefinitions": {
@@ -10,7 +10,7 @@
     "BLOCKED": "A required platform capability, authorization or external dependency prevents completion."
   },
   "baseline": {
-    "coreTests": 583,
+    "coreTests": 595,
     "nativeReadback": "Latest mixed QA verified #1031/#1032/#1033 with provider inbox intake and explicit Core replay; future renewals stopped. Eleven earlier paid orders/45 fulfilments and nine financial-model snapshots preserved. QA product, discounts, shipping profile, GST and temporary callback settings restored.",
     "checkoutPricing": "Exact charged initial and simulated renewal GST-inclusive pricing passed for single terms, two identical 3-delivery packages (SGD510.40/GST42.14) and mixed 3-/6-delivery packages (initial SGD748.80/GST61.83; renewals SGD255.20/GST21.07 and SGD493.60/GST40.76). Delivery was included. General production correction provisioning and permanent lifecycle acceptance remain incomplete.",
     "topUpsEnabled": false,
@@ -238,6 +238,18 @@
       "urgentEscalationSent": true,
       "newEscalationReference": null,
       "evidence": "WALLET-ONE-TIME-ACCEPTANCE-20261027.md"
+    },
+    "walletPackagePipeline": {
+      "fullTestsPassed": 595,
+      "newPipelineCases": 10,
+      "authenticatedRouteBoundaryPassed": true,
+      "flagsEnabled": false,
+      "nativeFinancialCalls": 0,
+      "spendableCreditIssued": false,
+      "principalAndBonusAccounting": "Separate non-spendable unissued obligations",
+      "evidence": "WALLET-PACKAGE-SETTLEMENT-20261027.md",
+      "postgresPassed": 10,
+      "protectedModelsUnchanged": 37
     }
   },
   "counts": {
@@ -464,7 +476,7 @@
       "id": 7,
       "requirement": "Wallet top-up and native settlement",
       "status": "BLOCKED",
-      "implemented": "Default-off guarded settlement, verified-payment evidence, duplicate protection, amount/package rules and reversal/reconciliation guards. Native draft product/variant identity is bound to the server-owned catalogue during preparation receipt validation and settlement.",
+      "implemented": "Default-off guarded settlement, verified-payment evidence, duplicate protection, amount/package rules and reversal/reconciliation guards. Native draft product/variant identity is bound to the server-owned catalogue during preparation receipt validation and settlement. Default-off authenticated package paid/update intake, exact fresh payment proof, separate non-spendable source accounting and transactional order/payment claims.",
       "automatedTests": {
         "state": "PASSED_BASELINE",
         "files": [
@@ -494,7 +506,8 @@
         "WALLET-ONE-TIME-ACCEPTANCE-20261027.md"
       ],
       "remainingEngineering": [
-        "Prove exact once credit after paid proof, exclusions, no circular funding, failed/lost payment recovery and reconciled exceptional reversals."
+        "Prove exact once credit after paid proof, exclusions, no circular funding, failed/lost payment recovery and reconciled exceptional reversals.",
+        "Supported actual principal/restricted-bonus issuance and post-issuance reversal remain blocked; complete native provider callback and durable audit/worker acceptance before activation."
       ]
     },
     {

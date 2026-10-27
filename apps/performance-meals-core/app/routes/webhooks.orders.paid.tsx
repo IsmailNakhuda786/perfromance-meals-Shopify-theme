@@ -3,6 +3,7 @@ import {authenticate} from '../shopify.server';
 import {assertShop} from '../services/security.server';
 import {recordOrder} from '../services/orders.server';
 import {earnNativeOrderRewards} from '../services/rewards-native.server';
+import {handleWalletPackageWebhook} from '../services/wallet-package-pipeline.server';
 
 // Registered through the Shopify SDK; earning remains policy-gated.
 // Shopify's authenticated notification is a trigger, never pricing evidence.
@@ -13,6 +14,7 @@ export async function action({request}:ActionFunctionArgs){
  const eventId=request.headers.get('X-Shopify-Event-Id')||request.headers.get('X-Shopify-Webhook-Id');
  const orderGid=payload.admin_graphql_api_id;
  if(!eventId||!/^gid:\/\/shopify\/Order\/\d+$/.test(orderGid||''))throw new Response('Invalid event',{status:400});
+ if(await handleWalletPackageWebhook(admin,shop,topic,eventId,payload))return new Response(null,{status:200});
  // Routing may already be recorded on delivery/retry. Earning must still run:
  // its separate order-keyed ledger prevents duplicate points and permits retry
  // after a successful routing transaction followed by failed evidence retrieval.

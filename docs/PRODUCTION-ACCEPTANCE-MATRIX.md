@@ -371,3 +371,7 @@ Fresh read-only Shopify verification preserved12 paid line-level delivery alloca
 ## 27 October urgent one-time Wallet acceptance
 
 Requirements6 and7 remain **BLOCKED** for full acceptance. Three approved unpaid native package checkouts pass exact SGD870/1740/2690, isolated zero tax/delivery/discounts, matching customer/product/variant and no resulting orders. Seven protected financial models stayed unchanged. A demonstrated draft catalogue-binding gap was fixed;33 related Wallet tests and TypeScript/lint pass. No payment, Wallet credit, top-up activation or recurring-billing change occurred. The urgent one-time request was sent under71332405; no new escalation reference/approval is claimed. See [specific platform limits, alternatives and remaining engineering](WALLET-ONE-TIME-ACCEPTANCE-20261027.md). Counts remain1PASS/10PARTIAL/4BLOCKED.
+
+## Approved-package intake/accounting engineering
+
+Default-off authenticated paid/update intake, exact fresh native verification, transactional payment/order claims and separate non-spendable principal/bonus accounting now pass595 full regression tests, TypeScript and lint. Unknown outcomes and reversal incidents remain held; no native financial call or actual Wallet credit is implemented by this stage. Requirements6/7 remain BLOCKED for full acceptance. See [scope, evidence and next approval](WALLET-PACKAGE-SETTLEMENT-20261027.md).
