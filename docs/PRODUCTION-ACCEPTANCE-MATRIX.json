@@ -10,7 +10,7 @@
     "BLOCKED": "A required platform capability, authorization or external dependency prevents completion."
   },
   "baseline": {
-    "coreTests": 595,
+    "coreTests": 606,
     "nativeReadback": "Latest mixed QA verified #1031/#1032/#1033 with provider inbox intake and explicit Core replay; future renewals stopped. Eleven earlier paid orders/45 fulfilments and nine financial-model snapshots preserved. QA product, discounts, shipping profile, GST and temporary callback settings restored.",
     "checkoutPricing": "Exact charged initial and simulated renewal GST-inclusive pricing passed for single terms, two identical 3-delivery packages (SGD510.40/GST42.14) and mixed 3-/6-delivery packages (initial SGD748.80/GST61.83; renewals SGD255.20/GST21.07 and SGD493.60/GST40.76). Delivery was included. General production correction provisioning and permanent lifecycle acceptance remain incomplete.",
     "topUpsEnabled": false,
@@ -250,6 +250,22 @@
       "evidence": "WALLET-PACKAGE-SETTLEMENT-20261027.md",
       "postgresPassed": 10,
       "protectedModelsUnchanged": 37
+    },
+    "programmeBatchRegression": {
+      "tests": 607,
+      "passed": 606,
+      "skipped": 1,
+      "failed": 0,
+      "typecheck": "PASSED",
+      "lint": "PASSED",
+      "evidence": "docs/SIXTY-DAY-DELIVERY-BATCHES-20261027.md"
+    },
+    "programmeBatchPostgres": {
+      "passed": 9,
+      "failed": 0,
+      "protectedModels": 37,
+      "allUnchanged": true,
+      "nativeMutations": 0
     }
   },
   "counts": {
@@ -341,27 +357,31 @@
       "id": 3,
       "requirement": "6 by 60 and Plus programmes",
       "status": "PARTIAL",
-      "implemented": "One-off programme semantics and immutable 88-weekday/32-frozen/120-total entitlement snapshots for new purchases.",
+      "implemented": "One-off programme semantics and immutable 88-weekday/32-frozen/120-total entitlement snapshots for new purchases. Default-off authenticated Core meal-batch allocation/dispatch with immutable entitlement, idempotency, separate meal ceilings and customer progress.",
       "automatedTests": {
         "state": "PASSED_BASELINE",
         "files": [
           "apps/performance-meals-core/tests/programme-period.test.mjs",
           "apps/performance-meals-core/tests/programme-menus.test.mjs",
           "apps/performance-meals-core/tests/account-programmes.test.mjs",
-          "apps/performance-meals-core/tests/subscription-quantity.test.mjs"
+          "apps/performance-meals-core/tests/subscription-quantity.test.mjs",
+          "apps/performance-meals-core/tests/programme-deliveries.test.mjs",
+          "apps/performance-meals-core/tests/programme-deliveries-route.test.mjs"
         ]
       },
       "shopifyIntegration": "Native one-off test orders and saved sixty-day menus recorded.",
       "customerJourney": "Purchase/menu persistence partially verified; full frozen allocation, dispatch and Support lifecycle incomplete.",
       "outstandingIssues": [
-        "Frozen-meal fulfilment allocation and complete native lifecycle remain unverified."
+        "Frozen-meal fulfilment allocation and complete native lifecycle remain unverified.",
+        "Both legacy saved programmes lack original entitlement snapshots; no automatic backfill. Positive native admin/customer batch journey needs isolated QA authorization."
       ],
       "dependencies": [
         "Merchant stock/fulfilment configuration and isolated QA approval where new records are needed."
       ],
       "evidence": [
         "docs/MEAL-PLAN-60-DAY-BILLING-DECISION-20261009.md",
-        "docs/CUSTOMER-CORE-COMPLETION-TRACKER.md"
+        "docs/CUSTOMER-CORE-COMPLETION-TRACKER.md",
+        "docs/SIXTY-DAY-DELIVERY-BATCHES-20261027.md"
       ],
       "remainingEngineering": [
         "Bind every frozen/weekday entitlement to actual fulfilment quantities and prove no loss or duplicate delivery."

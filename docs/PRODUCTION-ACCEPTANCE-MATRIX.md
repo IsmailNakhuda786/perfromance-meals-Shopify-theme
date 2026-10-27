@@ -375,3 +375,10 @@ Requirements6 and7 remain **BLOCKED** for full acceptance. Three approved unpaid
 ## Approved-package intake/accounting engineering
 
 Default-off authenticated paid/update intake, exact fresh native verification, transactional payment/order claims and separate non-spendable principal/bonus accounting now pass595 full regression tests, TypeScript and lint. Unknown outcomes and reversal incidents remain held; no native financial call or actual Wallet credit is implemented by this stage. Requirements6/7 remain BLOCKED for full acceptance. See [scope, evidence and next approval](WALLET-PACKAGE-SETTLEMENT-20261027.md).
+
+
+## 27 October — Core delivery batch implementation
+
+6 by 60 now has a default-off authenticated meal-batch allocation/dispatch screen and customer progress, with separate 88 weekday/32 frozen limits and replay protection. Full isolated regression: 606 passed, 1 PostgreSQL-only concurrency test skipped, 0 failed; TypeScript/lint passed. See [batch evidence](SIXTY-DAY-DELIVERY-BATCHES-20261027.md). Actual positive admin/customer batch journey remains pending, so requirement 3 stays PARTIAL. Both legacy programmes lack saved entitlement snapshots and were preserved.
+
+Four development webhook registrations were reconnected without duplicates. Fresh provider-event delivery and permanent callback recovery remain incomplete. Permanent infrastructure requirements are prepared in [the approval checklist](CORE-PERMANENT-INFRASTRUCTURE-REQUIREMENTS-20261027.md); no paid resources were provisioned. Counts remain **1 PASS / 10 PARTIAL / 0 FAIL / 4 BLOCKED**.
