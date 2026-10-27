@@ -367,3 +367,7 @@ Read-only server-side destination/ownership/dispatch proof passed for nine nativ
 ## 27 October paid-allocation and diagnostic follow-up
 
 Fresh read-only Shopify verification preserved12 paid line-level delivery allocations for#1029/#1031, including the two-package quantities. Eight protected Core data groups stayed unchanged; no native mutation occurred. The callback diagnostic also reproduced and fixed a false healthy result when a current callback coexisted with an expired-tunnel duplicate for the same topic. This is a configuration check, not network-reachability proof. Full disposable regression583/583; TypeScript/lint pass. Acceptance counts unchanged.
+
+## 27 October urgent one-time Wallet acceptance
+
+Requirements6 and7 remain **BLOCKED** for full acceptance. Three approved unpaid native package checkouts pass exact SGD870/1740/2690, isolated zero tax/delivery/discounts, matching customer/product/variant and no resulting orders. Seven protected financial models stayed unchanged. A demonstrated draft catalogue-binding gap was fixed;33 related Wallet tests and TypeScript/lint pass. No payment, Wallet credit, top-up activation or recurring-billing change occurred. The urgent one-time request was sent under71332405; no new escalation reference/approval is claimed. See [specific platform limits, alternatives and remaining engineering](WALLET-ONE-TIME-ACCEPTANCE-20261027.md). Counts remain1PASS/10PARTIAL/4BLOCKED.

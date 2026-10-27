@@ -1,3 +1,5 @@
+> Superseding Gift Card expiry clarification:17October and subsequent merchant replies require converted Wallet credit to retain the original Gift Card expiry. The fresh-year wording in the historical15October bullet below is obsolete; current code uses the original date. See wallet-credit-policy.ts and GIFT-CARD-CLAIM-ACCEPTANCE-20261026.md.
+
 # Wallet rules confirmed 15 October 2026
 
 These confirmations supersede conflicting prototype tiers and earlier spending-order rules. They do not authorize activating an unverified payment flow.

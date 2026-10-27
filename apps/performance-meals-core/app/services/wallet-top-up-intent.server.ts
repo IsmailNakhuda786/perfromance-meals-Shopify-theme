@@ -7,17 +7,17 @@ import {settleWalletTopUp} from './wallet-top-up-settlement.server';
 type Catalogue=Parameters<typeof prepareWalletTopUpDraft>[4];
 type Admin=Parameters<typeof prepareWalletTopUpDraft>[0];
 type DraftInput=Awaited<ReturnType<typeof prepareWalletTopUpDraft>>['input']&{customAttributes?:Array<{key:string;value:string}>};
-type DraftReceipt={id:string;customerGid:string;currency:string;amountMinor:number;checkoutUrl:string;orderGid:string|null};
+type DraftReceipt={id:string;customerGid:string;productGid:string;variantGid:string;currency:string;amountMinor:number;checkoutUrl:string;orderGid:string|null};
 export type DraftGateway={create:(input:DraftInput)=>Promise<DraftReceipt>;read:(id:string)=>Promise<DraftReceipt>};
 
 function context(shop:string,customerGid:string){
  assertShop(shop);
  if(!/^gid:\/\/shopify\/Customer\/\d+$/.test(customerGid))throw Error('Invalid top-up customer');
 }
-function validDraft(receipt:DraftReceipt,shop:string,customerGid:string,amountMinor:number){
+function validDraft(receipt:DraftReceipt,shop:string,customerGid:string,amountMinor:number,catalogue:Catalogue){
  let url:URL;
  try{url=new URL(receipt.checkoutUrl);}catch{return false;}
- return /^gid:\/\/shopify\/DraftOrder\/\d+$/.test(receipt.id)&&receipt.customerGid===customerGid&&receipt.currency==='SGD'&&receipt.amountMinor===amountMinor&&url.protocol==='https:'&&url.hostname===shop&&!url.username&&!url.password;
+ return /^gid:\/\/shopify\/DraftOrder\/\d+$/.test(receipt.id)&&receipt.customerGid===customerGid&&receipt.productGid===catalogue.productGid&&receipt.variantGid===catalogue.variantGid&&receipt.currency==='SGD'&&receipt.amountMinor===amountMinor&&url.protocol==='https:'&&url.hostname===shop&&!url.username&&!url.password;
 }
 
 // Internal only. No customer endpoint or funding activation. Authenticated callers
@@ -40,7 +40,7 @@ export async function createWalletTopUpCheckout(admin:Admin,shop:string,customer
  if(changed.count!==1)throw Error('Top-up checkout changed; reload');
  try{
   const receipt=await gateway.create({...prepared.input,customAttributes:[{key:'_pm_wallet_top_up_intent',value:intent.id}]});
-  if(!validDraft(receipt,shop,customerGid,amount.amountMinor)||receipt.orderGid!==null)throw Error('Top-up draft evidence differs');
+  if(!validDraft(receipt,shop,customerGid,amount.amountMinor,catalogue)||receipt.orderGid!==null)throw Error('Top-up draft evidence differs');
   return await db.walletTopUpIntent.update({where:{id:intent.id},data:{state:'DRAFT_READY',draftGid:receipt.id,checkoutUrl:receipt.checkoutUrl}});
  }catch{
   await db.walletTopUpIntent.updateMany({where:{id:intent.id,state:'DRAFT_PENDING'},data:{state:'RECONCILIATION_REQUIRED'}});
@@ -55,7 +55,7 @@ export async function settleWalletTopUpCheckout(shop:string,customerGid:string,i
  const intent=await db.walletTopUpIntent.findFirst({where:{shop,customerGid,id:intentId}});
  if(!intent?.draftGid||!['DRAFT_READY','COMPLETED'].includes(intent.state))throw Error('Top-up intent unavailable');
  const receipt=await drafts.read(intent.draftGid);
- if(!validDraft(receipt,shop,customerGid,intent.amountMinor)||receipt.id!==intent.draftGid||receipt.checkoutUrl!==intent.checkoutUrl||!receipt.orderGid||!/^gid:\/\/shopify\/Order\/\d+$/.test(receipt.orderGid)||(intent.orderGid&&receipt.orderGid!==intent.orderGid))throw Error('Top-up draft/order binding differs');
+ if(!validDraft(receipt,shop,customerGid,intent.amountMinor,intent)||receipt.id!==intent.draftGid||receipt.checkoutUrl!==intent.checkoutUrl||!receipt.orderGid||!/^gid:\/\/shopify\/Order\/\d+$/.test(receipt.orderGid)||(intent.orderGid&&receipt.orderGid!==intent.orderGid))throw Error('Top-up draft/order binding differs');
  const settlement=await settleWalletTopUp(shop,customerGid,receipt.orderGid,{productGid:intent.productGid,variants:{[intent.variantGid]:intent.amountMinor},paymentGateways},payments);
  await db.walletTopUpIntent.update({where:{id:intent.id},data:{state:'COMPLETED',orderGid:receipt.orderGid}});
  return settlement;

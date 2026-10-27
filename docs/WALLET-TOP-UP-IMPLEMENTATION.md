@@ -1,3 +1,5 @@
+> Current one-time Wallet review: [27 October acceptance](WALLET-ONE-TIME-ACCEPTANCE-20261027.md). The old20/50/100/200 and5–500 values below are historical disabled QA only; current approved packages are870→955,1740→1925 and2690→3090. Their unpaid native checkout preparation is verified, but paired settlement and complete native spending enforcement are not activated.
+
 # Customer-funded Wallet top-ups
 
 ## Approved source

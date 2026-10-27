@@ -8,7 +8,7 @@ const db=new PrismaClient(),shop=`intent-${randomUUID()}.myshopify.com`,customer
 process.env.ALLOWED_SHOP=shop;process.env.WALLET_LEGACY_TOP_UP_QA_ENABLED='true';
 const catalogue={productGid:'gid://shopify/Product/1302',variantGid:'gid://shopify/ProductVariant/1303'};
 const admin={graphql:async()=>Response.json({data:{shop:{myshopifyDomain:shop},productVariant:{id:catalogue.variantGid,taxable:false,requiresComponents:false,inventoryItem:{requiresShipping:false},product:{id:catalogue.productGid,isGiftCard:false,requiresSellingPlan:false}}}})};
-const receipt=id=>({id:`gid://shopify/DraftOrder/${id}`,customerGid:customer,currency:'SGD',amountMinor:2001,checkoutUrl:`https://${shop}/invoices/internal-${id}`,orderGid:null});
+const receipt=id=>({id:`gid://shopify/DraftOrder/${id}`,customerGid:customer,...catalogue,currency:'SGD',amountMinor:2001,checkoutUrl:`https://${shop}/invoices/internal-${id}`,orderGid:null});
 const request=(key,gateway,value='20.01')=>createWalletTopUpCheckout(admin,shop,customer,key,value,catalogue,gateway);
 test.after(async()=>{await db.walletTopUpIntent.deleteMany({where:{shop}});await db.walletTopUpSettlement.deleteMany({where:{shop}});await db.walletEntry.deleteMany({where:{shop}});await db.customerWallet.deleteMany({where:{shop}});await db.commercePolicy.deleteMany({where:{shop}});await db.$disconnect();});
 
@@ -59,7 +59,7 @@ test('unpaid/foreign/changed draft, changed native total and Wallet funding cann
  const source=receipt(1602),intent=await request('request-key-1602',{create:async()=>source});
  let credits=0;
  const payments={assertWalletReady:async()=>{},readOrder:async()=>paidOrder(1602),credit:async()=>{credits++;throw Error('Unexpected credit');}};
- for(const edit of [r=>r.orderGid=null,r=>r.id=receipt(999).id,r=>r.customerGid='gid://shopify/Customer/999',r=>r.amountMinor=5000,r=>r.checkoutUrl=`https://${shop}/invoices/changed`]){
+ for(const edit of [r=>r.productGid='gid://shopify/Product/999',r=>r.variantGid='gid://shopify/ProductVariant/999',r=>r.orderGid=null,r=>r.id=receipt(999).id,r=>r.customerGid='gid://shopify/Customer/999',r=>r.amountMinor=5000,r=>r.checkoutUrl=`https://${shop}/invoices/changed`]){
   const native={...source,orderGid:'gid://shopify/Order/1602'};edit(native);
   await assert.rejects(settleWalletTopUpCheckout(shop,customer,intent.id,{read:async()=>native},['fixture_external'],payments),/binding/);
  }
@@ -76,4 +76,8 @@ test('unpaid/foreign/changed draft, changed native total and Wallet funding cann
 test('general activation cannot reopen retired custom-denomination checkout',async()=>{
  delete process.env.WALLET_LEGACY_TOP_UP_QA_ENABLED;let creates=0;
  try{await assert.rejects(request('retired-request-1234',{create:async()=>{creates++;throw Error('Must not create');}}),/Legacy top-up QA/);assert.equal(creates,0);}finally{process.env.WALLET_LEGACY_TOP_UP_QA_ENABLED='true';}
+});
+
+test('a valid total and owner cannot authorize a different top-up product or variant',async()=>{
+ let n=1900;for(const field of ['productGid','variantGid']){const source=receipt(++n);source[field]='gid://shopify/'+(field==='productGid'?'Product':'ProductVariant')+'/999';await assert.rejects(request('catalogue-binding-'+n,{create:async()=>source}),/differs|reconciliation/);}
 });

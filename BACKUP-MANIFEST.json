@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "322444f106c72ef737863699eea12bd70b42ccac",
+  "source_commit": "d827a33f90f1285ba8b6324a47a5512f41ea4a7f",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -746,12 +746,12 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/wallet-top-up-draft-native.server.ts",
-      "sha256": "a070b08d08b8b961f8fa2e09dd49598f923950fe3d9159640d31186aac02c3cf",
+      "sha256": "b453566d0f0f5b3229f983e6186af1839f72ac95e9f500afd553457de058ca6d",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/services/wallet-top-up-intent.server.ts",
-      "sha256": "d94d6d83d230adda5ead69a7b2c415c514bce4e7ea928a81f960f55e48c599da",
+      "sha256": "6cc643ee91a1695f99297421032e9940b1da58786222b0c25f16f560e842a150",
       "sanitized": false
     },
     {
@@ -1796,12 +1796,12 @@
     },
     {
       "path": "apps/performance-meals-core/tests/wallet-top-up-draft-native.test.mjs",
-      "sha256": "71ec34c47105860b5860859517b36ad08906575aa3c24a96b39f5c8536f37ee5",
+      "sha256": "7df2ff1c84344543e9340bc433646fd5044284d97b3b3d07aef3b90eab6743fd",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/tests/wallet-top-up-intent.test.mjs",
-      "sha256": "29aa8bff67b5c2caa7c8d46d43493b650401338f5f8588f74fa2b09334ebbae2",
+      "sha256": "95989a3f3961ec70b85085d3b1e1f07e2a8be7ed57271970e3d4459985ac6f44",
       "sanitized": false
     },
     {
@@ -2761,12 +2761,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "2c81ec07c84647b857dcf5c058b66c3da425a749d98926829751e76de37c6689",
+      "sha256": "32542bb244cb9d8f4439ec6612f913eb5db9ef70e8b4afa46c4c99c1624b4b72",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "428b1f3ff695c26bd0397f862493e16cd97008134fd2c249e904ec595944a24c",
+      "sha256": "4c95bb4e8c4a080cfe06e0cf685657015b4d8a1fb1fc535833c728f07f8e70a9",
       "sanitized": false
     },
     {
@@ -2976,7 +2976,12 @@
     },
     {
       "path": "docs/WALLET-MERCHANT-RULES-20261015.md",
-      "sha256": "75640c555a760428971d9915596f471f4551cfbd808ceb1c38baeb2423ee32fc",
+      "sha256": "3674284f148f8242db0a7a4b2cc86a5d2f23426caacd76d35faf426c2543c51f",
+      "sanitized": false
+    },
+    {
+      "path": "docs/WALLET-ONE-TIME-ACCEPTANCE-20261027.md",
+      "sha256": "559cfce938e2a0fa9e6fa51dc0e667175e32164dc41e71db058a7e5d41f63bbc",
       "sanitized": false
     },
     {
@@ -3006,7 +3011,7 @@
     },
     {
       "path": "docs/WALLET-TOP-UP-IMPLEMENTATION.md",
-      "sha256": "bad03fbec789d77b5767e2f2df91a0201ab1aa692bead1ddb806262bab485ace",
+      "sha256": "7d82f9bb2a6b96403f9a7261f7761bcfbea5b2f71ac31eab95bda0501e743c80",
       "sanitized": false
     },
     {

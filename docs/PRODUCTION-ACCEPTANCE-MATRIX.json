@@ -1,6 +1,6 @@
 {
   "updated": "2026-10-27",
-  "sourceCheckpoint": "188a4e0",
+  "sourceCheckpoint": "322444f",
   "scope": "Full agreed production acceptance; no reduced-scope launch",
   "productionAccepted": false,
   "statusDefinitions": {
@@ -207,6 +207,37 @@
       "fullPassed": 583,
       "rejectsStaleTopicDuplicate": true,
       "changesShopifyConfiguration": false
+    },
+    "oneTimeWallet": {
+      "scope": "One-time only; recurring billing unchanged",
+      "approvedUnpaidDrafts": 3,
+      "paidMinor": [
+        87000,
+        174000,
+        269000
+      ],
+      "principalMinor": [
+        87000,
+        174000,
+        269000
+      ],
+      "foodOnlyBonusMinor": [
+        8500,
+        18500,
+        40000
+      ],
+      "nativeReadbackVerified": true,
+      "renderedCheckoutTotalsVerified": true,
+      "financialModelsUnchanged": 7,
+      "relatedTestsPassed": 33,
+      "newFullSuiteRun": false,
+      "paymentSubmitted": false,
+      "walletCreditIssued": false,
+      "topUpsEnabled": false,
+      "supportCase": "71332405",
+      "urgentEscalationSent": true,
+      "newEscalationReference": null,
+      "evidence": "WALLET-ONE-TIME-ACCEPTANCE-20261027.md"
     }
   },
   "counts": {
@@ -422,7 +453,8 @@
         "docs/WALLET-PLATFORM-REVIEW-20261023.md",
         "docs/CORE-FIRST-WALLET-INVESTIGATION-20261017.md",
         "docs/WALLET-CORE-EXPIRY-QA-20261015.md",
-        "docs/PAYMENTS-PARTNER-ASSESSMENT-PREPARATION-20261026.md"
+        "docs/PAYMENTS-PARTNER-ASSESSMENT-PREPARATION-20261026.md",
+        "WALLET-ONE-TIME-ACCEPTANCE-20261027.md"
       ],
       "remainingEngineering": [
         "Obtain supported payment architecture, then implement transactional reservation, expiry, reconciliation and card-preserving recovery. Do not relax approved rules."
@@ -432,7 +464,7 @@
       "id": 7,
       "requirement": "Wallet top-up and native settlement",
       "status": "BLOCKED",
-      "implemented": "Default-off guarded settlement, verified-payment evidence, duplicate protection, amount/package rules and reversal/reconciliation guards.",
+      "implemented": "Default-off guarded settlement, verified-payment evidence, duplicate protection, amount/package rules and reversal/reconciliation guards. Native draft product/variant identity is bound to the server-owned catalogue during preparation receipt validation and settlement.",
       "automatedTests": {
         "state": "PASSED_BASELINE",
         "files": [
@@ -442,19 +474,24 @@
           "apps/performance-meals-core/tests/wallet-top-up-lifecycle.test.mjs",
           "apps/performance-meals-core/tests/wallet-top-up-policy.test.mjs",
           "apps/performance-meals-core/tests/wallet-approved-package.test.mjs"
+        ],
+        "oneTimeWallet20261027": [
+          "33 related Wallet checks, TypeScript/lint and modified Admin2026-10 query validation pass; previous583 full-suite baseline retained without an unnecessary rerun."
         ]
       },
-      "shopifyIntegration": "Scoped payment restriction, credit spending/return and temporary credit expiry tests recorded; no approved general end-to-end top-up activation.",
+      "shopifyIntegration": "Scoped payment restriction, credit spending/return and temporary credit expiry tests recorded; no approved general end-to-end top-up activation. 27 October: exactly three approved unpaid drafts/readbacks and rendered checkouts passed SGD870/1740/2690; no payments or credit; seven protected financial models unchanged.",
       "customerJourney": "Full paid top-up to spend, expiry and exceptional reversal not accepted.",
       "outstandingIssues": [
-        "Complete supported bonus/source/expiry architecture absent; top-ups remain disabled."
+        "Complete supported bonus/source/expiry architecture absent; top-ups remain disabled.",
+        "Approved-package paired principal/bonus settlement is not wired; existing legacy settlement is deliberately blocked for the approved package amounts. Native food-only bonus and source-priority enforcement remain blocked."
       ],
       "dependencies": [
         "Requirement 6 architecture and approved final safeguard matrix."
       ],
       "evidence": [
         "docs/WALLET-TOP-UP-IMPLEMENTATION.md",
-        "docs/WALLET-TOP-UP-SAFEGUARD-QA-20261013.md"
+        "docs/WALLET-TOP-UP-SAFEGUARD-QA-20261013.md",
+        "WALLET-ONE-TIME-ACCEPTANCE-20261027.md"
       ],
       "remainingEngineering": [
         "Prove exact once credit after paid proof, exclusions, no circular funding, failed/lost payment recovery and reconciled exceptional reversals."

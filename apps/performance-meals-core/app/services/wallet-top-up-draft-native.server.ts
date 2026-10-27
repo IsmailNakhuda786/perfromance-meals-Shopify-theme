@@ -11,7 +11,7 @@ mutation WalletTopUpDraftCreate($input:DraftOrderInput!) {
    totalTaxSet { shopMoney { amount currencyCode } }
    totalShippingPriceSet { shopMoney { amount currencyCode } }
    totalDiscountsSet { shopMoney { amount currencyCode } }
-   lineItems(first:2) { nodes { quantity requiresShipping taxable } pageInfo { hasNextPage } }
+   lineItems(first:2) { nodes { quantity requiresShipping taxable variant { id product { id } } } pageInfo { hasNextPage } }
   }
   userErrors { field message }
  }
@@ -25,19 +25,19 @@ query WalletTopUpDraftRead($id:ID!) {
   totalTaxSet { shopMoney { amount currencyCode } }
   totalShippingPriceSet { shopMoney { amount currencyCode } }
   totalDiscountsSet { shopMoney { amount currencyCode } }
-  lineItems(first:2) { nodes { quantity requiresShipping taxable } pageInfo { hasNextPage } }
+  lineItems(first:2) { nodes { quantity requiresShipping taxable variant { id product { id } } } pageInfo { hasNextPage } }
  }
 }`;
 type Admin={graphql:(query:string,options:{variables:Record<string,unknown>})=>Promise<Response>};
 type MoneyBag={shopMoney:{amount:string;currencyCode:string}};
-type NativeDraft={id:string;invoiceUrl:string;currencyCode:string;customer:{id:string}|null;order:{id:string}|null;totalPriceSet:MoneyBag;totalTaxSet:MoneyBag;totalShippingPriceSet:MoneyBag;totalDiscountsSet:MoneyBag;lineItems:{nodes:Array<{quantity:number;requiresShipping:boolean;taxable:boolean}>;pageInfo:{hasNextPage:boolean}}};
+type NativeDraft={id:string;invoiceUrl:string;currencyCode:string;customer:{id:string}|null;order:{id:string}|null;totalPriceSet:MoneyBag;totalTaxSet:MoneyBag;totalShippingPriceSet:MoneyBag;totalDiscountsSet:MoneyBag;lineItems:{nodes:Array<{quantity:number;requiresShipping:boolean;taxable:boolean;variant:{id:string;product:{id:string}}|null}>;pageInfo:{hasNextPage:boolean}}};
 
 function receipt(draft:NativeDraft|null){
  if(!draft||!/^gid:\/\/shopify\/DraftOrder\/\d+$/.test(draft.id)||draft.currencyCode!=='SGD'||!draft.customer?.id||draft.lineItems.pageInfo.hasNextPage||draft.lineItems.nodes.length!==1)throw Error('Native top-up draft proof unavailable');
  const minor=(bag:MoneyBag)=>{if(bag.shopMoney.currencyCode!=='SGD')throw Error('Native draft currency differs');return minorAmount(bag.shopMoney.amount);};
  const line=draft.lineItems.nodes[0];
- if(line.quantity!==1||line.requiresShipping!==false||line.taxable!==false||[draft.totalTaxSet,draft.totalShippingPriceSet,draft.totalDiscountsSet].some(bag=>minor(bag)!==0))throw Error('Native top-up draft isolation differs');
- return {id:draft.id,customerGid:draft.customer.id,currency:draft.currencyCode,amountMinor:minor(draft.totalPriceSet),checkoutUrl:draft.invoiceUrl,orderGid:draft.order?.id||null};
+ if(!line.variant||!/^gid:\/\/shopify\/ProductVariant\/\d+$/.test(line.variant.id)||!/^gid:\/\/shopify\/Product\/\d+$/.test(line.variant.product?.id)||line.quantity!==1||line.requiresShipping!==false||line.taxable!==false||[draft.totalTaxSet,draft.totalShippingPriceSet,draft.totalDiscountsSet].some(bag=>minor(bag)!==0))throw Error('Native top-up draft isolation differs');
+ return {id:draft.id,customerGid:draft.customer.id,productGid:line.variant.product.id,variantGid:line.variant.id,currency:draft.currencyCode,amountMinor:minor(draft.totalPriceSet),checkoutUrl:draft.invoiceUrl,orderGid:draft.order?.id||null};
 }
 
 // No draft completion or payment mutation. Creation is called only by the
