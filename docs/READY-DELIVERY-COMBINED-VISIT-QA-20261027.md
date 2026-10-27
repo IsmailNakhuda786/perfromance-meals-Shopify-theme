@@ -6,7 +6,7 @@ Merchant rule: multiple packages arriving together for the same customer/address
 
 - Durable internal combined visit plus separately owned/revisioned membership records.
 - One slot reservation per visit, preserving all member package counts.
-- Immutable original-purchase checksum, customer/order/contract/product/variant, paid package quantity and occurrence limit checks. Current implementation accepts original-purchase evidence only; renewal delivery visits remain a separate integration gate.
+- Immutable original-purchase checksum, customer/order/contract/product/variant, paid package quantity and occurrence limit checks. Original purchases and already-completed paid renewals are supported. Renewals must retain the original purchase checksum, owner, contract, product/variant and package count; pending, mismatched or corrupt evidence is rejected.
 - Atomic locks and revision checks prevent standalone or combined reservations from consuming a member twice. Non-leader members are protected too.
 - Individual draft movement remains blocked until the combined capacity is released, even when new capacity writes are disabled.
 - Releasing a combined visit releases all members and returns one place, exactly once. Partial/corrupt membership holds for reconciliation. Released revisions cannot be reused as standalone bookings.
@@ -23,3 +23,7 @@ The user approved adding the two tables to Development. The additive migration w
 These are internal reservations, not confirmed Shopify bookings. Customer endpoints are not activated. Server-verified destination identity, fresh native fulfilment/dispatch checks, renewal entitlement mapping, actual calendar/reschedule integration and customer acceptance remain required. Separate orders are not automatically consolidated. No schedule or holiday defaults were invented, no paid delivery moved, no payment/credit issued, and Wallet top-ups remain disabled.
 
 Private regression logs and protected hashes are ignored under .shopify. No private customer data, credentials or checkout links are included here.
+
+## Paid renewal follow-up
+
+Added a shared immutable entitlement reader for original orders and already-paid, linked renewal orders. No billing attempt is created. Twelve focused PostgreSQL visit checks pass, including renewal replay, pending linkage rejection, altered quantities/checksums and foreign ownership. All37 existing business-model snapshots remained unchanged. Full serial disposable regression570/570, TypeScript/lint pass. An earlier parallel shared-SQLite run failed with socket timeouts under host load; the test runner now defaults to file-level serial execution, preserves in-file concurrency tests, accepts focused filenames and supports an explicit bounded concurrency override. Fifty-one focused checks and the complete serial rerun passed. Native customer booking remains inactive and unaccepted.

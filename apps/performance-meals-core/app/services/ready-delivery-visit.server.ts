@@ -1,7 +1,7 @@
-import {createHash} from 'node:crypto';
 import db from '../db.server';
 import {assertShop} from './security.server';
 import {planReadyDeliveryVisit} from './ready-delivery-visit';
+import {readReadyDeliveryEntitlement} from './ready-delivery-entitlement.server';
 
 type Input=Parameters<typeof planReadyDeliveryVisit>[0];
 // Internal development reservation only. The caller supplies a verified server
@@ -29,10 +29,8 @@ export async function reserveReadyDeliveryVisit(input:Input,options:{now?:Date}=
    if(draft.operationalLineId!==member.operationalLineId||draft.occurrence!==member.occurrence||draft.deliveryAt.toISOString()!==plan.deliveryAt)throw Error('Visit member differs from delivery draft');
    const line=await tx.operationalLine.findFirst({where:{id:member.operationalLineId,shop,customerGid,orderGid:plan.orderGid,businessStream:'ready_series',validationStatus:'VALIDATED',fulfillmentState:'UNASSIGNED'}});
    if(!line?.contractGid)throw Error('Validated undispatched paid delivery binding required');
-   const paid=await tx.prepaidPurchaseEvidence.findUnique({where:{shop_originalLineGid:{shop,originalLineGid:line.orderLineGid}}});
-   if(!paid||paid.customerGid!==customerGid||paid.contractGid!==line.contractGid||paid.originalOrderGid!==plan.orderGid||createHash('sha256').update(paid.snapshot).digest('hex')!==paid.snapshotHash)throw Error('Immutable paid entitlement required');
-   const proof=JSON.parse(paid.snapshot),e=proof.expected;
-   if(proof.version!==1||proof.contractGid!==line.contractGid||!e||e.customerGid!==customerGid||e.orderGid!==line.orderGid||e.orderLineGid!==line.orderLineGid||e.productGid!==line.productGid||e.variantGid!==line.variantGid||![3,6].includes(e.months)||member.occurrence>e.months||member.packages!==(e.packageQuantity??1))throw Error('Visit exceeds its purchased entitlement');
+   const paid=await readReadyDeliveryEntitlement(tx,shop,customerGid,line);
+   if(member.occurrence>paid.months||member.packages!==paid.packages)throw Error('Visit exceeds its purchased entitlement');
   }
   const keys=plan.members.map(m=>({deliveryDraftId:m.draftId,deliveryRevision:m.revision}));
   const existing=await tx.readyDeliveryVisitMember.findMany({where:{shop,OR:keys}});

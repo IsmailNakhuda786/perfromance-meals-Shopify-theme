@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "546dadae759a60fefedaa979a361b840bc52e5d5",
+  "source_commit": "2a4cecc953b43e4c7105daa2ebec132692cedb3d",
   "snapshot_includes_uncommitted_work": true,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -570,6 +570,11 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/app/services/ready-delivery-entitlement.server.ts",
+      "sha256": "fff4db53c557882329c49208130d0ebd252cef36b9278cbae7086891fe4c3ea1",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/app/services/ready-delivery-notice.ts",
       "sha256": "31ba4986cf62f1492ce4b1358191e629b509f0682cadf7e9f7ca044a734db597",
       "sanitized": false
@@ -581,7 +586,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/ready-delivery-visit.server.ts",
-      "sha256": "a211df01726585d10567283208b8abe01f44db3d6229e80e5c20d086c5e6e44b",
+      "sha256": "21e9c584152786c7cf47aa116b5b0a5018e531a3121b45202f15221d63db88c4",
       "sanitized": false
     },
     {
@@ -1316,7 +1321,7 @@
     },
     {
       "path": "apps/performance-meals-core/scripts/test-isolated.mjs",
-      "sha256": "294b52fc237d9bf245f7c60ee80b26573d23de21c246df5716ff12f427202dfb",
+      "sha256": "6f3abafc491e0529d2c5683fc79e38561f8acd47e197d7f0c9dc83b0e689a5ce",
       "sanitized": false
     },
     {
@@ -1641,7 +1646,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/ready-delivery-visit-reservation.test.mjs",
-      "sha256": "1a9b4e80921e36c14f54afdf38b87835d996d86abd2c39485c9ca6d24a62613a",
+      "sha256": "e0a15f622841a2d249aabdadd9d3ac45a028c458bf71352b9d82ba94c1ef6acf",
       "sanitized": false
     },
     {
@@ -2746,12 +2751,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "7fe4cd1e439c489410b58b280988dac994bc2a1ff6e47834e8cd02b5621eb862",
+      "sha256": "630700ec6cb9f405a8540315d2cd72ab4aa0301b0d31f3d15bf39183899210d8",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "098f18b523384ccdd22a719b317b0d664c82b2a9570035df0fa4f4bc2bc2adef",
+      "sha256": "f39bcdbdcfd16c897fc7a01f7711987ba0bf0b7b4875982deda9dc1703098077",
       "sanitized": false
     },
     {
@@ -2766,7 +2771,7 @@
     },
     {
       "path": "docs/READY-DELIVERY-COMBINED-VISIT-QA-20261027.md",
-      "sha256": "1bd05f90d7475341a8f1d26a2f018af07c5fd629d0e0aff4fc5c38d05c03d8c7",
+      "sha256": "1f82cf5090bd85f383d8031d29ed87f6e44faf2434bdff39b5e632caa0d97732",
       "sanitized": false
     },
     {
@@ -2952,6 +2957,11 @@
     {
       "path": "docs/WALLET-MERCHANT-RULES-20261015.md",
       "sha256": "75640c555a760428971d9915596f471f4551cfbd808ceb1c38baeb2423ee32fc",
+      "sanitized": false
+    },
+    {
+      "path": "docs/WALLET-PARTNER-ROUTING-20261027.md",
+      "sha256": "29821ec6e19f664a0ef2ee016514270a105ae56aee3463ea39d1e6836183cc58",
       "sanitized": false
     },
     {

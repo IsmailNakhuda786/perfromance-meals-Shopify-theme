@@ -21,8 +21,16 @@ try{
   const result=spawnSync(process.execPath,[prisma,...args],{cwd:root,env,encoding:'utf8'});
   if(result.status!==0){process.stderr.write(`Prisma ${args[0]} failed\n${result.stdout||''}${result.stderr||''}`);throw Error('Disposable fixture setup failed');}
  }
- const files=readdirSync(join(root,'tests')).filter(name=>name.endsWith('.test.mjs')).sort().map(name=>join(root,'tests',name));
- const result=spawnSync(process.execPath,['--test','--test-concurrency=4',...files],{cwd:root,env,stdio:'inherit'});
+ const available=readdirSync(join(root,'tests')).filter(name=>name.endsWith('.test.mjs')).sort();
+ const selected=process.argv.slice(2);
+ if(selected.some(name=>!available.includes(name.replace(/^tests\//,''))))throw Error('Select existing test files inside tests/ only.');
+ const files=(selected.length?selected.map(name=>name.replace(/^tests\//,'')):available).map(name=>join(root,'tests',name));
+ // Separate test files share one disposable SQLite file. Serialize by default
+ // to avoid cross-file lock timeouts on a busy Mac. In-file race tests still
+ // exercise concurrent requests; an explicit bounded override remains available.
+ const concurrency=process.env.CORE_TEST_CONCURRENCY??'1';
+ if(!/^[1-4]$/.test(concurrency))throw Error('Test concurrency must be 1–4.');
+ const result=spawnSync(process.execPath,['--test',`--test-concurrency=${concurrency}`,...files],{cwd:root,env,stdio:'inherit'});
  if(result.error)throw result.error;
  process.exitCode=result.status??1;
 }finally{rmSync(temp,{recursive:true,force:true});}

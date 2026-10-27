@@ -21,7 +21,7 @@ async function setup(count=2){
  return {shop,customerGid,orderGid,destinationKey:'server-verified-destination',slotId:slot.id,slotRevision:slot.revision,deliveryAt:slot.deliveryAt.toISOString(),deliveryEndsAt:slot.deliveryEndsAt.toISOString(),members};
 }
 const legacy=(p,m)=>({shop,customerGid,slotId:p.slotId,slotRevision:p.slotRevision,deliveryDraftId:m.draftId,deliveryRevision:m.revision});
-test.after(async()=>{for(const m of ['readyDeliveryVisitMember','readyDeliveryVisit','readyDeliverySlotReservation','readyDeliverySlot','readyDeliveryReminder','readyDeliveryDraft','prepaidPurchaseEvidence','operationalLine'])await db[m].deleteMany({where:{shop}});await db.$disconnect();});
+test.after(async()=>{for(const m of ['readyDeliveryVisitMember','readyDeliveryVisit','readyDeliverySlotReservation','readyDeliverySlot','readyDeliveryReminder','readyDeliveryDraft','prepaidRenewalEvidence','prepaidPurchaseEvidence','operationalLine'])await db[m].deleteMany({where:{shop}});await db.$disconnect();});
 test('multiple paid package lines reserve one visit; replay preserves every entitlement',async()=>{
  const p=await setup(),a=await reserve(p,{now}),b=await reserve({...p,members:[...p.members].reverse()},{now});assert.equal(a.created,true);assert.equal(b.created,false);assert.equal(a.visit.id,b.visit.id);assert.equal(a.visit.packageCount,3);assert.equal(a.bookingConfirmed,false);
  assert.equal((await db.readyDeliverySlot.findUnique({where:{id:p.slotId}})).reserved,1);assert.equal(await db.readyDeliveryVisitMember.count({where:{shop,visitId:a.visit.id,state:'RESERVED'}}),2);
@@ -71,4 +71,30 @@ test('an occurrence beyond the paid term cannot be disguised as an otherwise mat
  const p=await setup(1),m=p.members[0];await db.readyDeliveryDraft.update({where:{id:m.draftId},data:{occurrence:4}});
  await assert.rejects(reserve({...p,members:[{...m,occurrence:4}]},{now}),/entitlement/);
  assert.equal((await db.readyDeliverySlot.findUnique({where:{id:p.slotId}})).reserved,0);
+});
+async function renewalFixture(){
+ const p=await setup(1),member=p.members[0],line=await db.operationalLine.findUniqueOrThrow({where:{id:member.operationalLineId}});
+ const purchase=await db.prepaidPurchaseEvidence.findUniqueOrThrow({where:{shop_originalLineGid:{shop,originalLineGid:line.orderLineGid}}});
+ const order='gid://shopify/Order/'+Date.now(),lineGid='gid://shopify/LineItem/'+Date.now()+'9',attempt='gid://shopify/SubscriptionBillingAttempt/'+Date.now();
+ const current=await db.operationalLine.create({data:{shop,customerGid,orderGid:order,orderLineGid:lineGid,productGid:line.productGid,variantGid:line.variantGid,contractGid:line.contractGid,businessStream:'ready_series',department:'ready_series',validationStatus:'VALIDATED'}});
+ const {draft}=await stage({shop,customerGid,operationalLineId:current.id,occurrence:1,deliveryAt:p.deliveryAt,expectedRevision:0});
+ const expected={...JSON.parse(purchase.snapshot).expected,attemptGid:attempt,idempotencyKey:'verified-fixture',renewalOrderGid:order,renewalOrderLineGid:lineGid};
+ const snapshot=JSON.stringify({version:1,purchaseHash:purchase.snapshotHash,expected,correction:null});
+ const receipt=await db.prepaidRenewalEvidence.create({data:{shop,customerGid,contractGid:line.contractGid,purchaseEvidenceId:purchase.id,attemptGid:attempt,renewalOrderGid:order,snapshot,snapshotHash:createHash('sha256').update(snapshot).digest('hex'),state:'COMPLETED',completedAt:new Date()}});
+ return {plan:{...p,orderGid:order,members:[{draftId:draft.id,revision:1,operationalLineId:current.id,occurrence:1,packages:1}]},receipt,purchase};
+}
+test('a verified paid renewal retains the original package entitlement without billing again',async()=>{
+ const {plan}=await renewalFixture(),a=await reserve(plan,{now}),b=await reserve(plan,{now});assert.equal(a.created,true);assert.equal(b.created,false);assert.equal(a.visit.packageCount,1);
+});
+test('pending renewal evidence cannot authorize delivery reservations',async()=>{
+ const {plan,receipt}=await renewalFixture();await db.prepaidRenewalEvidence.update({where:{id:receipt.id},data:{state:'PENDING_LINK',completedAt:null}});
+ await assert.rejects(reserve(plan,{now}),/paid renewal linkage/);assert.equal((await db.readyDeliverySlot.findUnique({where:{id:plan.slotId}})).reserved,0);
+});
+test('renewals with altered package quantities, broken hashes or foreign original ownership fail closed',async()=>{
+ for(const mode of ['quantity','hash','owner']){
+  const {plan,receipt,purchase}=await renewalFixture();
+  if(mode==='owner')await db.prepaidPurchaseEvidence.update({where:{id:purchase.id},data:{customerGid:'gid://shopify/Customer/99'}});
+  else{const body=JSON.parse(receipt.snapshot);body.expected.packageQuantity=2;const snapshot=JSON.stringify(body);await db.prepaidRenewalEvidence.update({where:{id:receipt.id},data:{snapshot,snapshotHash:mode==='hash'?'corrupt':createHash('sha256').update(snapshot).digest('hex')}});}
+  await assert.rejects(reserve(plan,{now}));assert.equal((await db.readyDeliverySlot.findUnique({where:{id:plan.slotId}})).reserved,0);
+ }
 });
