@@ -284,6 +284,16 @@
       "cleanup": "37 protected models and native order unchanged",
       "featureEnabled": false,
       "evidence": "docs/SIXTY-DAY-DELIVERY-BATCHES-20261028.md"
+    },
+    "fullSixtyAllowance": {
+      "weekday": 88,
+      "frozen": 32,
+      "cancelUnsentPassed": true,
+      "overflowRejected": true,
+      "duplicateRequestsStable": true,
+      "nativeAdminAndCustomerDisplayPassed": true,
+      "protectedModelsRestored": 37,
+      "financialMutations": 0
     }
   },
   "counts": {
@@ -316,11 +326,17 @@
       ],
       "evidence": [
         "docs/CORE-ACCOUNT-STARTUP-20261021.md",
-        "docs/CUSTOMER-CORE-COMPLETION-TRACKER.md"
+        "docs/CUSTOMER-CORE-COMPLETION-TRACKER.md",
+        "docs/MEAL-PLAN-FUNCTIONAL-ACCEPTANCE-20261028.md"
       ],
       "remainingEngineering": [
         "Repeat complete signed-in edit/save/reload on permanent staging; prove restore and isolation."
-      ]
+      ],
+      "assessmentStatus": "PASS",
+      "assessmentScope": "FUNCTIONAL",
+      "assessmentEvidence": "docs/MEAL-PLAN-FUNCTIONAL-ACCEPTANCE-20261028.md",
+      "remainingFunctionalEngineering": [],
+      "assessmentNotes": "Fresh signed-in edit/save/reload/customer display/restoration and actual PostgreSQL ownership/stale/concurrency checks passed. Hosting/domain/deployment excluded by merchant; production status remains separate."
     },
     {
       "id": 2,
@@ -371,7 +387,9 @@
       ],
       "remainingEngineering": [
         "Implement gated production correction lifecycle and clear net-price explanation without mislabelling native gross subtotal; complete permanent intake, delivery allocation and customer lifecycle acceptance."
-      ]
+      ],
+      "assessmentStatus": "PARTIAL",
+      "assessmentScope": "FUNCTIONAL"
     },
     {
       "id": 3,
@@ -389,11 +407,10 @@
           "apps/performance-meals-core/tests/programme-deliveries-route.test.mjs"
         ]
       },
-      "shopifyIntegration": "Native one-off test orders and saved sixty-day menus recorded. Approved Core batch admin/customer journey passed with native paid-order proof and exact cleanup on 28 October.",
-      "customerJourney": "Approved 4-weekday/8-frozen batch recording, customer display and duplicate protection passed in development. Full programme operational completion remains incomplete.",
+      "shopifyIntegration": "Native paid one-off programme proof plus authenticated Core admin/customer full 88-weekday/32-frozen allowance display passed on 28 October. All37 protected model snapshots and native order exactly restored.",
+      "customerJourney": "Earlier admin allocation/dispatch form and 4/8 customer journey passed. Full allowance display, cancelled-unsent release, extra-meal rejection and duplicate allocation/dispatch/cancel protection passed against real PostgreSQL/native paid proof.",
       "outstandingIssues": [
-        "Frozen-meal fulfilment allocation and complete native lifecycle remain unverified.",
-        "Legacy records lack original snapshots; approved temporary QA was restored, not a permanent backfill. Full programme dispatch/scheduling acceptance remains."
+        "Legacy records lack original entitlement snapshots; authorized temporary QA was restored rather than permanently backfilled. General activation and complete scheduling/rescheduling remain gated."
       ],
       "dependencies": [
         "Merchant stock/fulfilment configuration and isolated QA approval where new records are needed."
@@ -402,11 +419,14 @@
         "docs/MEAL-PLAN-60-DAY-BILLING-DECISION-20261009.md",
         "docs/CUSTOMER-CORE-COMPLETION-TRACKER.md",
         "docs/SIXTY-DAY-DELIVERY-BATCHES-20261027.md",
-        "docs/SIXTY-DAY-DELIVERY-BATCHES-20261028.md"
+        "docs/SIXTY-DAY-DELIVERY-BATCHES-20261028.md",
+        "docs/SIXTY-DAY-FULL-ALLOWANCE-QA-20261028.md"
       ],
       "remainingEngineering": [
-        "Bind every frozen/weekday entitlement to actual fulfilment quantities and prove no loss or duplicate delivery."
-      ]
+        "Prepare authorized legacy original-entitlement reconciliation and general activation safeguards; complete physical booking/rescheduling under requirement13. Full88/32 accounting and no-duplicate/overflow subcases passed."
+      ],
+      "assessmentStatus": "PARTIAL",
+      "assessmentScope": "FUNCTIONAL"
     },
     {
       "id": 4,
@@ -437,7 +457,9 @@
       ],
       "remainingEngineering": [
         "Close final-submission replay/freshness gap and verify actual review-bound fulfilment."
-      ]
+      ],
+      "assessmentStatus": "PARTIAL",
+      "assessmentScope": "FUNCTIONAL"
     },
     {
       "id": 5,
@@ -474,7 +496,9 @@
       ],
       "remainingEngineering": [
         "Complete subscription and multi-delivery native cases; install supported Core enforcement on approved production profiles."
-      ]
+      ],
+      "assessmentStatus": "PARTIAL",
+      "assessmentScope": "FUNCTIONAL"
     },
     {
       "id": 6,
@@ -511,7 +535,9 @@
       ],
       "remainingEngineering": [
         "Obtain supported payment architecture, then implement transactional reservation, expiry, reconciliation and card-preserving recovery. Do not relax approved rules."
-      ]
+      ],
+      "assessmentStatus": "BLOCKED",
+      "assessmentScope": "FUNCTIONAL"
     },
     {
       "id": 7,
@@ -549,7 +575,9 @@
       "remainingEngineering": [
         "Prove exact once credit after paid proof, exclusions, no circular funding, failed/lost payment recovery and reconciled exceptional reversals.",
         "Supported actual principal/restricted-bonus issuance and post-issuance reversal remain blocked; complete native provider callback and durable audit/worker acceptance before activation."
-      ]
+      ],
+      "assessmentStatus": "BLOCKED",
+      "assessmentScope": "FUNCTIONAL"
     },
     {
       "id": 8,
@@ -581,7 +609,9 @@
       ],
       "remainingEngineering": [
         "Verify issuance-to-claim-to-spend-to-expiry including named recipient, original expiry and interruption recovery."
-      ]
+      ],
+      "assessmentStatus": "PARTIAL",
+      "assessmentScope": "FUNCTIONAL"
     },
     {
       "id": 9,
@@ -612,7 +642,9 @@
       ],
       "remainingEngineering": [
         "Establish supported recurring authorization and atomic debit/charge recovery; test mixed/failed/expired funding without duplicate bills."
-      ]
+      ],
+      "assessmentStatus": "BLOCKED",
+      "assessmentScope": "FUNCTIONAL"
     },
     {
       "id": 10,
@@ -644,7 +676,9 @@
       ],
       "remainingEngineering": [
         "Verify full earning-to-redemption-to-spend with real native funding, GST, promotions and exceptional reversals; activate only after acceptance."
-      ]
+      ],
+      "assessmentStatus": "PARTIAL",
+      "assessmentScope": "FUNCTIONAL"
     },
     {
       "id": 11,
@@ -670,7 +704,9 @@
       ],
       "remainingEngineering": [
         "Retain disabled state; final configuration acceptance must confirm no accidental referral claims."
-      ]
+      ],
+      "assessmentStatus": "PASS",
+      "assessmentScope": "FUNCTIONAL"
     },
     {
       "id": 12,
@@ -701,7 +737,9 @@
       ],
       "remainingEngineering": [
         "Complete final seven-section end-to-end matrix, expired sessions, access isolation, mobile and interrupted-operation recovery."
-      ]
+      ],
+      "assessmentStatus": "PARTIAL",
+      "assessmentScope": "FUNCTIONAL"
     },
     {
       "id": 13,
@@ -742,7 +780,9 @@
       ],
       "remainingEngineering": [
         "Implement authoritative capacity/reschedule executor and native preservation proof; verify Meal Plan management without pausing billing inadvertently."
-      ]
+      ],
+      "assessmentStatus": "PARTIAL",
+      "assessmentScope": "FUNCTIONAL"
     },
     {
       "id": 14,
@@ -779,7 +819,9 @@
       ],
       "remainingEngineering": [
         "Provision approved hosting/database/secrets/workers, perform restore/replay drills, monitoring, retention and operational ownership acceptance."
-      ]
+      ],
+      "assessmentStatus": "DEFERRED",
+      "assessmentScope": "POST_ASSESSMENT_INFRASTRUCTURE"
     },
     {
       "id": 15,
@@ -822,7 +864,24 @@
       ],
       "remainingEngineering": [
         "Connect original registration to the accepted server-side purchase flow; provision approved durable scheduling/reconciliation on permanent staging; verify outages, event ordering and mixed-term/mixed-stream lifecycles."
-      ]
+      ],
+      "assessmentStatus": "PARTIAL",
+      "assessmentScope": "FUNCTIONAL"
     }
-  ]
+  ],
+  "functionalAssessment": {
+    "deadline": "2026-10-31",
+    "environment": "Shopify development/test",
+    "infrastructureExcluded": true,
+    "deferredRequirements": [
+      14
+    ],
+    "scope": "Full agreed functional customer journeys; permanent hosting, domain, deployment and production operations are a later gate. Platform enforcement and security/idempotency requirements remain mandatory.",
+    "counts": {
+      "PASS": 2,
+      "PARTIAL": 9,
+      "BLOCKED": 3,
+      "DEFERRED": 1
+    }
+  }
 }

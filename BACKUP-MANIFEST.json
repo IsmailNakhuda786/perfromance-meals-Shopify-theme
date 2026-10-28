@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "5792266210f80e325ff177639c091ee69b6a9968",
+  "source_commit": "71a2ab2db4026408578c3d01937de7d1a5d57055",
   "snapshot_includes_uncommitted_work": false,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -2675,6 +2675,11 @@
       "sanitized": false
     },
     {
+      "path": "docs/MEAL-PLAN-FUNCTIONAL-ACCEPTANCE-20261028.md",
+      "sha256": "4f7e4de7d99ab3c30eba47da4ae8557e98d2f7e1ee4309a29c01fd40f25e0ac2",
+      "sanitized": false
+    },
+    {
       "path": "docs/MEAL-PLAN-LATER-MENU-QA-20261011.md",
       "sha256": "fca436fd318d5aa08b7a245b26eb7dae2c970b49fadb0dcfec85d70ce3fd99e5",
       "sanitized": false
@@ -2796,12 +2801,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "5d8bbd9867e816679cc1c3417607d5f128316acd36a7556175019aef73c4ceb1",
+      "sha256": "57b305c66f1f5e47f7018658609088c00fec89bc820a37bba7f9c6f487a73a6f",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "8f62de2852ce990dcf89fe67c6ac197c0f16a742bfbc92b8a0e712f4e0bb6b03",
+      "sha256": "437390e66aa40821e821e3e075729c5c7cadd17b5602579de79b7ed3762a13fa",
       "sanitized": false
     },
     {
@@ -2935,6 +2940,11 @@
       "sanitized": false
     },
     {
+      "path": "docs/SIXTY-DAY-FULL-ALLOWANCE-QA-20261028.md",
+      "sha256": "7baecc8429a3e17101aafd7e8138b0b14845aaaed34ac61022ceaf34f9b315d5",
+      "sanitized": false
+    },
+    {
       "path": "docs/STATUS.md",
       "sha256": "f316cc912940084e33202dd9b0592fd948a6955604d7993e3b2c328d73a77e6d",
       "sanitized": false
@@ -2998,6 +3008,11 @@
       "path": "docs/VISUAL-PARITY-DATA-GAPS-20261007.md",
       "sha256": "cee79e0d575f59de00cc151abbb99cf72d003c0dda5f6bee7f5367a9f36163ce",
       "sanitized": false
+    },
+    {
+      "path": "docs/WALLET-APPLICATION-PROCESS-FOLLOWUP-20261028.md",
+      "sha256": "c378580910415493c7076400e7e906b70da1cd5d4a99d2765dc3ed6c493247bf",
+      "sanitized": true
     },
     {
       "path": "docs/WALLET-CORE-EXPIRY-QA-20261015.md",

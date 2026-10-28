@@ -1,3 +1,30 @@
+# October 31 functional assessment boundary
+
+Merchant clarification on 28 October: hosting, domain setup and deployment are outside the October 31 deadline. Requirement 14 is deferred for that assessment; permanent-host deployment alone cannot hold a function at PARTIAL. The historical production status remains separately recorded below. Current functional assessment: **2 PASS / 9 PARTIAL / 3 BLOCKED / 1 DEFERRED**, pending evidence-based reclassification. No unfinished functionality, checkout safeguard or platform approval is waived.
+
+
+## Current October 31 functional status
+
+| # | Requirement | Functional status |
+|---|---|---|
+| 1 | Authenticated Meal Plan persistence | **PASS** |
+| 2 | Ready Series prepaid subscriptions | **PARTIAL** |
+| 3 | 6 by 60 and Plus programmes | **PARTIAL** |
+| 4 | Product, bundle quantities and contents | **PARTIAL** |
+| 5 | GST, pricing and delivery charging | **PARTIAL** |
+| 6 | Wallet source ledger, priority and expiry | **BLOCKED** |
+| 7 | Wallet top-up and native settlement | **BLOCKED** |
+| 8 | Gift Card claim, conversion and expiry | **PARTIAL** |
+| 9 | Wallet-funded subscription renewals | **BLOCKED** |
+| 10 | Rewards earning and redemption | **PARTIAL** |
+| 11 | Referral and unapproved benefits remain inactive | **PASS** |
+| 12 | Customer account journeys | **PARTIAL** |
+| 13 | Fulfilment, pause, reschedule and future-renewal management | **PARTIAL** |
+| 14 | Permanent infrastructure, recovery and operations | **DEFERRED** |
+| 15 | Original ownership, webhook routing and cross-stream reconciliation | **PARTIAL** |
+
+Requirement 1: [fresh functional acceptance evidence](MEAL-PLAN-FUNCTIONAL-ACCEPTANCE-20261028.md). Requirement 3: [full 88/32 allowance, cancellation, overflow and replay evidence](SIXTY-DAY-FULL-ALLOWANCE-QA-20261028.md); remains PARTIAL for legacy activation and scheduling. Production status below remains separate.
+
 # Performance Meals — full production acceptance
 
 Updated 2026-10-26. Latest engineering baseline: `3eea617`; fresh two-package native evidence is recorded below. Full agreed scope remains required; no production acceptance or reduced-scope release.
@@ -392,3 +419,8 @@ Shopify Support ticket 70984729 confirms genuine Singapore representative/livene
 ## 28 October — native-linked Core batch journey
 
 The approved 4-weekday/8-frozen batch passed embedded admin allocation/dispatch, customer display and repeated-request checks. Cleanup restored all 37 protected model snapshots and the native order; normal preview is disabled again. This accepts the specific batch-recording subjourney. Requirement 3 remains PARTIAL for complete programme fulfilment/scheduling and production recovery. [Exact evidence](SIXTY-DAY-DELIVERY-BATCHES-20261028.md). Counts remain 1 PASS / 10 PARTIAL / 4 BLOCKED.
+
+
+## 28 October — requirement 1 closed for functional assessment
+
+Native signed-in paid-menu edit/save/reload/customer display/restoration passed with independent PostgreSQL evidence. Original menu audit and 36 other protected groups unchanged; six approved menu-history revisions retained. Existing PostgreSQL concurrency regression passed 3/3 with all 37 live-store groups unchanged. Temporary QA template restored. No charge, order or paid-delivery change. Functional status: **2 PASS / 9 PARTIAL / 3 BLOCKED / 1 DEFERRED**.
