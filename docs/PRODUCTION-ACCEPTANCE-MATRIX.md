@@ -382,3 +382,13 @@ Default-off authenticated paid/update intake, exact fresh native verification, t
 6 by 60 now has a default-off authenticated meal-batch allocation/dispatch screen and customer progress, with separate 88 weekday/32 frozen limits and replay protection. Full isolated regression: 606 passed, 1 PostgreSQL-only concurrency test skipped, 0 failed; TypeScript/lint passed. See [batch evidence](SIXTY-DAY-DELIVERY-BATCHES-20261027.md). Actual positive admin/customer batch journey remains pending, so requirement 3 stays PARTIAL. Both legacy programmes lack saved entitlement snapshots and were preserved.
 
 Four development webhook registrations were reconnected without duplicates. Fresh provider-event delivery and permanent callback recovery remain incomplete. Permanent infrastructure requirements are prepared in [the approval checklist](CORE-PERMANENT-INFRASTRUCTURE-REQUIREMENTS-20261027.md); no paid resources were provisioned. Counts remain **1 PASS / 10 PARTIAL / 0 FAIL / 4 BLOCKED**.
+
+
+## 28 October — supported subscription test environment
+
+Shopify Support ticket 70984729 confirms genuine Singapore representative/liveness verification is required; placeholder onboarding is not a supported bypass. Prior observed simulated charges remain technical evidence, with final native payment acceptance pending a properly verified, authorized test environment. No new payment, onboarding submission, production change or billing-policy change is approved. See [support determination](SHOPIFY-SUBSCRIPTION-TESTING-DETERMINATION-20261028.md).
+
+
+## 28 October — native-linked Core batch journey
+
+The approved 4-weekday/8-frozen batch passed embedded admin allocation/dispatch, customer display and repeated-request checks. Cleanup restored all 37 protected model snapshots and the native order; normal preview is disabled again. This accepts the specific batch-recording subjourney. Requirement 3 remains PARTIAL for complete programme fulfilment/scheduling and production recovery. [Exact evidence](SIXTY-DAY-DELIVERY-BATCHES-20261028.md). Counts remain 1 PASS / 10 PARTIAL / 4 BLOCKED.

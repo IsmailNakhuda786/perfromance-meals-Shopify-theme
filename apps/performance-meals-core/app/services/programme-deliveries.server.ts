@@ -19,7 +19,7 @@ const BASIS='SIXTY_DAY_DELIVERY_BASIS',BATCH='SIXTY_DAY_DELIVERY_BATCH';
 const hash=(v:unknown)=>createHash('sha256').update(JSON.stringify(v)).digest('hex');
 const basisId=(shop:string,id:string)=>'programme-basis:'+hash([shop,id]);
 const validId=(v:unknown)=>typeof v==='string'&&/^[a-zA-Z0-9-]{1,100}$/.test(v);
-const active=()=>process.env.NODE_ENV!=='production'&&process.env.SIXTY_DAY_BATCHES_ENABLED==='true';
+const active=()=>process.env.NODE_ENV!=='production'&&process.env.SIXTY_DAY_BATCHES_ENABLED==='true'&&validId(process.env.SIXTY_DAY_BATCH_QA_SELECTION_ID);
 function scope(shop:string){assertShop(shop);if(!active())throw Error('Programme delivery batches are not activated');}
 function actor(v:string){if(!/^shopify-admin:[a-f0-9]{64}$/.test(v))throw Error('Authenticated delivery operator required');}
 function units(a:number,b:number){if(!Number.isSafeInteger(a)||!Number.isSafeInteger(b)||a<0||b<0||a+b<1||a>88||b>32)throw Error('Enter whole meal quantities within the purchased entitlement');}
@@ -30,7 +30,7 @@ function basis(p:Programme){
  return {value,hash:hash(value)};
 }
 async function programme(shop:string,id:string){
- if(!validId(id))throw Error('Invalid programme identity');
+ if(!validId(id)||id!==process.env.SIXTY_DAY_BATCH_QA_SELECTION_ID)throw Error('Programme outside the approved delivery test');
  const p=await db.mealPlanSelection.findFirst({where:{id,shop}});
  if(!p)throw Error('Programme unavailable');
  basis(p);return p;
@@ -48,7 +48,7 @@ async function nativePurchase(admin:Admin,p:Programme){
 function readBatch(row:Operation,basisHash:string):Batch{
  if(row.kind!==BATCH||!row.productionReference||row.productionReference.length>4096||!['PLANNED','DISPATCHED','CANCELLED'].includes(row.state))throw Error('Programme batch requires reconciliation');
  const b=JSON.parse(row.productionReference) as Batch;units(b.weekdayMeals,b.frozenMeals);actor(b.createdBy);
- if(b.version!==1||b.basisHash!==basisHash||b.reference!==row.cycleReference||!validId(b.reference)||!Number.isSafeInteger(b.revision)||b.revision<1||row.state==='DISPATCHED'&&(!b.dispatchedAt||!Number.isFinite(Date.parse(b.dispatchedAt))||!b.dispatchedBy)||row.state!=='DISPATCHED'&&(b.dispatchedAt!==null||b.dispatchedBy!==null))throw Error('Programme batch evidence differs');
+ if(row.id!=='programme-batch:'+hash([row.shop,row.selectionId,b.reference])||b.version!==1||b.basisHash!==basisHash||b.reference!==row.cycleReference||!validId(b.reference)||!Number.isSafeInteger(b.revision)||b.revision<1||row.state==='DISPATCHED'&&(!b.dispatchedAt||!Number.isFinite(Date.parse(b.dispatchedAt))||!b.dispatchedBy)||row.state!=='DISPATCHED'&&(b.dispatchedAt!==null||b.dispatchedBy!==null))throw Error('Programme batch evidence differs');
  if(b.dispatchedBy)actor(b.dispatchedBy);
  return b;
 }
@@ -100,9 +100,9 @@ export async function changeProgrammeDeliveryBatch(admin:Admin,input:{shop:strin
  },{timeout:30000});
 }
 export async function programmeDeliveryProgress(shop:string,customerGid:string,selectionId:string){
- assertShop(shop);if(!active())return {available:false as const};
+ assertShop(shop);if(!active()||selectionId!==process.env.SIXTY_DAY_BATCH_QA_SELECTION_ID)return {available:false as const};
  const p=await db.mealPlanSelection.findFirst({where:{id:selectionId,shop,customerGid,status:'ORDERED'}});if(!p)return {available:false as const};
- try{const b=basis(p),parent=await db.planOperation.findUnique({where:{id:basisId(shop,p.id)}});if(!parent)return {available:false as const,notStarted:true};if(parent.state!=='ACTIVE'||parent.cycleReference!==b.hash||parent.productionReference!==JSON.stringify(b.value))return {available:false as const,reviewRequired:true};
+ try{const b=basis(p),parent=await db.planOperation.findUnique({where:{id:basisId(shop,p.id)}});if(!parent)return {available:false as const,notStarted:true};if(parent.kind!==BASIS||parent.shop!==shop||parent.selectionId!==p.id||parent.state!=='ACTIVE'||parent.cycleReference!==b.hash||parent.productionReference!==JSON.stringify(b.value))return {available:false as const,reviewRequired:true};
   const rows=await db.planOperation.findMany({where:{shop,selectionId:p.id,kind:BATCH},orderBy:{createdAt:'asc'},take:251});if(rows.length>250)throw Error('Batch history incomplete');
   return {available:true as const,totalWeekday:88,totalFrozen:32,...progress(rows,b.hash),source:'CORE_DELIVERY_BATCHES' as const};
  }catch{return {available:false as const,reviewRequired:true};}

@@ -1,7 +1,7 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "d1595d5957d92efa9ed42d7267e48bedae6bc6ee",
-  "snapshot_includes_uncommitted_work": true,
+  "source_commit": "5792266210f80e325ff177639c091ee69b6a9968",
+  "snapshot_includes_uncommitted_work": false,
   "history": "Fresh root commit; source history not published",
   "files": [
     {
@@ -216,12 +216,12 @@
     },
     {
       "path": "apps/performance-meals-core/app/routes/app._index.tsx",
-      "sha256": "34c02e54af2533445addfb4a4feca1ab292ce961ee91d36bda9b2813221cb7c2",
+      "sha256": "f28f41542fdeaf85f291a4c9045433c113c8b5f653b2d123705e3b5c64d8e307",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/routes/app.programme-deliveries.tsx",
-      "sha256": "13752f6e0b1a79471c7bc0b1c85a3cb1393f60d1dd9d0ce35fcb36c51ec21840",
+      "sha256": "06792003dbe990afcb4efb5a52007d212e5719ab06cf373fac516641efb93469",
       "sanitized": false
     },
     {
@@ -551,7 +551,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/programme-deliveries.server.ts",
-      "sha256": "df5752b56763f0784d777aa44c94bd3dcda56a6e34704998e8baf235f35bff61",
+      "sha256": "e6461cebd08c033de3806c6170cb083f4fcb3c5525105eb1e2ab9f33099a15d8",
       "sanitized": false
     },
     {
@@ -1626,12 +1626,12 @@
     },
     {
       "path": "apps/performance-meals-core/tests/programme-deliveries-route.test.mjs",
-      "sha256": "9aace3546f59a3dd8e0c68cc297d41fb2dc73776a99777028d014a2438350c66",
+      "sha256": "37cd69bc51a60675220283f8c02bb7550146cb6efa87b4c01453875d77395734",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/tests/programme-deliveries.test.mjs",
-      "sha256": "259a5cb783e17fbfc85ae5361042f1955d552290b224e10544d45d5ad46c1a45",
+      "sha256": "e414826b99e2177415b0aac66fb176ec460c3e74d757c28b1d3125aad059d7b5",
       "sanitized": false
     },
     {
@@ -1646,7 +1646,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/readiness.test.mjs",
-      "sha256": "36a55b9d4c0fb21bb1f6ad0d27c0a9fa7afcd3921cdf5a78256be2e5949dcc49",
+      "sha256": "719bddba03b7d881741e4537f097ba289b119b0f2b1fcb4d859cd9ab8486df48",
       "sanitized": false
     },
     {
@@ -2796,12 +2796,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "645ac5ffa17f85cfd01b4bedfcced6a9d9fc4e3717c8a5da7ee02d68023c1b66",
+      "sha256": "5d8bbd9867e816679cc1c3417607d5f128316acd36a7556175019aef73c4ceb1",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "98a5c83e1efb54fcc0474ff3a722ff92278d7ec45ba42190932d9a02b1823dfd",
+      "sha256": "8f62de2852ce990dcf89fe67c6ac197c0f16a742bfbc92b8a0e712f4e0bb6b03",
       "sanitized": false
     },
     {
@@ -2915,6 +2915,11 @@
       "sanitized": true
     },
     {
+      "path": "docs/SHOPIFY-SUBSCRIPTION-TESTING-DETERMINATION-20261028.md",
+      "sha256": "02f11389a96635f308a459c74361e4a1b1cbaec1b7170b823a5bbcd7ad14f186",
+      "sanitized": false
+    },
+    {
       "path": "docs/SINGAPORE-FOOD-DELIVERY-20261008.md",
       "sha256": "cd216e04ca3528029788d4bdf0e1ceb00f8d9f81813b82e70851487c50139c3b",
       "sanitized": false
@@ -2922,6 +2927,11 @@
     {
       "path": "docs/SIXTY-DAY-DELIVERY-BATCHES-20261027.md",
       "sha256": "2458188c43d0bb1433819b7a315ccf5dcfbc3b0bf1fb8a1ac83f924800d333b9",
+      "sanitized": false
+    },
+    {
+      "path": "docs/SIXTY-DAY-DELIVERY-BATCHES-20261028.md",
+      "sha256": "651c87199d51f6d2c4a0d14ceac964eae25df011b4a1c68585792998f8d87f6b",
       "sanitized": false
     },
     {
@@ -4266,7 +4276,7 @@
     },
     {
       "path": "theme/assets/meal-plan.js",
-      "sha256": "ab2ad5b07dee95a3b83069c9a21b7149670839086ada869bf986b8d63331c448",
+      "sha256": "f2490138ff55dc24cf48afee0b704d8d3cea0520ad7f98318add5d618bc3c0a7",
       "sanitized": false
     },
     {
@@ -4596,7 +4606,7 @@
     },
     {
       "path": "theme/locales/en.default.json",
-      "sha256": "c4dffd66fa930f9558bd514cdc1a88b3e4e393572742026141a307ac39f3956c",
+      "sha256": "c1993627d85f7ced3ca9e49957adbd2136d2d95fead83f7edf1ed676b4d2289f",
       "sanitized": false
     },
     {
@@ -4721,7 +4731,7 @@
     },
     {
       "path": "theme/sections/meal-plan-builder.liquid",
-      "sha256": "22ce8844e1ce6f340e8f16010f706961d0b78a962be97d41c531ae03ae6296ca",
+      "sha256": "f1f9862e9c8445d082c13af7bd4d7f22abb7c2daaa17442c0a0b4d5f54ebcbdb",
       "sanitized": false
     },
     {
@@ -5041,7 +5051,7 @@
     "docs/CUSTOMER-CORE-CHECKPOINT-20261012.md"
   ],
   "excluded": [],
-  "backup_updated_at": "2026-10-26",
+  "backup_updated_at": "2026-10-28",
   "excluded_private_qa_documents": [
     "docs/CANCELLATION-WALLET-QA-20261013.md",
     "docs/CUSTOMER-CORE-CHECKPOINT-20261012.md",

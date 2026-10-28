@@ -11,6 +11,7 @@ async function fixture(){
  const n=++index;
  const p=await db.mealPlanSelection.create({data:{id:`batch-fixture-${n}`,shop,customerGid:owner,programmeGid:'gid://shopify/Product/802',variantGid:'gid://shopify/ProductVariant/803',startsOn:'2099-01-05',endsOn:'2099-03-05',entitlement:JSON.stringify(sixtyDayEntitlement('2099-01-05')),selections:'[]',selectionHash:'preserved',cutoffAt:new Date('2098-12-31'),status:'ORDERED',orderGid:`gid://shopify/Order/${810+n}`,orderLineGid:`gid://shopify/LineItem/${910+n}`}});
  await db.operationalLine.create({data:{shop,selectionId:p.id,orderGid:p.orderGid,orderLineGid:p.orderLineGid,customerGid:owner,productGid:p.programmeGid,variantGid:p.variantGid,businessStream:'meal_plan',department:'meal_plan',validationStatus:'VALIDATED'}});
+ process.env.SIXTY_DAY_BATCH_QA_SELECTION_ID=p.id;
  const native={shop:{myshopifyDomain:shop},order:{id:p.orderGid,test:true,cancelledAt:null,displayFinancialStatus:'PAID',customer:{id:owner},lineItems:{nodes:[{id:p.orderLineGid,quantity:1,currentQuantity:1,variant:{id:p.variantGid,product:{id:p.programmeGid}}}],pageInfo:{hasNextPage:false}},fulfillmentsCount:{count:0,precision:'EXACT'}}};
  const admin={graphql:async query=>{assert.ok(!query.includes('mutation'));return Response.json({data:native});}};
  const input={shop,selectionId:p.id,actor,reference:'first',weekdayMeals:4,frozenMeals:8};
@@ -66,6 +67,8 @@ test('invalid actors, quantities and foreign shop cannot allocate meals',async()
  for(const value of [{actor:'anonymous'},{weekdayMeals:-1},{weekdayMeals:1.5},{weekdayMeals:89},{frozenMeals:33},{weekdayMeals:0,frozenMeals:0},{reference:'../unsafe'}])await assert.rejects(plan(admin,{...input,...value}));
  await assert.rejects(plan(admin,{...input,shop:'foreign.myshopify.com'}));
  assert.equal((await progress(shop,'foreign',input.selectionId)).available,false);
+ await assert.rejects(plan(admin,{...input,selectionId:'unapproved-programme'}),/outside the approved/);
+ assert.deepEqual(await progress(shop,owner,'unapproved-programme'),{available:false});
 });
 test('changed original entitlement or stale batch revision fails closed',async()=>{
  const {p,admin,input}=await fixture(),batch=await plan(admin,input);

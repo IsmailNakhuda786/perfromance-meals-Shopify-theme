@@ -330,7 +330,8 @@
     "period_note": "60 days from your chosen Monday. Select the first four weeks now and choose later meals when the next menu is published. No automatic renewal.",
     "save_changes": "Save Changes",
     "paid_menu_note": "Choose meals for your paid programme. Saving does not create another order or charge.",
-    "saving": "Saving your menu…"
+    "saving": "Saving your menu…",
+    "load_error": "Your saved menu could not be loaded. No changes were made. Please try again later or contact Support."
   },
   "sync": {
     "choose_meals": "Choose your meals",

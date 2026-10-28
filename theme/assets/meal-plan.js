@@ -137,7 +137,7 @@
           }
           persistenceReady = true;
           render();
-        } catch { showError(labels.saveError); }
+        } catch { showError(labels.loadError || 'Your saved menu could not be loaded. No changes were made. Please try again later or contact Support.'); }
       };
       const planReady = () => {
         const product = programme();

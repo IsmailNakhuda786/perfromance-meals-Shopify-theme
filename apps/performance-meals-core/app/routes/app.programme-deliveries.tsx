@@ -6,11 +6,11 @@ import db from '../db.server';
 import {assertShop} from '../services/security.server';
 import {savedSixtyDayEntitlement} from '../services/programme-period';
 import {planProgrammeDeliveryBatch,changeProgrammeDeliveryBatch,programmeDeliveryProgress} from '../services/programme-deliveries.server';
-const enabled=()=>process.env.NODE_ENV!=='production'&&process.env.SIXTY_DAY_BATCHES_ENABLED==='true';
+const enabled=()=>process.env.NODE_ENV!=='production'&&process.env.SIXTY_DAY_BATCHES_ENABLED==='true'&&/^[a-zA-Z0-9-]{1,100}$/.test(process.env.SIXTY_DAY_BATCH_QA_SELECTION_ID||'');
 export async function loader({request}:LoaderFunctionArgs){
  const {session}=await authenticate.admin(request);assertShop(session.shop);
  if(!enabled())return {enabled:false,programmes:[],selected:null,progress:null};
- const programmes=await db.mealPlanSelection.findMany({where:{shop:session.shop,status:'ORDERED',sellingPlanGid:null,startsOn:{not:null},endsOn:{not:null}},orderBy:{createdAt:'desc'},take:50});
+ const programmes=await db.mealPlanSelection.findMany({where:{id:process.env.SIXTY_DAY_BATCH_QA_SELECTION_ID,shop:session.shop,status:'ORDERED',sellingPlanGid:null,startsOn:{not:null},endsOn:{not:null}},orderBy:{createdAt:'desc'},take:50});
  const requested=new URL(request.url).searchParams.get('programme'),selected=programmes.find(p=>p.id===requested)??programmes[0];
  return {enabled:true,programmes:programmes.map(p=>({id:p.id,label:`${p.startsOn} – ${p.endsOn} · ${p.orderGid?.split('/').at(-1)??'Order unavailable'}`})),selected:selected?{id:selected.id,hasEntitlement:!!savedSixtyDayEntitlement(selected.entitlement,selected.startsOn,selected.endsOn)}:null,progress:selected?await programmeDeliveryProgress(session.shop,selected.customerGid,selected.id):null};
 }

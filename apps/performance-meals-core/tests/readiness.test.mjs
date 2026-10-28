@@ -40,6 +40,7 @@ test('production rejects ephemeral storage/tunnels/missing secrets; health respo
  assert.ok(productionConfigIssues({DATABASE_URL:'file:dev.sqlite',SHOPIFY_APP_URL:'https://example.com'}).length);
  const env={SHOPIFY_API_KEY:'fixture',SHOPIFY_API_SECRET:'fixture',DATABASE_URL:'postgresql://fixture',DIRECT_DATABASE_URL:'postgresql://fixture',SHOPIFY_APP_URL:'https://core.example.org',PERFORMANCE_MEALS_APP_URL:'https://core.example.org',ALLOWED_SHOP:'fixture.myshopify.com',SCOPES:'read_products'};
  assert.deepEqual(productionConfigIssues(env),[]);
+ assert.ok(productionConfigIssues({...env,SIXTY_DAY_BATCHES_ENABLED:'true'}).some(issue=>issue.includes('development acceptance')));
  assert.ok(productionConfigIssues({...env,WALLET_CORE_EXPIRY_ENABLED:'true'}).some(issue=>issue.includes('checkout protection')));
  assert.ok(productionConfigIssues({...env,WALLET_EXPIRY_REMINDERS_ENABLED:'true'}).some(issue=>issue.includes('provider receipts')));
  assert.ok(productionConfigIssues({...env,GIFT_CARD_EXPIRY_REMINDERS_ENABLED:'true'}).some(issue=>issue.includes('Gift Card reminders')));

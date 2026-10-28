@@ -10,7 +10,7 @@ await buildServices({entryPoints:['app/routes/app.programme-deliveries.tsx'],out
  b.onLoad({filter:/.*/,namespace:'batch-fixture'},a=>({loader:'js',contents:a.path==='auth'?`export const authenticate={admin:async()=>{const s=globalThis.batchRoute;if(!s.authorized)throw new Response(null,{status:401});return {session:{shop:s.shop,id:'authenticated-admin'},admin:{}};}};`:a.path==='db'?`export default {mealPlanSelection:{findMany:async()=>[]}};`:`export const programmeDeliveryProgress=async()=>({available:false});export const planProgrammeDeliveryBatch=async(a,v)=>globalThis.batchRoute.calls.push(v);export const changeProgrammeDeliveryBatch=planProgrammeDeliveryBatch;`}));
 }}]});
 const {loader,action}=await import('../.shopify/batch-route-test/app.programme-deliveries.js');
-process.env.ALLOWED_SHOP=shop;process.env.SIXTY_DAY_BATCHES_ENABLED='true';
+process.env.SIXTY_DAY_BATCH_QA_SELECTION_ID='programme';process.env.ALLOWED_SHOP=shop;process.env.SIXTY_DAY_BATCHES_ENABLED='true';
 const post=(changes={})=>action({request:new Request('https://core.invalid/app/programme-deliveries',{method:'POST',body:new URLSearchParams({intent:'plan',selectionId:'programme',reference:'batch-1',weekdayMeals:'4',frozenMeals:'8',...changes})})});
 test('admin authorization and correct store required for reads and writes',async()=>{
  globalThis.batchRoute.authorized=false;await assert.rejects(post(),e=>e.status===401);await assert.rejects(loader({request:new Request('https://core.invalid/app/programme-deliveries')}),e=>e.status===401);
