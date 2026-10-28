@@ -9,7 +9,7 @@ import {planReadyDeliveryReminders,planReadyDeliveryCatchUp} from './ready-serie
 export async function stageReadyDeliveryReminders(input:{shop:string;customerGid:string;operationalLineId:string;occurrence:number;deliveryAt:string;expectedRevision:number}){
  return db.$transaction(tx=>stageReadyDeliveryRemindersTx(tx,input));
 }
-export async function stageReadyDeliveryRemindersTx(tx:Prisma.TransactionClient,input:{shop:string;customerGid:string;operationalLineId:string;occurrence:number;deliveryAt:string;expectedRevision:number}){
+export async function stageReadyDeliveryRemindersTx(tx:Prisma.TransactionClient,input:{shop:string;customerGid:string;operationalLineId:string;occurrence:number;deliveryAt:string;expectedRevision:number},options:{verifiedUnsentLineIds?:ReadonlySet<string>}={}){
  const {shop,customerGid,operationalLineId,occurrence,deliveryAt,expectedRevision}=input;
  assertShop(shop);
  if(!/^gid:\/\/shopify\/Customer\/\d+$/.test(customerGid)||!operationalLineId||!Number.isSafeInteger(occurrence)||occurrence<1||occurrence>6||!Number.isSafeInteger(expectedRevision)||expectedRevision<0)throw Error('Invalid delivery draft context');
@@ -18,7 +18,7 @@ export async function stageReadyDeliveryRemindersTx(tx:Prisma.TransactionClient,
  planReadyDeliveryReminders('validation',1,deliveryAt);
  const delivery=new Date(deliveryAt);
   const line=await tx.operationalLine.findFirst({where:{id:operationalLineId,shop,customerGid,validationStatus:'VALIDATED',businessStream:'ready_series'}});
-  if(!line?.contractGid||line.fulfillmentState!=='UNASSIGNED')throw Error('Validated undispatched linked Ready Series line required');
+  if(!line?.contractGid||!(['UNASSIGNED',...(options.verifiedUnsentLineIds?.has(operationalLineId)?['DISPATCHED']:[])].includes(line.fulfillmentState)))throw Error('Validated undispatched linked Ready Series line required');
   const key={shop_operationalLineId_occurrence:{shop,operationalLineId,occurrence}};
   let draft=await tx.readyDeliveryDraft.findUnique({where:key});
   if(draft){
@@ -64,7 +64,7 @@ export async function stageReadyDeliveryRemindersTx(tx:Prisma.TransactionClient,
 export async function stageReadyDeliveryCatchUp(input:{shop:string;customerGid:string;draftId:string;expectedRevision:number;confirmedAt:string}){
  return db.$transaction(tx=>stageReadyDeliveryCatchUpTx(tx,input));
 }
-export async function stageReadyDeliveryCatchUpTx(tx:Prisma.TransactionClient,input:{shop:string;customerGid:string;draftId:string;expectedRevision:number;confirmedAt:string}){
+export async function stageReadyDeliveryCatchUpTx(tx:Prisma.TransactionClient,input:{shop:string;customerGid:string;draftId:string;expectedRevision:number;confirmedAt:string},options:{verifiedUnsentLineIds?:ReadonlySet<string>}={}){
  const {shop,customerGid,draftId,expectedRevision,confirmedAt}=input;
  assertShop(shop);
  if(!/^gid:\/\/shopify\/Customer\/\d+$/.test(customerGid)||!draftId||!Number.isSafeInteger(expectedRevision)||expectedRevision<1)throw Error('Invalid catch-up context');
@@ -74,7 +74,7 @@ export async function stageReadyDeliveryCatchUpTx(tx:Prisma.TransactionClient,in
   // Lock before reading reminder rows; revision CAS prevents stale insertion.
   const locked=await tx.readyDeliveryDraft.updateMany({where:{id:draft.id,shop,customerGid,state:'DRAFT',revision:expectedRevision},data:{updatedAt:new Date()}});
   if(locked.count!==1)throw Error('Delivery draft changed; reload');
-  const line=await tx.operationalLine.findFirst({where:{id:draft.operationalLineId,shop,customerGid,validationStatus:'VALIDATED',businessStream:'ready_series',fulfillmentState:'UNASSIGNED'}});
+  const line=await tx.operationalLine.findFirst({where:{id:draft.operationalLineId,shop,customerGid,validationStatus:'VALIDATED',businessStream:'ready_series',fulfillmentState:{in:options.verifiedUnsentLineIds?.has(draft.operationalLineId)?['UNASSIGNED','DISPATCHED']:['UNASSIGNED']}}});
   if(!line?.contractGid)throw Error('Validated undispatched linked Ready Series line required');
   const original=planReadyDeliveryReminders(draft.id,draft.revision,draft.deliveryAt.toISOString());
   const planned=planReadyDeliveryCatchUp(draft.id,draft.revision,draft.deliveryAt.toISOString(),confirmedAt);

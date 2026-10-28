@@ -1,4 +1,5 @@
 import db from '../db.server';
+import type {Prisma} from '@prisma/client';
 import {assertShop} from './security.server';
 import {planReadyDeliveryVisit} from './ready-delivery-visit';
 import {reserveReadyDeliveryVisitTx} from './ready-delivery-visit.server';
@@ -13,12 +14,15 @@ const identity=(v:unknown)=>typeof v==='string'&&/^[A-Za-z0-9_-]{1,128}$/.test(v
 // A future caller must authenticate ownership, supply merchant notice policy,
 // and verify current native dispatch/destination before confirming any booking.
 export async function rescheduleReadyDeliveryVisit(input:Input,options:{now?:Date}={}){
+ return db.$transaction(tx=>rescheduleReadyDeliveryVisitTx(tx,input,options.now??new Date()),{timeout:30000});
+}
+export async function rescheduleReadyDeliveryVisitTx(tx:Prisma.TransactionClient,input:Input,now:Date,verifiedUnsentLineIds:ReadonlySet<string>=new Set()){
  const {shop,customerGid,visitId,replacementSlotId,replacementSlotRevision,noticeHours}=input;
  assertShop(shop);
  if(process.env.NODE_ENV==='production'||process.env.READY_DELIVERY_CAPACITY_ENABLED!=='true')throw Error('Delivery capacity management is not activated');
- const now=options.now??new Date();
+
  if(!/^gid:\/\/shopify\/Customer\/\d+$/.test(customerGid)||!identity(visitId)||!identity(replacementSlotId)||!Number.isSafeInteger(replacementSlotRevision)||replacementSlotRevision<1||!Number.isSafeInteger(noticeHours)||noticeHours<1||noticeHours>8760||!Number.isFinite(now.getTime()))throw Error('Owned visit, merchant notice policy and replacement revision required');
- return db.$transaction(async tx=>{
+
   const initial=await tx.readyDeliveryVisit.findFirst({where:{id:visitId,shop,customerGid}});
   if(!initial||initial.slotId===replacementSlotId)throw Error('Distinct owned replacement slot required');
   // All slot locks precede draft locks, in a stable order for crossing moves.
@@ -42,7 +46,7 @@ export async function rescheduleReadyDeliveryVisit(input:Input,options:{now?:Dat
    // release cannot be turned into a new booking by replaying this operation.
    const nextMembers=await tx.readyDeliveryVisitMember.findMany({where:{shop,OR:replacement.members.map(m=>({deliveryDraftId:m.draftId,deliveryRevision:m.revision}))}});
    if(nextMembers.length!==plan.members.length||new Set(nextMembers.map(m=>m.visitId)).size!==1||nextMembers.some(m=>m.state!=='RESERVED'||m.customerGid!==customerGid)||originalMembers.some(m=>m.state!=='RELEASED'))throw Error('No matching completed replacement; reconciliation required');
-   const replay=await reserveReadyDeliveryVisitTx(tx,replacement,now);
+   const replay=await reserveReadyDeliveryVisitTx(tx,replacement,now,verifiedUnsentLineIds);
    if(replay.created)throw Error('Replacement replay must not create a visit');
    return {...replay,rescheduledFrom:old.id,replayed:true};
   }
@@ -50,9 +54,8 @@ export async function rescheduleReadyDeliveryVisit(input:Input,options:{now?:Dat
   const notice=reviewDeliveryChangeNotice(now.toISOString(),plan.deliveryAt,replacement.deliveryAt,noticeHours);
   if(!notice.selfServiceNoticeMet)throw Error('Contact Support: both deliveries require the configured notice');
   await releaseReadyDeliveryCapacityTx(tx,{shop,customerGid,reservationId:old.reservationId});
-  for(const m of plan.members)await stageReadyDeliveryRemindersTx(tx,{shop,customerGid,operationalLineId:m.operationalLineId,occurrence:m.occurrence,deliveryAt:replacement.deliveryAt,expectedRevision:m.revision});
-  const result=await reserveReadyDeliveryVisitTx(tx,replacement,now);
+  for(const m of plan.members)await stageReadyDeliveryRemindersTx(tx,{shop,customerGid,operationalLineId:m.operationalLineId,occurrence:m.occurrence,deliveryAt:replacement.deliveryAt,expectedRevision:m.revision},{verifiedUnsentLineIds});
+  const result=await reserveReadyDeliveryVisitTx(tx,replacement,now,verifiedUnsentLineIds);
   if(!result.created)throw Error('Replacement visit already exists; reconciliation required');
   return {...result,rescheduledFrom:old.id,replayed:false};
- },{timeout:30000});
 }

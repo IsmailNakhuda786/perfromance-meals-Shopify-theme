@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "71427e2a23afc69c4d867432b6d00b3b5114b301",
+  "source_commit": "1345d38cee5f588891837fcd4ca47857e590dedd",
   "snapshot_includes_uncommitted_work": false,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -155,6 +155,11 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/app/data/singapore-public-holidays.json",
+      "sha256": "16fd6c52fb5a62f5dc3c9e2cb81aa1ee89856747801acffa0a048e66a0d104fa",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/app/db.server.ts",
       "sha256": "f7ea3e426cf0d513292edfd429f336f7d8c77582ee84b72a9dd6aa5810b6fbad",
       "sanitized": false
@@ -186,7 +191,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/routes/api.account.tsx",
-      "sha256": "501a634fd351cb1207798d74c2bd1ba8f647a64619054989916361c5eb198e8b",
+      "sha256": "8520d36f7098dffa00c99c2210287597f678c71ddbdd8f62afa7f14ab73b0840",
       "sanitized": false
     },
     {
@@ -205,6 +210,11 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/app/routes/api.ready-deliveries.tsx",
+      "sha256": "94aa3a8213f39a5464f68661fd08d238c04317dc88600c8b94be325de70fd5fb",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/app/routes/api.rewards-redeem.tsx",
       "sha256": "a12811f2669a403fd458880545e8b339041ddb3c4ac5fae68a7b55165ac30a8f",
       "sanitized": false
@@ -216,12 +226,17 @@
     },
     {
       "path": "apps/performance-meals-core/app/routes/app._index.tsx",
-      "sha256": "f28f41542fdeaf85f291a4c9045433c113c8b5f653b2d123705e3b5c64d8e307",
+      "sha256": "1dc382187610503622c6628fa6f8d659a1dd7a384f0523603727af5a0d3aa2ec",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/routes/app.programme-deliveries.tsx",
       "sha256": "06792003dbe990afcb4efb5a52007d212e5719ab06cf373fac516641efb93469",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/routes/app.ready-deliveries.tsx",
+      "sha256": "aa4d60e0fcb8da9fd9809a6cc0bc646940654ee50abbc11d37eda29361900cc4",
       "sanitized": false
     },
     {
@@ -531,7 +546,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/prepaid-schedule.server.ts",
-      "sha256": "a21b26d3df46f804261756defd79874e797c3e9b73975a4750c54b0cca16059d",
+      "sha256": "10cea05f1e78afa2b8375985fedbbd679208c07a7267bd4b87f4cf33b8e539d2",
       "sanitized": false
     },
     {
@@ -546,7 +561,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/privacy.server.ts",
-      "sha256": "ffa0a5514c56153e8e5892deeb8d19a373fc23713735e77212f5e601dbbeadd3",
+      "sha256": "fa2d4f5baca908f9368c3a5ec6226607f8af8ddfc64b2ae61932efd205830aaa",
       "sanitized": false
     },
     {
@@ -565,6 +580,31 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/app/services/ready-booking-calendar.server.ts",
+      "sha256": "aee7e3915694adab9f6ff9ffcbfafd539c3ef649fe60f6d0d1f7702af4408d1f",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/ready-booking-native.server.ts",
+      "sha256": "90645948d9706de48458c73031c30e8a802e3a8a2a2102f117f7a4bc674cfed5",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/ready-booking-policy.server.ts",
+      "sha256": "845942cd208fbe8e4bf9aaccb0b0aacf01fb98c04994eb05e37a4dc4ceb84471",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/ready-booking-read.server.ts",
+      "sha256": "deebcfef72a1cc3bae4e15b57e3b07159d74b4a0c1d127427f6469556b5bfe89",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/ready-customer-booking.server.ts",
+      "sha256": "91a5f2bbf574892fb6a0958fda0dfc9b2164dabace6abc4d8a34acda6a1d3853",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/app/services/ready-delivery-capacity.server.ts",
       "sha256": "5777afd82e6dc462c9cfe332bff5af56cb5a65c1faa217347a54ab7602585711",
       "sanitized": false
@@ -576,7 +616,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/ready-delivery-draft.server.ts",
-      "sha256": "cdf257f8b22b21023f9bc7dc218e8abe42b9d6f944c4e5cf62cd797f19fc6efc",
+      "sha256": "3e5f351cecef8610ac41299af2a6cacb244fa92077e70f5bf1b382a50aa1af55",
       "sanitized": false
     },
     {
@@ -596,7 +636,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/ready-delivery-reschedule.server.ts",
-      "sha256": "365f660add55eb1fc169683affd7df7a012ab86ed1f9a636abed8994e1fd2b0a",
+      "sha256": "b228aa8ca48f4c99ec117fe121aae089cf8e009f4c1144da87f1933555e7941b",
       "sanitized": false
     },
     {
@@ -606,7 +646,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/ready-delivery-visit.server.ts",
-      "sha256": "40fb9868a434f4a16ed21aff98a0e4e3f76f01ef20537e10e03aa3600866aef5",
+      "sha256": "f3b40cf29d93cd6dea8b04823d5fb8e3480770e2b7a4283950a026cd31045b16",
       "sanitized": false
     },
     {
@@ -946,7 +986,17 @@
     },
     {
       "path": "apps/performance-meals-core/extensions/performance-meals-account/src/OrderStatusBlock.jsx",
-      "sha256": "daa000ed7fba2b368013427db2d68cd22666978f47c941ca3d87070495959ecb",
+      "sha256": "f357d109ad2f703666dd45f03d53c0a3891a4191aee428c3d5ff477a20e2e44d",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/extensions/performance-meals-account/src/ReadyDeliveries.jsx",
+      "sha256": "fe0cda6761a509d74db2f56929aca31dd090c2eb936ba37399932b873225d3cb",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/extensions/performance-meals-account/src/ready-booking-client.js",
+      "sha256": "251f691cd6f3f2f311dec24f95445cb82ade5c820fab4745621c5ff4ea63fc8a",
       "sanitized": false
     },
     {
@@ -1140,6 +1190,11 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/prisma/migrations/20261028120000_ready_delivery_bookings/migration.sql",
+      "sha256": "7ebd1d704edce85426856dece6b57bc7a5e0047edfd8f038bd1d8093b9476b4a",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/prisma/migrations/migration_lock.toml",
       "sha256": "3389dbaf2a3cf4b413275867ac6f550b27f79efe85ee9c12082cdd8c5b8239c4",
       "sanitized": false
@@ -1295,18 +1350,23 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/prisma/production/migrations/20261028120000_ready_delivery_bookings/migration.sql",
+      "sha256": "c43d3409f9291ea5d82589aa310ffc419bf5ea01e8c499d2a51fec3d5ca5d429",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/prisma/production/migrations/migration_lock.toml",
       "sha256": "1db17a8d051aa136110736752c5e1f8b7ed92b6ea8e803112fbbe2497047c210",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/prisma/production/schema.prisma",
-      "sha256": "9c7f76b912b495cf5348dc0c8ef50a772aecfc2fce6290f9ab51e7f99cb8b687",
+      "sha256": "518ddad5747aa4a5ceca72cd67e18b3de68445fba96eb281a412f5e3dc6a72fc",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/prisma/schema.prisma",
-      "sha256": "64f077843a40cf0484435bae3bb09a9dcdcf7a6deb1a5cb274ddb20013ca6e9f",
+      "sha256": "a0ae9c55033fb83e1dda864ee0da58c4d944eae21f47c13b076aca9e4f53c7c1",
       "sanitized": false
     },
     {
@@ -1326,7 +1386,7 @@
     },
     {
       "path": "apps/performance-meals-core/scripts/operational-snapshot.mjs",
-      "sha256": "1333a298e5d8e1ddd3cc5145acbe616cc9b896a0420152a21c5ca5475219c080",
+      "sha256": "819147fb448bcbe73358801f3c1c30cfbbadec6c4b404af42600b5ebb9e93ffa",
       "sanitized": false
     },
     {
@@ -1506,7 +1566,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/operational-snapshot.test.mjs",
-      "sha256": "f0ebca78f5c65b32052882315731f8245e99a362d3c9a231b62c86f8a856ed02",
+      "sha256": "259623c455ca793cf7f9a0d680ad084453d66c3121b54c63753cb0641ce91e28",
       "sanitized": false
     },
     {
@@ -1652,6 +1712,26 @@
     {
       "path": "apps/performance-meals-core/tests/readiness.test.mjs",
       "sha256": "719bddba03b7d881741e4537f097ba289b119b0f2b1fcb4d859cd9ab8486df48",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/ready-booking-client.test.mjs",
+      "sha256": "71abc51e764d34862c4b700ce8171376ad34393983d52cd497fb5d4686ad7be7",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/ready-booking-native.test.mjs",
+      "sha256": "e023d1a5d6c792578ef121d82bdff1782c0e2ff5d85c8493e46b778eee6664d8",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/ready-customer-booking.test.mjs",
+      "sha256": "2000df446e7c5cf53764a4812fd47625a6b4ee5c930a0a1534568b1d4f89c9c7",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/ready-deliveries-route.test.mjs",
+      "sha256": "8d76290b49d7022353d03ac0789069001f8671215d4bce02a0bc752682099721",
       "sanitized": false
     },
     {
@@ -2495,6 +2575,11 @@
       "sanitized": false
     },
     {
+      "path": "docs/CONSOLIDATED-DEVELOPMENT-DIRECTIVE-20261028.md",
+      "sha256": "d0835b52e09e0cc2b0e7ee02ba81b4d360647f2fa53fce28a8768158059fc65b",
+      "sanitized": false
+    },
+    {
       "path": "docs/CORE-ACCOUNT-STARTUP-20261021.md",
       "sha256": "9709f8f27f247493c657ef158b50fbe45a7a515a158fc188d3edca94d7a78aa9",
       "sanitized": false
@@ -2598,6 +2683,11 @@
       "path": "docs/CUSTOMER-CORE-COMPLETION-TRACKER.md",
       "sha256": "20e16999e8937ba23aabe0e622ee95544501fc82ddbf89cad0a4f609cfd281b9",
       "sanitized": true
+    },
+    {
+      "path": "docs/CUSTOMER-DELIVERY-BOOKING-20261028.md",
+      "sha256": "b049842418908fcd2850eb70dfeb97d5953ed640eb2bfa289541ff83a6d0c99a",
+      "sanitized": false
     },
     {
       "path": "docs/CUSTOMER-FLOW-AUDIT.md",

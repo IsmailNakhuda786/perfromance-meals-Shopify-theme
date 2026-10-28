@@ -2,6 +2,7 @@ import '@shopify/ui-extensions/preact';
 import {render} from 'preact';
 import {useEffect, useState, useRef} from 'preact/hooks';
 import {createRenewalStopClient} from './renewal-stop-client';
+import {ReadyDeliveries} from './ReadyDeliveries';
 import {APP_URL} from './app-endpoint.generated';
 
 const SECTIONS = ['Dashboard', 'My Plan', 'Order History', 'Wallet', 'Rewards', 'Gift Cards', 'Settings'];
@@ -57,7 +58,7 @@ function Account() {
         </s-grid>
       </s-section>}
       {section === 'My Plan' && <s-section heading="My Plan">
-        <s-section heading="Ready Series">{renderSubscriptions(account,'ready_series',()=>setRefresh(value=>value+1))}</s-section>
+        <s-section heading="Ready Series">{account?.readyDeliveriesAvailable&&<ReadyDeliveries/>}{renderSubscriptions(account,'ready_series',()=>setRefresh(value=>value+1))}</s-section>
         <s-section heading="Meal Plan">{renderSubscriptions(account,'meal_plan',()=>setRefresh(value=>value+1))}{renderPlans(account)}</s-section>
       </s-section>}
       {section === 'Order History' && <s-section heading="Order History"><s-paragraph>Your Ready Series, Meal Plan and Gift Card purchases remain together in your Shopify order history.</s-paragraph><s-link href="shopify:customer-account/orders">View all orders</s-link><OrderCancellations data={account?.cancellations} onUpdated={() => setRefresh(value => value + 1)}/></s-section>}

@@ -640,3 +640,42 @@ model PrepaidPurchaseInbox {
  @@index([shop, customerGid])
  @@index([shop, state, createdAt, id])
 }
+
+// Core's physical delivery calendar is separate from native fulfilment work dates.
+model ReadyDeliveryPolicy {
+ shop String @id
+ noticeHours Int
+ holidayCalendar String
+ revision Int @default(1)
+ createdAt DateTime @default(now())
+ updatedAt DateTime @updatedAt
+}
+model ReadyDeliveryBooking {
+ id String @id
+ shop String
+ customerGid String
+ sourceKey String
+ orderGid String
+ visitId String? @unique
+ nativeProof String
+ nativeHash String
+ state String @default("PREPARING")
+ revision Int @default(1)
+ createdAt DateTime @default(now())
+ updatedAt DateTime @updatedAt
+ @@unique([shop, sourceKey])
+ @@index([shop, customerGid, orderGid])
+ @@index([shop, customerGid, state])
+}
+model ReadyDeliveryBookingRequest {
+ id String @id @default(uuid())
+ shop String
+ customerGid String
+ requestKey String
+ inputHash String
+ bookingId String
+ result String
+ createdAt DateTime @default(now())
+ @@unique([shop, customerGid, requestKey], map:"ReadyBookingRequest_owner_request_key")
+ @@index([shop, bookingId])
+}

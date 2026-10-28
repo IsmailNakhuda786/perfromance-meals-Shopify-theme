@@ -1,3 +1,4 @@
+import {readyBookingReadable} from '../services/ready-booking-read.server';
 import {customerProgrammeDeliveryProgress} from '../services/programme-deliveries.server';
 import type {LoaderFunctionArgs} from 'react-router';
 import {authenticate,unauthenticated} from '../shopify.server';
@@ -68,7 +69,7 @@ export async function loader({request}:LoaderFunctionArgs){
  const menuWindows=[...plans.map(p=>JSON.parse(p.selections)),...revisions.map(r=>JSON.parse(r.selections))].flat();
  if(admin) {try {mealNames=await accountMealNames(admin,menuWindows.flatMap(w=>w.meals.map((m:{productGid:string})=>m.productGid)));}catch { /* Native names are never replaced with invented labels. */ }}
  const withMealNames=(windows:Array<{meals:Array<{productGid:string;quantity:number}>}>)=>windows.map(window=>({...window,meals:window.meals.map(meal=>({...meal,name:mealNames.get(meal.productGid)}))}));
- return cors(Response.json({subscriptions,subscriptionHistoryPending,nativeWallet,walletHistoryPending,walletCreditPending,wallets,walletLedger,rewards,cancellations,reconciliationPending,walletEnabled:policy?.walletEnabled||false,giftCardClaimsEnabled:policy?.giftCardClaimsEnabled||false,rewardsEnabled,plans:plans.map(p=>({id:p.id,status:p.status,startsOn:p.startsOn,endsOn:p.endsOn,entitlement:savedSixtyDayEntitlement(p.entitlement,p.startsOn,p.endsOn),deliveryProgress:deliveryProgress.get(p.id),orderGid:p.orderGid,contractGid:p.contractGid,reviewedAt:p.reviewedAt,...names.get(p.variantGid),selections:JSON.parse(p.selections),menus:p.startsOn&&p.status==='ORDERED'?[0,1,2].map(block=>{
+ return cors(Response.json({readyDeliveriesAvailable:readyBookingReadable(shop,customerGid),subscriptions,subscriptionHistoryPending,nativeWallet,walletHistoryPending,walletCreditPending,wallets,walletLedger,rewards,cancellations,reconciliationPending,walletEnabled:policy?.walletEnabled||false,giftCardClaimsEnabled:policy?.giftCardClaimsEnabled||false,rewardsEnabled,plans:plans.map(p=>({id:p.id,status:p.status,startsOn:p.startsOn,endsOn:p.endsOn,entitlement:savedSixtyDayEntitlement(p.entitlement,p.startsOn,p.endsOn),deliveryProgress:deliveryProgress.get(p.id),orderGid:p.orderGid,contractGid:p.contractGid,reviewedAt:p.reviewedAt,...names.get(p.variantGid),selections:JSON.parse(p.selections),menus:p.startsOn&&p.status==='ORDERED'?[0,1,2].map(block=>{
   const saved=revisions.find(r=>r.selectionId===p.id&&r.block===block);
   const period=programmeMenuBlock(p.startsOn!,block);
   return {...period,block,state:saved?'SAVED':block===0?'SAVED':'NOT_SELECTED',selections:withMealNames(saved?JSON.parse(saved.selections):block===0?JSON.parse(p.selections):[]),url:`https://${shop}/pages/meal-plan-builder?selection=${encodeURIComponent(p.id)}&block=${block}`};

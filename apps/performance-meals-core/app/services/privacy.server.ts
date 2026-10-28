@@ -56,10 +56,10 @@ export const privacyCustomerModels=[
  'walletEntry','walletReservation','orderCancellation','rewardsAccount',
  'rewardsEntry','giftCardWalletClaim','walletTopUpSettlement','walletTopUpIntent',
  'mealPlanMenuRevision','rewardRedemption','orderSupportRequest','walletCreditExpiry',
- 'giftCardExpiryReminder','readyDeliveryDraft','readyDeliveryReminder','readyDeliverySlotReservation','readyDeliveryVisit','readyDeliveryVisitMember','bundlePurchaseReview','coreWalletRedemptionDraft','subscriptionRenewalStop','prepaidPurchaseEvidence','prepaidRenewalEvidence','prepaidRenewalInbox','prepaidPricingApproval','prepaidPurchaseInbox',
+ 'readyDeliveryBooking','readyDeliveryBookingRequest','giftCardExpiryReminder','readyDeliveryDraft','readyDeliveryReminder','readyDeliverySlotReservation','readyDeliveryVisit','readyDeliveryVisitMember','bundlePurchaseReview','coreWalletRedemptionDraft','subscriptionRenewalStop','prepaidPurchaseEvidence','prepaidRenewalEvidence','prepaidRenewalInbox','prepaidPricingApproval','prepaidPurchaseInbox',
 ] as const;
 export const privacyShopOnlyModels=[
- 'session','webhookReceipt','commercePolicy','rewardRuleVersion','rewardRuleActivation','readyDeliverySlot',
+ 'session','webhookReceipt','commercePolicy','rewardRuleVersion','rewardRuleActivation','readyDeliverySlot','readyDeliveryPolicy',
 ] as const;
 export const privacyIndirectModels=['planOperation','migrationMapping'] as const;
 

@@ -16,7 +16,7 @@ export async function reserveReadyDeliveryVisit(input:Input,options:{now?:Date}=
  if(!Number.isFinite(now.getTime()))throw Error('Valid reservation time required');
  return db.$transaction(tx=>reserveReadyDeliveryVisitTx(tx,input,now),{timeout:30000});
 }
-export async function reserveReadyDeliveryVisitTx(tx:Prisma.TransactionClient,input:Input,now:Date){
+export async function reserveReadyDeliveryVisitTx(tx:Prisma.TransactionClient,input:Input,now:Date,verifiedUnsentLineIds:ReadonlySet<string>=new Set()){
  assertShop(input.shop);
  if(process.env.NODE_ENV==='production'||process.env.READY_DELIVERY_CAPACITY_ENABLED!=='true')throw Error('Delivery capacity management is not activated');
  if(!Number.isFinite(now.getTime()))throw Error('Valid reservation time required');
@@ -34,7 +34,7 @@ export async function reserveReadyDeliveryVisitTx(tx:Prisma.TransactionClient,in
    if(locked.count!==1)throw Error('Delivery draft changed; reload');
    const draft=await tx.readyDeliveryDraft.findUniqueOrThrow({where:{id:member.draftId}});
    if(draft.operationalLineId!==member.operationalLineId||draft.occurrence!==member.occurrence||draft.deliveryAt.toISOString()!==plan.deliveryAt)throw Error('Visit member differs from delivery draft');
-   const line=await tx.operationalLine.findFirst({where:{id:member.operationalLineId,shop,customerGid,orderGid:plan.orderGid,businessStream:'ready_series',validationStatus:'VALIDATED',fulfillmentState:'UNASSIGNED'}});
+   const line=await tx.operationalLine.findFirst({where:{id:member.operationalLineId,shop,customerGid,orderGid:plan.orderGid,businessStream:'ready_series',validationStatus:'VALIDATED',fulfillmentState:{in:verifiedUnsentLineIds.has(member.operationalLineId)?['UNASSIGNED','DISPATCHED']:['UNASSIGNED']}}});
    if(!line?.contractGid)throw Error('Validated undispatched paid delivery binding required');
    const paid=await readReadyDeliveryEntitlement(tx,shop,customerGid,line);
    if(member.occurrence>paid.months||member.packages!==paid.packages)throw Error('Visit exceeds its purchased entitlement');
