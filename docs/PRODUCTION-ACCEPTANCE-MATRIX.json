@@ -10,7 +10,7 @@
     "BLOCKED": "A required platform capability, authorization or external dependency prevents completion."
   },
   "baseline": {
-    "coreTests": 606,
+    "coreTests": 612,
     "nativeReadback": "Latest mixed QA verified #1031/#1032/#1033 with provider inbox intake and explicit Core replay; future renewals stopped. Eleven earlier paid orders/45 fulfilments and nine financial-model snapshots preserved. QA product, discounts, shipping profile, GST and temporary callback settings restored.",
     "checkoutPricing": "Exact charged initial and simulated renewal GST-inclusive pricing passed for single terms, two identical 3-delivery packages (SGD510.40/GST42.14) and mixed 3-/6-delivery packages (initial SGD748.80/GST61.83; renewals SGD255.20/GST21.07 and SGD493.60/GST40.76). Delivery was included. General production correction provisioning and permanent lifecycle acceptance remain incomplete.",
     "topUpsEnabled": false,
@@ -293,6 +293,19 @@
       "duplicateRequestsStable": true,
       "nativeAdminAndCustomerDisplayPassed": true,
       "protectedModelsRestored": 37,
+      "financialMutations": 0
+    },
+    "atomicReschedule": {
+      "localPassed": 612,
+      "localSkipped": 1,
+      "postgresFocusedPassed": 18,
+      "nativeLinkedOrder": "#1031",
+      "packages": 2,
+      "capacityPlaces": 1,
+      "failedMovePreservesOriginal": true,
+      "replayStable": true,
+      "protectedModelsRestored": 37,
+      "bookingConfirmed": false,
       "financialMutations": 0
     }
   },
@@ -746,7 +759,7 @@
       "id": 13,
       "requirement": "Fulfilment, pause, reschedule and future-renewal management",
       "status": "PARTIAL",
-      "implemented": "Authenticated future-renewal stop with durable intent/replay guards; pure delivery-change notice/slot planner and inactive reminder persistence. Registered immutable corrected purchases now prepare inactive quantity-aware delivery drafts with native payment/schedule rechecks and transactional checksum binding; legacy replay remains compatible. Merchant-configured per-slot delivery limits, atomic internal capacity reservations/releases, revision protection and authenticated Core slot-management forms are implemented default-off. Read-only exact native destination proof and completed-stop paid-term preparation; neither activates booking.",
+      "implemented": "Authenticated future-renewal stop with durable intent/replay guards; pure delivery-change notice/slot planner and inactive reminder persistence. Registered immutable corrected purchases now prepare inactive quantity-aware delivery drafts with native payment/schedule rechecks and transactional checksum binding; legacy replay remains compatible. Merchant-configured per-slot delivery limits, atomic internal capacity reservations/releases, revision protection and authenticated Core slot-management forms are implemented default-off. Read-only exact native destination proof and completed-stop paid-term preparation; neither activates booking. Atomic provisional combined-visit rescheduling now moves capacity, member revisions and reminder history together with rollback and exact replay protection.",
       "automatedTests": {
         "state": "PASSED_BASELINE",
         "files": [
@@ -760,7 +773,7 @@
           "apps/performance-meals-core/tests/ready-delivery-slots-route.test.mjs"
         ]
       },
-      "shopifyIntegration": "Ready Series customer stop verified: native contract cancelled, one completed audit, three paid fulfilments/order unchanged and nine financial models unchanged. Same/new-key service replays attempted no second mutation. Two-package test contract cancellation preserved initial and renewal delivery allocations: six records quantity 2 each; all 18 earlier records also unchanged. 26 October: mixed per-package initial #1031 SGD748.80 incl GST61.83 and renewals #1032 SGD255.20/GST21.07 and #1033 SGD493.60/GST40.76 passed. Actual provider intake and explicit worker replay passed; both future billing agreements stopped, eleven earlier paid orders/45 fulfilments and nine financial models preserved; QA configuration restored. Actual embedded development admin create/edit/close of a disposable slot passed, with independent Singapore-time/limit database readback; record removed and flags restored off. 27 October read-only destination checks: nine fulfilment records across existing orders#1029/#1031; no native mutations and11 protected data groups unchanged.",
+      "shopifyIntegration": "Ready Series customer stop verified: native contract cancelled, one completed audit, three paid fulfilments/order unchanged and nine financial models unchanged. Same/new-key service replays attempted no second mutation. Two-package test contract cancellation preserved initial and renewal delivery allocations: six records quantity 2 each; all 18 earlier records also unchanged. 26 October: mixed per-package initial #1031 SGD748.80 incl GST61.83 and renewals #1032 SGD255.20/GST21.07 and #1033 SGD493.60/GST40.76 passed. Actual provider intake and explicit worker replay passed; both future billing agreements stopped, eleven earlier paid orders/45 fulfilments and nine financial models preserved; QA configuration restored. Actual embedded development admin create/edit/close of a disposable slot passed, with independent Singapore-time/limit database readback; record removed and flags restored off. 27 October read-only destination checks: nine fulfilment records across existing orders#1029/#1031; no native mutations and11 protected data groups unchanged. 28October: native-linked provisional Core move on paid Order#1031 passed shared-destination/dispatch read proof, failed-move preservation, grouped capacity and replay. All37 Core/native order fingerprints restored; no actual booking or native date mutation.",
       "customerJourney": "Future-renewal stop passed in isolated Ready Series journey. Customer delivery pause/reschedule and Meal Plan management incomplete.",
       "outstandingIssues": [
         "Internal capacity storage and merchant admin forms are verified; authoritative mapping to native physical deliveries and authenticated customer reschedule execution remain incomplete.",
@@ -777,10 +790,11 @@
         "docs/PREPAID-MIXED-PER-PACKAGE-GST-QA-20261026.md",
         "docs/READY-DELIVERY-CAPACITY-QA-20261026.md",
         "STOPPED-RENEWAL-PAID-DELIVERIES-QA-20261027.md",
-        "READY-DELIVERY-DESTINATION-QA-20261027.md"
+        "READY-DELIVERY-DESTINATION-QA-20261027.md",
+        "docs/READY-DELIVERY-ATOMIC-RESCHEDULE-20261028.md"
       ],
       "remainingEngineering": [
-        "Implement authoritative capacity/reschedule executor and native preservation proof; verify Meal Plan management without pausing billing inadvertently."
+        "Bind the tested provisional transaction to an authenticated customer command, authoritative merchant notice policy, fresh native dispatch/destination and actual physical occurrence; complete customer/native booking acceptance before activation. Meal Plan management remains separate from billing."
       ],
       "assessmentStatus": "PARTIAL",
       "assessmentScope": "FUNCTIONAL"

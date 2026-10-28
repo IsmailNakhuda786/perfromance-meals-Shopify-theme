@@ -1,4 +1,5 @@
 import db from '../db.server';
+import type {Prisma} from '@prisma/client';
 import {assertShop} from './security.server';
 import {planReadyDeliveryVisit} from './ready-delivery-visit';
 import {readReadyDeliveryEntitlement} from './ready-delivery-entitlement.server';
@@ -10,10 +11,16 @@ type Input=Parameters<typeof planReadyDeliveryVisit>[0];
 export async function reserveReadyDeliveryVisit(input:Input,options:{now?:Date}={}){
  assertShop(input.shop);
  if(process.env.NODE_ENV==='production'||process.env.READY_DELIVERY_CAPACITY_ENABLED!=='true')throw Error('Delivery capacity management is not activated');
- const plan=planReadyDeliveryVisit(input),{shop,customerGid,slotId}=plan,now=options.now??new Date();
+ planReadyDeliveryVisit(input);
+ const now=options.now??new Date();
  if(!Number.isFinite(now.getTime()))throw Error('Valid reservation time required');
- const serialized=JSON.stringify(plan);
- return db.$transaction(async tx=>{
+ return db.$transaction(tx=>reserveReadyDeliveryVisitTx(tx,input,now),{timeout:30000});
+}
+export async function reserveReadyDeliveryVisitTx(tx:Prisma.TransactionClient,input:Input,now:Date){
+ assertShop(input.shop);
+ if(process.env.NODE_ENV==='production'||process.env.READY_DELIVERY_CAPACITY_ENABLED!=='true')throw Error('Delivery capacity management is not activated');
+ if(!Number.isFinite(now.getTime()))throw Error('Valid reservation time required');
+ const plan=planReadyDeliveryVisit(input),{shop,customerGid,slotId}=plan,serialized=JSON.stringify(plan);
   const lock=await tx.readyDeliverySlot.updateMany({where:{id:slotId,shop},data:{updatedAt:new Date()}});
   if(lock.count!==1)throw Error('Delivery slot unavailable');
   const slot=await tx.readyDeliverySlot.findFirstOrThrow({where:{id:slotId,shop}});
@@ -52,5 +59,4 @@ export async function reserveReadyDeliveryVisit(input:Input,options:{now?:Date}=
   const visit=await tx.readyDeliveryVisit.create({data:{shop,customerGid,orderGid:plan.orderGid,destinationKey:plan.destinationKey,slotId,reservationId:reservation.id,plan:serialized,packageCount:plan.packageCount}});
   for(const member of plan.members)await tx.readyDeliveryVisitMember.create({data:{shop,customerGid,visitId:visit.id,deliveryDraftId:member.draftId,deliveryRevision:member.revision}});
   return {visit,reservation,created:true,bookingConfirmed:false as const};
- },{timeout:30000});
 }

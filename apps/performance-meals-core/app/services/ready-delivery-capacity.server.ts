@@ -92,11 +92,15 @@ export async function reserveReadyDeliveryCapacity(input:Reserve,options:{now?:D
  },{timeout:30000});
 }
 
-export async function releaseReadyDeliveryCapacity(input:{shop:string;customerGid:string;reservationId:string}){
+type ReleaseInput={shop:string;customerGid:string;reservationId:string};
+export async function releaseReadyDeliveryCapacity(input:ReleaseInput){
+ scope(input.shop);
+ return db.$transaction(tx=>releaseReadyDeliveryCapacityTx(tx,input),{timeout:30000});
+}
+export async function releaseReadyDeliveryCapacityTx(tx:Tx,input:ReleaseInput){
  scope(input.shop);
  const {shop,customerGid,reservationId}=input;
  if(!identity(reservationId)||!/^gid:\/\/shopify\/Customer\/\d+$/.test(customerGid))throw Error('Owned delivery reservation required');
- return db.$transaction(async tx=>{
   const old=await tx.readyDeliverySlotReservation.findFirst({where:{id:reservationId,shop,customerGid}});
   if(!old)throw Error('Owned delivery reservation unavailable');
   const slot=await lockSlot(tx,shop,old.slotId),current=await tx.readyDeliverySlotReservation.findUniqueOrThrow({where:{id:old.id}});
@@ -117,5 +121,4 @@ export async function releaseReadyDeliveryCapacity(input:{shop:string;customerGi
   if(changed.count!==1)throw Error('Delivery reservation changed; reload');
   await tx.readyDeliverySlot.update({where:{id:slot.id},data:{reserved:{decrement:1}}});
   return {released:true,replayed:false};
- },{timeout:30000});
 }

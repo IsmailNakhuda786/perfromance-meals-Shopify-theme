@@ -2,10 +2,11 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {randomUUID,createHash} from 'node:crypto';
 import {PrismaClient,buildServices} from './support/database.mjs';
-await buildServices({entryPoints:['app/services/ready-delivery-visit.server.ts','app/services/ready-delivery-capacity.server.ts','app/services/ready-delivery-draft.server.ts'],outdir:'.shopify/visit-reservation-test',bundle:true,packages:'external',format:'esm',platform:'node'});
+await buildServices({entryPoints:['app/services/ready-delivery-visit.server.ts','app/services/ready-delivery-capacity.server.ts','app/services/ready-delivery-draft.server.ts','app/services/ready-delivery-reschedule.server.ts'],outdir:'.shopify/visit-reservation-test',bundle:true,packages:'external',format:'esm',platform:'node'});
 const {reserveReadyDeliveryVisit:reserve}=await import('../.shopify/visit-reservation-test/ready-delivery-visit.server.js');
 const {configureReadyDeliverySlot:configure,reserveReadyDeliveryCapacity:single,releaseReadyDeliveryCapacity:release}=await import('../.shopify/visit-reservation-test/ready-delivery-capacity.server.js');
 const {stageReadyDeliveryReminders:stage}=await import('../.shopify/visit-reservation-test/ready-delivery-draft.server.js');
+const {rescheduleReadyDeliveryVisit:move}=await import('../.shopify/visit-reservation-test/ready-delivery-reschedule.server.js');
 const db=new PrismaClient(),shop=`visit-${randomUUID()}.myshopify.com`,customerGid='gid://shopify/Customer/91',orderGid='gid://shopify/Order/1',now=new Date('2026-10-26T00:00:00Z');
 process.env.ALLOWED_SHOP=shop;process.env.READY_DELIVERY_CAPACITY_ENABLED='true';
 async function setup(count=2){
@@ -97,4 +98,51 @@ test('renewals with altered package quantities, broken hashes or foreign origina
   else{const body=JSON.parse(receipt.snapshot);body.expected.packageQuantity=2;const snapshot=JSON.stringify(body);await db.prepaidRenewalEvidence.update({where:{id:receipt.id},data:{snapshot,snapshotHash:mode==='hash'?'corrupt':createHash('sha256').update(snapshot).digest('hex')}});}
   await assert.rejects(reserve(plan,{now}));assert.equal((await db.readyDeliverySlot.findUnique({where:{id:plan.slotId}})).reserved,0);
  }
+});
+
+async function replacement(){return configure({shop,slotKey:randomUUID(),deliveryAt:'2026-11-03T01:00:00Z',deliveryEndsAt:'2026-11-03T04:00:00Z',capacity:1,available:true,expectedRevision:0});}
+const moveInput=(visit,slot)=>({shop,customerGid,visitId:visit.id,replacementSlotId:slot.id,replacementSlotRevision:slot.revision,noticeHours:72});
+async function slotState(){
+ const result={};for(const m of ['readyDeliverySlot','readyDeliverySlotReservation','readyDeliveryVisit','readyDeliveryVisitMember','readyDeliveryDraft','readyDeliveryReminder','operationalLine','prepaidPurchaseEvidence'])result[m]=(await db[m].findMany({where:{shop}})).map(x=>JSON.stringify(x)).sort();return result;
+}
+test('combined reschedule moves all packages once, preserving entitlement, other occurrences and reminder history',async()=>{
+ const p=await setup(),old=await reserve(p,{now}),slot=await replacement();
+ const other=await stage({shop,customerGid,operationalLineId:p.members[0].operationalLineId,occurrence:2,deliveryAt:'2026-12-02T01:00:00Z',expectedRevision:0});
+ const paid=await db.prepaidPurchaseEvidence.findMany({where:{shop}}),lines=await db.operationalLine.findMany({where:{shop}});
+ const a=await move(moveInput(old.visit,slot),{now}),b=await move(moveInput(old.visit,slot),{now:new Date('2026-11-03T00:59:00Z')});
+ assert.equal(a.replayed,false);assert.equal(b.replayed,true);assert.equal(b.visit.id,a.visit.id);assert.equal(a.bookingConfirmed,false);assert.equal(a.visit.packageCount,3);
+ assert.equal((await db.readyDeliverySlot.findUnique({where:{id:p.slotId}})).reserved,0);assert.equal((await db.readyDeliverySlot.findUnique({where:{id:slot.id}})).reserved,1);
+ for(const m of p.members){const d=await db.readyDeliveryDraft.findUnique({where:{id:m.draftId}});assert.equal(d.revision,2);assert.equal(d.deliveryAt.toISOString(),slot.deliveryAt.toISOString());assert.equal(await db.readyDeliveryReminder.count({where:{shop,deliveryDraftId:d.id,deliveryRevision:1,state:'SUPERSEDED'}}),4);assert.equal(await db.readyDeliveryReminder.count({where:{shop,deliveryDraftId:d.id,deliveryRevision:2,state:'DRAFT'}}),4);}
+ assert.deepEqual(await db.readyDeliveryDraft.findUnique({where:{id:other.draft.id}}),other.draft);assert.deepEqual(await db.prepaidPurchaseEvidence.findMany({where:{shop}}),paid);assert.deepEqual(await db.operationalLine.findMany({where:{shop}}),lines);
+});
+test('failed replacement rolls back release, draft revisions and all reminders',async()=>{
+ for(const failure of ['closed','full','stale','proof','reminder']){
+  const p=await setup(),old=await reserve(p,{now}),slot=await replacement(),input=moveInput(old.visit,slot);
+  if(failure==='closed')await configure({shop,slotKey:slot.slotKey,deliveryAt:slot.deliveryAt.toISOString(),deliveryEndsAt:slot.deliveryEndsAt.toISOString(),capacity:1,available:false,expectedRevision:1});
+  if(failure==='full'){const occupied=await setup(1);const m=occupied.members[0];const moved=await stage({shop,customerGid,operationalLineId:m.operationalLineId,occurrence:1,deliveryAt:slot.deliveryAt.toISOString(),expectedRevision:1});await reserve({...occupied,slotId:slot.id,slotRevision:slot.revision,deliveryAt:slot.deliveryAt.toISOString(),deliveryEndsAt:slot.deliveryEndsAt.toISOString(),members:[{...m,revision:moved.draft.revision}]},{now});}
+  if(failure==='stale')input.replacementSlotRevision=9;
+  if(failure==='proof'){const line=await db.operationalLine.findUnique({where:{id:p.members[1].operationalLineId}});await db.prepaidPurchaseEvidence.updateMany({where:{shop,originalLineGid:line.orderLineGid},data:{snapshotHash:'corrupt'}});}
+  if(failure==='reminder')await db.readyDeliveryReminder.updateMany({where:{shop,deliveryDraftId:p.members[1].draftId},data:{state:'SENT'}});
+  const before=await slotState();await assert.rejects(move(input,{now}));assert.deepEqual(await slotState(),before,failure+' must preserve complete original state');
+ }
+});
+test('notice applies to both current and replacement; foreign owner and disabled activation cannot move',async()=>{
+ const p=await setup(),old=await reserve(p,{now}),slot=await replacement(),input=moveInput(old.visit,slot),before=await slotState();
+ await assert.rejects(move(input,{now:new Date('2026-10-31T01:00:00Z')}),/Support/);
+ await assert.rejects(move({...input,customerGid:'gid://shopify/Customer/999'},{now}));
+ await assert.rejects(move({...input,noticeHours:0},{now}));
+ process.env.READY_DELIVERY_CAPACITY_ENABLED='false';try{await assert.rejects(move(input,{now}),/not activated/);}finally{process.env.READY_DELIVERY_CAPACITY_ENABLED='true';}
+ assert.deepEqual(await slotState(),before);
+});
+test('a manual release is not mistaken for an already completed reschedule',async()=>{
+ const p=await setup(),old=await reserve(p,{now}),slot=await replacement();await release({shop,customerGid,reservationId:old.reservation.id});const before=await slotState();await assert.rejects(move(moveInput(old.visit,slot),{now}),/matching completed replacement/);assert.deepEqual(await slotState(),before);
+});
+test('concurrent reschedule retries use one replacement visit and one capacity place',async()=>{
+ const p=await setup(),old=await reserve(p,{now}),slot=await replacement(),input=moveInput(old.visit,slot);
+ const outcomes=await Promise.allSettled([move(input,{now}),move(input,{now})]);assert.ok(outcomes.some(r=>r.status==='fulfilled'));const retry=await move(input,{now});assert.equal(retry.replayed,true);assert.equal(await db.readyDeliveryVisit.count({where:{shop,slotId:slot.id,state:'RESERVED'}}),1);assert.equal((await db.readyDeliverySlot.findUnique({where:{id:slot.id}})).reserved,1);
+});
+
+test('replacement notice and corrupt release replay preserve the original or completed visit',async()=>{
+ const p=await setup(),old=await reserve(p,{now});const early=await configure({shop,slotKey:randomUUID(),deliveryAt:'2026-11-01T01:00:00Z',deliveryEndsAt:'2026-11-01T04:00:00Z',capacity:1,available:true,expectedRevision:0});const before=await slotState();await assert.rejects(move(moveInput(old.visit,early),{now:new Date('2026-10-30T01:00:00Z')}),/Support/);assert.deepEqual(await slotState(),before);
+ const slot=await replacement(),input=moveInput(old.visit,slot);await move(input,{now});await db.readyDeliverySlotReservation.update({where:{id:old.reservation.id},data:{releasedAt:null}});const completed=await slotState();await assert.rejects(move(input,{now}),/release requires reconciliation/);assert.deepEqual(await slotState(),completed);
 });
