@@ -23,7 +23,7 @@ Merchant clarification on 28 October: hosting, domain setup and deployment are o
 | 14 | Permanent infrastructure, recovery and operations | **DEFERRED** |
 | 15 | Original ownership, webhook routing and cross-stream reconciliation | **PARTIAL** |
 
-Requirement 1: [fresh functional acceptance evidence](MEAL-PLAN-FUNCTIONAL-ACCEPTANCE-20261028.md). Requirement 3: [full 88/32 allowance, cancellation, overflow and replay evidence](SIXTY-DAY-FULL-ALLOWANCE-QA-20261028.md); remains PARTIAL for legacy activation and scheduling. Production status below remains separate.
+Requirement 1: [fresh functional acceptance evidence](MEAL-PLAN-FUNCTIONAL-ACCEPTANCE-20261028.md). Requirement 3: [full 88/32 allowance, cancellation, overflow and replay evidence](SIXTY-DAY-FULL-ALLOWANCE-QA-20261028.md); remains PARTIAL for general activation and scheduling; approved legacy-development allowances are now reconciled. Production status below remains separate.
 
 # Performance Meals — full production acceptance
 

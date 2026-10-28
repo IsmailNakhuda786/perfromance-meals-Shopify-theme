@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "17775edad0f9cb5b8fad3074d9271d2d270f7bdd",
+  "source_commit": "5a542e5367c06afb0a570eef20091f951a14d025",
   "snapshot_includes_uncommitted_work": false,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -2806,12 +2806,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "8315b2d24a86527d0b2e3fa631e87a77b69992481a9da0ade1d2a8438d0652cf",
+      "sha256": "38854929fcfe0b06ce204f07413c3ae40ffb11c81e12e9f4a1c3d2d79afb229b",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "437390e66aa40821e821e3e075729c5c7cadd17b5602579de79b7ed3762a13fa",
+      "sha256": "64f13109f5ba2e3c3f051f6546ff8a00ce9d7c6221accfe064770b4f5f36a55f",
       "sanitized": false
     },
     {
@@ -2946,7 +2946,7 @@
     },
     {
       "path": "docs/SIXTY-DAY-FULL-ALLOWANCE-QA-20261028.md",
-      "sha256": "7baecc8429a3e17101aafd7e8138b0b14845aaaed34ac61022ceaf34f9b315d5",
+      "sha256": "c2b904a59e5c1942421f05f8552c54c67afa1fe108deff2ba87f81259c7ebabf",
       "sanitized": false
     },
     {

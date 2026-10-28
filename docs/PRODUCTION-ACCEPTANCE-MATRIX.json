@@ -407,10 +407,10 @@
           "apps/performance-meals-core/tests/programme-deliveries-route.test.mjs"
         ]
       },
-      "shopifyIntegration": "Native paid one-off programme proof plus authenticated Core admin/customer full 88-weekday/32-frozen allowance display passed on 28 October. All37 protected model snapshots and native order exactly restored.",
+      "shopifyIntegration": "Native paid one-off programme proof plus authenticated Core admin/customer full 88-weekday/32-frozen allowance display passed on 28 October. All37 protected model snapshots and native order exactly restored. Separately approved original88/32 allowance reconciliation on #1008/#1009 passed with native orders and36 other model groups unchanged.",
       "customerJourney": "Earlier admin allocation/dispatch form and 4/8 customer journey passed. Full allowance display, cancelled-unsent release, extra-meal rejection and duplicate allocation/dispatch/cancel protection passed against real PostgreSQL/native paid proof.",
       "outstandingIssues": [
-        "Legacy records lack original entitlement snapshots; authorized temporary QA was restored rather than permanently backfilled. General activation and complete scheduling/rescheduling remain gated."
+        "General batch activation and complete physical scheduling/rescheduling remain gated. The two older development programmes now have separately approved and verified original88/32 entitlement snapshots."
       ],
       "dependencies": [
         "Merchant stock/fulfilment configuration and isolated QA approval where new records are needed."
@@ -423,7 +423,7 @@
         "docs/SIXTY-DAY-FULL-ALLOWANCE-QA-20261028.md"
       ],
       "remainingEngineering": [
-        "Prepare authorized legacy original-entitlement reconciliation and general activation safeguards; complete physical booking/rescheduling under requirement13. Full88/32 accounting and no-duplicate/overflow subcases passed."
+        "Complete general batch activation safeguards and physical booking/rescheduling under requirement13. Full88/32 accounting, replay/overflow protection and approved legacy-development allowance reconciliation passed."
       ],
       "assessmentStatus": "PARTIAL",
       "assessmentScope": "FUNCTIONAL"

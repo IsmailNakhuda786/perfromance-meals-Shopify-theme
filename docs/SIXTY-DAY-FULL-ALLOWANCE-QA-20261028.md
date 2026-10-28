@@ -19,6 +19,12 @@ No actual meals were dispatched; no native fulfilment, order, payment, credit, W
 
 ## Acceptance boundary
 
-Requirement 3 remains PARTIAL overall. Full quantity accounting is demonstrated; legacy programme records still require an authorized original-entitlement backfill, and general customer activation is deliberately gated. Scheduling/rescheduling belongs to requirement 13 and remains incomplete. Permanent hosting is a separate post-assessment gate and is not used to hold this functional test open.
+Requirement 3 remains PARTIAL overall. Full quantity accounting is demonstrated; the two older development programmes now have their separately approved original-entitlement backfill, while general customer activation is deliberately gated. Scheduling/rescheduling belongs to requirement 13 and remains incomplete. Permanent hosting is a separate post-assessment gate and is not used to hold this functional test open.
 
 Private evidence: Core .shopify/sixty-allowance-native-qa-20261028.private.json (RESTORED; all37/native unchanged). Local customer screenshot: /private/tmp/pm-sixty-full-allowance-20261028.png. Private journals, record identifiers, credentials and screenshots are excluded from the public source backup.
+
+## Separately approved original allowance reconciliation
+
+After temporary QA cleanup, the merchant separately approved permanently saving the original 88weekday/32frozen allowance on development Orders #1008 and #1009. Both were freshly read from Shopify: paid test orders, correct original programme/variant/owner/quantity, zero native dispatches, no existing Core delivery batches and matching original60day period (12October–10December).
+
+Saved only the computed original entitlement on the two identified Core selections in one transaction, conditional on their original timestamps and missing allowance. Independently verified their other fields and every other selection were unchanged; all36 other protected model fingerprints and both native-order fingerprints remained identical. No dispatch, financial, menu, order or date change occurred. Batch booking remains disabled. The private reconciliation journal records the exact approved before/after data and status VERIFIED; it is excluded from GitHub.
