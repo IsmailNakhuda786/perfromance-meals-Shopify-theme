@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "1345d38cee5f588891837fcd4ca47857e590dedd",
+  "source_commit": "78dbbd245f07cad7ff9f4bb70cdae447a82520d7",
   "snapshot_includes_uncommitted_work": false,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -976,7 +976,7 @@
     },
     {
       "path": "apps/performance-meals-core/extensions/performance-meals-account/shopify.d.ts",
-      "sha256": "6ad2b17b35ccc1d3535d1d137c3a0a4810c74930c14196dc96053e57ad8fd18a",
+      "sha256": "276b51fed107797912190701999f01c20789c99d6c71f2182793eb06c597534a",
       "sanitized": false
     },
     {
@@ -986,7 +986,7 @@
     },
     {
       "path": "apps/performance-meals-core/extensions/performance-meals-account/src/OrderStatusBlock.jsx",
-      "sha256": "f357d109ad2f703666dd45f03d53c0a3891a4191aee428c3d5ff477a20e2e44d",
+      "sha256": "bd12710305523b6483d2c567263c0c530929ccdb9af19b6c21452d5ae6f36400",
       "sanitized": false
     },
     {
@@ -2686,7 +2686,7 @@
     },
     {
       "path": "docs/CUSTOMER-DELIVERY-BOOKING-20261028.md",
-      "sha256": "b049842418908fcd2850eb70dfeb97d5953ed640eb2bfa289541ff83a6d0c99a",
+      "sha256": "72fdd63b1d3b3f3b87fa4e7d88f4f61aa66081036b59680318f22f9ae396ce93",
       "sanitized": false
     },
     {

@@ -29,3 +29,15 @@ Published holidays and observed Mondays are always retained; Saturdays are close
 User approved adding the3empty development tables and testing only paid Order#1031/its existing QA customer, with7temporary November–April slots,72hour notice, published holidays, a first combined booking/reschedule, capacity/retries and customer/admin readback. Temporary records and flags must be removed afterward. Existing native orders, paid deliveries, renewals, payments, Wallet and Rewards must be preserved. Actual preview evidence and cleanup will be appended after verification; this document does not yet claim the preview passed.
 
 Requirement13 remains PARTIAL pending actual customer preview, authoritative operational follow-through, renewal-cycle calendar binding, dispatch/reconciliation and notification delivery (WhatsApp setup remains external). Permanent hosting remains deferred for the functional assessment, not accepted for production.
+
+## Approved customer/admin preview result
+
+28 October: applied only the three approved additive development tables; all 37 existing shop-scoped model fingerprints stayed unchanged. Created seven disposable QA slots, saved 72-hour notice and MOM holiday coverage through the authenticated merchant screen, and prepared Order #1031's original monthly calendar.
+
+Actual signed-in customer preview booked its first 3-/6-package occurrence on 11 November, 09:00–12:00 Singapore time. PostgreSQL confirmed two package members, one visit and one reserved capacity place. Closing the selected replacement slot before submission rejected the stale change while keeping the original booking. After reopening/reloading, customer rescheduling to 12 November succeeded: booking revision 2, original slot reserved 0, replacement reserved 1. Merchant screen showed the same date and two packages in one visit. Preparing the original calendar again reported that no delivery date was replaced.
+
+Two successful request receipts were present. Replaying the original saved request returned its receipt and left all 40 model fingerprints unchanged. Later occurrences retained their original dates. Removed only the disposable slots, policy, calendar, reminders, bookings and receipts; all 37 protected model fingerprints match baseline and the three new tables are empty. The migration remains applied. No native fulfilment mutation, billing, payment, Wallet/Rewards mutation or notification send occurred.
+
+Real CLI preview exposed an extension resolution failure not caught by component/unit checks. Fixed the JSX import to include its file extension; Shopify CLI then built the account extension successfully. Actual account preview loaded and completed the authenticated journey. Screenshot evidence is saved locally under /private/tmp/pm-booking-{calendar-admin,customer-confirmed,customer-rescheduled,admin-rescheduled}-20261028.png.
+
+This accepts the isolated initial booking/reschedule subjourney, not the whole requirement: renewal calendar cycle binding, general activation, cross-occurrence consolidation, dispatch/reconciliation and notification delivery remain outstanding.

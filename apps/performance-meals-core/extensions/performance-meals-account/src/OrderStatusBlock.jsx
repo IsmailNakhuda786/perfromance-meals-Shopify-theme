@@ -2,7 +2,7 @@ import '@shopify/ui-extensions/preact';
 import {render} from 'preact';
 import {useEffect, useState, useRef} from 'preact/hooks';
 import {createRenewalStopClient} from './renewal-stop-client';
-import {ReadyDeliveries} from './ReadyDeliveries';
+import {ReadyDeliveries} from './ReadyDeliveries.jsx';
 import {APP_URL} from './app-endpoint.generated';
 
 const SECTIONS = ['Dashboard', 'My Plan', 'Order History', 'Wallet', 'Rewards', 'Gift Cards', 'Settings'];
