@@ -723,7 +723,7 @@
         ]
       },
       "shopifyIntegration": "Native seven-section rendering and saved menus recorded; authenticated Ready Series future-renewal stop now passed with independent preservation proof. Reconnected current account preview: three stopped-renewal cards and existing saved 6 by 60 programmes visible, with no duplicate renewal cards.",
-      "customerJourney": "Several isolated journeys verified; all sections with full final Wallet/subscription state and permanent host not accepted.",
+      "customerJourney": "28 October: normal signed-in development account loaded; all seven sections opened at375px phone width. Navigation wrapped and normal programme/history/Wallet/Rewards/Gift Card/Settings views rendered. Viewport restored. Full operation/recovery acceptance remains incomplete.",
       "outstandingIssues": [
         "General management/branding and recovery acceptance incomplete; blocked payment features must not be represented as ready."
       ],
@@ -733,10 +733,11 @@
       "evidence": [
         "docs/CORE-ACCOUNT-STARTUP-20261021.md",
         "docs/SUBSCRIPTION-RENEWAL-STOP-20261023.md",
-        "docs/CORE-CONNECTIVITY-RECOVERY-20261024.md"
+        "docs/CORE-CONNECTIVITY-RECOVERY-20261024.md",
+        "docs/CUSTOMER-ACCOUNT-MOBILE-QA-20261028.md"
       ],
       "remainingEngineering": [
-        "Complete final seven-section end-to-end matrix, expired sessions, access isolation, mobile and interrupted-operation recovery."
+        "Complete seven-section operation and interrupted/expired-session recovery acceptance, including blocked payment features. Mobile navigation/readback passed on28 October; not a claim of financial operation acceptance."
       ],
       "assessmentStatus": "PARTIAL",
       "assessmentScope": "FUNCTIONAL"

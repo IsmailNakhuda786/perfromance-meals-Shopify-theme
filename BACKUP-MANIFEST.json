@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "71a2ab2db4026408578c3d01937de7d1a5d57055",
+  "source_commit": "17775edad0f9cb5b8fad3074d9271d2d270f7bdd",
   "snapshot_includes_uncommitted_work": false,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -2580,6 +2580,11 @@
       "sanitized": false
     },
     {
+      "path": "docs/CUSTOMER-ACCOUNT-MOBILE-QA-20261028.md",
+      "sha256": "ee55513952899f9b7f6f13c83aaa15a0cd293d04984b7bb261fe02ad4ee1850d",
+      "sanitized": false
+    },
+    {
       "path": "docs/CUSTOMER-CANCELLATION-POLICY.md",
       "sha256": "208c4dd9ddeee99688fd97f051945e95baf6e678b48a923dd7373e894f1c3e51",
       "sanitized": false
@@ -2801,7 +2806,7 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "57b305c66f1f5e47f7018658609088c00fec89bc820a37bba7f9c6f487a73a6f",
+      "sha256": "8315b2d24a86527d0b2e3fa631e87a77b69992481a9da0ade1d2a8438d0652cf",
       "sanitized": false
     },
     {
