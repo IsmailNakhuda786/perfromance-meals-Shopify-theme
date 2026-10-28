@@ -23,7 +23,7 @@ Merchant clarification on 28 October: hosting, domain setup and deployment are o
 | 14 | Permanent infrastructure, recovery and operations | **DEFERRED** |
 | 15 | Original ownership, webhook routing and cross-stream reconciliation | **PARTIAL** |
 
-Requirement13: [atomic provisional reschedule engineering and native-linked QA](READY-DELIVERY-ATOMIC-RESCHEDULE-20261028.md), still PARTIAL pending customer/native activation.
+Requirement 13: the [customer/admin booking and reschedule journey](CUSTOMER-DELIVERY-BOOKING-20261028.md) passed isolated preview acceptance. A [receipt-backed delivery email](READY-SERIES-NOTIFICATIONS-20261029.md) also passed. [Renewal calendar continuity](READY-SERIES-RENEWAL-CONTINUITY-20261029.md) is implemented, but actual later-cycle, dispatch and full lifecycle acceptance remain open.
 
 Requirement 1: [fresh functional acceptance evidence](MEAL-PLAN-FUNCTIONAL-ACCEPTANCE-20261028.md). Requirement 3: [full 88/32 allowance, cancellation, overflow and replay evidence](SIXTY-DAY-FULL-ALLOWANCE-QA-20261028.md); remains PARTIAL for general activation and scheduling; approved legacy-development allowances are now reconciled. Production status below remains separate.
 
@@ -426,3 +426,13 @@ The approved 4-weekday/8-frozen batch passed embedded admin allocation/dispatch,
 ## 28 October — requirement 1 closed for functional assessment
 
 Native signed-in paid-menu edit/save/reload/customer display/restoration passed with independent PostgreSQL evidence. Original menu audit and 36 other protected groups unchanged; six approved menu-history revisions retained. Existing PostgreSQL concurrency regression passed 3/3 with all 37 live-store groups unchanged. Temporary QA template restored. No charge, order or paid-delivery change. Functional status: **2 PASS / 9 PARTIAL / 3 BLOCKED / 1 DEFERRED**.
+
+## 29 October verified functional progress
+
+The acceptance status remains **2 PASS / 9 PARTIAL / 3 BLOCKED / 1 DEFERRED**; this does not mean only two isolated functions work. Newly closed subjourneys include authenticated combined booking/rescheduling, stale-slot rejection, preserved later dates, one external email for two packages, and durable duplicate-send prevention. Cleanup preserved all 37 existing Core model fingerprints.
+
+Renewal calendar continuity is implemented with native cycle association. The existing early simulated renewal was correctly held because it belongs to the original billing period; a later-cycle calendar acceptance is still missing. Five renewal reminder stages, midnight Singapore final notice, catch-up recovery and guarded receipt handling are implemented; an existing cancelled native subscription correctly suppressed reminders. WhatsApp provider/template setup and actual active-contract renewal messaging remain unverified.
+
+See [notification evidence and gates](READY-SERIES-NOTIFICATIONS-20261029.md) and [renewal calendar evidence](READY-SERIES-RENEWAL-CONTINUITY-20261029.md). No extra charge, native dispatch, Wallet change, top-up activation or production deployment was performed.
+
+Latest regression for the 29 October changes: **665 passed / 1 PostgreSQL-only skip / 0 failed**, with TypeScript, lint, production-schema consistency and all new Admin 2026-10 query validations passing. Focused PostgreSQL runs: 19 booking/renewal-calendar/delivery-message cases and 9 renewal-notice cases passed. These do not certify every production lifecycle.

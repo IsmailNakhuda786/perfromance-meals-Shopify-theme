@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "78dbbd245f07cad7ff9f4bb70cdae447a82520d7",
+  "source_commit": "6d25aabf6d4088a7444b7c0c673b75428e9e4f7b",
   "snapshot_includes_uncommitted_work": false,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -581,7 +581,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/ready-booking-calendar.server.ts",
-      "sha256": "aee7e3915694adab9f6ff9ffcbfafd539c3ef649fe60f6d0d1f7702af4408d1f",
+      "sha256": "661f46a10baa47b3dfcb6bafabe51fd864e6339fea91c1f7d10369cfaeb378a4",
       "sanitized": false
     },
     {
@@ -616,13 +616,13 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/ready-delivery-draft.server.ts",
-      "sha256": "3e5f351cecef8610ac41299af2a6cacb244fa92077e70f5bf1b382a50aa1af55",
+      "sha256": "0439ead5f25dd51e86d1c5022a11026e3efc76bf8f8d95e3a403f9e6ee55a71c",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/services/ready-delivery-email-development.server.ts",
-      "sha256": "759fa78f07fd27f7d85e563bf859c67c90b158515b13f88e41401c3ab48375bd",
-      "sanitized": false
+      "sha256": "8a750ba6ee5fb379ad08585729085ace263e10810d89a6fb81699b51890faaad",
+      "sanitized": true
     },
     {
       "path": "apps/performance-meals-core/app/services/ready-delivery-entitlement.server.ts",
@@ -631,7 +631,12 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/ready-delivery-notice.ts",
-      "sha256": "31ba4986cf62f1492ce4b1358191e629b509f0682cadf7e9f7ca044a734db597",
+      "sha256": "31561cf5edaf84e9f59330dc503e9975f49ef0d3ede673782990e7a18ac92d3a",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/ready-delivery-reminder.server.ts",
+      "sha256": "b7bc3fe7a550a19f3ed583666f513eee8c8ae77acbdccf1b11d86f0f05fcea3a",
       "sanitized": false
     },
     {
@@ -655,8 +660,23 @@
       "sanitized": false
     },
     {
+      "path": "apps/performance-meals-core/app/services/ready-renewal-cycle.server.ts",
+      "sha256": "718aab1ceae814a520596073fded5c73b156e0d5c968a99109dda0512cae7e86",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/ready-renewal-notice.server.ts",
+      "sha256": "9ede9e87610590739bbed09d84b6f48ca763c5e87034c774f5141d32863ef9bc",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/ready-renewal-notice.ts",
+      "sha256": "1be59ee548a044d8ffcbca7bc33015981e049c3382fcf825fce6ad26adb5dbfc",
+      "sanitized": false
+    },
+    {
       "path": "apps/performance-meals-core/app/services/ready-series-calendar.ts",
-      "sha256": "cb6370aca2e830bac3d34bb28cbd7a66d254d55d9291cd176efe8079a3b90369",
+      "sha256": "b16e622aa9e241d6b66930a078308d03ce0011eb5c00fdcece5ebf1933443f9a",
       "sanitized": false
     },
     {
@@ -1361,12 +1381,12 @@
     },
     {
       "path": "apps/performance-meals-core/prisma/production/schema.prisma",
-      "sha256": "518ddad5747aa4a5ceca72cd67e18b3de68445fba96eb281a412f5e3dc6a72fc",
+      "sha256": "dcc12119e3bc2f392bbb517af49a3016059c0f8ca7854f1bd1469ea0f4be8570",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/prisma/schema.prisma",
-      "sha256": "a0ae9c55033fb83e1dda864ee0da58c4d944eae21f47c13b076aca9e4f53c7c1",
+      "sha256": "9bff5d31bb31f29da633da2d97d05fef7aa6e40df131ac116ce0692568781e70",
       "sanitized": false
     },
     {
@@ -1726,7 +1746,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/ready-customer-booking.test.mjs",
-      "sha256": "2000df446e7c5cf53764a4812fd47625a6b4ee5c930a0a1534568b1d4f89c9c7",
+      "sha256": "2ec683e2c5e48f6c01add0e0305a374e333ae8482780e8f96f408d9a9177d4b4",
       "sanitized": false
     },
     {
@@ -1772,6 +1792,21 @@
     {
       "path": "apps/performance-meals-core/tests/ready-delivery-visit.test.mjs",
       "sha256": "30a3834fc36ba675d0ef0f3dd47e5631511774146989d52dcd6bae80911acf00",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/ready-renewal-cycle.test.mjs",
+      "sha256": "208689dbfdc18ae8f86e2ef3dfacdbafd0b540cbe0d23d9abfb44fdcc744973a",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/ready-renewal-notice-schedule.test.mjs",
+      "sha256": "5b1b5f7eafc23d9ff8b9a38d93746b3156384e2a1fe09c7da6ecd0a03456f84b",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/ready-renewal-notice.test.mjs",
+      "sha256": "52726b35029226d75074fd3f07a7886f586f445508c91aa7410bf8d30406e6bf",
       "sanitized": false
     },
     {
@@ -2901,12 +2936,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "cd946785225ed52dce784b3bc23fd6acac838c0dcf190650652706657326f263",
+      "sha256": "6a38375ab4cc4259dfc42523fe1f6e67a287432a824f97bef0a780c61d47e517",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "367641de76d7fbe48f0f08bfacb805cfda9bcceef5b827aa6d0f2499f270e858",
+      "sha256": "a845db3bcd0bb0d341ae1f976c8568bf8c2a621cf1558fe8a0c491ced1ee727a",
       "sanitized": false
     },
     {
@@ -2947,6 +2982,16 @@
     {
       "path": "docs/READY-SERIES-MERCHANT-POLICY-20261014.md",
       "sha256": "ce7dd391d7739401264dd7172315b667b4fb47ef575d8564ec93016ad174522a",
+      "sanitized": false
+    },
+    {
+      "path": "docs/READY-SERIES-NOTIFICATIONS-20261029.md",
+      "sha256": "81929d8036258c7788aca99f79186882dc8024871829eb46f12f469f0f0e8d90",
+      "sanitized": false
+    },
+    {
+      "path": "docs/READY-SERIES-RENEWAL-CONTINUITY-20261029.md",
+      "sha256": "64558e3d98043bf5bf00943ea5d0629887370c10cad4b22c52d549349fab300e",
       "sanitized": false
     },
     {
@@ -5171,7 +5216,7 @@
     "docs/CUSTOMER-CORE-CHECKPOINT-20261012.md"
   ],
   "excluded": [],
-  "backup_updated_at": "2026-10-28",
+  "backup_updated_at": "2026-10-29",
   "excluded_private_qa_documents": [
     "docs/CANCELLATION-WALLET-QA-20261013.md",
     "docs/CUSTOMER-CORE-CHECKPOINT-20261012.md",

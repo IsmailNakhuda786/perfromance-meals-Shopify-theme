@@ -412,8 +412,8 @@ model GiftCardExpiryReminder {
 }
 
 
-// Internal preparation only. No worker may send from a DRAFT delivery.
-// Activation requires native paid-term/slot/fulfilment verification separately.
+// Calendar drafts alone never authorize messages. A sender must separately bind
+// the confirmed booking revision and verify native paid-term/slot/fulfilment.
 model ReadyDeliveryDraft {
  id String @id @default(uuid())
  shop String

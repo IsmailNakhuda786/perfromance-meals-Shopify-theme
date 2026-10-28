@@ -1,6 +1,6 @@
 import {planReadyDeliveryReminders} from './ready-series-calendar';
 
-type Notice={orderReference:string;occurrence:number;deliveries:3|6;deliveryAt:string;deliveryEndsAt:string;hoursBefore:0|24|72;noticeHours:number;shopDomain:string;accountUrl:string;accountShopId:string;whatsappNumber:string};
+type Notice={orderReference:string;occurrence:number;deliveries:3|6;deliveryAt:string;deliveryEndsAt:string;hoursBefore:0|24|72;noticeHours:number;shopDomain:string;accountUrl:string;accountShopId:string;whatsappNumber:string;packageDeliveries?:Array<{occurrence:number;deliveries:3|6;quantity:number}>};
 const escape=(text:string)=>text.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
 // Pure content preparation. No address resolution, email/WhatsApp send or worker
 // activation. Provider receipt/consent/template approval are separate gates.
@@ -18,7 +18,10 @@ export function readyDeliveryNotice(input:Notice){
  const clock=new Intl.DateTimeFormat('en-SG',{timeZone:'Asia/Singapore',hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
  const window=clock.format(new Date(start))+'–'+clock.format(new Date(end))+' (Singapore time)';
  const supportUrl='https://wa.me/'+whatsappNumber;
- const lines=['Your Ready Series delivery',`Order ${orderReference} · Delivery ${occurrence} of ${deliveries}`,date,window,`View your delivery: ${account.href}`,`Delivery changes require at least ${noticeHours} hours’ notice before both the current and replacement delivery. For later requests, contact Support: ${supportUrl}`,'Changing a delivery does not change your renewal billing date.'];
+ if(input.packageDeliveries&&(!Array.isArray(input.packageDeliveries)||!input.packageDeliveries.length||input.packageDeliveries.length>100||input.packageDeliveries.some(p=>![3,6].includes(p.deliveries)||!Number.isSafeInteger(p.occurrence)||p.occurrence<1||p.occurrence>p.deliveries||!Number.isSafeInteger(p.quantity)||p.quantity<1||p.quantity>2147483647)))throw Error('Verified package delivery summary required');
+ const summary=input.packageDeliveries?.map(p=>`${p.quantity} package${p.quantity===1?'':'s'} · Delivery ${p.occurrence} of ${p.deliveries}`).join('; ');
+ const description=summary?`Order ${orderReference} · One delivery visit: ${summary}`:`Order ${orderReference} · Delivery ${occurrence} of ${deliveries}`;
+ const lines=['Your Ready Series delivery',description,date,window,`View your delivery: ${account.href}`,`Delivery changes require at least ${noticeHours} hours’ notice before both the current and replacement delivery. For later requests, contact Support: ${supportUrl}`,'Changing a delivery does not change your renewal billing date.'];
  const html='<h1>'+escape(lines[0])+'</h1><p>'+escape(lines[1])+'</p><p><strong>'+escape(date)+'</strong><br>'+escape(window)+'</p><p><a href="'+escape(account.href)+'">View your delivery</a></p><p>Delivery changes require at least '+noticeHours+' hours’ notice before both the current and replacement delivery. For later requests, <a href="'+supportUrl+'">contact Support</a>.</p><p>'+escape(lines.at(-1)!)+'</p>';
- return {hoursBefore,email:{subject:'Your upcoming Ready Series delivery',text:lines.join('\n\n'),html},whatsapp:{templateApprovalRequired:true,variables:{orderReference,occurrence:String(occurrence),deliveries:String(deliveries),deliveryDate:date,deliveryWindow:window,accountUrl:account.href,supportUrl,noticeHours:String(noticeHours)}}};
+ return {hoursBefore,email:{subject:'Your upcoming Ready Series delivery',text:lines.join('\n\n'),html},whatsapp:{templateApprovalRequired:true,variables:{orderReference,occurrence:String(occurrence),deliveries:String(deliveries),deliveryDate:date,deliveryWindow:window,accountUrl:account.href,supportUrl,noticeHours:String(noticeHours),...(summary?{packageSummary:summary}:{})}}};
 }

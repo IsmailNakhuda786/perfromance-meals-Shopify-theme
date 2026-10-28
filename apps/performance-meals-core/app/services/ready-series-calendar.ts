@@ -8,12 +8,12 @@ function civil(value:string){
 function date(time:number){return new Date(time).toISOString().slice(0,10);}
 // Availability comes from merchant slots, including closures/holidays. Never
 // infer holidays or use an adjusted occurrence as the next occurrence's anchor.
-export function planReadySeriesDeliveries(firstDate:string,count:3|6,availableDates:string[]){
+export function planReadySeriesDeliveries(firstDate:string,count:3|6,availableDates:string[],monthOffset=0){
  const anchor=new Date(civil(firstDate));
- if(![3,6].includes(count)||!Array.isArray(availableDates)||availableDates.length>2000||new Set(availableDates).size!==availableDates.length)throw Error('Invalid delivery calendar evidence');
+ if(![3,6].includes(count)||!Number.isSafeInteger(monthOffset)||monthOffset<0||monthOffset>720||!Array.isArray(availableDates)||availableDates.length>2000||new Set(availableDates).size!==availableDates.length)throw Error('Invalid delivery calendar evidence');
  const available=availableDates.map(value=>({value,time:civil(value)})).sort((a,b)=>a.time-b.time);
  const planned=Array.from({length:count},(_,index)=>{
-  const monthStart=new Date(Date.UTC(anchor.getUTCFullYear(),anchor.getUTCMonth()+index,1));
+  const monthStart=new Date(Date.UTC(anchor.getUTCFullYear(),anchor.getUTCMonth()+monthOffset+index,1));
   const lastDay=new Date(Date.UTC(monthStart.getUTCFullYear(),monthStart.getUTCMonth()+1,0)).getUTCDate();
   const nominal=date(Date.UTC(monthStart.getUTCFullYear(),monthStart.getUTCMonth(),Math.min(anchor.getUTCDate(),lastDay)));
   const next=available.find(day=>day.time>=civil(nominal));
