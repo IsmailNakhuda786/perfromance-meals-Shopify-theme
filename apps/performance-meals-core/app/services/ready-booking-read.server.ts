@@ -1,6 +1,7 @@
 import db from '../db.server';
 import {assertShop} from './security.server';
-import {bookingHash,readOwnedReadyBookingSources} from './ready-booking-native.server';
+import {bookingHash,readOwnedReadyBookingSources,readOwnedReadyBookingEvidence} from './ready-booking-native.server';
+import {readReadyDeliveryProgress} from './ready-delivery-progress.server';
 import {readyBookingActive,readyHolidayCalendar,readyBookingSlotAllowed,readyBookingSlotScope} from './ready-booking-policy.server';
 import {readReadyBookingCalendar} from './ready-booking-calendar.server';
 import {reviewDeliveryChangeNotice} from './ready-series-calendar';
@@ -16,7 +17,8 @@ export async function readCustomerReadyDeliveries(admin:Admin,shop:string,custom
  const enabled=readyBookingActive(shop,customerGid),policy=await db.readyDeliveryPolicy.findUnique({where:{shop}});
  const calendar=policy?readyHolidayCalendar(JSON.parse(policy.holidayCalendar)):null;
  let nativePending=false,sources:Awaited<ReturnType<typeof readOwnedReadyBookingSources>>=[];
- try{sources=await readOwnedReadyBookingSources(admin,shop,customerGid,orderGid);}catch{nativePending=true;}
+ let progress:Awaited<ReturnType<typeof readReadyDeliveryProgress>>|null=null;
+ try{const evidence=await readOwnedReadyBookingEvidence(admin,shop,customerGid,orderGid);sources=evidence.groups;try{progress=await readReadyDeliveryProgress(admin,shop,customerGid,orderGid,evidence);}catch{/* Partial history never becomes a made-up shipment count. */}}catch{nativePending=true;}
  let prepared:Awaited<ReturnType<typeof readReadyBookingCalendar>>|null=null;
  try{prepared=await readReadyBookingCalendar(db,shop,customerGid,orderGid);}catch{/* Merchant preparation remains explicit; a GET cannot invent dates. */}
  const saved=await db.readyDeliveryBooking.findMany({where:{shop,customerGid,orderGid},orderBy:{createdAt:'asc'},take:101});
@@ -25,7 +27,8 @@ export async function readCustomerReadyDeliveries(admin:Admin,shop:string,custom
  for(const row of saved){
   const visit=row.visitId?await db.readyDeliveryVisit.findFirst({where:{id:row.visitId,shop,customerGid,orderGid,state:'RESERVED'}}):null,slot=visit?await db.readyDeliverySlot.findFirst({where:{id:visit.slotId,shop}}):null;
   const current=sources.find(s=>s.key===row.sourceKey),valid=row.state==='BOOKED'&&bookingHash(JSON.parse(row.nativeProof))===row.nativeHash&&current&&bookingHash(current)===row.nativeHash&&visit&&slot;
-  bookings.push({id:row.id,revision:row.revision,orderName:current?.orderName||'Ready Series',packages:visit?.packageCount??null,deliveryAt:slot?.deliveryAt.toISOString()??null,deliveryEndsAt:slot?.deliveryEndsAt.toISOString()??null,canChange:!!(enabled&&valid&&policy&&reviewDeliveryChangeNotice(now.toISOString(),slot!.deliveryAt.toISOString(),slot!.deliveryAt.toISOString(),policy.noticeHours).selfServiceNoticeMet),reviewRequired:!valid});
+  const dispatchState=progress?.rows.find(p=>p.sourceKey===row.sourceKey)?.state??null;
+  bookings.push({id:row.id,revision:row.revision,orderName:current?.orderName||'Ready Series',packages:visit?.packageCount??null,deliveryAt:slot?.deliveryAt.toISOString()??null,deliveryEndsAt:slot?.deliveryEndsAt.toISOString()??null,canChange:!!(enabled&&valid&&policy&&reviewDeliveryChangeNotice(now.toISOString(),slot!.deliveryAt.toISOString(),slot!.deliveryAt.toISOString(),policy.noticeHours).selfServiceNoticeMet),reviewRequired:!valid&&dispatchState!=='DISPATCHED',dispatchState});
  }
  const groups=[];
  for(const source of sources){
@@ -43,5 +46,5 @@ export async function readCustomerReadyDeliveries(admin:Admin,shop:string,custom
   if(rows.length>25)nextSlotCursor=rows[24].id;
  }
  const phone=process.env.CORE_SUPPORT_WHATSAPP_NUMBER;const supportUrl=phone&&/^\d{8,15}$/.test(phone)?'https://wa.me/'+phone:null;
- return {visible:true as const,supportUrl,enabled,nativePending,calendarPrepared:!!prepared,policyReady:!!policy,noticeHours:policy?.noticeHours??null,bookings,groups,slots,nextSlotCursor};
+ return {visible:true as const,supportUrl,enabled,nativePending,progress,calendarPrepared:!!prepared,policyReady:!!policy,noticeHours:policy?.noticeHours??null,bookings,groups,slots,nextSlotCursor};
 }

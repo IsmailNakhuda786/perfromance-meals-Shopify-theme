@@ -1,6 +1,6 @@
 {
   "updated": "2026-10-29",
-  "sourceCheckpoint": "78dbbd2",
+  "sourceCheckpoint": "6d25aab",
   "scope": "Full agreed production acceptance; no reduced-scope launch",
   "productionAccepted": false,
   "statusDefinitions": {
@@ -10,7 +10,7 @@
     "BLOCKED": "A required platform capability, authorization or external dependency prevents completion."
   },
   "baseline": {
-    "coreTests": 665,
+    "coreTests": 671,
     "nativeReadback": "Latest mixed QA verified #1031/#1032/#1033 with provider inbox intake and explicit Core replay; future renewals stopped. Eleven earlier paid orders/45 fulfilments and nine financial-model snapshots preserved. QA product, discounts, shipping profile, GST and temporary callback settings restored.",
     "checkoutPricing": "Exact charged initial and simulated renewal GST-inclusive pricing passed for single terms, two identical 3-delivery packages (SGD510.40/GST42.14) and mixed 3-/6-delivery packages (initial SGD748.80/GST61.83; renewals SGD255.20/GST21.07 and SGD493.60/GST40.76). Delivery was included. General production correction provisioning and permanent lifecycle acceptance remain incomplete.",
     "topUpsEnabled": false,
@@ -359,7 +359,17 @@
       "renewalRemindersPassed": 9,
       "failed": 0,
       "scope": "Disposable fixture namespaces on development PostgreSQL; not full production certification"
-    }
+    },
+    "deliveryProgressReadback": {
+      "order": "#1031",
+      "packageDeliveries": 9,
+      "confirmedDispatched": 0,
+      "nativeOccurrenceGroups": 6,
+      "protectedModelsUnchanged": 37,
+      "customerPreviewVerified": true,
+      "nativePositiveDispatchVerified": false
+    },
+    "postgresFollowup": "The 19-test booking and 9-test renewal-notice groups passed earlier this session. A later selected valid-sent-reminder/reschedule PostgreSQL test failed during fixture setup (empty engine response; direct-connection rerun reached validated-line precondition). Two negative receipt-history PostgreSQL cases passed. No full post-guard PostgreSQL acceptance is claimed; isolate fixture/runtime discrepancy before accepting this database path."
   },
   "counts": {
     "PASS": 1,

@@ -23,6 +23,8 @@ Merchant clarification on 28 October: hosting, domain setup and deployment are o
 | 14 | Permanent infrastructure, recovery and operations | **DEFERRED** |
 | 15 | Original ownership, webhook routing and cross-stream reconciliation | **PARTIAL** |
 
+Latest 29 October regression: **671 passed, one PostgreSQL-only skip, zero failed**; TypeScript, lint and schema consistency passed. New read-only Shopify/account evidence confirms nine package deliveries across six native occurrence groups on Order #1031, with zero dispatched and all 37 protected model fingerprints unchanged. Positive native dispatch acceptance remains open. See [delivery progress evidence](READY-SERIES-DELIVERY-PROGRESS-20261029.md).
+
 Requirement 13: the [customer/admin booking and reschedule journey](CUSTOMER-DELIVERY-BOOKING-20261028.md) passed isolated preview acceptance. A [receipt-backed delivery email](READY-SERIES-NOTIFICATIONS-20261029.md) also passed. [Renewal calendar continuity](READY-SERIES-RENEWAL-CONTINUITY-20261029.md) is implemented, but actual later-cycle, dispatch and full lifecycle acceptance remain open.
 
 Requirement 1: [fresh functional acceptance evidence](MEAL-PLAN-FUNCTIONAL-ACCEPTANCE-20261028.md). Requirement 3: [full 88/32 allowance, cancellation, overflow and replay evidence](SIXTY-DAY-FULL-ALLOWANCE-QA-20261028.md); remains PARTIAL for general activation and scheduling; approved legacy-development allowances are now reconciled. Production status below remains separate.

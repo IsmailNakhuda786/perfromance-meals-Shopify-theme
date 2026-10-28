@@ -11,12 +11,12 @@ export const bookingHash=(value:unknown)=>createHash('sha256').update(JSON.strin
 const gid=(kind:string,v:unknown):v is string=>typeof v==='string'&&new RegExp('^gid://shopify/'+kind+'/\\d+$').test(v);
 type PaidLine=Omit<ReadyBookingMember,'occurrence'|'deliveries'>&{months:3|6};
 type Item={id:string;totalQuantity:number;remainingQuantity:number;lineItem:{id:string}};
-type Parent={id:string;order:{id:string};status:string;fulfillAt:string|null;lineItems:{nodes:Item[]};deliveryMethod?:{methodType:string}|null;destination?:{id:string;address1:string|null;address2:string|null;city:string|null;company:string|null;countryCode:string|null;province:string|null;zip:string|null}|null};
+type Parent={id:string;order:{id:string};status:string;fulfillAt:string|null;lineItems:{nodes:Item[]};fulfillments?:{nodes:Array<{id:string;status:string}>;pageInfo:{hasNextPage:boolean}};deliveryMethod?:{methodType:string}|null;destination?:{id:string;address1:string|null;address2:string|null;city:string|null;company:string|null;countryCode:string|null;province:string|null;zip:string|null}|null};
 type Source={order:{id:string;name:string;customer:{id:string};displayFinancialStatus:string;lineItems:{nodes:Array<{id:string;quantity:number;currentQuantity:number;variant?:{id:string;product:{id:string}}|null}>}};fulfillments:Parent[]};
 
 // Native work-start timestamps order the purchased occurrences. They are never
 // presented as customer delivery promises or silently rewritten by Core.
-export function readyBookingGroups(source:Source,shop:string,customerGid:string,orderGid:string,paid:PaidLine[]):ReadyBookingSource[]{
+export function readyBookingGroups(source:Source,shop:string,customerGid:string,orderGid:string,paid:PaidLine[],includeProcessed=false):ReadyBookingSource[]{
  assertShop(shop);
  if(!gid('Customer',customerGid)||!gid('Order',orderGid)||source.order.id!==orderGid||source.order.customer?.id!==customerGid||source.order.displayFinancialStatus!=='PAID'||!paid.length||paid.length>100||new Set(paid.map(p=>p.orderLineGid)).size!==paid.length)throw Error('Complete owned paid delivery evidence required');
  const parents=source.fulfillments;
@@ -44,7 +44,11 @@ export function readyBookingGroups(source:Source,shop:string,customerGid:string,
  const groups:ReadyBookingSource[]=[];
  for(const parent of parents){
   const lines=members.get(parent.id);
-  if(!lines||!['OPEN','SCHEDULED'].includes(parent.status)||parent.lineItems.nodes.some(i=>i.remainingQuantity!==i.totalQuantity)||parent.lineItems.nodes.length!==lines.length||parent.lineItems.nodes.some(i=>!lines.some(m=>m.orderLineGid===i.lineItem.id)))continue;
+  if(!lines||parent.lineItems.nodes.length!==lines.length||parent.lineItems.nodes.some(i=>!lines.some(m=>m.orderLineGid===i.lineItem.id)))continue;
+  // Remaining quantity can reopen after shipment cancellation. It is not proof
+  // that a physical delivery has never been processed. Require complete empty
+  // shipment history before allowing a new booking or reschedule.
+  if(!includeProcessed&&(!['OPEN','SCHEDULED'].includes(parent.status)||parent.lineItems.nodes.some(i=>i.remainingQuantity!==i.totalQuantity)||parent.fulfillments?.pageInfo?.hasNextPage!==false||!Array.isArray(parent.fulfillments.nodes)||parent.fulfillments.nodes.length!==0))continue;
   const d=parent.destination;
   if(!d||!gid('FulfillmentOrderDestination',d.id)||!['SHIPPING','LOCAL'].includes(parent.deliveryMethod?.methodType??'')||d.countryCode!=='SG'||!d.address1?.trim()||!/^\d{6}$/.test(d.zip??''))throw Error('Complete Singapore destination required');
   const fields=[d.address1,d.address2,d.city,d.company,d.countryCode,d.province,d.zip];
@@ -54,7 +58,7 @@ export function readyBookingGroups(source:Source,shop:string,customerGid:string,
  return groups;
 }
 
-export async function readOwnedReadyBookingSources(admin:Admin,shop:string,customerGid:string,orderGid:string){
+export async function readOwnedReadyBookingEvidence(admin:Admin,shop:string,customerGid:string,orderGid:string){
  assertShop(shop);
  if(!gid('Customer',customerGid)||!gid('Order',orderGid))throw Error('Owned order required');
  const linked=await db.operationalLine.findMany({where:{shop,customerGid,orderGid,businessStream:'ready_series',validationStatus:'VALIDATED',contractGid:{not:null},fulfillmentState:{in:['UNASSIGNED','DISPATCHED']}},take:101});
@@ -68,5 +72,6 @@ export async function readOwnedReadyBookingSources(admin:Admin,shop:string,custo
   paid.push({operationalLineId:line.id,months:e.months,packages:e.packages,purchaseEvidenceId:original.id,renewalEvidenceId:e.renewalEvidenceId,purchaseHash:original.snapshotHash,orderLineGid:line.orderLineGid,productGid:line.productGid,variantGid:line.variantGid});
  }
  const native=await readPrepaidScheduleSource(admin,shop,{appGid:appGid!,customerGid,orderGid});
- return readyBookingGroups(native,shop,customerGid,orderGid,paid);
+ return {native,paid,appGid:appGid!,groups:readyBookingGroups(native,shop,customerGid,orderGid,paid)};
 }
+export async function readOwnedReadyBookingSources(admin:Admin,shop:string,customerGid:string,orderGid:string){return (await readOwnedReadyBookingEvidence(admin,shop,customerGid,orderGid)).groups;}

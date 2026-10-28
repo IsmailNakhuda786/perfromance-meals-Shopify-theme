@@ -32,11 +32,15 @@ export function ReadyDeliveries(){
   {uncertain&&<s-stack gap="small"><s-button disabled={busy} onClick={check}>Check previous change</s-button>{lastIntent.current&&<s-button disabled={busy} onClick={()=>submit(lastIntent.current)}>Retry same change</s-button>}</s-stack>}
   {data?.visible&&<>
    <s-paragraph>All delivery dates and times use Singapore time. Changing a delivery does not change your renewal billing date.</s-paragraph>
+   {data.progress&&<s-paragraph>Confirmed dispatched packages: {data.progress.dispatchedPackageDeliveries} of {data.progress.totalPackageDeliveries} package deliveries. Packages arriving together count as one driver visit.</s-paragraph>}
+   {data.progress?.reviewRequired&&<s-paragraph>Some shipment details need Support review. The count includes only confirmed dispatched packages.</s-paragraph>}
    {data.noticeHours&&<s-paragraph>Changing the planned delivery date requires at least {data.noticeHours} hours’ notice before both the current and replacement delivery. Contact Support for later requests.</s-paragraph>}
    {data.nativePending&&<s-paragraph>Some delivery details could not be verified. Changes are unavailable until the details can be checked.</s-paragraph>}
    {!data.calendarPrepared&&<s-paragraph>Your delivery calendar is being prepared. Contact Support if you need assistance.</s-paragraph>}
    {data.bookings.map(b=><s-section key={b.id+':'+b.revision} heading={b.orderName}>
     <s-paragraph>{b.deliveryAt?slotLabel(b):'Delivery details require Support review.'}{b.packages?` · ${b.packages} package${b.packages===1?'':'s'} in one visit`:''}</s-paragraph>
+    {b.dispatchState==='DISPATCHED'&&<s-paragraph>Dispatched. Contact Support if you need help with this delivery.</s-paragraph>}
+    {b.dispatchState==='PARTIALLY_DISPATCHED'&&<s-paragraph>Part of this visit has been dispatched. Contact Support before changing the remaining delivery.</s-paragraph>}
     {b.canChange?chooser(b.id,s=>submit({intent:'reschedule',bookingId:b.id,revision:b.revision,slotId:s.id,slotRevision:s.revision})):<s-paragraph>{b.reviewRequired?'Contact Support to check this delivery.':'Contact Support for delivery changes.'}</s-paragraph>}
    </s-section>)}
    {data.groups.map(g=><s-section key={g.sourceKey} heading={g.orderName}>

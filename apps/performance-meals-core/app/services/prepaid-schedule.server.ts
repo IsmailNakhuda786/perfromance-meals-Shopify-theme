@@ -11,6 +11,7 @@ query ReadySeriesNativeSchedule($id:ID!,$after:String){
   lineItems(first:250){nodes{id quantity currentQuantity variant{id product{id}}}pageInfo{hasNextPage}}
   fulfillmentOrders(first:5,after:$after){nodes{
    id status fulfillAt order{id} deliveryMethod{methodType} destination{id address1 address2 city company countryCode province zip}
+   fulfillments(first:5){nodes{id status}pageInfo{hasNextPage}}
    lineItems(first:20){nodes{id totalQuantity remainingQuantity lineItem{id}}pageInfo{hasNextPage endCursor}}
   }pageInfo{hasNextPage endCursor}}
  }
