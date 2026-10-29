@@ -13,6 +13,18 @@ declare module './src/renewal-stop-client.js' {
 }
 
 //@ts-ignore
+declare module './src/order-support-history-client.js' {
+  const shopify: import('@shopify/ui-extensions/customer-account.page.render').Api;
+  const globalThis: { shopify: typeof shopify };
+}
+
+//@ts-ignore
+declare module './src/PrepaidPrice.jsx' {
+  const shopify: import('@shopify/ui-extensions/customer-account.page.render').Api;
+  const globalThis: { shopify: typeof shopify };
+}
+
+//@ts-ignore
 declare module './src/ReadyDeliveries.jsx' {
   const shopify: import('@shopify/ui-extensions/customer-account.page.render').Api;
   const globalThis: { shopify: typeof shopify };

@@ -445,3 +445,10 @@ Latest regression for the 29 October changes: **665 passed / 1 PostgreSQL-only s
 ## 30 October — missed-purchase recovery
 
 [Bounded recovery and native inspection](PREPAID-PURCHASE-RECOVERY-20261030.md) now replace the ad-hoc recovery script. Fourteen existing Shopify contracts were discovered read-only; six full payment proofs verified, six historical price/discount mismatches held and two incomplete native test records quarantined. All 37 Core model fingerprints unchanged. PostgreSQL intake/recovery22/22 and full disposable681 passed/1 skipped/0 failed; TypeScript/lint/schema and Shopify validators passed. The embedded admin recovery page remains disabled in the normal preview. No new payment, credit, native order or delivery change. Functional status remains **2 PASS / 9 PARTIAL / 3 BLOCKED / 1 DEFERRED**; enabled admin recovery and permanent scheduling are not claimed.
+
+
+## 30 October — customer account and general fulfilment follow-up
+
+The [customer account's observed timeout and net-price disclosure](CUSTOMER-ACCOUNT-PRICING-LOAD-ACCEPTANCE-20261030.md) are fixed and verified in the real account preview. Nine saved contract prices match native terms; ten owned Support-history records load independently. [General development programme controls](SIXTY-DAY-GENERAL-DEVELOPMENT-20261030.md) now support multiple programmes/owners, with two real paid programmes read unchanged and11 PostgreSQL cases passed. [Complete-term progress](READY-SERIES-COMPLETE-TERM-READINESS-20261030.md) covers three/six deliveries and one/two packages in synthetic histories; the next two native test dispatches await separate approval.
+
+Latest full Core regression: **695 passed / 1 PostgreSQL-only skip / 0 failed**. TypeScript, lint, schema consistency and affected Shopify query/component validators passed. All37 protected real-shop model hashes unchanged. No charge, credit, new native dispatch or production change; Wallet top-ups and normal booking/batch activation remain disabled. Functional status remains **2 PASS / 9 PARTIAL / 3 BLOCKED / 1 DEFERRED**; these completed subjourneys do not waive remaining whole-requirement acceptance.

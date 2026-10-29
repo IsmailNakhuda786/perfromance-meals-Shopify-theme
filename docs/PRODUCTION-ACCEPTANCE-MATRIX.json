@@ -1,6 +1,6 @@
 {
   "updated": "2026-10-30",
-  "sourceCheckpoint": "f5c0d81",
+  "sourceCheckpoint": "d27fab8",
   "scope": "Full agreed production acceptance; no reduced-scope launch",
   "productionAccepted": false,
   "statusDefinitions": {
@@ -10,7 +10,7 @@
     "BLOCKED": "A required platform capability, authorization or external dependency prevents completion."
   },
   "baseline": {
-    "coreTests": 681,
+    "coreTests": 695,
     "nativeReadback": "Latest mixed QA verified #1031/#1032/#1033 with provider inbox intake and explicit Core replay; future renewals stopped. Eleven earlier paid orders/45 fulfilments and nine financial-model snapshots preserved. QA product, discounts, shipping profile, GST and temporary callback settings restored.",
     "checkoutPricing": "Exact charged initial and simulated renewal GST-inclusive pricing passed for single terms, two identical 3-delivery packages (SGD510.40/GST42.14) and mixed 3-/6-delivery packages (initial SGD748.80/GST61.83; renewals SGD255.20/GST21.07 and SGD493.60/GST40.76). Delivery was included. General production correction provisioning and permanent lifecycle acceptance remain incomplete.",
     "topUpsEnabled": false,
@@ -409,6 +409,33 @@
       "nativeMutations": 0,
       "coreWritesDuringNativeCheck": 0,
       "enabledAdminRecoveryAccepted": false
+    },
+    "accountPricingAndLoading": {
+      "nativeContractsWithVerifiedNetPrice": 9,
+      "customerAccountPriceView": "PASSED",
+      "independentSupportHistory": "10 owned native orders loaded; no Support request submitted",
+      "demonstratedOriginalRequestMs": 46596,
+      "originalSupportReviewMs": 25097,
+      "preservedModelHashes": 37
+    },
+    "generalProgrammeDevelopment": {
+      "nativePaidTestProgrammesRead": 2,
+      "postgresPassed": 11,
+      "normalActivationEnabled": false,
+      "nativeWrites": 0
+    },
+    "completeTermProgress": {
+      "syntheticTerms": [
+        3,
+        6
+      ],
+      "packageCounts": [
+        1,
+        2
+      ],
+      "sharedShipmentCounting": "HELD",
+      "nativeFullTermAcceptance": "AWAITING_SEPARATE_APPROVAL",
+      "existingOrderDispatchCount": "1 of 3 unchanged"
     }
   },
   "counts": {
@@ -473,7 +500,7 @@
           "apps/performance-meals-core/tests/prepaid-purchase-intake.test.mjs"
         ]
       },
-      "shopifyIntegration": "Both terms passed exact initial and first simulated renewal charges. Four previously missed paid orders now have validated Core rows and verified initial/renewal contract associations; replay leaves them unchanged. All 18 paid native fulfilments preserved. Native recurring subtotal tooltip explicitly excludes applicable discounts, explaining gross 255.21/493.62 versus net charged 255.20/493.60. 24 October approved follow-up: native unpaid GST checkout totals and restored settings verified; real Shopify-generated order-update delivery observed. See dated follow-up for scope limits. 25 October: two identical three-delivery packages passed exact510.40 initial and simulated renewal; real billing-success intake and explicit worker/replay passed; two native orders and one attempt only; all 24 protected paid fulfilments preserved. Latest 25 October: new per-package pricing version passed two-package initial #1029 and renewal #1030 at SGD510.40 including GST42.14 each, free delivery; actual provider create/billing events and explicit Core processing/replay passed. Exactly two native test orders and one attempt; future renewals stopped and temporary settings restored. 26 October: mixed per-package initial #1031 SGD748.80 incl GST61.83 and renewals #1032 SGD255.20/GST21.07 and #1033 SGD493.60/GST40.76 passed. Actual provider intake and explicit worker replay passed; both future billing agreements stopped, eleven earlier paid orders/45 fulfilments and nine financial models preserved; QA configuration restored. 29 October read-only cycle check held an early simulated renewal in the original billing period; it is not counted as later-cycle delivery acceptance. Cancelled native QA subscription produced no renewal notices.",
+      "shopifyIntegration": "Both terms passed exact initial and first simulated renewal charges. Four previously missed paid orders now have validated Core rows and verified initial/renewal contract associations; replay leaves them unchanged. All 18 paid native fulfilments preserved. Native recurring subtotal tooltip explicitly excludes applicable discounts, explaining gross 255.21/493.62 versus net charged 255.20/493.60. 24 October approved follow-up: native unpaid GST checkout totals and restored settings verified; real Shopify-generated order-update delivery observed. See dated follow-up for scope limits. 25 October: two identical three-delivery packages passed exact510.40 initial and simulated renewal; real billing-success intake and explicit worker/replay passed; two native orders and one attempt only; all 24 protected paid fulfilments preserved. Latest 25 October: new per-package pricing version passed two-package initial #1029 and renewal #1030 at SGD510.40 including GST42.14 each, free delivery; actual provider create/billing events and explicit Core processing/replay passed. Exactly two native test orders and one attempt; future renewals stopped and temporary settings restored. 26 October: mixed per-package initial #1031 SGD748.80 incl GST61.83 and renewals #1032 SGD255.20/GST21.07 and #1033 SGD493.60/GST40.76 passed. Actual provider intake and explicit worker replay passed; both future billing agreements stopped, eleven earlier paid orders/45 fulfilments and nine financial models preserved; QA configuration restored. 29 October read-only cycle check held an early simulated renewal in the original billing period; it is not counted as later-cycle delivery acceptance. Cancelled native QA subscription produced no renewal notices. 30 October: nine native contract prices verified read-only; refreshed customer account displays exact net totals and keeps one unverified historical contract held. Slow Support history is separated and ten owned order records load in Order History; no Support request or financial action.",
       "customerJourney": "Initial/renewal test payments and future-renewal stop verified. Recovered account renders three linked stopped-renewal subscriptions, without duplicate renewal cards. Full merchant delivery lifecycle and permanent callback acceptance incomplete.",
       "outstandingIssues": [
         "Production cent-correction creation, persistence and recovery lifecycle is not implemented/accepted generally.",
@@ -500,7 +527,8 @@
         "docs/PREPAID-MIXED-PER-PACKAGE-GST-QA-20261026.md",
         "docs/SHOPIFY-SUBSCRIPTION-TESTING-DETERMINATION-20261028.md",
         "docs/READY-SERIES-RENEWAL-CONTINUITY-20261029.md",
-        "docs/READY-SERIES-NOTIFICATIONS-20261029.md"
+        "docs/READY-SERIES-NOTIFICATIONS-20261029.md",
+        "docs/CUSTOMER-ACCOUNT-PRICING-LOAD-ACCEPTANCE-20261030.md"
       ],
       "remainingEngineering": [
         "Implement gated production correction lifecycle and clear net-price explanation without mislabelling native gross subtotal; complete permanent intake, delivery allocation and customer lifecycle acceptance."
@@ -508,14 +536,15 @@
       "assessmentStatus": "PARTIAL",
       "assessmentScope": "FUNCTIONAL",
       "assessmentEvidence": [
-        "READY-SERIES-DISPATCH-ACCEPTANCE-20261029.md"
+        "READY-SERIES-DISPATCH-ACCEPTANCE-20261029.md",
+        "CUSTOMER-ACCOUNT-PRICING-LOAD-ACCEPTANCE-20261030.md"
       ]
     },
     {
       "id": 3,
       "requirement": "6 by 60 and Plus programmes",
       "status": "PARTIAL",
-      "implemented": "One-off programme semantics and immutable 88-weekday/32-frozen/120-total entitlement snapshots for new purchases. Default-off authenticated Core meal-batch allocation/dispatch with immutable entitlement, idempotency, separate meal ceilings and customer progress.",
+      "implemented": "One-off programme semantics and immutable 88-weekday/32-frozen/120-total entitlement snapshots for new purchases. Default-off authenticated Core meal-batch allocation/dispatch with immutable entitlement, idempotency, separate meal ceilings and customer progress. Bounded general development programme selection with optional QA narrowing, per-owner allowance isolation and invalid-selection rejection.",
       "automatedTests": {
         "state": "PASSED_BASELINE",
         "files": [
@@ -540,13 +569,17 @@
         "docs/CUSTOMER-CORE-COMPLETION-TRACKER.md",
         "docs/SIXTY-DAY-DELIVERY-BATCHES-20261027.md",
         "docs/SIXTY-DAY-DELIVERY-BATCHES-20261028.md",
-        "docs/SIXTY-DAY-FULL-ALLOWANCE-QA-20261028.md"
+        "docs/SIXTY-DAY-FULL-ALLOWANCE-QA-20261028.md",
+        "docs/SIXTY-DAY-GENERAL-DEVELOPMENT-20261030.md"
       ],
       "remainingEngineering": [
         "Complete general batch activation safeguards and physical booking/rescheduling under requirement13. Full88/32 accounting, replay/overflow protection and approved legacy-development allowance reconciliation passed."
       ],
       "assessmentStatus": "PARTIAL",
-      "assessmentScope": "FUNCTIONAL"
+      "assessmentScope": "FUNCTIONAL",
+      "assessmentEvidence": [
+        "SIXTY-DAY-GENERAL-DEVELOPMENT-20261030.md"
+      ]
     },
     {
       "id": 4,
@@ -842,7 +875,7 @@
           "apps/performance-meals-core/tests/subscription-renewal-stop-route.test.mjs"
         ]
       },
-      "shopifyIntegration": "Native seven-section rendering and saved menus recorded; authenticated Ready Series future-renewal stop now passed with independent preservation proof. Reconnected current account preview: three stopped-renewal cards and existing saved 6 by 60 programmes visible, with no duplicate renewal cards.",
+      "shopifyIntegration": "Native seven-section rendering and saved menus recorded; authenticated Ready Series future-renewal stop now passed with independent preservation proof. Reconnected current account preview: three stopped-renewal cards and existing saved 6 by 60 programmes visible, with no duplicate renewal cards. 30 October: nine native contract prices verified read-only; refreshed customer account displays exact net totals and keeps one unverified historical contract held. Slow Support history is separated and ten owned order records load in Order History; no Support request or financial action.",
       "customerJourney": "28 October: normal signed-in development account loaded; all seven sections opened at375px phone width. Navigation wrapped and normal programme/history/Wallet/Rewards/Gift Card/Settings views rendered. Viewport restored. Full operation/recovery acceptance remains incomplete. Customer booking/rescheduling and grouped-visit reminder receipt now have separate controlled acceptance evidence; blocked financial journeys remain unavailable.",
       "outstandingIssues": [
         "General management/branding and recovery acceptance incomplete; blocked payment features must not be represented as ready."
@@ -855,7 +888,8 @@
         "docs/SUBSCRIPTION-RENEWAL-STOP-20261023.md",
         "docs/CORE-CONNECTIVITY-RECOVERY-20261024.md",
         "docs/CUSTOMER-ACCOUNT-MOBILE-QA-20261028.md",
-        "docs/READY-SERIES-NOTIFICATIONS-20261029.md"
+        "docs/READY-SERIES-NOTIFICATIONS-20261029.md",
+        "docs/CUSTOMER-ACCOUNT-PRICING-LOAD-ACCEPTANCE-20261030.md"
       ],
       "remainingEngineering": [
         "Complete seven-section operation and interrupted/expired-session recovery acceptance, including blocked payment features. Mobile navigation/readback passed on28 October; not a claim of financial operation acceptance."
@@ -863,14 +897,15 @@
       "assessmentStatus": "PARTIAL",
       "assessmentScope": "FUNCTIONAL",
       "assessmentEvidence": [
-        "READY-SERIES-DISPATCH-ACCEPTANCE-20261029.md"
+        "READY-SERIES-DISPATCH-ACCEPTANCE-20261029.md",
+        "CUSTOMER-ACCOUNT-PRICING-LOAD-ACCEPTANCE-20261030.md"
       ]
     },
     {
       "id": 13,
       "requirement": "Fulfilment, pause, reschedule and future-renewal management",
       "status": "PARTIAL",
-      "implemented": "Authenticated future-renewal stop with durable intent/replay guards; pure delivery-change notice/slot planner and inactive reminder persistence. Registered immutable corrected purchases now prepare inactive quantity-aware delivery drafts with native payment/schedule rechecks and transactional checksum binding; legacy replay remains compatible. Merchant-configured per-slot delivery limits, atomic internal capacity reservations/releases, revision protection and authenticated Core slot-management forms are implemented default-off. Read-only exact native destination proof and completed-stop paid-term preparation; neither activates booking. Atomic provisional combined-visit rescheduling now moves capacity, member revisions and reminder history together with rollback and exact replay protection. Authenticated customer booking/rescheduling, merchant policy/calendar readback and receipt-backed per-visit delivery reminders are now integrated. Original anchors and later renewal-cycle checks are implemented; early simulated attempts are held rather than guessed.",
+      "implemented": "Authenticated future-renewal stop with durable intent/replay guards; pure delivery-change notice/slot planner and inactive reminder persistence. Registered immutable corrected purchases now prepare inactive quantity-aware delivery drafts with native payment/schedule rechecks and transactional checksum binding; legacy replay remains compatible. Merchant-configured per-slot delivery limits, atomic internal capacity reservations/releases, revision protection and authenticated Core slot-management forms are implemented default-off. Read-only exact native destination proof and completed-stop paid-term preparation; neither activates booking. Atomic provisional combined-visit rescheduling now moves capacity, member revisions and reminder history together with rollback and exact replay protection. Authenticated customer booking/rescheduling, merchant policy/calendar readback and receipt-backed per-visit delivery reminders are now integrated. Original anchors and later renewal-cycle checks are implemented; early simulated attempts are held rather than guessed. Complete-term customer progress and cross-occurrence shared-shipment rejection; actual full-term native dispatch still awaits new approval.",
       "automatedTests": {
         "state": "PASSED_BASELINE",
         "files": [
@@ -904,7 +939,8 @@
         "READY-DELIVERY-DESTINATION-QA-20261027.md",
         "docs/READY-DELIVERY-ATOMIC-RESCHEDULE-20261028.md",
         "docs/READY-SERIES-RENEWAL-CONTINUITY-20261029.md",
-        "docs/READY-SERIES-NOTIFICATIONS-20261029.md"
+        "docs/READY-SERIES-NOTIFICATIONS-20261029.md",
+        "docs/READY-SERIES-COMPLETE-TERM-READINESS-20261030.md"
       ],
       "remainingEngineering": [
         "Demonstrate a genuinely later native billing-cycle calendar without altering existing paid records; the previous early simulated renewal is insufficient proof.",
@@ -914,7 +950,8 @@
       "assessmentStatus": "PARTIAL",
       "assessmentScope": "FUNCTIONAL",
       "assessmentEvidence": [
-        "READY-SERIES-DISPATCH-ACCEPTANCE-20261029.md"
+        "READY-SERIES-DISPATCH-ACCEPTANCE-20261029.md",
+        "READY-SERIES-COMPLETE-TERM-READINESS-20261030.md"
       ]
     },
     {

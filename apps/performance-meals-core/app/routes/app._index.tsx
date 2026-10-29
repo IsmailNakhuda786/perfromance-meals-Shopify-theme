@@ -1,6 +1,7 @@
 import type {LoaderFunctionArgs,ActionFunctionArgs} from 'react-router';
 import {Form,useLoaderData,useActionData} from 'react-router';
 import {authenticate,registerWebhooks} from '../shopify.server';
+import {programmeDeliveryEnabled} from '../services/programme-deliveries.server';
 import {assertPrepaidPurchaseIntakeScope} from '../services/prepaid-purchase-intake.server';
 import {readyBookingReadable} from '../services/ready-booking-read.server';
 import {assertShop} from '../services/security.server';
@@ -13,7 +14,7 @@ export async function loader({request}:LoaderFunctionArgs) {
  const result=await response.json();if(!response.ok||("errors" in result&&result.errors)||!result.data?.shop||result.data.shop.myshopifyDomain!==session.shop||!result.data.webhookSubscriptions) throw new Response('Connection unavailable',{status:503});
  const subscriptions=result.data.webhookSubscriptions;
  let purchaseRecoveryEnabled=false;try{assertPrepaidPurchaseIntakeScope(session.shop);purchaseRecoveryEnabled=true;}catch{/* Disabled development gate keeps recovery unavailable. */}
- return {purchaseRecoveryEnabled,customerDeliveriesEnabled:readyBookingReadable(session.shop,process.env.CORE_READY_BOOKING_QA_CUSTOMER??''),programmeBatchesEnabled:process.env.NODE_ENV!=="production"&&process.env.SIXTY_DAY_BATCHES_ENABLED==="true"&&!!process.env.SIXTY_DAY_BATCH_QA_SELECTION_ID,shop:result.data.shop,...reviewOrderEventConnections(process.env.SHOPIFY_APP_URL,subscriptions.nodes,subscriptions.pageInfo?.hasNextPage===false,{renewalEvidenceEnabled:process.env.NODE_ENV!=='production'&&process.env.CORE_PREPAID_RENEWAL_LINKS_ENABLED==='true'})};
+ return {purchaseRecoveryEnabled,customerDeliveriesEnabled:readyBookingReadable(session.shop,process.env.CORE_READY_BOOKING_QA_CUSTOMER??''),programmeBatchesEnabled:programmeDeliveryEnabled(),shop:result.data.shop,...reviewOrderEventConnections(process.env.SHOPIFY_APP_URL,subscriptions.nodes,subscriptions.pageInfo?.hasNextPage===false,{renewalEvidenceEnabled:process.env.NODE_ENV!=='production'&&process.env.CORE_PREPAID_RENEWAL_LINKS_ENABLED==='true'})};
 }
 export async function action({request}:ActionFunctionArgs){
  const {session,admin}=await authenticate.admin(request);assertShop(session.shop);

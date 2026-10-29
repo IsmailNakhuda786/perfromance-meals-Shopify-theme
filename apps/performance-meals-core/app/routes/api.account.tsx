@@ -55,8 +55,10 @@ export async function loader({request}:LoaderFunctionArgs){
  const rewardsEnabled=!!policy?.rewardsEnabled&&(!rewardScope||rewardScope===customerGid);
  let rewards=null;
  try{rewards=await readRewardsLedger(shop,customerGid);}catch{ /* Pending migrations/history must not hide the rest of the account. */ }
+ // New clients load Support history separately so its ten-order native
+ // review cannot time out the account. Retain the legacy response contract.
  let cancellations=null;
- if(admin){try{cancellations=await readAccountCancellations(admin,shop,customerGid);}catch{ /* No cancellation button on incomplete native evidence. */ }}
+ if(new URL(request.url).searchParams.get('orderSupport')!=='separate'&&admin){try{cancellations=await readAccountCancellations(admin,shop,customerGid);}catch{ /* No Support controls on incomplete evidence. */ }}
  let subscriptions=null,subscriptionHistoryPending=!admin;
  if(admin){try{
   const linked=await db.operationalLine.findMany({where:{shop,customerGid,validationStatus:'VALIDATED',contractGid:{not:null}},take:101,select:{contractGid:true,orderGid:true,businessStream:true,productGid:true,variantGid:true}});

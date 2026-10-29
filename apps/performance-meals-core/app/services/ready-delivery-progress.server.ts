@@ -14,6 +14,7 @@ query CoreReadyOccurrenceDispatch($id:ID!){
  }
 }`;
 const ref=(kind:string,v:unknown)=>typeof v==='string'&&new RegExp('^gid://shopify/'+kind+'/\\d+$').test(v);
+type ProgressRow={sourceKey:string;state:'AWAITING_DISPATCH'|'DISPATCHED'|'PARTIALLY_DISPATCHED'|'REVIEW';totalPackages:number;dispatchedPackages:number};
 type Group=ReturnType<typeof readyBookingGroups>[number];
 type NativeParent={id:string;status:string;lineItems:{nodes:Array<{id:string;totalQuantity:number;remainingQuantity:number;lineItem:{id:string}}>};fulfillments?:{nodes:Array<{id:string;status:string}>;pageInfo:{hasNextPage:boolean}}};
 const lineFacts=(rows:NativeParent['lineItems']['nodes'])=>rows.map(l=>[l.id,l.totalQuantity,l.remainingQuantity,l.lineItem?.id]).sort((a,b)=>String(a[0]).localeCompare(String(b[0])));
@@ -35,12 +36,13 @@ export function readyOccurrenceDispatch(group:Group,parent:NativeParent,proof:un
 // Read only. SUCCESS means dispatched, not carrier-confirmed arrival. Ambiguous
 // multi-occurrence shipments, truncated history or changed quantities show review.
 export async function readReadyDeliveryProgress(admin:Admin,shop:string,customerGid:string,orderGid:string,evidence:Evidence){
- assertShop(shop);const groups=readyBookingGroups(evidence.native,shop,customerGid,orderGid,evidence.paid,true),rows=[];
+ assertShop(shop);const groups=readyBookingGroups(evidence.native,shop,customerGid,orderGid,evidence.paid,true),rows:ProgressRow[]=[],shipments=new Map<string,number>();
  for(const group of groups){
   const parent=evidence.native.fulfillments.find((p:NativeParent)=>p.id===group.fulfillmentOrderGid) as NativeParent,totalPackages=group.members.reduce((sum,m)=>sum+m.packages,0);
   if(evidence.groups.some(g=>g.key===group.key)){rows.push({sourceKey:group.key,state:'AWAITING_DISPATCH',totalPackages,dispatchedPackages:0});continue;}
-  try{const response=await admin.graphql(READY_OCCURRENCE_DISPATCH_QUERY,{variables:{id:parent.id}}),body=await response.json();if(!response.ok||body.errors||body.data?.shop?.myshopifyDomain!==shop||body.data.currentAppInstallation?.app?.id!==evidence.appGid)throw Error();rows.push({sourceKey:group.key,...readyOccurrenceDispatch(group,parent,body.data.fulfillmentOrder)});}catch{rows.push({sourceKey:group.key,state:'REVIEW',totalPackages,dispatchedPackages:0});}
+  try{const response=await admin.graphql(READY_OCCURRENCE_DISPATCH_QUERY,{variables:{id:parent.id}}),body=await response.json();if(!response.ok||body.errors||body.data?.shop?.myshopifyDomain!==shop||body.data.currentAppInstallation?.app?.id!==evidence.appGid)throw Error();const inspected=readyOccurrenceDispatch(group,parent,body.data.fulfillmentOrder);let shared=false;for(const shipment of body.data.fulfillmentOrder.fulfillments.nodes){const prior=shipments.get(shipment.id);if(prior!==undefined){rows[prior]={...rows[prior],state:'REVIEW',dispatchedPackages:0};shared=true;}else shipments.set(shipment.id,rows.length);}
+   rows.push({sourceKey:group.key,...inspected,...(shared?{state:'REVIEW',dispatchedPackages:0}:{})});}catch{rows.push({sourceKey:group.key,state:'REVIEW',totalPackages,dispatchedPackages:0});}
  }
  if(!rows.length)throw Error('Paid delivery progress unavailable');
- return {rows,totalPackageDeliveries:rows.reduce((sum,r)=>sum+r.totalPackages,0),dispatchedPackageDeliveries:rows.reduce((sum,r)=>sum+r.dispatchedPackages,0),reviewRequired:rows.some(r=>r.state==='REVIEW'),physicalOccurrenceGroups:rows.length};
+ return {rows,completed:rows.every(r=>r.state==='DISPATCHED'),totalPackageDeliveries:rows.reduce((sum,r)=>sum+r.totalPackages,0),dispatchedPackageDeliveries:rows.reduce((sum,r)=>sum+r.dispatchedPackages,0),reviewRequired:rows.some(r=>r.state==='REVIEW'),physicalOccurrenceGroups:rows.length};
 }

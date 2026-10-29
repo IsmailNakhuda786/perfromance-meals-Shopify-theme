@@ -2,17 +2,18 @@ import {createHash} from 'node:crypto';
 import type {ActionFunctionArgs,LoaderFunctionArgs} from 'react-router';
 import {Form,useActionData,useLoaderData,useNavigation} from 'react-router';
 import {authenticate} from '../shopify.server';
-import db from '../db.server';
 import {assertShop} from '../services/security.server';
 import {savedSixtyDayEntitlement} from '../services/programme-period';
-import {planProgrammeDeliveryBatch,changeProgrammeDeliveryBatch,programmeDeliveryProgress} from '../services/programme-deliveries.server';
-const enabled=()=>process.env.NODE_ENV!=='production'&&process.env.SIXTY_DAY_BATCHES_ENABLED==='true'&&/^[a-zA-Z0-9-]{1,100}$/.test(process.env.SIXTY_DAY_BATCH_QA_SELECTION_ID||'');
+import {planProgrammeDeliveryBatch,changeProgrammeDeliveryBatch,programmeDeliveryProgress,programmeDeliveryEnabled,listProgrammeDeliverySelections} from '../services/programme-deliveries.server';
+const enabled=programmeDeliveryEnabled;
 export async function loader({request}:LoaderFunctionArgs){
  const {session}=await authenticate.admin(request);assertShop(session.shop);
- if(!enabled())return {enabled:false,programmes:[],selected:null,progress:null};
- const programmes=await db.mealPlanSelection.findMany({where:{id:process.env.SIXTY_DAY_BATCH_QA_SELECTION_ID,shop:session.shop,status:'ORDERED',sellingPlanGid:null,startsOn:{not:null},endsOn:{not:null}},orderBy:{createdAt:'desc'},take:50});
- const requested=new URL(request.url).searchParams.get('programme'),selected=programmes.find(p=>p.id===requested)??programmes[0];
- return {enabled:true,programmes:programmes.map(p=>({id:p.id,label:`${p.startsOn} – ${p.endsOn} · ${p.orderGid?.split('/').at(-1)??'Order unavailable'}`})),selected:selected?{id:selected.id,hasEntitlement:!!savedSixtyDayEntitlement(selected.entitlement,selected.startsOn,selected.endsOn)}:null,progress:selected?await programmeDeliveryProgress(session.shop,selected.customerGid,selected.id):null};
+ if(!enabled())return {enabled:false,programmes:[],selected:null,progress:null,after:null,nextCursor:null};
+ const params=new URL(request.url).searchParams,after=params.get('after')??undefined;
+ const {programmes,nextCursor}=await listProgrammeDeliverySelections(session.shop,{after});
+ const requested=params.get('programme'),selected=requested?programmes.find(p=>p.id===requested):programmes[0];
+ if(requested&&!selected)throw new Response('Programme unavailable on this page',{status:404});
+ return {enabled:true,after:after??null,nextCursor,programmes:programmes.map(p=>({id:p.id,label:`${p.startsOn} – ${p.endsOn} · ${p.orderGid?.split('/').at(-1)??'Order unavailable'}`})),selected:selected?{id:selected.id,hasEntitlement:!!savedSixtyDayEntitlement(selected.entitlement,selected.startsOn,selected.endsOn)}:null,progress:selected?await programmeDeliveryProgress(session.shop,selected.customerGid,selected.id):null};
 }
 export async function action({request}:ActionFunctionArgs){
  const context=await authenticate.admin(request);assertShop(context.session.shop);
@@ -45,8 +46,8 @@ export default function ProgrammeDeliveries(){
    {result?.message&&<p role="status">{result.message}</p>}{result?.error&&<p role="alert">{result.error}</p>}
   </s-section>
   {data.enabled&&<s-section heading="Programme">
-   <Form method="get"><label>Select programme <select name="programme" defaultValue={data.selected?.id}>{data.programmes.map(x=><option key={x.id} value={x.id}>{x.label}</option>)}</select></label><button type="submit" disabled={busy}>Open programme</button></Form>
-   {!data.selected?<s-paragraph>No paid programme is available.</s-paragraph>:!data.selected.hasEntitlement?<s-paragraph>This older programme has no verified meal-entitlement snapshot. Contact Support for review; Core will not invent an entitlement from today’s catalogue.</s-paragraph>:<>
+   <Form method="get">{data.after&&<input type="hidden" name="after" value={data.after}/>}<label>Select programme <select name="programme" defaultValue={data.selected?.id}>{data.programmes.map(x=><option key={x.id} value={x.id}>{x.label}</option>)}</select></label><button type="submit" disabled={busy}>Open programme</button></Form>{data.nextCursor&&<s-link href={'/app/programme-deliveries?after='+encodeURIComponent(data.nextCursor)}>More programmes</s-link>}{data.after&&<s-link href="/app/programme-deliveries">Return to first page</s-link>}
+   {!data.selected?<s-paragraph>No paid programme is available on this page.</s-paragraph>:!data.selected.hasEntitlement?<s-paragraph>This older programme has no verified meal-entitlement snapshot. Contact Support for review; Core will not invent an entitlement from today’s catalogue.</s-paragraph>:<>
     {p&&<s-paragraph>Recorded dispatches: {p.dispatchedWeekday} of 88 weekday meals and {p.dispatchedFrozen} of 32 frozen meals. Unallocated: {p.unallocatedWeekday} weekday, {p.unallocatedFrozen} frozen.</s-paragraph>}
     <Form method="post"><input type="hidden" name="intent" value="plan"/><input type="hidden" name="selectionId" value={data.selected.id}/>
      <label>Unique batch reference <input name="reference" required maxLength={100} pattern="[a-zA-Z0-9-]+"/></label>

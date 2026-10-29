@@ -38,7 +38,7 @@ export async function readCustomerReadyDeliveries(admin:Admin,shop:string,custom
   groups.push({sourceKey:source.key,orderGid,orderName:source.orderName,packages:source.members.reduce((sum,m)=>sum+m.packages,0),occurrences:source.members.map(m=>({number:m.occurrence,deliveries:m.deliveries,packages:m.packages})),plannedAt:dates[0]??null,canBook:!!(enabled&&initial&&dates.every(d=>d&&d===dates[0]))});
  }
  const slots=[];let nextSlotCursor:string|null=null;
- if(calendar){
+ if(calendar&&!progress?.completed){
   const after=options.afterSlot?await db.readyDeliverySlot.findFirst({where:{id:options.afterSlot,...readyBookingSlotScope(shop)}}):null;
   if(options.afterSlot&&!after)throw Error('Invalid slot page');
   const rows=await db.readyDeliverySlot.findMany({where:{...readyBookingSlotScope(shop),available:true,deliveryAt:{gt:now},reserved:{lt:db.readyDeliverySlot.fields.capacity},...(after?{OR:[{deliveryAt:{gt:after.deliveryAt}},{deliveryAt:after.deliveryAt,id:{gt:after.id}}]}:{})},orderBy:[{deliveryAt:'asc'},{id:'asc'}],take:26});

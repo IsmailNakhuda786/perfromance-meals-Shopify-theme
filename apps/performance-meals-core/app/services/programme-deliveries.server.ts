@@ -19,7 +19,9 @@ const BASIS='SIXTY_DAY_DELIVERY_BASIS',BATCH='SIXTY_DAY_DELIVERY_BATCH';
 const hash=(v:unknown)=>createHash('sha256').update(JSON.stringify(v)).digest('hex');
 const basisId=(shop:string,id:string)=>'programme-basis:'+hash([shop,id]);
 const validId=(v:unknown)=>typeof v==='string'&&/^[a-zA-Z0-9-]{1,100}$/.test(v);
-const active=()=>process.env.NODE_ENV!=='production'&&process.env.SIXTY_DAY_BATCHES_ENABLED==='true'&&validId(process.env.SIXTY_DAY_BATCH_QA_SELECTION_ID);
+export const programmeDeliveryEnabled=()=>process.env.NODE_ENV!=='production'&&process.env.SIXTY_DAY_BATCHES_ENABLED==='true'&&(process.env.SIXTY_DAY_BATCH_QA_SELECTION_ID===undefined||validId(process.env.SIXTY_DAY_BATCH_QA_SELECTION_ID));
+const active=programmeDeliveryEnabled;
+const selectionAllowed=(id:string)=>validId(id)&&(process.env.SIXTY_DAY_BATCH_QA_SELECTION_ID===undefined||id===process.env.SIXTY_DAY_BATCH_QA_SELECTION_ID);
 function scope(shop:string){assertShop(shop);if(!active())throw Error('Programme delivery batches are not activated');}
 function actor(v:string){if(!/^shopify-admin:[a-f0-9]{64}$/.test(v))throw Error('Authenticated delivery operator required');}
 function units(a:number,b:number){if(!Number.isSafeInteger(a)||!Number.isSafeInteger(b)||a<0||b<0||a+b<1||a>88||b>32)throw Error('Enter whole meal quantities within the purchased entitlement');}
@@ -30,7 +32,7 @@ function basis(p:Programme){
  return {value,hash:hash(value)};
 }
 async function programme(shop:string,id:string){
- if(!validId(id)||id!==process.env.SIXTY_DAY_BATCH_QA_SELECTION_ID)throw Error('Programme outside the approved delivery test');
+ if(!selectionAllowed(id))throw Error('Programme outside the approved delivery test');
  const p=await db.mealPlanSelection.findFirst({where:{id,shop}});
  if(!p)throw Error('Programme unavailable');
  basis(p);return p;
@@ -100,7 +102,7 @@ export async function changeProgrammeDeliveryBatch(admin:Admin,input:{shop:strin
  },{timeout:30000});
 }
 export async function programmeDeliveryProgress(shop:string,customerGid:string,selectionId:string){
- assertShop(shop);if(!active()||selectionId!==process.env.SIXTY_DAY_BATCH_QA_SELECTION_ID)return {available:false as const};
+ assertShop(shop);if(!active()||!selectionAllowed(selectionId))return {available:false as const};
  const p=await db.mealPlanSelection.findFirst({where:{id:selectionId,shop,customerGid,status:'ORDERED'}});if(!p)return {available:false as const};
  try{const b=basis(p),parent=await db.planOperation.findUnique({where:{id:basisId(shop,p.id)}});if(!parent)return {available:false as const,notStarted:true};if(parent.kind!==BASIS||parent.shop!==shop||parent.selectionId!==p.id||parent.state!=='ACTIVE'||parent.cycleReference!==b.hash||parent.productionReference!==JSON.stringify(b.value))return {available:false as const,reviewRequired:true};
   const rows=await db.planOperation.findMany({where:{shop,selectionId:p.id,kind:BATCH},orderBy:{createdAt:'asc'},take:251});if(rows.length>250)throw Error('Batch history incomplete');
@@ -113,4 +115,17 @@ export async function customerProgrammeDeliveryProgress(shop:string,customerGid:
  const result=await programmeDeliveryProgress(shop,customerGid,selectionId);
  if(!result.available)return result;
  return {...result,batches:result.batches.map(({weekdayMeals,frozenMeals,state,dispatchedAt})=>({weekdayMeals,frozenMeals,state,dispatchedAt}))};
+}
+
+// Merchant list for general development activation; a configured QA selection
+// still narrows every page and mutation. Native paid proof remains mandatory
+// at allocation/dispatch, not inferred from these saved labels.
+export async function listProgrammeDeliverySelections(shop:string,options:{after?:string;limit?:number}={}){
+ scope(shop);const limit=options.limit??25;
+ if(!Number.isSafeInteger(limit)||limit<1||limit>50||options.after!==undefined&&!selectionAllowed(options.after))throw Error('Invalid programme page');
+ const where={shop,status:'ORDERED',businessStream:'meal_plan',sellingPlanGid:null,contractGid:null,startsOn:{not:null},endsOn:{not:null},...(process.env.SIXTY_DAY_BATCH_QA_SELECTION_ID?{id:process.env.SIXTY_DAY_BATCH_QA_SELECTION_ID}:{})};
+ const cursor=options.after?await db.mealPlanSelection.findFirst({where:{...where,id:options.after}}):null;
+ if(options.after&&!cursor)throw Error('Programme page unavailable');
+ const rows=await db.mealPlanSelection.findMany({where:{...where,...(cursor?{OR:[{createdAt:{lt:cursor.createdAt}},{createdAt:cursor.createdAt,id:{lt:cursor.id}}]}:{})},orderBy:[{createdAt:'desc'},{id:'desc'}],take:limit+1});
+ return {programmes:rows.slice(0,limit),nextCursor:rows.length>limit?rows[limit-1].id:null};
 }

@@ -2,6 +2,8 @@ import '@shopify/ui-extensions/preact';
 import {render} from 'preact';
 import {useEffect, useState, useRef} from 'preact/hooks';
 import {createRenewalStopClient} from './renewal-stop-client';
+import {loadOrderSupportHistory} from './order-support-history-client';
+import {PrepaidPrice} from './PrepaidPrice.jsx';
 import {ReadyDeliveries} from './ReadyDeliveries.jsx';
 import {APP_URL} from './app-endpoint.generated';
 
@@ -27,7 +29,8 @@ function Account() {
         if (url.protocol !== 'https:') throw new Error('Invalid endpoint');
         const token = await shopify.sessionToken.get();
         if(controller.signal.aborted)return;
-        const response = await fetch(new URL('/api/account', url), {
+        const endpoint=new URL('/api/account',url);endpoint.searchParams.set('orderSupport','separate');
+        const response = await fetch(endpoint, {
           headers: {Authorization: `Bearer ${token}`}, signal: controller.signal,
         });
         if (!response.ok) throw new Error('Account unavailable');
@@ -53,7 +56,7 @@ function Account() {
       {section === 'Dashboard' && <s-section heading="Dashboard">
         <s-paragraph>Your Ready Series, Meal Plans and Gift Card purchases share one Performance Meals account.</s-paragraph>
         <s-grid gridTemplateColumns="repeat(auto-fit, minmax(240px, 1fr))" gap="base">
-          <s-section heading="Active Plan">{renderSubscriptions(account)}<s-button onClick={() => setSection('My Plan')}>Manage Plan</s-button></s-section>
+          <s-section heading="Active Plan">{renderSubscriptions(account,undefined,undefined)}<s-button onClick={() => setSection('My Plan')}>Manage Plan</s-button></s-section>
           <s-section heading="Monetary Wallet">{renderWallet(account)}<s-button onClick={() => setSection('Wallet')}>Wallet</s-button></s-section>
         </s-grid>
       </s-section>}
@@ -61,7 +64,7 @@ function Account() {
         <s-section heading="Ready Series">{account?.readyDeliveriesAvailable&&<ReadyDeliveries/>}{renderSubscriptions(account,'ready_series',()=>setRefresh(value=>value+1))}</s-section>
         <s-section heading="Meal Plan">{renderSubscriptions(account,'meal_plan',()=>setRefresh(value=>value+1))}{renderPlans(account)}</s-section>
       </s-section>}
-      {section === 'Order History' && <s-section heading="Order History"><s-paragraph>Your Ready Series, Meal Plan and Gift Card purchases remain together in your Shopify order history.</s-paragraph><s-link href="shopify:customer-account/orders">View all orders</s-link><OrderCancellations data={account?.cancellations} onUpdated={() => setRefresh(value => value + 1)}/></s-section>}
+      {section === 'Order History' && <s-section heading="Order History"><s-paragraph>Your Ready Series, Meal Plan and Gift Card purchases remain together in your Shopify order history.</s-paragraph><s-link href="shopify:customer-account/orders">View all orders</s-link><OrderSupportHistory onUpdated={() => setRefresh(value => value + 1)}/></s-section>}
       {section === 'Wallet' && <s-section heading="Wallet">{renderWallet(account)}</s-section>}
       {section === 'Rewards' && <Rewards data={account} onUpdated={() => setRefresh(value => value + 1)}/>}
       {section === 'Gift Cards' && <s-section heading="Gift Cards"><s-paragraph>Your Gift Card purchases appear in your Shopify order history. Only the named recipient may claim the full remaining Gift Card value into Wallet. The Wallet credit keeps the original Gift Card expiry date.</s-paragraph><GiftCardClaim accountLoaded={!!account} accountError={!!error} enabled={account?.giftCardClaimsEnabled} blocked={!account?.nativeWallet||account?.walletHistoryPending||account?.walletCreditPending} onClaimed={() => setRefresh(value => value + 1)}/></s-section>}
@@ -91,6 +94,19 @@ function renderPlans(account) {
   </s-section>);
 }
 
+function OrderSupportHistory({onUpdated}) {
+ const [data,setData]=useState(null),[error,setError]=useState(''),[refresh,setRefresh]=useState(0);
+ useEffect(()=>{const controller=new AbortController();setData(null);setError('');
+  loadOrderSupportHistory({origin:APP_URL,getToken:()=>shopify.sessionToken.get(),signal:controller.signal}).then(result=>{if(!controller.signal.aborted)setData(result);}).catch(()=>{if(!controller.signal.aborted)setError('Your order Support history could not be loaded. Please retry or contact Support.');});
+  return()=>controller.abort();
+ },[refresh]);
+ return <>
+  {!data&&!error&&<s-spinner accessibilityLabel="Loading order Support history"/>}
+  {error&&<s-banner tone="warning">{error}<s-button onClick={()=>setRefresh(v=>v+1)}>Retry order history</s-button></s-banner>}
+  <OrderCancellations data={data} onUpdated={()=>{setRefresh(v=>v+1);onUpdated();}}/>
+ </>;
+}
+
 function OrderCancellations({data,onUpdated}) {
   const [pending,setPending]=useState(false);
   const [message,setMessage]=useState('');
@@ -112,6 +128,7 @@ function OrderCancellations({data,onUpdated}) {
       <s-paragraph>{order.state==='COMPLETED'?'Historical cancellation · Wallet refund confirmed':order.supportState?'Support request recorded':'Contact Customer Support to request a cancellation or refund.'}</s-paragraph>
       {!order.state&&!order.supportState&&<s-button disabled={pending} onClick={()=>requestSupport(order.id)}>Request Support review</s-button>}
     </s-section>)}
+    {data?.hasMore&&<s-paragraph>Showing your ten most recent orders. Use “View all orders” above for older purchases, or contact Support.</s-paragraph>}
     {message&&<s-paragraph>{message}</s-paragraph>}
   </s-section>;
 }
@@ -205,7 +222,7 @@ function Rewards({data,onUpdated}) {
       <s-paragraph>Lifetime Earned: {data?.rewards?.lifetimeEarned ?? 'Unavailable'}</s-paragraph>
       {data?.rewards?.balanceMatchesLedger===false&&<s-paragraph>Your Rewards history is updating.</s-paragraph>}
       {data?.rewardsEnabled&&data.rewards?.balanceMatchesLedger===true&&<>
-        <s-text-field label="Points to redeem" value={points} disabled={pending||!!requestKey||!walletReady} onInput={event=>setPoints(event.currentTarget.value)}/>
+        <s-text-field label="Points to redeem" value={points} disabled={pending||!!requestKey||!walletReady} onInput={event=>{const field=event.currentTarget;if(field&&'value' in field)setPoints(String(field.value));}}/>
         {/^[0-9]+$/.test(points)&&Number.isSafeInteger(Number(points))&&Number(points)>0&&<s-paragraph>Wallet credit: {new Intl.NumberFormat('en-SG',{style:'currency',currency:'SGD',currencyDisplay:'code'}).format(Number(points)/10)}</s-paragraph>}
         <s-button variant="primary" disabled={pending||!!requestKey||!walletReady||!points||!data.rewards} onClick={redeem}>Redeem points</s-button>
       </>}
@@ -222,7 +239,7 @@ function renderSubscriptions(account,stream,onUpdated){
   const records=(account.subscriptions||[]).filter(record=>!stream||record.streams.includes(stream));
   if(!records.length)return <s-paragraph>No linked subscription details are available here. Other subscriptions remain in Shopify’s Subscriptions menu.</s-paragraph>;
   const labels={ACTIVE:'Active',PAUSED:'Paused',CANCELLED:'Future renewals stopped',EXPIRED:'Expired',FAILED:'Payment issue'};
-  return <s-stack direction="block" gap="small">{records.map(record=><s-section key={record.id} heading="Linked subscription"><s-paragraph>Status: {labels[record.status]||'Unavailable'}</s-paragraph>{record.lines.map(line=><s-paragraph key={line.id}>{line.title} × {line.quantity}</s-paragraph>)}<s-paragraph>Use Shopify’s Subscriptions menu or contact Support for available management options.</s-paragraph>{onUpdated&&<StopFutureRenewals record={record} onUpdated={onUpdated}/>}</s-section>)}</s-stack>;
+  return <s-stack direction="block" gap="small">{records.map(record=><s-section key={record.id} heading="Linked subscription"><s-paragraph>Status: {labels[record.status]||'Unavailable'}</s-paragraph><PrepaidPrice pricing={record.pricing} status={record.status}/>{record.lines.map(line=><s-paragraph key={line.id}>{line.title} × {line.quantity}</s-paragraph>)}<s-paragraph>Use Shopify’s Subscriptions menu or contact Support for available management options.</s-paragraph>{onUpdated&&<StopFutureRenewals record={record} onUpdated={onUpdated}/>}</s-section>)}</s-stack>;
 }
 
 
@@ -246,7 +263,7 @@ function StopFutureRenewals({record,onUpdated}){
   {!opened&&<s-button onClick={()=>setOpened(true)}>Stop future renewals</s-button>}
   {opened&&<>
    <s-paragraph>This stops the next automatic package purchase. It does not cancel deliveries already paid for, pause those deliveries or give a refund or Wallet credit.</s-paragraph>
-   <s-checkbox label="I want to stop future automatic renewals and keep my paid deliveries." checked={confirmed} disabled={pending||finished} onChange={event=>setConfirmed(event.currentTarget.checked)}/>
+   <s-checkbox label="I want to stop future automatic renewals and keep my paid deliveries." checked={confirmed} disabled={pending||finished} onChange={event=>{const field=event.currentTarget;if(field&&'checked' in field)setConfirmed(field.checked===true);}}/>
    <s-button disabled={!confirmed||pending||finished} onClick={submit}>Confirm stop future renewals</s-button>
   </>}
   {pending&&<s-spinner accessibilityLabel="Confirming renewal change"/>}

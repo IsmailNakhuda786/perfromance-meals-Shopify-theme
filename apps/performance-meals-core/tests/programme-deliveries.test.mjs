@@ -2,17 +2,17 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {PrismaClient,buildServices} from './support/database.mjs';
 await buildServices({entryPoints:['app/services/programme-deliveries.server.ts','app/services/programme-period.ts'],outdir:'.shopify/programme-batch-test',bundle:true,packages:'external',format:'esm',platform:'node'});
-const {planProgrammeDeliveryBatch:plan,changeProgrammeDeliveryBatch:change,programmeDeliveryProgress:progress,customerProgrammeDeliveryProgress:customerProgress}=await import('../.shopify/programme-batch-test/programme-deliveries.server.js');
+const {planProgrammeDeliveryBatch:plan,changeProgrammeDeliveryBatch:change,programmeDeliveryProgress:progress,customerProgrammeDeliveryProgress:customerProgress,listProgrammeDeliverySelections:list,programmeDeliveryEnabled:enabled}=await import('../.shopify/programme-batch-test/programme-deliveries.server.js');
 const {sixtyDayEntitlement}=await import('../.shopify/programme-batch-test/programme-period.js');
 const db=new PrismaClient(),shop='batch-fixture.myshopify.com',owner='gid://shopify/Customer/801',actor='shopify-admin:'+'a'.repeat(64);
 process.env.ALLOWED_SHOP=shop;process.env.SIXTY_DAY_BATCHES_ENABLED='true';
 let index=0;
-async function fixture(){
+async function fixture(customerGid=owner){
  const n=++index;
- const p=await db.mealPlanSelection.create({data:{id:`batch-fixture-${n}`,shop,customerGid:owner,programmeGid:'gid://shopify/Product/802',variantGid:'gid://shopify/ProductVariant/803',startsOn:'2099-01-05',endsOn:'2099-03-05',entitlement:JSON.stringify(sixtyDayEntitlement('2099-01-05')),selections:'[]',selectionHash:'preserved',cutoffAt:new Date('2098-12-31'),status:'ORDERED',orderGid:`gid://shopify/Order/${810+n}`,orderLineGid:`gid://shopify/LineItem/${910+n}`}});
- await db.operationalLine.create({data:{shop,selectionId:p.id,orderGid:p.orderGid,orderLineGid:p.orderLineGid,customerGid:owner,productGid:p.programmeGid,variantGid:p.variantGid,businessStream:'meal_plan',department:'meal_plan',validationStatus:'VALIDATED'}});
+ const p=await db.mealPlanSelection.create({data:{id:`batch-fixture-${n}`,shop,customerGid,programmeGid:'gid://shopify/Product/802',variantGid:'gid://shopify/ProductVariant/803',startsOn:'2099-01-05',endsOn:'2099-03-05',entitlement:JSON.stringify(sixtyDayEntitlement('2099-01-05')),selections:'[]',selectionHash:'preserved',cutoffAt:new Date('2098-12-31'),status:'ORDERED',orderGid:`gid://shopify/Order/${810+n}`,orderLineGid:`gid://shopify/LineItem/${910+n}`}});
+ await db.operationalLine.create({data:{shop,selectionId:p.id,orderGid:p.orderGid,orderLineGid:p.orderLineGid,customerGid,productGid:p.programmeGid,variantGid:p.variantGid,businessStream:'meal_plan',department:'meal_plan',validationStatus:'VALIDATED'}});
  process.env.SIXTY_DAY_BATCH_QA_SELECTION_ID=p.id;
- const native={shop:{myshopifyDomain:shop},order:{id:p.orderGid,test:true,cancelledAt:null,displayFinancialStatus:'PAID',customer:{id:owner},lineItems:{nodes:[{id:p.orderLineGid,quantity:1,currentQuantity:1,variant:{id:p.variantGid,product:{id:p.programmeGid}}}],pageInfo:{hasNextPage:false}},fulfillmentsCount:{count:0,precision:'EXACT'}}};
+ const native={shop:{myshopifyDomain:shop},order:{id:p.orderGid,test:true,cancelledAt:null,displayFinancialStatus:'PAID',customer:{id:customerGid},lineItems:{nodes:[{id:p.orderLineGid,quantity:1,currentQuantity:1,variant:{id:p.variantGid,product:{id:p.programmeGid}}}],pageInfo:{hasNextPage:false}},fulfillmentsCount:{count:0,precision:'EXACT'}}};
  const admin={graphql:async query=>{assert.ok(!query.includes('mutation'));return Response.json({data:native});}};
  const input={shop,selectionId:p.id,actor,reference:'first',weekdayMeals:4,frozenMeals:8};
  return {p,native,admin,input};
@@ -85,3 +85,20 @@ test('concurrent allocation cannot exceed the purchased entitlement',async t=>{
  assert.equal((await progress(shop,owner,p.id)).unallocatedWeekday,0);
 });
 test.after(async()=>{await db.planOperation.deleteMany({where:{shop}});await db.operationalLine.deleteMany({where:{shop}});await db.mealPlanSelection.deleteMany({where:{shop}});await db.$disconnect();});
+
+test('general development batches list multiple paid programmes while preserving owner and allowance isolation',async()=>{
+ const a=await fixture(),b=await fixture('gid://shopify/Customer/899');delete process.env.SIXTY_DAY_BATCH_QA_SELECTION_ID;
+ assert.equal(enabled(),true);const ids=[];let after;for(let i=0;i<50;i++){const page=await list(shop,{limit:1,after});ids.push(...page.programmes.map(p=>p.id));if(!page.nextCursor)break;after=page.nextCursor;}
+ assert.equal(new Set(ids).size,ids.length);assert.ok(ids.includes(a.p.id)&&ids.includes(b.p.id));
+ const aa=await plan(a.admin,a.input),bb=await plan(b.admin,b.input);assert.notEqual(aa.id,bb.id);
+ await change(a.admin,{shop,selectionId:a.p.id,batchId:aa.id,revision:1,action:'dispatch',actor});
+ assert.equal((await customerProgress(shop,owner,a.p.id)).dispatchedWeekday,4);assert.equal((await customerProgress(shop,'gid://shopify/Customer/899',b.p.id)).dispatchedWeekday,0);assert.equal((await customerProgress(shop,owner,b.p.id)).available,false);
+ await assert.rejects(plan(a.admin,{...b.input,reference:'foreign-native-proof'}));assert.equal((await progress(shop,'gid://shopify/Customer/899',b.p.id)).unallocatedWeekday,84);
+ process.env.SIXTY_DAY_BATCH_QA_SELECTION_ID=a.p.id;assert.deepEqual((await list(shop)).programmes.map(p=>p.id),[a.p.id]);assert.equal((await progress(shop,'gid://shopify/Customer/899',b.p.id)).available,false);await assert.rejects(plan(b.admin,{...b.input,reference:'outside-scope'}),/outside the approved/);
+});
+test('programme listing rejects invalid cursors and retains disabled/production gates without writes',async()=>{
+ const a=await fixture();for(const options of [{limit:0},{limit:51},{after:'missing'},{after:'../unsafe'}])await assert.rejects(list(shop,options));
+ delete process.env.SIXTY_DAY_BATCH_QA_SELECTION_ID;process.env.SIXTY_DAY_BATCHES_ENABLED='false';await assert.rejects(list(shop));process.env.SIXTY_DAY_BATCHES_ENABLED='true';
+ const old=process.env.NODE_ENV;process.env.NODE_ENV='production';try{await assert.rejects(list(shop));await assert.rejects(plan(a.admin,a.input));}finally{process.env.NODE_ENV=old||'test';}
+ process.env.SIXTY_DAY_BATCH_QA_SELECTION_ID='';assert.equal(enabled(),false);delete process.env.SIXTY_DAY_BATCH_QA_SELECTION_ID;
+});

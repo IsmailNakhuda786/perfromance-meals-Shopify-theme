@@ -1,4 +1,5 @@
 import db from '../db.server';
+import {validSubscriptionLineGid} from './subscription-reference';
 import {assertPrepaidPurchaseIntakeScope,receivePrepaidPurchaseTrigger,processPrepaidPurchaseTrigger} from './prepaid-purchase-intake.server';
 
 type Admin=Parameters<typeof processPrepaidPurchaseTrigger>[0];
@@ -13,7 +14,6 @@ query CorePrepaidPurchaseDiscovery($first:Int!,$after:String,$query:String!){
  }
 }`;
 const ref=(kind:string,value:unknown):value is string=>typeof value==='string'&&new RegExp('^gid://shopify/'+kind+'/\\d+$').test(value);
-const subscriptionLine=(value:unknown)=>typeof value==='string'&&/^gid:\/\/shopify\/SubscriptionLine\/[A-Za-z0-9_-]{1,128}$/.test(value);
 type Discovery={contractGid:string;orderGid:string|null;state:'APPROVED_CANDIDATE'|'PRICING_REVIEW'|'NATIVE_REVIEW'|'COMPLETED'};
 // A missing webhook is recoverable from Shopify's authoritative contract list.
 // Discovery is read-only, bounded and owner-scoped; it never asserts payment.
@@ -29,12 +29,12 @@ export async function discoverPrepaidPurchases(admin:Admin,shop:string,options:{
   seen.add(c.id);
   const previous=await db.prepaidPurchaseInbox.findUnique({where:{shop_contractGid:{shop,contractGid:c.id}}});
   if(previous&&previous.customerGid!==customer)throw Error('Purchase inbox ownership differs');
-  if(!ref('Order',c.originOrder?.id)||c.lines?.pageInfo?.hasNextPage!==false||!Array.isArray(c.lines.nodes)||!c.lines.nodes.length||c.lines.nodes.length>100||new Set(c.lines.nodes.map((l:{id:string})=>l?.id)).size!==c.lines.nodes.length||c.lines.nodes.some((l:{id:string;productId:string;variantId:string;sellingPlanId:string})=>!subscriptionLine(l?.id)||!ref('Product',l?.productId)||!ref('ProductVariant',l?.variantId)||!ref('SellingPlan',l?.sellingPlanId))){
+  if(!ref('Order',c.originOrder?.id)||c.lines?.pageInfo?.hasNextPage!==false||!Array.isArray(c.lines.nodes)||!c.lines.nodes.length||c.lines.nodes.length>100||new Set(c.lines.nodes.map((l:{id:string})=>l?.id)).size!==c.lines.nodes.length||c.lines.nodes.some((l:{id:string;productId:string;variantId:string;sellingPlanId:string})=>!validSubscriptionLineGid(l?.id)||!ref('Product',l?.productId)||!ref('ProductVariant',l?.variantId)||!ref('SellingPlan',l?.sellingPlanId))){
    candidates.push({contractGid:c.id,orderGid:ref('Order',c.originOrder?.id)?c.originOrder.id:null,state:'NATIVE_REVIEW'});continue;
   }
   let approved=true;
   for(const line of c.lines.nodes){
-   if(!subscriptionLine(line?.id)||!ref('Product',line.productId)||!ref('ProductVariant',line.variantId)||!ref('SellingPlan',line.sellingPlanId))throw Error('Complete native product identity required');
+   if(!validSubscriptionLineGid(line?.id)||!ref('Product',line.productId)||!ref('ProductVariant',line.variantId)||!ref('SellingPlan',line.sellingPlanId))throw Error('Complete native product identity required');
    const pricing=await db.prepaidPricingApproval.findUnique({where:{shop_variantGid_sellingPlanGid:{shop,variantGid:line.variantId,sellingPlanGid:line.sellingPlanId}}});
    if(!pricing||pricing.customerGid!==customer)approved=false;
   }
