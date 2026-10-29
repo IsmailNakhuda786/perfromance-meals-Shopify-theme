@@ -8,6 +8,8 @@ const svc=await import('../.shopify/purchase-intake-test/prepaid-purchase-intake
 await buildServices({entryPoints:['app/routes/webhooks.subscriptions.create.tsx'],outfile:'.shopify/purchase-intake-route-test.mjs',bundle:true,packages:'external',format:'esm',platform:'node',plugins:[{name:'purchase-intake-auth',setup(b){b.onResolve({filter:/shopify\.server$/},args=>({path:args.path,namespace:'purchase-auth'}));b.onLoad({filter:/.*/,namespace:'purchase-auth'},()=>({loader:'js',contents:'export const authenticate={webhook:async()=>{const f=globalThis.purchaseIntakeAuth;if(f.fail)throw new Response(null,{status:401});return f;}};'}));}}]});
 const{action:purchaseAction}=await import('../.shopify/purchase-intake-route-test.mjs');
 
+await buildServices({entryPoints:['app/services/prepaid-purchase-recovery.server.ts'],outdir:'.shopify/purchase-recovery-test',bundle:true,packages:'external',format:'esm',platform:'node'});
+const recovery=await import('../.shopify/purchase-recovery-test/prepaid-purchase-recovery.server.js');
 const db=new PrismaClient(),shop=`purchase-intake-${randomUUID()}.myshopify.com`;
 const spec={productGid:base.productGid,variantGid:base.variantGid,sellingPlanGid:base.sellingPlanGid,appGid:base.appGid,months:3,upfrontMinor:25520,correctionTitle:correction.title};
 let reads=0;
@@ -104,4 +106,48 @@ test('explicit per-package correction accepts quantity-scaled capture and refuse
  await seed();await svc.registerPrepaidPricingApproval(shop,{...spec,correctionApplication:'PER_PACKAGE'});const j=await receive();const native=api(d=>{const c=d.subscriptionContract,o=d.order,l=o.lineItems.nodes[0];c.lines.nodes[0].quantity=2;c.discounts.nodes[0].value.appliesOnEachItem=true;l.quantity=6;l.currentQuantity=6;l.originalTotalSet.shopMoney.amount='510.42';l.discountAllocations[0].allocatedAmountSet.shopMoney.amount='0.02';c.originOrder.lineItems=structuredClone(o.lineItems);for(const k of['totalPriceSet','currentTotalPriceSet','totalReceivedSet'])o[k].shopMoney.amount='510.40';o.totalDiscountsSet.shopMoney.amount='0.02';o.transactions[0].amountSet.shopMoney.amount='510.40';});
  await assert.rejects(svc.processPrepaidPurchaseTrigger({graphql:async(q,v)=>{const r=await native.graphql(q,v),b=await r.json();b.data.subscriptionContract.discounts.nodes[0].value.appliesOnEachItem=false;return Response.json(b);}},shop,j.inboxId));
  await svc.processPrepaidPurchaseTrigger(native,shop,j.inboxId);const saved=JSON.parse((await db.prepaidPurchaseEvidence.findFirst({where:{shop}})).snapshot);assert.equal(saved.expected.upfrontMinor,51040);assert.equal(saved.correction.discountMinor,2);
+});
+
+function discoverApi(edit=()=>{},native=api()){
+ return {graphql:async(q,{variables:v})=>{
+  if(!q.includes('CorePrepaidPurchaseDiscovery'))return native.graphql(q,{variables:v});
+  assert.equal(v.query,'customer_id:'+base.customerGid.split('/').at(-1));
+  const d={shop:{myshopifyDomain:shop,currencyCode:'SGD',plan:{partnerDevelopment:true}},currentAppInstallation:{app:{id:base.appGid}},subscriptionContracts:{nodes:[{id:contract,app:{id:base.appGid},customer:{id:base.customerGid},originOrder:{id:base.orderGid},lines:{nodes:[{id:'gid://shopify/SubscriptionLine/80cf0060-46f8-4cc4-ae97-c958a8cbd999',productId:spec.productGid,variantId:spec.variantGid,sellingPlanId:spec.sellingPlanGid}],pageInfo:{hasNextPage:false}}}],pageInfo:{hasNextPage:false,endCursor:null}}};
+  edit(d,v);return Response.json({data:d});
+ }};
+}
+test('lost purchase webhook is discovered read-only, recovered from verified payment, and never duplicated',async()=>{
+ await seed();await approve();const before=await db.webhookReceipt.count({where:{shop}});
+ const p=await recovery.discoverPrepaidPurchases(discoverApi(),shop);assert.equal(p.candidates[0].state,'APPROVED_CANDIDATE');assert.equal(await db.prepaidPurchaseInbox.count({where:{shop}}),0);assert.equal(await db.webhookReceipt.count({where:{shop}}),before);
+ const done=await recovery.recoverPrepaidPurchasePage(discoverApi(),shop);assert.equal(done.results[0].state,'COMPLETED');assert.equal(await db.operationalLine.count({where:{shop}}),1);
+ const models=['prepaidPurchaseInbox','prepaidPurchaseEvidence','operationalLine','webhookReceipt'];const saved=await Promise.all(models.map(m=>db[m].findMany({where:{shop},orderBy:{id:'asc'}})));
+ assert.equal((await recovery.recoverPrepaidPurchasePage(discoverApi(),shop)).results[0].state,'ALREADY_COMPLETED');assert.deepEqual(await Promise.all(models.map(m=>db[m].findMany({where:{shop},orderBy:{id:'asc'}}))),saved);
+ await receive('late-authenticated-provider-event');assert.equal(await db.prepaidPurchaseInbox.count({where:{shop}}),1);assert.equal(await db.operationalLine.count({where:{shop}}),1);
+});
+test('discovery requires explicit pricing and paid verification; unpaid recovery remains held',async()=>{
+ await seed();const r=await recovery.recoverPrepaidPurchasePage(discoverApi(),shop);assert.equal(r.results[0].state,'PRICING_REVIEW');assert.equal(await db.prepaidPurchaseInbox.count({where:{shop}}),0);
+ await approve();const held=await recovery.recoverPrepaidPurchasePage(discoverApi(()=>{},api(d=>d.order.displayFinancialStatus='PENDING')),shop);assert.equal(held.results[0].state,'HELD');assert.equal(await db.prepaidPurchaseEvidence.count({where:{shop}}),0);assert.equal(await db.operationalLine.count({where:{shop}}),0);assert.equal((await db.prepaidPurchaseInbox.findFirst({where:{shop}})).state,'PENDING_VERIFY');
+ assert.equal((await recovery.recoverPrepaidPurchasePage(discoverApi(),shop)).results[0].state,'COMPLETED');
+});
+test('foreign or malformed discovery page cannot enqueue any contract; page bounds and advancing cursors are enforced',async()=>{
+ await seed();await approve();
+ for(const edit of [d=>d.shop.plan.partnerDevelopment=false,d=>d.subscriptionContracts.nodes[0].app.id='gid://shopify/App/99',d=>d.subscriptionContracts.nodes[0].customer.id='gid://shopify/Customer/99',d=>d.subscriptionContracts.nodes.push(structuredClone(d.subscriptionContracts.nodes[0])),d=>{d.subscriptionContracts.pageInfo={hasNextPage:true,endCursor:'same'};}]){
+  await assert.rejects(recovery.recoverPrepaidPurchasePage(discoverApi(edit),shop,{after:'same'}));assert.equal(await db.prepaidPurchaseInbox.count({where:{shop}}),0);
+ }
+ for(const limit of [0,51,1.1])await assert.rejects(recovery.discoverPrepaidPurchases(discoverApi(),shop,{limit}));
+ const page=await recovery.discoverPrepaidPurchases(discoverApi(d=>{d.subscriptionContracts.pageInfo={hasNextPage:true,endCursor:'next'};}),shop,{limit:1});assert.equal(page.nextCursor,'next');assert.equal(page.hasMore,true);
+ process.env.CORE_PREPAID_PURCHASE_INTAKE_ENABLED='false';try{await assert.rejects(recovery.discoverPrepaidPurchases(discoverApi(),shop));}finally{process.env.CORE_PREPAID_PURCHASE_INTAKE_ENABLED='true';}
+});
+
+test('a legacy contract without its selling plan is held without starving a different valid purchase',async()=>{
+ await seed();await approve();const gateway=discoverApi(d=>{const legacy=structuredClone(d.subscriptionContracts.nodes[0]);legacy.id='gid://shopify/SubscriptionContract/888';legacy.lines.nodes[0].sellingPlanId=null;legacy.originOrder=null;d.subscriptionContracts.nodes.unshift(legacy);});
+ const page=await recovery.recoverPrepaidPurchasePage(gateway,shop);assert.deepEqual(page.results.map(r=>r.state),['NATIVE_REVIEW','COMPLETED']);assert.equal(await db.prepaidPurchaseInbox.count({where:{shop}}),1);assert.equal(await db.operationalLine.count({where:{shop}}),1);
+ await seed();await approve();const incomplete=await recovery.recoverPrepaidPurchasePage(discoverApi(d=>d.subscriptionContracts.nodes[0].lines.pageInfo.hasNextPage=true),shop);assert.equal(incomplete.results[0].state,'NATIVE_REVIEW');assert.equal(await db.prepaidPurchaseInbox.count({where:{shop}}),0);
+});
+
+test('payment inspection verifies a recoverable contract without creating an inbox or any Core evidence',async()=>{
+ await seed();await approve();const before={};for(const model of ['prepaidPurchaseInbox','operationalLine','prepaidPurchaseEvidence','webhookReceipt'])before[model]=await db[model].findMany({where:{shop}});
+ const proof=await svc.inspectRecoverablePrepaidPurchase(api(),shop,contract);assert.equal(proof.orderGid,base.orderGid);assert.equal(proof.plans[0].expected.upfrontMinor,25520);
+ await assert.rejects(svc.inspectRecoverablePrepaidPurchase(api(d=>d.order.displayFinancialStatus='PENDING'),shop,contract));
+ for(const model of Object.keys(before))assert.deepEqual(await db[model].findMany({where:{shop}}),before[model]);
 });

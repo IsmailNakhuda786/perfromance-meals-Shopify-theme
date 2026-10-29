@@ -1,6 +1,6 @@
 {
-  "updated": "2026-10-29",
-  "sourceCheckpoint": "0775a14",
+  "updated": "2026-10-30",
+  "sourceCheckpoint": "f5c0d81",
   "scope": "Full agreed production acceptance; no reduced-scope launch",
   "productionAccepted": false,
   "statusDefinitions": {
@@ -10,7 +10,7 @@
     "BLOCKED": "A required platform capability, authorization or external dependency prevents completion."
   },
   "baseline": {
-    "coreTests": 673,
+    "coreTests": 681,
     "nativeReadback": "Latest mixed QA verified #1031/#1032/#1033 with provider inbox intake and explicit Core replay; future renewals stopped. Eleven earlier paid orders/45 fulfilments and nine financial-model snapshots preserved. QA product, discounts, shipping profile, GST and temporary callback settings restored.",
     "checkoutPricing": "Exact charged initial and simulated renewal GST-inclusive pricing passed for single terms, two identical 3-delivery packages (SGD510.40/GST42.14) and mixed 3-/6-delivery packages (initial SGD748.80/GST61.83; renewals SGD255.20/GST21.07 and SGD493.60/GST40.76). Delivery was included. General production correction provisioning and permanent lifecycle acceptance remain incomplete.",
     "topUpsEnabled": false,
@@ -397,6 +397,18 @@
       "customerProgressPreview": "PASS: live development My Plan showed 1 of 3 dispatched, only occurrences 2/3 awaiting preparation, future renewals stopped.",
       "protectedPreExistingCoreModelsUnchanged": 37,
       "cleanup": "QA product draft/unpublished, correction inactive, shipping membership restored, three theme paths read back identical to pre-test; normal preview restored, temporary renewal callback removed, four normal callbacks verified."
+    },
+    "purchaseRecovery": {
+      "readOnlyNativeContracts": 14,
+      "completePaymentInspections": 12,
+      "verifiedPayments": 6,
+      "heldPriceOrCorrection": 6,
+      "incompleteNativeRecordsHeld": 2,
+      "protectedModelHashesUnchanged": 37,
+      "postgresPassed": 22,
+      "nativeMutations": 0,
+      "coreWritesDuringNativeCheck": 0,
+      "enabledAdminRecoveryAccepted": false
     }
   },
   "counts": {
@@ -948,7 +960,7 @@
       "id": 15,
       "requirement": "Original ownership, webhook routing and cross-stream reconciliation",
       "status": "PARTIAL",
-      "implemented": "Native order/contract listeners, immutable stream markers, validated original linking, quarantine and monotonic dispatch guards. Added development-only native-payment/attempt-verified renewal reconciliation with compare-and-set linkage and durable replay receipt. Added immutable purchase/renewal evidence, minimal authenticated trigger intake and bounded retry-safe processors, default-off and development-only.",
+      "implemented": "Native order/contract listeners, immutable stream markers, validated original linking, quarantine and monotonic dispatch guards. Added development-only native-payment/attempt-verified renewal reconciliation with compare-and-set linkage and durable replay receipt. Added immutable purchase/renewal evidence, minimal authenticated trigger intake and bounded retry-safe processors, default-off and development-only. Bounded missed-purchase discovery, shared read-only exact-payment inspection and authenticated manual development recovery now reuse immutable approvals and durable intake.",
       "automatedTests": {
         "state": "PASSED_BASELINE",
         "files": [
@@ -963,7 +975,7 @@
           "apps/performance-meals-core/tests/prepaid-renewal-inbox.test.mjs"
         ]
       },
-      "shopifyIntegration": "Restored four callback topics, exactly one each. Existing orders #1020\u2013#1023 recovered from native paid proof with correct ownership, stream and contract association. Two complete processing passes leave four Core rows unchanged; all 18 paid native fulfilments unchanged. Invalid-HMAC HTTP returns 401; correctly signed synthetic existing-order replay returns 200 twice with no operational-row change. This is not a newly Shopify-generated webhook delivery. 24 October approved follow-up: native unpaid GST checkout totals and restored settings verified; real Shopify-generated order-update delivery observed. See dated follow-up for scope limits. Both existing paid renewals now complete through stored evidence with nine financial models, four operational rows and 18 native paid fulfilments preserved. Real SDK local HTTP signature/replay test passes; it is synthetic historical replay. 25 October: actual provider billing-success callback persisted durable intake for the new two-package renewal; explicit Core worker linked/replayed unchanged. Temporary handler/callback restored off after QA. Latest 25 October: new per-package pricing version passed two-package initial #1029 and renewal #1030 at SGD510.40 including GST42.14 each, free delivery; actual provider create/billing events and explicit Core processing/replay passed. Exactly two native test orders and one attempt; future renewals stopped and temporary settings restored. 26 October: mixed per-package initial #1031 SGD748.80 incl GST61.83 and renewals #1032 SGD255.20/GST21.07 and #1033 SGD493.60/GST40.76 passed. Actual provider intake and explicit worker replay passed; both future billing agreements stopped, eleven earlier paid orders/45 fulfilments and nine financial models preserved; QA configuration restored.",
+      "shopifyIntegration": "Restored four callback topics, exactly one each. Existing orders #1020\u2013#1023 recovered from native paid proof with correct ownership, stream and contract association. Two complete processing passes leave four Core rows unchanged; all 18 paid native fulfilments unchanged. Invalid-HMAC HTTP returns 401; correctly signed synthetic existing-order replay returns 200 twice with no operational-row change. This is not a newly Shopify-generated webhook delivery. 24 October approved follow-up: native unpaid GST checkout totals and restored settings verified; real Shopify-generated order-update delivery observed. See dated follow-up for scope limits. Both existing paid renewals now complete through stored evidence with nine financial models, four operational rows and 18 native paid fulfilments preserved. Real SDK local HTTP signature/replay test passes; it is synthetic historical replay. 25 October: actual provider billing-success callback persisted durable intake for the new two-package renewal; explicit Core worker linked/replayed unchanged. Temporary handler/callback restored off after QA. Latest 25 October: new per-package pricing version passed two-package initial #1029 and renewal #1030 at SGD510.40 including GST42.14 each, free delivery; actual provider create/billing events and explicit Core processing/replay passed. Exactly two native test orders and one attempt; future renewals stopped and temporary settings restored. 26 October: mixed per-package initial #1031 SGD748.80 incl GST61.83 and renewals #1032 SGD255.20/GST21.07 and #1033 SGD493.60/GST40.76 passed. Actual provider intake and explicit worker replay passed; both future billing agreements stopped, eleven earlier paid orders/45 fulfilments and nine financial models preserved; QA configuration restored. 30 October: read-only discovery found 14 native development contracts; 12 full inspections verified six and held six historical mismatches, with two incomplete records held separately. All 37 Core model hashes unchanged; no native mutation or Core write. Disabled admin screen verified.",
       "customerJourney": "New initial purchase through future-renewal stop verified; actual validated renewal and wider mixed-stream lifecycle incomplete.",
       "outstandingIssues": [
         "Actual provider purchase-create and renewal-success durable intake, explicit registration/linking and replay passed in isolated development. Permanent automatic scheduling, outage/event-ordering acceptance and general mixed-stream cases remain incomplete.",
@@ -982,7 +994,8 @@
         "docs/PREPAID-TWO-PACKAGE-NATIVE-QA-20261025.md",
         "docs/PREPAID-PER-PACKAGE-GST-PAID-QA-20261025.md",
         "docs/PREPAID-MIXED-PER-PACKAGE-GST-QA-20261026.md",
-        "docs/READY-SERIES-RENEWAL-CONTINUITY-20261029.md"
+        "docs/READY-SERIES-RENEWAL-CONTINUITY-20261029.md",
+        "docs/PREPAID-PURCHASE-RECOVERY-20261030.md"
       ],
       "remainingEngineering": [
         "Connect original registration to the accepted server-side purchase flow; provision approved durable scheduling/reconciliation on permanent staging; verify outages, event ordering and mixed-term/mixed-stream lifecycles."
@@ -990,7 +1003,8 @@
       "assessmentStatus": "PARTIAL",
       "assessmentScope": "FUNCTIONAL",
       "assessmentEvidence": [
-        "READY-SERIES-DISPATCH-ACCEPTANCE-20261029.md"
+        "READY-SERIES-DISPATCH-ACCEPTANCE-20261029.md",
+        "PREPAID-PURCHASE-RECOVERY-20261030.md"
       ]
     }
   ],

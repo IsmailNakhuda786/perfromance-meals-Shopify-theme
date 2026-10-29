@@ -81,12 +81,13 @@ query PrepaidPurchaseIntake($id: ID!) {
 
 type NativeLine={id:string;productId:string;variantId:string;sellingPlanId:string;quantity:number;currentPrice:{amount:string;currencyCode:string}};
 type NativeDiscount={title:string;type:string;targetType:string;recurringCycleLimit:number|null;rejectionReason:string|null;value:{__typename:string;amount:{amount:string;currencyCode:string};appliesOnEachItem:boolean};entitledLines:{all:boolean;lines:{nodes:{id:string}[];pageInfo:{hasNextPage:boolean}}}};
-export async function processPrepaidPurchaseTrigger(admin:Admin,shop:string,inboxId:string){
- const customer=assertPrepaidPurchaseIntakeScope(shop);assertPrepaidEvidenceId(inboxId);
- const row=await db.prepaidPurchaseInbox.findFirst({where:{id:inboxId,shop,customerGid:customer}});
- if(!row||!['PENDING_VERIFY','COMPLETED'].includes(row.state)||row.state==='COMPLETED'&&!row.completedAt)throw Error('Purchase inbox unavailable');
- const response=await admin.graphql(PREPAID_PURCHASE_INTAKE_QUERY,{variables:{id:row.contractGid}}),body=await response.json(),d=body.data,c=d?.subscriptionContract;
- if(!response.ok||body.errors||d?.shop?.myshopifyDomain!==shop||d.shop.currencyCode!=='SGD'||d.shop.plan?.partnerDevelopment!==true||c?.id!==row.contractGid||!['ACTIVE','PAUSED','CANCELLED'].includes(c.status)||c.customer?.id!==customer||!ref('App',d.currentAppInstallation?.app?.id)||c.app?.id!==d.currentAppInstallation.app.id||c.currencyCode!=='SGD'||!ref('Order',c.originOrder?.id)||c.lines?.pageInfo?.hasNextPage!==false||c.discounts?.pageInfo?.hasNextPage!==false||!Array.isArray(c.lines.nodes)||!c.lines.nodes.length||!Array.isArray(c.discounts.nodes)||c.deliveryPrice?.currencyCode!=='SGD'||minorAmount(c.deliveryPrice.amount)!==0)throw Error('Complete native purchase contract unavailable');
+// Read-only verification shared by recovery preview and durable intake. It
+// cannot enqueue, link, issue credit or change any Shopify record.
+export async function inspectRecoverablePrepaidPurchase(admin:Admin,shop:string,contractGid:string){
+ const customer=assertPrepaidPurchaseIntakeScope(shop);
+ if(!ref('SubscriptionContract',contractGid))throw Error('Exact native contract required');
+ const response=await admin.graphql(PREPAID_PURCHASE_INTAKE_QUERY,{variables:{id:contractGid}}),body=await response.json(),d=body.data,c=d?.subscriptionContract;
+ if(!response.ok||body.errors||d?.shop?.myshopifyDomain!==shop||d.shop.currencyCode!=='SGD'||d.shop.plan?.partnerDevelopment!==true||c?.id!==contractGid||!['ACTIVE','PAUSED','CANCELLED'].includes(c.status)||c.customer?.id!==customer||!ref('App',d.currentAppInstallation?.app?.id)||c.app?.id!==d.currentAppInstallation.app.id||c.currencyCode!=='SGD'||!ref('Order',c.originOrder?.id)||c.lines?.pageInfo?.hasNextPage!==false||c.discounts?.pageInfo?.hasNextPage!==false||!Array.isArray(c.lines.nodes)||!c.lines.nodes.length||!Array.isArray(c.discounts.nodes)||c.deliveryPrice?.currencyCode!=='SGD'||minorAmount(c.deliveryPrice.amount)!==0)throw Error('Complete native purchase contract unavailable');
  const lines=c.lines.nodes as NativeLine[],discounts=c.discounts.nodes as NativeDiscount[];
  if(new Set(lines.map(l=>l.id)).size!==lines.length)throw Error('Duplicate contract lines');
  const pr=await admin.graphql(PREPAID_CORRECTED_PAYMENT_QUERY,{variables:{id:c.originOrder.id}}),pb=await pr.json(),o=pb.data?.order;
@@ -115,12 +116,20 @@ export async function processPrepaidPurchaseTrigger(admin:Admin,shop:string,inbo
   const expected={months:spec.months,packageQuantity:line.quantity,paymentScope:o.lineItems.nodes.length===1?'ORDER' as const:'PREPAID_LINE' as const,appGid:spec.appGid,customerGid:customer,orderGid:o.id,orderLineGid:originals[0].id,productGid:spec.productGid,variantGid:spec.variantGid,sellingPlanGid:spec.sellingPlanGid,upfrontMinor:candidate.expectedTotalMinor};
   // Verify all money/ownership before creating or linking any operational row.
   if(correction)await readCorrectedPrepaidPayment(admin,shop,expected,correction);else await readPrepaidPayment(admin,shop,expected);
-  const native=await inspectPrepaidContract(admin,shop,row.contractGid,expected);
+  const native=await inspectPrepaidContract(admin,shop,contractGid,expected);
   if(!native.billingConfigurationMatches||!native.deliveryPolicyMatches)throw Error('Approved prepaid policy differs');
   plans.push({expected,correction});
  }
  if(consumed.size!==discounts.length)throw Error('Unexpected native subscription discount');
- await recordOrder(shop,o.id,`purchase-intake:${row.contractGid}`,admin as Parameters<typeof recordOrder>[3],'CORE_PREPAID_PURCHASE');
+ return {orderGid:o.id as string,plans};
+}
+
+export async function processPrepaidPurchaseTrigger(admin:Admin,shop:string,inboxId:string){
+ const customer=assertPrepaidPurchaseIntakeScope(shop);assertPrepaidEvidenceId(inboxId);
+ const row=await db.prepaidPurchaseInbox.findFirst({where:{id:inboxId,shop,customerGid:customer}});
+ if(!row||!['PENDING_VERIFY','COMPLETED'].includes(row.state)||row.state==='COMPLETED'&&!row.completedAt)throw Error('Purchase inbox unavailable');
+ const {orderGid,plans}=await inspectRecoverablePrepaidPurchase(admin,shop,row.contractGid);
+ await recordOrder(shop,orderGid,`purchase-intake:${row.contractGid}`,admin as Parameters<typeof recordOrder>[3],'CORE_PREPAID_PURCHASE');
  await linkSubscriptionOrigin(admin,shop,row.contractGid);
  for(const plan of plans)await registerPrepaidPurchaseEvidence(admin,shop,row.contractGid,plan.expected,plan.correction);
  if(row.state!=='COMPLETED')await db.prepaidPurchaseInbox.updateMany({where:{id:row.id,shop,state:'PENDING_VERIFY'},data:{state:'COMPLETED',completedAt:new Date()}});

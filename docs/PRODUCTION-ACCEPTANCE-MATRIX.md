@@ -440,3 +440,8 @@ Renewal calendar continuity is implemented with native cycle association. The ex
 See [notification evidence and gates](READY-SERIES-NOTIFICATIONS-20261029.md) and [renewal calendar evidence](READY-SERIES-RENEWAL-CONTINUITY-20261029.md). No extra charge, native dispatch, Wallet change, top-up activation or production deployment was performed.
 
 Latest regression for the 29 October changes: **665 passed / 1 PostgreSQL-only skip / 0 failed**, with TypeScript, lint, production-schema consistency and all new Admin 2026-10 query validations passing. Focused PostgreSQL runs: 19 booking/renewal-calendar/delivery-message cases and 9 renewal-notice cases passed. These do not certify every production lifecycle.
+
+
+## 30 October — missed-purchase recovery
+
+[Bounded recovery and native inspection](PREPAID-PURCHASE-RECOVERY-20261030.md) now replace the ad-hoc recovery script. Fourteen existing Shopify contracts were discovered read-only; six full payment proofs verified, six historical price/discount mismatches held and two incomplete native test records quarantined. All 37 Core model fingerprints unchanged. PostgreSQL intake/recovery22/22 and full disposable681 passed/1 skipped/0 failed; TypeScript/lint/schema and Shopify validators passed. The embedded admin recovery page remains disabled in the normal preview. No new payment, credit, native order or delivery change. Functional status remains **2 PASS / 9 PARTIAL / 3 BLOCKED / 1 DEFERRED**; enabled admin recovery and permanent scheduling are not claimed.

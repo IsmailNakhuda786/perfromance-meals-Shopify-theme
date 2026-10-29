@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "f5c0d81c4c62c60cc2de8857cfabb1767c56aa09",
+  "source_commit": "d27fab81bb707128e480423a7c7ecf3cb3bf18e4",
   "snapshot_includes_uncommitted_work": false,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -226,7 +226,12 @@
     },
     {
       "path": "apps/performance-meals-core/app/routes/app._index.tsx",
-      "sha256": "6565e34389fd0535fbcfa058db6d1746256b5bb002f8736f0ba1ab1f6fbd7b2a",
+      "sha256": "fae4c04e3756879b95d437fa6754adf663c854a59991dc6cdcb4de841e25db80",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/routes/app.prepaid-recovery.tsx",
+      "sha256": "9c298868abcbbee1e05cd464c49942443ea3fead51d6babc7cad176995652800",
       "sanitized": false
     },
     {
@@ -521,7 +526,12 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/prepaid-purchase-intake.server.ts",
-      "sha256": "62645b13bcbbfa8f3aec826932953b4f293b76adbde5f53af9b852303e0c9c80",
+      "sha256": "6700535a30c7f4bdca896b2ee17934b609cb792eab74d618532b56a3c3ea9ef8",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/prepaid-purchase-recovery.server.ts",
+      "sha256": "3369a80e79fcfe977f8851dbbb428b7e18ada16510e5d7fd99107ccff6b759fc",
       "sanitized": false
     },
     {
@@ -1671,7 +1681,12 @@
     },
     {
       "path": "apps/performance-meals-core/tests/prepaid-purchase-intake.test.mjs",
-      "sha256": "cc75eb6d5378a10de4b1747cb9ba02ef6210fdc71b640156dac8c804c944de23",
+      "sha256": "2be1ba1460bd391c8e976b3f7793b461afd1ad68e444c5d65cbc7e5647506ca0",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/prepaid-purchase-recovery-route.test.mjs",
+      "sha256": "207d0fdbfd33ab3bfe67d8c395902d8ea82a58951d85d41c5eafc19bd1a4acaf",
       "sanitized": false
     },
     {
@@ -2925,6 +2940,11 @@
       "sanitized": false
     },
     {
+      "path": "docs/PREPAID-PURCHASE-RECOVERY-20261030.md",
+      "sha256": "400741dc793bfb1f86ded12d59c4e9a9ee6fac1703765618020aee2defa32975",
+      "sanitized": false
+    },
+    {
       "path": "docs/PREPAID-RENEWAL-PIPELINE-20261024.md",
       "sha256": "7f1f2cb431c10fb7b2750f6e12e90ec744d93bebcf26f9036164f80e054cf4d7",
       "sanitized": false
@@ -2946,12 +2966,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "3448ec254939be27b38c7a350681aab5ea25db6aefa4b6fb1fe8cb845f81aaa6",
+      "sha256": "62e2c3479c6a28f27d6278f3e41ffed3ca93bb5e3ff4fa19b274cc4348910f96",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "7f10ddfbee50761e904962b51234fb6aa1ca78c1f9157d37e57550cb596f06b9",
+      "sha256": "68104749ef0fe10d7f43854739a5f9c9f4a7f28a0d1abff732bfe8ca600a40f1",
       "sanitized": false
     },
     {
@@ -3072,6 +3092,11 @@
     {
       "path": "docs/RESUME-CHECKPOINT-20261029-DISPATCH.md",
       "sha256": "8d0c0502df1105ab3f5a05e916d46645f030517689eb59589f43febda5c4ac5d",
+      "sanitized": false
+    },
+    {
+      "path": "docs/RESUME-CHECKPOINT-20261030-RECOVERY.md",
+      "sha256": "acd306a0412cd2e0e2634d20bb40ad15e9e41c6f3fca3c6b21eb397a7dac6174",
       "sanitized": false
     },
     {
@@ -5241,7 +5266,7 @@
     "docs/CUSTOMER-CORE-CHECKPOINT-20261012.md"
   ],
   "excluded": [],
-  "backup_updated_at": "2026-10-29",
+  "backup_updated_at": "2026-10-30",
   "excluded_private_qa_documents": [
     "docs/CANCELLATION-WALLET-QA-20261013.md",
     "docs/CUSTOMER-CORE-CHECKPOINT-20261012.md",
