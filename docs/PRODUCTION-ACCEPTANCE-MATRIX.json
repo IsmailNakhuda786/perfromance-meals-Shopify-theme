@@ -1,6 +1,6 @@
 {
   "updated": "2026-10-29",
-  "sourceCheckpoint": "6d25aab",
+  "sourceCheckpoint": "0775a14",
   "scope": "Full agreed production acceptance; no reduced-scope launch",
   "productionAccepted": false,
   "statusDefinitions": {
@@ -10,7 +10,7 @@
     "BLOCKED": "A required platform capability, authorization or external dependency prevents completion."
   },
   "baseline": {
-    "coreTests": 671,
+    "coreTests": 673,
     "nativeReadback": "Latest mixed QA verified #1031/#1032/#1033 with provider inbox intake and explicit Core replay; future renewals stopped. Eleven earlier paid orders/45 fulfilments and nine financial-model snapshots preserved. QA product, discounts, shipping profile, GST and temporary callback settings restored.",
     "checkoutPricing": "Exact charged initial and simulated renewal GST-inclusive pricing passed for single terms, two identical 3-delivery packages (SGD510.40/GST42.14) and mixed 3-/6-delivery packages (initial SGD748.80/GST61.83; renewals SGD255.20/GST21.07 and SGD493.60/GST40.76). Delivery was included. General production correction provisioning and permanent lifecycle acceptance remain incomplete.",
     "topUpsEnabled": false,
@@ -369,7 +369,35 @@
       "customerPreviewVerified": true,
       "nativePositiveDispatchVerified": false
     },
-    "postgresFollowup": "The 19-test booking and 9-test renewal-notice groups passed earlier this session. A later selected valid-sent-reminder/reschedule PostgreSQL test failed during fixture setup (empty engine response; direct-connection rerun reached validated-line precondition). Two negative receipt-history PostgreSQL cases passed. No full post-guard PostgreSQL acceptance is claimed; isolate fixture/runtime discrepancy before accepting this database path."
+    "postgresFollowup": {
+      "resolved": true,
+      "cause": "Top-level awaited imports after test registration allowed the cleanup hook to run before later filtered tests loaded. All asynchronous imports now precede tests and hooks.",
+      "bookingCalendarSenderPassed": 19,
+      "renewalNoticePassed": 9,
+      "focusedSqlitePassed": 28,
+      "fullCorePassed": 671,
+      "fullCoreSkipped": 1
+    },
+    "requiredCallbackCoverage": "Readiness now requires order create/update/paid plus subscription-contract creation, and billing-success while development renewal evidence is enabled. Missing, duplicate or old-origin callbacks cannot claim Connected.",
+    "dispatchAcceptance": {
+      "order": "#1034",
+      "simulatedPaidMinor": 25520,
+      "gstMinor": 0,
+      "nativeDispatches": 1,
+      "paidDeliveries": 3,
+      "remainingUnsentOccurrences": 2,
+      "processedOccurrenceBookingRejected": true,
+      "repeatedSyncUnchanged": true,
+      "previousTestOrdersUnchanged": 32,
+      "financialModelsUnchanged": 9,
+      "futureRenewalsStopped": true,
+      "paidDeliveryRecordsPreserved": 3,
+      "providerPurchaseWebhookObserved": false,
+      "intake": "Explicit native reconciliation; does not count as automatic webhook acceptance",
+      "customerProgressPreview": "PASS: live development My Plan showed 1 of 3 dispatched, only occurrences 2/3 awaiting preparation, future renewals stopped.",
+      "protectedPreExistingCoreModelsUnchanged": 37,
+      "cleanup": "QA product draft/unpublished, correction inactive, shipping membership restored, three theme paths read back identical to pre-test; normal preview restored, temporary renewal callback removed, four normal callbacks verified."
+    }
   },
   "counts": {
     "PASS": 1,
@@ -466,7 +494,10 @@
         "Implement gated production correction lifecycle and clear net-price explanation without mislabelling native gross subtotal; complete permanent intake, delivery allocation and customer lifecycle acceptance."
       ],
       "assessmentStatus": "PARTIAL",
-      "assessmentScope": "FUNCTIONAL"
+      "assessmentScope": "FUNCTIONAL",
+      "assessmentEvidence": [
+        "READY-SERIES-DISPATCH-ACCEPTANCE-20261029.md"
+      ]
     },
     {
       "id": 3,
@@ -818,7 +849,10 @@
         "Complete seven-section operation and interrupted/expired-session recovery acceptance, including blocked payment features. Mobile navigation/readback passed on28 October; not a claim of financial operation acceptance."
       ],
       "assessmentStatus": "PARTIAL",
-      "assessmentScope": "FUNCTIONAL"
+      "assessmentScope": "FUNCTIONAL",
+      "assessmentEvidence": [
+        "READY-SERIES-DISPATCH-ACCEPTANCE-20261029.md"
+      ]
     },
     {
       "id": 13,
@@ -866,7 +900,10 @@
         "Verify active-contract renewal sending and WhatsApp delivery once the merchant provider/template setup is available. Permanent scheduling remains a separate production gate."
       ],
       "assessmentStatus": "PARTIAL",
-      "assessmentScope": "FUNCTIONAL"
+      "assessmentScope": "FUNCTIONAL",
+      "assessmentEvidence": [
+        "READY-SERIES-DISPATCH-ACCEPTANCE-20261029.md"
+      ]
     },
     {
       "id": 14,
@@ -951,7 +988,10 @@
         "Connect original registration to the accepted server-side purchase flow; provision approved durable scheduling/reconciliation on permanent staging; verify outages, event ordering and mixed-term/mixed-stream lifecycles."
       ],
       "assessmentStatus": "PARTIAL",
-      "assessmentScope": "FUNCTIONAL"
+      "assessmentScope": "FUNCTIONAL",
+      "assessmentEvidence": [
+        "READY-SERIES-DISPATCH-ACCEPTANCE-20261029.md"
+      ]
     }
   ],
   "functionalAssessment": {

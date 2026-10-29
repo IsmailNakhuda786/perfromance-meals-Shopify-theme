@@ -23,7 +23,9 @@ Merchant clarification on 28 October: hosting, domain setup and deployment are o
 | 14 | Permanent infrastructure, recovery and operations | **DEFERRED** |
 | 15 | Original ownership, webhook routing and cross-stream reconciliation | **PARTIAL** |
 
-Latest 29 October regression: **671 passed, one PostgreSQL-only skip, zero failed**; TypeScript, lint and schema consistency passed. New read-only Shopify/account evidence confirms nine package deliveries across six native occurrence groups on Order #1031, with zero dispatched and all 37 protected model fingerprints unchanged. Positive native dispatch acceptance remains open. See [delivery progress evidence](READY-SERIES-DELIVERY-PROGRESS-20261029.md).
+Latest 29 October regression: **673 passed, one PostgreSQL-only skip, zero failed**; TypeScript, lint and schema consistency passed. New read-only Shopify/account evidence confirms nine package deliveries across six native occurrence groups on Order #1031, with zero dispatched and all 37 protected model fingerprints unchanged. Positive native dispatch acceptance remains open. See [delivery progress evidence](READY-SERIES-DELIVERY-PROGRESS-20261029.md).
+
+Fresh [Order #1034 native dispatch acceptance](READY-SERIES-DISPATCH-ACCEPTANCE-20261029.md): exact test payment, one successful dispatch, one-of-three customer progress, two remaining entitlements, duplicate sync/booking rejection and stopped future renewals passed. The PostgreSQL loader/cleanup race is resolved: 19 booking and 9 renewal-notice scenarios passed. Current status remains unchanged because later-cycle, general activation and remaining lifecycle/provider evidence are still open.
 
 Requirement 13: the [customer/admin booking and reschedule journey](CUSTOMER-DELIVERY-BOOKING-20261028.md) passed isolated preview acceptance. A [receipt-backed delivery email](READY-SERIES-NOTIFICATIONS-20261029.md) also passed. [Renewal calendar continuity](READY-SERIES-RENEWAL-CONTINUITY-20261029.md) is implemented, but actual later-cycle, dispatch and full lifecycle acceptance remain open.
 

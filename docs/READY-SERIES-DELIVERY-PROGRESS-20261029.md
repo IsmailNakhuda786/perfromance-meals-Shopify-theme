@@ -8,8 +8,10 @@ Development Order #1031: nine paid package-deliveries across six native fulfilme
 
 Automated regression: 671 passed, one PostgreSQL-only skip, zero failed. Focused shipment tests cover exact/partial quantities, cancelled history, incomplete pagination, wrong owner/app and over-delivery. TypeScript, lint, schema consistency and Shopify Admin/Customer Account validation passed. Native positive-dispatch and subsequent customer lifecycle evidence remain outstanding; no dispatch was invented to claim acceptance.
 
-## PostgreSQL follow-up remains open
+## PostgreSQL follow-up resolved
 
-Earlier focused PostgreSQL groups passed 19 booking/calendar/sender tests and nine renewal-notice tests. After strengthening sent-reminder receipt verification, two PostgreSQL negative cases passed, but the selected valid-sent/reschedule case failed during fixture creation with an empty-engine response. The direct-connection rerun reached the validated operational-line precondition instead. SQLite full regression and the actual approved grouped-email workflow passed; these do not replace the unresolved PostgreSQL fixture/runtime test. Keep this path unaccepted pending diagnosis. Existing paid records were not used as mutable fixtures.
+The test module awaited additional service imports after registering its first tests and cleanup hook. In a filtered run, Node could finish the first registered batch and run cleanup while the later selected test was still loading. SQL tracing demonstrated DELETE statements before its fixture INSERTs, explaining missing rows and disconnected-engine responses. Loading every service before registering tests/hooks fixes the demonstrated harness defect without weakening application guards.
+
+Fresh PostgreSQL results after the fix: all 19 booking/calendar/reminder tests and all nine renewal-notice tests passed, including valid SENT receipt followed by rescheduling, corruption rejection, concurrent sends, uncertain responses and snapshot restoration. Disposable SQLite follow-up passed 28/28; full Core regression passed 671 with one PostgreSQL-only skip. The earlier failed runs remain historical evidence, not an unresolved application/database acceptance result. This does not certify every production database path.
 
 Wallet top-ups and normal customer booking remain disabled. Functional matrix remains 2 PASS / 9 PARTIAL / 3 BLOCKED / 1 DEFERRED.

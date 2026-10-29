@@ -11,7 +11,7 @@ export async function loader({request}:LoaderFunctionArgs) {
  query CoreConnection {shop {myshopifyDomain currencyCode ianaTimezone} webhookSubscriptions(first:100){nodes{topic uri}pageInfo{hasNextPage}}}`);
  const result=await response.json();if(!response.ok||("errors" in result&&result.errors)||!result.data?.shop||result.data.shop.myshopifyDomain!==session.shop||!result.data.webhookSubscriptions) throw new Response('Connection unavailable',{status:503});
  const subscriptions=result.data.webhookSubscriptions;
- return {customerDeliveriesEnabled:readyBookingReadable(session.shop,process.env.CORE_READY_BOOKING_QA_CUSTOMER??''),programmeBatchesEnabled:process.env.NODE_ENV!=="production"&&process.env.SIXTY_DAY_BATCHES_ENABLED==="true"&&!!process.env.SIXTY_DAY_BATCH_QA_SELECTION_ID,shop:result.data.shop,...reviewOrderEventConnections(process.env.SHOPIFY_APP_URL,subscriptions.nodes,subscriptions.pageInfo?.hasNextPage===false)};
+ return {customerDeliveriesEnabled:readyBookingReadable(session.shop,process.env.CORE_READY_BOOKING_QA_CUSTOMER??''),programmeBatchesEnabled:process.env.NODE_ENV!=="production"&&process.env.SIXTY_DAY_BATCHES_ENABLED==="true"&&!!process.env.SIXTY_DAY_BATCH_QA_SELECTION_ID,shop:result.data.shop,...reviewOrderEventConnections(process.env.SHOPIFY_APP_URL,subscriptions.nodes,subscriptions.pageInfo?.hasNextPage===false,{renewalEvidenceEnabled:process.env.NODE_ENV!=='production'&&process.env.CORE_PREPAID_RENEWAL_LINKS_ENABLED==='true'})};
 }
 export async function action({request}:ActionFunctionArgs){
  const {session,admin}=await authenticate.admin(request);assertShop(session.shop);

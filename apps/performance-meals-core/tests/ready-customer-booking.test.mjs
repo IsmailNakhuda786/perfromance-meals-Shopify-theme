@@ -6,6 +6,11 @@ await buildServices({entryPoints:['app/services/ready-customer-booking.server.ts
 const {performReadyCustomerBooking:perform,readyBookingCommand:parse,readReadyBookingRequest:requestStatus}=await import('../.shopify/customer-booking-test/ready-customer-booking.server.js');
 const {configureReadyBookingPolicy:policy}=await import('../.shopify/customer-booking-test/ready-booking-policy.server.js');const {configureReadyDeliverySlot:configure}=await import('../.shopify/customer-booking-test/ready-delivery-capacity.server.js');
 const {stageReadyDeliveryReminders:stage}=await import('../.shopify/customer-booking-test/ready-delivery-draft.server.js');
+// Finish asynchronous module loading before registering any tests/hooks.
+// Otherwise filtered Node runs can finish the first batch and start cleanup
+// while later top-level imports are still registering the selected test.
+const {prepareReadyBookingCalendar:prepareCalendar}=await import('../.shopify/customer-booking-test/ready-booking-calendar.server.js');
+const {sendReadyDeliveryNotice:sendNotice}=await import('../.shopify/customer-booking-test/ready-delivery-reminder.server.js');
 const db=new PrismaClient(),shop=`customer-booking-${randomUUID()}.myshopify.com`,customer='gid://shopify/Customer/9',now=new Date('2026-10-28T01:00:00Z');const hash=v=>createHash('sha256').update(JSON.stringify(v)).digest('hex');
 process.env.ALLOWED_SHOP=shop;process.env.CORE_READY_BOOKING_QA_CUSTOMER=customer;process.env.CORE_READY_CUSTOMER_BOOKING_ENABLED='true';process.env.READY_DELIVERY_CAPACITY_ENABLED='true';
 const tables=['planOperation','readyDeliveryBookingRequest','readyDeliveryBooking','readyDeliveryVisitMember','readyDeliveryVisit','readyDeliverySlotReservation','readyDeliveryReminder','readyDeliveryDraft','readyDeliverySlot','readyDeliveryPolicy','prepaidRenewalEvidence','prepaidPurchaseEvidence','operationalLine'];
@@ -55,7 +60,6 @@ test('simultaneous requests for the same native occurrence reserve only one plac
  const p=await setup(),input=book(p);const outcomes=await Promise.allSettled([perform({},shop,customer,input,{now}),perform({},shop,customer,input,{now})]);assert.ok(outcomes.some(x=>x.status==='fulfilled'));assert.equal((await perform({},shop,customer,input,{now})).replayed,true);assert.equal(await db.readyDeliveryBooking.count({where:{shop,sourceKey:p.source.key,state:'BOOKED'}}),1);assert.equal((await db.readyDeliverySlot.findUnique({where:{id:p.slots[0].id}})).reserved,1);
 });
 
-const {prepareReadyBookingCalendar:prepareCalendar}=await import('../.shopify/customer-booking-test/ready-booking-calendar.server.js');
 function fullTerm(p){return Array.from({length:6},(_,index)=>({...p.source,key:hash([p.source.orderGid,index]),fulfillmentOrderGid:'gid://shopify/FulfillmentOrder/'+(index+10),workStartsAt:new Date(Date.UTC(2026,9+index,28)).toISOString(),members:p.source.members.filter(m=>index<m.deliveries).map(m=>({...m,occurrence:index+1}))}));}
 test('merchant calendar uses next availability and monthly anchor, never native work dates; replay preserves later customer changes',async()=>{
  const p=await setup(false),current=await db.readyDeliveryPolicy.findUnique({where:{shop}});await policy({shop,noticeHours:72,calendar:{years:[2026,2027],closedDates:[],source:'MOM-backed test configuration'},expectedRevision:current.revision});
@@ -95,7 +99,6 @@ test('changed native cycle or overdue renewal cannot create a replacement calend
  const {renewal,admin,corrupt}=await renewalSetup(),before=await snapshot();await assert.rejects(prepareCalendar(admin,shop,customer,renewal.source.orderGid,{now:new Date('2027-05-12T00:00:00Z')}),/Overdue|merges/);assert.deepEqual(await snapshot(),before);corrupt();await assert.rejects(prepareCalendar(admin,shop,customer,renewal.source.orderGid,{now:new Date('2027-04-28T02:00:00Z')}),/Unedited/);assert.deepEqual(await snapshot(),before);
 });
 
-const {sendReadyDeliveryNotice:sendNotice}=await import('../.shopify/customer-booking-test/ready-delivery-reminder.server.js');
 const noticeDue=new Date('2026-11-08T01:00:00Z');
 function noticesEnabled(){process.env.CORE_READY_DELIVERY_NOTICES_ENABLED='true';process.env.CORE_ACCOUNT_SHOP_ID='123';process.env.CORE_CUSTOMER_ACCOUNT_URL='https://shopify.com/123/account/pages/core';process.env.CORE_SUPPORT_WHATSAPP_NUMBER='6589318076';}
 const noticeInput=r=>({shop,customerGid:customer,bookingId:r.bookingId,revision:r.revision,channel:'email',hoursBefore:72});

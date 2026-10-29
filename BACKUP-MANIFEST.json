@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "0775a146e8c13873d911c10a72efda6e1d526ec8",
+  "source_commit": "f5c0d81c4c62c60cc2de8857cfabb1767c56aa09",
   "snapshot_includes_uncommitted_work": false,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -226,7 +226,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/routes/app._index.tsx",
-      "sha256": "1dc382187610503622c6628fa6f8d659a1dd7a384f0523603727af5a0d3aa2ec",
+      "sha256": "6565e34389fd0535fbcfa058db6d1746256b5bb002f8736f0ba1ab1f6fbd7b2a",
       "sanitized": false
     },
     {
@@ -476,7 +476,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/order-event-connections.ts",
-      "sha256": "96abd2ecb22cad1fc82c8ff201eefe56933a69ab8621e1d6b95643f9eaa8b698",
+      "sha256": "cc43583c80f898bb68e9c049211f96ef82bb1e7833e7773831c8bcccb78c2846",
       "sanitized": false
     },
     {
@@ -1446,7 +1446,7 @@
     },
     {
       "path": "apps/performance-meals-core/shopify.app.toml",
-      "sha256": "bb5b8b3104addd01fa30650535eba4b13f136dd2bd4fc9ad392b13cc3a4f5d29",
+      "sha256": "a991680c009aca0807de66bc1fa2549aaec005e2946442606ad339d288d935b5",
       "sanitized": false
     },
     {
@@ -1616,7 +1616,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/order-event-connections.test.mjs",
-      "sha256": "702b5177da24ed8e0b34679c0f6a63fb00fca5b71abe58de08df64ea78c574c7",
+      "sha256": "ec3ca98ceed9f9aeb22220631205192967fbbe2d92e2d7d9a1a1e4d172e4dfb8",
       "sanitized": true
     },
     {
@@ -1751,7 +1751,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/ready-customer-booking.test.mjs",
-      "sha256": "2ec683e2c5e48f6c01add0e0305a374e333ae8482780e8f96f408d9a9177d4b4",
+      "sha256": "784894a6ab028a61fb22c68b9ef92a649464880fc180b471498dca6af6e0925d",
       "sanitized": false
     },
     {
@@ -1811,7 +1811,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/ready-renewal-notice-schedule.test.mjs",
-      "sha256": "5b1b5f7eafc23d9ff8b9a38d93746b3156384e2a1fe09c7da6ecd0a03456f84b",
+      "sha256": "f8bb98339553f358a28d174e62081422bfcfebdbfb2e83e66fcd67183e4814e2",
       "sanitized": false
     },
     {
@@ -2946,12 +2946,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "c47cfc8e4b1f3d94a6737836541090c994cda50905f3838e6c0395b41d618623",
+      "sha256": "3448ec254939be27b38c7a350681aab5ea25db6aefa4b6fb1fe8cb845f81aaa6",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "fedb25d9ee7a4c14c6c25d8575ac88efd2f20651e66fef6c033dafdd41c691ef",
+      "sha256": "7f10ddfbee50761e904962b51234fb6aa1ca78c1f9157d37e57550cb596f06b9",
       "sanitized": false
     },
     {
@@ -2986,7 +2986,12 @@
     },
     {
       "path": "docs/READY-SERIES-DELIVERY-PROGRESS-20261029.md",
-      "sha256": "67a428ab0e2f3dac6701edc20ee2f4405e9c9506f1bfb25cdfbbb18cd82d6150",
+      "sha256": "266f3776eb34d8ce523e9ced82691d205184ef7e878ff2cb257061c59f9e67bc",
+      "sanitized": false
+    },
+    {
+      "path": "docs/READY-SERIES-DISPATCH-ACCEPTANCE-20261029.md",
+      "sha256": "14c2d7841265929c7f2218bfc51a73f64e6189b54a9316d4ebe7bb0faba15bd0",
       "sanitized": false
     },
     {
@@ -3062,6 +3067,11 @@
     {
       "path": "docs/RESUME-CHECKPOINT-20261024-CONNECTIVITY.md",
       "sha256": "d781a40a44c98d53d437c3bf3be2a68a2662c9c256f420be36ac4da2e39872bc",
+      "sanitized": false
+    },
+    {
+      "path": "docs/RESUME-CHECKPOINT-20261029-DISPATCH.md",
+      "sha256": "8d0c0502df1105ab3f5a05e916d46645f030517689eb59589f43febda5c4ac5d",
       "sanitized": false
     },
     {
