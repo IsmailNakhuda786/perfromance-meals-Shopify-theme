@@ -17,3 +17,12 @@ Final regression695 pass/1 skip/0 failed; TypeScript/lint/schema and affected Sh
 
 
 Verified follow-up checkpoint9761169 / GitHub a6c2300:1055 sanitized files,zero hash mismatches. Final protected record comparison37/37 unchanged. Additional real mobile navigation at390×844 covered all7 sections with no horizontal overflow or whole-account load error; this did not exercise blocked payment actions. Mobile screenshots/checks remain private in /private/tmp. Reset the viewport override before ending the session. Native full-term approval question remains pending; do not assume a reply.
+
+
+## Approved full-term native acceptance completed
+
+The explicit approval for Order #1034's two remaining native test dispatches was received and executed once. The journal is now CORE_FULL_TERM_VERIFIED; NEVER rerun its execute-approved operation. Shopify and Core prove 3/3 independently dispatched occurrences. The customer My Plan screen confirms 3/3 and all paid package deliveries dispatched, without rebooking controls or preparation warnings. All three booking attempts reject without records; read/sync replay unchanged. Exactly four native mutations (two opens/two creates), no notifications. Original first dispatch, 32 other native orders, 37 protected Core model fingerprints and all selected cancelled billing terms stayed unchanged. No payment/refund/Wallet/Rewards change. Focused regression40/40; source baseline695pass/1skip retained. No new provider event was observed; explicit sync and reads are the accepted path here. See READY-SERIES-FULL-TERM-ACCEPTANCE-20261030.md.
+
+Temporary QA read scope has been removed by restoring the normal preview, session48781, origin forest-seller-yields-telecommunications.trycloudflare.com. Booking, capacity, intake, batches and Wallet package flags remain disabled. Four normal webhook registrations were verified exact once at the restored origin. No theme publication. Browser domain approval covers only the Performance Meals Development QA account check, not unrelated accounts.
+
+Current whole-requirement assessment remains2PASS/9PARTIAL/3BLOCKED/1DEFERRED; the complete three-delivery subjourney is accepted. Next independent engineering is general fulfilment/Support lifecycle and remaining 6by60 allocation, with scoped approval before any consequential native change. Do not repeat already-passed payment or dispatch tests to increase counts. Preserve unrelated dirty files.

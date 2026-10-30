@@ -1,6 +1,6 @@
 # Complete-term dispatch readiness — 30 October 2026
 
-No new Shopify dispatch was performed. Order#1034 remains at one of three dispatched deliveries; its other two native work records are SCHEDULED. A fresh read-only proposal is saved privately and a separate approval request has been presented before changing them.
+Historical readiness snapshot, superseded by the user-approved native acceptance later on 30 October: Order #1034 now has three of three verified dispatches. See [full-term acceptance](READY-SERIES-FULL-TERM-ACCEPTANCE-20261030.md) for exact operations, customer-screen evidence and preservation checks.
 
 Engineering completed:
 
@@ -9,4 +9,4 @@ Engineering completed:
 - One native shipment ID cannot be counted as two separate occurrences across the read. Conflicting occurrences remain under review and contribute no falsely duplicated dispatch count.
 - Synthetic complete-history cases cover three/six deliveries with one/two packages, exact totals, no rebooking, stable replay and no carrier-delivery claim. Shared-shipment ambiguity is rejected.
 
-These focused tests and component validation pass. They are not native full-term acceptance. The approved earlier first-dispatch evidence is unchanged; the remaining two paid test deliveries will not be opened or dispatched without new approval. No billing, email, Wallet or Rewards operation is part of that proposed test.
+These engineering tests alone did not constitute native acceptance. The subsequent explicit approval and native test are recorded separately in the linked acceptance report. No billing, email, Wallet or Rewards operation was performed.

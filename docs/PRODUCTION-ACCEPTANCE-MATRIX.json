@@ -1,6 +1,6 @@
 {
   "updated": "2026-10-30",
-  "sourceCheckpoint": "9761169",
+  "sourceCheckpoint": "cd391ea",
   "scope": "Full agreed production acceptance; no reduced-scope launch",
   "productionAccepted": false,
   "statusDefinitions": {
@@ -443,6 +443,23 @@
       "horizontalOverflow": false,
       "financialActions": 0,
       "scope": "Real account read/navigation only; financial action acceptance remains separate"
+    },
+    "fullTermDispatchNative": {
+      "date": "2026-10-30",
+      "order": "#1034",
+      "dispatched": 3,
+      "total": 3,
+      "newDispatches": 2,
+      "nativeMutations": 4,
+      "otherNativeOrdersUnchanged": 32,
+      "protectedCoreModelsUnchanged": 37,
+      "rebookingRejected": 3,
+      "replayUnchanged": true,
+      "billingTermsUnchanged": true,
+      "customerScreenVerified": true,
+      "freshProviderEventObserved": false,
+      "focusedTestsPassed": 40,
+      "evidence": "docs/READY-SERIES-FULL-TERM-ACCEPTANCE-20261030.md"
     }
   },
   "counts": {
@@ -912,7 +929,7 @@
       "id": 13,
       "requirement": "Fulfilment, pause, reschedule and future-renewal management",
       "status": "PARTIAL",
-      "implemented": "Authenticated future-renewal stop with durable intent/replay guards; pure delivery-change notice/slot planner and inactive reminder persistence. Registered immutable corrected purchases now prepare inactive quantity-aware delivery drafts with native payment/schedule rechecks and transactional checksum binding; legacy replay remains compatible. Merchant-configured per-slot delivery limits, atomic internal capacity reservations/releases, revision protection and authenticated Core slot-management forms are implemented default-off. Read-only exact native destination proof and completed-stop paid-term preparation; neither activates booking. Atomic provisional combined-visit rescheduling now moves capacity, member revisions and reminder history together with rollback and exact replay protection. Authenticated customer booking/rescheduling, merchant policy/calendar readback and receipt-backed per-visit delivery reminders are now integrated. Original anchors and later renewal-cycle checks are implemented; early simulated attempts are held rather than guessed. Complete-term customer progress and cross-occurrence shared-shipment rejection; actual full-term native dispatch still awaits new approval.",
+      "implemented": "Authenticated future-renewal stop with durable intent/replay guards; pure delivery-change notice/slot planner and inactive reminder persistence. Registered immutable corrected purchases now prepare inactive quantity-aware delivery drafts with native payment/schedule rechecks and transactional checksum binding; legacy replay remains compatible. Merchant-configured per-slot delivery limits, atomic internal capacity reservations/releases, revision protection and authenticated Core slot-management forms are implemented default-off. Read-only exact native destination proof and completed-stop paid-term preparation; neither activates booking. Atomic provisional combined-visit rescheduling now moves capacity, member revisions and reminder history together with rollback and exact replay protection. Authenticated customer booking/rescheduling, merchant policy/calendar readback and receipt-backed per-visit delivery reminders are now integrated. Original anchors and later renewal-cycle checks are implemented; early simulated attempts are held rather than guessed. Complete-term customer progress and cross-occurrence shared-shipment rejection; full three-delivery native dispatch and completed customer display passed in approved development QA.",
       "automatedTests": {
         "state": "PASSED_BASELINE",
         "files": [
@@ -926,8 +943,8 @@
           "apps/performance-meals-core/tests/ready-delivery-slots-route.test.mjs"
         ]
       },
-      "shopifyIntegration": "Ready Series customer stop verified: native contract cancelled, one completed audit, three paid fulfilments/order unchanged and nine financial models unchanged. Same/new-key service replays attempted no second mutation. Two-package test contract cancellation preserved initial and renewal delivery allocations: six records quantity 2 each; all 18 earlier records also unchanged. 26 October: mixed per-package initial #1031 SGD748.80 incl GST61.83 and renewals #1032 SGD255.20/GST21.07 and #1033 SGD493.60/GST40.76 passed. Actual provider intake and explicit worker replay passed; both future billing agreements stopped, eleven earlier paid orders/45 fulfilments and nine financial models preserved; QA configuration restored. Actual embedded development admin create/edit/close of a disposable slot passed, with independent Singapore-time/limit database readback; record removed and flags restored off. 27 October read-only destination checks: nine fulfilment records across existing orders#1029/#1031; no native mutations and11 protected data groups unchanged. 28October: native-linked provisional Core move on paid Order#1031 passed shared-destination/dispatch read proof, failed-move preservation, grouped capacity and replay. All37 Core/native order fingerprints restored; no actual booking or native date mutation.",
-      "customerJourney": "28 October signed-in customer and merchant preview booked and rescheduled two packages as one capacity place, rejected stale availability and preserved later dates. 29 October one approved external delivery email covered both packages; replay sent nothing extra; all temporary Core records were removed.",
+      "shopifyIntegration": "Ready Series customer stop verified: native contract cancelled, one completed audit, three paid fulfilments/order unchanged and nine financial models unchanged. Same/new-key service replays attempted no second mutation. Two-package test contract cancellation preserved initial and renewal delivery allocations: six records quantity 2 each; all 18 earlier records also unchanged. 26 October: mixed per-package initial #1031 SGD748.80 incl GST61.83 and renewals #1032 SGD255.20/GST21.07 and #1033 SGD493.60/GST40.76 passed. Actual provider intake and explicit worker replay passed; both future billing agreements stopped, eleven earlier paid orders/45 fulfilments and nine financial models preserved; QA configuration restored. Actual embedded development admin create/edit/close of a disposable slot passed, with independent Singapore-time/limit database readback; record removed and flags restored off. 27 October read-only destination checks: nine fulfilment records across existing orders#1029/#1031; no native mutations and11 protected data groups unchanged. 28October: native-linked provisional Core move on paid Order#1031 passed shared-destination/dispatch read proof, failed-move preservation, grouped capacity and replay. All37 Core/native order fingerprints restored; no actual booking or native date mutation. 30 October: approved completion of Order #1034 proved three independent successful dispatches, unchanged first shipment/32 other orders, unchanged cancelled billing terms and 37 Core model fingerprints. Explicit read/sync replay unchanged; no new provider webhook receipt observed.",
+      "customerJourney": "28 October signed-in customer and merchant preview booked and rescheduled two packages as one capacity place, rejected stale availability and preserved later dates. 29 October one approved external delivery email covered both packages; replay sent nothing extra; all temporary Core records were removed. Full-term signed-in My Plan displayed 3 of 3 dispatched with no rebooking controls or calendar-preparation warning.",
       "outstandingIssues": [
         "Internal capacity storage and merchant admin forms are verified; authoritative mapping to native physical deliveries and authenticated customer reschedule execution remain incomplete.",
         "Full native booking, notice-window, holiday, dispatch and recovery journey is not accepted."
@@ -947,7 +964,8 @@
         "docs/READY-DELIVERY-ATOMIC-RESCHEDULE-20261028.md",
         "docs/READY-SERIES-RENEWAL-CONTINUITY-20261029.md",
         "docs/READY-SERIES-NOTIFICATIONS-20261029.md",
-        "docs/READY-SERIES-COMPLETE-TERM-READINESS-20261030.md"
+        "docs/READY-SERIES-COMPLETE-TERM-READINESS-20261030.md",
+        "docs/READY-SERIES-FULL-TERM-ACCEPTANCE-20261030.md"
       ],
       "remainingEngineering": [
         "Demonstrate a genuinely later native billing-cycle calendar without altering existing paid records; the previous early simulated renewal is insufficient proof.",

@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "cd391ea3a2561c5e12f615c6c98cc7d1cd2a26ad",
+  "source_commit": "e3ed7074ab1e67b6856ae7aafd622894979e0738",
   "snapshot_includes_uncommitted_work": false,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -3006,12 +3006,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "532418a147cc3984d98aff32f436f5e261a2a6ebe5707d103efe655529420ba9",
+      "sha256": "88b3944af0028f2c53a7e7e6674b107764a418bc75510d1f45622c19238e9a0f",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "bbf90ebd2c389b3c2d7592c72fc5fff0bafcdeadc4129e7b889b80702619cde1",
+      "sha256": "323f6377a86db3530727df7caff13195ba14efc1acd35579d85981c0b3046a20",
       "sanitized": false
     },
     {
@@ -3041,7 +3041,7 @@
     },
     {
       "path": "docs/READY-SERIES-COMPLETE-TERM-READINESS-20261030.md",
-      "sha256": "5943fd352d340748337c62ea44da90ba44b666f70b5722ee9e58e64db0dd8b58",
+      "sha256": "ed1b059207c5876d06674ed50ae3e9ea4455a8138bc6d9c1a15f1809375a66ec",
       "sanitized": false
     },
     {
@@ -3062,6 +3062,11 @@
     {
       "path": "docs/READY-SERIES-FINITE-TERM-DECISION-20261012.md",
       "sha256": "dda51e91a4fb5c2e5e084989ee0cc7e255d0825207255e43068501a9f691af59",
+      "sanitized": false
+    },
+    {
+      "path": "docs/READY-SERIES-FULL-TERM-ACCEPTANCE-20261030.md",
+      "sha256": "ccbcf67205d2e96b1c9ea3c2abe4d091e98dc8ffcccb26bbd6031274cfc3405f",
       "sanitized": false
     },
     {
@@ -3141,7 +3146,7 @@
     },
     {
       "path": "docs/RESUME-CHECKPOINT-20261030-RECOVERY.md",
-      "sha256": "7cb6ddd36f85aecef0a8e9554e72da99025294379e22d8f73e2f26e45f353109",
+      "sha256": "55013d9a4fc3db5a01b6641142a22bb7b56ecc7914262348429d93183f7f365d",
       "sanitized": false
     },
     {
