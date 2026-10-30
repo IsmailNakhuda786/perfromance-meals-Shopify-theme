@@ -29,3 +29,8 @@ Actual read-only verification: nine existing development contracts matched their
 ## Limits
 
 This closes the observed account-loading failure and the Core account's exact-price disclosure subjourney. It does not change Shopify's gross-subtotal label, accept general price-correction provisioning, approve Wallet spending or complete every customer-account financial journey. Full requirements2 and12 remain PARTIAL. Permanent tunnel/host reliability remains outside the functional deadline, and the temporary origin can expire.
+
+
+## Mobile read/navigation acceptance
+
+At390×844, all seven sections—Dashboard, My Plan, Order History, Wallet, Rewards, Gift Cards and Settings—were opened in the real Shopify account preview. Every section retained a390px document/scroll width with no horizontal overflow or whole-account load error. Navigation wrapped and the verified-price explanation remained readable. This is read/navigation evidence; no financial or Support action was submitted. Mobile screenshot: /private/tmp/pm-account-mobile-20261030.png; detailed width checks remain local. The temporary viewport override was reset after testing.

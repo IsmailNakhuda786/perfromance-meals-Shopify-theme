@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "9761169745fcc1e535a3de4d3a585060d7ba0508",
+  "source_commit": "cd391ea3a2561c5e12f615c6c98cc7d1cd2a26ad",
   "snapshot_includes_uncommitted_work": false,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -2771,7 +2771,7 @@
     },
     {
       "path": "docs/CUSTOMER-ACCOUNT-PRICING-LOAD-ACCEPTANCE-20261030.md",
-      "sha256": "f259b060071240d4e730e2037bdc6ba890febde77c0ded7d8b9cbd3f58d8426f",
+      "sha256": "4664ebc13d4443a111b24448b1b437b3252fdbd20ca9ef6ce3d1565fe986653c",
       "sanitized": false
     },
     {
@@ -3006,7 +3006,7 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "bfc1d6a4163024a465f7450d3673b4345bd301b310abc1907b1f4f0f34aba6c2",
+      "sha256": "532418a147cc3984d98aff32f436f5e261a2a6ebe5707d103efe655529420ba9",
       "sanitized": false
     },
     {
@@ -3141,7 +3141,7 @@
     },
     {
       "path": "docs/RESUME-CHECKPOINT-20261030-RECOVERY.md",
-      "sha256": "725178aa349226c499576bd8bb2661010304ffa9decd7544148ac185a5e2d51d",
+      "sha256": "7cb6ddd36f85aecef0a8e9554e72da99025294379e22d8f73e2f26e45f353109",
       "sanitized": false
     },
     {

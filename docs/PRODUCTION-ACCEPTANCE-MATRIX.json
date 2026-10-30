@@ -1,6 +1,6 @@
 {
   "updated": "2026-10-30",
-  "sourceCheckpoint": "d27fab8",
+  "sourceCheckpoint": "9761169",
   "scope": "Full agreed production acceptance; no reduced-scope launch",
   "productionAccepted": false,
   "statusDefinitions": {
@@ -436,6 +436,13 @@
       "sharedShipmentCounting": "HELD",
       "nativeFullTermAcceptance": "AWAITING_SEPARATE_APPROVAL",
       "existingOrderDispatchCount": "1 of 3 unchanged"
+    },
+    "accountMobileReadChecks": {
+      "viewport": "390x844",
+      "sections": 7,
+      "horizontalOverflow": false,
+      "financialActions": 0,
+      "scope": "Real account read/navigation only; financial action acceptance remains separate"
     }
   },
   "counts": {
