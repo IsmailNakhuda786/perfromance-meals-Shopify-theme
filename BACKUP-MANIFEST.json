@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "e3ed7074ab1e67b6856ae7aafd622894979e0738",
+  "source_commit": "507fdf4760c0e975aaf89513ab240a7db4126103",
   "snapshot_includes_uncommitted_work": false,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -231,7 +231,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/routes/app._index.tsx",
-      "sha256": "0e21b6e0788ecc2e7180b24c2490e06132dcd7f816322640c00de18ff4303088",
+      "sha256": "913e28c1cf79f8e85a625762794046c3e8a6236ff3d0a6e7bd481b14046b267b",
       "sanitized": false
     },
     {
@@ -252,6 +252,11 @@
     {
       "path": "apps/performance-meals-core/app/routes/app.ready-delivery-slots.tsx",
       "sha256": "2be41979c0a21fbc808e560073241297858b3eb112b9e2bc82d0ed3c75db8dd7",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/routes/app.support-requests.tsx",
+      "sha256": "4b01d41f3fbd04baa39992a0786829e42e7fdd6e52d9351ca7c7832d28bda668",
       "sanitized": false
     },
     {
@@ -497,6 +502,11 @@
     {
       "path": "apps/performance-meals-core/app/services/order-funding.server.ts",
       "sha256": "8f716b281a788fa2e10bbb7cfc2925535526253db70a3c00c56c252584dde4eb",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/order-support-inbox.server.ts",
+      "sha256": "9af214f608bf95aa21f5a0957f8b0b43a388a85de6584e3830099fd40dcb35fa",
       "sanitized": false
     },
     {
@@ -1673,6 +1683,16 @@
       "path": "apps/performance-meals-core/tests/order-support-history.test.mjs",
       "sha256": "ddf6ffb460edeec9b4387374ba55c0aff110c906ffd67315519f5a2bd8f7ae0f",
       "sanitized": true
+    },
+    {
+      "path": "apps/performance-meals-core/tests/order-support-inbox-route.test.mjs",
+      "sha256": "1f45c1eba0d6afef8978f0c879a26f05400ef69f1354c8734a85c52d176b4242",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/order-support-inbox.test.mjs",
+      "sha256": "b492fae6ac57e7c7d881fd889d536686e7a20a4332c9cf8b5dc5cb4cead06047",
+      "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/tests/order-support.test.mjs",
@@ -3006,12 +3026,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "88b3944af0028f2c53a7e7e6674b107764a418bc75510d1f45622c19238e9a0f",
+      "sha256": "b1df4e31bec2bb25f87eb41bb2ef899c8e4ee770da523084456871d3c043545e",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "323f6377a86db3530727df7caff13195ba14efc1acd35579d85981c0b3046a20",
+      "sha256": "5a73336ff71c7241d5017eae342aab485dafbf2d08d66c1f92fd7864e6876b23",
       "sanitized": false
     },
     {
@@ -3146,7 +3166,7 @@
     },
     {
       "path": "docs/RESUME-CHECKPOINT-20261030-RECOVERY.md",
-      "sha256": "55013d9a4fc3db5a01b6641142a22bb7b56ecc7914262348429d93183f7f365d",
+      "sha256": "1fd6537c88f281518e9c5ae3cbe27852f73444835e4fe970b9f41b5b2dc3c1b2",
       "sanitized": false
     },
     {
@@ -3200,6 +3220,11 @@
       "sanitized": false
     },
     {
+      "path": "docs/SIXTY-DAY-MENU-ALLOCATION-DECISION-20261030.md",
+      "sha256": "3ba724e74c2fe359adb43e5a9ab08028b1107daec4e8e5b69a6a7fedb008105e",
+      "sanitized": false
+    },
+    {
       "path": "docs/STATUS.md",
       "sha256": "f316cc912940084e33202dd9b0592fd948a6955604d7993e3b2c328d73a77e6d",
       "sanitized": false
@@ -3247,6 +3272,11 @@
     {
       "path": "docs/SUBSCRIPTION-TEST-GATEWAY-INVESTIGATION-20261012.md",
       "sha256": "2ed99804e8b8fa6c2660797da4c3ffdd9e6e7aa3bcbc26b04eedc00c2dda1ecd",
+      "sanitized": false
+    },
+    {
+      "path": "docs/SUPPORT-REQUEST-INBOX-20261030.md",
+      "sha256": "f125bdd23f4cc605e6ac00494471b895932f20de856d43d7d8c29ff63a93e805",
       "sanitized": false
     },
     {

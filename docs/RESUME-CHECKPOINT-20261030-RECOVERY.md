@@ -26,3 +26,13 @@ The explicit approval for Order #1034's two remaining native test dispatches was
 Temporary QA read scope has been removed by restoring the normal preview, session48781, origin forest-seller-yields-telecommunications.trycloudflare.com. Booking, capacity, intake, batches and Wallet package flags remain disabled. Four normal webhook registrations were verified exact once at the restored origin. No theme publication. Browser domain approval covers only the Performance Meals Development QA account check, not unrelated accounts.
 
 Current whole-requirement assessment remains2PASS/9PARTIAL/3BLOCKED/1DEFERRED; the complete three-delivery subjourney is accepted. Next independent engineering is general fulfilment/Support lifecycle and remaining 6by60 allocation, with scoped approval before any consequential native change. Do not repeat already-passed payment or dispatch tests to increase counts. Preserve unrelated dirty files.
+
+
+## Merchant Support inbox follow-up
+
+Full-term acceptance saved at e3ed707, verified GitHub b10b792 (1056 files,zero mismatches). Additional safe engineering fills the missing merchant read workflow: app.support-requests plus a bounded owner-shop service, home link and seven new tests. Actual development PostgreSQL returned one existing request with stable replay/37 models unchanged. Actual embedded admin showed request #1009 and recorded payment/dispatch facts. Read-only/default-off/production-denied; no request approval, cancellation, refund, credit or new request. Full regression702pass/1skip/0failed; focused13/13, typecheck/lint and App Home validators pass. Home validator required an explicit Node process declaration only in its private isolated validation context; no production workaround.
+
+User clarified customer meal choices versus Jerome's delivery-day assignment; recorded SIXTY-DAY-MENU-ALLOCATION-DECISION-20261030.md after actual prototype inspection. Do not copy sample prototype prices/names/counts into approved catalogue logic. Next: connect actual saved customer menu revisions to batch dish allocation and finish remaining Support/fulfilment lifecycle; no new payments or dispatches authorized. All prior Wallet gates remain off.
+
+
+Normal preview after Support read test: session30837, origin anti-correlation-trains-upgrades.trycloudflare.com. The Support flag is absent/off again; four ordinary callbacks exact once. Previous session48781/forest-seller origin is superseded. Customer preview has been reconnected to this final origin. No recovery, booking, batch, top-up or financial action activated.

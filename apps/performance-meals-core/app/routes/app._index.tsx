@@ -1,6 +1,7 @@
 import type {LoaderFunctionArgs,ActionFunctionArgs} from 'react-router';
 import {Form,useLoaderData,useActionData} from 'react-router';
 import {authenticate,registerWebhooks} from '../shopify.server';
+import {supportInboxEnabled} from '../services/order-support-inbox.server';
 import {programmeDeliveryEnabled} from '../services/programme-deliveries.server';
 import {assertPrepaidPurchaseIntakeScope} from '../services/prepaid-purchase-intake.server';
 import {readyBookingReadable} from '../services/ready-booking-read.server';
@@ -14,7 +15,7 @@ export async function loader({request}:LoaderFunctionArgs) {
  const result=await response.json();if(!response.ok||("errors" in result&&result.errors)||!result.data?.shop||result.data.shop.myshopifyDomain!==session.shop||!result.data.webhookSubscriptions) throw new Response('Connection unavailable',{status:503});
  const subscriptions=result.data.webhookSubscriptions;
  let purchaseRecoveryEnabled=false;try{assertPrepaidPurchaseIntakeScope(session.shop);purchaseRecoveryEnabled=true;}catch{/* Disabled development gate keeps recovery unavailable. */}
- return {purchaseRecoveryEnabled,customerDeliveriesEnabled:readyBookingReadable(session.shop,process.env.CORE_READY_BOOKING_QA_CUSTOMER??''),programmeBatchesEnabled:programmeDeliveryEnabled(),shop:result.data.shop,...reviewOrderEventConnections(process.env.SHOPIFY_APP_URL,subscriptions.nodes,subscriptions.pageInfo?.hasNextPage===false,{renewalEvidenceEnabled:process.env.NODE_ENV!=='production'&&process.env.CORE_PREPAID_RENEWAL_LINKS_ENABLED==='true'})};
+ return {supportRequestsEnabled:supportInboxEnabled(),purchaseRecoveryEnabled,customerDeliveriesEnabled:readyBookingReadable(session.shop,process.env.CORE_READY_BOOKING_QA_CUSTOMER??''),programmeBatchesEnabled:programmeDeliveryEnabled(),shop:result.data.shop,...reviewOrderEventConnections(process.env.SHOPIFY_APP_URL,subscriptions.nodes,subscriptions.pageInfo?.hasNextPage===false,{renewalEvidenceEnabled:process.env.NODE_ENV!=='production'&&process.env.CORE_PREPAID_RENEWAL_LINKS_ENABLED==='true'})};
 }
 export async function action({request}:ActionFunctionArgs){
  const {session,admin}=await authenticate.admin(request);assertShop(session.shop);
@@ -24,6 +25,6 @@ export async function action({request}:ActionFunctionArgs){
  throw new Response('Unknown operation',{status:400});
 }
 export default function Foundation(){
- const {shop,connected,programmeBatchesEnabled,customerDeliveriesEnabled,purchaseRecoveryEnabled}=useLoaderData<typeof loader>();const result=useActionData<typeof action>();
- return <s-page heading="Performance Meals"><s-section heading="Core foundation"><s-paragraph>Customer Meal Plan persistence and operational line routing. Department workspaces will be added in the approved Admin phase.</s-paragraph><s-paragraph>{shop.myshopifyDomain} · {shop.currencyCode} · {shop.ianaTimezone}</s-paragraph><s-paragraph>Order events: {connected?'Connected':'Connection required'}</s-paragraph>{customerDeliveriesEnabled&&<s-link href="/app/ready-deliveries">Manage customer deliveries</s-link>}<s-link href="/app/ready-delivery-slots">Manage Ready Series delivery slots</s-link>{programmeBatchesEnabled&&<s-link href="/app/programme-deliveries">Manage 6 by 60 delivery batches</s-link>}<>{purchaseRecoveryEnabled&&<s-link href="/app/prepaid-recovery">Recover missed package purchases</s-link>}</><Form method="post"><button name="intent" value="connect">Connect order events</button> <button name="intent" value="reconcile">Sync pending checkouts</button></Form>{result&&<s-paragraph>{result.message}</s-paragraph>}</s-section></s-page>;
+ const {shop,connected,supportRequestsEnabled,programmeBatchesEnabled,customerDeliveriesEnabled,purchaseRecoveryEnabled}=useLoaderData<typeof loader>();const result=useActionData<typeof action>();
+ return <s-page heading="Performance Meals"><s-section heading="Core foundation"><s-paragraph>Customer Meal Plan persistence and operational line routing. Department workspaces will be added in the approved Admin phase.</s-paragraph><s-paragraph>{shop.myshopifyDomain} · {shop.currencyCode} · {shop.ianaTimezone}</s-paragraph><s-paragraph>Order events: {connected?'Connected':'Connection required'}</s-paragraph>{customerDeliveriesEnabled&&<s-link href="/app/ready-deliveries">Manage customer deliveries</s-link>}{supportRequestsEnabled&&<s-link href="/app/support-requests">Review customer Support requests</s-link>}<s-link href="/app/ready-delivery-slots">Manage Ready Series delivery slots</s-link>{programmeBatchesEnabled&&<s-link href="/app/programme-deliveries">Manage 6 by 60 delivery batches</s-link>}<>{purchaseRecoveryEnabled&&<s-link href="/app/prepaid-recovery">Recover missed package purchases</s-link>}</><Form method="post"><button name="intent" value="connect">Connect order events</button> <button name="intent" value="reconcile">Sync pending checkouts</button></Form>{result&&<s-paragraph>{result.message}</s-paragraph>}</s-section></s-page>;
 }

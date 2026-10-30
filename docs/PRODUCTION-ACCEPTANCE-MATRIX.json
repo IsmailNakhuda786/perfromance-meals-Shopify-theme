@@ -1,6 +1,6 @@
 {
   "updated": "2026-10-30",
-  "sourceCheckpoint": "cd391ea",
+  "sourceCheckpoint": "e3ed707",
   "scope": "Full agreed production acceptance; no reduced-scope launch",
   "productionAccepted": false,
   "statusDefinitions": {
@@ -10,7 +10,7 @@
     "BLOCKED": "A required platform capability, authorization or external dependency prevents completion."
   },
   "baseline": {
-    "coreTests": 695,
+    "coreTests": 702,
     "nativeReadback": "Latest mixed QA verified #1031/#1032/#1033 with provider inbox intake and explicit Core replay; future renewals stopped. Eleven earlier paid orders/45 fulfilments and nine financial-model snapshots preserved. QA product, discounts, shipping profile, GST and temporary callback settings restored.",
     "checkoutPricing": "Exact charged initial and simulated renewal GST-inclusive pricing passed for single terms, two identical 3-delivery packages (SGD510.40/GST42.14) and mixed 3-/6-delivery packages (initial SGD748.80/GST61.83; renewals SGD255.20/GST21.07 and SGD493.60/GST40.76). Delivery was included. General production correction provisioning and permanent lifecycle acceptance remain incomplete.",
     "topUpsEnabled": false,
@@ -460,6 +460,18 @@
       "freshProviderEventObserved": false,
       "focusedTestsPassed": 40,
       "evidence": "docs/READY-SERIES-FULL-TERM-ACCEPTANCE-20261030.md"
+    },
+    "supportInbox": {
+      "implemented": true,
+      "defaultOff": true,
+      "productionDenied": true,
+      "readOnly": true,
+      "focusedTestsPassed": 13,
+      "nativeDevelopmentRecordsRead": 1,
+      "protectedCoreModelsUnchanged": 37,
+      "embeddedAdminJourneyPassed": true,
+      "financialActionsImplemented": false,
+      "evidence": "docs/SUPPORT-REQUEST-INBOX-20261030.md"
     }
   },
   "counts": {
@@ -594,10 +606,12 @@
         "docs/SIXTY-DAY-DELIVERY-BATCHES-20261027.md",
         "docs/SIXTY-DAY-DELIVERY-BATCHES-20261028.md",
         "docs/SIXTY-DAY-FULL-ALLOWANCE-QA-20261028.md",
-        "docs/SIXTY-DAY-GENERAL-DEVELOPMENT-20261030.md"
+        "docs/SIXTY-DAY-GENERAL-DEVELOPMENT-20261030.md",
+        "docs/SIXTY-DAY-MENU-ALLOCATION-DECISION-20261030.md"
       ],
       "remainingEngineering": [
-        "Complete general batch activation safeguards and physical booking/rescheduling under requirement13. Full88/32 accounting, replay/overflow protection and approved legacy-development allowance reconciliation passed."
+        "Complete general batch activation safeguards and physical booking/rescheduling under requirement13. Full88/32 accounting, replay/overflow protection and approved legacy-development allowance reconciliation passed.",
+        "Implement customer-selected menu to staff-selected delivery-day dish allocation, as clarified on 30 October; do not replace customer meal choices with a staff-chosen menu."
       ],
       "assessmentStatus": "PARTIAL",
       "assessmentScope": "FUNCTIONAL",
@@ -889,7 +903,7 @@
       "id": 12,
       "requirement": "Customer account journeys",
       "status": "PARTIAL",
-      "implemented": "Seven account sections, Wallet/history, saved programmes and freshly bound subscription status; startup race repair.",
+      "implemented": "Seven account sections, Wallet/history, saved programmes and freshly bound subscription status; startup race repair. Authenticated merchant read-only Support-request inbox with scoped pagination, minimal evidence projection, invalid-evidence holds and no financial actions.",
       "automatedTests": {
         "state": "PASSED_BASELINE",
         "files": [
@@ -913,7 +927,8 @@
         "docs/CORE-CONNECTIVITY-RECOVERY-20261024.md",
         "docs/CUSTOMER-ACCOUNT-MOBILE-QA-20261028.md",
         "docs/READY-SERIES-NOTIFICATIONS-20261029.md",
-        "docs/CUSTOMER-ACCOUNT-PRICING-LOAD-ACCEPTANCE-20261030.md"
+        "docs/CUSTOMER-ACCOUNT-PRICING-LOAD-ACCEPTANCE-20261030.md",
+        "docs/SUPPORT-REQUEST-INBOX-20261030.md"
       ],
       "remainingEngineering": [
         "Complete seven-section operation and interrupted/expired-session recovery acceptance, including blocked payment features. Mobile navigation/readback passed on28 October; not a claim of financial operation acceptance."
@@ -929,7 +944,7 @@
       "id": 13,
       "requirement": "Fulfilment, pause, reschedule and future-renewal management",
       "status": "PARTIAL",
-      "implemented": "Authenticated future-renewal stop with durable intent/replay guards; pure delivery-change notice/slot planner and inactive reminder persistence. Registered immutable corrected purchases now prepare inactive quantity-aware delivery drafts with native payment/schedule rechecks and transactional checksum binding; legacy replay remains compatible. Merchant-configured per-slot delivery limits, atomic internal capacity reservations/releases, revision protection and authenticated Core slot-management forms are implemented default-off. Read-only exact native destination proof and completed-stop paid-term preparation; neither activates booking. Atomic provisional combined-visit rescheduling now moves capacity, member revisions and reminder history together with rollback and exact replay protection. Authenticated customer booking/rescheduling, merchant policy/calendar readback and receipt-backed per-visit delivery reminders are now integrated. Original anchors and later renewal-cycle checks are implemented; early simulated attempts are held rather than guessed. Complete-term customer progress and cross-occurrence shared-shipment rejection; full three-delivery native dispatch and completed customer display passed in approved development QA.",
+      "implemented": "Authenticated future-renewal stop with durable intent/replay guards; pure delivery-change notice/slot planner and inactive reminder persistence. Registered immutable corrected purchases now prepare inactive quantity-aware delivery drafts with native payment/schedule rechecks and transactional checksum binding; legacy replay remains compatible. Merchant-configured per-slot delivery limits, atomic internal capacity reservations/releases, revision protection and authenticated Core slot-management forms are implemented default-off. Read-only exact native destination proof and completed-stop paid-term preparation; neither activates booking. Atomic provisional combined-visit rescheduling now moves capacity, member revisions and reminder history together with rollback and exact replay protection. Authenticated customer booking/rescheduling, merchant policy/calendar readback and receipt-backed per-visit delivery reminders are now integrated. Original anchors and later renewal-cycle checks are implemented; early simulated attempts are held rather than guessed. Complete-term customer progress and cross-occurrence shared-shipment rejection; full three-delivery native dispatch and completed customer display passed in approved development QA. Authenticated merchant read-only Support-request inbox with scoped pagination, minimal evidence projection, invalid-evidence holds and no financial actions.",
       "automatedTests": {
         "state": "PASSED_BASELINE",
         "files": [
@@ -965,7 +980,8 @@
         "docs/READY-SERIES-RENEWAL-CONTINUITY-20261029.md",
         "docs/READY-SERIES-NOTIFICATIONS-20261029.md",
         "docs/READY-SERIES-COMPLETE-TERM-READINESS-20261030.md",
-        "docs/READY-SERIES-FULL-TERM-ACCEPTANCE-20261030.md"
+        "docs/READY-SERIES-FULL-TERM-ACCEPTANCE-20261030.md",
+        "docs/SUPPORT-REQUEST-INBOX-20261030.md"
       ],
       "remainingEngineering": [
         "Demonstrate a genuinely later native billing-cycle calendar without altering existing paid records; the previous early simulated renewal is insufficient proof.",
