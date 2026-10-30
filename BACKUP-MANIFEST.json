@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "1e867c2fccf50b1b264f6695da28daba3c9fb725",
+  "source_commit": "99f717c046b9168d0b98f7e78288d803e59e6733",
   "snapshot_includes_uncommitted_work": false,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -246,7 +246,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/routes/app.programme-deliveries.tsx",
-      "sha256": "20b35c4b344374f65ed616a9d3dea25c461b471e631bbb435151aa6e94603168",
+      "sha256": "d5c4810755e720a08fdc770790028d0921c41159c745c0a0eea983ea47ee48c8",
       "sanitized": false
     },
     {
@@ -606,7 +606,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/programme-booking.server.ts",
-      "sha256": "7eb0139fddfc5446bd0ff8a8e4088f07b5515591f011581c3650e5391c77071a",
+      "sha256": "6b534be701f7466848f516a2b90dbd892e4f849eefa68fb1bb416b0c6593a54e",
       "sanitized": false
     },
     {
@@ -1061,7 +1061,7 @@
     },
     {
       "path": "apps/performance-meals-core/extensions/performance-meals-account/src/OrderStatusBlock.jsx",
-      "sha256": "7777c30aefbb9252247d811ec52602d9654eed11744c58b94702d93487bb7f7e",
+      "sha256": "6b95103f6e1306563ad27483736f089b670ca900c70c0a8c67652380594f83ee",
       "sanitized": false
     },
     {
@@ -1836,7 +1836,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/programme-booking.test.mjs",
-      "sha256": "55dce830b0f167c9290ff499d1af7b873e53e95d1acd794f810b88e7b94046d2",
+      "sha256": "e2bb9396f086d8d0f78b3a55e101003e22f7930ef952b995b9f3b4565da30df5",
       "sanitized": false
     },
     {
@@ -2960,6 +2960,11 @@
       "sanitized": false
     },
     {
+      "path": "docs/MEAL-PLAN-BOOKING-ACCEPTANCE-20261030.md",
+      "sha256": "00c97cc6c79ab39d07f565e0abe1f2043bb1d56e63f00cb2d970d99aa6ba3166",
+      "sanitized": false
+    },
+    {
       "path": "docs/MEAL-PLAN-BOOKING-ENGINE-20261030.md",
       "sha256": "72b7a36669def31334d249b8cc903af4955a41fbbab742e98bdab74a4c5a87ab",
       "sanitized": false
@@ -3101,12 +3106,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "31851824575cc5c8a2e9e797076ec28ef32cb8aeffb163c7d7756922e579310c",
+      "sha256": "9601828839b02646bb07c9d9bc63e8700bbdb302f3221cb83b015267daf80dd1",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "f64eef8c060d326b30b164cac19b4d99ac3fce3c10ed97c5e8f174930b6566bf",
+      "sha256": "54aeab4c3b64b7b7a896cac9d9be5e5bea4913a7a9554b7a57f5d431643ededb",
       "sanitized": false
     },
     {
@@ -3246,7 +3251,7 @@
     },
     {
       "path": "docs/RESUME-CHECKPOINT-20261030-RECOVERY.md",
-      "sha256": "0d64888d6f2e841a4b10339e26d90033d3e80a924a4c62414914688aee472ed0",
+      "sha256": "7070851e06bc61a5df3cc921216f98786c380ea77939eb2146579d33fe218db8",
       "sanitized": false
     },
     {

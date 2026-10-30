@@ -25,7 +25,7 @@ export async function loader({request}:LoaderFunctionArgs){
  const dishMode=programmeDishAllocationEnabled();
  if(dishMode&&selected)try{const result=await readProgrammeDishChoices(admin,session.shop,selected.id);if(result.available){const names=await accountMealNames(admin,result.choices.map(c=>c.productGid));dishChoices={menuHash:result.menuHash,choices:result.choices.map(c=>({...c,title:names.get(c.productGid)??null}))};}}catch{/* Missing menu/evidence is a hold, never a count-only fallback. */}
  let bookings:Awaited<ReturnType<typeof readProgrammeBookings>>|null=null;
- const bookingMode=programmeBookingEnabled();if(bookingMode&&selected)try{bookings=await readProgrammeBookings(session.shop,selected.customerGid,selected.id,{afterSlot:params.get('afterSlot')??undefined});}catch{/* No booking is inferred from unavailable policy/storage. */}
+ const bookingMode=programmeBookingEnabled();if(bookingMode&&selected)try{bookings=await readProgrammeBookings(session.shop,selected.customerGid,selected.id,{afterSlot:params.get('afterSlot')??undefined,includeOwnVisitSlots:true});}catch{/* No booking is inferred from unavailable policy/storage. */}
  return {bookingMode,bookings,enabled:true,dishMode,dishChoices,batchMealNames,after:after??null,nextCursor,programmes:programmes.map(p=>({id:p.id,label:`${p.startsOn} – ${p.endsOn} · ${p.orderGid?.split('/').at(-1)??'Order unavailable'}`})),selected:selected?{id:selected.id,hasEntitlement:!!savedSixtyDayEntitlement(selected.entitlement,selected.startsOn,selected.endsOn)}:null,progress};
 }
 export async function action({request}:ActionFunctionArgs){

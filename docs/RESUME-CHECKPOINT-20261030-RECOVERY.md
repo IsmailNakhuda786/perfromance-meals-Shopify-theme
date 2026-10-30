@@ -68,3 +68,10 @@ User approved the four-table development migration and disposable tests. Migrati
 
 
 Final safety state: `.shopify/meal-booking-native30.private.json` is RESTORED; all44 protected model groups unchanged. No booking/move was submitted because `loves-clearing-oil-strain.trycloudflare.com` failed DNS resolution in the embedded browser. Do not count this as accepted. Normal preview restarting in session72434 with gates off; see `.shopify/normal-meal-booking-restored30.private.log`. Inspect the final reconnect log for its fresh normal origin. Source includes definite-rejection recovery fix and two new passing PostgreSQL concurrency cases. Usage reserve reached: cleanup/checkpoint only.
+
+
+## Latest: successful staff/customer booking acceptance
+
+Incoming1e867c2/f39efed. Approved test completed successfully on paid #1009: two Greek batches (2weekday/3frozen total), one place, staff booking11Nov9–12SG, customer whole-visit move12Nov9–12SG, receipt replay and staff readback passed. Fixed staff full-slot list to permit joining an existing unsent visit; customer replacement slots remain capacity filtered. Standard programmes without a saved60-day entitlement do not show this panel. Full750/744pass/6PGskip/0fail;28 scoped PostgreSQL checks total;44 protected records unchanged. The intermediate overlap-guard mismatch was diagnosed through a read-only full-original comparison, then stable PostgreSQL retest passed.
+
+`.shopify/meal-booking-native30b.private.json` is RESTORED; never rerun it. Earlier30 journal also RESTORED. Normal preview47310, origin https://productive-conviction-organisations-next.trycloudflare.com; four normal callbacks verified in `.shopify/meal-normal-accepted-reconnect30.private.log`. No top-ups/payment/dispatch/production changes. See MEAL-PLAN-BOOKING-ACCEPTANCE-20261030.md for exact evidence and remaining full-term acceptance. Weekly allowance is close to reserve: pause at1% remaining, five-hour at10%.

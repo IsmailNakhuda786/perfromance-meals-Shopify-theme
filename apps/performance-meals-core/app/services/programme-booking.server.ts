@@ -136,7 +136,7 @@ export async function rescheduleProgrammeVisit(admin:Admin,input:Request&{visitI
 }
 // Authenticated customer/merchant reads only. No address, source-menu payload,
 // operator identity or payment details leave this response.
-export async function readProgrammeBookings(shop:string,customerGid:string,selectionId:string,options:{afterSlot?:string;now?:Date}={}){
+export async function readProgrammeBookings(shop:string,customerGid:string,selectionId:string,options:{afterSlot?:string;now?:Date;includeOwnVisitSlots?:boolean}={}){
  scope(shop);if(!owner(customerGid))throw new ProgrammeBookingRejected('Customer sign-in required');const now=options.now??new Date();nowValid(now);
  const p=await db.mealPlanSelection.findFirst({where:{id:selectionId,shop,customerGid,status:'ORDERED',businessStream:'meal_plan',sellingPlanGid:null,contractGid:null}});if(!p)throw new ProgrammeBookingRejected('Owned programme unavailable');
  const bookings=await db.programmeDeliveryBooking.findMany({where:{shop,customerGid,selectionId},take:251,orderBy:{createdAt:'asc'}});if(bookings.length>250)throw new ProgrammeBookingRejected('Programme booking history requires review');
@@ -151,8 +151,15 @@ export async function readProgrammeBookings(shop:string,customerGid:string,selec
  const pol=await policy(db as unknown as Tx,shop),cursor=options.afterSlot?await db.mealPlanDeliverySlot.findFirst({where:{id:options.afterSlot,shop}}):null;
  if(options.afterSlot&&!cursor)throw new ProgrammeBookingRejected('Owned slot cursor required');
  const slots=await db.mealPlanDeliverySlot.findMany({where:{shop,available:true,deliveryAt:{gt:now},...(cursor?{OR:[{deliveryAt:{gt:cursor.deliveryAt}},{deliveryAt:cursor.deliveryAt,id:{gt:cursor.id}}]}:{})},orderBy:[{deliveryAt:'asc'},{id:'asc'}],take:26});
- const page=slots.slice(0,25),notice=pol.noticeHours*3600000;
- return {visible:true,noticeHours:pol.noticeHours,visits:visits.map(v=>({...v,canReschedule:v.canReschedule&&Date.parse(v.deliveryAt)-now.getTime()>=notice})),slots:page.filter(s=>readyBookingSlotAllowed(s.deliveryAt,pol.calendar)&&s.reserved<s.capacity).map(s=>({id:s.id,revision:s.revision,deliveryAt:s.deliveryAt.toISOString(),deliveryEndsAt:s.deliveryEndsAt.toISOString(),canReplace:s.deliveryAt.getTime()-now.getTime()>=notice})),nextSlotCursor:slots.length>25?page.at(-1)!.id:null};
+ const page=slots.slice(0,25),notice=pol.noticeHours*3600000,joinable=new Set<string>();
+ // Staff may add another box to the same unsent visit even when its place
+ // fills the slot. Customer rescheduling never silently merges two visits.
+ if(options.includeOwnVisitSlots){
+  const own=await db.mealPlanDeliveryVisit.findMany({where:{shop,customerGid,orderGid:p.orderGid!,slotId:{in:page.map(s=>s.id)},state:'BOOKED'},take:251});if(own.length>250)throw new ProgrammeBookingRejected('Combined visit history requires review');
+  for(const v of own){const members=await db.programmeDeliveryBooking.findMany({where:{shop,visitId:v.id,state:{not:'CANCELLED'}},take:251});if(members.length>0&&members.length<=250&&members.every(m=>m.customerGid===customerGid&&m.orderGid===p.orderGid&&m.state==='BOOKED'))joinable.add(v.slotId);}
+ }
+
+ return {visible:true,noticeHours:pol.noticeHours,visits:visits.map(v=>({...v,canReschedule:v.canReschedule&&Date.parse(v.deliveryAt)-now.getTime()>=notice})),slots:page.filter(s=>readyBookingSlotAllowed(s.deliveryAt,pol.calendar)&&(s.reserved<s.capacity||joinable.has(s.id))).map(s=>({id:s.id,revision:s.revision,deliveryAt:s.deliveryAt.toISOString(),deliveryEndsAt:s.deliveryEndsAt.toISOString(),canReplace:s.deliveryAt.getTime()-now.getTime()>=notice})),nextSlotCursor:slots.length>25?page.at(-1)!.id:null};
 }
 export function programmeBookingCustomerActive(shop:string,customerGid:string){assertShop(shop);return programmeBookingEnabled()&&owner(customerGid)&&process.env.MEAL_PLAN_BOOKING_QA_CUSTOMER===customerGid;}
 export function programmeRescheduleCommand(value:unknown){

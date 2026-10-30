@@ -1,6 +1,6 @@
 {
   "updated": "2026-10-30",
-  "sourceCheckpoint": "a0cef54",
+  "sourceCheckpoint": "1e867c2",
   "scope": "Full agreed production acceptance; no reduced-scope launch",
   "productionAccepted": false,
   "statusDefinitions": {
@@ -10,7 +10,7 @@
     "BLOCKED": "A required platform capability, authorization or external dependency prevents completion."
   },
   "baseline": {
-    "coreTests": 741,
+    "coreTests": 744,
     "nativeReadback": "Latest mixed QA verified #1031/#1032/#1033 with provider inbox intake and explicit Core replay; future renewals stopped. Eleven earlier paid orders/45 fulfilments and nine financial-model snapshots preserved. QA product, discounts, shipping profile, GST and temporary callback settings restored.",
     "checkoutPricing": "Exact charged initial and simulated renewal GST-inclusive pricing passed for single terms, two identical 3-delivery packages (SGD510.40/GST42.14) and mixed 3-/6-delivery packages (initial SGD748.80/GST61.83; renewals SGD255.20/GST21.07 and SGD493.60/GST40.76). Delivery was included. General production correction provisioning and permanent lifecycle acceptance remain incomplete.",
     "topUpsEnabled": false,
@@ -513,17 +513,18 @@
       "separateBrandCapacity": true,
       "workingDatabaseMigrationApplied": true,
       "nativeDestinationQueryPassed": true,
-      "nativeLinkedBookingJourneyPassed": false,
-      "testsCollected": 745,
-      "testsPassed": 741,
-      "postgresOnlySkipped": 4,
-      "evidence": "docs/MEAL-PLAN-BOOKING-ENGINE-20261030.md",
+      "nativeLinkedBookingJourneyPassed": true,
+      "testsCollected": 750,
+      "testsPassed": 744,
+      "postgresOnlySkipped": 6,
+      "evidence": "docs/MEAL-PLAN-BOOKING-ACCEPTANCE-20261030.md",
       "postgresPrimaryPassed": 25,
       "postgresAdditionalRacesPassed": 2,
       "protectedOriginalModelsUnchanged": 40,
       "protectedPostMigrationModelsUnchanged": 44,
-      "visualTest": "TUNNEL_DNS_BLOCKED_RESTORED",
-      "protectedVisualCleanupModelsUnchanged": 44
+      "visualTest": "PASSED_RESTORED",
+      "protectedVisualCleanupModelsUnchanged": 44,
+      "postgresJoinableSlotPassed": 1
     }
   },
   "counts": {
@@ -647,7 +648,7 @@
           "apps/performance-meals-core/tests/programme-booking-client.test.mjs"
         ]
       },
-      "shopifyIntegration": "Native paid one-off programme proof plus authenticated Core admin/customer full 88-weekday/32-frozen allowance display passed on 28 October. All37 protected model snapshots and native order exactly restored. Separately approved original88/32 allowance reconciliation on #1008/#1009 passed with native orders and36 other model groups unchanged. Approved #1009 dish-linked2weekday/3frozen native-paid acceptance passed in actual staff/customer previews; guarded cleanup restored all40 Core model groups and native history.",
+      "shopifyIntegration": "Native paid one-off programme proof plus authenticated Core admin/customer full 88-weekday/32-frozen allowance display passed on 28 October. All37 protected model snapshots and native order exactly restored. Separately approved original88/32 allowance reconciliation on #1008/#1009 passed with native orders and36 other model groups unchanged. Approved #1009 dish-linked2weekday/3frozen native-paid acceptance passed in actual staff/customer previews; guarded cleanup restored all40 Core model groups and native history. Approved paid #1009 staff/customer two-batch booking and customer rescheduling passed; old/new slot capacity0/1, repeat receipt recovered, all44 protected model groups restored exactly.",
       "customerJourney": "Earlier admin allocation/dispatch form and 4/8 customer journey passed. Full allowance display, cancelled-unsent release, extra-meal rejection and duplicate allocation/dispatch/cancel protection passed against real PostgreSQL/native paid proof.",
       "outstandingIssues": [
         "General batch activation and complete physical scheduling/rescheduling remain gated. The two older development programmes now have separately approved and verified original88/32 entitlement snapshots."
@@ -668,12 +669,13 @@
       ],
       "remainingEngineering": [
         "Complete general batch activation safeguards and physical booking/rescheduling under requirement13. Full88/32 accounting, replay/overflow protection and approved legacy-development allowance reconciliation passed.",
-        "Complete separate Meal Plans slot capacity, batch booking/rescheduling and stock/operational recovery acceptance."
+        "Separate-brand booking/rescheduling is accepted; complete full dish-linked programme exhaustion and remaining agreed operational lifecycle acceptance."
       ],
       "assessmentStatus": "PARTIAL",
       "assessmentScope": "FUNCTIONAL",
       "assessmentEvidence": [
-        "SIXTY-DAY-GENERAL-DEVELOPMENT-20261030.md"
+        "SIXTY-DAY-GENERAL-DEVELOPMENT-20261030.md",
+        "MEAL-PLAN-BOOKING-ACCEPTANCE-20261030.md"
       ]
     },
     {
@@ -1015,7 +1017,7 @@
           "apps/performance-meals-core/tests/ready-delivery-slots-route.test.mjs"
         ]
       },
-      "shopifyIntegration": "Ready Series customer stop verified: native contract cancelled, one completed audit, three paid fulfilments/order unchanged and nine financial models unchanged. Same/new-key service replays attempted no second mutation. Two-package test contract cancellation preserved initial and renewal delivery allocations: six records quantity 2 each; all 18 earlier records also unchanged. 26 October: mixed per-package initial #1031 SGD748.80 incl GST61.83 and renewals #1032 SGD255.20/GST21.07 and #1033 SGD493.60/GST40.76 passed. Actual provider intake and explicit worker replay passed; both future billing agreements stopped, eleven earlier paid orders/45 fulfilments and nine financial models preserved; QA configuration restored. Actual embedded development admin create/edit/close of a disposable slot passed, with independent Singapore-time/limit database readback; record removed and flags restored off. 27 October read-only destination checks: nine fulfilment records across existing orders#1029/#1031; no native mutations and11 protected data groups unchanged. 28October: native-linked provisional Core move on paid Order#1031 passed shared-destination/dispatch read proof, failed-move preservation, grouped capacity and replay. All37 Core/native order fingerprints restored; no actual booking or native date mutation. 30 October: approved completion of Order #1034 proved three independent successful dispatches, unchanged first shipment/32 other orders, unchanged cancelled billing terms and 37 Core model fingerprints. Explicit read/sync replay unchanged; no new provider webhook receipt observed. 30 October approved mixed Order #1031 completion: six native dispatch records cover all nine3-/6-term package deliveries;32other native orders and both stopped billing terms unchanged. Core updated only two dispatch lines and two audit records; all six rebooking attempts rejected and replay unchanged.",
+      "shopifyIntegration": "Ready Series customer stop verified: native contract cancelled, one completed audit, three paid fulfilments/order unchanged and nine financial models unchanged. Same/new-key service replays attempted no second mutation. Two-package test contract cancellation preserved initial and renewal delivery allocations: six records quantity 2 each; all 18 earlier records also unchanged. 26 October: mixed per-package initial #1031 SGD748.80 incl GST61.83 and renewals #1032 SGD255.20/GST21.07 and #1033 SGD493.60/GST40.76 passed. Actual provider intake and explicit worker replay passed; both future billing agreements stopped, eleven earlier paid orders/45 fulfilments and nine financial models preserved; QA configuration restored. Actual embedded development admin create/edit/close of a disposable slot passed, with independent Singapore-time/limit database readback; record removed and flags restored off. 27 October read-only destination checks: nine fulfilment records across existing orders#1029/#1031; no native mutations and11 protected data groups unchanged. 28October: native-linked provisional Core move on paid Order#1031 passed shared-destination/dispatch read proof, failed-move preservation, grouped capacity and replay. All37 Core/native order fingerprints restored; no actual booking or native date mutation. 30 October: approved completion of Order #1034 proved three independent successful dispatches, unchanged first shipment/32 other orders, unchanged cancelled billing terms and 37 Core model fingerprints. Explicit read/sync replay unchanged; no new provider webhook receipt observed. 30 October approved mixed Order #1031 completion: six native dispatch records cover all nine3-/6-term package deliveries;32other native orders and both stopped billing terms unchanged. Core updated only two dispatch lines and two audit records; all six rebooking attempts rejected and replay unchanged. Approved paid #1009 staff/customer two-batch booking and customer rescheduling passed; old/new slot capacity0/1, repeat receipt recovered, all44 protected model groups restored exactly.",
       "customerJourney": "28 October signed-in customer and merchant preview booked and rescheduled two packages as one capacity place, rejected stale availability and preserved later dates. 29 October one approved external delivery email covered both packages; replay sent nothing extra; all temporary Core records were removed. Full-term signed-in My Plan displayed 3 of 3 dispatched with no rebooking controls or calendar-preparation warning.",
       "outstandingIssues": [
         "Internal capacity storage and merchant admin forms are verified; authoritative mapping to native physical deliveries and authenticated customer reschedule execution remain incomplete.",
@@ -1051,7 +1053,8 @@
       "assessmentScope": "FUNCTIONAL",
       "assessmentEvidence": [
         "READY-SERIES-DISPATCH-ACCEPTANCE-20261029.md",
-        "READY-SERIES-COMPLETE-TERM-READINESS-20261030.md"
+        "READY-SERIES-COMPLETE-TERM-READINESS-20261030.md",
+        "MEAL-PLAN-BOOKING-ACCEPTANCE-20261030.md"
       ]
     },
     {
