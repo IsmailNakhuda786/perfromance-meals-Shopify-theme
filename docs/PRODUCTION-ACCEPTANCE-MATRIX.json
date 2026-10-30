@@ -1,6 +1,6 @@
 {
   "updated": "2026-10-30",
-  "sourceCheckpoint": "1e867c2",
+  "sourceCheckpoint": "99f717c",
   "scope": "Full agreed production acceptance; no reduced-scope launch",
   "productionAccepted": false,
   "statusDefinitions": {
@@ -525,6 +525,18 @@
       "visualTest": "PASSED_RESTORED",
       "protectedVisualCleanupModelsUnchanged": 44,
       "postgresJoinableSlotPassed": 1
+    },
+    "fullProgrammeDishAcceptance": {
+      "order": "#1009",
+      "weekdayMeals": 88,
+      "frozenMeals": 32,
+      "backendAllocationDispatchReplayPassed": true,
+      "customerScreenPassed": false,
+      "reason": "Weekly1percent reserve reached after backend verification",
+      "restored": true,
+      "protectedModelsUnchanged": 44,
+      "nativeOrdersUnchanged": true,
+      "evidence": "docs/SIXTY-DAY-FULL-DISH-ALLOCATION-20261030.md"
     }
   },
   "counts": {

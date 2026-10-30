@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "99f717c046b9168d0b98f7e78288d803e59e6733",
+  "source_commit": "41607406c19f31b8f97658fb2df42826f69d27f0",
   "snapshot_includes_uncommitted_work": false,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -3106,7 +3106,7 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "9601828839b02646bb07c9d9bc63e8700bbdb302f3221cb83b015267daf80dd1",
+      "sha256": "614f35018d896dc2ba73fde8a959fdecf1e5d90d73c38e3d9db640da1dc58dbc",
       "sanitized": false
     },
     {
@@ -3251,7 +3251,7 @@
     },
     {
       "path": "docs/RESUME-CHECKPOINT-20261030-RECOVERY.md",
-      "sha256": "7070851e06bc61a5df3cc921216f98786c380ea77939eb2146579d33fe218db8",
+      "sha256": "86c99321da09735bae6b72f72ab2271cde50693b14165714885ade5ee9377ed5",
       "sanitized": false
     },
     {
@@ -3302,6 +3302,11 @@
     {
       "path": "docs/SIXTY-DAY-FULL-ALLOWANCE-QA-20261028.md",
       "sha256": "c2b904a59e5c1942421f05f8552c54c67afa1fe108deff2ba87f81259c7ebabf",
+      "sanitized": false
+    },
+    {
+      "path": "docs/SIXTY-DAY-FULL-DISH-ALLOCATION-20261030.md",
+      "sha256": "1e9b903e408a7ece3896a2a3cf42e8db55092078feb4210a974efeec9a0bd5e7",
       "sanitized": false
     },
     {
