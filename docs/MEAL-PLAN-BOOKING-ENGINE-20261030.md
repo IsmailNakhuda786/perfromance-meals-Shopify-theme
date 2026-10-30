@@ -1,6 +1,6 @@
 # Meal Plans booking engine — 30 October 2026
 
-Status: implemented behind development-only flags; development database migration and real staff/customer booking acceptance await specific approval. Requirement 3 remains PARTIAL. No paid programme was booked or rescheduled by this work.
+Status: implemented behind development-only flags; the approved development migration and isolated PostgreSQL tests have passed; staff/customer booking acceptance is still pending because the temporary tunnel failed DNS resolution. Requirement 3 remains PARTIAL. No paid programme was booked or rescheduled by this work.
 
 ## Confirmed rules
 
@@ -30,8 +30,11 @@ Private logs are in Core .shopify/meal-plan-booking-*.private.log and excluded f
 
 ## Not yet accepted
 
-No new tables have been applied to the working development database. No new native charge, credit, dispatch, customer message or paid booking was created. PostgreSQL row-lock/concurrency testing awaits the requested four-table development migration. A separate scoped approval will be needed before actual temporary bookings/reschedules on an existing paid development programme; the earlier dish-only acceptance was restored and must not be replayed.
+The four approved tables have been applied to the working development database. No new native charge, credit, dispatch, customer message or paid booking was created. PostgreSQL verification: 25/25 booking, dish and paid-menu checks passed, with the original40 model groups unchanged and all four new tables empty after cleanup. Two additional concurrency checks passed (duplicate requests and reschedule-versus-cancellation), with all44 model groups unchanged. The customer-account API now distinguishes a definite rejected change (new slot choice permitted) from an uncertain database outcome (retain the original key and recover its receipt). The user has separately approved temporary staff/customer bookings on paid test #1009; the earlier dish-only acceptance was restored and must not be replayed.
 
 MEAL_PLAN_BOOKING_ENABLED, MEAL_PLAN_BOOKING_STORAGE_READY and the existing dish/batch gates are off by default. Customer controls additionally require a matching MEAL_PLAN_BOOKING_QA_CUSTOMER. Storage readiness must remain enabled after migration while bookings exist, even when customer controls are disabled, so cancellation/dispatch preserve capacity. Production preflight rejects unaccepted activation.
 
 No automatic stock reservation, cross-order consolidation, new reminder channel, production permission or native fulfilment completion is implied. General Meal Plan/6 by 60 customer journeys still require operational acceptance; this engineering does not make the entire requirement PASS.
+
+
+Final QA attempt: the approved2weekday/3frozen batches and two temporary slots were prepared, but the embedded browser reported that the tunnel address could not be resolved. No booking or customer move was submitted; no journey PASS is claimed. Guarded restoration completed with all44 protected model groups exactly unchanged, no native mutations and no financial changes. Private journal `.shopify/meal-booking-native30.private.json` is RESTORED; do not replay it. The same approved visual test remains the next task after a working preview is restored.

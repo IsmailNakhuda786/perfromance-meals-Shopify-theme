@@ -1,7 +1,7 @@
 import type {ActionFunctionArgs,LoaderFunctionArgs} from 'react-router';
 import {authenticate,unauthenticated} from '../shopify.server';
 import {assertShop,privateHeaders} from '../services/security.server';
-import {readProgrammeBookingRequest,programmeBookingCustomerActive,readProgrammeBookings,programmeRescheduleCommand,rescheduleProgrammeVisit} from '../services/programme-booking.server';
+import {ProgrammeBookingRejected,readProgrammeBookingRequest,programmeBookingCustomerActive,readProgrammeBookings,programmeRescheduleCommand,rescheduleProgrammeVisit} from '../services/programme-booking.server';
 async function context(request:Request){const auth=await authenticate.public.customerAccount(request),shop=auth.sessionToken.dest.replace(/^https:\/\//,'').replace(/\/$/,'');assertShop(shop);return {...auth,shop,customerGid:auth.sessionToken.sub};}
 export async function loader({request}:LoaderFunctionArgs){
  const {cors,shop,customerGid}=await context(request);
@@ -20,5 +20,5 @@ export async function action({request}:ActionFunctionArgs){
   if(!request.headers.get('content-type')?.startsWith('application/json'))throw Error();const reader=request.body?.getReader();if(!reader)throw Error();let bytes=0,text='';const decoder=new TextDecoder();for(;;){const {done,value}=await reader.read();if(done)break;bytes+=value.byteLength;if(bytes>2048){await reader.cancel();throw Error();}text+=decoder.decode(value,{stream:true});}command=programmeRescheduleCommand(JSON.parse(text+decoder.decode()));
  }catch{return cors(Response.json({error:'Choose your delivery and a replacement time.'},{status:400,headers:privateHeaders}));}
  try{const {admin}=await unauthenticated.admin(shop);return cors(Response.json(await rescheduleProgrammeVisit(admin,{shop,customerGid:customerGid!,...command}),{headers:privateHeaders}));}
- catch{return cors(Response.json({state:'UNCONFIRMED',error:'The change could not be confirmed. Reload your deliveries before trying again, or contact Support. Your package’s meal allowance and renewal billing are unchanged.'},{status:409,headers:privateHeaders}));}
+ catch(error){return cors(Response.json({state:error instanceof ProgrammeBookingRejected?'REJECTED':'UNCONFIRMED',error:error instanceof ProgrammeBookingRejected?'The change was not saved. Reload your deliveries and choose an available time, or contact Support.':'The change could not be confirmed. Check the previous change before trying again, or contact Support. Your package’s meal allowance and renewal billing are unchanged.'},{status:409,headers:privateHeaders}));}
 }

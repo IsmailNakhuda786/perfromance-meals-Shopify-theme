@@ -511,13 +511,19 @@
       "implemented": true,
       "defaultOff": true,
       "separateBrandCapacity": true,
-      "workingDatabaseMigrationApplied": false,
+      "workingDatabaseMigrationApplied": true,
       "nativeDestinationQueryPassed": true,
       "nativeLinkedBookingJourneyPassed": false,
       "testsCollected": 745,
       "testsPassed": 741,
       "postgresOnlySkipped": 4,
-      "evidence": "docs/MEAL-PLAN-BOOKING-ENGINE-20261030.md"
+      "evidence": "docs/MEAL-PLAN-BOOKING-ENGINE-20261030.md",
+      "postgresPrimaryPassed": 25,
+      "postgresAdditionalRacesPassed": 2,
+      "protectedOriginalModelsUnchanged": 40,
+      "protectedPostMigrationModelsUnchanged": 44,
+      "visualTest": "TUNNEL_DNS_BLOCKED_RESTORED",
+      "protectedVisualCleanupModelsUnchanged": 44
     }
   },
   "counts": {

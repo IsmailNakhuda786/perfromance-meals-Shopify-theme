@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "a35e36af8ea22f7890b6bd4054dc448d42a1c9d0",
+  "source_commit": "1e867c2fccf50b1b264f6695da28daba3c9fb725",
   "snapshot_includes_uncommitted_work": false,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -216,7 +216,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/routes/api.programme-bookings.tsx",
-      "sha256": "bbacf3658438df77379359bbe41d415c5f75bb08ec047b0688e39ce9e3e92465",
+      "sha256": "09c1a4efa168589e2c878741f9640da26607f5725929dc099f3df5ee2c0067d4",
       "sanitized": false
     },
     {
@@ -606,7 +606,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/programme-booking.server.ts",
-      "sha256": "3eee730cdb4bc5c9dcbf0ff710ec9e6d9ebccd51548077df07960dccd5118a57",
+      "sha256": "7eb0139fddfc5446bd0ff8a8e4088f07b5515591f011581c3650e5391c77071a",
       "sanitized": false
     },
     {
@@ -1831,12 +1831,12 @@
     },
     {
       "path": "apps/performance-meals-core/tests/programme-booking-route.test.mjs",
-      "sha256": "e6a2c44b77c404423bfb21f99254f107134aa8d236131ddd672ad018241fae9a",
+      "sha256": "67ad5edc37ce324dcaa58f7c0420ec36f16d600024b8e4b439b99b4871c31db5",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/tests/programme-booking.test.mjs",
-      "sha256": "10d8b6fead37fad46c809a9a9b796549a4c8423ec9b9175d01d2e42a52dc3c08",
+      "sha256": "55dce830b0f167c9290ff499d1af7b873e53e95d1acd794f810b88e7b94046d2",
       "sanitized": false
     },
     {
@@ -2961,7 +2961,7 @@
     },
     {
       "path": "docs/MEAL-PLAN-BOOKING-ENGINE-20261030.md",
-      "sha256": "ee52c0a70c92cc578e0b19acdc9ba10047b1ef9dadf26591e9aaf1859887b070",
+      "sha256": "72b7a36669def31334d249b8cc903af4955a41fbbab742e98bdab74a4c5a87ab",
       "sanitized": false
     },
     {
@@ -3101,12 +3101,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "2955c57aa6261d9969febceba511cba920979d15e5a19a9cce9170569f8ec3cc",
+      "sha256": "31851824575cc5c8a2e9e797076ec28ef32cb8aeffb163c7d7756922e579310c",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "e9af3cef68b1d5b99a67d40dc606b4bdaa265479b687105eed2c518319650f8d",
+      "sha256": "f64eef8c060d326b30b164cac19b4d99ac3fce3c10ed97c5e8f174930b6566bf",
       "sanitized": false
     },
     {
@@ -3246,7 +3246,7 @@
     },
     {
       "path": "docs/RESUME-CHECKPOINT-20261030-RECOVERY.md",
-      "sha256": "e0e84be16fcbee100cb7d9ed8b61a4a7c8d9fcbba7c3b9ed43446f67e064347a",
+      "sha256": "0d64888d6f2e841a4b10339e26d90033d3e80a924a4c62414914688aee472ed0",
       "sanitized": false
     },
     {
