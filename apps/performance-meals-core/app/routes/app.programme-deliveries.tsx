@@ -1,6 +1,8 @@
 import {createHash} from 'node:crypto';
 import type {ActionFunctionArgs,LoaderFunctionArgs} from 'react-router';
 import {Form,useActionData,useLoaderData,useNavigation} from 'react-router';
+import db from '../db.server';
+import {programmeBookingEnabled,readProgrammeBookings,bookProgrammeBatch,configureMealPlanSlot} from '../services/programme-booking.server';
 import {authenticate} from '../shopify.server';
 import {accountMealNames} from '../services/account-programmes.server';
 import {assertShop} from '../services/security.server';
@@ -11,7 +13,7 @@ const windowLabel=(value:string|null)=>value==='mon-tue'?'Monday & Tuesday':valu
 const menuDate=(value:string)=>new Intl.DateTimeFormat('en-SG',{timeZone:'Asia/Singapore',dateStyle:'medium'}).format(new Date(value+'T00:00:00+08:00'));
 export async function loader({request}:LoaderFunctionArgs){
  const {session,admin}=await authenticate.admin(request);assertShop(session.shop);
- if(!enabled())return {enabled:false,programmes:[],selected:null,progress:null,after:null,nextCursor:null,dishMode:false,dishChoices:null,batchMealNames:{} as Record<string,string>};
+ if(!enabled())return {enabled:false,programmes:[],selected:null,progress:null,after:null,nextCursor:null,dishMode:false,dishChoices:null,batchMealNames:{} as Record<string,string>,bookingMode:false,bookings:null as Awaited<ReturnType<typeof readProgrammeBookings>>|null};
  const params=new URL(request.url).searchParams,after=params.get('after')??undefined;
  const {programmes,nextCursor}=await listProgrammeDeliverySelections(session.shop,{after});
  const requested=params.get('programme'),selected=requested?programmes.find(p=>p.id===requested):programmes[0];
@@ -22,7 +24,9 @@ export async function loader({request}:LoaderFunctionArgs){
  if(progress?.available)try{const ids=progress.batches.flatMap(b=>b.version===2?b.dishes.picks.map(p=>p.productGid):[]);batchMealNames=Object.fromEntries(await accountMealNames(admin,ids));}catch{/* A missing title never becomes a different selected dish. */}
  const dishMode=programmeDishAllocationEnabled();
  if(dishMode&&selected)try{const result=await readProgrammeDishChoices(admin,session.shop,selected.id);if(result.available){const names=await accountMealNames(admin,result.choices.map(c=>c.productGid));dishChoices={menuHash:result.menuHash,choices:result.choices.map(c=>({...c,title:names.get(c.productGid)??null}))};}}catch{/* Missing menu/evidence is a hold, never a count-only fallback. */}
- return {enabled:true,dishMode,dishChoices,batchMealNames,after:after??null,nextCursor,programmes:programmes.map(p=>({id:p.id,label:`${p.startsOn} – ${p.endsOn} · ${p.orderGid?.split('/').at(-1)??'Order unavailable'}`})),selected:selected?{id:selected.id,hasEntitlement:!!savedSixtyDayEntitlement(selected.entitlement,selected.startsOn,selected.endsOn)}:null,progress};
+ let bookings:Awaited<ReturnType<typeof readProgrammeBookings>>|null=null;
+ const bookingMode=programmeBookingEnabled();if(bookingMode&&selected)try{bookings=await readProgrammeBookings(session.shop,selected.customerGid,selected.id,{afterSlot:params.get('afterSlot')??undefined});}catch{/* No booking is inferred from unavailable policy/storage. */}
+ return {bookingMode,bookings,enabled:true,dishMode,dishChoices,batchMealNames,after:after??null,nextCursor,programmes:programmes.map(p=>({id:p.id,label:`${p.startsOn} – ${p.endsOn} · ${p.orderGid?.split('/').at(-1)??'Order unavailable'}`})),selected:selected?{id:selected.id,hasEntitlement:!!savedSixtyDayEntitlement(selected.entitlement,selected.startsOn,selected.endsOn)}:null,progress};
 }
 export async function action({request}:ActionFunctionArgs){
  const context=await authenticate.admin(request);assertShop(context.session.shop);
@@ -32,6 +36,21 @@ export async function action({request}:ActionFunctionArgs){
  if(typeof selectionId!=='string')throw new Response('Invalid programme',{status:400});
  const actor='shopify-admin:'+createHash('sha256').update(context.sessionToken?.sub??context.session.id).digest('hex');
  try{
+  if(intent==='book'){
+   if(!programmeBookingEnabled())throw Error('Booking is not activated');
+   const batchId=form.get('batchId'),slotId=form.get('slotId'),slotRevision=form.get('slotRevision'),requestKey=form.get('requestKey');
+   if(typeof batchId!=='string'||typeof slotId!=='string'||typeof slotRevision!=='string'||!/^\d{1,9}$/.test(slotRevision)||typeof requestKey!=='string')throw Error('Choose a batch and slot');
+   const programme=await db.mealPlanSelection.findFirst({where:{id:selectionId,shop:context.session.shop,status:'ORDERED'}});if(!programme)throw Error('Programme unavailable');
+   await bookProgrammeBatch(context.admin,{shop:context.session.shop,customerGid:programme.customerGid,selectionId,batchId,slotId,slotRevision:Number(slotRevision),requestKey});
+   return {message:'Meal batch booked. Batches from this order arriving together share one driver visit.',error:null};
+  }
+  if(intent==='configure-slot'){
+   if(!programmeBookingEnabled())throw Error('Booking is not activated');
+   const key=form.get('slotKey'),start=form.get('deliveryAt'),end=form.get('deliveryEndsAt'),capacity=form.get('capacity');
+   if(typeof key!=='string'||typeof start!=='string'||typeof end!=='string'||!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(start)||!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(end)||typeof capacity!=='string'||!/^\d{1,6}$/.test(capacity))throw Error('Enter explicit Singapore times and capacity');
+   await configureMealPlanSlot({shop:context.session.shop,slotKey:key,deliveryAt:new Date(start+':00+08:00').toISOString(),deliveryEndsAt:new Date(end+':00+08:00').toISOString(),capacity:Number(capacity),available:true,expectedRevision:0});
+   return {message:'Meal Plans slot created with its own delivery limit.',error:null};
+  }
   if(intent==='plan'&&programmeDishAllocationEnabled()){
    const reference=form.get('reference'),menuHash=form.get('menuHash'),dishes=[];
    if(typeof reference!=='string'||form.getAll('reference').length!==1||typeof menuHash!=='string'||form.getAll('menuHash').length!==1||!/^[a-f0-9]{64}$/.test(menuHash))throw Error('Reload the customer menu before allocating');
@@ -55,6 +74,7 @@ export async function action({request}:ActionFunctionArgs){
 export default function ProgrammeDeliveries(){
  const data=useLoaderData<typeof loader>(),result=useActionData<typeof action>(),busy=useNavigation().state!=='idle';
  const p=data.progress?.available?data.progress:null;
+ const slotLabel=(s:{deliveryAt:string;deliveryEndsAt:string})=>new Intl.DateTimeFormat('en-SG',{timeZone:'Asia/Singapore',dateStyle:'medium',timeStyle:'short'}).format(new Date(s.deliveryAt))+' – '+new Intl.DateTimeFormat('en-SG',{timeZone:'Asia/Singapore',timeStyle:'short'}).format(new Date(s.deliveryEndsAt))+' (Singapore)';
  return <s-page heading="6 by 60 delivery batches">
   <s-link slot="breadcrumb-actions" href="/app">Core</s-link>
   <s-section heading="Record actual meal batches">
@@ -79,10 +99,26 @@ export default function ProgrammeDeliveries(){
      <label>Frozen meals <input type="number" name="frozenMeals" min="0" max="32" step="1" defaultValue="0" required/></label>
      <button type="submit" disabled={busy}>Allocate meal batch</button>
     </Form>}
+    {data.bookingMode&&<s-section heading="Meal Plans delivery capacity">
+     <s-paragraph>Meal Plans has its own limit, separate from Ready Series. Batches from this order at the same address and time share one driver visit. Initial scheduling is arranged by the team.</s-paragraph>
+     {!data.bookings&&<s-paragraph>The delivery policy or booking details require review. No times have been assigned.</s-paragraph>}
+     <Form method="post"><input type="hidden" name="intent" value="configure-slot"/><input type="hidden" name="selectionId" value={data.selected.id}/>
+      <label>Unique slot reference <input name="slotKey" required maxLength={128} pattern="[A-Za-z0-9_-]+"/></label>
+      <label>Start (Singapore time) <input name="deliveryAt" type="datetime-local" required/></label>
+      <label>End (Singapore time) <input name="deliveryEndsAt" type="datetime-local" required/></label>
+      <label>Maximum driver visits <input name="capacity" type="number" min="1" max="999999" step="1" required/></label>
+      <button type="submit" disabled={busy}>Add Meal Plans slot</button>
+     </Form>
+     {data.bookings?.visits.map(v=><s-paragraph key={v.id}>{slotLabel(v)} · {v.combinedBatchCount} batches · {v.state.toLowerCase()}</s-paragraph>)}
+    </s-section>}
     {p?.batches.map(batch=><s-section key={batch.id+':'+batch.revision} heading={batch.reference}>
      <s-paragraph>{batch.weekdayMeals} weekday meals · {batch.frozenMeals} frozen meals · {batch.state.toLowerCase()}</s-paragraph>
      {batch.version===2&&<><s-paragraph>Dish quantities are linked to the customer’s saved menu.</s-paragraph>{batch.dishes.picks.map(d=><s-paragraph key={d.sourceKey}>{d.quantity} × {data.batchMealNames[d.productGid]??'Selected meal details unavailable'} · {d.kind==='weekday'?'Weekday':'Frozen'}{d.startsOn?' · '+menuDate(d.startsOn)+' · '+windowLabel(d.window):''}</s-paragraph>)}</>}
      {batch.dispatchedAt&&<s-paragraph>Recorded dispatch: {new Intl.DateTimeFormat('en-SG',{timeZone:'Asia/Singapore',dateStyle:'medium',timeStyle:'short'}).format(new Date(batch.dispatchedAt))}</s-paragraph>}
+     {batch.state==='PLANNED'&&data.bookingMode&&data.bookings&&!data.bookings.visits.some(v=>v.batchIds.includes(batch.id))&&<Form method="post"><input type="hidden" name="intent" value="book"/><input type="hidden" name="selectionId" value={data.selected!.id}/><input type="hidden" name="batchId" value={batch.id}/><input type="hidden" name="requestKey" value={'book-'+batch.id.replace(/[^A-Za-z0-9_-]/g,'').slice(0,80)}/>
+      <label>Delivery slot <select name="slotId" required onChange={event=>{const slot=data.bookings?.slots.find(s=>s.id===event.currentTarget.value),form=event.currentTarget.form,input=form?.elements.namedItem('slotRevision');if(input instanceof HTMLInputElement)input.value=String(slot?.revision??'');}}><option value="">Choose a Meal Plans time</option>{data.bookings.slots.map(s=><option key={s.id} value={s.id}>{slotLabel(s)}</option>)}</select></label><input type="hidden" name="slotRevision"/>
+      <button type="submit" disabled={busy}>Book meal batch</button>
+     </Form>}
      {batch.state==='PLANNED'&&<Form method="post"><input type="hidden" name="selectionId" value={data.selected!.id}/><input type="hidden" name="batchId" value={batch.id}/><input type="hidden" name="revision" value={batch.revision}/>
       <label><input type="checkbox" name="confirm" value="yes"/> I confirm these meals have been dispatched.</label>
       <button name="intent" value="dispatch" type="submit" disabled={busy||batch.version===2&&!data.dishMode}>Record dispatch</button><button name="intent" value="cancel" type="submit" disabled={busy}>Cancel unsent batch</button>

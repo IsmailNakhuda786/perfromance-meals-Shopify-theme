@@ -3,7 +3,8 @@
 export const legacyModels=['mealPlanDraft','mealPlanSelection','operationalLine','webhookReceipt','planOperation','migrationMapping','customerWallet','walletEntry','walletReservation','commercePolicy','mealPlanMenuRevision'];
 export const version3Models=[...legacyModels,'orderCancellation','rewardsAccount','rewardsEntry','giftCardWalletClaim','walletTopUpSettlement','walletTopUpIntent','rewardRedemption','orderSupportRequest','rewardRuleVersion','rewardRuleActivation','walletCreditExpiry','giftCardExpiryReminder','readyDeliveryDraft','readyDeliveryReminder','readyDeliverySlot','readyDeliverySlotReservation','bundlePurchaseReview','coreWalletRedemptionDraft','subscriptionRenewalStop','prepaidPurchaseEvidence','prepaidRenewalEvidence','prepaidRenewalInbox','prepaidPricingApproval','prepaidPurchaseInbox'];
 export const version4Models=[...version3Models,'readyDeliveryVisit','readyDeliveryVisitMember'];
-export const operationalModels=[...version4Models,'readyDeliveryPolicy','readyDeliveryBooking','readyDeliveryBookingRequest'];
+export const version5Models=[...version4Models,'readyDeliveryPolicy','readyDeliveryBooking','readyDeliveryBookingRequest'];
+export const operationalModels=[...version5Models,'mealPlanDeliverySlot','mealPlanDeliveryVisit','programmeDeliveryBooking','programmeBookingRequest'];
 const shopKey=model=>['commercePolicy','readyDeliveryPolicy'].includes(model);
 const json=v=>JSON.parse(JSON.stringify(v));
 const validShop=v=>typeof v==='string'&&/^[a-z0-9][a-z0-9-]*\.myshopify\.com$/.test(v);
@@ -11,8 +12,8 @@ export function snapshotFields(prismaModels){
  return Object.fromEntries(prismaModels.filter(m=>m.name!=='Session').map(m=>[m.name[0].toLowerCase()+m.name.slice(1),m.fields.filter(f=>f.kind!=='object').map(f=>f.name).sort()]));
 }
 export function validateSnapshot(snapshot,shop,fields){
- if(!validShop(shop)||!snapshot||![1,2,3,4,5].includes(snapshot.version)||snapshot.shop!==shop||!snapshot.records||typeof snapshot.records!=='object'||Array.isArray(snapshot.records))throw Error('Snapshot scope/model mismatch.');
- const expected=snapshot.version===1?legacyModels.filter(m=>m!=='mealPlanMenuRevision'):snapshot.version===2?legacyModels:snapshot.version===3?version3Models:snapshot.version===4?version4Models:operationalModels;
+ if(!validShop(shop)||!snapshot||![1,2,3,4,5,6].includes(snapshot.version)||snapshot.shop!==shop||!snapshot.records||typeof snapshot.records!=='object'||Array.isArray(snapshot.records))throw Error('Snapshot scope/model mismatch.');
+ const expected=snapshot.version===1?legacyModels.filter(m=>m!=='mealPlanMenuRevision'):snapshot.version===2?legacyModels:snapshot.version===3?version3Models:snapshot.version===4?version4Models:snapshot.version===5?version5Models:operationalModels;
  if(Object.keys(snapshot.records).sort().join()!==[...expected].sort().join()||Object.keys(fields).sort().join()!==[...operationalModels].sort().join())throw Error('Snapshot scope/model mismatch.');
  const records={};
  for(const model of operationalModels){
@@ -34,7 +35,7 @@ export async function exportOperationalSnapshot(tx,shop,fields){
  if(!validShop(shop))throw Error('Explicit store scope required.');
  const records={};
  for(const model of operationalModels)records[model]=await tx[model].findMany({where:{shop},orderBy:shopKey(model)?{shop:'asc'}:{id:'asc'}});
- const snapshot=json({version:5,shop,records});validateSnapshot(snapshot,shop,fields);return snapshot;
+ const snapshot=json({version:6,shop,records});validateSnapshot(snapshot,shop,fields);return snapshot;
 }
 export async function importOperationalSnapshot(tx,snapshot,shop,fields){
  const records=validateSnapshot(snapshot,shop,fields);

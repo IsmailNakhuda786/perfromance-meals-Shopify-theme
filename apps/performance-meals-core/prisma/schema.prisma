@@ -679,3 +679,62 @@ model ReadyDeliveryBookingRequest {
  @@unique([shop, customerGid, requestKey], map:"ReadyBookingRequest_owner_request_key")
  @@index([shop, bookingId])
 }
+
+// Meal Plans capacity is separate from Ready Series. One visit can contain
+// several dish batches from the same customer/order/destination.
+model MealPlanDeliverySlot {
+ id String @id @default(cuid())
+ shop String
+ slotKey String
+ deliveryAt DateTime
+ deliveryEndsAt DateTime
+ capacity Int
+ reserved Int @default(0)
+ available Boolean @default(true)
+ revision Int @default(1)
+ createdAt DateTime @default(now())
+ updatedAt DateTime @updatedAt
+ @@unique([shop, slotKey])
+ @@index([shop, available, deliveryAt])
+}
+model MealPlanDeliveryVisit {
+ id String @id @default(cuid())
+ shop String
+ customerGid String
+ orderGid String
+ destinationKey String
+ slotId String
+ state String @default("BOOKED")
+ revision Int @default(1)
+ createdAt DateTime @default(now())
+ updatedAt DateTime @updatedAt
+ @@index([shop, slotId, state])
+ @@index([shop, customerGid, orderGid])
+}
+model ProgrammeDeliveryBooking {
+ id String @id @default(cuid())
+ shop String
+ customerGid String
+ orderGid String
+ selectionId String
+ batchId String
+ batchHash String
+ visitId String
+ state String @default("BOOKED")
+ revision Int @default(1)
+ createdAt DateTime @default(now())
+ updatedAt DateTime @updatedAt
+ @@unique([shop, batchId])
+ @@index([shop, visitId, state])
+ @@index([shop, customerGid, selectionId])
+}
+model ProgrammeBookingRequest {
+ id String @id @default(cuid())
+ shop String
+ customerGid String
+ requestKey String
+ inputHash String
+ result String
+ createdAt DateTime @default(now())
+ @@unique([shop, customerGid, requestKey])
+}

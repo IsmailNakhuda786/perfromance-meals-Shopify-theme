@@ -101,3 +101,5 @@ test('production cannot enable unaccepted automatic prepaid renewal linking',()=
 test('automatic purchase intake cannot be enabled by production configuration',()=>{
  assert.ok(productionConfigIssues({CORE_PREPAID_PURCHASE_INTAKE_ENABLED:'true'}).some(issue=>issue.includes('Automatic prepaid purchase intake')));
 });
+
+test('production cannot activate unaccepted Meal Plan booking or lifecycle storage',()=>{for(const key of ['MEAL_PLAN_BOOKING_ENABLED','MEAL_PLAN_BOOKING_STORAGE_READY'])assert.ok(productionConfigIssues({[key]:'true'}).some(s=>/Meal Plan/.test(s)));});

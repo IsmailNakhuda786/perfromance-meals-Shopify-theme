@@ -15,6 +15,8 @@ export function productionConfigIssues(env:Record<string,string|undefined>){
  if(env.WALLET_LEGACY_TOP_UP_QA_ENABLED==='true')problems.push('Legacy Wallet top-up QA cannot be activated in production');
  if(env.WALLET_PACKAGE_PIPELINE_ENABLED==='true')problems.push('Wallet package verification/accounting is development-only; issuance is not approved');
  if(env.SIXTY_DAY_DISH_ALLOCATION_ENABLED==='true')problems.push('Customer-menu dish allocation requires development acceptance before production activation');
+ if(env.MEAL_PLAN_BOOKING_STORAGE_READY==='true')problems.push('Meal Plan booking storage lifecycle is development-only pending acceptance');
+ if(env.MEAL_PLAN_BOOKING_ENABLED==='true')problems.push('Meal Plan delivery booking requires native-linked acceptance before activation');
  if(env.SIXTY_DAY_BATCHES_ENABLED==='true')problems.push('Programme delivery batches require development acceptance before production activation');
  if(env.CORE_WALLET_DRAFTS_ENABLED==='true')problems.push('Core Wallet draft persistence is development-only and is not payment authorization');
  if(env.CORE_SUBSCRIPTION_RENEWAL_STOPS_ENABLED==='true')problems.push('Customer future-renewal stops are development-only until native authenticated management QA passes');

@@ -1,3 +1,5 @@
+Latest 30 October update: Meal Plans booking/rescheduling is implemented with separate brand capacity behind disabled gates. Full disposable regression **741 passed / 4 PostgreSQL-only skips / 0 failed**. The new read-only Shopify destination proof passed on paid test Order #1009. Four-table development migration, concurrent PostgreSQL testing and the actual booking journey are awaiting approval; requirement 3 remains PARTIAL. Functional assessment remains **2 PASS / 9 PARTIAL / 3 BLOCKED / 1 DEFERRED**. [Evidence](MEAL-PLAN-BOOKING-ENGINE-20261030.md). Historical entries below retain their dated context.
+
 # October 31 functional assessment boundary
 
 Merchant clarification on 28 October: hosting, domain setup and deployment are outside the October 31 deadline. Requirement 14 is deferred for that assessment; permanent-host deployment alone cannot hold a function at PARTIAL. The historical production status remains separately recorded below. Current functional assessment: **2 PASS / 9 PARTIAL / 3 BLOCKED / 1 DEFERRED**, pending evidence-based reclassification. No unfinished functionality, checkout safeguard or platform approval is waived.

@@ -5,6 +5,7 @@ import {createRenewalStopClient} from './renewal-stop-client';
 import {loadOrderSupportHistory} from './order-support-history-client';
 import {PrepaidPrice} from './PrepaidPrice.jsx';
 import {ReadyDeliveries} from './ReadyDeliveries.jsx';
+import {ProgrammeBookings} from './ProgrammeBookings.jsx';
 import {APP_URL} from './app-endpoint.generated';
 
 const SECTIONS = ['Dashboard', 'My Plan', 'Order History', 'Wallet', 'Rewards', 'Gift Cards', 'Settings'];
@@ -79,6 +80,7 @@ function renderPlans(account) {
   return account.plans.map(plan => <s-section key={plan.id} heading={plan.programmeTitle || 'Programme details unavailable'}>
     {plan.startsOn && plan.endsOn && <s-paragraph>Programme: {plan.startsOn} – {plan.endsOn} · No automatic renewal</s-paragraph>}
     {plan.entitlement && <s-paragraph>Includes {plan.entitlement.weekdayMeals} weekday meals and {plan.entitlement.frozenMeals} frozen meals ({plan.entitlement.totalMeals} meals total). Frozen deliveries follow your menu or merchant arrangements.</s-paragraph>}
+    {account.programmeBookingsAvailable&&plan.status==='ORDERED'&&<ProgrammeBookings selectionId={plan.id}/>}
     {plan.deliveryProgress?.available && <s-section heading="Meal deliveries">
       <s-paragraph>Sent: {plan.deliveryProgress.dispatchedWeekday} of 88 weekday meals and {plan.deliveryProgress.dispatchedFrozen} of 32 frozen meals.</s-paragraph>
       {plan.deliveryProgress.batches.filter(batch=>batch.state==='DISPATCHED').map((batch,index)=><s-paragraph key={index}>{new Intl.DateTimeFormat('en-SG',{timeZone:'Asia/Singapore',dateStyle:'medium'}).format(new Date(batch.dispatchedAt))} · {batch.weekdayMeals} weekday meals · {batch.frozenMeals} frozen meals</s-paragraph>)}

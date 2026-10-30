@@ -52,6 +52,7 @@ export async function queuePrivacyRequest(shop:string,topic:string,payload:unkno
 
 // Schema coverage is verified in QA. Counts expose no contact or menu data.
 export const privacyCustomerModels=[
+ 'mealPlanDeliveryVisit','programmeDeliveryBooking','programmeBookingRequest',
  'mealPlanDraft','mealPlanSelection','operationalLine','customerWallet',
  'walletEntry','walletReservation','orderCancellation','rewardsAccount',
  'rewardsEntry','giftCardWalletClaim','walletTopUpSettlement','walletTopUpIntent',
@@ -59,6 +60,7 @@ export const privacyCustomerModels=[
  'readyDeliveryBooking','readyDeliveryBookingRequest','giftCardExpiryReminder','readyDeliveryDraft','readyDeliveryReminder','readyDeliverySlotReservation','readyDeliveryVisit','readyDeliveryVisitMember','bundlePurchaseReview','coreWalletRedemptionDraft','subscriptionRenewalStop','prepaidPurchaseEvidence','prepaidRenewalEvidence','prepaidRenewalInbox','prepaidPricingApproval','prepaidPurchaseInbox',
 ] as const;
 export const privacyShopOnlyModels=[
+ 'mealPlanDeliverySlot',
  'session','webhookReceipt','commercePolicy','rewardRuleVersion','rewardRuleActivation','readyDeliverySlot','readyDeliveryPolicy',
 ] as const;
 export const privacyIndirectModels=['planOperation','migrationMapping'] as const;

@@ -1,5 +1,6 @@
 import {createHash} from 'node:crypto';
 import db from '../db.server';
+import {programmeBookingBatchTransition} from './programme-booking-lifecycle.server';
 import type {Prisma} from '@prisma/client';
 import {programmeDishMenu,availableProgrammeDishes,allocateProgrammeDishes,validateProgrammeDishAllocation,assertProgrammeDishDispatch,type ProgrammeDishAllocation} from './programme-dish-allocation';
 import {accountMealNames} from './account-programmes.server';
@@ -134,6 +135,7 @@ export async function changeProgrammeDeliveryBatch(admin:Admin,input:{shop:strin
   if(row.state===target&&old.revision===input.revision+1)return {id:row.id,state:row.state,replayed:true};
   if(row.state!=='PLANNED'||old.revision!==input.revision)throw Error('Delivery batch changed; dispatched meals cannot be cancelled or restored automatically');
   if(target==='DISPATCHED'&&old.version===2){if(!programmeDishAllocationEnabled())throw Error('Dish allocation is not activated');const rows=await tx.planOperation.findMany({where:{shop:input.shop,selectionId:p.id,kind:BATCH},take:251});if(rows.length>250)throw Error('Programme batch history requires review');const history=progress(rows,b.hash).batches.filter(x=>x.id!==row.id);assertProgrammeDishDispatch(await customerMenu(tx,current,b.hash),history,old.dishes);await verifyMealReferences(admin,old.dishes);}
+  await programmeBookingBatchTransition(tx,{shop:input.shop,customerGid:p.customerGid,batchId:row.id,target});
   const next={...old,revision:old.revision+1,...(target==='DISPATCHED'?{dispatchedAt:now.toISOString(),dispatchedBy:input.actor}:{})};
   const changed=await tx.planOperation.updateMany({where:{id:row.id,shop:input.shop,state:'PLANNED',productionReference:row.productionReference},data:{state:target,productionReference:JSON.stringify(next)}});if(changed.count!==1)throw Error('Delivery batch changed');
   if(target==='DISPATCHED'){
@@ -170,4 +172,18 @@ export async function listProgrammeDeliverySelections(shop:string,options:{after
  if(options.after&&!cursor)throw Error('Programme page unavailable');
  const rows=await db.mealPlanSelection.findMany({where:{...where,...(cursor?{OR:[{createdAt:{lt:cursor.createdAt}},{createdAt:cursor.createdAt,id:{lt:cursor.id}}]}:{})},orderBy:[{createdAt:'desc'},{id:'desc'}],take:limit+1});
  return {programmes:rows.slice(0,limit),nextCursor:rows.length>limit?rows[limit-1].id:null};
+}
+
+// Server-only evidence for the independent booking layer. A booking cannot
+// turn a count-only/legacy batch into an approved customer dish allocation.
+export async function verifiedProgrammeBookingBatch(admin:Admin,shop:string,selectionId:string,batchId:string){
+ scope(shop);if(!programmeDishAllocationEnabled())throw Error('Dish allocation is not activated');
+ const p=await programme(shop,selectionId),b=basis(p);await nativePurchase(admin,p);
+ const parent=await db.planOperation.findUnique({where:{id:basisId(shop,p.id)}});
+ if(!parent||parent.shop!==shop||parent.selectionId!==p.id||parent.kind!==BASIS||parent.state!=='ACTIVE'||parent.cycleReference!==b.hash||parent.productionReference!==JSON.stringify(b.value))throw Error('Original delivery basis unavailable');
+ const rows=await db.planOperation.findMany({where:{shop,selectionId:p.id,kind:BATCH},take:251});if(rows.length>250)throw Error('Programme history incomplete');
+ const batches=progress(rows,b.hash).batches,row=rows.find(x=>x.id===batchId),batch=batches.find(x=>x.id===batchId);
+ if(!row||!batch||batch.state!=='PLANNED'||batch.version!==2)throw Error('Only an owned unsent dish batch can be booked');
+ assertProgrammeDishDispatch(await customerMenu(db,p,b.hash),batches.filter(x=>x.id!==batchId),batch.dishes);await verifyMealReferences(admin,batch.dishes);
+ return {programme:p,parent,row,batchHash:hash([p.id,b.hash,row.productionReference])};
 }
