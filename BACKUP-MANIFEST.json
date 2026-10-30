@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "507fdf4760c0e975aaf89513ab240a7db4126103",
+  "source_commit": "34a8a06b6daf6e845fa12cf15e539b2874c6b95b",
   "snapshot_includes_uncommitted_work": false,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -2925,6 +2925,11 @@
       "sanitized": false
     },
     {
+      "path": "docs/MERCHANT-OWNED-ACL-DECISION-20261030.md",
+      "sha256": "8cb86252d0a00d87a90b8660eee9fc12b6b887a4b97a8ba12704abcf88ac19a7",
+      "sanitized": false
+    },
+    {
       "path": "docs/MERCHANT-RULES-20261017.md",
       "sha256": "b2c426bd5ec04eb25e72e04d762f910d1e6444ac5f8d657c6592940efe50e24b",
       "sanitized": false
@@ -3026,12 +3031,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "b1df4e31bec2bb25f87eb41bb2ef899c8e4ee770da523084456871d3c043545e",
+      "sha256": "570e27995a8d48a9d24689f230e5f0eeb4c972380c6fc19bf5efb0a595767020",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "5a73336ff71c7241d5017eae342aab485dafbf2d08d66c1f92fd7864e6876b23",
+      "sha256": "ce909afa94b7d9296702c958307962a778c730a5296d6fa59558629e2d95a195",
       "sanitized": false
     },
     {
@@ -3092,6 +3097,11 @@
     {
       "path": "docs/READY-SERIES-MERCHANT-POLICY-20261014.md",
       "sha256": "ce7dd391d7739401264dd7172315b667b4fb47ef575d8564ec93016ad174522a",
+      "sanitized": false
+    },
+    {
+      "path": "docs/READY-SERIES-MIXED-FULL-TERM-20261030.md",
+      "sha256": "78c03e3aa5b1b623b96d25afd16d049fee7e1d8ee67b2d93e516bcf2759ba7a6",
       "sanitized": false
     },
     {
@@ -3166,7 +3176,7 @@
     },
     {
       "path": "docs/RESUME-CHECKPOINT-20261030-RECOVERY.md",
-      "sha256": "1fd6537c88f281518e9c5ae3cbe27852f73444835e4fe970b9f41b5b2dc3c1b2",
+      "sha256": "1afb92be3f30dea22358d70d1fdb4d7cf026e329c09f7e4abeff3833b8ab4fce",
       "sanitized": false
     },
     {
@@ -3276,7 +3286,7 @@
     },
     {
       "path": "docs/SUPPORT-REQUEST-INBOX-20261030.md",
-      "sha256": "f125bdd23f4cc605e6ac00494471b895932f20de856d43d7d8c29ff63a93e805",
+      "sha256": "bc1c029b494db54ec33fbc01d354d035a0f84b00e7802baba442c77adab1ac03",
       "sanitized": false
     },
     {

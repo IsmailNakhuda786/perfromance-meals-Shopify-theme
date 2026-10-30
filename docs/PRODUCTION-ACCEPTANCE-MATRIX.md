@@ -462,3 +462,8 @@ Order #1034 now passes full-term dispatch, Core reconciliation, repeated-read/sy
 ## 30 October — merchant Support request review
 
 A missing read-only merchant inbox is implemented and verified in the actual embedded Shopify admin against existing request #1009. It projects recorded payment/dispatch facts, rejects writes, isolates the permitted shop and hides raw funding/customer identity payloads. PostgreSQL read replay preserved all37 protected model fingerprints. Focused tests13/13 and full disposable regression702 passed/1 PostgreSQL-only skip/0 failures; TypeScript/lint and official App Home component validation passed. Manager approval, adjustments and late changes remain incomplete. [Evidence](SUPPORT-REQUEST-INBOX-20261030.md). The customer chooses the package menu and Jerome's team assigns chosen dishes to delivery days; [confirmed allocation rule](SIXTY-DAY-MENU-ALLOCATION-DECISION-20261030.md). Overall functional counts stay2PASS/9PARTIAL/3BLOCKED/1DEFERRED.
+
+
+## 30 October — mixed three-/six-delivery full-term native completion
+
+Approved Order #1031 now proves all9 package deliveries dispatched in6 native work records, with6 rebooking rejections, stable Core replay, two intended line-status updates and two audit rows. Other32 native orders, original financial fields and both stopped billing agreements unchanged; no financial action or customer notification. [Evidence](READY-SERIES-MIXED-FULL-TERM-20261030.md). This closes the mixed full-term dispatch subjourney, not general lifecycle activation. Functional assessment stays2PASS/9PARTIAL/3BLOCKED/1DEFERRED. Merchant-owned ACL belongs to the existing later Admin compatibility phase; no developer-maintained staff list is required.

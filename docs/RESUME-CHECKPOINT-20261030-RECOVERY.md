@@ -36,3 +36,13 @@ User clarified customer meal choices versus Jerome's delivery-day assignment; re
 
 
 Normal preview after Support read test: session30837, origin anti-correlation-trains-upgrades.trycloudflare.com. The Support flag is absent/off again; four ordinary callbacks exact once. Previous session48781/forest-seller origin is superseded. Customer preview has been reconnected to this final origin. No recovery, booking, batch, top-up or financial action activated.
+
+
+## Corrected Admin/ACL boundary
+
+User explicitly corrected the manager-nomination interpretation: each merchant owner assigns their own Marketing/Sales/CS/etc access through their Admin panel. Do not ask the developer for nominated staff names/emails. Existing admin prototype https://vary-canvas-28139058.figma.site is for compatibility review after the15 functional requirements. No replacement Admin UI or live roles were created. See MERCHANT-OWNED-ACL-DECISION-20261030.md.
+
+
+## Approved mixed full-term completion
+
+The user separately approved all six native dispatch records on Order #1031 (one3-term and one6-term package). Five opens plus six creates completed once; journal `.shopify/mixed-full-term-20261030.private.json` is CORE_FULL_TERM_VERIFIED. Never rerun execute-approved. Shopify/Core/customer screen prove9/9 package deliveries dispatched; six rebooking attempts reject and read/sync replay unchanged. Two intended operational lines updated with exactly two new dispatch audits; nine ORDERS_UPDATED receipts observed, no stronger event-source attribution claimed. Existing37 model groups compared, all other records preserved. Other32 native orders and both cancelled billing contracts unchanged. No payments/refunds/messages/Wallet/Rewards change. See READY-SERIES-MIXED-FULL-TERM-20261030.md. Source regression702pass/1skip remains; no code change or unnecessary repeat. Normal preview is restored after read-only QA; final callback origin is in the latest private normal-mixed-full-term-restored log. Next independent work: customer-selected dish allocation, wider fulfilment lifecycle and supported checkout safeguards. Respect Admin compatibility phase gate and merchant-owned ACL decision.

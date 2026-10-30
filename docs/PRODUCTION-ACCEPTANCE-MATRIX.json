@@ -1,6 +1,6 @@
 {
   "updated": "2026-10-30",
-  "sourceCheckpoint": "e3ed707",
+  "sourceCheckpoint": "507fdf4",
   "scope": "Full agreed production acceptance; no reduced-scope launch",
   "productionAccepted": false,
   "statusDefinitions": {
@@ -472,6 +472,26 @@
       "embeddedAdminJourneyPassed": true,
       "financialActionsImplemented": false,
       "evidence": "docs/SUPPORT-REQUEST-INBOX-20261030.md"
+    },
+    "mixedFullTermNative": {
+      "order": "#1031",
+      "paidTotalMinor": 74880,
+      "terms": [
+        3,
+        6
+      ],
+      "nativeDispatchRecords": 6,
+      "packageDeliveries": 9,
+      "nativeMutations": 11,
+      "rebookingRejected": 6,
+      "otherNativeOrdersUnchanged": 32,
+      "protectedModelGroupsCompared": 37,
+      "allowedDispatchLineUpdates": 2,
+      "newDispatchAudits": 2,
+      "newOrderUpdateReceipts": 9,
+      "billingTermsUnchanged": true,
+      "replayUnchanged": true,
+      "evidence": "docs/READY-SERIES-MIXED-FULL-TERM-20261030.md"
     }
   },
   "counts": {
@@ -958,7 +978,7 @@
           "apps/performance-meals-core/tests/ready-delivery-slots-route.test.mjs"
         ]
       },
-      "shopifyIntegration": "Ready Series customer stop verified: native contract cancelled, one completed audit, three paid fulfilments/order unchanged and nine financial models unchanged. Same/new-key service replays attempted no second mutation. Two-package test contract cancellation preserved initial and renewal delivery allocations: six records quantity 2 each; all 18 earlier records also unchanged. 26 October: mixed per-package initial #1031 SGD748.80 incl GST61.83 and renewals #1032 SGD255.20/GST21.07 and #1033 SGD493.60/GST40.76 passed. Actual provider intake and explicit worker replay passed; both future billing agreements stopped, eleven earlier paid orders/45 fulfilments and nine financial models preserved; QA configuration restored. Actual embedded development admin create/edit/close of a disposable slot passed, with independent Singapore-time/limit database readback; record removed and flags restored off. 27 October read-only destination checks: nine fulfilment records across existing orders#1029/#1031; no native mutations and11 protected data groups unchanged. 28October: native-linked provisional Core move on paid Order#1031 passed shared-destination/dispatch read proof, failed-move preservation, grouped capacity and replay. All37 Core/native order fingerprints restored; no actual booking or native date mutation. 30 October: approved completion of Order #1034 proved three independent successful dispatches, unchanged first shipment/32 other orders, unchanged cancelled billing terms and 37 Core model fingerprints. Explicit read/sync replay unchanged; no new provider webhook receipt observed.",
+      "shopifyIntegration": "Ready Series customer stop verified: native contract cancelled, one completed audit, three paid fulfilments/order unchanged and nine financial models unchanged. Same/new-key service replays attempted no second mutation. Two-package test contract cancellation preserved initial and renewal delivery allocations: six records quantity 2 each; all 18 earlier records also unchanged. 26 October: mixed per-package initial #1031 SGD748.80 incl GST61.83 and renewals #1032 SGD255.20/GST21.07 and #1033 SGD493.60/GST40.76 passed. Actual provider intake and explicit worker replay passed; both future billing agreements stopped, eleven earlier paid orders/45 fulfilments and nine financial models preserved; QA configuration restored. Actual embedded development admin create/edit/close of a disposable slot passed, with independent Singapore-time/limit database readback; record removed and flags restored off. 27 October read-only destination checks: nine fulfilment records across existing orders#1029/#1031; no native mutations and11 protected data groups unchanged. 28October: native-linked provisional Core move on paid Order#1031 passed shared-destination/dispatch read proof, failed-move preservation, grouped capacity and replay. All37 Core/native order fingerprints restored; no actual booking or native date mutation. 30 October: approved completion of Order #1034 proved three independent successful dispatches, unchanged first shipment/32 other orders, unchanged cancelled billing terms and 37 Core model fingerprints. Explicit read/sync replay unchanged; no new provider webhook receipt observed. 30 October approved mixed Order #1031 completion: six native dispatch records cover all nine3-/6-term package deliveries;32other native orders and both stopped billing terms unchanged. Core updated only two dispatch lines and two audit records; all six rebooking attempts rejected and replay unchanged.",
       "customerJourney": "28 October signed-in customer and merchant preview booked and rescheduled two packages as one capacity place, rejected stale availability and preserved later dates. 29 October one approved external delivery email covered both packages; replay sent nothing extra; all temporary Core records were removed. Full-term signed-in My Plan displayed 3 of 3 dispatched with no rebooking controls or calendar-preparation warning.",
       "outstandingIssues": [
         "Internal capacity storage and merchant admin forms are verified; authoritative mapping to native physical deliveries and authenticated customer reschedule execution remain incomplete.",
@@ -981,7 +1001,9 @@
         "docs/READY-SERIES-NOTIFICATIONS-20261029.md",
         "docs/READY-SERIES-COMPLETE-TERM-READINESS-20261030.md",
         "docs/READY-SERIES-FULL-TERM-ACCEPTANCE-20261030.md",
-        "docs/SUPPORT-REQUEST-INBOX-20261030.md"
+        "docs/SUPPORT-REQUEST-INBOX-20261030.md",
+        "docs/READY-SERIES-MIXED-FULL-TERM-20261030.md",
+        "docs/MERCHANT-OWNED-ACL-DECISION-20261030.md"
       ],
       "remainingEngineering": [
         "Demonstrate a genuinely later native billing-cycle calendar without altering existing paid records; the previous early simulated renewal is insufficient proof.",
