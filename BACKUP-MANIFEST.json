@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "6ddf617effbdec3ca6232f31e2e0ec70bb66d477",
+  "source_commit": "a0cef54280b3d260805dbaaebf33de57066b7547",
   "snapshot_includes_uncommitted_work": false,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -241,7 +241,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/routes/app.programme-deliveries.tsx",
-      "sha256": "c4e9706add5732e91992f9b1f99da084c46c3d35aced831a5c7261d92bb56ff8",
+      "sha256": "f1fa3e6cf87fceb6d6c931809374cc0731f9a99a15663dacf11fde079bb115cb",
       "sanitized": false
     },
     {
@@ -2946,7 +2946,7 @@
     },
     {
       "path": "docs/MERCHANT-RULES-20261017.md",
-      "sha256": "b2c426bd5ec04eb25e72e04d762f910d1e6444ac5f8d657c6592940efe50e24b",
+      "sha256": "ee037f291d31eef958b3e09c7bf0d06855c8e0c6bde6d7858adc0f030970c8e2",
       "sanitized": false
     },
     {
@@ -3046,12 +3046,12 @@
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.json",
-      "sha256": "570e27995a8d48a9d24689f230e5f0eeb4c972380c6fc19bf5efb0a595767020",
+      "sha256": "79871ad6e3b402f86bc87758d0cdd509d2f7f4a9a5f4dffe40ac50b91d666570",
       "sanitized": false
     },
     {
       "path": "docs/PRODUCTION-ACCEPTANCE-MATRIX.md",
-      "sha256": "ce909afa94b7d9296702c958307962a778c730a5296d6fa59558629e2d95a195",
+      "sha256": "351850c14103cc22017f5f1cdd1af9dfaa23cfdb3b4240c42dcd8ec96dcbec7a",
       "sanitized": false
     },
     {
@@ -3191,7 +3191,7 @@
     },
     {
       "path": "docs/RESUME-CHECKPOINT-20261030-RECOVERY.md",
-      "sha256": "1afb92be3f30dea22358d70d1fdb4d7cf026e329c09f7e4abeff3833b8ab4fce",
+      "sha256": "80a4ae4551b4958565d7ace78bdc3a1b72e1a4e1a091b94f625009382643682d",
       "sanitized": false
     },
     {
@@ -3236,7 +3236,7 @@
     },
     {
       "path": "docs/SIXTY-DAY-DISH-ALLOCATION-20261030.md",
-      "sha256": "dbe5943373b23d18b1f6e1aecd898048ba590f8d37141772623a9415728126f7",
+      "sha256": "7f38a71150aba005591eee0c52bd17db8ae599bdb02bbaeee3d78a2d99827e2d",
       "sanitized": false
     },
     {
@@ -3251,7 +3251,7 @@
     },
     {
       "path": "docs/SIXTY-DAY-MENU-ALLOCATION-DECISION-20261030.md",
-      "sha256": "3ba724e74c2fe359adb43e5a9ab08028b1107daec4e8e5b69a6a7fedb008105e",
+      "sha256": "1ff43b3d9d739562170b0e43b94a8c83fb8a2a15d825581e147fc910bdfb7847",
       "sanitized": false
     },
     {

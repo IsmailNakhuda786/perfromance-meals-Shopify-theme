@@ -28,3 +28,8 @@ prices and hide when evidence is incomplete. Per-meal prices are omitted.
 
 No theme publication, deployment, balance transfer, payment setting or production
 change. Wallet top-ups remain disabled pending the documented architecture safeguards.
+
+
+## 30 October delivery capacity clarification
+
+The user confirmed separate delivery-slot limits for the Ready Series and Meal Plans brands. A Ready Series reservation must not consume a Meal Plans place or vice versa.6by60 belongs to Meal Plans. Two boxes/packages arriving in one visit within the same brand count as one place, as previously confirmed. No cross-brand visit consolidation or capacity sharing was approved.

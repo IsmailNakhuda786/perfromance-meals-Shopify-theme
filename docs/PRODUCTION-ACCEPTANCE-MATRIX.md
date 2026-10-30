@@ -467,3 +467,8 @@ A missing read-only merchant inbox is implemented and verified in the actual emb
 ## 30 October — mixed three-/six-delivery full-term native completion
 
 Approved Order #1031 now proves all9 package deliveries dispatched in6 native work records, with6 rebooking rejections, stable Core replay, two intended line-status updates and two audit rows. Other32 native orders, original financial fields and both stopped billing agreements unchanged; no financial action or customer notification. [Evidence](READY-SERIES-MIXED-FULL-TERM-20261030.md). This closes the mixed full-term dispatch subjourney, not general lifecycle activation. Functional assessment stays2PASS/9PARTIAL/3BLOCKED/1DEFERRED. Merchant-owned ACL belongs to the existing later Admin compatibility phase; no developer-maintained staff list is required.
+
+
+## 30 October — customer-selected dish batches accepted
+
+Original saved dishes and committed menu revisions now drive weekday allocation and the separate32-frozen-meal pool. Actual #1009 staff/customer acceptance passed for2weekday/3frozen meals with replay and stale/excess rejection. Guarded cleanup restored all40protected Core model groups and native test orders. Source regression719pass/3PostgreSQL-only skips; separate PostgreSQL22and final dish9 checks passed. See [dish allocation](SIXTY-DAY-DISH-ALLOCATION-20261030.md). Programme scheduling/stock remains incomplete; whole requirement3 staysPARTIAL. The user confirmed separate slot limits by brand. Functional classification remains2PASS/9PARTIAL/3BLOCKED/1DEFERRED.

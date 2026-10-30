@@ -1,6 +1,6 @@
 {
   "updated": "2026-10-30",
-  "sourceCheckpoint": "507fdf4",
+  "sourceCheckpoint": "6ddf617",
   "scope": "Full agreed production acceptance; no reduced-scope launch",
   "productionAccepted": false,
   "statusDefinitions": {
@@ -10,7 +10,7 @@
     "BLOCKED": "A required platform capability, authorization or external dependency prevents completion."
   },
   "baseline": {
-    "coreTests": 702,
+    "coreTests": 719,
     "nativeReadback": "Latest mixed QA verified #1031/#1032/#1033 with provider inbox intake and explicit Core replay; future renewals stopped. Eleven earlier paid orders/45 fulfilments and nine financial-model snapshots preserved. QA product, discounts, shipping profile, GST and temporary callback settings restored.",
     "checkoutPricing": "Exact charged initial and simulated renewal GST-inclusive pricing passed for single terms, two identical 3-delivery packages (SGD510.40/GST42.14) and mixed 3-/6-delivery packages (initial SGD748.80/GST61.83; renewals SGD255.20/GST21.07 and SGD493.60/GST40.76). Delivery was included. General production correction provisioning and permanent lifecycle acceptance remain incomplete.",
     "topUpsEnabled": false,
@@ -492,6 +492,20 @@
       "billingTermsUnchanged": true,
       "replayUnchanged": true,
       "evidence": "docs/READY-SERIES-MIXED-FULL-TERM-20261030.md"
+    },
+    "dishAllocation": {
+      "implemented": true,
+      "defaultOff": true,
+      "nativeLinkedStaffCustomerJourney": true,
+      "testOrder": "#1009",
+      "weekdayMeals": 2,
+      "frozenMeals": 3,
+      "postgresInitialPassed": 22,
+      "postgresFinalDishPassed": 9,
+      "protectedModelsRestored": 40,
+      "allNativeOrdersUnchanged": true,
+      "newFinancialActions": false,
+      "evidence": "docs/SIXTY-DAY-DISH-ALLOCATION-20261030.md"
     }
   },
   "counts": {
@@ -600,7 +614,7 @@
       "id": 3,
       "requirement": "6 by 60 and Plus programmes",
       "status": "PARTIAL",
-      "implemented": "One-off programme semantics and immutable 88-weekday/32-frozen/120-total entitlement snapshots for new purchases. Default-off authenticated Core meal-batch allocation/dispatch with immutable entitlement, idempotency, separate meal ceilings and customer progress. Bounded general development programme selection with optional QA narrowing, per-owner allowance isolation and invalid-selection rejection.",
+      "implemented": "One-off programme semantics and immutable 88-weekday/32-frozen/120-total entitlement snapshots for new purchases. Default-off authenticated Core meal-batch allocation/dispatch with immutable entitlement, idempotency, separate meal ceilings and customer progress. Bounded general development programme selection with optional QA narrowing, per-owner allowance isolation and invalid-selection rejection. Version2 batches now bind weekday/frozen dish quantities to original committed customer choices, conserve per-window quantities through menu revisions, hold changed/deleted dishes and preserve separate frozen entitlement.",
       "automatedTests": {
         "state": "PASSED_BASELINE",
         "files": [
@@ -612,7 +626,7 @@
           "apps/performance-meals-core/tests/programme-deliveries-route.test.mjs"
         ]
       },
-      "shopifyIntegration": "Native paid one-off programme proof plus authenticated Core admin/customer full 88-weekday/32-frozen allowance display passed on 28 October. All37 protected model snapshots and native order exactly restored. Separately approved original88/32 allowance reconciliation on #1008/#1009 passed with native orders and36 other model groups unchanged.",
+      "shopifyIntegration": "Native paid one-off programme proof plus authenticated Core admin/customer full 88-weekday/32-frozen allowance display passed on 28 October. All37 protected model snapshots and native order exactly restored. Separately approved original88/32 allowance reconciliation on #1008/#1009 passed with native orders and36 other model groups unchanged. Approved #1009 dish-linked2weekday/3frozen native-paid acceptance passed in actual staff/customer previews; guarded cleanup restored all40 Core model groups and native history.",
       "customerJourney": "Earlier admin allocation/dispatch form and 4/8 customer journey passed. Full allowance display, cancelled-unsent release, extra-meal rejection and duplicate allocation/dispatch/cancel protection passed against real PostgreSQL/native paid proof.",
       "outstandingIssues": [
         "General batch activation and complete physical scheduling/rescheduling remain gated. The two older development programmes now have separately approved and verified original88/32 entitlement snapshots."
@@ -627,11 +641,12 @@
         "docs/SIXTY-DAY-DELIVERY-BATCHES-20261028.md",
         "docs/SIXTY-DAY-FULL-ALLOWANCE-QA-20261028.md",
         "docs/SIXTY-DAY-GENERAL-DEVELOPMENT-20261030.md",
-        "docs/SIXTY-DAY-MENU-ALLOCATION-DECISION-20261030.md"
+        "docs/SIXTY-DAY-MENU-ALLOCATION-DECISION-20261030.md",
+        "docs/SIXTY-DAY-DISH-ALLOCATION-20261030.md"
       ],
       "remainingEngineering": [
         "Complete general batch activation safeguards and physical booking/rescheduling under requirement13. Full88/32 accounting, replay/overflow protection and approved legacy-development allowance reconciliation passed.",
-        "Implement customer-selected menu to staff-selected delivery-day dish allocation, as clarified on 30 October; do not replace customer meal choices with a staff-chosen menu."
+        "Complete separate Meal Plans slot capacity, batch booking/rescheduling and stock/operational recovery acceptance."
       ],
       "assessmentStatus": "PARTIAL",
       "assessmentScope": "FUNCTIONAL",
