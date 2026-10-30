@@ -1,5 +1,8 @@
 import {createHash} from 'node:crypto';
 import db from '../db.server';
+import type {Prisma} from '@prisma/client';
+import {programmeDishMenu,availableProgrammeDishes,allocateProgrammeDishes,validateProgrammeDishAllocation,assertProgrammeDishDispatch,type ProgrammeDishAllocation} from './programme-dish-allocation';
+import {accountMealNames} from './account-programmes.server';
 import {assertShop} from './security.server';
 import {savedSixtyDayEntitlement} from './programme-period';
 
@@ -14,13 +17,14 @@ query CoreProgrammeDeliveryOrder($id:ID!){
 type Admin={graphql:(query:string,options:{variables:Record<string,unknown>})=>Promise<Response>};
 type Programme=NonNullable<Awaited<ReturnType<typeof db.mealPlanSelection.findUnique>>>;
 type Operation=NonNullable<Awaited<ReturnType<typeof db.planOperation.findUnique>>>;
-type Batch={version:1;basisHash:string;reference:string;weekdayMeals:number;frozenMeals:number;revision:number;createdBy:string;dispatchedBy:string|null;dispatchedAt:string|null};
+type Batch={basisHash:string;reference:string;weekdayMeals:number;frozenMeals:number;revision:number;createdBy:string;dispatchedBy:string|null;dispatchedAt:string|null}&({version:1}|{version:2;dishes:ProgrammeDishAllocation});
 const BASIS='SIXTY_DAY_DELIVERY_BASIS',BATCH='SIXTY_DAY_DELIVERY_BATCH';
 const hash=(v:unknown)=>createHash('sha256').update(JSON.stringify(v)).digest('hex');
 const basisId=(shop:string,id:string)=>'programme-basis:'+hash([shop,id]);
 const validId=(v:unknown)=>typeof v==='string'&&/^[a-zA-Z0-9-]{1,100}$/.test(v);
 export const programmeDeliveryEnabled=()=>process.env.NODE_ENV!=='production'&&process.env.SIXTY_DAY_BATCHES_ENABLED==='true'&&(process.env.SIXTY_DAY_BATCH_QA_SELECTION_ID===undefined||validId(process.env.SIXTY_DAY_BATCH_QA_SELECTION_ID));
 const active=programmeDeliveryEnabled;
+export const programmeDishAllocationEnabled=()=>active()&&process.env.SIXTY_DAY_DISH_ALLOCATION_ENABLED==='true';
 const selectionAllowed=(id:string)=>validId(id)&&(process.env.SIXTY_DAY_BATCH_QA_SELECTION_ID===undefined||id===process.env.SIXTY_DAY_BATCH_QA_SELECTION_ID);
 function scope(shop:string){assertShop(shop);if(!active())throw Error('Programme delivery batches are not activated');}
 function actor(v:string){if(!/^shopify-admin:[a-f0-9]{64}$/.test(v))throw Error('Authenticated delivery operator required');}
@@ -48,9 +52,10 @@ async function nativePurchase(admin:Admin,p:Programme){
  return line;
 }
 function readBatch(row:Operation,basisHash:string):Batch{
- if(row.kind!==BATCH||!row.productionReference||row.productionReference.length>4096||!['PLANNED','DISPATCHED','CANCELLED'].includes(row.state))throw Error('Programme batch requires reconciliation');
+ if(row.kind!==BATCH||!row.productionReference||row.productionReference.length>65536||!['PLANNED','DISPATCHED','CANCELLED'].includes(row.state))throw Error('Programme batch requires reconciliation');
  const b=JSON.parse(row.productionReference) as Batch;units(b.weekdayMeals,b.frozenMeals);actor(b.createdBy);
- if(row.id!=='programme-batch:'+hash([row.shop,row.selectionId,b.reference])||b.version!==1||b.basisHash!==basisHash||b.reference!==row.cycleReference||!validId(b.reference)||!Number.isSafeInteger(b.revision)||b.revision<1||row.state==='DISPATCHED'&&(!b.dispatchedAt||!Number.isFinite(Date.parse(b.dispatchedAt))||!b.dispatchedBy)||row.state!=='DISPATCHED'&&(b.dispatchedAt!==null||b.dispatchedBy!==null))throw Error('Programme batch evidence differs');
+ if(row.id!=='programme-batch:'+hash([row.shop,row.selectionId,b.reference])||![1,2].includes(b.version)||b.basisHash!==basisHash||b.reference!==row.cycleReference||!validId(b.reference)||!Number.isSafeInteger(b.revision)||b.revision<1||row.state==='DISPATCHED'&&(!b.dispatchedAt||!Number.isFinite(Date.parse(b.dispatchedAt))||!b.dispatchedBy)||row.state!=='DISPATCHED'&&(b.dispatchedAt!==null||b.dispatchedBy!==null))throw Error('Programme batch evidence differs');
+ if(b.version===2)validateProgrammeDishAllocation(b.dishes,basisHash,b.weekdayMeals,b.frozenMeals);
  if(b.dispatchedBy)actor(b.dispatchedBy);
  return b;
 }
@@ -60,23 +65,58 @@ function progress(rows:Operation[],h:string){
  if(totals.plannedWeekday+totals.dispatchedWeekday>88||totals.plannedFrozen+totals.dispatchedFrozen>32)throw Error('Recorded meals exceed the original entitlement');
  return {...totals,unallocatedWeekday:88-totals.plannedWeekday-totals.dispatchedWeekday,unallocatedFrozen:32-totals.plannedFrozen-totals.dispatchedFrozen,batches};
 }
+async function customerMenu(tx:Pick<Prisma.TransactionClient,'mealPlanMenuRevision'>,p:Programme,basisHash:string){
+ const sources=[];
+ for(let block=0;block<3;block++){
+  const saved=await tx.mealPlanMenuRevision.findFirst({where:{shop:p.shop,selectionId:p.id,block,state:'SAVED'},orderBy:{revision:'desc'}});
+  if(saved&&saved.customerGid!==p.customerGid)throw Error('Saved customer menu ownership differs');
+  sources.push({block,revision:saved?.revision??0,recordId:saved?.id??null,selections:saved?.selections??(block===0?p.selections:'[]')});
+ }
+ return programmeDishMenu(basisHash,p.startsOn!,sources);
+}
+async function verifyMealReferences(admin:Admin,dishes:ProgrammeDishAllocation){
+ const ids=[...new Set(dishes.picks.map(p=>p.productGid))];
+ const names=await accountMealNames({graphql:async(q,o)=>{const response=await admin.graphql(q,o);if(!response.ok)throw Error('Selected meal catalogue unavailable');return response;}},ids);
+ if(ids.some(id=>!names.get(id)?.trim()))throw Error('Selected meal details unavailable; Support review required');
+}
+async function lockCustomerMenu(tx:Prisma.TransactionClient,p:Programme){
+ const locked=await tx.mealPlanSelection.updateMany({where:{id:p.id,shop:p.shop,customerGid:p.customerGid,status:'ORDERED',selectionHash:p.selectionHash},data:{updatedAt:new Date()}});
+ if(locked.count!==1)throw Error('Original customer menu changed');
+}
+function sameDishRequest(input:unknown,dishes:ProgrammeDishAllocation){
+ if(!Array.isArray(input)||input.length!==dishes.picks.length||input.some(p=>!p||Object.keys(p).sort().join(',')!=='quantity,sourceKey'))return false;
+ const normalized=(rows:Array<{sourceKey:string;quantity:number}>)=>JSON.stringify(rows.map(p=>[p.sourceKey,p.quantity]).sort((a,b)=>String(a[0]).localeCompare(String(b[0]))));
+ return normalized(input)===normalized(dishes.picks);
+}
+export async function readProgrammeDishChoices(admin:Admin,shop:string,selectionId:string){
+ scope(shop);if(!programmeDishAllocationEnabled())return {available:false as const};
+ const p=await programme(shop,selectionId),b=basis(p);await nativePurchase(admin,p);
+ const rows=await db.planOperation.findMany({where:{shop,selectionId:p.id,kind:BATCH},take:251});if(rows.length>250)throw Error('Programme batch history requires review');
+ const parent=await db.planOperation.findUnique({where:{id:basisId(shop,p.id)}});if(parent&&(parent.shop!==shop||parent.selectionId!==p.id||parent.kind!==BASIS||parent.state!=='ACTIVE'||parent.cycleReference!==b.hash||parent.productionReference!==JSON.stringify(b.value)))throw Error('Programme entitlement basis requires review');
+ const history=progress(rows,b.hash).batches,menu=await customerMenu(db,p,b.hash);
+ return {available:true as const,menuHash:menu.menuHash,choices:availableProgrammeDishes(menu,history)};
+}
 // Core records physical meal batches. A native programme unit is never treated
 // as one meal, nor as proof that all120 meals have been sent. No native order,
 // billing, refund, inventory or payment API is mutated by these operations.
-export async function planProgrammeDeliveryBatch(admin:Admin,input:{shop:string;selectionId:string;reference:string;weekdayMeals:number;frozenMeals:number;actor:string}){
- scope(input.shop);actor(input.actor);units(input.weekdayMeals,input.frozenMeals);
+export async function planProgrammeDeliveryBatch(admin:Admin,input:{shop:string;selectionId:string;reference:string;weekdayMeals:number;frozenMeals:number;actor:string;menuHash?:string;dishes?:unknown}){
+ scope(input.shop);actor(input.actor);const dishMode=programmeDishAllocationEnabled();if(!dishMode){units(input.weekdayMeals,input.frozenMeals);if(input.dishes!==undefined||input.menuHash!==undefined)throw Error('Dish allocation is not activated');}
  if(!validId(input.reference))throw Error('Use a unique delivery reference with letters, numbers or hyphens');
  const p=await programme(input.shop,input.selectionId),b=basis(p);await nativePurchase(admin,p);
  const id='programme-batch:'+hash([input.shop,p.id,input.reference]);
  return db.$transaction(async tx=>{
   const parent=await tx.planOperation.upsert({where:{id:basisId(input.shop,p.id)},create:{id:basisId(input.shop,p.id),shop:input.shop,selectionId:p.id,kind:BASIS,state:'ACTIVE',cycleReference:b.hash,productionReference:JSON.stringify(b.value)},update:{updatedAt:new Date()}});
   if(parent.kind!==BASIS||parent.state!=='ACTIVE'||parent.cycleReference!==b.hash||parent.productionReference!==JSON.stringify(b.value))throw Error('Programme entitlement basis changed');
+  if(dishMode)await lockCustomerMenu(tx,p);
   const current=await tx.mealPlanSelection.findUniqueOrThrow({where:{id:p.id}});if(basis(current).hash!==b.hash)throw Error('Programme changed during allocation');
   const rows=await tx.planOperation.findMany({where:{shop:input.shop,selectionId:p.id,kind:BATCH},take:251});if(rows.length>250)throw Error('Programme batch history requires review');
   const before=progress(rows,b.hash),existing=rows.find(row=>row.id===id);
-  if(existing){const old=readBatch(existing,b.hash);if(existing.state==='CANCELLED'||old.weekdayMeals!==input.weekdayMeals||old.frozenMeals!==input.frozenMeals)throw Error('Delivery reference already describes another or cancelled batch');return {id,replayed:true,...before};}
-  if(before.unallocatedWeekday<input.weekdayMeals||before.unallocatedFrozen<input.frozenMeals)throw Error('Not enough unallocated meals remain');
-  const snapshot:Batch={version:1,basisHash:b.hash,reference:input.reference,weekdayMeals:input.weekdayMeals,frozenMeals:input.frozenMeals,revision:1,createdBy:input.actor,dispatchedBy:null,dispatchedAt:null};
+  if(existing){const old=readBatch(existing,b.hash);if(existing.state==='CANCELLED'||(dishMode?(old.version!==2||input.menuHash!==old.dishes.menuHash||!sameDishRequest(input.dishes,old.dishes)):(old.version!==1||old.weekdayMeals!==input.weekdayMeals||old.frozenMeals!==input.frozenMeals)))throw Error('Delivery reference already describes another or cancelled batch');return {id,replayed:true,...before};}
+  const dishes=dishMode?allocateProgrammeDishes(await customerMenu(tx,current,b.hash),before.batches,input.menuHash??'',input.dishes):null;
+  if(dishes)await verifyMealReferences(admin,dishes);
+  const weekdayMeals=dishes?dishes.picks.filter(p=>p.kind==='weekday').reduce((n,p)=>n+p.quantity,0):input.weekdayMeals,frozenMeals=dishes?dishes.picks.filter(p=>p.kind==='frozen').reduce((n,p)=>n+p.quantity,0):input.frozenMeals;units(weekdayMeals,frozenMeals);
+  if(before.unallocatedWeekday<weekdayMeals||before.unallocatedFrozen<frozenMeals)throw Error('Not enough unallocated meals remain');
+  const snapshot:Batch={...(dishes?{version:2 as const,dishes}:{version:1 as const}),basisHash:b.hash,reference:input.reference,weekdayMeals,frozenMeals,revision:1,createdBy:input.actor,dispatchedBy:null,dispatchedAt:null};
   const row=await tx.planOperation.create({data:{id,shop:input.shop,selectionId:p.id,kind:BATCH,state:'PLANNED',cycleReference:input.reference,productionReference:JSON.stringify(snapshot)}});
   return {id,replayed:false,...progress([...rows,row],b.hash)};
  },{timeout:30000});
@@ -87,11 +127,13 @@ export async function changeProgrammeDeliveryBatch(admin:Admin,input:{shop:strin
  const p=await programme(input.shop,input.selectionId),b=basis(p),line=await nativePurchase(admin,p);
  return db.$transaction(async tx=>{
   const lock=await tx.planOperation.updateMany({where:{id:basisId(input.shop,p.id),shop:input.shop,kind:BASIS,state:'ACTIVE',cycleReference:b.hash,productionReference:JSON.stringify(b.value)},data:{updatedAt:new Date()}});if(lock.count!==1)throw Error('Original delivery basis unavailable');
+  await lockCustomerMenu(tx,p);
   const current=await tx.mealPlanSelection.findUniqueOrThrow({where:{id:p.id}});if(basis(current).hash!==b.hash)throw Error('Programme changed during confirmation');
   const row=await tx.planOperation.findFirst({where:{id:input.batchId,shop:input.shop,selectionId:p.id,kind:BATCH}});if(!row)throw Error('Owned programme batch unavailable');
   const old=readBatch(row,b.hash),target=input.action==='dispatch'?'DISPATCHED':'CANCELLED';
   if(row.state===target&&old.revision===input.revision+1)return {id:row.id,state:row.state,replayed:true};
   if(row.state!=='PLANNED'||old.revision!==input.revision)throw Error('Delivery batch changed; dispatched meals cannot be cancelled or restored automatically');
+  if(target==='DISPATCHED'&&old.version===2){if(!programmeDishAllocationEnabled())throw Error('Dish allocation is not activated');const rows=await tx.planOperation.findMany({where:{shop:input.shop,selectionId:p.id,kind:BATCH},take:251});if(rows.length>250)throw Error('Programme batch history requires review');const history=progress(rows,b.hash).batches.filter(x=>x.id!==row.id);assertProgrammeDishDispatch(await customerMenu(tx,current,b.hash),history,old.dishes);await verifyMealReferences(admin,old.dishes);}
   const next={...old,revision:old.revision+1,...(target==='DISPATCHED'?{dispatchedAt:now.toISOString(),dispatchedBy:input.actor}:{})};
   const changed=await tx.planOperation.updateMany({where:{id:row.id,shop:input.shop,state:'PLANNED',productionReference:row.productionReference},data:{state:target,productionReference:JSON.stringify(next)}});if(changed.count!==1)throw Error('Delivery batch changed');
   if(target==='DISPATCHED'){

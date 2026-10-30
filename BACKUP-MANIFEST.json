@@ -1,6 +1,6 @@
 {
   "source_branch": "shopify/theme-migration-v2",
-  "source_commit": "34a8a06b6daf6e845fa12cf15e539b2874c6b95b",
+  "source_commit": "6ddf617effbdec3ca6232f31e2e0ec70bb66d477",
   "snapshot_includes_uncommitted_work": false,
   "history": "Fresh root commit; source history not published",
   "files": [
@@ -241,7 +241,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/routes/app.programme-deliveries.tsx",
-      "sha256": "496783bb2b8d7b53c6dc93e588cd365f2e0c18ac8ea93dd8f32f30c34a112a61",
+      "sha256": "c4e9706add5732e91992f9b1f99da084c46c3d35aced831a5c7261d92bb56ff8",
       "sanitized": false
     },
     {
@@ -596,12 +596,17 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/programme-deliveries.server.ts",
-      "sha256": "0cdf61e479fd93d71a6750c4fd1c26ae8d2be2f57d1799cc0324c2f79728e961",
+      "sha256": "669b7b18ec7b7ed8db9c0898ba5849e6c2311e4b66aa815d898d0d7cc4466311",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/app/services/programme-dish-allocation.ts",
+      "sha256": "667bf33d439b7f5d8b7ac3e3f591fae404a06c15d5ccf5aaf1f365b13b65e439",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/app/services/programme-menus.server.ts",
-      "sha256": "0594fad5234eee5b2921f2cddbb641adfe780360780baf2592ea035e178c3020",
+      "sha256": "935a3434379b34b2062188d48e9f1ef9ae52a821485a700c56fe09c5a939566a",
       "sanitized": false
     },
     {
@@ -751,7 +756,7 @@
     },
     {
       "path": "apps/performance-meals-core/app/services/runtime-config.server.ts",
-      "sha256": "0415247a88ab2c79e0d7238be44355d4b45e6bbb41de524a4349ea04f15e4aba",
+      "sha256": "f7d961cddb60801138dd224da84f24044237f485217470be232e34c6063be1c2",
       "sanitized": false
     },
     {
@@ -1786,12 +1791,22 @@
     },
     {
       "path": "apps/performance-meals-core/tests/programme-deliveries-route.test.mjs",
-      "sha256": "76e44af56cf75fbf818bf0c6a860498bb4b53319e843922b6e4bb4350d18ba3b",
+      "sha256": "f64dc20e221d2a1edb28c58017387b4ba719736e527a890c2bf0b17522bb4c0e",
       "sanitized": false
     },
     {
       "path": "apps/performance-meals-core/tests/programme-deliveries.test.mjs",
       "sha256": "130f3fd4c1589fc7e879b167ac9321b5664c1722908329aba773a4ef7ea725bd",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/programme-dish-allocation.test.mjs",
+      "sha256": "732607211b7a95aa498d69921c52f3d8e827081eedb7341451f22211b73cc6a1",
+      "sanitized": false
+    },
+    {
+      "path": "apps/performance-meals-core/tests/programme-dish-batches.test.mjs",
+      "sha256": "afd57ecfa1eb1ce0ae4814137762dcc31cdbd1f4368dae0a90a4fccd83b6f78f",
       "sanitized": false
     },
     {
@@ -1806,7 +1821,7 @@
     },
     {
       "path": "apps/performance-meals-core/tests/readiness.test.mjs",
-      "sha256": "719bddba03b7d881741e4537f097ba289b119b0f2b1fcb4d859cd9ab8486df48",
+      "sha256": "5bc0dd4346d24153e59ebe92a890e8be7181162ad36e4cafeecb20831623c8bf",
       "sanitized": false
     },
     {
@@ -3217,6 +3232,11 @@
     {
       "path": "docs/SIXTY-DAY-DELIVERY-BATCHES-20261028.md",
       "sha256": "651c87199d51f6d2c4a0d14ceac964eae25df011b4a1c68585792998f8d87f6b",
+      "sanitized": false
+    },
+    {
+      "path": "docs/SIXTY-DAY-DISH-ALLOCATION-20261030.md",
+      "sha256": "dbe5943373b23d18b1f6e1aecd898048ba590f8d37141772623a9415728126f7",
       "sanitized": false
     },
     {

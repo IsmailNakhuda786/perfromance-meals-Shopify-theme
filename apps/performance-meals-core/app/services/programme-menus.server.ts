@@ -61,6 +61,8 @@ export async function saveProgrammeMenu(shop:string,customerGid:string,selection
  // Existing paid entitlements do not depend on stock available for a new purchase.
 
  return db.$transaction(async tx=>{
+  const locked=await tx.mealPlanSelection.updateMany({where:{id:record.id,shop,customerGid,status:'ORDERED',selectionHash:record.selectionHash,orderGid:record.orderGid,orderLineGid:record.orderLineGid,programmeGid:record.programmeGid,variantGid:record.variantGid,startsOn:record.startsOn,endsOn:record.endsOn},data:{updatedAt:new Date()}});
+  if(locked.count!==1)throw new Response('Programme changed; reload before saving',{status:409});
   const previous=await tx.mealPlanMenuRevision.findFirst({where:{shop,selectionId,block},orderBy:{revision:'desc'}});
   if((previous?.revision||0)!==revision) throw new Response('Menu changed; reload before saving',{status:409});
   const baseline=previous?JSON.parse(previous.selections):block===0?JSON.parse(record.selections):[];
